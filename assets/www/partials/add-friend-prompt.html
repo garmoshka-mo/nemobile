@@ -1,0 +1,30 @@
+<!-- <a href="#" data-reveal-id="myModal">Добавить друга</a> -->
+
+<a href="#" data-reveal-id="myModal"
+  class="button addFriendButton"
+  ng-show="isUserLogged()"
+  >Добавить друга</a>
+
+
+<div id="myModal" class="reveal-modal modal" data-reveal>
+<h2>Добавление друга</h2>
+<p class="lead">Введите имя вашего друга:</p>
+<form name="friendForm" id="friendForm" ng-submit="addFriend()">
+  <input type="text" placeholder="Имя" id="newFriendName"/>
+</form>
+
+<ul class="button-group">
+  <li>
+    <input href="#" class="button modal-button leftmost-button"
+      form="friendForm"
+      type="submit"
+      value="Добавить">
+  </li>
+  <li>
+    <a href="#" class="button modal-button"
+      ng-click="closeModal('myModal')"
+      >Отменить</a>
+  </li>
+</ul>
+<a class="close-reveal-modal">&#215;</a>
+</div>
