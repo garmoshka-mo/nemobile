@@ -84,14 +84,14 @@ angular.module("angApp").run(function($rootScope){
   }
 
 
-  $(document).foundation();
+  // $(document).foundation();
 
-  document.addEventListener("menubutton", function(){ $('.off-canvas-wrap').foundation('offcanvas', 'toggle', 'move-right'); }, false);
-  $(document).foundation({
-    offcanvas : {
-      close_on_click : true
-    }
-  });
+  // document.addEventListener("menubutton", function(){ $('.off-canvas-wrap').foundation('offcanvas', 'toggle', 'move-right'); }, false);
+  // $(document).foundation({
+  //   offcanvas : {
+  //     close_on_click : true
+  //   }
+  // });
 
 
 });
