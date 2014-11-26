@@ -1,0 +1,33 @@
+<div class="friend" ng-repeat="friend in user.friends">
+  <span ng-bind="friend.name"></span>
+</div>
+<div id="footer">
+  <button data-reveal-id="myModal"
+    class="button addFriendButton"
+    ng-click="openModal()"
+    >Добавить друга</button>
+
+
+  <script type="text/ng-template" id="addFriendModal.html">
+  <h2>Добавление друга</h2>
+  <p class="lead">Введите имя вашего друга:</p>
+  <form name="friendForm" id="friendForm" ng-submit="addFriend()">
+    <input type="text" placeholder="Имя" id="newFriendName"/>
+  </form>
+
+  <ul class="button-group">
+    <li>
+      <input class="button modal-button leftmost-button"
+        form="friendForm"
+        type="submit"
+        value="Добавить">
+    </li>
+    <li>
+      <button class="button modal-button"
+        ng-click="closeModal('myModal')"
+        >Отменить</button>
+    </li>
+  </ul>
+  <a class="close-reveal-modal">&#215;</a>
+  </script>
+</div>
