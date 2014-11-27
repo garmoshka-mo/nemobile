@@ -44,7 +44,7 @@ var app = {
         // else
             // App.Settings.pubnubNotificationType = "apns";
 
-        app.pubnub = new Pubnub(App.Settings);
+        // app.pubnub = new Pubnub(App.Settings);
         // angular.bootstrap( $("body"), ["angApp"]);
 
 // app.initialize();

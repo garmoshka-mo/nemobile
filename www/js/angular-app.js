@@ -46,18 +46,18 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
-  .state("friends", {
-    url: "/friends",
+  .state("chats", {
+    url: "/chats",
     views: {
       "title": {
-        template: "Друзья"
+        template: "Чаты"
       },
       "menu": {
-        templateUrl: "partials/start/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
-        controller: "friendsController",
-        templateUrl: "partials/friends/content.html"
+        controller: "chatsController",
+        templateUrl: "partials/chats/content.html"
       }
     }
   })
@@ -65,7 +65,7 @@ angular.module("angApp").config(function($stateProvider) {
 });
 
 angular.module("angApp").run(function($rootScope){
-
+  
   if (window.localStorage.getItem("firstTime") === null) {
     alert("first time");
     // app.pubnub.unsubscribeFromAllPushNotificationChannels();
@@ -76,12 +76,12 @@ angular.module("angApp").run(function($rootScope){
 
   $rootScope.user = JSON.parse( window.localStorage.getItem("user") );
 
-  if ($rootScope.user) {
-    app.pubnub.subscribe($rootScope.user.name);
-  } 
-  else {
-    $rootScope.user = { name: "", friends: [], phoneNumbers: [] };
-  }
+  // if ($rootScope.user) {
+  //   app.pubnub.subscribe($rootScope.user.name);
+  // } 
+  // else {
+  //   $rootScope.user = { name: "", friends: [], phoneNumbers: [] };
+  // }
 
 
   // $(document).foundation();
