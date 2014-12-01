@@ -1,0 +1,11 @@
+<div class="chat">
+    <div ng-repeat="message in chat.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
+      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind="message.text"></span>
+    </div>
+</div>
+<div id="footer">
+    <div class="chat-buttons-container">
+        <input type="text" class="chat-input" ng-model="chat.newMessage">
+        <button class="chat-send" ng-click="chat.sendMessage()">send</button>
+    </div>
+</div>
