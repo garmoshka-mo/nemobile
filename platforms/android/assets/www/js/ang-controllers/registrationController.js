@@ -5,10 +5,10 @@ angular.module("angControllers").controller("registrationController", ['$rootSco
         api.signup($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
-                $scope.serverResponse = "Вы успешно зарегистрированы"
+                console.log(res);
             },
             function(res) {
-                $scope.serverResponse = res.errorDescription;
+                console.log(res);
             }
         )
     }

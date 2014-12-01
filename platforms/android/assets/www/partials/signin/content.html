@@ -9,8 +9,8 @@
         <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" required> 
     </div>
     <div class="width-92 inline-block">
-        <a data-role="button" ng-click="signup()" ng-disable="registration_form.$invalid" class="button loginRegisterButton">
-            <span>Зарегистироваться</span>
+        <a data-role="button" ng-click="signin()" class="button loginRegisterButton">
+            <span>Войти</span>
         </a>
         <br>
         <span ng-bind="serverResponse"></span>

@@ -1,2 +1,2 @@
-C:\Users\davo\Desktop\dan\mychat\platforms\android\ant-build\AndroidManifest.xml : \
-C:\Users\davo\Desktop\dan\mychat\platforms\android\AndroidManifest.xml \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\ant-build\AndroidManifest.xml : \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\AndroidManifest.xml \

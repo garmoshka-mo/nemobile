@@ -55,17 +55,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                 method: 'POST',
                 url: App.Settings.apiUrl + '/register',
                 data: toParams({name: name, password: password})
-            })
-            .then(function(res) {
-                console.log(res);
-                if (res.data.success) {
-                    return true;
-                }
-                else {
-                    return $q.reject({errorDescription: res.data.error})
-                }
-            })
-
+            });
         },
         getUserInfo: function(access_token) {
             return $http({
@@ -140,14 +130,6 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                     console.log(res)
                 }
             )
-        },
-
-        getUserFromLS: function(uuid) {
-            return window.localStorage.getItem(uuid);
-        },
-
-        saveUserInLS: function() {
-            window.localStorage.setItem(senderId, JSON.stringify($rootScope.user))
         }
     }
 }])

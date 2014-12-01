@@ -1,11 +1,11 @@
 angular.module("angControllers").controller("loginRegistrationCtrl", function($scope, $http){
 
   $scope.loginOrRegiser = function(type, isValid){
-    if($scope.disableLogin) return;
-    if(!isValid) return alert("Wrong login or password!");
+    if ($scope.disableLogin) return;
+    if (!isValid) return alert("Wrong login or password!");
     $scope.beforeRequestCallback();
 
-    if(type == "login")
+    if (type == "login")
       var url = "http://yoo.herokuapp.com/login";
     else
       var url = "http://yoo.herokuapp.com/register";

@@ -31,50 +31,43 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/libs/jquery.js"></script>
         <script type="text/javascript" src="js/libs/angular.js"></script>
-        <script type="text/javascript" src="js/libs/angular-route.js"></script>
+        <script type="text/javascript" src="js/libs/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="js/libs/mm-foundation-tpls-0.5.0.min.js"></script>
         <script type="text/javascript" src="js/angular-app.js"></script>
+        <script type="text/javascript" src="js/services/apiService.js"></script>
         <script type="text/javascript" src="js/ang-controllers/mainCtrl.js"></script>
         <script type="text/javascript" src="js/ang-controllers/loginRegistrationCtrl.js"></script>
-        <script type="text/javascript" src="js/ang-controllers/friendsCtrl.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/chatsController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/chatController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/loginController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/registrationController.js"></script>
         <script type="text/javascript" src="js/libs/foundation.min.js"></script>
         <script type="text/javascript" src="js/libs/pubnub.js"></script>
         <script type="text/javascript" src="js/plugins/pubnubCordova.js"></script>
         <script type="text/javascript" src="js/plugins/DbCordova.js"></script>
         <script type="text/javascript" src="js/libs/spin.js"></script>
         <script type="text/javascript" src="js/libs/toastr.js"></script>
-        <script type="text/javascript" src="js/plugins/newPubnub.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <title>Hello World</title>
+        <title>Chat</title>
     </head>
-    <body ng-controller="mainCtrl">
+    <body ng-app="angApp" ng-controller="mainCtrl">
 
         <div class="off-canvas-wrap" data-offcanvas>
             <div class="inner-wrap">
                 <nav class="tab-bar">
                     <section class="left-small">
-                        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                        <a class="left-off-canvas-toggle menu-icon"><span></span></a>
                     </section>
                     <section class="middle tab-bar-section">
-                        <h1 class="title">Пиу!</h1>
+                        <h1 class="title">
+                            <div ui-view="title"></div>
+                        </h1>
                     </section>
  
                 </nav>
                 <aside class="left-off-canvas-menu">
                     <ul class="off-canvas-list">
-                        <li><label>Меню</label></li>
-                        <li><a href="#" ng-click="showLoginDialog()" ng-hide="isUserLogged()">Войти</a></li>
-                        <li><a href="#" class="lessen-word" ng-click="showRegistrationDialog()" ng-hide="isUserLogged()">Зарегистрироваться</a></li>
-                        <li><a href="#"  ng-click="openModal('myModal')" ng-show="isUserLogged()">Добавить друга</a></li>
-
-
-
-                        <li><a href="#"  ng-click="openModal('numberEnteringPrompt')" ng-show="isUserLogged()">Отправить мой  <span ng-show="isNumberSubmitted()">новый</span> номер</a></li>
-
-                        <li><a href="#" ng-click="findFriendsThroughPhoneBook()" ng-show="isUserLogged()">Найти друзей</a></li>
-
-
-
-                        <li><a href="#" ng-click="logout()" ng-show="isUserLogged()">Выйти</a></li>
+                        <div ui-view="menu"></div>
                     </ul>
                 </aside>
 
@@ -82,33 +75,17 @@
 
                 <section class="main-section"> <!-- content goes here -->
 
-                        <a href="#" ng-click="showLoginDialog()" class="button mainButton"
-                            ng-hide="isUserLogged() || loginDialogVisible || disableLogin">Войти</a>
-                        <a href="#" ng-click="showRegistrationDialog()" class="button mainButton"
-                            ng-hide="isUserLogged() || registrationDialogVisible || disableLogin">Зарегистрироваться</a>
-                        
+                       
                     <!-- MAIN CONTENT -->
                     <div id="wrapper">
-                        <!-- <div ng-view></div> -->
-                        <div id="loginRegistrate"
-                            ng-hide="isUserLogged()"
-                            ng-controller="loginRegistrationCtrl">
-                            <div ng-include src="'partials/sign-buttons.html'"></div>
-                        </div>
-
-                        <div id="friends"
-                            ng-show="isUserLogged()"
-                            ng-controller="friendsCtrl"
-                            ng-include src="'partials/friends.html'"
-                            onload="fillFriendsList(); getUnseenMessages(user.name, user.lastSeenMessageTimestamp);">
-                        </div>
+                        <div ui-view="content"></div>
                     </div>
 
 
 
 
                     <footer id="footer">
-                        <div id="add-friend-prompt" ng-include src="'partials/add-friend-prompt.html'" onload="foundationEvaluate('add-friend-prompt')"></div>
+                        
                         <div id="number-entering-prompt" ng-include src="'partials/number-entering-prompt.html'" onload="foundationEvaluate('number-entering-prompt')"></div>
                     </footer>
 

@@ -34,17 +34,17 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
+       
+    }
+};
+ console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
 
         // if(device.platform == 'Android')
             App.Settings.pubnubNotificationType = "gcm";
         // else
             // App.Settings.pubnubNotificationType = "apns";
 
-        app.pubnub = new Pubnub(App.Settings);
-        angular.bootstrap( $("body"), ["angApp"]);
+        // app.pubnub = new Pubnub(App.Settings);
+        // angular.bootstrap( $("body"), ["angApp"]);
 
-    }
-};
-
-app.initialize();
+// app.initialize();

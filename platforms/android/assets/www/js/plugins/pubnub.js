@@ -21,7 +21,7 @@ Plugins.Pubnub = {
         Plugins.Pubnub.processMessage(message.message, true);
       },
       error : function() {
-        alert("Connection Lost");
+        // alert("Connection Lost");
       }
     });
   },

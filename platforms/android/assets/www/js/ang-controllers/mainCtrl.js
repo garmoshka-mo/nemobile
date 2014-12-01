@@ -1,9 +1,7 @@
-angular.module("angControllers").controller("mainCtrl", function($scope, $http, $location){
-
+angular.module("angControllers").controller("mainCtrl", function($scope, $http, $location, $state){
   $scope.$on("getUnseenMessages", function(e,d){
     $scope.getUnseenMessages(d.channel, d.timestamp);
   });
-  
   $scope.newUser = {};
 
   $scope.registrationDialogVisible = false;
@@ -12,6 +10,12 @@ angular.module("angControllers").controller("mainCtrl", function($scope, $http, 
   
   // app.pubnub.getUserId($scope.user.name);
 
+  $scope.goToSignIn = function() {
+      $state.go('signin');
+  }
+  $scope.goToSignUp = function() {
+      $state.go('signup');
+  }
   $scope.isUserLogged = function(){
     return !!($scope.user.name);
   };
@@ -90,11 +94,6 @@ angular.module("angControllers").controller("mainCtrl", function($scope, $http, 
     $scope.$broadcast("findFriendsThroughPhoneBook", null);
   };
 
-  if ($scope.isUserLogged()) {
-    $location.path("/friends")
-  }
-  else {
-    $location.path("/loginOrRigister")
-  }
+
 
 });

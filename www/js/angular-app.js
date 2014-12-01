@@ -61,20 +61,50 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("chat", {
+    url: "/chat/:senderId",
+    views: {
+      "title": {
+        template: "Чат"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "chatController",
+        templateUrl: "partials/chat/content.html"
+      }
+    }
+  })
+  .state("exit", {
+    url: "/exit",
+    views: {
+      "title": {
+        template: "Выход"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "chatController",
+        templateUrl: "partials/exit/content.html"
+      }
+    }
+  })
  
 });
 
 angular.module("angApp").run(function($rootScope){
   
-  if (window.localStorage.getItem("firstTime") === null) {
-    alert("first time");
-    // app.pubnub.unsubscribeFromAllPushNotificationChannels();
-    window.localStorage.setItem("firstTime", false);
-  }
+  // if (window.localStorage.getItem("firstTime") === null) {
+  //   alert("first time");
+  //   // app.pubnub.unsubscribeFromAllPushNotificationChannels();
+  //   window.localStorage.setItem("firstTime", false);
+  // }
 
-  $(".header").add(".content").toggleClass("hidden");
+  // $(".header").add(".content").toggleClass("hidden");
 
-  $rootScope.user = JSON.parse( window.localStorage.getItem("user") );
+  // $rootScope.user = JSON.parse( window.localStorage.getItem("user") );
 
   // if ($rootScope.user) {
   //   app.pubnub.subscribe($rootScope.user.name);

@@ -21,7 +21,7 @@ Pubnub.prototype.subscribe = function(channelName) {
       Pubnub.prototype.saveLastSeenMessageTimestamp(m_array[1]);
     },
     error: function(){
-      alert("Connection Lost");
+      // alert("Connection Lost");
     }
   });
 };
@@ -55,26 +55,26 @@ Pubnub.prototype.publish = function(receiverName, senderName, messageText){
   });
 };
 
-Pubnub.prototype.subscribeToPushNotifications = function(channelname){
-  window.plugins.PubnubCordova.getRegId(function(data){
-    var url = "http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "?add=" + channelname + "&type=" + App.Settings.pubnubNotificationType;
-    console.log(">>>" + url);
-    $.get(url);
-  });
-};
+// Pubnub.prototype.subscribeToPushNotifications = function(channelname){
+//   window.plugins.PubnubCordova.getRegId(function(data){
+//     var url = "http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "?add=" + channelname + "&type=" + App.Settings.pubnubNotificationType;
+//     console.log(">>>" + url);
+//     $.get(url);
+//   });
+// };
 
-Pubnub.prototype.unsubscribeFromPushNotifications = function(channelname){
-  window.plugins.PubnubCordova.getRegId(function(data){
-    var url = "http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "?remove=" + channelname + "&type=" + App.Settings.pubnubNotificationType;
-    $.get(url);
-  });
-};
+// Pubnub.prototype.unsubscribeFromPushNotifications = function(channelname){
+//   window.plugins.PubnubCordova.getRegId(function(data){
+//     var url = "http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "?remove=" + channelname + "&type=" + App.Settings.pubnubNotificationType;
+//     $.get(url);
+//   });
+// };
 
-Pubnub.prototype.unsubscribeFromAllPushNotificationChannels = function(){
-  window.plugins.PubnubCordova.getRegId(function(data){
-    $.get("http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "/remove?type=" + App.Settings.pubnubNotificationType);
-  });
-};
+// Pubnub.prototype.unsubscribeFromAllPushNotificationChannels = function(){
+//   window.plugins.PubnubCordova.getRegId(function(data){
+//     $.get("http://pubsub.pubnub.com/v1/push/sub-key/" + App.Settings.pubnubSubscribeKey + "/devices/" + data + "/remove?type=" + App.Settings.pubnubNotificationType);
+//   });
+// };
 
 
 Pubnub.prototype.getUnseenMessages = function(channelName, timestamp){
