@@ -15,6 +15,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
                 });
                 api.sendMessage(chat.newMessage, chat.senderId)
                 chat.newMessage = '';
+                chat.lastMessageTimestamp = new Date().getTime();
             }
 
         }

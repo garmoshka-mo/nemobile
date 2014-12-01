@@ -6,6 +6,9 @@ body{
   font-size: 1.3rem !important;
 }
 
+.ta-center {
+  text-align: center;
+}
 .ta-left {
   text-align: left;
 }

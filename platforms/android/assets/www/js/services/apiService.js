@@ -14,8 +14,6 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
     };
 
     var chat = {
-        messages:[],
-        
         getLastMessage: function() {
             if (this.messages.length) {
                 var messagesAmount = this.messages.length;
@@ -55,7 +53,17 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                 method: 'POST',
                 url: App.Settings.apiUrl + '/register',
                 data: toParams({name: name, password: password})
-            });
+            })
+            .then(function(res) {
+                console.log(res);
+                if (res.data.success) {
+                    return true;
+                }
+                else {
+                    return $q.reject({errorDescription: res.data.error})
+                }
+            })
+
         },
         getUserInfo: function(access_token) {
             return $http({
@@ -84,11 +92,14 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                             text: m.message_text,
                             isOwn: false
                         });
+                        user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
                     else {
                         console.log("created new chat")
+
                         var isSenderFriend = !!user.friends[m.sender_uuid];
                         user.chats[m.sender_uuid] = angular.extend({}, chat);
+                        user.chats[m.sender_uuid].messages = [];
                         user.chats[m.sender_uuid].senderId = m.sender_uuid;
                         user.chats[m.sender_uuid].messages.push(
                             {
@@ -96,6 +107,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                                 isOwn: false
                             }
                         );
+                        user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
                     $rootScope.$apply();
                     console.log(m)
@@ -103,7 +115,12 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                 }
             })
         },
-
+        unsubscribe:function() {
+            pubnub.unsubscribe(
+            {
+                channel: $rootScope.user.channel
+            })
+        },
         sendMessage: function(messageText, recepientId) {
             console.log(App.Settings.apiUrl);
             $http({
@@ -130,6 +147,31 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                     console.log(res)
                 }
             )
+        },
+
+        getUnseenMessages: function() {
+                pubnub.history(
+                    {
+                        channel: $rootScope.user.channel,
+                        callback: function(m) {
+                            console.log(m);
+                        }
+                    }
+                );
+        },
+
+        getUserFromLS: function(uuid) {
+            var user = JSON.parse(window.localStorage.getItem(uuid));
+            if (user) {
+                for (_chat in user.chats) {
+                    user.chats[_chat] = angular.extend(user.chats[_chat], chat);
+                }
+            }
+            return user;
+        },
+
+        saveUserInLS: function() {
+            window.localStorage.setItem($rootScope.user.uuid, JSON.stringify($rootScope.user))
         }
     }
 }])

@@ -27,14 +27,13 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
     }
 
     console.log("sign in is invoked");
+
     api.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
                 $rootScope.user = {
-                    name: $scope.newUser.name,
                     accessToken: res.accessToken,
-                    friends: angular.extend({}, friends),
-                    chats: angular.extend({}, chats)
+                    
                 }
             },
             function(res) {
@@ -45,9 +44,20 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
         .then(function() {
             api.getUserInfo($rootScope.user.accessToken).then(
                 function(userInfo) {
-                    console.log(userInfo);
+                    $rootScope.user.name = userInfo.name;
                     $rootScope.user.channel = userInfo.channel_name;
                     $rootScope.user.uuid = userInfo.uuid
+
+                    var userDataInLS = api.getUserFromLS(userInfo.uuid);
+                    if (userDataInLS) {
+                        $rootScope.user.chats = angular.extend({}, userDataInLS.chats) 
+                        $rootScope.user.friends = angular.extend({}, userDataInLS.friends) 
+                    }
+                    else {
+                        $rootScope.user.friends = angular.extend({}, friends),
+                        $rootScope.user.chats = angular.extend({}, chats)
+                    }
+
                     api.subscribe($rootScope.user.channel);
                     console.log($rootScope.user);
                     $state.go('chats');
@@ -56,6 +66,7 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
                     console.log("fail")
                 }
             )
+
         })
     }
 }])

@@ -76,6 +76,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("exit", {
+    url: "/exit",
+    views: {
+      "title": {
+        template: "Выход"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "exitController",
+        templateUrl: "partials/exit/content.html"
+      }
+    }
+  })
  
 });
 

@@ -48,15 +48,14 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
                     $rootScope.user.channel = userInfo.channel_name;
                     $rootScope.user.uuid = userInfo.uuid
 
-                    var userDataInLS = api.getUserFromLS();
+                    var userDataInLS = api.getUserFromLS(userInfo.uuid);
                     if (userDataInLS) {
-                        var userDataJSON = JSON.parse(userDataInLS);
-                        $rootScope.chats = angular.extend({}, userDataJSON.chats) 
-                        $rootScope.friends = angular.extend({}, userDataJSON.friends) 
+                        $rootScope.user.chats = angular.extend({}, userDataInLS.chats) 
+                        $rootScope.user.friends = angular.extend({}, userDataInLS.friends) 
                     }
                     else {
-                        $rootScope.friends = angular.extend({}, friends),
-                        $rootScope.chats = angular.extend({}, chats)
+                        $rootScope.user.friends = angular.extend({}, friends),
+                        $rootScope.user.chats = angular.extend({}, chats)
                     }
 
                     api.subscribe($rootScope.user.channel);

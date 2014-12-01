@@ -86,7 +86,7 @@ angular.module("angApp").config(function($stateProvider) {
         templateUrl: "partials/chat/menu.html"
       }, 
       "content": {
-        controller: "chatController",
+        controller: "exitController",
         templateUrl: "partials/exit/content.html"
       }
     }

@@ -264,6 +264,7 @@ c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\services 
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\settings.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\chatController.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\chatsController.js \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\exitController.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\loginController.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\loginRegistrationCtrl.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\ang-controllers\mainCtrl.js \
@@ -284,6 +285,7 @@ c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\plugins\p
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\js\services\apiService.js \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\chat \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\chats \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\exit \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\friends.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\nav-bar.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\number-entering-prompt.html \
@@ -295,6 +297,8 @@ c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\cha
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\chat\menu.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\chats\content.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\chats\menu.html \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\exit\content.html \
+c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\exit\menu.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\signin\content.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\signup\content.html \
 c:\Users\davo\Desktop\dan\chat\nepotom\platforms\android\assets\www\partials\start\content.html \
