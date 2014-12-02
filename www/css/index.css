@@ -211,7 +211,7 @@ button.chat-send {
   content: '';
   top: 7px;
   position: absolute;
-  left: -20px;
+  left: -19px;
   border: 10px solid transparent;
   border: 10px solid transparent;
   border-right: 10px solid rgba(52, 152, 219,1.0);
