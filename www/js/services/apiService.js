@@ -1,18 +1,10 @@
 angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
     
-    function toParams (obj) {
-        var p = [];
-        for (var key in obj) {
-            p.push(key + '=' + obj[key]);
-        }
-        return p.join('&');
-    };
-
     var chat = {
         getLastMessage: function() {
             if (this.messages.length) {
@@ -36,7 +28,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/login',
-                data: toParams({name: name, password: password})
+                data: {name: name, password: password}
             })
             .then(function(res) {
                 if (res.data.success) {
@@ -52,7 +44,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/register',
-                data: toParams({name: name, password: password})
+                data: {name: name, password: password}
             })
             .then(function(res) {
                 console.log(res);
@@ -69,7 +61,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/profile',
-                data: toParams({access_token: access_token})
+                data: {access_token: access_token}
             })
             .then(function(res) {
                 if (res.data.success) {
@@ -107,6 +99,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                                 isOwn: false
                             }
                         );
+                        $rootScope.notification = m.message_text;
                         user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
                     $rootScope.$apply();
@@ -126,12 +119,12 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
             $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
-                data: toParams({
+                data: {
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
                     "ttl": 86400
-                })
+                }
             })
             .then(
                 function(res) {
@@ -172,6 +165,25 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
 
         saveUserInLS: function() {
             window.localStorage.setItem($rootScope.user.uuid, JSON.stringify($rootScope.user))
+        },
+
+        searchUser: function(userName) {
+            $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + '/users/search',
+                data: {
+                    "access_token": $rootScope.user.accessToken,
+                    "search_params": [{name: userName}]
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            )
         }
     }
 }])

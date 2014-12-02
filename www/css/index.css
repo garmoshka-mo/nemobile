@@ -16,7 +16,9 @@ body{
   text-align: right;
 }
 
-
+a {
+  color: inherit;
+}
 
 #wrapper{
   height: 100%;

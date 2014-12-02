@@ -91,6 +91,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("friendSearch", {
+    url: "/friendSearch",
+    views: {
+      "title": {
+        template: "Поиск друзей"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "friendSearchController",
+        templateUrl: "partials/friendSearch/content.html"
+      }
+    }
+  })
  
 });
 
