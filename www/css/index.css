@@ -25,7 +25,7 @@ body{
 }
 
 #footer{
-  position: absolute;
+  position: fixed;
   bottom: 0rem;
   left: 0rem;
   width: 100%;
