@@ -7,7 +7,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
-
+        console.log($rootScope.notification);
         chat.sendMessage = function() {
            
             if (chat.newMessage) {

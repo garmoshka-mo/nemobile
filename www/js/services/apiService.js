@@ -115,7 +115,6 @@ services
                                 isOwn: false
                             }
                         );
-                        $rootScope.notification = m.message_text;
                         user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
 

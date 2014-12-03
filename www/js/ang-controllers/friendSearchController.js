@@ -37,7 +37,9 @@ angular.module("angControllers").controller("friendSearchController", function($
     }
 
     $scope.addToFriends = function() {
-        api.addNewChat($scope.foundUuid);
+        if (!user.chats[$scope.foundUuid]) {
+            api.addNewChat($scope.foundUuid);
+        }
         api.addNewFriend($scope.foundUuid, $scope.nameToAdd);
         $scope.canBeAdded = false;
         $scope.serverResponse = "пользователь добавлен";
