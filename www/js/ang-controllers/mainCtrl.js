@@ -1,4 +1,4 @@
-angular.module("angControllers").controller("mainCtrl", function($scope, $http, $location, $state){
+angular.module("angControllers").controller("mainCtrl", function($scope, $http, $location, $state, notification){
   $scope.$on("getUnseenMessages", function(e,d){
     $scope.getUnseenMessages(d.channel, d.timestamp);
   });
@@ -8,6 +8,10 @@ angular.module("angControllers").controller("mainCtrl", function($scope, $http, 
   $scope.loginDialogVisible = false;
   $scope.spinner = new Spinner(opts);
   // app.pubnub.getUserId($scope.user.name);
+
+  $scope.$on("$stateChangeStart", function() {
+    notification.clear();
+  })
 
   $scope.goToSignIn = function() {
       $state.go('signin');

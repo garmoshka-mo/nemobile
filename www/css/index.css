@@ -150,7 +150,7 @@ a.button:hover{
 
 .chats-chat {
   border-bottom: 1px solid black;
-  height: 65px;
+  min-height: 65px;
 }
 .chats-chat:active {
   background-color: #ecf0f1;
