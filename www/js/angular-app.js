@@ -142,4 +142,4 @@ angular.module("angApp").run(function($rootScope){
 });
 
 angular.module("angControllers", []);
-angular.module("angServices", []);
+var services = angular.module("angServices", []);

@@ -24,7 +24,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
         <link rel="stylesheet" type="text/css" href="css/foundation.css" />
+        <link rel="stylesheet" type="text/css" href="css/animate.css" />
         <link rel="stylesheet" type="text/css" href="css/toastr.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 
         <script type="text/javascript" src="js/settings.js"></script>
@@ -34,6 +36,7 @@
         <script type="text/javascript" src="js/libs/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="js/libs/mm-foundation-tpls-0.5.0.min.js"></script>
         <script type="text/javascript" src="js/angular-app.js"></script>
+        <script type="text/javascript" src="js/services/notificationService.js"></script>
         <script type="text/javascript" src="js/services/apiService.js"></script>
         <script type="text/javascript" src="js/ang-controllers/mainCtrl.js"></script>
         <script type="text/javascript" src="js/ang-controllers/loginRegistrationCtrl.js"></script>
@@ -63,7 +66,7 @@
                     <section class="middle tab-bar-section">
                         <h1 class="title">
                             <div ng-show="!notification" ui-view="title"></div>
-                            <div ng-show="notification"><span ng-bind="notification"></span></div>
+                            <div class="notification" ng-show="notification" ng-click="notificationHandler()" ng-class="{'animated bounceInDown': notificationAnimated}"><span ng-bind="notification"></span></div>
                         </h1>
                     </section>
  

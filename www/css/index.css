@@ -150,11 +150,12 @@ a.button:hover{
 
 .chats-chat {
   border-bottom: 1px solid black;
+  height: 65px;
 }
 .chats-chat:active {
   background-color: #ecf0f1;
 }
-.chat-last-message {
+.small-gray-text {
   font-size: 17px;
   color: #7f8c8d;
 }
@@ -221,6 +222,29 @@ button.chat-send {
 .chat-buttons-container {
   background-color: rgba(149, 165, 166,1.0);
   padding-top: 10px;
+}
+
+.inline-input-button-block {
+
+}
+
+.inline-input-button-block input {
+  display: inline-block;
+  width: 78%;
+  vertical-align: top;
+}
+
+.inline-input-button-block button {
+  width: 20%;
+  height: 42px;
+  padding: 0;
+}
+.addButton {
+  font-size: 2rem;
+  color: #2ecc71;
+}
+.addButton:active {
+  color: #27ae60;
 }
 @media only screen and (max-height: 20rem){
   .modal{

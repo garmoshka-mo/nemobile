@@ -7,7 +7,6 @@ angular.module("angControllers").controller("mainCtrl", function($scope, $http, 
   $scope.registrationDialogVisible = false;
   $scope.loginDialogVisible = false;
   $scope.spinner = new Spinner(opts);
-  
   // app.pubnub.getUserId($scope.user.name);
 
   $scope.goToSignIn = function() {

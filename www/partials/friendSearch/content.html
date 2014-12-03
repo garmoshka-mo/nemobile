@@ -1,2 +1,18 @@
-<input type="text" ng-model="nameToSearch">
-<button ng-click="findUserByName()">Найти</button>
+<div class="inline-input-button-block">
+  <input type="text" ng-model="nameToSearch">
+  <button ng-click="findUserByName()">Найти</button>
+</div>
+
+<div ng-show="canBeAdded">
+  <div class="small-10 columns">
+    <span ng-bind="nameToAdd"></span><br>
+    <span class="small-gray-text" ng-bind="foundUuid"></span><br>
+  </div>
+  <div class="small-2 columns">
+    <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
+  </div>
+</div>
+
+<div class="ta-center" ng-show="!canBeAdded">
+    <span ng-bind="serverResponse"></span><br>
+</div>

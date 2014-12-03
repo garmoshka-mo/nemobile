@@ -1,6 +1,7 @@
-angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
+services
+.factory('api', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-    
+    console.log("api service is enabled");
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
@@ -72,7 +73,18 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                 }
             })
         },
+        addNewChat: function(senderId) {
+            var user = $rootScope.user;
+            user.chats[senderId] = angular.extend({}, chat);
+            user.chats[senderId].messages = [];
+            user.chats[senderId].senderId = senderId;
+        },
+        addNewFriend: function(friendUuid, name) {
+            var user = $rootScope.user;
+            $rootScope.user.friends[friendUuid] = {name: name}
+        },
         subscribe: function(channel) {
+            var self = this;
             pubnub.subscribe({
                 channel: channel,
                 message: function(m) {
@@ -88,11 +100,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
                     }
                     else {
                         console.log("created new chat")
-
-                        var isSenderFriend = !!user.friends[m.sender_uuid];
-                        user.chats[m.sender_uuid] = angular.extend({}, chat);
-                        user.chats[m.sender_uuid].messages = [];
-                        user.chats[m.sender_uuid].senderId = m.sender_uuid;
+                        self.addNewChat(m.sender_uuid)
                         user.chats[m.sender_uuid].messages.push(
                             {
                                 text: m.message_text,
@@ -168,7 +176,7 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
         },
 
         searchUser: function(userName) {
-            $http({
+            return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/users/search',
                 data: {
@@ -178,10 +186,15 @@ angular.module("angServices", []).factory('api', ['$http', '$q', '$rootScope', f
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject();
+                    }
                 },
                 function(res) {
-                    console.log(res);
+                    return $q.reject();;
                 }
             )
         }

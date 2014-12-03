@@ -1,10 +1,12 @@
-angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', function($rootScope, $scope, $stateParams, $state, api) {
+angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', function($rootScope, $scope, $stateParams, $state, api, notification) {
 
         var user = $rootScope.user;
-        console.log(user);
         $scope.chat = user.chats[$stateParams.senderId];
-        
         var chat = $scope.chat;
+
+        if (user.friends[chat.senderId]) {
+            notification.set(user.friends[chat.senderId].name)
+        }
 
         chat.sendMessage = function() {
            

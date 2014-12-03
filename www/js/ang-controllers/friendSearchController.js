@@ -1,6 +1,46 @@
-angular.module("angControllers").controller("friendSearchController", function($scope, $http, api){
+angular.module("angControllers").controller("friendSearchController", function($rootScope, $scope, $http, $state, api){
+
     // api.getUnseenMessages();
+    var user = $rootScope.user;
+
     $scope.findUserByName = function() {
         api.searchUser($scope.nameToSearch)
+        .then(
+            function(results) {
+                $scope.handleSearchResults(results)
+            },
+            function() {
+                console.error("friend search error")
+            }
+        )
     }
+
+    $scope.handleSearchResults = function(res) {
+        console.log(res)
+        var results = res.search_results[0];
+        if (results.type) {
+            $scope.canBeAdded = false;
+            $scope.serverResponse = results.type; 
+        }
+        else {
+            
+            if (user.friends[results.uuid]) {
+                $scope.canBeAdded = false;
+                $scope.serverResponse = "Пользователь уже ваш друг"
+                return;                
+            }
+            
+            $scope.canBeAdded = true;
+            $scope.nameToAdd = $scope.nameToSearch;
+            $scope.foundUuid = results.uuid; 
+        }
+    }
+
+    $scope.addToFriends = function() {
+        api.addNewChat($scope.foundUuid);
+        api.addNewFriend($scope.foundUuid, $scope.nameToAdd);
+        $scope.canBeAdded = false;
+        $scope.serverResponse = "пользователь добавлен";
+        console.log($rootScope.user);
+    } 
 });
