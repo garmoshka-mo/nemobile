@@ -26,18 +26,19 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
         }
     }
 
-    console.log("sign in is invoked");
+    console.log("sign in is invoked1");
 
     api.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
-                console.log("signin result success");
+                console.log("signin success");
                 $rootScope.user = {
                     accessToken: res.accessToken
                 }
                 console.log("accessToken assigned");
             },
             function(res) {
+                console.log("signin failed");
                 $scope.serverResponse = res.errorDescription;
                 console.log(JSON.stringify(res));
             }
