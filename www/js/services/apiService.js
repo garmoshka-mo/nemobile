@@ -1,5 +1,5 @@
 services
-.factory('api', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
+.factory('api', ['$http', '$q', '$rootScope', 'notification', function ($http, $q, $rootScope, notification) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     console.log("api service is enabled");
     var pubnub = PUBNUB.init({
@@ -89,6 +89,14 @@ services
                 channel: channel,
                 message: function(m) {
                     var user = $rootScope.user;
+                    var notificationText;
+
+                    if (user.friends[m.sender_uuid]) {
+                        notificationText = user.friends[m.sender_uuid].name;    
+                    }
+                    else {
+                        notificationText = "Новое сообщение";
+                    }
 
                     if (user.chats[m.sender_uuid]) {
                         console.log("added to old chat")
@@ -110,6 +118,11 @@ services
                         $rootScope.notification = m.message_text;
                         user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
+
+                    notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
+                        location.href = "#/chat/" + m.sender_uuid;
+                    })
+                    
                     $rootScope.$apply();
                     console.log(m)
                     console.log($rootScope.user);
