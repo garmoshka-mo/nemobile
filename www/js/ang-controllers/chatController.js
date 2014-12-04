@@ -3,15 +3,24 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         var user = $rootScope.user;
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
-        $scope.chatSession = chat.getLastUnexpiredChatSession();
+        var lastSession = chat.getLastUnexpiredChatSession();
+        
+        if (!lastSession) {
+            api.addNewChatSession(chat.senderId)
+            lastSession = chat.getLastUnexpiredChatSession()
+        }
+
+        $scope.chatSession = lastSession;
 
         $scope.$watch("chatSession.messages.length", function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $chatContainer.height()}, 500)
         })
+
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
+
         console.log($rootScope.notification);
         chat.sendMessage = function() {
             if (chat.newMessage) {
