@@ -1,7 +1,8 @@
-angular.module("angControllers").controller("signinupController", ['$rootScope','$scope', '$state', '$stateParams','api', 'notification', function($rootScope, $scope, $state, $stateParams, api, notification) {
+angular.module("angControllers").controller("signinupController", ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', function($rootScope, $scope, $state, $stateParams, $q, api, notification) {
     
     console.log("sign in is invoked");
 
+    $scope.showSpinner = false;
     $scope.isIn = $stateParams.inOrUp == "in" ? true : false;
 
     if ($scope.isIn) {
@@ -32,6 +33,7 @@ angular.module("angControllers").controller("signinupController", ['$rootScope',
     }
 
     $scope.signin = function() {
+        $scope.showSpinner = true;
         api.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function setAccesssToken(res) {
@@ -44,23 +46,30 @@ angular.module("angControllers").controller("signinupController", ['$rootScope',
             function showError(res) {
                 $scope.serverResponse = res.errorDescription;
                 console.log(res);
+                return $q.reject(); 
             }
         )
-        .then(function() {
-            api.getUserInfo($rootScope.user.accessToken).then(
-                function(userInfo) {
-                    $scope.handleSuccessSignIn(userInfo);
-                },
-                function(res) {
-                    console.error("sign in fail")
-                }
-            )
-
+        .then(
+            function() {
+                api.getUserInfo($rootScope.user.accessToken).then(
+                    function(userInfo) {
+                        $scope.handleSuccessSignIn(userInfo);
+                    },
+                    function(res) {
+                        console.error("sign in fail")
+                    }
+                )
         })
+        .finally(
+            function() {
+                $scope.showSpinner = false;
+            }
+        )
     }
 
     $scope.signup = function() {
         console.log("sign up is invoked");
+        $scope.showSpinner = true;
         api.signup($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
@@ -70,6 +79,15 @@ angular.module("angControllers").controller("signinupController", ['$rootScope',
                 $scope.serverResponse = res.errorDescription;
             }
         )
+        .finally(
+            function() {
+                $scope.showSpinner = false;
+            }
+        )
+    }
+
+    $scope.closeServerResponse = function() {
+        $scope.serverResponse = false;
     }
 }])
     

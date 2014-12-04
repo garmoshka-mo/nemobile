@@ -1,9 +1,11 @@
 angular.module("angControllers").controller("friendSearchController", function($rootScope, $scope, $http, $state, api){
 
     // api.getUnseenMessages();
+    $scope.showSpinner = false;
     var user = $rootScope.user;
 
     $scope.findUserByName = function() {
+        $scope.showSpinner = true;
         api.searchUser($scope.nameToSearch)
         .then(
             function(results) {
@@ -13,6 +15,9 @@ angular.module("angControllers").controller("friendSearchController", function($
                 console.error("friend search error")
             }
         )
+        .finally(function() {
+            $scope.showSpinner = false;
+        })
     }
 
     $scope.handleSearchResults = function(res) {

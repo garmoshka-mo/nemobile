@@ -1,6 +1,9 @@
 <div class="inline-input-button-block">
   <input type="text" ng-model="nameToSearch">
-  <button ng-click="findUserByName()">Найти</button>
+  <button ng-click="findUserByName()" ng-disabled="showSpinner">
+    <span ng-show="!showSpinner">Найти</span>
+    <i ng-show="showSpinner" class="fa fa-circle-o-notch fa-spin"></i>
+  </button>
 </div>
 
 <div ng-show="canBeAdded">
@@ -12,6 +15,7 @@
     <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
   </div>
 </div>
+
 
 <div class="ta-center" ng-show="!canBeAdded">
     <span ng-bind="serverResponse"></span><br>
