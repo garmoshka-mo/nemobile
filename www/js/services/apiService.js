@@ -7,10 +7,16 @@ services
     })
     
     var chat = {
-        getLastMessage: function() {
-            if (this.messages.length) {
-                var messagesAmount = this.messages.length;
-                return this.messages[messagesAmount - 1].text;
+        senderId: null,
+        
+        getLastUnexpiredChatSession: function() {
+            for (var i = 0; i < this.chatSessions.length; i++) {
+                if (!this.chatSessions[i].expired) {
+                    return this.chatSessions[i]
+                }
+                else {
+                    return false
+                }
             }
         },
 
@@ -22,6 +28,19 @@ services
                 return this.senderId;
             }
         }
+    }
+
+    var chatSession = {
+        isReplied: false,
+        expired: false,
+        whenExpires: null,
+
+        getLastMessage: function() {
+            if (this.messages.length) {
+                var messagesAmount = this.messages.length;
+                return this.messages[messagesAmount - 1].text;
+            }
+        },
     }
 
     return {
@@ -76,18 +95,27 @@ services
         addNewChat: function(senderId) {
             var user = $rootScope.user;
             user.chats[senderId] = angular.extend({}, chat);
-            user.chats[senderId].messages = [];
+            user.chats[senderId].chatSessions = [];
             user.chats[senderId].senderId = senderId;
         },
         addNewFriend: function(friendUuid, name) {
             var user = $rootScope.user;
             $rootScope.user.friends[friendUuid] = {name: name}
         },
+        addNewChatSession: function(senderId, expires) {
+            var _chatSession = angular.extend({}, chatSession)
+            _chatSession.messages = [];
+            _chatSession.whenExpires = expires;
+            _chatSession.isReplied = false;
+            _chatSession.expired = false;
+            $rootScope.user.chats[senderId].chatSessions.push(_chatSession);
+        },
         subscribe: function(channel) {
             var self = this;
             pubnub.subscribe({
                 channel: channel,
                 message: function(m) {
+                    console.log(m);
                     var user = $rootScope.user;
                     var notificationText;
 
@@ -99,23 +127,27 @@ services
                     }
 
                     if (user.chats[m.sender_uuid]) {
-                        console.log("added to old chat")
-                        user.chats[m.sender_uuid].messages.push({
+                        console.log("add to existing chat")
+                        var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                        if (!lastSession) {
+                            self.addNewChatSession(m.sender_uuid, m.expires);
+                        }
+                        lastSession.messages.push({
                             text: m.message_text,
                             isOwn: false
                         });
-                        user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
                     else {
+                        
                         console.log("created new chat")
                         self.addNewChat(m.sender_uuid)
-                        user.chats[m.sender_uuid].messages.push(
+                        self.addNewChatSession(m.sender_uuid, m.expires)
+                        user.chats[m.sender_uuid].getLastUnexpiredChatSession().messages.push(
                             {
                                 text: m.message_text,
                                 isOwn: false
                             }
                         );
-                        user.chats[m.sender_uuid].lastMessageTimestamp = new Date().getTime();
                     }
 
                     notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
@@ -135,6 +167,12 @@ services
             })
         },
         sendMessage: function(messageText, recepientId) {
+            pubnub.time(
+               function(time){
+                  console.log(time)
+                  console.log(new Date(time * 1000))
+               }
+            );
             console.log(App.Settings.apiUrl);
             $http({
                 method: 'POST',

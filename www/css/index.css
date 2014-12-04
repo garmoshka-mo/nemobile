@@ -202,6 +202,7 @@ button.chat-send {
 }
 .message-own {
   background-color: rgba(46, 204, 113, 1.0);
+  margin-right: 10px;
 }
 .message-own:after {
   content: '';

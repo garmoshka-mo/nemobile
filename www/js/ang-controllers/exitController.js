@@ -2,7 +2,7 @@ angular.module("angControllers").controller("exitController", ['$rootScope','$sc
     $scope.exit = function() {
         api.saveUserInLS();
         api.unsubscribe();
-        $state.go('signin');
+        $state.go('start');
     }
 }])
     
