@@ -4,6 +4,10 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
 
+        $scope.$watch("chat.messages.length", function() {
+            var $chatContainer = $(".chat");
+            $chatContainer.animate({scrollTop: $chatContainer.height()}, 500)
+        })
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
