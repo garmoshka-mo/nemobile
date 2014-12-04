@@ -26,24 +26,28 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
         }
     }
 
-    console.log("sign in is invoked");
+    console.log("sign in is invoked1");
 
     api.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
+                console.log("signin success");
                 $rootScope.user = {
-                    accessToken: res.accessToken,
-                    
+                    accessToken: res.accessToken
                 }
+                console.log("accessToken assigned");
             },
             function(res) {
+                console.log("signin failed");
                 $scope.serverResponse = res.errorDescription;
-                console.log(res);
+                console.log(JSON.stringify(res));
             }
         )
         .then(function() {
+            console.log("before getUserInfo");
             api.getUserInfo($rootScope.user.accessToken).then(
                 function(userInfo) {
+                    console.log("getUserInfo success");
                     $rootScope.user.name = userInfo.name;
                     $rootScope.user.channel = userInfo.channel_name;
                     $rootScope.user.uuid = userInfo.uuid
@@ -58,6 +62,7 @@ angular.module("angControllers").controller("loginController", ['$rootScope','$s
                         $rootScope.user.chats = angular.extend({}, chats)
                     }
 
+                    console.log("before subscribe");
                     api.subscribe($rootScope.user.channel);
                     console.log($rootScope.user);
                     $state.go('chats');
