@@ -1,0 +1,23 @@
+<div class="loginRegisterForm">
+  <form name="registration_form" novalidate>
+    <div class="width-92 inline-block">
+      <!--  <label for="reg_user_name">Имя</label> -->
+        <input id="reg_user_name" name="name" type="text" ng-model="newUser.name" placeholder="Имя" required>
+    </div>
+    <div class="width-92 inline-block">
+     <!--    <label for="reg_user_password">Пароль</label> -->
+        <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" required> 
+    </div>
+    <div class="width-92 inline-block" ng-show="isIn">
+        <a data-role="button" ng-click="signin()" class="button loginRegisterButton">
+            <span>Войти</span>
+        </a>
+    </div>
+    <div class="width-92 inline-block" ng-show="!isIn">
+        <a data-role="button" ng-click="signup()" class="button loginRegisterButton">
+            <span>Зарегистрироваться</span>
+        </a>
+    </div>
+    <span ng-bind="serverResponse"></span>
+  </form>
+</div>

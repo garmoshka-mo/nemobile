@@ -17,17 +17,17 @@ angular.module("angApp").config(function($stateProvider) {
     }
   })
   .state("signin", {
-    url: "/signin",
+    url: "/signinup/:inOrUp",
     views: {
       "title": {
-        template: "Авторизация"
+        template: ""
       },
       "menu": {
         templateUrl: "partials/start/menu.html"
       }, 
       "content": {
-        controller: "loginController",
-        templateUrl: "partials/signin/content.html"
+        controller: "signinupController",
+        templateUrl: "partials/signinup/content.html"
       }
     }
   })
