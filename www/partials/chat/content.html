@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat overscrollable">
     <div ng-repeat="message in chat.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
       <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind="message.text"></span>
     </div>

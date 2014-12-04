@@ -22,8 +22,10 @@ a {
 
 #wrapper{
   height: 100%;
+  width: 100%;
   padding-top: 1rem;
   padding-bottom: 8rem;
+  overflow: hidden;
 }
 
 #footer{
@@ -164,9 +166,14 @@ a.button:hover{
   height: 100%;
 }
 .chat {
-/*  overflow-y: scroll;
-  min-height: 100%;
-  margin-top: -1rem;*/
+  
+}
+.overscrollable {
+  height: 100%;
+  width: 100%;
+  padding-right: 15px;
+  box-sizing: content-box;
+  overflow: auto;
 }
 
 input.chat-input {
@@ -195,7 +202,6 @@ button.chat-send {
 }
 .message-own {
   background-color: rgba(46, 204, 113, 1.0);
-  margin-right: 20px; 
 }
 .message-own:after {
   content: '';

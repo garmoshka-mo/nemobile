@@ -1,9 +1,11 @@
-<a ng-repeat="chat in user.chats" ng-href="#/chat/{{chat.senderId}}">
-    <div class="chats-chat" >
-      <span class="chat-title" ng-bind="chat.getChatTitle()"></span> <br>
-      <span class="small-gray-text" ng-bind="chat.getLastMessage()"></span>
-    </div>
-</a>
+<div class="overscrollable">
+    <a ng-repeat="chat in user.chats" ng-href="#/chat/{{chat.senderId}}">
+        <div class="chats-chat" >
+          <span class="chat-title" ng-bind="chat.getChatTitle()"></span> <br>
+          <span class="small-gray-text" ng-bind="chat.getLastMessage()"></span>
+        </div>
+    </a>
+</div>
 <div id="footer">
   
 </div>
