@@ -5,12 +5,21 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         var chat = $scope.chat;
         var lastSession = chat.getLastUnexpiredChatSession();
         
+        $scope.newMessage = {
+            text: '',
+            ttl: 10,
+            clearText: function() {
+                this.text = ''
+            }
+        };
+        
         if (!lastSession) {
             api.addNewChatSession(chat.senderId)
             lastSession = chat.getLastUnexpiredChatSession()
         }
 
         $scope.chatSession = lastSession;
+        $scope.isFirstMessage = !$scope.chatSession.messages.length;
 
         $scope.$watch("chatSession.messages.length", function() {
             var $chatContainer = $(".chat");
@@ -20,16 +29,50 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
-
         console.log($rootScope.notification);
+        
+        $scope.handleSuccessSending = function() {
+            
+            if (!$scope.chatSession.messages.length) {
+                $scope.chatSession.creatorId = user.uuid;
+            }
+
+            $scope.isFirstMessage = false;
+            // $scope.chatSession.isReplied = $scope.chatSession.messages.length > 1  ? true : false;
+            $scope.errorDescription = "";
+            $scope.chatSession.messages.push({
+                text: $scope.newMessage.text,
+                isOwn: true
+            });
+            console.log("user:");
+            console.log(user);
+        }
+
+        $scope.handleFailedSending = function(errorDescription) {
+            $scope.errorDescription = errorDescription;
+        }
+
+        $scope.closeErrorDescription = function() {
+            $scope.errorDescription = "";
+        }
+
         chat.sendMessage = function() {
-            if (chat.newMessage) {
-                $scope.chatSession.messages.push({
-                    text: chat.newMessage,
-                    isOwn: true
-                });
-                api.sendMessage(chat.newMessage, chat.senderId)
-                chat.newMessage = '';
+            if ($scope.newMessage.text) {
+                // $scope.newMessage.ttl = $scope.chatSession.messages.length >= 1 ? 0 : $scope.newMessage.ttl; 
+                api.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
+                .then(
+                    function() {
+                        $scope.handleSuccessSending();
+                    },
+                    function(res) {
+                        $scope.handleFailedSending(res);
+                    }
+                )
+                .finally(
+                    function() {
+                        $scope.newMessage.clearText();
+                    }
+                )
             }
 
         }

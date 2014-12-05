@@ -15,7 +15,9 @@ body{
 .ta-right {
   text-align: right;
 }
-
+.m0 {
+  margin: 0;
+}
 a {
   color: inherit;
 }

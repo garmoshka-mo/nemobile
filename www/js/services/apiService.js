@@ -105,7 +105,7 @@ services
         addNewChatSession: function(senderId, expires) {
             var _chatSession = angular.extend({}, chatSession)
             _chatSession.messages = [];
-            _chatSession.whenExpires = expires;
+            _chatSession.whenExpires = new Date(expires).getTime();
             _chatSession.isReplied = false;
             _chatSession.expired = false;
             $rootScope.user.chats[senderId].chatSessions.push(_chatSession);
@@ -129,20 +129,26 @@ services
                     if (user.chats[m.sender_uuid]) {
                         console.log("add to existing chat")
                         var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                        
                         if (!lastSession) {
                             self.addNewChatSession(m.sender_uuid, m.expires);
+                            lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession();
+                            lastSession.creatorId = m.sender_uuid; 
                         }
+
                         lastSession.messages.push({
                             text: m.message_text,
                             isOwn: false
                         });
+                        // lastSession.isReplied = lastSession.messages.length > 1 ? true : false;
                     }
                     else {
-                        
                         console.log("created new chat")
                         self.addNewChat(m.sender_uuid)
                         self.addNewChatSession(m.sender_uuid, m.expires)
-                        user.chats[m.sender_uuid].getLastUnexpiredChatSession().messages.push(
+                        var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession();
+                        lastSession.creatorId = m.sender_uuid;
+                        lastSession.messages.push(
                             {
                                 text: m.message_text,
                                 isOwn: false
@@ -156,6 +162,7 @@ services
                     
                     $rootScope.$apply();
                     console.log(m)
+                    console.log("user:")
                     console.log($rootScope.user);
                 }
             })
@@ -166,32 +173,27 @@ services
                 channel: $rootScope.user.channel
             })
         },
-        sendMessage: function(messageText, recepientId) {
-            pubnub.time(
-               function(time){
-                  console.log(time)
-                  console.log(new Date(time * 1000))
-               }
-            );
-            console.log(App.Settings.apiUrl);
-            $http({
+        sendMessage: function(messageText, recepientId, ttl) {
+            ttl = ttl || 86400;
+            return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
                 data: {
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
-                    "ttl": 86400
+                    "ttl": ttl
                 }
             })
             .then(
                 function(res) {
+                    console.log("message is sent");
                     console.log(res)
-                    if (res.data.success) {
+                    if (res.data.success && !res.data.type) {
                         return true;
                     }
                     else {
-                        return $q.reject();
+                        return $q.reject(res.data.type);
                     }
                 },
                 function(res) {
