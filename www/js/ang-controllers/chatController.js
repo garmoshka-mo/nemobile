@@ -60,8 +60,9 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
             if ($scope.newMessage.text) {
                 
                 if (!$scope.chatSession.isReplied) {
-                    $scope.chatSession.creatorId != user.uuid;
-                    $scope.chatSession.isReplied = true;
+                    if ($scope.chatSession.creatorId != user.uuid) { 
+                        $scope.chatSession.isReplied = true;
+                    }
                 }
 
                 if ($scope.chatSession.isReplied) {
