@@ -136,6 +136,11 @@ services
                             lastSession.creatorId = m.sender_uuid; 
                         }
 
+                        if (!lastSession.isReplied) {
+                            if (lastSession.creatorId == $rootScope.user.uuid)
+                            lastSession.isReplied = true;
+                        }
+
                         lastSession.messages.push({
                             text: m.message_text,
                             isOwn: false

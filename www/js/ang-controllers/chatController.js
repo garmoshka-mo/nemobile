@@ -58,7 +58,16 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
 
         chat.sendMessage = function() {
             if ($scope.newMessage.text) {
-                // $scope.newMessage.ttl = $scope.chatSession.messages.length >= 1 ? 0 : $scope.newMessage.ttl; 
+                
+                if (!$scope.chatSession.isReplied) {
+                    $scope.chatSession.creatorId != user.uuid;
+                    $scope.chatSession.isReplied = true;
+                }
+
+                if ($scope.chatSession.isReplied) {
+                    $scope.newMessage.ttl = 0;
+                }
+
                 api.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
                 .then(
                     function() {
