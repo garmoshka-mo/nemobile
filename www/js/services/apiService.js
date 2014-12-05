@@ -179,7 +179,6 @@ services
             })
         },
         sendMessage: function(messageText, recepientId, ttl) {
-            ttl = ttl || 86400;
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
