@@ -106,7 +106,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
- 
+  .state("localForage", {
+    url: "/localForage",
+    views: {
+      "title": {
+        template: "Local Forage Test"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "localForageController",
+        templateUrl: "partials/localForage/content.html"
+      }
+    }
+  })
 });
 
 angular.module("angApp").run(function($rootScope){

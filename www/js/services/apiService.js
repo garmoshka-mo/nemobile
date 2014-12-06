@@ -186,7 +186,7 @@ services
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
-                    "ttl": ttl
+                    "ttl": 86400
                 }
             })
             .then(
