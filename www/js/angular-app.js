@@ -113,7 +113,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Local Forage Test"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/start/menu.html"
       }, 
       "content": {
         controller: "localForageController",
