@@ -2,9 +2,9 @@
     <div class="ta-center" ng-show="isFirstMessage">
         ваше первое сообщение
         <form name="ttl_form">
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="10" checked autocomplete="off">10
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="20" autocomplete="off">20
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="30" autocomplete="off">30
+            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="30" checked autocomplete="off">30
+            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="60" autocomplete="off">60
+            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="90" autocomplete="off">90
         </form>
     </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">

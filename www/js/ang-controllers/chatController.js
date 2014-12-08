@@ -70,8 +70,6 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
                     $scope.newMessage.ttl = 0;
                 }
 
-                $scope.newMessage.ttl = 0;
-
                 api.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
                 .then(
                     function() {

@@ -2,9 +2,11 @@ services
 .factory('api', ['$http', '$q', '$rootScope', 'notification', function ($http, $q, $rootScope, notification) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     console.log("api service is enabled");
+    
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
+
     
     var chat = {
         senderId: null,
@@ -42,6 +44,7 @@ services
             }
         },
     }
+
 
     return {
         signin: function(name, password) {
@@ -92,6 +95,13 @@ services
                 }
             })
         },
+        getPubnubTime: function() {
+            var deferred = $q.defer();
+            pubnub.time(function(time) {
+                deferred.resolve(time)
+            })
+            return deferred.promise;
+        },
         addNewChat: function(senderId) {
             var user = $rootScope.user;
             user.chats[senderId] = angular.extend({}, chat);
@@ -114,7 +124,7 @@ services
             var self = this;
             pubnub.subscribe({
                 channel: channel,
-                message: function(m) {
+                message: function handleMessage(m) {
                     console.log(m);
                     var user = $rootScope.user;
                     var notificationText;
@@ -164,7 +174,10 @@ services
                     notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
                         location.href = "#/chat/" + m.sender_uuid;
                     })
-                    
+                    self.getPubnubTime()
+                    .then(function(time) {
+                        console.log("time to live: " + (new Date(m.expires).getTime() - time / 10000));
+                    })
                     $rootScope.$apply();
                     console.log(m)
                     console.log("user:")
