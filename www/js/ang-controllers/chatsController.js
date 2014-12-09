@@ -1,3 +1,3 @@
-angular.module("angControllers").controller("chatsController", function($rootScope, $scope, $http,$timeout, $cordovaLocalNotification, api, notification){
+angular.module("angControllers").controller("chatsController", function($rootScope, $scope, $http,$timeout, api, notification){
     // api.getUnseenMessages();
 });

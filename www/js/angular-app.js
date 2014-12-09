@@ -1,4 +1,4 @@
-angular.module("angApp", ["ui.router", "angControllers", "angServices", "mm.foundation", "ngCordova"]);
+angular.module("angApp", ["ui.router", "angControllers", "angServices", "mm.foundation", "LocalForageModule"]);
 
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider

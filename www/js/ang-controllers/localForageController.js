@@ -1,4 +1,4 @@
-angular.module("angControllers").controller("localForageController", function($scope, $http, $location, $state, notification){  
+angular.module("angControllers").controller("localForageController", function($scope, $http, $location, $state,$localForage, notification){  
     console.log("localforage is enabled");
     localforage.clear();
     $scope.messages = [];
@@ -25,22 +25,20 @@ angular.module("angControllers").controller("localForageController", function($s
     };
 
     $scope.saveLocal = function() {
-        localforage.clear();
-        localforage.setItem('messages', $scope.messages)
+        $localForage.clear();
+        $localForage.setItem('messages', $scope.messages)
         .then(function() {
             $scope.isMessagesSaved = true;
-            $scope.$apply();
         })
     }
 
     $scope.getRandomMessage = function() {
         var startTime = new Date();
-        localforage.getItem('messages')
+        $localForage.getItem('messages')
         .then(function(res) {
             $scope.randomIndex = Math.round(Math.random() * $scope.messagesAmount);
             $scope.randomMessageText = res[$scope.randomIndex];
             $scope.takenTime = new Date() - startTime;
-            $scope.$apply();
         })
     }
 });
