@@ -34,6 +34,18 @@ services
         clear: function() {
             $rootScope.notification.text = "";
             $rootScope.notification.animated = false;
+        },
+
+        setOSNotification: function(message, title, json, handler) {
+            window.plugin.notification.local.add({
+              id: '1',
+              title: title,
+              message: message,
+              json: JSON.stringify(json)
+            });
+            window.plugin.notification.local.onclick = function(id, state, json) {
+                handler(JSON.parse(json));
+            };
         }
     }
 }])

@@ -45,6 +45,9 @@ services
         },
     }
 
+    function handleOsNotificationClick (params) {
+        location.href = params.href;
+    }
 
     return {
         signin: function(name, password) {
@@ -171,13 +174,22 @@ services
                         );
                     }
 
-                    notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
-                        location.href = "#/chat/" + m.sender_uuid;
-                    })
+
+                    if ($rootScope.isAppInBackground) {
+                        notification.setOSNotification(m.message_text, notificationText, {"href": "#/chat/" + m.sender_uuid},
+                        handleOsNotificationClick);
+                    }
+                    else {
+                        notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
+                            location.href = "#/chat/" + m.sender_uuid;
+                        })
+                    }
+
                     self.getPubnubTime()
                     .then(function(time) {
                         console.log("time to live: " + (new Date(m.expires).getTime() - time / 10000));
                     })
+                    
                     $rootScope.$apply();
                     console.log(m)
                     console.log("user:")

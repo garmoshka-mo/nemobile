@@ -1,4 +1,4 @@
-angular.module("angApp", ["ui.router", "angControllers", "angServices", "mm.foundation"]);
+angular.module("angApp", ["ui.router", "angControllers", "angServices", "mm.foundation", "ngCordova"]);
 
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider

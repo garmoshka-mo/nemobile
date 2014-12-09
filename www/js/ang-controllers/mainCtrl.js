@@ -1,4 +1,14 @@
-angular.module("angControllers").controller("mainCtrl", function($scope, $http, $location, $state, notification){
+angular.module("angControllers").controller("mainCtrl", function($rootScope, $scope, $http, $location, $state, notification){
+  
+  $rootScope.isAppInBackground = false;
+
+  document.addEventListener("pause", function() {
+     $rootScope.isAppInBackground = true;
+  });
+  document.addEventListener("resume", function() {
+     $rootScope.isAppInBackground = false;
+  });
+
   $scope.$on("getUnseenMessages", function(e,d){
     $scope.getUnseenMessages(d.channel, d.timestamp);
   });
