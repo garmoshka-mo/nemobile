@@ -1,4 +1,4 @@
-angular.module("angControllers").controller("localForageController", function($scope, $http, $location, $state,$localForage, notification){  
+angular.module("angControllers").controller("localForageController", function($scope, $http, $location, $state, $localForage, notification){  
     console.log("localforage is enabled");
     localforage.clear();
     $scope.messages = [];

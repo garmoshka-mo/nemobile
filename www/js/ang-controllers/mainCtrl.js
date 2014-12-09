@@ -9,6 +9,15 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
      $rootScope.isAppInBackground = false;
   });
 
+  $scope.openMenu = function() {
+    console.log("swipped");
+    $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
+  }
+
+  $scope.closeMenu = function() {
+    console.log("swipped");
+    $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
+  }
   $scope.$on("getUnseenMessages", function(e,d){
     $scope.getUnseenMessages(d.channel, d.timestamp);
   });
