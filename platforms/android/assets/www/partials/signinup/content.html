@@ -1,0 +1,29 @@
+<div class="loginRegisterForm">
+  <form name="registration_form" novalidate>
+    <div class="width-92 inline-block">
+      <!--  <label for="reg_user_name">Имя</label> -->
+        <input id="reg_user_name" name="name" type="text" ng-model="newUser.name" placeholder="Имя" required>
+    </div>
+    <div class="width-92 inline-block">
+     <!--    <label for="reg_user_password">Пароль</label> -->
+        <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" required> 
+    </div>
+    <div class="width-92 inline-block" ng-show="isIn">
+        <a data-role="button" ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner">
+            <span ng-show="!showSpinner">Войти</span>
+            <i class="fa fa-circle-o-notch fa-spin" ng-show="showSpinner"></i>
+        </a>
+    </div>
+    <div class="width-92 inline-block" ng-show="!isIn">
+        <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner">
+            <span ng-show="!showSpinner">Зарегистрироваться</span>
+            <i class="fa fa-circle-o-notch fa-spin" ng-show="showSpinner"></i>
+        </a>
+    </div>
+    <div ng-show="serverResponse" data-alert class="alert-box warning">
+        <span ng-bind="serverResponse"></span>
+        <span ng-click="closeServerResponse()" class="close">&times;</span>
+    </div>
+      
+  </form>
+</div>
