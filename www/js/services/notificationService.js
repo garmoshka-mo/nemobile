@@ -44,7 +44,9 @@ services
               json: JSON.stringify(json)
             });
             window.plugin.notification.local.onclick = function(id, state, json) {
-                handler(JSON.parse(json));
+                if (handler) {
+                    handler(JSON.parse(json));
+                }
             };
         }
     }
