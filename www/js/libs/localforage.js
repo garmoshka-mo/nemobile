@@ -12,8 +12,7 @@
     // Originally found in https://github.com/mozilla-b2g/gaia/blob/e8f624e4cc9ea945727278039b3bc9bcb9f8667a/shared/js/async_storage.js
 
     // Promises!
-    var Promise = (typeof module !== 'undefined' && module.exports) ?
-                  require('promise') : this.Promise;
+    window.Promise = RSVP.Promise;
 
     // Initialize IndexedDB; fall back to vendor-prefixed versions if needed.
     var indexedDB = indexedDB || this.indexedDB || this.webkitIndexedDB ||
@@ -1767,14 +1766,12 @@
         return ready;
     };
 
-    LocalForage.prototype.setDriver = function(drivers, callback,
-                                               errorCallback) {
+    LocalForage.prototype.setDriver = function(drivers, callback, errorCallback) {
         var self = this;
 
         if (typeof drivers === 'string') {
             drivers = [drivers];
         }
-
         this._driverSet = new Promise(function(resolve, reject) {
             var driverName = self._getFirstSupportedDriver(drivers);
             var error = new Error('No available storage method found.');
