@@ -42,7 +42,8 @@ services
               title: title,
               message: message,
               json: JSON.stringify(json),
-              // sound: 'audio/notification.mp3'
+              autoCancel: true,
+              sound: '/www/audio/notification.mp3'
             });
             window.plugin.notification.local.onclick = function(id, state, json) {
                 if (handler) {
