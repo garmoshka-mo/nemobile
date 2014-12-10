@@ -143,6 +143,9 @@ a.button:hover{
   min-height: 0px !important;
 }
 
+.block-center {
+  margin: 0 auto;
+}
 
 .modal-button{
   padding: 1rem;

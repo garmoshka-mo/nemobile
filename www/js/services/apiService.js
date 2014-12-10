@@ -49,6 +49,28 @@ services
         location.href = params.href;
     }
 
+    function showNotification(user, message) {
+        var notificationText;
+        var m = message;
+        
+        if (user.friends[m.sender_uuid]) {
+            notificationText = user.friends[m.sender_uuid].name;    
+        }
+        else {
+            notificationText = "Новое сообщение";
+        }
+
+        if ($rootScope.isAppInBackground) {
+            notification.setOSNotification(m.message_text, notificationText, {"href": "#/chat/" + m.sender_uuid},
+            handleOsNotificationClick);
+        }
+        else {
+            notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
+                location.href = "#/chat/" + m.sender_uuid;
+            })
+        }
+    }
+
     return {
         signin: function(name, password) {
             return $http({
@@ -130,15 +152,7 @@ services
                 message: function handleMessage(m) {
                     console.log(m);
                     var user = $rootScope.user;
-                    var notificationText;
-
-                    if (user.friends[m.sender_uuid]) {
-                        notificationText = user.friends[m.sender_uuid].name;    
-                    }
-                    else {
-                        notificationText = "Новое сообщение";
-                    }
-
+                    
                     if (user.chats[m.sender_uuid]) {
                         console.log("add to existing chat")
                         var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
@@ -174,17 +188,8 @@ services
                         );
                     }
 
-
-                    if ($rootScope.isAppInBackground) {
-                        notification.setOSNotification(m.message_text, notificationText, {"href": "#/chat/" + m.sender_uuid},
-                        handleOsNotificationClick);
-                    }
-                    else {
-                        notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
-                            location.href = "#/chat/" + m.sender_uuid;
-                        })
-                    }
-
+                    showNotification(user, m);
+                    
                     self.getPubnubTime()
                     .then(function(time) {
                         console.log("time to live: " + (new Date(m.expires).getTime() - time / 10000));
