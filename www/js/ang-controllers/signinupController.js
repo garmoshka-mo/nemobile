@@ -1,4 +1,6 @@
-angular.module("angControllers").controller("signinupController", ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', function($rootScope, $scope, $state, $stateParams, $q, api, notification) {
+angular.module("angControllers").controller("signinupController", 
+    ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 
+    function($rootScope, $scope, $state, $stateParams, $q, api, notification, storage) {
     
     console.log("sign in is invoked");
 
@@ -17,17 +19,17 @@ angular.module("angControllers").controller("signinupController", ['$rootScope',
         $rootScope.user.channel = userInfo.channel_name;
         $rootScope.user.uuid = userInfo.uuid
 
-        var userDataInLS = api.getUserFromLS(userInfo.uuid);
-        if (userDataInLS) {
+        if (false) {
             $rootScope.user.chats = angular.extend({}, userDataInLS.chats) 
             $rootScope.user.friends = angular.extend({}, userDataInLS.friends) 
         }
         else {
-            api.addNewFriend("5bc1a59a-7402-11e4-9759-86a7bd11e1af", "david")
-            api.addNewChat("5bc1a59a-7402-11e4-9759-86a7bd11e1af")
         }
 
         api.subscribe($rootScope.user.channel);
+        // localStorage.setItem('isLogged', true); commented for debugging
+        storage.saveUser();
+        storage.saveFriends();
         console.log($rootScope.user);
         $state.go('chats');
     }

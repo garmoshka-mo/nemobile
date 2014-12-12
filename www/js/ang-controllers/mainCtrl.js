@@ -1,5 +1,7 @@
-angular.module("angControllers").controller("mainCtrl", function($rootScope, $scope, $http, $location, $state, notification){
+angular.module("angControllers").controller("mainCtrl", function($rootScope, $scope, $http, $location, $state, notification, api, storage){
   
+  console.log('main controller is invoked')
+
   $rootScope.isAppInBackground = false;
 
   document.addEventListener("pause", function() {
@@ -21,9 +23,48 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
     console.log("swipe close");
     $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
   }
+  
   $scope.$on('$stateChangeStart',
     function(evt, toState, toParams, fromState, fromParams) {
     notification.clear();
   });
+
+  $scope.getDataFromStorage = function() {
+    storage.getUser()
+    .then(function(res) {
+      $rootScope.user = res;
+      console.log('user data is taken from storage');
+      api.subscribe($rootScope.user.channel);
+    })
+    .then(function() {
+      storage.getFriends()
+      .then(function(res) {
+        $rootScope.user.friends = res;
+      })
+    })
+    .then(function(){
+      storage.getChats()
+      .then(function(res) {
+        $rootScope.user.chats = res;
+      })
+    })
+    .then(function() {
+      console.log($rootScope.user);
+    })
+  }
+
+
+  $scope.isLogged = function() {
+    return !!localStorage.getItem('isLogged')
+  }
+
+  // if ($scope.isLogged()) {
+  //     $scope.getDataFromStorage();
+  //     $state.go('chats');
+  //   }
+  //   else {
+  //     $state.go('start');
+  //   }
+
 
 });

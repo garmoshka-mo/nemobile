@@ -1,5 +1,5 @@
 services
-.factory('api', ['$http', '$q', '$rootScope', 'notification', function ($http, $q, $rootScope, notification) {
+.factory('api', ['$http', '$q', '$rootScope', 'notification', 'storage', function ($http, $q, $rootScope, notification, storage) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     console.log("api service is enabled");
     
@@ -12,13 +12,17 @@ services
         senderId: null,
         
         getLastUnexpiredChatSession: function() {
-            for (var i = 0; i < this.chatSessions.length; i++) {
-                if (!this.chatSessions[i].expired) {
-                    return this.chatSessions[i]
-                }
-                else {
-                    return false
-                }
+            
+            if (this.lastChatSessionIndex !== undefined) {
+                var lastChatSession = this.chatSessions[this.lastChatSessionIndex.toString()]
+            }
+
+            if (lastChatSession) {
+                return lastChatSession;
+            }
+
+            else {
+
             }
         },
 
@@ -34,7 +38,7 @@ services
 
     var chatSession = {
         isReplied: false,
-        expired: false,
+        isExpired: false,
         whenExpires: null,
 
         getLastMessage: function() {
@@ -130,8 +134,9 @@ services
         addNewChat: function(senderId) {
             var user = $rootScope.user;
             user.chats[senderId] = angular.extend({}, chat);
-            user.chats[senderId].chatSessions = [];
+            user.chats[senderId].chatSessions = {};
             user.chats[senderId].senderId = senderId;
+            storage.saveChats();
         },
         addNewFriend: function(friendUuid, name) {
             var user = $rootScope.user;
@@ -139,11 +144,34 @@ services
         },
         addNewChatSession: function(senderId, expires) {
             var _chatSession = angular.extend({}, chatSession)
+            var currentChat =  $rootScope.user.chats[senderId];
+            var lastChatSessionIndex = currentChat.lastChatSessionIndex;
+
             _chatSession.messages = [];
             _chatSession.whenExpires = new Date(expires).getTime();
             _chatSession.isReplied = false;
             _chatSession.expired = false;
-            $rootScope.user.chats[senderId].chatSessions.push(_chatSession);
+
+            if (lastChatSessionIndex) {
+                var newIndex = lastChatSessionIndex + 1;
+                _chatSession.id = newIndex;
+                currentChat.lastChatSessionIndex = newIndex;
+                currentChat.chatSessionsIndexes.push(newIndex);
+                currentChat.chatSession[newIndex] = _chatSession;
+            }
+            else {
+                console.log("first chatSession in chat is created")
+                _chatSession.id = 0;
+                currentChat.lastChatSessionIndex = 0;
+                currentChat.chatSessionsIndexes = [];
+                currentChat.chatSessionsIndexes.push(0);
+                currentChat.chatSessions["0"] = _chatSession;
+            }
+            console.log("user after adding new chatSeesion");
+            console.log($rootScope.user);
+            storage.saveChats();
+            
+            
         },
         subscribe: function(channel) {
             var self = this;
@@ -187,14 +215,13 @@ services
                             }
                         );
                     }
-
+                    storage.saveChatSession(lastSession, m.sender_uuid);
                     showNotification(user, m);
                     
                     self.getPubnubTime()
                     .then(function(time) {
                         console.log("time to live: " + (new Date(m.expires).getTime() - time / 10000));
                     })
-                    
                     $rootScope.$apply();
                     console.log(m)
                     console.log("user:")
@@ -216,7 +243,7 @@ services
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
-                    "ttl": 86400
+                    "ttl": ttl
                 }
             })
             .then(
@@ -245,20 +272,6 @@ services
                         }
                     }
                 );
-        },
-
-        getUserFromLS: function(uuid) {
-            var user = JSON.parse(window.localStorage.getItem(uuid));
-            if (user) {
-                for (_chat in user.chats) {
-                    user.chats[_chat] = angular.extend(user.chats[_chat], chat);
-                }
-            }
-            return user;
-        },
-
-        saveUserInLS: function() {
-            window.localStorage.setItem($rootScope.user.uuid, JSON.stringify($rootScope.user))
         },
 
         searchUser: function(userName) {

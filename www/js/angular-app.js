@@ -12,7 +12,8 @@ angular.module("angApp").config(function($stateProvider) {
         templateUrl: "partials/start/menu.html"
       },
       "content": {
-        templateUrl: "partials/start/content.html"
+        templateUrl: "partials/start/content.html",
+        controller: "startController"
       }
     }
   })

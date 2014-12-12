@@ -2,6 +2,7 @@ angular.module("angControllers").controller("exitController", ['$rootScope','$sc
     $scope.exit = function() {
         // api.saveUserInLS();
         api.unsubscribe();
+        localStorage.setItem('isLogged', false);
         $state.go('start');
     }
 }])

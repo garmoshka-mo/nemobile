@@ -26,6 +26,7 @@
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
     <preference name="fullscreen" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
     <gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
     <gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
