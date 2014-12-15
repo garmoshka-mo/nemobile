@@ -1,20 +1,23 @@
 services
-.factory('objects', ['$rootScope', function($rootScope) {
+.factory('objects', ['$rootScope', 'storage', function($rootScope, storage) {
     return { 
         chat: {
-            senderId: null,
-            
             getLastUnexpiredChatSession: function() {
-                
+                var found = false;
+                var self = this;
+
                 if (this.lastChatSessionIndex !== undefined) {
-                    var lastChatSession = this.chatSessions[this.lastChatSessionIndex.toString()]
+                    this.lastChatSession = this.chatSessions[this.lastChatSessionIndex];
+                    found = this.lastChatSession ? true : false;
                 }
 
-                if (lastChatSession) {
-                    return lastChatSession;
-                }
-                else {
-                    // storage.getChatSession(this.senderId, this.lastChatSessionIndex)
+                if (!found) {
+                    storage.getChatSession(this.senderId, this.lastChatSessionIndex)
+                    .then(function(chatSession) {
+                        self.lastChatSession = chatSession;
+                        self.chatSessions[self.lastChatSessionIndex] = chatSession;
+                        console.log($rootScope.user);
+                    })
                 }
             },
 

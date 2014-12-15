@@ -1,8 +1,8 @@
-angular.module("angControllers").controller("exitController", ['$rootScope','$scope', '$state','api', function($rootScope, $scope, $state, api) {
+angular.module("angControllers").controller("exitController", ['$rootScope','$scope', '$state','api', 'storage', function($rootScope, $scope, $state, api, storage) {
     $scope.exit = function() {
         // api.saveUserInLS();
         api.unsubscribe();
-        localStorage.setItem('isLogged', false);
+        storage.clear();
         $state.go('start');
     }
 }])

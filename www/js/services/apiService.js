@@ -1,54 +1,12 @@
 services
-.factory('api', ['$http', '$q', '$rootScope', 'notification', 'storage', function ($http, $q, $rootScope, notification, storage) {
+.factory('api', ['$http', '$q', '$rootScope', 'notification', 'objects','storage', function ($http, $q, $rootScope, notification, objects, storage) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     console.log("api service is enabled");
     
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
-
     
-    var chat = {
-        senderId: null,
-        
-        getLastUnexpiredChatSession: function() {
-            
-            if (this.lastChatSessionIndex !== undefined) {
-                var lastChatSession = this.chatSessions[this.lastChatSessionIndex.toString()]
-            }
-
-            if (lastChatSession) {
-                return lastChatSession;
-            }
-
-            else {
-
-            }
-        },
-
-        getChatTitle: function() {
-            if ($rootScope.user.friends[this.senderId]) {
-                return $rootScope.user.friends[this.senderId].name;
-            }
-            else {
-                return this.senderId;
-            }
-        }
-    }
-
-    var chatSession = {
-        isReplied: false,
-        isExpired: false,
-        whenExpires: null,
-
-        getLastMessage: function() {
-            if (this.messages.length) {
-                var messagesAmount = this.messages.length;
-                return this.messages[messagesAmount - 1].text;
-            }
-        },
-    }
-
     function handleOsNotificationClick (params) {
         location.href = params.href;
     }
@@ -124,26 +82,34 @@ services
                 }
             })
         },
-        getPubnubTime: function() {
-            var deferred = $q.defer();
-            pubnub.time(function(time) {
-                deferred.resolve(time)
+        getServerTime: function() {
+            return $http({
+                method: 'GET',
+                url: App.Settings.apiUrl + '//time?access_token=' + $rootScope.user.accessToken ,
             })
-            return deferred.promise;
+            .then(
+                function(res) {
+                    return res.data.origin_time;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
         },
         addNewChat: function(senderId) {
             var user = $rootScope.user;
-            user.chats[senderId] = angular.extend({}, chat);
+            user.chats[senderId] = angular.extend({}, objects.chat);
             user.chats[senderId].chatSessions = {};
             user.chats[senderId].senderId = senderId;
             storage.saveChats();
         },
         addNewFriend: function(friendUuid, name) {
             var user = $rootScope.user;
-            $rootScope.user.friends[friendUuid] = {name: name}
+            $rootScope.user.friends[friendUuid] = {name: name};
+            storage.saveFriends();
         },
         addNewChatSession: function(senderId, expires) {
-            var _chatSession = angular.extend({}, chatSession)
+            var _chatSession = angular.extend({}, objects.chatSession)
             var currentChat =  $rootScope.user.chats[senderId];
             var lastChatSessionIndex = currentChat.lastChatSessionIndex;
 
@@ -167,6 +133,7 @@ services
                 currentChat.chatSessionsIndexes.push(0);
                 currentChat.chatSessions["0"] = _chatSession;
             }
+
             console.log("user after adding new chatSeesion");
             console.log($rootScope.user);
             storage.saveChats();
@@ -183,11 +150,13 @@ services
                     
                     if (user.chats[m.sender_uuid]) {
                         console.log("add to existing chat")
-                        var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                        user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                        var lastSession = user.chats[m.sender_uuid].lastChatSession; 
                         
                         if (!lastSession) {
                             self.addNewChatSession(m.sender_uuid, m.expires);
-                            lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession();
+                            user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                            lastSession = user.chats[m.sender_uuid].lastChatSession;
                             lastSession.creatorId = m.sender_uuid; 
                         }
 
@@ -206,7 +175,8 @@ services
                         console.log("created new chat")
                         self.addNewChat(m.sender_uuid)
                         self.addNewChatSession(m.sender_uuid, m.expires)
-                        var lastSession = user.chats[m.sender_uuid].getLastUnexpiredChatSession();
+                        user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                        var lastSession = user.chats[m.sender_uuid].lastChatSession;
                         lastSession.creatorId = m.sender_uuid;
                         lastSession.messages.push(
                             {
@@ -218,9 +188,10 @@ services
                     storage.saveChatSession(lastSession, m.sender_uuid);
                     showNotification(user, m);
                     
-                    self.getPubnubTime()
+                    self.getServerTime()
                     .then(function(time) {
-                        console.log("time to live: " + (new Date(m.expires).getTime() - time / 10000));
+                        console.log(time);
+                        console.log("time to live: " + (new Date(m.expires).getTime() - time * 1000));
                     })
                     $rootScope.$apply();
                     console.log(m)
@@ -243,7 +214,7 @@ services
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
-                    "ttl": ttl
+                    "ttl": 86400
                 }
             })
             .then(

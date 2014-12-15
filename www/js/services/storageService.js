@@ -1,13 +1,12 @@
 //for debugging  
-window.clearAll = function() {
-    localforage.clear();
-    localStorage.clear();
-}
+
 services
-.factory('storage', ['$rootScope', '$localForage', 'objects', function($rootScope, $localForage, objects) {
-    return {
+.factory('storage', ['$rootScope', '$localForage', function($rootScope, $localForage) {
+       
+    var storage = {
         
         clear: function() {
+            localStorage.clear();
             $localForage.clear();
         },
         
@@ -20,9 +19,9 @@ services
             .then(
                 function(res) {
                     for (var key in res) { 
-                        angular.extend(res[key], objects.chat)
+                        angular.extend(res[key], objects.chat);
+                        res[key].chatSessions = {}
                     }
-                    res.chatSessions = {};
                     return res;
                 },
                 function() {
@@ -37,10 +36,10 @@ services
 
         getChatSession: function(senderId, index) {
             var key = "chatSession_" + senderId + "_" + index;
-            return $localforage.getItem(key)
+            return $localForage.getItem(key).then(function(chatSession) {
+                return angular.extend(chatSession, objects.chatSession);
+            })
         },
-
-      
 
         saveUser: function() {
             var user = $rootScope.user;
@@ -80,4 +79,51 @@ services
         } 
 
     }
+    
+    var objects = { 
+        chat: {
+            getLastUnexpiredChatSession: function() {
+                var found = false;
+                var self = this;
+
+                if (this.lastChatSessionIndex !== undefined) {
+                    this.lastChatSession = this.chatSessions[this.lastChatSessionIndex.toString()];
+                    found = this.lastChatSession ? true : false;
+                }
+
+                if (!found) {
+                    storage.getChatSession(this.senderId, this.lastChatSessionIndex)
+                    .then(function(chatSession) {
+                        self.lastChatSession = chatSession;
+                        self.chatSessions[self.lastChatSessionIndex] = chatSession;
+                        console.log($rootScope.user);
+                    })
+                }
+            },
+
+            getChatTitle: function() {
+                if ($rootScope.user.friends[this.senderId]) {
+                    return $rootScope.user.friends[this.senderId].name;
+                }
+                else {
+                    return this.senderId;
+                }
+            }
+        },
+
+        chatSession: {
+            isReplied: false,
+            isExpired: false,
+            whenExpires: null,
+
+            getLastMessage: function() {
+                if (this.messages.length) {
+                    var messagesAmount = this.messages.length;
+                    return this.messages[messagesAmount - 1].text;
+                }
+            }
+        }
+
+    };
+    return storage;   
 }])

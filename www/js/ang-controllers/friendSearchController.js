@@ -15,9 +15,14 @@ angular.module("angControllers").controller("friendSearchController", function($
                 console.error("friend search error")
             }
         )
-        .finally(function() {
-            $scope.showSpinner = false;
-        })
+        .then(
+            function() {
+                $scope.showSpinner = false;
+            },
+            function() {
+                $scope.showSpinner = false;
+            }
+        )
     }
 
     $scope.handleSearchResults = function(res) {
@@ -50,4 +55,4 @@ angular.module("angControllers").controller("friendSearchController", function($
         $scope.serverResponse = "пользователь добавлен";
         console.log($rootScope.user);
     } 
-});
+})

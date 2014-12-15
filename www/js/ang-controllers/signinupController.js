@@ -62,7 +62,10 @@ angular.module("angControllers").controller("signinupController",
                     }
                 )
         })
-        .finally(
+        .then(
+            function() {
+                $scope.showSpinner = false;
+            },
             function() {
                 $scope.showSpinner = false;
             }
@@ -81,7 +84,10 @@ angular.module("angControllers").controller("signinupController",
                 $scope.serverResponse = res.errorDescription;
             }
         )
-        .finally(
+        .then(
+            function() {
+                $scope.showSpinner = false;
+            },
             function() {
                 $scope.showSpinner = false;
             }

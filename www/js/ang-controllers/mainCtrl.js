@@ -46,10 +46,10 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
       storage.getChats()
       .then(function(res) {
         $rootScope.user.chats = res;
+        console.log($rootScope.user);
       })
     })
     .then(function() {
-      console.log($rootScope.user);
     })
   }
 
@@ -58,13 +58,15 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
     return !!localStorage.getItem('isLogged')
   }
 
-  // if ($scope.isLogged()) {
-  //     $scope.getDataFromStorage();
-  //     $state.go('chats');
-  //   }
-  //   else {
-  //     $state.go('start');
-  //   }
+
+
+  if ($scope.isLogged()) {
+      $scope.getDataFromStorage();
+      $state.go('chats');
+    }
+    else {
+      $state.go('start');
+    }
 
 
 });

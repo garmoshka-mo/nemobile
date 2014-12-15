@@ -1,10 +1,11 @@
 angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', function($rootScope, $scope, $stateParams, $state, api, notification) {
-
         var user = $rootScope.user;
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
-        var lastSession = chat.getLastUnexpiredChatSession();
-        
+        chat.getLastUnexpiredChatSession();
+        var lastSession = chat.lastChatSession;
+        console.log(chat);
+                
         $scope.newMessage = {
             text: '',
             ttl: 10,
@@ -15,7 +16,8 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         
         if (!lastSession) {
             api.addNewChatSession(chat.senderId)
-            lastSession = chat.getLastUnexpiredChatSession()
+            chat.getLastUnexpiredChatSession();
+            lastSession = chat.lastChatSession;
             lastSession.creatorId = user.uuid;
         }
 
@@ -79,7 +81,10 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
                         $scope.handleFailedSending(res);
                     }
                 )
-                .finally(
+                .then( //doubling function because .finally doesn't work on android 2.2
+                    function() {
+                        $scope.newMessage.clearText();
+                    },
                     function() {
                         $scope.newMessage.clearText();
                     }
