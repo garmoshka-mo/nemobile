@@ -27,6 +27,7 @@ angular.module("angControllers").controller("friendSearchController", function($
 
     $scope.handleSearchResults = function(res) {
         console.log(res)
+        $scope.foundUuid = "";
         var results = res.search_results[0];
         if (results.type) {
             $scope.canBeAdded = false;

@@ -19,4 +19,5 @@
 
 <div class="ta-center" ng-show="!canBeAdded">
     <span ng-bind="serverResponse"></span><br>
+    <a ng-show="foundUuid" ng-href="#/chat/{{foundUuid}}"><button>перейти к чату</button></a> 
 </div>
