@@ -27,7 +27,7 @@ angular.module("angControllers").controller("signinupController",
         }
 
         api.subscribe($rootScope.user.channel);
-        // localStorage.setItem('isLogged', true); commented for debugging
+        localStorage.setItem('isLogged', true);
         storage.saveUser();
         storage.saveFriends();
         console.log($rootScope.user);
