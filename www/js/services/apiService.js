@@ -201,8 +201,7 @@ services
             })
         },
         unsubscribe:function() {
-            pubnub.unsubscribe(
-            {
+            pubnub.unsubscribe({
                 channel: $rootScope.user.channel
             })
         },

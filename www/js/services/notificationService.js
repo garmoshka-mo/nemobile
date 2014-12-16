@@ -42,8 +42,8 @@ services
               title: title,
               message: message,
               json: JSON.stringify(json),
-              autoCancel: true,
-              sound: 'android.resource://Chat/raw/notification'
+              autoCancel: true
+              // sound: 'android.resource://Chat/raw/notification'
             });
             window.plugin.notification.local.onclick = function(id, state, json) {
                 if (handler) {
