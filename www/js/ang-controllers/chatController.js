@@ -3,8 +3,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
         chat.getLastUnexpiredChatSession();
-        var lastSession = chat.lastChatSession;
-        console.log(chat);
+        var lastSession = chat.lastUnexpiredChatSession;
                 
         $scope.newMessage = {
             text: '',
@@ -17,7 +16,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         if (!lastSession) {
             api.addNewChatSession(chat.senderId)
             chat.getLastUnexpiredChatSession();
-            lastSession = chat.lastChatSession;
+            lastSession = chat.lastUnexpiredChatSession;
             lastSession.creatorId = user.uuid;
         }
 

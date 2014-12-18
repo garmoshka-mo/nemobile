@@ -1,9 +1,10 @@
 angular.module("angControllers").controller("signinupController", 
-    ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 
-    function($rootScope, $scope, $state, $stateParams, $q, api, notification, storage) {
+    ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 'User', 
+    function($rootScope, $scope, $state, $stateParams, $q, api, notification, storage, User) {
     
     console.log("sign in is invoked");
-
+   
+    $scope.newUser = {};
     $scope.showSpinner = false;
     $scope.isIn = $stateParams.inOrUp == "in" ? true : false;
 
@@ -39,11 +40,7 @@ angular.module("angControllers").controller("signinupController",
         api.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function setAccesssToken(res) {
-                $rootScope.user = {
-                    accessToken: res.accessToken,
-                    friends: {},
-                    chats: {}
-                }
+                $rootScope.user = new User(res.accessToken);
             },
             function showError(res) {
                 $scope.serverResponse = res.errorDescription;

@@ -1,4 +1,4 @@
-angular.module("angApp", ["ui.router", "angControllers", "angServices", "mm.foundation", "LocalForageModule", "ngTouch"]);
+angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch"]);
 
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider
@@ -158,3 +158,4 @@ angular.module("angApp").run(function($rootScope){
 
 angular.module("angControllers", []);
 var services = angular.module("angServices", []);
+var factories = angular.module("angFactories", []);

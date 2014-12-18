@@ -1,7 +1,7 @@
 //for debugging  
 
 services
-.factory('storage', ['$rootScope', '$localForage', function($rootScope, $localForage) {
+.factory('storage', ['$rootScope', '$localForage', '$timeout', function($rootScope, $localForage, $timeout) {
        
     var storage = {
         
@@ -37,7 +37,9 @@ services
         getChatSession: function(senderId, index) {
             var key = "chatSession_" + senderId + "_" + index;
             return $localForage.getItem(key).then(function(chatSession) {
-                return angular.extend(chatSession, objects.chatSession);
+                angular.extend(chatSession, objects.chatSession);
+                chatSession.getCurrentChat();
+                return chatSession;
             })
         },
 
@@ -71,30 +73,50 @@ services
         saveChatSession: function(chatSessionObj, senderId) {
             var _chatSession = {};
             for (var key in chatSessionObj) {
-                if (typeof chatSessionObj[key] != "function") {
+                var notToCopyProperties = ['timer', 'currentChat'];
+                if (typeof chatSessionObj[key] != "function" && notToCopyProperties.indexOf(key) == -1) {
                     _chatSession[key] = chatSessionObj[key];
                 }
             }
-            $localForage.setItem('chatSession_' + senderId + "_" + chatSessionObj.id, _chatSession);
+            $localForage.setItem('chatSession_' + senderId + "_" + chatSessionObj.id, _chatSession)
+            .then(
+                function(res){
+                    console.log(res);
+                },
+                function(res){
+                    console.log(res);
+                }
+            )
+        },
+
+        removeChatSession: function(senderId, index) {
+            var key = "chatSession_" + senderId + "_" + index;
+            $localForage.removeItem(key);
         } 
 
     }
     
     var objects = { 
         chat: {
+            isExpired: false,
+
             getLastUnexpiredChatSession: function() {
                 var found = false;
                 var self = this;
 
+                if (this.isExpired) {
+                    return false;
+                }
+
                 if (this.lastChatSessionIndex !== undefined) {
-                    this.lastChatSession = this.chatSessions[this.lastChatSessionIndex.toString()];
-                    found = this.lastChatSession ? true : false;
+                    this.lastUnexpiredChatSession = this.chatSessions[this.lastChatSessionIndex];
+                    found = this.lastUnexpiredChatSession ? true : false;
                 }
 
                 if (!found) {
                     storage.getChatSession(this.senderId, this.lastChatSessionIndex)
                     .then(function(chatSession) {
-                        self.lastChatSession = chatSession;
+                        self.lastUnexpiredChatSession = chatSession;
                         self.chatSessions[self.lastChatSessionIndex] = chatSession;
                         console.log($rootScope.user);
                     })
@@ -108,13 +130,73 @@ services
                 else {
                     return this.senderId;
                 }
+            },
+
+            remove: function() {
+                var chats = $rootScope.chats;
+                var _chats = {};
+                for (var senderId in chats) {
+                    if (this.senderId = senderId) continue;
+                    else {
+                        _chats[senderId] = chats[senderId];
+                    }
+                }
+                $rootScope.chats = _chats;
+            },
+
+            handleExpiredChatSession: function() {
+                storage.saveChatSession(this.senderId, this.lastChatSessionIndex);
+                this.lastUnexpiredChatSession = null;
+                this.isExpired = true;
+                console.log("chatSession is sent to archive");
+            },
+
+            removeLastChatSession: function() {
+                if (this.chatSessionsIndexes.length == 1) {
+                    this.remove();
+                }
+                storage.removeChatSession(this.senderId, this.lastChatSessionIndex);
+                this.chatSessionsIndexes.pop();
+                this.lastUnexpiredChatSession = null;
+                this.isExpired = true;
+                console.log("chatSession is removed");
             }
         },
 
         chatSession: {
             isReplied: false,
             isExpired: false,
-            whenExpires: null,
+            timer: null,
+
+            closeChatSession: function() {
+                this.isExpired = true;
+                
+                if (this.isReplied) {
+                    this.currentChat.handleExpiredChatSession();
+                    var lastMessageIndex = this.messages.length;
+                    this.messages.splice(lastMessageIndex, 1);
+                }
+                else {
+                    this.currentChat.removeLastChatSession();
+                }
+
+                console.warn("chat is expired");
+            },
+
+            getCurrentChat: function() {
+                this.currentChat = $rootScope.user.chats[this.senderId];
+            },
+            
+            setTimer: function(time) {
+                var self = this;
+                console.log("time in SetTimer func" + time);
+                if (this.timer) {
+                    $timeout.cancel(this.timer);
+                }
+                this.timer = $timeout(function() {
+                    self.closeChatSession()
+                }, time)
+            },
 
             getLastMessage: function() {
                 if (this.messages.length) {

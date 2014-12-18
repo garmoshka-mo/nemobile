@@ -11,6 +11,8 @@ services
         location.href = params.href;
     }
 
+    var deviceServerTimeDifference_msec;
+
     function showNotification(user, message) {
         var notificationText;
         var m = message;
@@ -33,7 +35,14 @@ services
         }
     }
 
-    return {
+    function calculateMessageTtl(message) {
+        var currentServerTime = new Date().getTime() + deviceServerTimeDifference_msec;
+        var ttl = message.expires * 1000 - currentServerTime;
+        console.log("time to live(sec): " +  ttl / 1000);
+        return ttl;
+    }
+
+    var api = {
         signin: function(name, password) {
             return $http({
                 method: 'POST',
@@ -96,6 +105,13 @@ services
                 }
             )
         },
+        getTimeDifference: function() {
+            return api.getServerTime()
+            .then(function(time) {
+                deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
+                console.log(deviceServerTimeDifference_msec);
+            })
+        },
         addNewChat: function(senderId) {
             var user = $rootScope.user;
             user.chats[senderId] = angular.extend({}, objects.chat);
@@ -113,10 +129,13 @@ services
             var currentChat =  $rootScope.user.chats[senderId];
             var lastChatSessionIndex = currentChat.lastChatSessionIndex;
 
+            currentChat.isExpired = false;
+
             _chatSession.messages = [];
-            _chatSession.whenExpires = new Date(expires).getTime();
             _chatSession.isReplied = false;
-            _chatSession.expired = false;
+            _chatSession.isExpired = false;
+            _chatSession.currentChat = currentChat;
+            _chatSession.senderId = senderId;
 
             if (lastChatSessionIndex) {
                 var newIndex = lastChatSessionIndex + 1;
@@ -151,12 +170,19 @@ services
                     if (user.chats[m.sender_uuid]) {
                         console.log("add to existing chat")
                         user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                        var lastSession = user.chats[m.sender_uuid].lastChatSession; 
+                        var lastSession;
+                        
+                        if (!user.chats[m.sender_uuid].isExpired) {
+                            lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
+                        }
+                        else {
+                            lastSession = null;
+                        } 
                         
                         if (!lastSession) {
                             self.addNewChatSession(m.sender_uuid, m.expires);
                             user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                            lastSession = user.chats[m.sender_uuid].lastChatSession;
+                            lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
                             lastSession.creatorId = m.sender_uuid; 
                         }
 
@@ -176,7 +202,7 @@ services
                         self.addNewChat(m.sender_uuid)
                         self.addNewChatSession(m.sender_uuid, m.expires)
                         user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                        var lastSession = user.chats[m.sender_uuid].lastChatSession;
+                        var lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
                         lastSession.creatorId = m.sender_uuid;
                         lastSession.messages.push(
                             {
@@ -188,11 +214,18 @@ services
                     storage.saveChatSession(lastSession, m.sender_uuid);
                     showNotification(user, m);
                     
-                    self.getServerTime()
-                    .then(function(time) {
-                        console.log(time);
-                        console.log("time to live: " + (new Date(m.expires).getTime() - time * 1000));
-                    })
+                    if (deviceServerTimeDifference_msec) {
+                        lastSession.setTimer(calculateMessageTtl(m));
+
+                    }
+                    else {
+                        api.getTimeDifference()
+                        .then(function() {
+                            lastSession.setTimer(calculateMessageTtl(m));
+                        })
+                    }
+
+                    
                     $rootScope.$apply();
                     console.log(m)
                     console.log("user:")
@@ -213,7 +246,7 @@ services
                     "access_token": $rootScope.user.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
-                    "ttl": 86400
+                    "ttl": ttl
                 }
             })
             .then(
@@ -268,4 +301,8 @@ services
             )
         }
     }
+
+
+
+    return api;
 }])
