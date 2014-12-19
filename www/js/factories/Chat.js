@@ -79,7 +79,7 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
             var chats = $rootScope.user.chats;
             var _chats = {};
             for (var senderId in chats) {
-                if (this.senderId = senderId) continue;
+                if (this.senderId == senderId) continue;
                 else {
                     _chats[senderId] = chats[senderId];
                 }

@@ -75,8 +75,8 @@ services
                     return $q.reject({errorDescription: res.data.error})
                 }
             })
-
         },
+
         getUserInfo: function(access_token) {
             return $http({
                 method: 'POST',
@@ -92,6 +92,7 @@ services
                 }
             })
         },
+
         getServerTime: function() {
             return $http({
                 method: 'GET',
@@ -106,6 +107,7 @@ services
                 }
             )
         },
+
         getTimeDifference: function() {
             return api.getServerTime()
             .then(function(time) {
@@ -113,51 +115,7 @@ services
                 console.log(deviceServerTimeDifference_msec);
             })
         },
-        // addNewChat: function(senderId) {
-        //     var user = $rootScope.user;
-        //     user.chats[senderId] = new Chat(senderId);
-        //     storage.saveChats();
-        // },
-        // addNewFriend: function(friendUuid, name) {
-        //     var user = $rootScope.user;
-        //     $rootScope.user.friends[friendUuid] = {name: name};
-        //     storage.saveFriends();
-        // },
-        // addNewChatSession: function(senderId, expires) {
-        //     var _chatSession = angular.extend({}, objects.chatSession)
-        //     var currentChat =  $rootScope.user.chats[senderId];
-        //     var lastChatSessionIndex = currentChat.lastChatSessionIndex;
 
-        //     currentChat.isExpired = false;
-
-        //     _chatSession.messages = [];
-        //     _chatSession.isReplied = false;
-        //     _chatSession.isExpired = false;
-        //     _chatSession.currentChat = currentChat;
-        //     _chatSession.senderId = senderId;
-
-        //     if (lastChatSessionIndex) {
-        //         var newIndex = lastChatSessionIndex + 1;
-        //         _chatSession.id = newIndex;
-        //         currentChat.lastChatSessionIndex = newIndex;
-        //         currentChat.chatSessionsIndexes.push(newIndex);
-        //         currentChat.chatSession[newIndex] = _chatSession;
-        //     }
-        //     else {
-        //         console.log("first chatSession in chat is created")
-        //         _chatSession.id = 0;
-        //         currentChat.lastChatSessionIndex = 0;
-        //         currentChat.chatSessionsIndexes = [];
-        //         currentChat.chatSessionsIndexes.push(0);
-        //         currentChat.chatSessions["0"] = _chatSession;
-        //     }
-
-        //     console.log("user after adding new chatSeesion");
-        //     console.log($rootScope.user);
-        //     storage.saveChats();
-            
-            
-        // },
         subscribe: function(channel) {
             var self = this;
             pubnub.subscribe({
@@ -210,31 +168,35 @@ services
                     }
                     storage.saveChatSession(lastSession, m.sender_uuid);
                     showNotification(user, m);
-                    
-                    if (deviceServerTimeDifference_msec) {
-                        lastSession.setTimer(calculateMessageTtl(m));
 
+                    var ttl;
+                    if (deviceServerTimeDifference_msec) {
+                        ttl = calculateMessageTtl(m);
+                        lastSession.setTimer(ttl);
+                        lastSession.whenExipires = new Date().getTime() + ttl;                  
                     }
                     else {
                         api.getTimeDifference()
                         .then(function() {
-                            lastSession.setTimer(calculateMessageTtl(m));
+                            ttl = calculateMessageTtl(m);
+                            lastSession.setTimer(ttl);
+                            lastSession.whenExipires = new Date().getTime() + ttl;                  
                         })
                     }
-
-                    
+                    console.log("When chatSession expires: " + lastSession.whenExipires);
                     $rootScope.$apply();
                     console.log(m)
-                    console.log("user:")
                     console.log($rootScope.user);
                 }
             })
         },
+
         unsubscribe:function() {
             pubnub.unsubscribe({
                 channel: $rootScope.user.channel
             })
         },
+
         sendMessage: function(messageText, recepientId, ttl) {
             return $http({
                 method: 'POST',

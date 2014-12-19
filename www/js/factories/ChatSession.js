@@ -9,6 +9,7 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', function($rootScope,
         this.timer = null;
         this.creatorId = creatorId;
         this.currentChat = null;
+        this.whenExipires = null;
     }
 
     ChatSession.parseFromStorage = function(dataFromStorage) {
@@ -18,9 +19,23 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', function($rootScope,
             dataFromStorage.id
         )
         chatSession.messages = dataFromStorage.messages;
-        chatSession.isExpired = dataFromStorage.isExpired;
         chatSession.isReplied = dataFromStorage.isReplied;
         chatSession.timer = dataFromStorage.timer;
+        chatSession.whenExipires = dataFromStorage.whenExipires;
+
+        var ttl = chatSession.whenExipires - new Date().getTime();
+
+        if (ttl < 0) {
+            chatSession.isExpired = true;
+            $timeout(function() {
+                chatSession.closeChatSession()
+            }, 0)
+        } 
+        else {
+            chatSession.isExpired = false;
+            chatSession.setTimer(ttl);
+        }
+
         chatSession.getCurrentChat();
 
         return chatSession;
