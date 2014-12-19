@@ -1,4 +1,5 @@
-angular.module("angControllers").controller("mainCtrl", function($rootScope, $scope, $http, $location, $state, notification, api, storage){
+angular.module("angControllers").controller("mainCtrl", 
+  function($rootScope, $scope, $http, $location, $state, notification, api, storage, User, ChatSession){
   
   console.log('main controller is invoked')
 
@@ -32,7 +33,7 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
   $scope.getDataFromStorage = function() {
     storage.getUser()
     .then(function(res) {
-      $rootScope.user = res;
+      $rootScope.user = User.parseFromStorage(res);
       console.log('user data is taken from storage');
       api.subscribe($rootScope.user.channel);
     })
@@ -45,7 +46,7 @@ angular.module("angControllers").controller("mainCtrl", function($rootScope, $sc
     .then(function(){
       storage.getChats()
       .then(function(res) {
-        $rootScope.user.chats = res;
+        $rootScope.user.chats = User.parseChatsFromStorage(res);
         console.log($rootScope.user);
       })
     })

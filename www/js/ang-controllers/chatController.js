@@ -14,10 +14,9 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         };
         
         if (!lastSession) {
-            api.addNewChatSession(chat.senderId)
+            chat.addChatSession(user.uuid, chat.senderId)
             chat.getLastUnexpiredChatSession();
             lastSession = chat.lastUnexpiredChatSession;
-            lastSession.creatorId = user.uuid;
         }
 
         $scope.chatSession = lastSession;

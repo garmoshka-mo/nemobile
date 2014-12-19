@@ -1,5 +1,6 @@
 services
-.factory('api', ['$http', '$q', '$rootScope', 'notification', 'objects','storage', function ($http, $q, $rootScope, notification, objects, storage) {
+.factory('api', ['$http', '$q', '$rootScope', 'notification','storage', 'Chat',
+    function ($http, $q, $rootScope, notification, storage, Chat) {
     // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     console.log("api service is enabled");
     
@@ -112,53 +113,51 @@ services
                 console.log(deviceServerTimeDifference_msec);
             })
         },
-        addNewChat: function(senderId) {
-            var user = $rootScope.user;
-            user.chats[senderId] = angular.extend({}, objects.chat);
-            user.chats[senderId].chatSessions = {};
-            user.chats[senderId].senderId = senderId;
-            storage.saveChats();
-        },
-        addNewFriend: function(friendUuid, name) {
-            var user = $rootScope.user;
-            $rootScope.user.friends[friendUuid] = {name: name};
-            storage.saveFriends();
-        },
-        addNewChatSession: function(senderId, expires) {
-            var _chatSession = angular.extend({}, objects.chatSession)
-            var currentChat =  $rootScope.user.chats[senderId];
-            var lastChatSessionIndex = currentChat.lastChatSessionIndex;
+        // addNewChat: function(senderId) {
+        //     var user = $rootScope.user;
+        //     user.chats[senderId] = new Chat(senderId);
+        //     storage.saveChats();
+        // },
+        // addNewFriend: function(friendUuid, name) {
+        //     var user = $rootScope.user;
+        //     $rootScope.user.friends[friendUuid] = {name: name};
+        //     storage.saveFriends();
+        // },
+        // addNewChatSession: function(senderId, expires) {
+        //     var _chatSession = angular.extend({}, objects.chatSession)
+        //     var currentChat =  $rootScope.user.chats[senderId];
+        //     var lastChatSessionIndex = currentChat.lastChatSessionIndex;
 
-            currentChat.isExpired = false;
+        //     currentChat.isExpired = false;
 
-            _chatSession.messages = [];
-            _chatSession.isReplied = false;
-            _chatSession.isExpired = false;
-            _chatSession.currentChat = currentChat;
-            _chatSession.senderId = senderId;
+        //     _chatSession.messages = [];
+        //     _chatSession.isReplied = false;
+        //     _chatSession.isExpired = false;
+        //     _chatSession.currentChat = currentChat;
+        //     _chatSession.senderId = senderId;
 
-            if (lastChatSessionIndex) {
-                var newIndex = lastChatSessionIndex + 1;
-                _chatSession.id = newIndex;
-                currentChat.lastChatSessionIndex = newIndex;
-                currentChat.chatSessionsIndexes.push(newIndex);
-                currentChat.chatSession[newIndex] = _chatSession;
-            }
-            else {
-                console.log("first chatSession in chat is created")
-                _chatSession.id = 0;
-                currentChat.lastChatSessionIndex = 0;
-                currentChat.chatSessionsIndexes = [];
-                currentChat.chatSessionsIndexes.push(0);
-                currentChat.chatSessions["0"] = _chatSession;
-            }
+        //     if (lastChatSessionIndex) {
+        //         var newIndex = lastChatSessionIndex + 1;
+        //         _chatSession.id = newIndex;
+        //         currentChat.lastChatSessionIndex = newIndex;
+        //         currentChat.chatSessionsIndexes.push(newIndex);
+        //         currentChat.chatSession[newIndex] = _chatSession;
+        //     }
+        //     else {
+        //         console.log("first chatSession in chat is created")
+        //         _chatSession.id = 0;
+        //         currentChat.lastChatSessionIndex = 0;
+        //         currentChat.chatSessionsIndexes = [];
+        //         currentChat.chatSessionsIndexes.push(0);
+        //         currentChat.chatSessions["0"] = _chatSession;
+        //     }
 
-            console.log("user after adding new chatSeesion");
-            console.log($rootScope.user);
-            storage.saveChats();
+        //     console.log("user after adding new chatSeesion");
+        //     console.log($rootScope.user);
+        //     storage.saveChats();
             
             
-        },
+        // },
         subscribe: function(channel) {
             var self = this;
             pubnub.subscribe({
@@ -180,10 +179,9 @@ services
                         } 
                         
                         if (!lastSession) {
-                            self.addNewChatSession(m.sender_uuid, m.expires);
+                            user.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid);
                             user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
                             lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
-                            lastSession.creatorId = m.sender_uuid; 
                         }
 
                         if (!lastSession.isReplied) {
@@ -199,11 +197,10 @@ services
                     }
                     else {
                         console.log("created new chat")
-                        self.addNewChat(m.sender_uuid)
-                        self.addNewChatSession(m.sender_uuid, m.expires)
+                        user.addChat(m.sender_uuid)
+                        user.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid)
                         user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
                         var lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
-                        lastSession.creatorId = m.sender_uuid;
                         lastSession.messages.push(
                             {
                                 text: m.message_text,
