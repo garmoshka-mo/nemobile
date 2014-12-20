@@ -1,4 +1,15 @@
-angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', function($rootScope, $scope, $stateParams, $state, api, notification) {
+angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 
+    function($rootScope, $scope, $stateParams, $state, api, notification, $timeout) {
+        
+        $scope.scrollToBottom = function() {
+            var $chatContainer = $(".chat");
+            $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
+        }
+
+        $scope.setFocusOnTextField = function() {
+            $timeout(function() {$('.chat-input').focus();},0);
+        }
+
         var user = $rootScope.user;
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
@@ -23,8 +34,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         $scope.isFirstMessage = !$scope.chatSession.messages.length;
 
         $scope.$watch("chatSession.messages.length", function() {
-            var $chatContainer = $(".chat");
-            $chatContainer.animate({scrollTop: $chatContainer.height()}, 500)
+            $scope.scrollToBottom();
         })
 
         if (user.friends[chat.senderId]) {

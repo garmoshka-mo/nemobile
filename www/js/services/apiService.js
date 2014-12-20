@@ -166,7 +166,7 @@ services
                             }
                         );
                     }
-                    storage.saveChatSession(lastSession, m.sender_uuid);
+                    
                     showNotification(user, m);
 
                     var ttl;
@@ -180,9 +180,13 @@ services
                         .then(function() {
                             ttl = calculateMessageTtl(m);
                             lastSession.setTimer(ttl);
-                            lastSession.whenExipires = new Date().getTime() + ttl;                  
+                            lastSession.whenExipires = new Date().getTime() + ttl;
+                            storage.saveChatSession(lastSession, m.sender_uuid);
                         })
                     }
+
+                    storage.saveChatSession(lastSession, m.sender_uuid);
+
                     console.log("When chatSession expires: " + lastSession.whenExipires);
                     $rootScope.$apply();
                     console.log(m)

@@ -17,7 +17,7 @@
         <span ng-click="closeErrorDescription()" class="close">&times;</span>
     </div>
     <div class="chat-buttons-container">
-        <input type="text" class="chat-input" ng-model="newMessage.text">
+        <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-blur="setFocusOnTextField()" ng-model="newMessage.text">
         <button class="chat-send" ng-click="chat.sendMessage()">send</button>
     </div>
 </div>

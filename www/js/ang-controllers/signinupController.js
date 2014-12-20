@@ -20,13 +20,6 @@ angular.module("angControllers").controller("signinupController",
         $rootScope.user.channel = userInfo.channel_name;
         $rootScope.user.uuid = userInfo.uuid
 
-        if (false) {
-            $rootScope.user.chats = angular.extend({}, userDataInLS.chats) 
-            $rootScope.user.friends = angular.extend({}, userDataInLS.friends) 
-        }
-        else {
-        }
-
         api.subscribe($rootScope.user.channel);
         localStorage.setItem('isLogged', true);
         storage.saveUser();
@@ -45,6 +38,7 @@ angular.module("angControllers").controller("signinupController",
             function showError(res) {
                 $scope.serverResponse = res.errorDescription;
                 console.log(res);
+                $scope.showSpinner = false;
                 return $q.reject(); 
             }
         )
@@ -55,18 +49,16 @@ angular.module("angControllers").controller("signinupController",
                         $scope.handleSuccessSignIn(userInfo);
                     },
                     function(res) {
-                        console.error("sign in fail")
+                        console.error("sign in fail");
+                        $scope.showSpinner = false;
                     }
                 )
-        })
-        .then(
-            function() {
-                $scope.showSpinner = false;
             },
             function() {
                 $scope.showSpinner = false;
             }
         )
+        
     }
 
     $scope.signup = function() {
@@ -79,13 +71,6 @@ angular.module("angControllers").controller("signinupController",
             },
             function(res) {
                 $scope.serverResponse = res.errorDescription;
-            }
-        )
-        .then(
-            function() {
-                $scope.showSpinner = false;
-            },
-            function() {
                 $scope.showSpinner = false;
             }
         )
