@@ -204,6 +204,9 @@ button.chat-send {
   padding: 5px;
   border-radius: 5px;
   position: relative;
+  display: inline-block;
+  max-width: 90%;
+  word-break: break-word;
 }
 .message-own {
   background-color: rgba(46, 204, 113, 1.0);
@@ -211,7 +214,7 @@ button.chat-send {
 }
 .message-own:after {
   content: '';
-  top: 7px;
+  top: 10px;
   position: absolute;
   right: -19px;
   border: 10px solid transparent;
@@ -224,7 +227,7 @@ button.chat-send {
 }
 .message-not-own:after {
   content: '';
-  top: 7px;
+  top: 10px;
   position: absolute;
   left: -19px;
   border: 10px solid transparent;

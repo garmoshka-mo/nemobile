@@ -1,4 +1,4 @@
-factories.factory('ChatSession', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function($rootScope, $timeout, storage) {
     
     function ChatSession(creatorId, senderId, id) {
         this.isExpired = false;
@@ -48,14 +48,29 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', function($rootScope,
             
             if (this.isReplied) {
                 this.currentChat.handleExpiredChatSession();
-                var lastMessageIndex = this.messages.length;
-                this.messages.splice(lastMessageIndex, 1);
+                this.removeLastUnrepliedMessages();
             }
             else {
                 this.currentChat.removeLastChatSession();
             }
-
             console.warn("chat is expired");
+        },
+
+        removeLastUnrepliedMessages: function() {
+            var lastMessageIndex = this.messages.length - 1;
+            var lastMessageIsOwn = this.messages[lastMessageIndex].isOwn;
+            var firstIndexToRemove = lastMessageIndex - 1;
+            for (var i = lastMessageIndex; i >= 0; i--) {
+                if (this.messages[i].isOwn === lastMessageIsOwn) {
+                    firstIndexToRemove = i;
+                }
+                else {
+                    break;
+                }
+            } 
+            var amountToDelete = lastMessageIndex - firstIndexToRemove + 1;
+            this.messages.splice(firstIndexToRemove, amountToDelete);
+            storage.saveChatSession(this, this.senderId);
         },
 
         getCurrentChat: function() {
