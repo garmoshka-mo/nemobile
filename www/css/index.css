@@ -21,6 +21,11 @@ body{
 .m0 {
   margin: 0;
 }
+.iphone-status-bar-margin {
+  background-color: #333333;
+  height: 20px;
+  display: none;
+}
 a {
   color: inherit;
 }

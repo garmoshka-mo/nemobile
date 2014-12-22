@@ -12,7 +12,9 @@ angular.module("angControllers").controller("mainCtrl",
      $rootScope.isAppInBackground = false;
   });
   document.addEventListener("deviceready", function() {
-     // cordova.plugins.backgroundMode.enable();
+    if (device.platform == "iOS") {
+      $(".iphone-status-bar-margin").show();
+    }
   });
 
   $scope.openMenu = function() {

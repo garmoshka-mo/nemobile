@@ -48,7 +48,6 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
             
             if (this.isReplied) {
                 this.currentChat.handleExpiredChatSession();
-                this.removeLastUnrepliedMessages();
             }
             else {
                 this.currentChat.removeLastChatSession();
@@ -56,22 +55,22 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
             console.warn("chat is expired");
         },
 
-        removeLastUnrepliedMessages: function() {
-            var lastMessageIndex = this.messages.length - 1;
-            var lastMessageIsOwn = this.messages[lastMessageIndex].isOwn;
-            var firstIndexToRemove = lastMessageIndex - 1;
-            for (var i = lastMessageIndex; i >= 0; i--) {
-                if (this.messages[i].isOwn === lastMessageIsOwn) {
-                    firstIndexToRemove = i;
-                }
-                else {
-                    break;
-                }
-            } 
-            var amountToDelete = lastMessageIndex - firstIndexToRemove + 1;
-            this.messages.splice(firstIndexToRemove, amountToDelete);
-            storage.saveChatSession(this);
-        },
+        // removeLastUnrepliedMessages: function() {
+        //     var lastMessageIndex = this.messages.length - 1;
+        //     var lastMessageIsOwn = this.messages[lastMessageIndex].isOwn;
+        //     var firstIndexToRemove = lastMessageIndex - 1;
+        //     for (var i = lastMessageIndex; i >= 0; i--) {
+        //         if (this.messages[i].isOwn === lastMessageIsOwn) {
+        //             firstIndexToRemove = i;
+        //         }
+        //         else {
+        //             break;
+        //         }
+        //     } 
+        //     var amountToDelete = lastMessageIndex - firstIndexToRemove + 1;
+        //     this.messages.splice(firstIndexToRemove, amountToDelete);
+        //     storage.saveChatSession(this);
+        // },
 
         getCurrentChat: function() {
             this.currentChat = $rootScope.user.chats[this.senderId];
