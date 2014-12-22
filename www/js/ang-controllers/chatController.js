@@ -72,6 +72,7 @@ angular.module("angControllers").controller("chatController",
         }
 
         chat.sendMessage = function() {
+            $scope.setFocusOnTextField();
             if ($scope.newMessage.text) {
                 
                 if (!$scope.chatSession.isReplied) {
