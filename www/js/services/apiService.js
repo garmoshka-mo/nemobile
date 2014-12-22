@@ -43,6 +43,24 @@ services
         return ttl;
     }
 
+    function setChatSessionTimer(chatSession, message) {
+        var ttl;
+        if (deviceServerTimeDifference_msec) {
+            ttl = calculateMessageTtl(message);
+            chatSession.setTimer(ttl);
+            chatSession.whenExipires = new Date().getTime() + ttl;                  
+        }
+        else {
+            api.getTimeDifference()
+            .then(function() {
+                ttl = calculateMessageTtl(message);
+                chatSession.setTimer(ttl);
+                chatSession.whenExipires = new Date().getTime() + ttl;
+                storage.saveChatSession(chatSession);
+            })
+        }
+    }
+
     var api = {
         signin: function(name, password) {
             return $http({
@@ -168,23 +186,7 @@ services
                     }
                     
                     showNotification(user, m);
-
-                    var ttl;
-                    if (deviceServerTimeDifference_msec) {
-                        ttl = calculateMessageTtl(m);
-                        lastSession.setTimer(ttl);
-                        lastSession.whenExipires = new Date().getTime() + ttl;                  
-                    }
-                    else {
-                        api.getTimeDifference()
-                        .then(function() {
-                            ttl = calculateMessageTtl(m);
-                            lastSession.setTimer(ttl);
-                            lastSession.whenExipires = new Date().getTime() + ttl;
-                            storage.saveChatSession(lastSession, m.sender_uuid);
-                        })
-                    }
-
+                    setChatSessionTimer(lastSession, m)
                     storage.saveChatSession(lastSession, m.sender_uuid);
 
                     console.log("When chatSession expires: " + lastSession.whenExipires);
@@ -217,6 +219,9 @@ services
                     console.log("message is sent");
                     console.log(res)
                     if (res.data.success && !res.data.type) {
+                        var chatSession = $rootScope.user.chats[recepientId].lastUnexpiredChatSession;
+                        setChatSessionTimer(chatSession, res.data);
+                        console.log("chat session is saved");
                         return true;
                     }
                     else {

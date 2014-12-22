@@ -64,10 +64,10 @@ services
             $localForage.setItem('chats', _chats);
         },
 
-        saveChatSession: function(chatSessionObj, senderId) {
+        saveChatSession: function(chatSessionObj) {
             var notToCopyProperties = ['timer', 'currentChat'];
             var _chatSession = filterObject(chatSessionObj, notToCopyProperties);
-            $localForage.setItem('chatSession_' + senderId + "_" + chatSessionObj.id, _chatSession)
+            $localForage.setItem('chatSession_' + chatSessionObj.senderId + "_" + chatSessionObj.id, _chatSession)
         },
 
         removeChatSession: function(senderId, index) {

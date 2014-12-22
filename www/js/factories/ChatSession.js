@@ -70,7 +70,7 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
             } 
             var amountToDelete = lastMessageIndex - firstIndexToRemove + 1;
             this.messages.splice(firstIndexToRemove, amountToDelete);
-            storage.saveChatSession(this, this.senderId);
+            storage.saveChatSession(this);
         },
 
         getCurrentChat: function() {

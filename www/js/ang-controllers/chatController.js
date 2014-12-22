@@ -1,5 +1,6 @@
-angular.module("angControllers").controller("chatController", ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 
-    function($rootScope, $scope, $stateParams, $state, api, notification, $timeout) {
+angular.module("angControllers").controller("chatController", 
+    ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage',
+    function($rootScope, $scope, $stateParams, $state, api, notification, $timeout, storage) {
         
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
@@ -7,7 +8,9 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
         }
 
         $scope.setFocusOnTextField = function() {
-            $timeout(function() {$('.chat-input').focus();},0);
+            $timeout(function() {
+                $('.chat-input').focus();
+            }, 0);
         }
 
         var user = $rootScope.user;
@@ -55,6 +58,7 @@ angular.module("angControllers").controller("chatController", ['$rootScope','$sc
                 text: $scope.newMessage.text,
                 isOwn: true
             });
+            storage.saveChatSession($scope.chatSession)
             console.log("user:");
             console.log(user);
         }

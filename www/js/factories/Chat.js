@@ -5,7 +5,7 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
         this.senderId = senderId;
         this.chatSessions = {};
         this.chatSessionsIndexes = [];
-        this.isExpired = false;
+        this.isExpired = true;
         this.lastChatSessionIndex = null;
         this.lastUnexpiredChatSession = null;
 
@@ -91,7 +91,6 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
         },
 
         handleExpiredChatSession: function() {
-            storage.saveChatSession(this.senderId, this.lastChatSessionIndex);
             this.lastUnexpiredChatSession = null;
             this.isExpired = true;
             console.log("chatSession is sent to archive");
