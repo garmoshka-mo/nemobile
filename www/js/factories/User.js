@@ -18,7 +18,7 @@ factories.factory('User', ['storage', 'Chat', function(storage, Chat) {
 
         addChat: function(senderId) {
             this.chats[senderId] = new Chat(senderId);
-            storage.saveChats();
+            storage.saveChats()
         }
     }
 

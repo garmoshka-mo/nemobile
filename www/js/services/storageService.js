@@ -59,7 +59,7 @@ services
             var userChats = $rootScope.user.chats;
             var forbiddenFields = ['chatSessions', 'lastUnexpiredChatSession']
             for (var chatId in userChats) {
-                _chats[chatId] = filterObject(userChats[chatId])
+                _chats[chatId] = filterObject(userChats[chatId], forbiddenFields);
             }
             $localForage.setItem('chats', _chats);
         },

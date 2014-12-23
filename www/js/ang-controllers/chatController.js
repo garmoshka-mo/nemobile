@@ -2,17 +2,19 @@ angular.module("angControllers").controller("chatController",
     ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage',
     function($rootScope, $scope, $stateParams, $state, api, notification, $timeout, storage) {
         
+        var $chatInput = $('.chat-input');
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
         }
 
-        var $chatInput = $('.chat-input');
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
                 $chatInput.focus();
             }, 0);
         }
+
+        $scope.setFocusOnTextField();
 
         var user = $rootScope.user;
         $scope.chat = user.chats[$stateParams.senderId];
