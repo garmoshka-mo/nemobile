@@ -7,9 +7,10 @@ angular.module("angControllers").controller("chatController",
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
         }
 
+        var $chatInput = $('.chat-input');
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
-                $('.chat-input').focus();
+                $chatInput.focus();
             }, 0);
         }
 
