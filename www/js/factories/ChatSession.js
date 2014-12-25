@@ -1,6 +1,6 @@
-factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function($rootScope, $timeout, storage) {
+factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$rootScope', function($timeout, storage, api) {
     
-    function ChatSession(creatorId, senderId, id) {
+    function ChatSession(creatorId, senderId, id, currentChat) {
         this.isExpired = false;
         this.isReplied = false;
         this.id = id;
@@ -8,20 +8,31 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
         this.messages = [];
         this.timer = null;
         this.creatorId = creatorId;
-        this.currentChat = null;
+        this.currentChat = currentChat;
         this.whenExipires = null;
     }
 
-    ChatSession.parseFromStorage = function(dataFromStorage) {
+    var deviceServerTimeDifference_msec;
+
+    function calculateMessageTtl(message) {
+        var currentServerTime = new Date().getTime() + deviceServerTimeDifference_msec;
+        var ttl = message.expires * 1000 - currentServerTime;
+        console.log("time to live(sec): " +  ttl / 1000);
+        return ttl;
+    }
+
+    ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
         var chatSession = new ChatSession(
             dataFromStorage.creatorId,
             dataFromStorage.senderId,
             dataFromStorage.id
         )
+
         chatSession.messages = dataFromStorage.messages;
         chatSession.isReplied = dataFromStorage.isReplied;
         chatSession.timer = dataFromStorage.timer;
         chatSession.whenExipires = dataFromStorage.whenExipires;
+        chatSession.currentChat = currentChat;
 
         var ttl = chatSession.whenExipires - new Date().getTime();
 
@@ -33,17 +44,15 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
         } 
         else {
             chatSession.isExpired = false;
-            chatSession.setTimer(ttl);
+            chatSession.setTimeout(ttl);
         }
-
-        chatSession.getCurrentChat();
 
         return chatSession;
     }
 
     ChatSession.prototype = {
             
-        closeChatSession: function() {
+        close: function() {
             this.isExpired = true;
             
             if (this.isReplied) {
@@ -72,19 +81,39 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
         //     storage.saveChatSession(this);
         // },
 
-        getCurrentChat: function() {
-            this.currentChat = $rootScope.user.chats[this.senderId];
-        },
-        
-        setTimer: function(time) {
+        setTimeout: function(time) {
             var self = this;
             console.log("timer for chatSession is set. Left(msec): " + time);
             if (this.timer) {
                 $timeout.cancel(this.timer);
             }
             this.timer = $timeout(function() {
-                self.closeChatSession()
+                self.close()
             }, time)
+        },
+
+        setTimer: function(message) {
+            var chatSession = this;
+            var ttl;
+            if (deviceServerTimeDifference_msec) {
+                ttl = calculateMessageTtl(message);
+                chatSession.setTimeout(ttl);
+                chatSession.whenExipires = new Date().getTime() + ttl;                  
+            }
+            else {
+                api.getTimeDifference()
+                .then(function(timeDifference) {
+                    deviceServerTimeDifference_msec = timeDifference;
+                    ttl = calculateMessageTtl(message);
+                    chatSession.setTimeout(ttl);
+                    chatSession.whenExipires = new Date().getTime() + ttl;
+                    storage.saveChatSession(chatSession);
+                })
+            }
+        },
+
+        save: function() {
+            storage.saveChatSession(this, this.senderId);
         },
 
         getLastMessage: function() {
@@ -92,6 +121,39 @@ factories.factory('ChatSession', ['$rootScope', '$timeout', 'storage', function(
                 var messagesAmount = this.messages.length;
                 return this.messages[messagesAmount - 1].text;
             }
+        }, 
+
+        sendMessage: function(message, receiverId, ttl) {
+            var self = this;
+            return api.sendMessage(message, receiverId, ttl)
+            .then(
+                function(res) {
+                    console.log("message is sent", res);
+                    
+                    if (res.data.success && !res.data.type) {
+                       
+                        if (!self.messages.length) {
+                            self.creatorId = self.currentChat.currentUser.uuid;
+                        }
+
+                        self.messages.push({
+                            text: message,
+                            isOwn: true
+                        })
+                        self.setTimer(res.data);
+                        self.save();
+                        console.log("chat session is saved");
+                        return true;
+                    }
+                    else {
+                        return $q.reject(res.data.type);
+                    }
+
+                },
+                function(res) {
+                    console.error(res)
+                }
+            )
         }
     }
     

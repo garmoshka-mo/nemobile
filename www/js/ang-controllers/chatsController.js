@@ -1,11 +1,14 @@
-angular.module("angControllers").controller("chatsController", function($rootScope, $scope, $http, $timeout, api, notification) {
+angular.module("angControllers").controller("chatsController", [
+    'user', '$scope', '$http', '$timeout', 'api', 'notification',
+    function(user, $scope, $http, $timeout, api, notification) {
     console.log("chats controller is invoked")
     $scope.$watch('user.chats', function() {
-        if ($rootScope.user) {
-            var chats = $rootScope.user.chats;
+        if (user) {
+            var chats = user.chats;
             for (var chatId in chats) {
                 chats[chatId].getLastUnexpiredChatSession();
             }
+            $scope.user = user;
         }
     })
-})
+}])

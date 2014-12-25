@@ -1,8 +1,10 @@
-angular.module("angControllers").controller("startController", function($rootScope, $scope, $state, storage) {
-    if ($scope.isLogged()) {
+angular.module("angControllers").controller("startController", ['user', '$state', function(user, $state) {
+    
+    if (user.isLogged()) {
       $state.go('chats');
     }
     else {
       $state.go('start');
     }
-})
+    
+}])

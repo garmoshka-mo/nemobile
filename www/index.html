@@ -40,13 +40,13 @@
         <script type="text/javascript" src="js/libs/angular-touch.min.js"></script>
         <script type="text/javascript" src="js/libs/mm-foundation-tpls-0.5.0.min.js"></script>
         <script type="text/javascript" src="js/angular-app.js"></script>
-        <script type="text/javascript" src="js/factories/User.js"></script>
         <script type="text/javascript" src="js/factories/Chat.js"></script>
         <script type="text/javascript" src="js/factories/ChatSession.js"></script>
+        <script type="text/javascript" src="js/services/userService.js"></script>
         <script type="text/javascript" src="js/services/notificationService.js"></script>
         <script type="text/javascript" src="js/services/apiService.js"></script>
         <script type="text/javascript" src="js/services/storageService.js"></script>
-        <script type="text/javascript" src="js/ang-controllers/mainCtrl.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/mainController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/chatsController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/localForageController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/chatController.js"></script>
@@ -59,7 +59,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <title>Chat</title>
     </head>
-    <body ng-app="angApp" ng-controller="mainCtrl" ng-swipe-left="closeMenu()">
+    <body ng-app="angApp" ng-controller="mainController" ng-swipe-left="closeMenu()">
         <div class="off-canvas-wrap" data-offcanvas>
             <div class="iphone-status-bar-margin"></div>
             <div class="inner-wrap">

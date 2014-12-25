@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("signinupController", 
-    ['$rootScope','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 'User', 
-    function($rootScope, $scope, $state, $stateParams, $q, api, notification, storage, User) {
+    ['user','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 
+    function(user, $scope, $state, $stateParams, $q, api, notification, storage) {
     
     console.log("sign in is invoked");
    
@@ -15,62 +15,33 @@ angular.module("angControllers").controller("signinupController",
         notification.set("Регистрация")
     }
 
-    $scope.handleSuccessSignIn = function(userInfo) {
-        $rootScope.user.name = userInfo.name;
-        $rootScope.user.channel = userInfo.channel_name;
-        $rootScope.user.uuid = userInfo.uuid
-
-        api.subscribe($rootScope.user.channel);
-        localStorage.setItem('isLogged', true);
-        storage.saveUser();
-        storage.saveFriends();
-        console.log($rootScope.user);
-        $state.go('chats');
-    }
 
     $scope.signin = function() {
         $scope.showSpinner = true;
-        api.signin($scope.newUser.name, $scope.newUser.password)
-        .then(
-            function setAccesssToken(res) {
-                $rootScope.user = new User(res.accessToken);
-            },
-            function showError(res) {
-                $scope.serverResponse = res.errorDescription;
-                console.log(res);
-                $scope.showSpinner = false;
-                return $q.reject(); 
-            }
-        )
+        $scope.serverResponse = "";
+        user.signin($scope.newUser.name, $scope.newUser.password)
         .then(
             function() {
-                api.getUserInfo($rootScope.user.accessToken).then(
-                    function(userInfo) {
-                        $scope.handleSuccessSignIn(userInfo);
-                    },
-                    function(res) {
-                        console.error("sign in fail");
-                        $scope.showSpinner = false;
-                    }
-                )
-            },
-            function() {
                 $scope.showSpinner = false;
+                $state.go('chats');
+            },
+            function(errorText) {
+                $scope.showSpinner = false;
+                $scope.serverResponse = errorText;
             }
         )
-        
     }
 
     $scope.signup = function() {
         console.log("sign up is invoked");
         $scope.showSpinner = true;
-        api.signup($scope.newUser.name, $scope.newUser.password)
+        user.signup($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
                 $scope.signin()
             },
-            function(res) {
-                $scope.serverResponse = res.errorDescription;
+            function(errorText) {
+                $scope.serverResponse = errorText;
                 $scope.showSpinner = false;
             }
         )

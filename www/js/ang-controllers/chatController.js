@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['$rootScope','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage',
-    function($rootScope, $scope, $stateParams, $state, api, notification, $timeout, storage) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage) {
         
         var $chatInput = $('.chat-input');
         $scope.scrollToBottom = function() {
@@ -16,7 +16,6 @@ angular.module("angControllers").controller("chatController",
 
         $scope.setFocusOnTextField();
 
-        var user = $rootScope.user;
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
         chat.getLastUnexpiredChatSession();
@@ -46,7 +45,6 @@ angular.module("angControllers").controller("chatController",
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
-        console.log($rootScope.notification);
         
         $scope.handleSuccessSending = function() {
             
@@ -55,15 +53,9 @@ angular.module("angControllers").controller("chatController",
             }
 
             $scope.isFirstMessage = false;
-            // $scope.chatSession.isReplied = $scope.chatSession.messages.length > 1  ? true : false;
             $scope.errorDescription = "";
-            $scope.chatSession.messages.push({
-                text: $scope.newMessage.text,
-                isOwn: true
-            });
-            storage.saveChatSession($scope.chatSession)
-            console.log("user:");
-            console.log(user);
+            
+            console.log("user:", user);
         }
 
         $scope.handleFailedSending = function(errorDescription) {
@@ -88,7 +80,7 @@ angular.module("angControllers").controller("chatController",
                     $scope.newMessage.ttl = 0;
                 }
 
-                api.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
+                $scope.chatSession.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
                 .then(
                     function() {
                         $scope.handleSuccessSending();

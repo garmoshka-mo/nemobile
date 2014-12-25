@@ -1,67 +1,19 @@
 services
-.factory('api', ['$http', '$q', '$rootScope', 'notification','storage', 'Chat',
-    function ($http, $q, $rootScope, notification, storage, Chat) {
-    // $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+.factory('api', ['$http', '$q', 'notification','storage', '$rootScope',
+    function ($http, $q, user, notification, storage, $rootScope) {
+    
     console.log("api service is enabled");
     
-    var pubnub = PUBNUB.init({
-        subscribe_key: App.Settings.pubnubSubscribeKey
-    })
-    
-    function handleOsNotificationClick (params) {
-        location.href = params.href;
-    }
-
-    var deviceServerTimeDifference_msec;
-
-    function showNotification(user, message) {
-        var notificationText;
-        var m = message;
-        
-        if (user.friends[m.sender_uuid]) {
-            notificationText = user.friends[m.sender_uuid].name;    
-        }
-        else {
-            notificationText = "Новое сообщение";
-        }
-
-        if ($rootScope.isAppInBackground) {
-            notification.setOSNotification(m.message_text, notificationText, {"href": "#/chat/" + m.sender_uuid},
-            handleOsNotificationClick);
-        }
-        else {
-            notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
-                location.href = "#/chat/" + m.sender_uuid;
-            })
-        }
-    }
-
-    function calculateMessageTtl(message) {
-        var currentServerTime = new Date().getTime() + deviceServerTimeDifference_msec;
-        var ttl = message.expires * 1000 - currentServerTime;
-        console.log("time to live(sec): " +  ttl / 1000);
-        return ttl;
-    }
-
-    function setChatSessionTimer(chatSession, message) {
-        var ttl;
-        if (deviceServerTimeDifference_msec) {
-            ttl = calculateMessageTtl(message);
-            chatSession.setTimer(ttl);
-            chatSession.whenExipires = new Date().getTime() + ttl;                  
-        }
-        else {
-            api.getTimeDifference()
-            .then(function() {
-                ttl = calculateMessageTtl(message);
-                chatSession.setTimer(ttl);
-                chatSession.whenExipires = new Date().getTime() + ttl;
-                storage.saveChatSession(chatSession);
-            })
-        }
-    }
-
     var api = {
+        
+        setAccessToken: function(accessToken) {
+            this.accessToken = accessToken;
+        },
+
+        clearAccessToken: function() {
+            this.accessToken = null;
+        },
+
         signin: function(name, password) {
             return $http({
                 method: 'POST',
@@ -114,7 +66,7 @@ services
         getServerTime: function() {
             return $http({
                 method: 'GET',
-                url: App.Settings.apiUrl + '//time?access_token=' + $rootScope.user.accessToken ,
+                url: App.Settings.apiUrl + '//time?access_token=' + api.accessToken ,
             })
             .then(
                 function(res) {
@@ -129,77 +81,9 @@ services
         getTimeDifference: function() {
             return api.getServerTime()
             .then(function(time) {
-                deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
-                console.log(deviceServerTimeDifference_msec);
-            })
-        },
-
-        subscribe: function(channel) {
-            var self = this;
-            pubnub.subscribe({
-                channel: channel,
-                message: function handleMessage(m) {
-                    console.log(m);
-                    var user = $rootScope.user;
-                    
-                    if (user.chats[m.sender_uuid]) {
-                        console.log("add to existing chat")
-                        user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                        var lastSession;
-                        
-                        if (!user.chats[m.sender_uuid].isExpired) {
-                            lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
-                        }
-                        else {
-                            lastSession = null;
-                        } 
-                        
-                        if (!lastSession) {
-                            user.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid);
-                            user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                            lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
-                        }
-
-                        if (!lastSession.isReplied) {
-                            if (lastSession.creatorId == $rootScope.user.uuid)
-                            lastSession.isReplied = true;
-                        }
-
-                        lastSession.messages.push({
-                            text: m.message_text,
-                            isOwn: false
-                        });
-                        // lastSession.isReplied = lastSession.messages.length > 1 ? true : false;
-                    }
-                    else {
-                        console.log("created new chat")
-                        user.addChat(m.sender_uuid)
-                        user.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid)
-                        user.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                        var lastSession = user.chats[m.sender_uuid].lastUnexpiredChatSession;
-                        lastSession.messages.push(
-                            {
-                                text: m.message_text,
-                                isOwn: false
-                            }
-                        );
-                    }
-                    
-                    showNotification(user, m);
-                    setChatSessionTimer(lastSession, m)
-                    storage.saveChatSession(lastSession, m.sender_uuid);
-
-                    console.log("When chatSession expires: " + lastSession.whenExipires);
-                    $rootScope.$apply();
-                    console.log(m)
-                    console.log($rootScope.user);
-                }
-            })
-        },
-
-        unsubscribe:function() {
-            pubnub.unsubscribe({
-                channel: $rootScope.user.channel
+                var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
+                console.log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
+                return deviceServerTimeDifference_msec;
             })
         },
 
@@ -208,41 +92,23 @@ services
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
                 data: {
-                    "access_token": $rootScope.user.accessToken,
+                    "access_token": api.accessToken,
                     "recepient_uuid": recepientId,
                     "message_text": messageText,
                     "ttl": ttl
                 }
             })
-            .then(
-                function(res) {
-                    console.log("message is sent");
-                    console.log(res)
-                    if (res.data.success && !res.data.type) {
-                        var chatSession = $rootScope.user.chats[recepientId].lastUnexpiredChatSession;
-                        setChatSessionTimer(chatSession, res.data);
-                        console.log("chat session is saved");
-                        return true;
-                    }
-                    else {
-                        return $q.reject(res.data.type);
-                    }
-                },
-                function(res) {
-                    console.log(res)
-                }
-            )
         },
 
         getUnseenMessages: function() {
-                pubnub.history(
-                    {
-                        channel: $rootScope.user.channel,
-                        callback: function(m) {
-                            console.log(m);
-                        }
+            pubnub.history(
+                {
+                    channel: user.channel,
+                    callback: function(m) {
+                        console.log(m);
                     }
-                );
+                }
+            );
         },
 
         searchUser: function(userName) {
@@ -250,7 +116,7 @@ services
                 method: 'POST',
                 url: App.Settings.apiUrl + '/users/search',
                 data: {
-                    "access_token": $rootScope.user.accessToken,
+                    "access_token": api.accessToken,
                     "search_params": [{name: userName}]
                 }
             })

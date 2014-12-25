@@ -4,7 +4,7 @@ window.clearAll =  function() {
     localforage.clear();
 }
 services
-.factory('storage', ['$rootScope', '$localForage', '$timeout', function($rootScope, $localForage, $timeout) {
+.factory('storage', ['$localForage', '$timeout', function($localForage, $timeout) {
     
     function filterObject(object, forbiddenFieldsArray) {
         var buffer = {};
@@ -44,24 +44,23 @@ services
             return $localForage.getItem(key);
         },
 
-        saveUser: function() {
-            var user = $rootScope.user;
-            var _user = filterObject(user, ['chats', 'friends']);
+        saveUser: function(currentUser) {
+            var _user = filterObject(currentUser, ['chats', 'friends']);
             $localForage.setItem('user', _user);
         },
 
-        saveFriends: function() {
-            $localForage.setItem('friends', $rootScope.user.friends);
+        saveFriends: function(userFriends) {
+            $localForage.setItem('friends', userFriends);
         },
         
-        saveChats: function() {
+        saveChats: function(userChats) {
             var _chats = {};
-            var userChats = $rootScope.user.chats;
-            var forbiddenFields = ['chatSessions', 'lastUnexpiredChatSession']
+            var forbiddenFields = ['chatSessions', 'lastUnexpiredChatSession', 'currentUser'];
             for (var chatId in userChats) {
                 _chats[chatId] = filterObject(userChats[chatId], forbiddenFields);
             }
-            $localForage.setItem('chats', _chats);
+            $localForage.setItem('chats', _chats)
+            .then(function(res){console.log(res)}, function(res){console.log(res)});
         },
 
         saveChatSession: function(chatSessionObj) {

@@ -1,6 +1,6 @@
-factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($rootScope, storage, ChatSession) {
+factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSession) {
     
-    function Chat(senderId) {
+    function Chat(senderId, currentUser) {
         
         this.senderId = senderId;
         this.chatSessions = {};
@@ -8,14 +8,16 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
         this.isExpired = true;
         this.lastChatSessionIndex = null;
         this.lastUnexpiredChatSession = null;
+        this.currentUser = currentUser;
 
     }
 
-    Chat.parseFromStorage = function(dataFromStorage) {
+    Chat.parseFromStorage = function(dataFromStorage, currentUser) {
         var chat = new Chat(dataFromStorage.senderId);
         chat.chatSessionsIndexes = dataFromStorage.chatSessionsIndexes;
         chat.isExpired = dataFromStorage.isExpired;
         chat.lastChatSessionIndex = dataFromStorage.lastChatSessionIndex;
+        chat.currentUser = currentUser;
         return chat;
     }
 
@@ -32,14 +34,13 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
             }
 
             this.lastChatSessionIndex = nextIndex;
-            var chatSession = new ChatSession(creatorId, senderId, nextIndex);
-            chatSession.currentChat = this;
+            var chatSession = new ChatSession(creatorId, senderId, nextIndex, this);
             this.isExpired = false;
             this.chatSessionsIndexes.push(nextIndex);
             this.chatSessions[nextIndex] = chatSession;
             this.lastUnexpiredChatSession = chatSession;
 
-            storage.saveChats();
+            this.currentUser.saveChats();
         },
 
         getLastUnexpiredChatSession: function() {
@@ -58,17 +59,17 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
             if (!found) {
                 storage.getChatSession(this.senderId, this.lastChatSessionIndex)
                 .then(function(chatSession) {
-                    var parsedChatSession = ChatSession.parseFromStorage(chatSession);
+                    var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
                     self.lastUnexpiredChatSession = parsedChatSession;
                     self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                    console.log($rootScope.user);
+                    console.log(this.currentUser);
                 })
             }
         },
 
         getChatTitle: function() {
-            if ($rootScope.user.friends[this.senderId]) {
-                return $rootScope.user.friends[this.senderId].name;
+            if (this.currentUser.friends[this.senderId]) {
+                return this.currentUser.friends[this.senderId].name;
             }
             else {
                 return this.senderId;
@@ -76,7 +77,7 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
         },
 
         remove: function() {
-            var chats = $rootScope.user.chats;
+            var chats = this.currentUser.chats;
             var _chats = {};
             for (var senderId in chats) {
                 if (this.senderId == senderId) continue;
@@ -84,10 +85,10 @@ factories.factory("Chat", ['$rootScope', 'storage', 'ChatSession', function($roo
                     _chats[senderId] = chats[senderId];
                 }
             }
-            $rootScope.user.chats = _chats;
+            this.currentUser.chats = _chats;
             // $scope.$apply();
             console.log(chats);
-            storage.saveChats();
+            this.currentUser.saveChats();
         },
 
         handleExpiredChatSession: function() {
