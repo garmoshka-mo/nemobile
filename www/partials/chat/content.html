@@ -9,7 +9,7 @@
         </form>
     </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind="message.text"></span>
+      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)"></span>
     </div>
 </div>
 <div id="footer">
@@ -18,8 +18,24 @@
         <span ng-click="closeErrorDescription()" class="close">&times;</span>
     </div>
     <div class="chat-buttons-container">
+        <div class="chat-sticker-button" ng-click="isStickersGalleryVisiable = !isStickersGalleryVisiable">
+            <i class="fa fa-image"></i>
+        </div>
         <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text">
         <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">send</button>
+        <div class="stickersGallery-container" ng-show="isStickersGalleryVisiable">
+            <div class="stickersGallery" ng-class="{'animated bounceInUp': isStickersGalleryVisiable}">
+                <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories">
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+                <div ng-repeat="category in stickersGallery.categories" class="category">
+                    <div class="category-name" ng-click="setCategory(category)" ng-bind="category.name" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>
+                    <div ng-show="category.name == stickersGallery.currentCategory" class="category-content">
+                        <img alt="gif" class="category-img" ng-repeat="image in category.images" ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <button class="chat-send" ng-click="chatSession.closeChatSession()">close</button> -->
     </div>
 </div>

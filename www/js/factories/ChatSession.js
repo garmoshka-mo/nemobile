@@ -119,7 +119,22 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$rootScope', fu
         getLastMessage: function() {
             if (this.messages.length) {
                 var messagesAmount = this.messages.length;
-                return this.messages[messagesAmount - 1].text;
+                var text = this.messages[messagesAmount - 1].text;
+                if (text.match(/(http|https):/)) {
+                    var imagesExtensitions = ['gif']
+                    var splitted = text.split(".");
+                    var extensition = splitted[splitted.length - 1];
+
+                    if (imagesExtensitions.indexOf(extensition) != -1) {
+                        return "(image)";
+                    }
+                    else {
+                        return "(link)";
+                    }
+                }
+                else {
+                    return text;
+                }
             }
         }, 
 

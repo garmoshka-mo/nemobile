@@ -51,6 +51,7 @@ services
         user.save();
         user.saveFriends();
         setApiAccessToken();
+        user.getUnseenMessages();
     }
 
     function setApiAccessToken() {
@@ -128,6 +129,17 @@ services
         unsubscribe();
         clearCurrentUser();
         console.log('user is logged out', user);
+    }
+
+    this.getUnseenMessages = function() {
+        pubnub.history(
+            {
+                channel: user.channel,
+                callback: function(m) {
+                    console.log("unseen messages: ", m);
+                }
+            }
+        );
     }
 
     this.addFriend = function(uuid, name) {

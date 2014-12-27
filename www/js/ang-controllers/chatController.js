@@ -1,7 +1,9 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
         
+        $scope.isStickersGalleryVisiable = false;
+        $scope.stickersGallery = stickersGallery;
         var $chatInput = $('.chat-input');
         
         $scope.scrollToBottom = function() {
@@ -15,6 +17,30 @@ angular.module("angControllers").controller("chatController",
                 $chatInput.focus();
             }, 0);
         }
+        
+        $scope.setCategory = function(category) {
+            $scope.stickersGallery.currentCategory = category.name;
+        }
+
+        $scope.formatMessage = function(messageText) {
+            if (messageText.match(/(http|https):/)) {
+                var imagesExtensitions = ['gif']
+                var splitted = messageText.split(".");
+                var extensition = splitted[splitted.length - 1];
+
+                if (imagesExtensitions.indexOf(extensition) != -1) {
+                    return "<img src='" + messageText + "'>";
+                }
+                else {
+                    return "<a class='message-link' href='" + messageText + "'>" + messageText + "</a>";
+                }
+            }
+            else {
+                return messageText;
+            }
+        }
+
+
 
         $scope.setFocusOnTextField();
 
@@ -100,8 +126,14 @@ angular.module("angControllers").controller("chatController",
                     }
                 )
             }
-
         }
+
+        $scope.sendSticker = function(stickerLink) {
+            $scope.newMessage.text = stickerLink;
+            $scope.isStickersGalleryVisiable = false;
+            chat.sendMessage();
+        }
+
         console.log($scope.chat);
 
     

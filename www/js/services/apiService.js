@@ -100,17 +100,6 @@ services
             })
         },
 
-        getUnseenMessages: function() {
-            pubnub.history(
-                {
-                    channel: user.channel,
-                    callback: function(m) {
-                        console.log(m);
-                    }
-                }
-            );
-        },
-
         searchUser: function(userName) {
             return $http({
                 method: 'POST',
@@ -133,10 +122,27 @@ services
                     return $q.reject();;
                 }
             )
+        },
+
+        getCategories: function() {
+            return $http({
+                method: 'GET',
+                url: App.Settings.apiUrl + "/categories?access_token=" + api.accessToken ,
+            })
+            .then(
+                function(res) {
+                    return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
         }
     }
 
 
+    //for debugging purpose
+    window.api = api;
 
     return api;
 }])

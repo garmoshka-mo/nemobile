@@ -64,7 +64,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
                     var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
                     self.lastUnexpiredChatSession = parsedChatSession;
                     self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                    console.log(this.currentUser);
+                    console.log(self.currentUser);
                 })
             }
         },
