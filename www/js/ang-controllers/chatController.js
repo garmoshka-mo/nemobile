@@ -3,6 +3,7 @@ angular.module("angControllers").controller("chatController",
     function(user, $scope, $stateParams, $state, api, notification, $timeout, storage) {
         
         var $chatInput = $('.chat-input');
+        
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
@@ -10,6 +11,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
+                console.log("focus is set on textField");
                 $chatInput.focus();
             }, 0);
         }
@@ -25,7 +27,7 @@ angular.module("angControllers").controller("chatController",
             text: '',
             ttl: 10,
             clearText: function() {
-                this.text = ''
+                this.text = '';
             }
         };
         

@@ -167,6 +167,14 @@ a.button:hover{
   border-bottom: 1px solid black;
   min-height: 65px;
 }
+.chat-title {
+  height: 31px;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .chats-chat:active {
   background-color: #ecf0f1;
 }

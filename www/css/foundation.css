@@ -4696,11 +4696,10 @@ dialog {
   left: 0; }
 
 .right-small {
-  width: 2.8125rem;
+  width: 5.8125rem;
   height: 2.8125rem;
   position: absolute;
   top: 0;
-  border-left: solid 1px #1a1a1a;
   right: 0; }
 
 .tab-bar-section {

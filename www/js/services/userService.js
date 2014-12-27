@@ -7,6 +7,7 @@ services
     this.uuid = null;
     this.accessToken = null;
     this.channel = null;
+    this.scores = null;
     this.friends = {};
     this.chats = {};
 
@@ -42,7 +43,8 @@ services
     function handleSuccessSignIn(userInfo) {
         user.name = userInfo.name;
         user.channel = userInfo.channel_name;
-        user.uuid = userInfo.uuid
+        user.uuid = userInfo.uuid;
+        user.scores = userInfo.score;
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
@@ -57,6 +59,22 @@ services
 
     function clearApiAccessToken() {
         api.clearAccessToken();
+    }
+
+    function clearCurrentUser() {
+        user.name = null;
+        user.uuid = null;
+        user.accessToken = null;
+        user.channel = null;
+        user.scores = null;
+        user.friends = {};
+        user.chats = {};
+    }
+
+    function unsubscribe() {
+        pubnub.unsubscribe({
+            channel: user.channel
+        })
     }
 
     //public methods
@@ -91,14 +109,7 @@ services
         )
     }
 
-    this.clear = function() {
-        this.name = null;
-        this.uuid = null;
-        this.accessToken = null;
-        this.channel = null;
-        this.friends = {};
-        this.chats = {};
-    }
+    
 
     this.signup = function(name, password) {
         return api.signup(name, password)
@@ -110,6 +121,13 @@ services
                 return $q.reject(res.errorDescription);
             }
         )
+    }
+
+    this.logout = function() {
+        storage.clear();
+        unsubscribe();
+        clearCurrentUser();
+        console.log('user is logged out', user);
     }
 
     this.addFriend = function(uuid, name) {
@@ -130,6 +148,7 @@ services
             self.name = dataFromStorage.name;
             self.uuid = dataFromStorage.uuid;
             self.channel = dataFromStorage.channel;
+            self.scores = dataFromStorage.scores;
             self.subscribe();
             setApiAccessToken();
             console.log("user info is taken from storage", self);
@@ -152,14 +171,17 @@ services
 
     this.save = function() {
         storage.saveUser(this);
+        console.log("user info is saved");
     }
 
     this.saveFriends = function() {
         storage.saveFriends(this.friends)
+        console.log("user friends is saved");
     }
 
     this.saveChats = function() {
         storage.saveChats(this.chats);
+        console.log("user chats is saved");
     }
 
     this.isLogged = function() {
@@ -211,6 +233,9 @@ services
                         }
                     );
                 }
+
+                self.scores = m.my_score;
+                self.chats[m.sender_uuid].senderScores = m.his_score;
                 
                 showNotification(self, m);
                 lastSession.setTimer(m)
@@ -226,11 +251,7 @@ services
 
     
 
-    this.unsubscribe = function() {
-        pubnub.unsubscribe({
-            channel: this.channel
-        })
-    }
+    
 
         
     var pubnub = PUBNUB.init({

@@ -2,12 +2,15 @@ angular.module("angControllers").controller("mainController", [
   '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession', 
   function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession) {
   
+  $scope.user = user;
+  
   console.log('main controller is invoked')
 
   $rootScope.isAppInBackground = false;
 
   document.addEventListener("pause", function() {
      $rootScope.isAppInBackground = true;
+     user.saveChats();
   });
 
   document.addEventListener("resume", function() {
