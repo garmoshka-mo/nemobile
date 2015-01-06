@@ -1,0 +1,44 @@
+<div class="stickersGallery">
+    <div class="ta-center" ng-show="stickersGallery.isUpdating">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+    <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+    <div ng-repeat="category in stickersGallery.categories" class="category">
+        <div class="category-name row" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
+            <div class="small-5 columns" ng-click="setCategory(category)" ng-bind="category.name" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>
+            <div class="small-7 columns ta-right">
+                <span class="category-button">
+                    <i class="fa fa-plus"></i>
+                </span>
+                <span class="category-button">
+                    <i class="fa fa-pencil-square-o" ng-click=""></i>
+                </span>
+                <span class="category-button">
+                    <i class="fa fa-trash" ng-click="removeCategory(category)"></i>
+                </span>
+            </div>
+        </div>
+        <div ng-show="category.name == stickersGallery.currentCategory" class="category-content ">
+            <img alt="gif" class="category-img" ng-repeat="image in category.images" ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-name row category-name-rounded button-add-category">
+            <div class="small-12 columns" ng-click="showNewCategoryBlock()">
+                <span class="category-button" ng-show="!isNewCategoryBlockVisible">
+                   <i class="fa fa-plus"></i>
+                </span>
+            </div>
+            <div ng-show="isNewCategoryBlockVisible" class="category-content ">
+                <br>
+                <input type="text" placeholder="Введите название новой категории" ng-model="newCategoryName">
+                <button ng-click="addNewCategory()" ng-disabled="isAddingNewCategory">
+                    <span ng-show="!isAddingNewCategory">Добавить</span>
+                    <i ng-show="isAddingNewCategory" class="fa fa-circle-o-notch fa-spin"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

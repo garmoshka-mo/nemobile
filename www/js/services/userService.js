@@ -10,9 +10,12 @@ services
     this.scores = null;
     this.friends = {};
     this.chats = {};
+    this.lastMessageTimestamp = null;
 
     var user = this;
     
+
+
     //private methods
     function handleOsNotificationClick (params) {
         location.href = params.href;
@@ -51,7 +54,6 @@ services
         user.save();
         user.saveFriends();
         setApiAccessToken();
-        user.getUnseenMessages();
     }
 
     function setApiAccessToken() {
@@ -70,12 +72,71 @@ services
         user.scores = null;
         user.friends = {};
         user.chats = {};
+        user.lastMessageTimestamp = null;
     }
 
     function unsubscribe() {
         pubnub.unsubscribe({
             channel: user.channel
         })
+    }
+
+    function handleIncomeMessage(m) {
+        console.log("received new message", m);
+        var self = user;
+        if (self.chats[m.sender_uuid]) {
+            console.log("added to existing chat")
+            self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+            var lastSession;
+            
+            if (!self.chats[m.sender_uuid].isExpired) {
+                lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+            }
+            else {
+                self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid);
+                self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+                lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+            } 
+           
+            if (!lastSession.isReplied) {
+                if (lastSession.creatorId == self.uuid) {
+                    lastSession.isReplied = true;
+                }
+            }
+
+            lastSession.messages.push({
+                text: m.message_text,
+                isOwn: false
+            });
+        }
+        else {
+            console.log("created new chat")
+            self.addChat(m.sender_uuid)
+            self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid)
+            self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+            var lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+            lastSession.messages.push(
+                {
+                    text: m.message_text,
+                    isOwn: false
+                }
+            );
+        }
+
+        self.scores = m.my_score;
+        self.chats[m.sender_uuid].senderScores = m.his_score;
+        self.lastMessageTimestamp = new Date().getTime();
+        self.saveLastMessageTimestamp();
+
+        showNotification(self, m);
+        lastSession.setTimer(m)
+        lastSession.save();
+
+        console.log("When chatSession expires: ", lastSession.whenExipires);
+        $rootScope.$apply();
+        console.log("income message", m)
+        console.log(self);
+        
     }
 
     //public methods
@@ -132,14 +193,22 @@ services
     }
 
     this.getUnseenMessages = function() {
-        pubnub.history(
-            {
-                channel: user.channel,
-                callback: function(m) {
-                    console.log("unseen messages: ", m);
+        if (this.lastMessageTimestamp) {
+            console.log("start from: ", (this.lastMessageTimestamp * 10000).toString());
+            pubnub.history(
+                {
+                    channel: user.channel,
+                    end: this.lastMessageTimestamp * 10000,
+                    callback: function(res) {
+                        console.log("unseen messages: ", res);
+                        var messages = res[0];
+                        for (var i = 0; i < messages.length; i++) {
+                            handleIncomeMessage(messages[i]);                            
+                        }
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     this.addFriend = function(uuid, name) {
@@ -161,6 +230,7 @@ services
             self.uuid = dataFromStorage.uuid;
             self.channel = dataFromStorage.channel;
             self.scores = dataFromStorage.scores;
+            self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
             self.subscribe();
             setApiAccessToken();
             console.log("user info is taken from storage", self);
@@ -179,6 +249,11 @@ services
             self.friends = dataFromStorage;
             console.log("user friends is taken from storage", user.friends);
         })
+
+        storage.getLastMessageTimestamp().then(function(timestamp) {
+            self.lastMessageTimestamp = timestamp;
+            self.getUnseenMessages()
+        })
     }
 
     this.save = function() {
@@ -196,6 +271,10 @@ services
         console.log("user chats is saved");
     }
 
+    this.saveLastMessageTimestamp = function() {
+        storage.saveLastMessageTimestamp(this.lastMessageTimestamp); 
+    }
+
     this.isLogged = function() {
         return !!localStorage.getItem('isLogged')
     }
@@ -204,71 +283,17 @@ services
         var self = this;
         pubnub.subscribe({
             channel: self.channel,
-            message: function handleMessage(m) {
-                console.log("received new message", m);
-                
-                if (self.chats[m.sender_uuid]) {
-                    console.log("added to existing chat")
-                    self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                    var lastSession;
-                    
-                    if (!self.chats[m.sender_uuid].isExpired) {
-                        lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
-                    }
-                    else {
-                        self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid);
-                        self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                        lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
-                    } 
-                   
-                    if (!lastSession.isReplied) {
-                        if (lastSession.creatorId == self.uuid) {
-                            lastSession.isReplied = true;
-                        }
-                    }
-
-                    lastSession.messages.push({
-                        text: m.message_text,
-                        isOwn: false
-                    });
-                }
-                else {
-                    console.log("created new chat")
-                    self.addChat(m.sender_uuid)
-                    self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid)
-                    self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                    var lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
-                    lastSession.messages.push(
-                        {
-                            text: m.message_text,
-                            isOwn: false
-                        }
-                    );
-                }
-
-                self.scores = m.my_score;
-                self.chats[m.sender_uuid].senderScores = m.his_score;
-                
-                showNotification(self, m);
-                lastSession.setTimer(m)
-                lastSession.save();
-
-                console.log("When chatSession expires: ", lastSession.whenExipires);
-                $rootScope.$apply();
-                console.log("income message", m)
-                console.log(self);
-            }
+            message: function(m) { handleIncomeMessage(m) }
         })
     }
 
-    
-
-    
-
-        
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
+
+    // pubnub.time(function(time) {
+    //     console.log("difference with pubnub server(msec): ", new Date().getTime() - time / 10000);
+    // })
 
     if (this.isLogged()) {
         this.parseFromStorage();

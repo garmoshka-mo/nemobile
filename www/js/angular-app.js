@@ -122,38 +122,43 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("stickersGallery", {
+    url: "/stickersGallery",
+    views: {
+      "title": {
+        template: "Галерея стикеров"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "stickersGalleryController",
+        templateUrl: "partials/stickersGallery/content.html"
+      }
+    }
+  })
 });
 
-angular.module("angApp").run(function($rootScope){
-  
-  // if (window.localStorage.getItem("firstTime") === null) {
-  //   alert("first time");
-  //   // app.pubnub.unsubscribeFromAllPushNotificationChannels();
-  //   window.localStorage.setItem("firstTime", false);
-  // }
+var pushNotification;
 
-  // $(".header").add(".content").toggleClass("hidden");
+document.addEventListener("deviceready", function(){
+    function successHandler (result) {
+        // alert('result = ' + result);
+    }
 
-  // $rootScope.user = JSON.parse( window.localStorage.getItem("user") );
-
-  // if ($rootScope.user) {
-  //   app.pubnub.subscribe($rootScope.user.name);
-  // } 
-  // else {
-  //   $rootScope.user = { name: "", friends: [], phoneNumbers: [] };
-  // }
-
-
-  // $(document).foundation();
-
-  // document.addEventListener("menubutton", function(){ $('.off-canvas-wrap').foundation('offcanvas', 'toggle', 'move-right'); }, false);
-  // $(document).foundation({
-  //   offcanvas : {
-  //     close_on_click : true
-  //   }
-  // });
-
-
+    function errorHandler (error) {
+        // alert('error = ' + error);
+    }
+    pushNotification = window.plugins.pushNotification;
+    if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+      pushNotification.register(
+      successHandler,
+      errorHandler,
+      {
+          "senderID":"1176989379",
+          "ecb":"onNotification"
+      });
+    }
 });
 
 angular.module("angControllers", []);

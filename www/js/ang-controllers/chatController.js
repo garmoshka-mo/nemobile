@@ -104,10 +104,6 @@ angular.module("angControllers").controller("chatController",
                     }
                 }
 
-                if ($scope.chatSession.isReplied) {
-                    $scope.newMessage.ttl = 0;
-                }
-
                 $scope.chatSession.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
                 .then(
                     function() {

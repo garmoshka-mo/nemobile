@@ -137,6 +137,33 @@ services
                     return $q.reject();
                 }
             )
+        },
+
+        addNewCategory: function(name) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/categories",
+                data: {
+                    "access_token": api.accessToken,
+                    "category": {"name": name}
+                }
+            })
+        },
+
+        removeCategory: function(categoryId) {
+            return $http({
+                method: 'DELETE',
+                url: App.Settings.apiUrl + "/categories/" + categoryId + "?access_token=" + api.accessToken,
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
         }
     }
 

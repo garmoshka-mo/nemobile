@@ -198,7 +198,7 @@ a.button:hover{
 }
 
 input.chat-input {
-  width: 65%;
+  width: 72%;
   display: inline-block;
   vertical-align: top;
   border-radius: 5px;
@@ -206,7 +206,8 @@ input.chat-input {
 }
 button.chat-send {
   vertical-align: top;
-  width: 18%;
+  width: 10%;
+  max-width: 50px;
   padding: 0;
   height: 42px;
   border-radius: 5px;
@@ -242,9 +243,19 @@ button.chat-send {
   margin: 5px;
 }
 .stickersGallery .category-name {
+  padding: 5px;
   text-align: center;
   background: #29B6F6;
   border-radius: 15px 15px 0 0;
+}
+.category-button {
+  display: inline-block;
+  background: #fff;
+  padding: 2px 10px;
+  border-radius: 17px;
+}
+.button-add-category {
+  background: #28b162 !important;
 }
 .stickersGallery .category-content {
   padding: 10px;

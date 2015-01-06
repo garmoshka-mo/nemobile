@@ -44,6 +44,10 @@ services
             return $localForage.getItem(key);
         },
 
+        getLastMessageTimestamp: function() {
+            return $localForage.getItem('lastMessageTimestamp');
+        },
+
         saveUser: function(currentUser) {
             var _user = filterObject(currentUser, ['chats', 'friends']);
             $localForage.setItem('user', _user);
@@ -67,6 +71,10 @@ services
             var notToCopyProperties = ['timer', 'currentChat'];
             var _chatSession = filterObject(chatSessionObj, notToCopyProperties);
             $localForage.setItem('chatSession_' + chatSessionObj.senderId + "_" + chatSessionObj.id, _chatSession)
+        },
+
+        saveLastMessageTimestamp: function(timestamp) {
+            $localForage.setItem('lastMessageTimestamp', timestamp);
         },
 
         removeChatSession: function(senderId, index) {
