@@ -1,13 +1,36 @@
-angular.module("angControllers").controller("stickersGalleryController", ['$scope', 'stickersGallery', 
-    function($scope, stickersGallery) {
+angular.module("angControllers").controller("stickersGalleryController", ['$scope', 'stickersGallery', '$timeout', 
+    function($scope, stickersGallery, $timeout) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isNewCategoryBlockVisible = false;
         $scope.isAddingNewCategory = false;
 
-        $scope.setCategory = function(category) {
-            $scope.stickersGallery.currentCategory = category.name;
+        $scope.toggleCategory = function(category) {
+            if ($scope.stickersGallery.currentCategory == category.name) {
+                $scope.stickersGallery.currentCategory = "";
+            }
+            else {
+                $scope.stickersGallery.currentCategory = category.name;
+            }
             $scope.isNewCategoryBlockVisible = false;
+        }
+
+        $scope.changeCategoryName = function(category, event) {
+            category.isCategoryNameChanging = true;
+            category.newName = category.name;
+            $timeout(function(){$("." + category.name + "-input")[0].focus();},0);
+        }
+
+        $scope.applyNewName = function(category) {
+            if (category.newName != category.name) {
+                stickersGallery.updateCategory(category.id, category.newName);
+            }
+            $scope.cancelNewName(category);
+        }
+
+        $scope.cancelNewName = function(category) {
+            category.newName = "";
+            category.isCategoryNameChanging = false;
         }
 
         $scope.showNewCategoryBlock = function() {
@@ -38,6 +61,10 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
 
         $scope.removeCategory = function(category) {
             stickersGallery.removeCategory(category);
+        }
+
+        $scope.removeSticker = function(category, image) {
+            stickersGallery.removeSticker(category.id, image.id);
         }      
 }])
     

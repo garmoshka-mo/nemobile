@@ -164,6 +164,64 @@ services
                     return $q.reject();
                 }
             )
+        },
+
+        updateCategory: function(categoryId, name) {
+            return $http({
+                method: 'PUT',
+                url: App.Settings.apiUrl + "/categories/" + categoryId,
+                data: {
+                    "access_token": api.accessToken,
+                    "category": {"name": name}
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
+        },
+
+        addSticker: function(categoryId, imageURL) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
+                data: {
+                    "access_token": api.accessToken,
+                    "id": categoryId,
+                    "image": {"image_url": imageURL}
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
+        },
+
+        removeSticker: function(categoryId, imageId) {
+            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images" + "/" + imageId
+                        + "?access_token=" + api.accessToken 
+            return $http({
+                method: 'DELETE',
+                url: url
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
         }
     }
 

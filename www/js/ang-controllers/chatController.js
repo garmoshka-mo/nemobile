@@ -18,13 +18,19 @@ angular.module("angControllers").controller("chatController",
             }, 0);
         }
         
-        $scope.setCategory = function(category) {
-            $scope.stickersGallery.currentCategory = category.name;
+        $scope.toggleCategory = function(category) {
+            if ($scope.stickersGallery.currentCategory == category.name) {
+                $scope.stickersGallery.currentCategory = "";
+            }
+            else {
+                $scope.stickersGallery.currentCategory = category.name;
+            }
+            $scope.isNewCategoryBlockVisible = false;
         }
 
         $scope.formatMessage = function(messageText) {
             if (messageText.match(/(http|https):/)) {
-                var imagesExtensitions = ['gif']
+                var imagesExtensitions = ['gif', 'png', 'jpeg']
                 var splitted = messageText.split(".");
                 var extensition = splitted[splitted.length - 1];
 
@@ -128,6 +134,15 @@ angular.module("angControllers").controller("chatController",
             $scope.newMessage.text = stickerLink;
             $scope.isStickersGalleryVisiable = false;
             chat.sendMessage();
+        }
+
+        $scope.addSticker = function(message) {
+            console.log(message);
+            if (true) { // replace with !message.isOwn
+                if (message.text.match(/(http|https):/)) {
+                    location.href = "#/addImage?imageURL=" + message.text;
+                }
+            }
         }
 
         console.log($scope.chat);

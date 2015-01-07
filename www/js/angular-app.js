@@ -1,4 +1,4 @@
-angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize"]);
+var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize"]);
 
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider
@@ -134,6 +134,21 @@ angular.module("angApp").config(function($stateProvider) {
       "content": {
         controller: "stickersGalleryController",
         templateUrl: "partials/stickersGallery/content.html"
+      }
+    }
+  })
+  .state("addImage", {
+    url: "/addImage?imageURL&categoryId",
+    views: {
+      "title": {
+        template: "Добавить изображение"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "addImageController",
+        templateUrl: "partials/addImage/content.html"
       }
     }
   })

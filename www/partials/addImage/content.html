@@ -1,0 +1,22 @@
+<div overscrollable-without-footer>
+    <div class="width-92 block-center">
+        Выберете категорию:
+        <form name="newImageForm">
+            <select name="category"  ng-model="newImage.categoryId" required>
+                <option ng-repeat="category in stickersGallery.categories" value="{{category.id}}" ng-bind="category.name"></option>
+            </select>
+            Вставьте ссылку на картинку
+            <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
+            или загрузите 
+        </form>
+        <input type="file">
+        <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
+        <br>
+        <div class="ta-center">
+            <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="addSticker()">
+                <span ng-show="!isImageUploading">Загрузить</span>
+                <i ng-show="isImageUploading" class="fa fa-circle-o-notch fa-spin"></i>
+            </button>
+        </div>
+    </div>
+</div>
