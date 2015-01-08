@@ -278,6 +278,7 @@ input.category-name-change-input {
   margin-bottom: 5px;
 }
 .image-button {
+  margin-bottom: 2px;
   display: inline-block;
   color: #FFF;
   background: #29B6F6;

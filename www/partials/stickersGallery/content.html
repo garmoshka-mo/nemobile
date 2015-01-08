@@ -7,10 +7,11 @@
             <div class="category-name row" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
                 <div class="small-5 columns" ng-click="toggleCategory(category)"  ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
                     <span ng-show="!category.isCategoryNameChanging" ng-bind="category.name"></span>
-                    <div stop-event="click" ng-show="category.isCategoryNameChanging">
+                    <div stop-event ng-show="category.isCategoryNameChanging">
                             <input class="category-name-change-input {{category.name + '-input'}}" ng-model="category.newName" type="text"  >
                     </div>
                 </div>
+                <!-- buttons -->
                 <div class="small-7 columns ta-right">
                     <div ng-show="!category.isCategoryNameChanging">
                         <span class="category-button">
@@ -32,15 +33,34 @@
                         </span>
                     </div>
                 </div>
+                <!-- buttons end -->
             </div>
             <div ng-show="category.name == stickersGallery.currentCategory" class="category-content ">
                 <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
                     <div class="ta-center">
                         <img alt="gif" class="category-img"  ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
                     </div>
-                    <span class="image-button">
-                        <i class="fa fa-trash" ng-click="removeSticker(category, image)"></i>
-                    </span>
+                    <div ng-show="!image.isCategoryChanging">
+                        <span class="image-button">
+                            <i class="fa fa-trash" ng-click="removeSticker(category, image)"></i>
+                        </span>
+                        <span class="image-button">
+                            <i class="fa fa-arrow-circle-o-right" ng-click="changeImageCategory(image, category)"></i>
+                        </span>
+                    </div>
+                    <div ng-show="image.isCategoryChanging">
+                        <span class="image-button">
+                            <i class="fa fa-check" ng-click="applyNewImageCategory(image)"></i>
+                        </span>
+                        <span class="image-button">
+                            <i class="fa fa-close" ng-click="cancelNewImageCategory(image)"></i>
+                        </span>
+                    </div>
+                    <div ng-show="image.isCategoryChanging">
+                        <select ng-model="image.newCategoryId">
+                            <option ng-repeat="category in stickersGallery.categories" value="{{category.id}}" ng-bind="category.name"></option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

@@ -136,7 +136,7 @@ angular.module("angControllers").controller("chatController",
             chat.sendMessage();
         }
 
-        $scope.addSticker = function(message) {
+        $scope.addStickerURL = function(message) {
             console.log(message);
             if (true) { // replace with !message.isOwn
                 if (message.text.match(/(http|https):/)) {

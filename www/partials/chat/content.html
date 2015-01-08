@@ -9,7 +9,7 @@
         </form>
     </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" ng-dblclick="addSticker(message)"></span>
+      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
     </div>
 </div>
 <div id="footer">

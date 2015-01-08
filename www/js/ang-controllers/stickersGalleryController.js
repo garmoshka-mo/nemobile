@@ -18,7 +18,7 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
         $scope.changeCategoryName = function(category, event) {
             category.isCategoryNameChanging = true;
             category.newName = category.name;
-            $timeout(function(){$("." + category.name + "-input")[0].focus();},0);
+            $timeout(function(){$("." + category.name + "-input")[0].focus();},301);
         }
 
         $scope.applyNewName = function(category) {
@@ -65,6 +65,23 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
 
         $scope.removeSticker = function(category, image) {
             stickersGallery.removeSticker(category.id, image.id);
-        }      
+        }
+
+        $scope.changeImageCategory = function(image, category) {
+            image.isCategoryChanging = true;
+            image.newCategoryId = category.id;
+            image.categoryId = category.id;
+        }
+
+        $scope.applyNewImageCategory = function(image) {
+            if (image.categoryId != image.newCategoryId) {
+                stickersGallery.moveSticker(image.categoryId, image.id, image.newCategoryId)
+            }
+            $scope.cancelNewImageCategory(image);
+        }
+
+        $scope.cancelNewImageCategory = function(image) {
+            image.isCategoryChanging = false;
+        }
 }])
     

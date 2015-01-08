@@ -9,9 +9,19 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
             categoryId: $stateParams.categoryId 
         }
 
-        $scope.addSticker = function() {
+        $scope.addStickerURL = function() {
             $scope.isImageUploading = true;
-            stickersGallery.addSticker($scope.newImage.categoryId, $scope.newImage.url)
+            stickersGallery.addStickerURL($scope.newImage.categoryId, $scope.newImage.url)
+            .then(
+                function() {
+                    $scope.isImageUploading = false;
+                }
+            )
+        }
+
+        $scope.addStickerFile = function() {
+            $scope.isImageUploading = true;
+            stickersGallery.addStickerFile($scope.newImage.categoryId, $scope.newImage.file[0])
             .then(
                 function() {
                     $scope.isImageUploading = false;

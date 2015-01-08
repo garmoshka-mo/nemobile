@@ -49,8 +49,17 @@ services
         )
     }
 
-    this.addSticker = function(categoryId, imageURL) {
-        return api.addSticker(categoryId, imageURL)
+    this.addStickerURL = function(categoryId, imageURL) {
+        return api.addStickerURL(categoryId, imageURL)
+        .then(
+            function() {
+                getCurrentUserCategories();
+            }
+        )
+    }
+
+    this.addStickerFile = function(categoryId, imageFile) {
+        return api.addStickerFile(categoryId, imageFile)
         .then(
             function() {
                 getCurrentUserCategories();
@@ -60,6 +69,15 @@ services
 
     this.removeSticker = function(categoryId, imageId) {
         return api.removeSticker(categoryId, imageId)
+        .then(
+            function() {
+                getCurrentUserCategories();
+            }
+        )
+    }
+
+    this.moveSticker = function(categoryId, imageId, newCategoryId) {
+        api.moveSticker(categoryId, imageId, newCategoryId)
         .then(
             function() {
                 getCurrentUserCategories();

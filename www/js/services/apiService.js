@@ -1,6 +1,6 @@
 services
-.factory('api', ['$http', '$q', 'notification','storage', '$rootScope',
-    function ($http, $q, user, notification, storage, $rootScope) {
+.factory('api', ['$http', '$q', '$upload', 'notification','storage', '$rootScope',
+    function ($http, $q, $upload, user, notification, storage, $rootScope) {
     
     console.log("api service is enabled");
     
@@ -185,7 +185,7 @@ services
             )
         },
 
-        addSticker: function(categoryId, imageURL) {
+        addStickerURL: function(categoryId, imageURL) {
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
@@ -199,6 +199,50 @@ services
                 function(res) {
                     console.log(res);
                     return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
+        },
+
+        addStickerFile: function(categoryId, fileData) {
+            return $upload.upload({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
+                data: {
+                    "access_token": api.accessToken,
+                    "id": categoryId,
+                },
+                file: fileData,
+                fileFormDataName: "'image[image_data]"
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    return res.data.categories;
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            )
+        },
+
+        moveSticker: function(categoryId, imageId, newCategoryId) {
+            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images/" + imageId;
+            return $http({
+                method: 'PUT',
+                url: url,
+                data: {
+                    "access_token": api.accessToken,
+                    "id": categoryId,
+                    "image_id": imageId,
+                    "new_category_id": newCategoryId
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
                 },
                 function(res) {
                     return $q.reject();
