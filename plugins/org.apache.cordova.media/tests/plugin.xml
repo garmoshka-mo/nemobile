@@ -21,11 +21,10 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.apache.cordova.device.tests"
-    version="0.2.13">
-    <name>Cordova Device Plugin Tests</name>
+    id="org.apache.cordova.media.tests"
+    version="0.2.15">
+    <name>Cordova Media Plugin Tests</name>
     <license>Apache 2.0</license>
-
     <js-module src="tests.js" name="tests">
     </js-module>
 </plugin>
