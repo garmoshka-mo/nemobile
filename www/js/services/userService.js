@@ -138,7 +138,7 @@ services
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
         if (window.deviceId) {
-            console.log("deviceId", window.deviceId);
+            console.log("deviceId", window.deviceId); 
             pubnub.mobile_gw_provision({
                 device_id: window.deviceId,
                 channel: user.channel,
