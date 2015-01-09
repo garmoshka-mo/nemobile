@@ -37,7 +37,6 @@ var app = {
        
     }
 };
- console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
 
         // if(device.platform == 'Android')
             App.Settings.pubnubNotificationType = "gcm";

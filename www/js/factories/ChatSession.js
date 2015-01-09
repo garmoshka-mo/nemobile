@@ -1,4 +1,4 @@
-factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$rootScope', function($timeout, storage, api) {
+factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($timeout, storage, api, $q) {
     
     function ChatSession(creatorId, senderId, id, currentChat) {
         this.isExpired = false;
@@ -39,7 +39,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$rootScope', fu
         if (ttl < 0) {
             chatSession.isExpired = true;
             $timeout(function() {
-                chatSession.closeChatSession()
+                chatSession.close()
             }, 0)
         } 
         else {

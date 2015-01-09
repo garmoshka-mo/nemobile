@@ -14,8 +14,6 @@ services
 
     var user = this;
     
-
-
     //private methods
     function handleOsNotificationClick (params) {
         location.href = params.href;
@@ -54,6 +52,7 @@ services
         user.save();
         user.saveFriends();
         setApiAccessToken();
+        registerDeviceToChannel();
     }
 
     function setApiAccessToken() {
@@ -82,7 +81,6 @@ services
     }
 
     function handleIncomeMessage(m) {
-        console.log("received new message", m);
         var self = user;
         if (self.chats[m.sender_uuid]) {
             console.log("added to existing chat")
@@ -136,7 +134,27 @@ services
         $rootScope.$apply();
         console.log("income message", m)
         console.log(self);
-        
+    }
+
+    window.registerDeviceToChannel = function registerDeviceToChannel() {
+        if (window.deviceId) {
+            console.log("deviceId", window.deviceId);
+            pubnub.mobile_gw_provision({
+                device_id: window.deviceId,
+                channel: user.channel,
+                op: 'add',
+                gw_type: 'gcm',
+                error: function(msg) {
+                    console.log("device is not registered", msg)
+                },
+                success: function(msg) {
+                    console.log("device is registered", msg)
+                } 
+            })
+        }
+        else {
+            console.error("device id is undefined")
+        }
     }
 
     //public methods
@@ -232,6 +250,7 @@ services
             self.scores = dataFromStorage.scores;
             self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
             self.subscribe();
+            registerDeviceToChannel();
             setApiAccessToken();
             console.log("user info is taken from storage", self);
         })
@@ -285,6 +304,8 @@ services
             channel: self.channel,
             message: function(m) { handleIncomeMessage(m) }
         })
+
+        
     }
 
     var pubnub = PUBNUB.init({

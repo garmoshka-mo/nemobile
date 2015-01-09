@@ -157,11 +157,15 @@ angular.module("angApp").config(function($stateProvider) {
 var pushNotification;
 
 document.addEventListener("deviceready", function(){
-    function successHandler (result) {
+    console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
+
+    function successHandler(result) {
+        console.log(result);
         // alert('result = ' + result);
     }
 
-    function errorHandler (error) {
+    function errorHandler(error) {
+        console.log(result);
         // alert('error = ' + error);
     }
     pushNotification = window.plugins.pushNotification;
@@ -171,9 +175,20 @@ document.addEventListener("deviceready", function(){
       errorHandler,
       {
           "senderID":"1176989379",
-          "ecb":"onNotification"
+          "ecb": "onNotificationGCM"
       });
     }
+
+    window.onNotificationGCM = function onNotificationGCM(e) {
+      if (e.event = "registered") {
+        window.deviceId = e.regid;
+        registerDeviceToChannel();
+      }
+      else {
+        console.log("new notification came", e);
+      }
+    }
+
 });
 
 angular.module("angControllers", []);

@@ -64,7 +64,6 @@ services
                 _chats[chatId] = filterObject(userChats[chatId], forbiddenFields);
             }
             $localForage.setItem('chats', _chats)
-            .then(function(res){console.log(res)}, function(res){console.log(res)});
         },
 
         saveChatSession: function(chatSessionObj) {
