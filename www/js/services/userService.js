@@ -154,7 +154,7 @@ services
             pubnub.history(
                 {
                     channel: user.channel,
-                    end: (user.lastMessageTimestamp + deviceServerTimeDifference) * 10000,
+                    end: (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000,
                     callback: function(res) {
                         console.log("unseen messages: ", res);
                         var messages = res[0];
