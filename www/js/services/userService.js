@@ -150,11 +150,11 @@ services
     function getUnseenMessages() {
         if (user.lastMessageTimestamp) {
             console.log("last seen message timestamp * 10000: ", 
-                ((user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000).toString());
+                (user.lastMessageTimestamp * 10000).toString());
             pubnub.history(
                 {
                     channel: user.channel,
-                    end: user.lastMessageTimestamp * 10000,
+                    end: (user.lastMessageTimestamp + deviceServerTimeDifference) * 10000,
                     callback: function(res) {
                         console.log("unseen messages: ", res);
                         var messages = res[0];
