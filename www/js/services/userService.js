@@ -212,7 +212,7 @@ services
 
     this.getUnseenMessages = function() {
         if (this.lastMessageTimestamp) {
-            console.log("start from: ", (this.lastMessageTimestamp * 10000).toString());
+            console.log("last seen message timestamp * 10000: ", (this.lastMessageTimestamp * 10000).toString());
             pubnub.history(
                 {
                     channel: user.channel,
@@ -312,9 +312,10 @@ services
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
 
-    // pubnub.time(function(time) {
-    //     console.log("difference with pubnub server(msec): ", new Date().getTime() - time / 10000);
-    // })
+    pubnub.time(function(time) {
+        console.log(time);
+        alert("difference with pubnub server(msec): " + (new Date().getTime() - time / 10000));
+    })
 
     if (this.isLogged()) {
         this.parseFromStorage();
