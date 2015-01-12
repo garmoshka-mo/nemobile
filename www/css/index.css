@@ -214,7 +214,6 @@ input.chat-input {
 button.chat-send {
   vertical-align: top;
   width: 10%;
-  max-width: 50px;
   padding: 0;
   height: 42px;
   border-radius: 5px;
