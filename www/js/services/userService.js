@@ -13,7 +13,8 @@ services
     this.lastMessageTimestamp = null;
 
     var user = this;
-    
+    var differencePubnubDeviceTime;
+
     //private methods
     function handleOsNotificationClick (params) {
         location.href = params.href;
@@ -136,6 +137,36 @@ services
         console.log(self);
     }
 
+    function getPubnubTimeDifference() {
+        var d = $q.defer();
+        pubnub.time(function(time) {
+            differencePubnubDeviceTime = time / 10000 - new Date().getTime();
+            console.log("difference between pubnub and device time: ", differencePubnubDeviceTime);
+            d.resolve(differencePubnubDeviceTime);
+        })
+        return d.promise;
+    }
+
+    function getUnseenMessages() {
+        if (user.lastMessageTimestamp) {
+            console.log("last seen message timestamp * 10000: ", 
+                ((user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000).toString());
+            pubnub.history(
+                {
+                    channel: user.channel,
+                    end: user.lastMessageTimestamp * 10000,
+                    callback: function(res) {
+                        console.log("unseen messages: ", res);
+                        var messages = res[0];
+                        for (var i = 0; i < messages.length; i++) {
+                            handleIncomeMessage(messages[i]);                            
+                        }
+                    }
+                }
+            );
+        }
+    }
+
     window.registerDeviceToChannel = function registerDeviceToChannel() {
         if (window.deviceId) {
             console.log("deviceId", window.deviceId); 
@@ -211,22 +242,15 @@ services
     }
 
     this.getUnseenMessages = function() {
-        if (this.lastMessageTimestamp) {
-            console.log("last seen message timestamp * 10000: ", (this.lastMessageTimestamp * 10000).toString());
-            pubnub.history(
-                {
-                    channel: user.channel,
-                    end: this.lastMessageTimestamp * 10000,
-                    callback: function(res) {
-                        console.log("unseen messages: ", res);
-                        var messages = res[0];
-                        for (var i = 0; i < messages.length; i++) {
-                            handleIncomeMessage(messages[i]);                            
-                        }
-                    }
-                }
-            );
+        if (differencePubnubDeviceTime) {
+            getUnseenMessages();
         }
+        else {
+            getPubnubTimeDifference()
+            .then(function() {
+                getUnseenMessages();
+            })
+        }        
     }
 
     this.addFriend = function(uuid, name) {
@@ -312,10 +336,7 @@ services
         subscribe_key: App.Settings.pubnubSubscribeKey
     })
 
-    pubnub.time(function(time) {
-        console.log(time);
-        alert("difference with pubnub server(msec): " + (new Date().getTime() - time / 10000));
-    })
+
 
     if (this.isLogged()) {
         this.parseFromStorage();
