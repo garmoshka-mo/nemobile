@@ -215,7 +215,7 @@ services
                     "id": categoryId,
                 },
                 file: fileData,
-                fileFormDataName: "'image[image_data]"
+                fileFormDataName: "image[image_data]"
             })
             .then(
                 function(res) {
