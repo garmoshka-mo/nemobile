@@ -180,12 +180,13 @@ document.addEventListener("deviceready", function(){
     }
 
     window.onNotificationGCM = function onNotificationGCM(e) {
-      if (e.event = "registered") {
+      if (e.event == "registered") {
         window.deviceId = e.regid;
         registerDeviceToChannel();
       }
       else {
         console.log("new notification came", e);
+        location.href = "#/chat/" + e.payload.uuid;
       }
     }
 
