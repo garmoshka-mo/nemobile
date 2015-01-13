@@ -121,7 +121,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                 var messagesAmount = this.messages.length;
                 var text = this.messages[messagesAmount - 1].text;
                 if (text.match(/(http|https):/)) {
-                    var imagesExtensitions = ['gif']
+                    var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg']
                     var splitted = text.split(".");
                     var extensition = splitted[splitted.length - 1];
 

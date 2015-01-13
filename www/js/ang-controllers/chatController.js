@@ -30,7 +30,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.formatMessage = function(messageText) {
             if (messageText.match(/(http|https):/)) {
-                var imagesExtensitions = ['gif', 'png', 'jpeg']
+                var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg']
                 var splitted = messageText.split(".");
                 var extensition = splitted[splitted.length - 1];
 

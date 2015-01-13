@@ -24,7 +24,7 @@
         <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text">
         <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()"><i class="fa fa-paper-plane"></i></button>
         <div class="stickersGallery-container" ng-show="isStickersGalleryVisiable">
-            <div class="stickersGallery" ng-class="{'animated bounceInUp': isStickersGalleryVisiable}">
+            <div class="stickersGallery" ng-class="{'animated bounceInUp': isStickersGalleryVisiable}" stickers-gallery-height>
                 <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories">
                     <i class="fa fa-circle-o-notch fa-spin"></i>
                 </div>

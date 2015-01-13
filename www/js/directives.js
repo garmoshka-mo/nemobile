@@ -40,3 +40,14 @@ app.directive('overscrollableWithoutFooter', function() {
         }
     }
 })
+app.directive('stickersGalleryHeight', function() {
+    return {
+        link: function(scope, elem, attr) {
+            var emPixels = getEmPixels();
+            var bodyHeight = $('body').height();
+            var topBarHeight_rem = 2.8125;
+
+            $(elem).height(bodyHeight - emPixels * topBarHeight_rem - $('.chat-buttons-container').height() - 40);
+        }
+    }
+})
