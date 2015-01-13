@@ -47,7 +47,29 @@ app.directive('stickersGalleryHeight', function() {
             var bodyHeight = $('body').height();
             var topBarHeight_rem = 2.8125;
 
-            $(elem).height(bodyHeight - emPixels * topBarHeight_rem - $('.chat-buttons-container').height() - 40);
+            console.log("top bar height: ", emPixels * topBarHeight_rem);
+            console.log("chat keyboard height: ", $('.chat-buttons-container').height());
+            var INPUT_FIELD_HEIGHT = 72;
+            var KEYBOARD_PADDING = 20;
+            $(elem).height(bodyHeight - emPixels * topBarHeight_rem - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING);
+        }
+    }
+})
+app.directive('spinner', function() {
+    return {
+        template: '<div class="spinner"><div class="dot dot1"></div><div class="dot dot2"></div></div>',
+        link: function(scope, elem, attr) {
+            var dots = $(elem).find(".dot");
+            if (attr.spinnerColor == "grey") {
+                dots.addClass("grey");
+            }
+            if (attr.spinnerColor == "white") {
+                dots.addClass("white");
+            }
+            else {
+                dots.addClass("black");
+            }
+
         }
     }
 })

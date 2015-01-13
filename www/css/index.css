@@ -266,6 +266,7 @@ button.chat-send {
   border-radius: 17px;
 }
 input.category-name-change-input {
+  margin-bottom: 0;
   background: #29B6F6;
   border: 0;
   box-shadow: none;
@@ -368,5 +369,65 @@ input.category-name-change-input {
 @media only screen and (max-height: 20rem){
   .modal{
     top: 0 !important;
+  }
+}
+
+/*spinner css*/
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  
+  -webkit-animation: rotate 2.0s infinite linear;
+  animation: rotate 2.0s infinite linear;
+}
+
+.dot1, .dot2 {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+
+.grey {
+  background: rgba(149, 165, 166, .8);
+}
+
+.black {
+  background: rgba(0, 0, 0, .8);
+}
+
+.white {
+  background: rgba(255, 255, 255, .8);
+}
+
+.dot2 {
+  top: auto;
+  bottom: 0px;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}
+@keyframes rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+@-webkit-keyframes bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
   }
 }

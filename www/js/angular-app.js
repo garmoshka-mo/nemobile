@@ -186,7 +186,7 @@ document.addEventListener("deviceready", function(){
       }
       else {
         console.log("new notification came", e);
-        location.href = "#/chat/" + e.payload.uuid;
+        setTimeout(function(){location.href = "#/chat/" + e.payload.uuid;}, 0);
       }
     }
 

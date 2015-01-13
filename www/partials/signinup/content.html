@@ -11,13 +11,13 @@
     <div class="width-92 inline-block" ng-show="isIn">
         <a data-role="button" ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner">
             <span ng-show="!showSpinner">Войти</span>
-            <i class="fa fa-circle-o-notch fa-spin" ng-show="showSpinner"></i>
+            <span ng-show="showSpinner" spinner spinner-color="white"></span>
         </a>
     </div>
     <div class="width-92 inline-block" ng-show="!isIn">
         <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner">
             <span ng-show="!showSpinner">Зарегистрироваться</span>
-            <i class="fa fa-circle-o-notch fa-spin" ng-show="showSpinner"></i>
+            <span ng-show="showSpinner" spinner spinner-color="white"></span>
         </a>
     </div>
     <div ng-show="serverResponse" data-alert class="alert-box warning">
