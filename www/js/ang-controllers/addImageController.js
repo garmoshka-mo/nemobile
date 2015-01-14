@@ -1,5 +1,5 @@
-angular.module("angControllers").controller("addImageController", ['$scope', '$stateParams', 'stickersGallery', 
-    function($scope, $stateParams, stickersGallery) {
+angular.module("angControllers").controller("addImageController", ['$scope', '$stateParams', 'stickersGallery', 'notification' 
+    function($scope, $stateParams, stickersGallery, notification) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
@@ -28,6 +28,7 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
                     .then(
                         function() {
                             $scope.isImageUploading = false;
+                            notification.setTemporary("картинка добавлена", 2000);
                         },
                         function() {
                             $scope.isImageUploading = false;

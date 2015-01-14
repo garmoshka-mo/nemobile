@@ -62,11 +62,9 @@ services
         return api.addStickerFile(categoryId, fileURL)
         .then(
             function() {
-                $rootScope.$apply();                
                 getCurrentUserCategories();
             },
             function() {
-                $rootScope.$apply();
                 return $q.reject();
             }
         )
