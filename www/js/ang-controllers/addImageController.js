@@ -31,6 +31,7 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
                         },
                         function() {
                             $scope.isImageUploading = false;
+                            alert("Ошибка при загрузке картинки");
                         }
                     )
                 },
