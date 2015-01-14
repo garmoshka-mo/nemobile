@@ -207,9 +207,9 @@ services
         },
 
         addStickerFile: function(categoryId, fileURL) {
+            console.log("uploading has started");
             var d = $q.defer();
             
-
             var params = {};
             params.access_token = api.accessToken;
             params.id = categoryId;
@@ -225,6 +225,7 @@ services
                     var extenstion = buf[buf.length - 1];
                     options.mimeType = "image/" + extenstion;
 
+                    console.log("uploading params", options);
                     var ft = new FileTransfer();
                     ft.upload(
                         fileURL, 
@@ -235,6 +236,7 @@ services
                     );
 
                     function success(result) {
+                        console.log("file is uploaded");
                         d.resolve()
                         console.log("result:", result)
                     }
