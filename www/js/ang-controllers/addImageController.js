@@ -24,7 +24,6 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
                 function(imageURL) {
                     console.log(arguments);
                     $scope.isImageUploading = true;
-                    $scope.$apply();
                     stickersGallery.addStickerFile($scope.newImage.categoryId, imageURL)
                     .then(
                         function() {

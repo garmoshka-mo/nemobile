@@ -1,5 +1,5 @@
 services
-.service('stickersGallery', ['api', '$rootScope', function(api, $rootScope) {
+.service('stickersGallery', ['api', '$rootScope', '$q', function(api, $rootScope, $q) {
 
     console.log("stickersGalleryService is enabled");
     
@@ -67,6 +67,7 @@ services
             },
             function() {
                 $rootScope.$apply();
+                return $q.reject();
             }
         )
     }

@@ -2,13 +2,14 @@
     <div class="width-92 block-center">
         Выберете категорию:
         <form name="newImageForm">
-            <select name="category"  ng-model="newImage.categoryId" required>
+            <div spinner ng-show="stickersGallery.isUpdating"></div>
+            <select ng-show="!stickersGallery.isUpdating" name="category"  ng-model="newImage.categoryId" required>
                 <option ng-repeat="category in stickersGallery.categories" value="{{category.id}}" ng-bind="category.name"></option>
             </select>
             Вставьте ссылку на картинку
             <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
         </form>
-        <button class="button secondary block-center" ng-click="addStickerFile()">загрузить с устройства</button>
+        <button class="button secondary block-center" ng-click="addStickerFile()">загрузить с устройства</button><br>
         <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
         <br>
         <div class="ta-center">
