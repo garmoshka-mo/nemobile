@@ -20,13 +20,25 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
         }
 
         $scope.addStickerFile = function() {
-            $scope.isImageUploading = true;
-            stickersGallery.addStickerFile($scope.newImage.categoryId, $scope.newImage.file[0])
-            .then(
-                function() {
-                    $scope.isImageUploading = false;
-                }
-            )
+            navigator.camera.getPicture(
+                function(imageURL) {
+                    console.log(arguments);
+                    $scope.isImageUploading = true;
+                    stickersGallery.addStickerFile($scope.newImage.categoryId, imageURL)
+                    .then(
+                        function() {
+                            $scope.isImageUploading = false;
+                        },
+                        function() {
+                            $scope.isImageUploading = false;
+                        }
+                    )
+                },
+                function(message) { alert('get picture failed'); },
+                { quality: 50, 
+                destinationType: navigator.camera.DestinationType.NATIVE_URI,
+                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+            );
         }
 
 }])

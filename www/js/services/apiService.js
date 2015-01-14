@@ -206,26 +206,49 @@ services
             )
         },
 
-        addStickerFile: function(categoryId, fileData) {
-            return $upload.upload({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
-                data: {
-                    "access_token": api.accessToken,
-                    "id": categoryId,
+        addStickerFile: function(categoryId, fileURL) {
+            var d = $q.defer();
+            
+
+            var params = {};
+            params.access_token = api.accessToken;
+            params.id = categoryId;
+
+
+            window.resolveLocalFileSystemURL(fileURL, 
+                function( fileEntry){
+                    var options = new FileUploadOptions();
+                    options.params = params;
+                    options.fileKey = "image[image_data]";
+                    options.fileName = fileEntry.nativeURL.substr(fileEntry.nativeURL.lastIndexOf('/') + 1);
+                    var buf = options.fileName.split(".");
+                    var extenstion = buf[buf.length - 1];
+                    options.mimeType = "image/" + extenstion;
+
+                    var ft = new FileTransfer();
+                    ft.upload(
+                        fileURL, 
+                        encodeURI(App.Settings.apiUrl + "/categories/" + categoryId + "/images"),
+                        success,
+                        error,
+                        options
+                    );
+
+                    function success(result) {
+                        d.resolve()
+                        console.log("result:", result)
+                    }
+
+                    function error(result) {
+                        console.error("upload is failed")
+                        d.reject();
+                    }
                 },
-                file: fileData,
-                fileFormDataName: "image[image_data]"
-            })
-            .then(
-                function(res) {
-                    console.log(res);
-                    return res.data.categories;
-                },
-                function(res) {
-                    return $q.reject();
+                function(){
+                    console.error("upload is failed")
                 }
-            )
+            );
+        return d.promise;
         },
 
         moveSticker: function(categoryId, imageId, newCategoryId) {

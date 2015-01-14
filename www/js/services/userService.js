@@ -161,6 +161,9 @@ services
                         for (var i = 0; i < messages.length; i++) {
                             handleIncomeMessage(messages[i]);                            
                         }
+                        if (window.goToLastMessageChat) {
+                            location.href = "#/chat/" + messages[message.length - 1].sender_uuid;
+                        }
                     }
                 }
             );

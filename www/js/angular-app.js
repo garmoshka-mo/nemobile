@@ -186,7 +186,7 @@ document.addEventListener("deviceready", function(){
       }
       else {
         console.log("new notification came", e);
-        setTimeout(function(){location.href = "#/chat/" + e.payload.uuid;}, 0);
+        window.goToLastMessageChat = true;
       }
     }
 
