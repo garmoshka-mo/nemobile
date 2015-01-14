@@ -152,6 +152,7 @@ a.button:hover{
 }
 
 .block-center {
+  display: block;
   margin: 0 auto;
 }
 
