@@ -1,5 +1,5 @@
 services
-.service('stickersGallery', ['api', function(api) {
+.service('stickersGallery', ['api', '$rootScope', function(api, $rootScope) {
 
     console.log("stickersGalleryService is enabled");
     
@@ -62,7 +62,11 @@ services
         return api.addStickerFile(categoryId, fileURL)
         .then(
             function() {
+                $rootScope.$apply();                
                 getCurrentUserCategories();
+            },
+            function() {
+                $rootScope.$apply();
             }
         )
     }
