@@ -1,4 +1,4 @@
-angular.module("angControllers").controller("addImageController", ['$scope', '$stateParams', 'stickersGallery', 'notification' 
+angular.module("angControllers").controller("addImageController", ['$scope', '$stateParams', 'stickersGallery', 'notification'. 
     function($scope, $stateParams, stickersGallery, notification) {
         
         $scope.stickersGallery = stickersGallery;
