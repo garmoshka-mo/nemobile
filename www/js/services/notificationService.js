@@ -36,21 +36,5 @@ services
             $rootScope.notification.animated = false;
         },
 
-        setOSNotification: function(message, title, json, handler) {
-            window.plugin.notification.local.add({
-              id: '1',
-              title: title,
-              message: message,
-              json: JSON.stringify(json),
-              autoCancel: true
-              // sound: 'http://twodev.tk/notification.mp3'
-
-            });
-            window.plugin.notification.local.onclick = function(id, state, json) {
-                if (handler) {
-                    handler(JSON.parse(json));
-                }
-            };
-        }
     }
 }])

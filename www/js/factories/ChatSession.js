@@ -14,9 +14,9 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
     var deviceServerTimeDifference_msec;
 
-    function calculateMessageTtl(message) {
+    function calculateMessageTtl(expires) {
         var currentServerTime = new Date().getTime() + deviceServerTimeDifference_msec;
-        var ttl = message.expires * 1000 - currentServerTime;
+        var ttl = expires * 1000 - currentServerTime;
         console.log("time to live(sec): " +  ttl / 1000);
         return ttl;
     }
@@ -92,11 +92,11 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
             }, time)
         },
 
-        setTimer: function(message) {
+        setTimer: function(expires) {
             var chatSession = this;
             var ttl;
             if (deviceServerTimeDifference_msec) {
-                ttl = calculateMessageTtl(message);
+                ttl = calculateMessageTtl(expires);
                 chatSession.setTimeout(ttl);
                 chatSession.whenExipires = new Date().getTime() + ttl;                  
             }
@@ -104,7 +104,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                 api.getTimeDifference()
                 .then(function(timeDifference) {
                     deviceServerTimeDifference_msec = timeDifference;
-                    ttl = calculateMessageTtl(message);
+                    ttl = calculateMessageTtl(expires);
                     chatSession.setTimeout(ttl);
                     chatSession.whenExipires = new Date().getTime() + ttl;
                     storage.saveChatSession(chatSession);

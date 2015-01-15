@@ -20,26 +20,21 @@ services
         location.href = params.href;
     }
 
-    function showNotification(user, message) {
+    function showNotification(user, messageText, senderUuid) {
         var notificationText;
-        var m = message;
         
-        if (user.friends[m.sender_uuid]) {
-            notificationText = user.friends[m.sender_uuid].name;    
+        if (user.friends[senderUuid]) {
+            notificationText = user.friends[senderUuid].name;    
         }
         else {
             notificationText = "Новое сообщение";
         }
 
-        if ($rootScope.isAppInBackground) {
-            notification.setOSNotification(m.message_text, notificationText, {"href": "#/chat/" + m.sender_uuid},
-            handleOsNotificationClick);
-        }
-        else {
-            notification.setTemporary(notificationText + ": " + m.message_text, 4000, function() {
-                location.href = "#/chat/" + m.sender_uuid;
-            })
-        }
+        
+        notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
+            location.href = "#/chat/" + senderUuid;
+        })
+       
     }
 
     function handleSuccessSignIn(userInfo) {
@@ -83,18 +78,21 @@ services
 
     function handleIncomeMessage(m) {
         var self = user;
-        if (self.chats[m.sender_uuid]) {
+        var senderUuid = m.pn_gcm.data.uuid;
+        var messageText = m.pn_gcm.data.message;
+
+        if (self.chats[senderUuid]) {
             console.log("added to existing chat")
-            self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
+            self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession;
             
-            if (!self.chats[m.sender_uuid].isExpired) {
-                lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+            if (!self.chats[senderUuid].isExpired) {
+                lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             }
             else {
-                self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid);
-                self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-                lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+                self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
+                self.chats[senderUuid].getLastUnexpiredChatSession(); 
+                lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             } 
            
             if (!lastSession.isReplied) {
@@ -104,31 +102,31 @@ services
             }
 
             lastSession.messages.push({
-                text: m.message_text,
+                text: messageText,
                 isOwn: false
             });
         }
         else {
             console.log("created new chat")
-            self.addChat(m.sender_uuid)
-            self.chats[m.sender_uuid].addChatSession(m.sender_uuid, m.sender_uuid)
-            self.chats[m.sender_uuid].getLastUnexpiredChatSession(); 
-            var lastSession = self.chats[m.sender_uuid].lastUnexpiredChatSession;
+            self.addChat(senderUuid)
+            self.chats[senderUuid].addChatSession(senderUuid, senderUuid)
+            self.chats[senderUuid].getLastUnexpiredChatSession(); 
+            var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             lastSession.messages.push(
                 {
-                    text: m.message_text,
+                    text: messageText,
                     isOwn: false
                 }
             );
         }
 
         self.scores = m.my_score;
-        self.chats[m.sender_uuid].senderScores = m.his_score;
+        self.chats[senderUuid].senderScores = m.his_score;
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 
-        showNotification(self, m);
-        lastSession.setTimer(m)
+        showNotification(self, messageText, senderUuid);
+        lastSession.setTimer(m.expires)
         lastSession.save();
 
         console.log("When chatSession expires: ", lastSession.whenExipires);
@@ -162,7 +160,7 @@ services
                             handleIncomeMessage(messages[i]);                            
                         }
                         if (window.goToLastMessageChat) {
-                            location.href = "#/chat/" + messages[message.length - 1].sender_uuid;
+                            location.href = "#/chat/" + messages[messages.length - 1].sender_uuid;
                         }
                     }
                 }
