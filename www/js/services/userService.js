@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', 
-    function($timeout, storage, Chat, notification, api, $q, $rootScope) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http) {
     
     this.name = null;
     this.uuid = null;
@@ -168,6 +168,21 @@ services
         }
     }
 
+    function removeDeviceFromChannel() {
+        var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+            + App.Settings.pubnubSubscribeKey  + "/devices/" 
+            + window.deviceId + "/remove?type=gcm";
+        $http.get(url).then(
+            function(res) {
+                console.log(res);
+            },
+            function(res) {
+                console.log(res);
+            }
+        )
+
+    }
+
     window.registerDeviceToChannel = function registerDeviceToChannel() {
         if (window.deviceId) {
             console.log("deviceId", window.deviceId); 
@@ -239,6 +254,7 @@ services
         storage.clear();
         unsubscribe();
         clearCurrentUser();
+        removeDeviceFromChannel();
         console.log('user is logged out', user);
     }
 
