@@ -186,7 +186,12 @@ document.addEventListener("deviceready", function(){
         registerDeviceToChannel();
       }
       else {
-        window.goToLastMessageChat = true;
+        if (e.coldstart) {
+          window.goToLastMessageChat = true;
+        }
+        else {
+          location.href = "#/chat/" + payload.uuid;
+        }
       }
     }
 
