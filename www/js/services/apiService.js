@@ -423,7 +423,7 @@ services
                     "access_token": api.accessToken,
                     "id": categoryId,
                 },
-                file: fileData,
+                file: file,
                 fileFormDataName: "image[image_data]"
         },
 
