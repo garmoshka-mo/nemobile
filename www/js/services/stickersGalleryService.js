@@ -58,8 +58,8 @@ services
         )
     }
 
-    this.addStickerFile = function(categoryId, fileURL) {
-        return api.addStickerFile(categoryId, fileURL)
+    this.addStickerFile = function(categoryId, file) {
+        return api.addStickerFile(categoryId, file)
         .then(
             function() {
                 getCurrentUserCategories();
