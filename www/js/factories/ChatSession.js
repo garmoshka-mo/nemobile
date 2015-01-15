@@ -155,7 +155,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                             text: message,
                             isOwn: true
                         })
-                        self.setTimer(res.data);
+                        self.setTimer(res.data.expires);
                         self.save();
                         console.log("chat session is saved");
                         return true;
