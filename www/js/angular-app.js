@@ -190,7 +190,7 @@ document.addEventListener("deviceready", function(){
           window.goToLastMessageChat = true;
         }
         else {
-          location.href = "#/chat/" + payload.uuid;
+          location.href = "#/chat/" + e.payload.uuid;
         }
       }
     }

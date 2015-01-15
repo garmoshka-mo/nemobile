@@ -47,9 +47,6 @@ angular.module("angControllers").controller("chatController",
         }
 
 
-
-        $scope.setFocusOnTextField();
-
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
         chat.getLastUnexpiredChatSession();
@@ -144,9 +141,8 @@ angular.module("angControllers").controller("chatController",
                 }
             }
         }
-
-        console.log($scope.chat);
-
-    
+        
+        $scope.setFocusOnTextField();
+        $scope.scrollToBottom();
 }])
     
