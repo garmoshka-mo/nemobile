@@ -47,7 +47,6 @@
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
-    <gap:plugin name="dk.vertica.keyboard" version="0.1.2" />
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
@@ -75,7 +74,4 @@
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
-    <feature name="Keyboard">
-        <param name="ios-package" value="CDVKeyboard" onload="true" />
-    </feature>
 </widget>

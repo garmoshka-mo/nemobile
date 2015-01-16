@@ -172,14 +172,8 @@ document.addEventListener("deviceready", function(){
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
-      Keyboard.onshow = function() {
-        alert("keyboard is up!");
-        Keyboard.shrinkView(true);
-      }
-      Keyboard.onhide = function() {
-        alert("keyboard is down!");
-        Keyboard.shrinkView(true);
-      }
+      cordova.plugins.Keyboard.disableScroll(true);
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       
       Keyboard.disableScrollingInShrinkView(true);
       pushNotification.register(tokenHandler, errorHandler, {
