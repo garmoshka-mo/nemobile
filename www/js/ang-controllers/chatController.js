@@ -4,6 +4,8 @@ angular.module("angControllers").controller("chatController",
         
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
+        $scope.isMessageSending = false; 
+
         var $chatInput = $('.chat-input');
         
         $scope.scrollToBottom = function() {
@@ -99,7 +101,10 @@ angular.module("angControllers").controller("chatController",
 
         chat.sendMessage = function() {
             $scope.setFocusOnTextField();
+            
             if ($scope.newMessage.text) {
+                
+                $scope.isMessageSending = true; 
                 
                 if (!$scope.chatSession.isReplied) {
                     if ($scope.chatSession.creatorId != user.uuid) { 
@@ -119,9 +124,11 @@ angular.module("angControllers").controller("chatController",
                 .then( //doubling function because .finally doesn't work on android 2.2
                     function() {
                         $scope.newMessage.clearText();
+                        $scope.isMessageSending = false; 
                     },
                     function() {
                         $scope.newMessage.clearText();
+                        $scope.isMessageSending = false; 
                     }
                 )
             }

@@ -175,6 +175,7 @@ document.addEventListener("deviceready", function(){
       
       cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',
           'sound': 'false',

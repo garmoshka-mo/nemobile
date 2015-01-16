@@ -18,11 +18,18 @@
         <span ng-click="closeErrorDescription()" class="close">&times;</span>
     </div>
     <div class="chat-buttons-container">
-        <div class="chat-sticker-button" ng-click="isStickersGalleryVisiable = !isStickersGalleryVisiable">
-            <i class="fa fa-image"></i>
+        <div class="chat-left-buttons">
+            <div class="chat-sticker-button" ng-click="isStickersGalleryVisiable = !isStickersGalleryVisiable">
+                <i class="fa fa-image"></i>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text">
+            </div>
         </div>
-        <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text">
-        <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()"><i class="fa fa-paper-plane"></i></button>
+        <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">
+            <i ng-show="!isMessageSending" class="fa fa-paper-plane"></i>
+            <span ng-show="isMessageSending" spinner spinner-color="white"></span>
+        </button>
         <div class="stickersGallery-container" ng-show="isStickersGalleryVisiable">
             <div class="stickersGallery" ng-class="{'animated bounceInUp': isStickersGalleryVisiable}" stickers-gallery-height>
                 <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories" spinner>                    

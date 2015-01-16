@@ -204,23 +204,29 @@ a.button:hover{
   box-sizing: content-box;
   overflow: auto;
 }
-
+.chat-input-container {
+  padding-left: 35px;
+  box-sizing: border-box;
+}
 input.chat-input {
-  width: 72%;
-  display: inline-block;
+  width: 100%;
+  display: block;
   vertical-align: top;
   border-radius: 5px;
-  margin-left: 5px;
 }
 button.chat-send {
   vertical-align: top;
-  width: 10%;
+  width: 18%;
   padding: 0;
   height: 42px;
   border-radius: 5px;
   margin-right: 2px;
+  margin-left: -2px;
 }
 .chat-sticker-button {
+  position: absolute;
+  top: 0;
+  left: 0;
   padding-left: 5px;
   padding-top: 5px;
   text-align: center;
@@ -338,6 +344,11 @@ input.category-name-change-input {
 .chat-buttons-container {
   background-color: rgba(149, 165, 166,1.0);
   padding-top: 10px;
+}
+.chat-left-buttons {
+  display: inline-block;
+  position: relative;
+  width: 80%;
 }
 
 .inline-input-button-block {
