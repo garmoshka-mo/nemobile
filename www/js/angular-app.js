@@ -174,6 +174,7 @@ document.addEventListener("deviceready", function(){
     if (device.platform == 'iOS') {
       alert(Keyboard);
       Keyboard.shrinkView(true);
+      Keyboard.disableScrollingInShrinkView(true);
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',
           'sound': 'false',
