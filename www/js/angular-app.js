@@ -168,6 +168,7 @@ document.addEventListener("deviceready", function(){
         console.log(result);
         // alert('error = ' + error);
     }
+    
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
