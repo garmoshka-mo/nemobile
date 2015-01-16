@@ -169,7 +169,22 @@ document.addEventListener("deviceready", function(){
         // alert('error = ' + error);
     }
     pushNotification = window.plugins.pushNotification;
-    if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+    
+    if (device.platform == 'iOS') {
+      pushNotification.register(tokenHandler, errorHandler, {
+          'badge': 'false',
+          'sound': 'false',
+          'alert': 'true',
+          // 'ecb': 'onNotificationAPN'
+      })
+      function tokenHandler(result) {
+        alert(result);
+      }
+      function errorHandler() {
+        alert("error");
+      }
+    }
+    if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
       pushNotification.register(
       successHandler,
       errorHandler,
