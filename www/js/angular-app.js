@@ -172,8 +172,15 @@ document.addEventListener("deviceready", function(){
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
-      alert(Keyboard);
-      Keyboard.shrinkView(true);
+      Keyboard.onshow = function() {
+        alert("keyboard is up!");
+        Keyboard.shrinkView(true);
+      }
+      Keyboard.onhide = function() {
+        alert("keyboard is down!");
+        Keyboard.shrinkView(true);
+      }
+      
       Keyboard.disableScrollingInShrinkView(true);
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',

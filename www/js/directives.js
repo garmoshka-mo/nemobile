@@ -57,7 +57,7 @@ app.directive('stickersGalleryHeight', function() {
             var stickersGalleryHeight = bodyHeight - emPixels * topBarHeight_rem - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING; 
             
             if (device) {
-                if (device.platform == "IOS") {
+                if (device.platform == "iOS") {
                     stickersGalleryHeight -= IPHONE_TOP_BAR_HEIGHT;
                 }
             }
