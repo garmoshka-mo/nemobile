@@ -172,10 +172,10 @@ document.addEventListener("deviceready", function(){
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
+      
       cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       
-      Keyboard.disableScrollingInShrinkView(true);
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',
           'sound': 'false',
