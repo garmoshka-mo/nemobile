@@ -49,9 +49,20 @@ app.directive('stickersGalleryHeight', function() {
 
             console.log("top bar height: ", emPixels * topBarHeight_rem);
             console.log("chat keyboard height: ", $('.chat-buttons-container').height());
+            
             var INPUT_FIELD_HEIGHT = 72;
             var KEYBOARD_PADDING = 20;
-            $(elem).height(bodyHeight - emPixels * topBarHeight_rem - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING);
+            var IPHONE_TOP_BAR_HEIGHT = 20;
+
+            var stickersGalleryHeight = bodyHeight - emPixels * topBarHeight_rem - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING; 
+            
+            if (device) {
+                if (device.platform == "IOS") {
+                    stickersGalleryHeight -= IPHONE_TOP_BAR_HEIGHT;
+                }
+            }
+
+            $(elem).height(stickersGalleryHeight);
         }
     }
 })
