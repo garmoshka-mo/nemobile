@@ -172,6 +172,7 @@ document.addEventListener("deviceready", function(){
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
+      Keyboard.shrinkView(true);
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',
           'sound': 'false',
