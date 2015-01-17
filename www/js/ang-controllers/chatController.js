@@ -142,7 +142,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.addStickerURL = function(message) {
             console.log(message);
-            if (true) { // replace with !message.isOwn
+            if (!message.isOwn) {
                 if (message.text.match(/(http|https):/)) {
                     location.href = "#/addImage?imageURL=" + message.text;
                 }
