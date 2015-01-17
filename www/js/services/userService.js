@@ -130,9 +130,9 @@ services
         lastSession.save();
 
         console.log("When chatSession expires: ", lastSession.whenExipires);
-        $rootScope.$apply();
         console.log("income message", m)
         console.log(self);
+        $rootScope.$apply();
     }
 
     function getPubnubTimeDifference() {
