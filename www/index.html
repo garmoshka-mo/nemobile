@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+        <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
         <link rel="stylesheet" type="text/css" href="css/foundation.css" />
         <link rel="stylesheet" type="text/css" href="css/animate.css" />
@@ -74,6 +74,7 @@
         <div class="off-canvas-wrap" data-offcanvas>
             <div class="iphone-status-bar-margin"></div>
             <div class="inner-wrap">
+                
                 <nav class="tab-bar">
                     <section class="left-small" ng-click="openMenu()">
                         <a class="menu-icon" ><span></span></a>
@@ -89,39 +90,19 @@
                         <i class="fa fa-star"></i> <span ng-bind="user.scores"></span>
                     </section>
                 </nav>
+                
                 <aside class="left-off-canvas-menu">
                     <ul class="off-canvas-list">
                         <div ui-view="menu"></div>
                     </ul> 
                 </aside>
 
-
-
                 <section class="main-section"> <!-- content goes here -->
-
-                       
                     <!-- MAIN CONTENT -->
                     <div id="wrapper" ng-swipe-right="openMenu()">
                         <div ui-view="content" class="content"></div>
                     </div>
-
-
-
-
-                    <footer id="footer">
-                        
-                      
-                    </footer>
-
-
-
-
-                    <!-- END OF MAIN CONTENT -->
-
-
-
                 </section>
-                <a class="exit-off-canvas"></a>
             </div>
         </div>
 
