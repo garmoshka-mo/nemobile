@@ -44,6 +44,15 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
 
             this.currentUser.saveChats();
         },
+        
+        getChatSessionFromStorage: function(chatSessionId) {
+            return storage.getChatSession(this.senderId, chatSessionId)
+            .then(
+                function(dataFromStorage) {
+                    return ChatSession.parseFromStorage(dataFromStorage)
+                }
+            )
+        },
 
         getLastUnexpiredChatSession: function() {
             var found = false;

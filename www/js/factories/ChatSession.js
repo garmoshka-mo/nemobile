@@ -61,7 +61,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
             else {
                 this.currentChat.removeLastChatSession();
             }
-            console.warn("chat is expired");
+            console.warn("chat session expired");
         },
 
         // removeLastUnrepliedMessages: function() {

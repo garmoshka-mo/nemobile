@@ -54,13 +54,6 @@ angular.module("angControllers").controller("chatController",
         chat.getLastUnexpiredChatSession();
         var lastSession = chat.lastUnexpiredChatSession;
                 
-        $scope.newMessage = {
-            text: '',
-            ttl: 10,
-            clearText: function() {
-                this.text = '';
-            }
-        };
         
         if (!lastSession) {
             chat.addChatSession(user.uuid, chat.senderId)
@@ -78,7 +71,46 @@ angular.module("angControllers").controller("chatController",
         if (user.friends[chat.senderId]) {
             notification.set(user.friends[chat.senderId].name)
         }
-        
+
+        $scope.newMessage = {
+            text: '',
+            ttl: 10,
+            clearText: function() {
+                this.text = '';
+            }
+        };
+
+
+        $scope.chatHistory = {
+            previousMessages: [],
+            isUpdating: false,
+            lastVisibleChatSessionId: lastSession.id,
+            isAllChatSessionsVisbile: $scope.chat.chatSessionsIndexes.length == 1 ? true : false,
+            
+            getOneMoreChatSession: function() {
+                var self = this;
+                self.isUpdating = true;
+
+                var lastIndex = $scope.chat.chatSessionsIndexes.indexOf(self.lastVisibleChatSessionId);
+                var previousId = $scope.chat.chatSessionsIndexes[lastIndex - 1];
+                
+                if (lastIndex - 1 == 0) {
+                    self.isAllChatSessionsVisbile = true;
+                }
+
+                self.lastVisibleChatSessionId = previousId;
+
+                $scope.chat.getChatSessionFromStorage(previousId)
+                .then(
+                    function(chatSession) {
+                        self.previousMessages = chatSession.messages.concat(self.previousMessages);
+                        console.log(self.previousMessages);
+                        self.isUpdating = false;
+                    }
+                )
+            }
+        }
+
         $scope.handleSuccessSending = function() {
             
             if (!$scope.chatSession.messages.length) {
@@ -151,5 +183,4 @@ angular.module("angControllers").controller("chatController",
         
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
-}])
-    
+}])    

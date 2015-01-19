@@ -8,8 +8,14 @@
             <input type="radio" ng-model="newMessage.ttl" name="ttl" value="86400" autocomplete="off">1 день
         </form>
     </div>
+    <div class="ta-center" ng-show="!chatHistory.isAllChatSessionsVisbile">    
+        <button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>
+    </div>
+    <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
+        <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
+    </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-      <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
+        <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
     </div>
 </div>
 <div id="footer">
@@ -47,6 +53,5 @@
                 </div>
             </div>
         </div>
-        <!-- <button class="chat-send" ng-click="chatSession.closeChatSession()">close</button> -->
     </div>
 </div>

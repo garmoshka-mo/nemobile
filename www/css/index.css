@@ -327,7 +327,10 @@ input.category-name-change-input {
   border: 10px solid transparent;
   border-left: 10px solid rgba(46, 204, 113, 1.0)
 }
-
+.old-messages-background {
+  padding: 10px 0;
+  background: rgba(52, 152, 219, .1)
+}
 .message-not-own {
   background-color: rgba(52, 152, 219,1.0);
   margin-left: 20px; 
