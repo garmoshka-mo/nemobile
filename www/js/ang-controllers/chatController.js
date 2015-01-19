@@ -2,12 +2,14 @@ angular.module("angControllers").controller("chatController",
     ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery',
     function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
         
+        var device = device || null;
+        if (device) {
+            if (device.platform == 'iOS') {
+                window.addEventListener('native.keyboardshow', keyboardShowHandler);
 
-        if (device.platform == 'iOS') {
-            window.addEventListener('native.keyboardshow', keyboardShowHandler);
-
-            function keyboardShowHandler(e){
-                alert('Keyboard height is: ' + e.keyboardHeight);
+                function keyboardShowHandler(e){
+                    alert('Keyboard height is: ' + e.keyboardHeight);
+                }
             }
         }    
 

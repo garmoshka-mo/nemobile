@@ -156,6 +156,19 @@ angular.module("angApp").config(function($stateProvider) {
 
 var pushNotification;
 
+window.webViewShrinker = {
+  normalHeight: null,
+  shrink: function(pixelsToShrink) {
+    this.normalHeight = $('body').height();
+    $('body').height(this.normalHeight - pixelsToShrink);
+    $("#footer").css('position','relative');
+  },
+  unshrink: function() {
+    $('body').height(this.normalHeight);
+    $("#footer").css('position','fixed');
+  } 
+}
+
 document.addEventListener("deviceready", function(){
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
 
@@ -173,8 +186,19 @@ document.addEventListener("deviceready", function(){
     
     if (device.platform == 'iOS') {
       
-      // cordova.plugins.Keyboard.disableScroll(true);
-      // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+      window.addEventListener('native.keyboardshow', keyboardShowHandler);
+      window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+      function keyboardShowHandler(e){
+        window.webViewShrinker.shrink(e.keyboardHeight);
+      }
+
+      function keyboardHideHandler(){
+        window.webViewShrinker.unshrink();
+      }
       
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'false',
@@ -219,6 +243,8 @@ document.addEventListener("deviceready", function(){
     }
 
 });
+
+
 
 angular.module("angControllers", []);
 var services = angular.module("angServices", []);
