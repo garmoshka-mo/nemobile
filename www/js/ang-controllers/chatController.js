@@ -22,6 +22,7 @@ angular.module("angControllers").controller("chatController",
 
             if (device) {
                 if (device.platform == "iOS") {
+                    alert("ios: Keyboard is up");
                     cordova.plugins.Keyboard.show();
                 }
             }
