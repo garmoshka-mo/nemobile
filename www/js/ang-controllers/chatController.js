@@ -3,16 +3,6 @@ angular.module("angControllers").controller("chatController",
     function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
         
         var device = device || null;
-        if (device) {
-            if (device.platform == 'iOS') {
-                window.addEventListener('native.keyboardshow', keyboardShowHandler);
-
-                function keyboardShowHandler(e){
-                    alert('Keyboard height is: ' + e.keyboardHeight);
-                }
-            }
-        }    
-
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false; 
@@ -29,6 +19,12 @@ angular.module("angControllers").controller("chatController",
                 console.log("focus is set on textField");
                 $chatInput.focus();
             }, 0);
+
+            if (device) {
+                if (device.platform == "iOS") {
+                    cordova.plugins.Keyboard.show();
+                }
+            }
         }
         
         $scope.toggleCategory = function(category) {

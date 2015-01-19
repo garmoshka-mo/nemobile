@@ -160,7 +160,7 @@ window.webViewShrinker = {
   normalHeight: null,
   shrink: function(pixelsToShrink) {
     this.normalHeight = $('body').height();
-    $('body').height(this.normalHeight - pixelsToShrink);
+    $('body').height(this.normalHeight - pixelsToShrink - 10);
     $("#footer").css('position','relative');
   },
   unshrink: function() {
