@@ -18,7 +18,7 @@ angular.module("angControllers").controller("chatController",
             $timeout(function() {
                 console.log("focus is set on textField");
                 $chatInput.focus();
-            }, 0);
+            }, 301);
 
             if (device) {
                 alert("ios: Keyboard is up");
