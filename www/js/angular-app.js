@@ -180,13 +180,16 @@ document.addEventListener("deviceready", function(){
           'badge': 'false',
           'sound': 'false',
           'alert': 'true',
-          // 'ecb': 'onNotificationAPN'
+          'ecb': 'onNotificationAPN'
       })
       function tokenHandler(result) {
         alert(result);
       }
-      function errorHandler() {
-        alert("error");
+      function errorHandler(error) {
+        alert(error);
+      }
+      function onNotificationAPN(result) {
+        alert(result)
       }
     }
     if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
