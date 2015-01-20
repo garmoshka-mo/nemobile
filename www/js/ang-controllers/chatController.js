@@ -20,7 +20,7 @@ angular.module("angControllers").controller("chatController",
                 $chatInput.focus();
             }, 0);
 
-            alert(divice.platform);
+            alert(device.platform);
             if (device) {
                 alert("ios: Keyboard is up");
                 if (device.platform == "iOS") {
