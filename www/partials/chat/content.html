@@ -36,6 +36,7 @@
             <i ng-show="!isMessageSending" class="fa fa-paper-plane"></i>
             <span ng-show="isMessageSending" spinner spinner-color="white"></span>
         </button>
+        <button class="chat-send" ng-click="chatSession.close()">close</button>
         <div class="stickersGallery-container" ng-show="isStickersGalleryVisiable">
             <div class="stickersGallery" ng-class="{'animated bounceInUp': isStickersGalleryVisiable}" stickers-gallery-height>
                 <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories" spinner>                    
