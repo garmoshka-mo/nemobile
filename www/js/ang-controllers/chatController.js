@@ -9,10 +9,6 @@ angular.module("angControllers").controller("chatController",
 
         var $chatInput = $('.chat-input');
         
-        window.addEventListener('keyboardShrunk', function() {
-            alert('keyboard is shrunk')
-        })
-
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
