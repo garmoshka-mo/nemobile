@@ -162,10 +162,12 @@ window.webViewShrinker = {
     this.normalHeight = $('body').height();
     $('body').height(this.normalHeight - pixelsToShrink);
     $("#footer").css('position','relative');
+    var event = new Event('keyboardShrunk');
   },
   unshrink: function() {
     $('body').height(this.normalHeight);
     $("#footer").css('position','fixed');
+    var event = new Event('keyboardUnshrunk');
   } 
 }
 
