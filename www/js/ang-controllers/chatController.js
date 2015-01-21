@@ -7,6 +7,7 @@ angular.module("angControllers").controller("chatController",
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false; 
 
+        console.log("state params", $stateParams);
         var $chatInput = $('.chat-input');
         
         $scope.scrollToBottom = function() {
@@ -190,6 +191,11 @@ angular.module("angControllers").controller("chatController",
             }
         }
         
+        if ($stateParams.messageText) {
+            $scope.newMessage.text = $stateParams.messageText;
+            chat.sendMessage();
+        }
+
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
 }])    

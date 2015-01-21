@@ -32,7 +32,7 @@ services
 
         
         notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
-            location.href = "#/chat/" + senderUuid;
+            location.href = "#/chat?senderId=" + senderUuid;
         })
        
     }
@@ -160,7 +160,7 @@ services
                             handleIncomeMessage(messages[i]);                            
                         }
                         if (window.goToLastMessageChat) {
-                            location.href = "#/chat/" + messages[messages.length - 1].sender_uuid;
+                            location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
                         }
                     }
                 }

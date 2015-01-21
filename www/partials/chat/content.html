@@ -42,7 +42,7 @@
                 <div class="stickersGallery-spinner" ng-show="!stickersGallery.categories" spinner>                    
                 </div>
                 <div class="ta-right" ng-show="stickersGallery.categories">
-                    <a href="#/stickersGallery">настройки <i class="fa fa-gear"></i></a>
+                    <a ng-href="#/stickersGallery?fromChat={{chatSession.senderId}}">настройки <i class="fa fa-gear"></i></a>
                 </div>
                 <div ng-repeat="category in stickersGallery.categories" class="category">
                     <div class="category-name" ng-click="toggleCategory(category)" ng-bind="category.name" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>

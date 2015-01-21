@@ -63,7 +63,7 @@ angular.module("angApp").config(function($stateProvider) {
     }
   })
   .state("chat", {
-    url: "/chat/:senderId",
+    url: "/chat?senderId&messageText",
     views: {
       "title": {
         template: "Чат"
@@ -123,7 +123,7 @@ angular.module("angApp").config(function($stateProvider) {
     }
   })
   .state("stickersGallery", {
-    url: "/stickersGallery",
+    url: "/stickersGallery?fromChat",
     views: {
       "title": {
         template: "Галерея стикеров"
@@ -254,7 +254,7 @@ document.addEventListener("deviceready", function(){
           window.goToLastMessageChat = true;
         }
         else {
-          location.href = "#/chat/" + e.payload.uuid;
+          location.href = "#/chat?senderId=" + e.payload.uuid;
         }
       }
     }

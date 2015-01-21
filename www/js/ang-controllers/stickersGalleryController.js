@@ -1,9 +1,10 @@
-angular.module("angControllers").controller("stickersGalleryController", ['$scope', 'stickersGallery', '$timeout', 
-    function($scope, stickersGallery, $timeout) {
+angular.module("angControllers").controller("stickersGalleryController", ['$scope', 'stickersGallery', '$timeout', '$stateParams', 
+    function($scope, stickersGallery, $timeout, $stateParams) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isNewCategoryBlockVisible = false;
         $scope.isAddingNewCategory = false;
+        $scope.fromChat = $stateParams.fromChat;
 
         $scope.toggleCategory = function(category) {
             if ($scope.stickersGallery.currentCategory == category.name) {

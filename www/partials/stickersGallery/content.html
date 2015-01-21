@@ -38,7 +38,7 @@
                 <div ng-show="category.name == stickersGallery.currentCategory" class="category-content ">
                     <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
                         <div class="ta-center">
-                            <img alt="gif" class="category-img"  ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
+                            <a ng-href="#/chat?senderId={{fromChat}}&messageText={{image.url}}"><img alt="gif" class="category-img"  ng-src="{{image.url}}" ng-click="sendSticker(image.url)"></a>
                         </div>
                         <div ng-show="!image.isCategoryChanging">
                             <span class="image-button">
