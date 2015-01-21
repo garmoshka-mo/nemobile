@@ -3,9 +3,7 @@
         Выберете категорию:
         <form name="newImageForm">
             <div spinner ng-show="stickersGallery.isUpdating"></div>
-            <select ng-show="!stickersGallery.isUpdating" name="category"  ng-model="newImage.categoryId" required>
-                <option ng-repeat="category in stickersGallery.categories" value="{{category.id}}" ng-bind="category.name"></option>
-            </select>
+            <select ng-show="!stickersGallery.isUpdating" ng-options="category.name for category in stickersGallery.categories track by category.id" ng-model="selectedCategory"></select>
             Вставьте ссылку на картинку
             <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
         </form>

@@ -62,6 +62,14 @@
                             </select>
                         </div>
                     </div>
+                    <div class="ta-center" ng-show="!category.images.length">
+                        В этой категории нет стикеров
+                        <span class="category-button">
+                            <a ng-href="{{'#/addImage?imageURL=null&categoryId=' + category.id}}"><i class="fa fa-plus"></i>
+                            Добавить
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="category" ng-show="!stickersGallery.isUpdating">

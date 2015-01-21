@@ -1,0 +1,13 @@
+<div class="friend-list" overscrollable-without-footer>
+    <div class="row friend" ng-repeat="(uuid, friend) in user.friends">
+        <div class="small-6 columns hide-overflow-text" ng-bind="friend.name"></div>
+        <div class="small-6 columns hide-overflow-text ta-right">
+            <span class="category-button category-button-blue">
+                <a href="#/chat/{{uuid}}"><i class="fa fa-pencil-square-o"></i></a>
+            </span>
+            <span class="category-button category-button-blue"  ng-click="removeFriend(uuid)">
+                <i class="fa fa-trash"></i>
+            </span>
+        </div>
+    </div>
+</div>

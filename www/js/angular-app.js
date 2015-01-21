@@ -152,6 +152,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("friends", {
+    url: "/friends",
+    views: {
+      "title": {
+        template: "Друзья"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "friendsController",
+        templateUrl: "partials/friends/content.html"
+      }
+    }
+  })
 });
 
 var pushNotification;
