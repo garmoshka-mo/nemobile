@@ -47,6 +47,9 @@
                 <div ng-repeat="category in stickersGallery.categories" class="category">
                     <div class="category-name" ng-click="toggleCategory(category)" ng-bind="category.name" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>
                     <div ng-show="category.name == stickersGallery.currentCategory" class="category-content">
+                        <div class="ta-center" ng-show="!category.images.length">
+                            В этой категории нету стикеров
+                        </div>
                         <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
                             <img alt="gif" class="category-img" ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
                         </div>

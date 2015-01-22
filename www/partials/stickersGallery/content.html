@@ -87,7 +87,7 @@
                         <input type="text" placeholder="название новой категории" ng-model="newCategoryName">
                         <button ng-click="addNewCategory()" ng-disabled="isAddingNewCategory">
                             <span ng-show="!isAddingNewCategory">Добавить</span>
-                            <i ng-show="isAddingNewCategory" class="fa fa-circle-o-notch fa-spin"></i>
+                            <span ng-show="isAddingNewCategory" spinner spinner-color="white"></span>
                         </button>
                     </div>
                 </div>
