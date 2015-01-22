@@ -97,8 +97,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
                 }
             }
             this.currentUser.chats = _chats;
-            // $scope.$apply();
-            console.log(chats);
+            console.log("chat is removed");
             this.currentUser.saveChats();
         },
 
@@ -109,15 +108,13 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         },
 
         removeLastChatSession: function() {
-            if (this.chatSessionsIndexes.length == 1) {
+            //will remove chat if there is one expired chat session and 
+            //sender is not friend
+            if (this.chatSessionsIndexes.length == 1 && !this.currentUser.friends[this.senderId]) {
                 this.remove();
             }
+            
             storage.removeChatSession(this.senderId, this.lastChatSessionIndex);
-           
-            if (this.chatSessionsIndexes.length == 1) {
-                this.remove();
-                return false;
-            }
 
             this.chatSessionsIndexes.pop();
             this.lastUnexpiredChatSession = null;
