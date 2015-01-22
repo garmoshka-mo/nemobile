@@ -26,6 +26,9 @@ body{
 .m0 {
   margin: 0;
 }
+.pt1rem {
+  padding-top: 1rem;
+}
 .iphone-status-bar-margin {
   background-color: #333333;
   height: 20px;
@@ -44,7 +47,6 @@ a {
 #wrapper{
   height: 100%;
   width: 100%;
-  padding-top: 1rem;
   padding-bottom: 8rem;
   overflow: hidden;
 }
@@ -77,6 +79,7 @@ a {
 }
 
 .loginRegisterForm{
+  padding-top: 1rem;
   text-align: center;
 }
 

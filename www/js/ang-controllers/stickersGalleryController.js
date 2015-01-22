@@ -44,6 +44,20 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
             $scope.newCategoryName = "";
         }
 
+        $scope.scrollToLastAddedImage = function() {
+            var $scrollableContainer = $('div[overscrollable-without-footer]');
+            var $activeCategory = $(".activeCategory");
+            
+            if ($activeCategory.length) {
+                var lastImageTopCoord = $activeCategory
+                                    .children(".stickers-gallery-image-wrapper")
+                                    .last()
+                                    .offset()
+                                    .top;
+                $scrollableContainer.scrollTop(lastImageTopCoord);
+            }
+        }
+
         $scope.addNewCategory = function() {
             if ($scope.newCategoryName) {
                 $scope.isAddingNewCategory = true;
@@ -84,5 +98,15 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
         $scope.cancelNewImageCategory = function(image) {
             image.isCategoryChanging = false;
         }
+
+        $scope.$watch("stickersGallery.isUpdating", function() {
+            if (!$scope.stickersGallery.isUpdating) {
+                $timeout(function(){
+                    $scope.scrollToLastAddedImage();
+                }, 0);
+            }
+        })
+
+        $scope.scrollToLastAddedImage();
 }])
     

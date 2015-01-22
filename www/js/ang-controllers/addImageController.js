@@ -4,6 +4,12 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
 
+        function handleSuccessUploading() {
+            $scope.isImageUploading = false;
+            stickersGallery.currentCategory = $scope.selectedCategory.name;
+            window.history.back()
+        }
+
         if ($stateParams.categoryId) {
             for (var i = 0; i < stickersGallery.categories.length; i++) {
                 if (stickersGallery.categories[i].id == $stateParams.categoryId) {
@@ -24,7 +30,7 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
             stickersGallery.addStickerURL($scope.newImage.categoryId, $scope.newImage.url)
             .then(
                 function() {
-                    $scope.isImageUploading = false;
+                    handleSuccessUploading();
                 }
             )
         }
@@ -35,7 +41,7 @@ angular.module("angControllers").controller("addImageController", ['$scope', '$s
             stickersGallery.addStickerFile($scope.newImage.categoryId, $scope.newImage.file[0])
             .then(
                 function() {
-                    $scope.isImageUploading = false;
+                    handleSuccessUploading();
                 }
             )
         }
