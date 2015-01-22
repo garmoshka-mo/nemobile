@@ -253,7 +253,7 @@ document.addEventListener("deviceready", function(){
         if (e.coldstart) {
           window.goToLastMessageChat = true;
         }
-        else {
+        else if (!e.foreground) {
           location.href = "#/chat?senderId=" + e.payload.uuid;
         }
       }
