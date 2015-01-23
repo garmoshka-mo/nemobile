@@ -7,26 +7,24 @@ services
     this.categories = null;
     this.isUpdating = false;
     
-    //private methods    
-    function getCurrentUserCategories() {
+    //public methods
+    this.getCurrentUserCategories = function() {
         self.isUpdating = true;
         api.getCategories()
         .then(
             function(res) {
                 self.isUpdating = false;
-                self.categories = res; 
+                self.categories = res;
+                console.log("Stickers gallery is updated"); 
             }
-        )
+        )    
     }
 
-
-
-    //public methods
     this.addNewCategory = function(name) {
         return api.addNewCategory(name)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
@@ -35,7 +33,7 @@ services
         return api.removeCategory(category.id)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
@@ -44,7 +42,7 @@ services
         return api.updateCategory(categoryId, name)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
@@ -53,7 +51,7 @@ services
         return api.addStickerURL(categoryId, imageURL)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
@@ -62,7 +60,7 @@ services
         return api.addStickerFile(categoryId, file)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             },
             function() {
                 return $q.reject();
@@ -74,7 +72,7 @@ services
         return api.removeSticker(categoryId, imageId)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
@@ -83,10 +81,9 @@ services
         api.moveSticker(categoryId, imageId, newCategoryId)
         .then(
             function() {
-                getCurrentUserCategories();
+                self.getCurrentUserCategories();
             }
         )
     }
 
-    getCurrentUserCategories();
 }])

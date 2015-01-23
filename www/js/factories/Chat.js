@@ -70,10 +70,12 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
             if (!found) {
                 storage.getChatSession(this.senderId, this.lastChatSessionIndex)
                 .then(function(chatSession) {
-                    var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
-                    self.lastUnexpiredChatSession = parsedChatSession;
-                    self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                    console.log(self.currentUser);
+                    if (chatSession) {
+                        var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
+                        self.lastUnexpiredChatSession = parsedChatSession;
+                        self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
+                        console.log(self.currentUser);
+                    }
                 })
             }
         },

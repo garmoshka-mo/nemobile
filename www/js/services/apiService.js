@@ -277,6 +277,46 @@ services
                     return $q.reject();
                 }
             )
+        },
+
+        initPhoneActivation: function(phoneNumber) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/phone/activation/init",
+                data: {
+                    "phone_number": phoneNumber,
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            )
+        },
+
+        confirmPhoneNumber: function(phoneNumber, activationCode) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/phone/activation/confirm",
+                data: {
+                    "phone_number": phoneNumber,
+                    "activation_code": activationCode
+
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            )
         }
     }
 

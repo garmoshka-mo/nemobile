@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery) {
     
     this.name = null;
     this.uuid = null;
@@ -48,6 +48,7 @@ services
         user.save();
         user.saveFriends();
         setApiAccessToken();
+        stickersGallery.getCurrentUserCategories();
         registerDeviceToChannel();
     }
 
@@ -296,6 +297,7 @@ services
             self.subscribe();
             registerDeviceToChannel();
             setApiAccessToken();
+            stickersGallery.getCurrentUserCategories();
             console.log("user info is taken from storage", self);
         })
 

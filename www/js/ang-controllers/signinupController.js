@@ -1,5 +1,5 @@
 angular.module("angControllers").controller("signinupController", 
-    ['user','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage', 
+    ['user','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage',  
     function(user, $scope, $state, $stateParams, $q, api, notification, storage) {
     
     console.log("sign in is invoked");
