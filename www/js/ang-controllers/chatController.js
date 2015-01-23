@@ -21,13 +21,13 @@ angular.module("angControllers").controller("chatController",
                 $chatInput.focus();
             }, 0);
 
-            device ? alert(device.platform) : false;
-            if (device) {
-                alert("ios: Keyboard is up");
-                if (device.platform == "iOS") {
-                    cordova.plugins.Keyboard.show();
-                }
-            }
+            // device ? alert(device.platform) : false;
+            // if (device) {
+            //     alert("ios: Keyboard is up");
+            //     if (device.platform == "iOS") {
+            //         cordova.plugins.Keyboard.show();
+            //     }
+            // }
         }
         
         $scope.toggleCategory = function(category) {

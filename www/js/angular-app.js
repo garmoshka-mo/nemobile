@@ -264,9 +264,6 @@ document.addEventListener("deviceready", function(){
         }
       }
     }
-
-    
-
 });
 
 
