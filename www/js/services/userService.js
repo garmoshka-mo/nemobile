@@ -169,9 +169,10 @@ services
     }
 
     function removeDeviceFromChannel() {
+        var type = device.platform === "iOS" ? "apns" : "gcm";
         var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
             + App.Settings.pubnubSubscribeKey  + "/devices/" 
-            + window.deviceId + "/remove?type=gcm";
+            + window.deviceId + "/remove?type=" + type;
         $http.get(url).then(
             function(res) {
                 console.log(res);
@@ -183,21 +184,26 @@ services
 
     }
 
-    window.registerDeviceToChannel = function registerDeviceToChannel(deviceId) {
-        var type = device.platform === "iOS" ? "apns" : "gcm";
-        var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-            + App.Settings.pubnubSubscribeKey  + "/devices/" 
-            + deviceId + "/add=" + user.channel
-            + "?type=" + type;
+    window.registerDeviceToChannel = function registerDeviceToChannel() {
+        if (window.deviceId) {
+            var type = device.platform === "iOS" ? "apns" : "gcm";
+            var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+                + App.Settings.pubnubSubscribeKey  + "/devices/" 
+                + window.deviceId + "/add=" + user.channel
+                + "?type=" + type;
 
-        $http.get(url).then(
-            function(res) {
-                console.log("register device success", res);
-            },
-            function(res) {
-                console.log("register device error", res);
-            }
-        ) 
+            $http.get(url).then(
+                function(res) {
+                    console.log("device is registered to user's channel", res);
+                },
+                function(res) {
+                    console.log("register device error", res);
+                }
+            )
+        }
+        else {
+            consoe.error("device id is undefined");
+        }     
     }
 
     //public methods

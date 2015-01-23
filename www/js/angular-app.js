@@ -224,6 +224,7 @@ document.addEventListener("deviceready", function(){
           'ecb': 'onNotificationAPN'
       })
       function tokenHandler(deviceToken) {
+        window.deviceId = deviceToken;
         window.registerDeviceToChannel(deviceToken);
       }
       function errorHandler(error) {
@@ -246,7 +247,8 @@ document.addEventListener("deviceready", function(){
       window.onNotificationGCM = function onNotificationGCM(e) {
         console.log(e);
         if (e.event == "registered") {
-          registerDeviceToChannel(e.regid);
+          window.deviceId = e.regid;
+          registerDeviceToChannel();
         }
         else {
           if (e.coldstart) {
