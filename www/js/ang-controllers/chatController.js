@@ -2,7 +2,6 @@ angular.module("angControllers").controller("chatController",
     ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery',
     function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
         
-        var device = device || null;
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false; 
@@ -21,11 +20,11 @@ angular.module("angControllers").controller("chatController",
                 $chatInput.focus();
             }, 0);
 
-            if (device) {
+            if (window.device) {
                 if (device.platform == "iOS") {
                     $timeout(function() {
                         $chatInput.focus();
-                    }, 0);
+                    }, 300);
                 }
             }
         }
