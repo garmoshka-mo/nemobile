@@ -183,25 +183,21 @@ services
 
     }
 
-    window.registerDeviceToChannel = function registerDeviceToChannel() {
-        if (window.deviceId) {
-            console.log("deviceId", window.deviceId); 
-            pubnub.mobile_gw_provision({
-                device_id: window.deviceId,
-                channel: user.channel,
-                op: 'add',
-                gw_type: 'gcm',
-                error: function(msg) {
-                    console.log("device is not registered", msg)
-                },
-                success: function(msg) {
-                    console.log("device is registered", msg)
-                } 
-            })
-        }
-        else {
-            console.error("device id is undefined")
-        }
+    window.registerDeviceToChannel = function registerDeviceToChannel(deviceId) {
+        var type = device.platform === "iOS" ? "apns" : "gcm";
+        var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+            + App.Settings.pubnubSubscribeKey  + "/devices/" 
+            + deviceId + "/add=" + user.channel
+            + "?type=" + type;
+
+        $http.get(url).then(
+            function(res) {
+                console.log("register device success", res);
+            },
+            function(res) {
+                console.log("register device error", res);
+            }
+        ) 
     }
 
     //public methods

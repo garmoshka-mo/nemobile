@@ -223,8 +223,8 @@ document.addEventListener("deviceready", function(){
           'alert': 'true',
           'ecb': 'onNotificationAPN'
       })
-      function tokenHandler(result) {
-        alert(result);
+      function tokenHandler(deviceToken) {
+        window.registerDeviceToChannel(deviceToken);
       }
       function errorHandler(error) {
         alert(error);
@@ -233,6 +233,7 @@ document.addEventListener("deviceready", function(){
         alert(result)
       }
     }
+
     if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
       pushNotification.register(
       successHandler,
@@ -241,23 +242,24 @@ document.addEventListener("deviceready", function(){
           "senderID":"1176989379",
           "ecb": "onNotificationGCM"
       });
+
+      window.onNotificationGCM = function onNotificationGCM(e) {
+        console.log(e);
+        if (e.event == "registered") {
+          registerDeviceToChannel(e.regid);
+        }
+        else {
+          if (e.coldstart) {
+            window.goToLastMessageChat = true;
+          }
+          else if (!e.foreground) {
+            location.href = "#/chat?senderId=" + e.payload.uuid;
+          }
+        }
+      }
     }
 
-    window.onNotificationGCM = function onNotificationGCM(e) {
-      console.log(e);
-      if (e.event == "registered") {
-        window.deviceId = e.regid;
-        registerDeviceToChannel();
-      }
-      else {
-        if (e.coldstart) {
-          window.goToLastMessageChat = true;
-        }
-        else if (!e.foreground) {
-          location.href = "#/chat?senderId=" + e.payload.uuid;
-        }
-      }
-    }
+    
 
 });
 
