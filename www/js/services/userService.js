@@ -169,19 +169,20 @@ services
     }
 
     function removeDeviceFromChannel() {
-        var type = device.platform === "iOS" ? "apns" : "gcm";
-        var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-            + App.Settings.pubnubSubscribeKey  + "/devices/" 
-            + window.deviceId + "/remove?type=" + type;
-        $http.get(url).then(
-            function(res) {
-                console.log(res);
-            },
-            function(res) {
-                console.log(res);
-            }
-        )
-
+        if (device) {
+            var type = device.platform === "iOS" ? "apns" : "gcm";
+            var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+                + App.Settings.pubnubSubscribeKey  + "/devices/" 
+                + window.deviceId + "/remove?type=" + type;
+            $http.get(url).then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            )
+        }
     }
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
@@ -202,7 +203,7 @@ services
             )
         }
         else {
-            consoe.error("device id is undefined");
+            console.error("device id is undefined");
         }     
     }
 

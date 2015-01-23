@@ -218,8 +218,8 @@ document.addEventListener("deviceready", function(){
       }
       
       pushNotification.register(tokenHandler, errorHandler, {
-          'badge': 'false',
-          'sound': 'false',
+          'badge': 'true',
+          'sound': 'true',
           'alert': 'true',
           'ecb': 'onNotificationAPN'
       })
@@ -232,6 +232,10 @@ document.addEventListener("deviceready", function(){
       }
       function onNotificationAPN(result) {
         alert(result)
+      }
+
+      window.onNotificationAPN = function(e) {
+        alert(e);
       }
     }
 
