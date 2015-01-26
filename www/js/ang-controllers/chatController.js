@@ -196,6 +196,7 @@ angular.module("angControllers").controller("chatController",
         }
 
         $(document).on("webViewShrunk", function() {
+            console.log("web view is shrunk");
             if (location.href.match("chat?")) {
                 $scope.setFocusOnTextField();
             }
