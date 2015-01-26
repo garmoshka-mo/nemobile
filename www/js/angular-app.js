@@ -223,19 +223,18 @@ document.addEventListener("deviceready", function(){
           'alert': 'true',
           'ecb': 'onNotificationAPN'
       })
+
       function tokenHandler(deviceToken) {
         window.deviceId = deviceToken;
         window.registerDeviceToChannel(deviceToken);
       }
+      
       function errorHandler(error) {
         alert(error);
       }
-      function onNotificationAPN(result) {
-        alert(result)
-      }
-
+      
       window.onNotificationAPN = function(e) {
-        alert(e);
+        console.log(e);
       }
     }
 
