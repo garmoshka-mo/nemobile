@@ -17,6 +17,7 @@
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
         <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
     </div>
+    <div class="h15"></div>
 </div>
 <div id="footer">
     <div ng-show="errorDescription" data-alert class="alert-box alert m0">
