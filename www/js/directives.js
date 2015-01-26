@@ -12,6 +12,7 @@ app.directive('stopEvent', function () {
 app.directive('overscrollableWithFooter', function() {
     return {
         link: function(scope, elem, attr) {
+ 
             $(elem).css({
                     "height": "100%",
                     "width": "100%",
