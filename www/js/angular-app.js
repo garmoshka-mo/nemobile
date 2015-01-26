@@ -236,6 +236,7 @@ document.addEventListener("deviceready", function(){
       window.onNotificationAPN = function(e) {
         console.log("apn notification", e);
         if (e.foreground === "0") {
+          console.log("will be redirected to last message");
           window.goToLastMessageChat = true;
         }
       }
