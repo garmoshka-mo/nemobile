@@ -30,8 +30,8 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
         chatSession.messages = dataFromStorage.messages;
         chatSession.isReplied = dataFromStorage.isReplied;
-        chatSession.timer = dataFromStorage.timer;
         chatSession.whenExipires = dataFromStorage.whenExipires;
+        chatSession.extraTime = dataFromStorage.extraTime; 
         chatSession.currentChat = currentChat;
 
         var ttl = chatSession.whenExipires - new Date().getTime();
@@ -84,10 +84,25 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         setTimeout: function(time) {
             var self = this;
             console.log("timer for chatSession is set. Left(msec): " + time);
+            
+            // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly 
+            // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
+ 
+            if (time > 2147483647) {
+                this.extraTime = time - 2147483647;
+                time = 2147483647;
+                console.log("extra time is added(msec): " + this.extraTime);
+            }
+
             if (this.timer) {
                 $timeout.cancel(this.timer);
             }
+
             this.timer = $timeout(function() {
+                if (self.extraTime > 0) {
+                    self.setTimeout(self.extraTime);
+                    return false;
+                }
                 self.close()
             }, time)
         },

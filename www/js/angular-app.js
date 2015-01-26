@@ -228,13 +228,16 @@ document.addEventListener("deviceready", function(){
         window.deviceId = deviceToken;
         window.registerDeviceToChannel(deviceToken);
       }
-      
+
       function errorHandler(error) {
         alert(error);
       }
       
       window.onNotificationAPN = function(e) {
-        console.log(e);
+        console.log("apn notification", e);
+        if (e.foreground === "0") {
+          window.goToLastMessageChat = true;
+        }
       }
     }
 
