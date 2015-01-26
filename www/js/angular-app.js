@@ -235,9 +235,16 @@ document.addEventListener("deviceready", function(){
       
       window.onNotificationAPN = function(e) {
         console.log("apn notification", e);
-        if (e.foreground === "0") {
-          console.log("will be redirected to last message");
+        
+        //if coldstart
+        if (e.foreground === "0" && !window.isGotUnseenMessage) {
           window.goToLastMessageChat = true;
+          return;
+        }
+        
+        //if app was in background
+        if (e.foreground === "0") {
+          location.href = "#/chat?senderId=" + e.uuid;
         }
       }
     }
@@ -255,7 +262,7 @@ document.addEventListener("deviceready", function(){
         console.log(e);
         if (e.event == "registered") {
           window.deviceId = e.regid;
-          registerDeviceToChannel();
+          registerDeviceToChannel(); 
         }
         else {
           if (e.coldstart) {

@@ -163,6 +163,8 @@ services
                         if (window.goToLastMessageChat) {
                             location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
                         }
+
+                        window.isGotUnseenMessage = true;
                     }
                 }
             );
