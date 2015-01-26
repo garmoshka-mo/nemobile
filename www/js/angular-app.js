@@ -171,20 +171,10 @@ angular.module("angApp").config(function($stateProvider) {
 
 var pushNotification;
 
-window.webViewShrinker = {
-  normalHeight: null,
-  shrink: function(pixelsToShrink) {
-    if (!this.normalHeight) {
-      this.normalHeight = $('body').height();
-    }
-    $('body').height(this.normalHeight - pixelsToShrink);
-    $("#footer").css('position','relative');
-  },
-  unshrink: function() {
-    $('body').height(this.normalHeight);
-    $("#footer").css('position','fixed');
-  } 
-}
+
+
+
+
 
 document.addEventListener("deviceready", function(){
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
@@ -202,12 +192,31 @@ document.addEventListener("deviceready", function(){
     pushNotification = window.plugins.pushNotification;
     
     if (device.platform == 'iOS') {
+
+      var webViewShrunkEvent = new CustomEvent("webViewShrunk");
+
+      window.webViewShrinker = {
+        normalHeight: null,
+        shrink: function(pixelsToShrink) {
+          if (!this.normalHeight) {
+            this.normalHeight = $('body').height();
+          }
+          $('body').height(this.normalHeight - pixelsToShrink);
+          $("#footer").css('position','relative');
+          document.dispatchEvent(webViewShrunkEvent)
+        },
+        unshrink: function() {
+          $('body').height(this.normalHeight);
+          $("#footer").css('position','fixed');
+        } 
+      }
       
       cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       
       window.addEventListener('native.keyboardshow', keyboardShowHandler);
       window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
 
       function keyboardShowHandler(e){
         window.webViewShrinker.shrink(e.keyboardHeight);

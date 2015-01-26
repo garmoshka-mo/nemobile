@@ -8,7 +8,7 @@ angular.module("angControllers").controller("chatController",
 
         console.log("state params", $stateParams);
         var $chatInput = $('.chat-input');
-        
+
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
@@ -194,6 +194,12 @@ angular.module("angControllers").controller("chatController",
             $scope.newMessage.text = $stateParams.messageText;
             chat.sendMessage();
         }
+
+        $(document).on("webViewShrunk", function() {
+            if (location.href.match("chat?")) {
+                $scope.setFocusOnTextField();
+            }
+        })
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
