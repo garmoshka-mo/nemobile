@@ -1,0 +1,1 @@
+// Dummy cordova.js file - to eliminate error message in browser console

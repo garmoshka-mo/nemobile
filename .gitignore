@@ -1,4 +1,5 @@
 bin
 node_modules/
 www/npm-debug.log
+npm-debug.log
 .idea/

@@ -1,5 +1,5 @@
-winston = require('winston');
-
+var winston = require('winston');
+var url = require("url");
 var http = require('http'),
     fs = require('fs'),
     mime = require('mime');
@@ -12,8 +12,10 @@ http.createServer(function(request, response) {
     winston.info(request.url);
     if (request.url == "/")
         outputFile('www/index.html', response);
-    else
-        outputFile('www' + request.url, response);
+    else {
+        var pathname = url.parse(request.url).pathname;
+        outputFile('www' + pathname, response);
+    }
 }).listen(port);
 
 
@@ -21,7 +23,7 @@ function outputFile(path, response) {
 
     fs.readFile(path, function (err, html) {
         if (err) {
-            outputError("err", response);
+            outputError("File not found", response);
             return;
         }
         response.writeHeader(200, {"Content-Type": mime.lookup(path)});
