@@ -18,12 +18,14 @@ angular.module("angControllers").controller("chatController",
             $timeout(function() {
                 console.log("focus is set on textField");
                 $chatInput.focus();
+                $chatInput.select();
             }, 0);
 
             if (window.device) {
                 if (device.platform == "iOS") {
                     $timeout(function() {
                         $chatInput.focus();
+                        $chatInput.select();
                         console.log("focus is set on textField ios");
                     }, 300);
                 }
