@@ -22,9 +22,10 @@ angular.module("angControllers").controller("chatController",
 
             if (window.device) {
                 if (device.platform == "iOS") {
+                    console.log("focus is set on textField ios");
                     $timeout(function() {
                         $chatInput.focus();
-                    }, 300);
+                    }, 500);
                 }
             }
         }
@@ -196,7 +197,6 @@ angular.module("angControllers").controller("chatController",
         }
 
         $(document).on("webViewShrunk", function() {
-            console.log("web view is shrunk");
             if (location.href.match("chat?")) {
                 $scope.setFocusOnTextField();
             }
