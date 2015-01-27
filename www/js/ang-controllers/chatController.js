@@ -25,7 +25,7 @@ angular.module("angControllers").controller("chatController",
                     $timeout(function() {
                         $chatInput.focus();
                         console.log("focus is set on textField ios");
-                    }, 700);
+                    }, 1000);
                 }
             }
         }
