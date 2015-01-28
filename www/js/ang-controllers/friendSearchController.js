@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendSearchController", [
-    'user', '$scope', '$http', '$state', 'api',
-    function(user, $scope, $http, $state, api){
+    'user', '$scope', '$http', '$state', 'api', 'contacts',
+    function(user, $scope, $http, $state, api, contacts){
 
     // api.getUnseenMessages();
     $scope.showSpinner = false;
@@ -56,5 +56,8 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.canBeAdded = false;
         $scope.serverResponse = "пользователь добавлен";
         console.log(user);
-    } 
+    }
+
+
+    
 }])

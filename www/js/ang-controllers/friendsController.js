@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams',
-    function(user, $scope, $stateParams) {
+    ['user','$scope', '$stateParams', 'contacts',
+    function(user, $scope, $stateParams, contacts) {
     
     console.log('friends controller is enabled');
     $scope.user = user;

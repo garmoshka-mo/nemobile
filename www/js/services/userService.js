@@ -309,12 +309,12 @@ services
                 _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
             }
             self.chats = _chats;
-            console.log("user chats is taken from storage", user.chats);
+            console.log("user chats are taken from storage", user.chats);
         })
 
         storage.getFriends().then(function(dataFromStorage) {
             self.friends = dataFromStorage;
-            console.log("user friends is taken from storage", user.friends);
+            console.log("user friends are taken from storage", user.friends);
         })
 
         storage.getLastMessageTimestamp().then(function(timestamp) {
@@ -335,7 +335,7 @@ services
 
     this.saveChats = function() {
         storage.saveChats(this.chats);
-        console.log("user chats is saved");
+        console.log("user chats are saved");
     }
 
     this.saveLastMessageTimestamp = function() {
