@@ -1,11 +1,15 @@
 <div class="chat" overscrollable-with-footer>
-    <div class="ta-center" ng-show="isFirstMessage">
+    <div class="firstMessage ta-center" ng-show="isFirstMessage">
         ваше первое сообщение
         <form name="ttl_form">
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="10" checked autocomplete="off">10 сек
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="600" autocomplete="off">10 мин
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="3600" autocomplete="off">1 час
-            <input type="radio" ng-model="newMessage.ttl" name="ttl" value="86400" autocomplete="off">1 день
+            <input id="radio1" type="radio" ng-model="newMessage.ttl" name="ttl" value="10" checked autocomplete="off">
+            <label class="radioLabel" for="radio1">10 сек</label>
+            <input id="radio2" type="radio" ng-model="newMessage.ttl" name="ttl" value="600" autocomplete="off">
+            <label class="radioLabel" for="radio2">10 мин</label>
+            <input id="radio3" type="radio" ng-model="newMessage.ttl" name="ttl" value="3600" autocomplete="off">
+            <label class="radioLabel" for="radio3">1 час</label>
+            <input id="radio4" type="radio" ng-model="newMessage.ttl" name="ttl" value="86400" autocomplete="off">
+            <label class="radioLabel" for="radio4">1 день</label>
         </form>
     </div>
     <div class="ta-center" ng-show="!chatHistory.isAllChatSessionsVisbile">    
