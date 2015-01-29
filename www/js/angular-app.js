@@ -167,6 +167,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("phoneRegistration", {
+    url: "/phoneRegistration",
+    views: {
+      "title": {
+        template: "Регистрация номера"
+      },
+      "menu": {
+        templateUrl: "partials/chat/menu.html"
+      }, 
+      "content": {
+        controller: "phoneRegistrationController",
+        templateUrl: "partials/phoneRegistration/content.html"
+      }
+    }
+  })
 });
 
 var pushNotification;

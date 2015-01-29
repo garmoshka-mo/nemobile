@@ -1110,8 +1110,8 @@ button, .button {
   color: white;
   border-radius: 5px;
   transition: background-color 300ms ease-out; }
-  button:hover, button:focus, .button:hover, .button:focus {
-    background-color: #007095; }
+/*  button:hover, button:focus, .button:hover, .button:focus {
+    background-color: #007095; }*/
   button:hover, button:focus, .button:hover, .button:focus {
     color: white; }
   button.secondary, .button.secondary {
@@ -3634,8 +3634,8 @@ a {
   color: #008cba;
   text-decoration: none;
   line-height: inherit; }
-  a:hover, a:focus {
-    color: #0078a0; }
+  /*a:hover, a:focus {
+    color: #0078a0; }*/
   a img {
     border: none; }
 

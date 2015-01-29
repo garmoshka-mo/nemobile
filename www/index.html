@@ -66,6 +66,7 @@
         <script type="text/javascript" src="js/ang-controllers/stickersGalleryController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/addImageController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/friendsController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/phoneRegistrationController.js"></script>
         <script type="text/javascript" src="js/directives.js"></script>
         <script type="text/javascript" src="js/libs/foundation.min.js"></script>
         <script type="text/javascript" src="js/libs/pubnub.js"></script>
@@ -86,7 +87,6 @@
                         <h1 class="title">
                             <div ng-show="!notification.text" ui-view="title"></div>
                             <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}"><span ng-bind="notification.text"></span></div>
-
                         </h1>
                     </section>
                     <section ng-show="user.scores" class="right-small ta-center">

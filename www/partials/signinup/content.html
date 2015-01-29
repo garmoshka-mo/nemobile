@@ -20,9 +20,21 @@
             <span ng-show="showSpinner" spinner spinner-color="white"></span>
         </a>
     </div>
+    
     <div ng-show="serverResponse" data-alert class="alert-box warning">
         <span ng-bind="serverResponse"></span>
         <span ng-click="closeServerResponse()" class="close">&times;</span>
+    </div>
+
+    <div ng-show="!isIn" class="row text-silver">
+        <a href="#/phoneRegistration">
+            <div class="small-2 columns">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <div class="small-10 columns">
+                <span>зарегистрировать номер</span>
+            </div>
+        </a>
     </div>
       
   </form>

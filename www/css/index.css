@@ -25,6 +25,9 @@ body{
 .text-white {
   color: #FFF;
 }
+.text-silver {
+  color: #bdc3c7;
+}
 .h13 {
   height: 13px;
 }
