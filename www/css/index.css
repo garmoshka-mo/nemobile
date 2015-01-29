@@ -181,7 +181,7 @@ a.button:hover{
 }
 
 .chats-chat {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #7f8c8d;
   min-height: 65px;
 }
 .chat-last-message-text {
@@ -413,7 +413,7 @@ input.category-name-change-input {
 .friend-list .friend {
   padding-top: 5px;
   height: 65px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #7f8c8d;
 }
 
 .firstMessage {

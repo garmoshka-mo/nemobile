@@ -2,7 +2,7 @@
   <div class="width-92 block-center inline-input-button-block">
     <input type="text" ng-model="nameToSearch">
     <button ng-click="findUserByName()" ng-disabled="showSpinner">
-      <span ng-show="!showSpinner">Найти</span>
+      <i class="fa fa-search" ng-show="!showSpinner"></i>
       <span ng-show="showSpinner" spinner spinner-color="white"></span>
     </button>
   </div>
