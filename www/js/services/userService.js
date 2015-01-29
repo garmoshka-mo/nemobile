@@ -176,7 +176,7 @@ services
             var type = device.platform === "iOS" ? "apns" : "gcm";
             var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
                 + App.Settings.pubnubSubscribeKey  + "/devices/" 
-                + window.deviceId + "/remove=?type=" + type;
+                + window.deviceId + "/remove?type=" + type;
             $http.get(url).then(
                 function(res) {
                     console.log(res);
