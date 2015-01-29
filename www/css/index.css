@@ -299,13 +299,17 @@ button.chat-send {
   color: #FFF;
   background: #008cba;
 }
+.category-button-red {
+  color: #FFF;  
+  background: #e74c3c;
+}
 input.category-name-change-input {
   margin-bottom: 0;
   background: #29B6F6;
   border: 0;
   box-shadow: none;
   padding-bottom: 2px;
-  border-bottom: 1px solid #000;
+  border: 1px solid #000;
 }
 .category-img {
   margin-bottom: 5px;
@@ -553,7 +557,7 @@ input[type="radio"] {
 
 input[type="radio"]:checked + .radioLabel {
  background-color: #2980b9;
- box-shadow: inset 0 0 10px #000;
+ box-shadow: inset 0 0 10px rgba(0, 0, 0, .5);
 }
 
 .radioLabel,
