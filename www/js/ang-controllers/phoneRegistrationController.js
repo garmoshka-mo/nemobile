@@ -4,6 +4,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
     
     console.log('friends controller is enabled');
     $scope.user = user;
+    $scope.isAlreadyUser = $stateParams.isAlreadyUser == "true" ? true : false;
 
     $scope.removeFriend = function(friendUuid) {
         var _friends = {};

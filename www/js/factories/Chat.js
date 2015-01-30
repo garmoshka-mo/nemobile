@@ -19,6 +19,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         chat.isExpired = dataFromStorage.isExpired;
         chat.lastChatSessionIndex = dataFromStorage.lastChatSessionIndex;
         chat.senderScores = dataFromStorage.senderScores;
+        chat.isRead = dataFromStorage.isRead;
         chat.currentUser = currentUser;
         return chat;
     }

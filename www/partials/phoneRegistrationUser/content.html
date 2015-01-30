@@ -1,0 +1,13 @@
+<div class="pt1rem ta-center">
+    <form name="reg">
+        <div class="width-92 inline-block">
+           <input name="phone" type="text" ng-model="newUser.phone" placeholder="номер телефона" required>
+        </div>
+        <div class="width-92 inline-block" ng-show="!isIn">
+            <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                <span ng-show="!showSpinner">Привязать</span>
+                <span ng-show="showSpinner" spinner spinner-color="white"></span>
+            </a>
+        </div>
+    </form>
+</div>

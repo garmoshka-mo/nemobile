@@ -123,6 +123,7 @@ services
 
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
+        self.chats[senderUuid].isRead = false;
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 

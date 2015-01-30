@@ -4,6 +4,7 @@ angular.module("angControllers").controller("friendsController",
     
     console.log('friends controller is enabled');
     $scope.user = user;
+    $scope.isEditMode = false;
 
     $scope.removeFriend = function(friendUuid) {
         var _friends = {};

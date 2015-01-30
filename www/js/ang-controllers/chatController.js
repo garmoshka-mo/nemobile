@@ -18,14 +18,12 @@ angular.module("angControllers").controller("chatController",
             $timeout(function() {
                 console.log("focus is set on textField");
                 $chatInput.focus();
-                $chatInput.select();
             }, 0);
 
             if (window.device) {
                 if (device.platform == "iOS") {
                     $timeout(function() {
                         $chatInput.focus();
-                        $chatInput.select();
                         console.log("focus is set on textField ios");
                     }, 300);
                 }
@@ -64,8 +62,12 @@ angular.module("angControllers").controller("chatController",
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
         chat.getLastUnexpiredChatSession();
+        if (!chat.isRead) {
+            chat.isRead = true;
+            chat.currentUser.saveChats();
+        }
         var lastSession = chat.lastUnexpiredChatSession;
-                
+
         
         if (!lastSession) {
             chat.addChatSession(user.uuid, chat.senderId)
@@ -78,6 +80,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.$watch("chatSession.messages.length", function() {
             $scope.scrollToBottom();
+            chat.isRead = true;
         })
 
         if (user.friends[chat.senderId]) {
@@ -182,6 +185,13 @@ angular.module("angControllers").controller("chatController",
             $scope.newMessage.text = stickerLink;
             $scope.isStickersGalleryVisiable = false;
             chat.sendMessage();
+        }
+
+        $scope.checkIfEnter = function(event) {
+            console.log(event);
+            if (event.keyCode === 13) {
+                chat.sendMessage();
+            }
         }
 
         $scope.addStickerURL = function(message) {

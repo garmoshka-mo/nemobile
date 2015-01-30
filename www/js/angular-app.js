@@ -69,7 +69,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Чат"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "chatController",
@@ -84,7 +84,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Выход"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "exitController",
@@ -99,7 +99,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Поиск друзей"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "friendSearchController",
@@ -129,7 +129,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Галерея стикеров"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "stickersGalleryController",
@@ -144,7 +144,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Добавить изображение"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "addImageController",
@@ -159,7 +159,7 @@ angular.module("angApp").config(function($stateProvider) {
         template: "Друзья"
       },
       "menu": {
-        templateUrl: "partials/chat/menu.html"
+        templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
         controller: "friendsController",
@@ -179,6 +179,36 @@ angular.module("angApp").config(function($stateProvider) {
       "content": {
         controller: "phoneRegistrationController",
         templateUrl: "partials/phoneRegistration/content.html"
+      }
+    }
+  })
+  .state("phoneRegistrationUser", {
+    url: "/phoneRegistrationUser",
+    views: {
+      "title": {
+        template: "Регистрация номера"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "phoneRegistrationController",
+        templateUrl: "partials/phoneRegistrationUser/content.html"
+      }
+    }
+  })
+  .state("settings", {
+    url: "/settings",
+    views: {
+      "title": {
+        template: "Настройки"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "settingsController",
+        templateUrl: "partials/settings/content.html"
       }
     }
   })

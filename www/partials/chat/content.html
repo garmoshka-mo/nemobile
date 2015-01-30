@@ -34,7 +34,7 @@
                 <i class="fa fa-image"></i>
             </div>
             <div class="chat-input-container">
-                <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text">
+                <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text" ng-keypress="checkIfEnter($event)">
             </div>
         </div>
         <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">
