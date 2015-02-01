@@ -290,6 +290,9 @@ services
             .then(
                 function(res) {
                     console.log(res);
+                    if (!res.data.success) {
+                        return $q.reject();
+                    }
                 },
                 function(res) {
                     console.log(res);

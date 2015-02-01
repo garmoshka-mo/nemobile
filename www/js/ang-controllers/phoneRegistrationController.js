@@ -1,22 +1,30 @@
 angular.module("angControllers").controller("phoneRegistrationController", 
     ['user','$scope', '$stateParams', 'contacts',
-    function(user, $scope, $stateParams, contacts) {
-    
-    console.log('friends controller is enabled');
-    $scope.user = user;
-    $scope.isAlreadyUser = $stateParams.isAlreadyUser == "true" ? true : false;
-
-    $scope.removeFriend = function(friendUuid) {
-        var _friends = {};
-
-        for (var key in user.friends) {
-            if (key != friendUuid) {
-                _friends[key] = user.friends[key];
-            }
+    function(user, $scope, $stateParams) {
+        $scope.newUser = {};
+        $scope.showSpinner = false;
+        $scope.phoneEnterPhase = true;
+        var $phoneInput = $("#mobile-number").intlTelInput();
+        $scope.initRegistration = function () {
+            $scope.showSpinner = true;
+            user.initRegistrationWithPhone($scope.newUser.phone)
+            .then(
+                function () {
+                    $scope.phoneEnterPhase = false;
+                    $scope.showSpinner = false;
+                },
+                function () {
+                    $scope.showSpinner = false;
+                }
+            )    
         }
 
-        user.friends = _friends;
-        console.log("friend was deleted");
-    }        
+        $scope.goToEnterPhase = function () {
+            $scope.phoneEnterPhase = true;
+        }
+
+        $scope.bindInputToModal = function (event) {
+            console.log(event);
+        }
 
 }])    

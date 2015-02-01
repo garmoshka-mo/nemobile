@@ -191,7 +191,7 @@ a.button:hover{
   min-height: 65px;
 }
 .chats-chat.unread {
-  background: rgba(52, 152, 219,.1);
+  background: rgba(52, 152, 219, .2);
 }
 .chat-last-message-text {
   display: block;

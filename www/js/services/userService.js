@@ -353,8 +353,10 @@ services
             channel: self.channel,
             message: function(m) { handleIncomeMessage(m) }
         })
+    }
 
-        
+    this.initRegistrationWithPhone = function(phoneNumber) {
+        return  api.initPhoneActivation(phoneNumber);
     }
 
     var pubnub = PUBNUB.init({

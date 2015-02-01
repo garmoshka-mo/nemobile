@@ -1,23 +1,45 @@
 <div class="pt1rem ta-center">
-    <form name="reg">
-        <div class="width-92 inline-block">
-           <input name="phone" type="text" ng-model="newUser.phone" placeholder="номер телефона" required>
-        </div>
-        <div class="width-92 inline-block" ng-show="!isIn">
-            <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
-                <span ng-show="!showSpinner">Зарегистрироваться</span>
-                <span ng-show="showSpinner" spinner spinner-color="white"></span>
+    <div ng-show="phoneEnterPhase">
+        <form name="reg">
+            <div class="width-92 inline-block">
+                <input type="tel" id="mobile-number" ng-model="newUser.phone" ng-keypress="bindInputToModal($event)" required>
+            </div>
+            <div class="width-92 inline-block" ng-show="!isIn">
+                <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                    <span ng-show="!showSpinner">Отправить смс</span>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </form>
+        <div class="row text-silver">
+            <a href="#/signinup/up">
+                <div class="small-10 columns">
+                    <span>зарегистрироваться без телефона</span>
+                </div>
+                <div class="small-2 columns">
+                    <i class="fa fa-arrow-right"></i>
+                </div>
             </a>
         </div>
-    </form>
-    <div class="row text-silver">
-        <a href="#/signinup/up">
-            <div class="small-10 columns">
-                <span>зарегистрироваться без телефона</span>
-            </div>
-            <div class="small-2 columns">
-                <i class="fa fa-arrow-right"></i>
-            </div>
-        </a>
     </div>
+    <div ng-show="!phoneEnterPhase">
+        <form name="confirm">
+            <div class="width-92 inline-block">
+               <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="номер телефона" required>
+            </div>
+            <div class="width-92 inline-block" ng-show="!isIn">
+                <a data-role="button" ng-click="" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                    <span ng-show="!showSpinner">Подтвердить</span>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </a>
+            </div>
+        </form>
+        <div class="row text-silver">
+            <div class="small-12 columns" ng-click="goToEnterPhase()">
+                <i class="fa fa-arrow-left"></i>
+                <span>ввести другой номер</span>
+            </div>
+        </div>
+    </div>
+    
 </div>
