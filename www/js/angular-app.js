@@ -192,7 +192,7 @@ angular.module("angApp").config(function($stateProvider) {
         templateUrl: "partials/chats/menu.html"
       }, 
       "content": {
-        controller: "phoneRegistrationController",
+        controller: "phoneRegistrationUserController",
         templateUrl: "partials/phoneRegistrationUser/content.html"
       }
     }

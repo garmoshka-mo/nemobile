@@ -1,4 +1,4 @@
-angular.module("angControllers").controller("phoneRegistrationController", 
+angular.module("angControllers").controller("phoneRegistrationUserController", 
     ['user','$scope', '$stateParams', '$state',
     function(user, $scope, $stateParams, $state) {
         $scope.newUser = {};

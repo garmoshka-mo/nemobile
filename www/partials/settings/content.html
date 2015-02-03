@@ -18,7 +18,16 @@
             </div>
             <div class="small-6 columns ta-right settings-property-value" ng-bind="user.scores"></div>
         </div>
-        <div class="ta-center mt20">
+        <div class="row" ng-show="user.phoneNumber">
+            <div class="small-1 columns">
+                <i class="fa fa-phone"></i>
+            </div>
+            <div class="small-5 columns settings-property-title">
+                Ваш телефон
+            </div>
+            <div class="small-6 columns ta-right settings-property-value" ng-bind="user.phoneNumber"></div>
+        </div>
+        <div class="ta-center mt20" ng-hide="user.phoneNumber">
             <a href="#/phoneRegistrationUser"><button>Привязать номер</button></a>
         </div>
     </div>

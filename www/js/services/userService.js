@@ -42,6 +42,7 @@ services
         user.channel = userInfo.channel_name;
         user.uuid = userInfo.uuid;
         user.scores = userInfo.score;
+        user.phoneNumber = userInfo.phone_number;
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
@@ -307,6 +308,7 @@ services
             self.uuid = dataFromStorage.uuid;
             self.channel = dataFromStorage.channel;
             self.scores = dataFromStorage.scores;
+            self.phoneNumber = dataFromStorage.phoneNumber;
             self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
             self.subscribe();
             registerDeviceToChannel();
