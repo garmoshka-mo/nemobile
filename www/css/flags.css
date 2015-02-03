@@ -6,699 +6,699 @@
  * THEN: manually added .bq next to .nl
  * AND: .bl and .mf next to .fr
  */
-.iti-flag {
+.intl-tel-input .flag {
   width: 16px;
   height: 11px;
   background: url("../img/flags.png");
 }
-.iti-flag.ad {
+.intl-tel-input .ad {
   background-position: -16px 0;
 }
-.iti-flag.ae {
+.intl-tel-input .ae {
   background-position: -32px 0;
 }
-.iti-flag.af {
+.intl-tel-input .af {
   background-position: -48px 0;
 }
-.iti-flag.ag {
+.intl-tel-input .ag {
   background-position: -64px 0;
 }
-.iti-flag.ai {
+.intl-tel-input .ai {
   background-position: -80px 0;
 }
-.iti-flag.al {
+.intl-tel-input .al {
   background-position: -96px 0;
 }
-.iti-flag.am {
+.intl-tel-input .am {
   background-position: -112px 0;
 }
-.iti-flag.ao {
+.intl-tel-input .ao {
   background-position: -128px 0;
 }
-.iti-flag.ar {
+.intl-tel-input .ar {
   background-position: -144px 0;
 }
-.iti-flag.as {
+.intl-tel-input .as {
   background-position: -160px 0;
 }
-.iti-flag.at {
+.intl-tel-input .at {
   background-position: -176px 0;
 }
-.iti-flag.au {
+.intl-tel-input .au {
   background-position: -192px 0;
 }
-.iti-flag.aw {
+.intl-tel-input .aw {
   background-position: -208px 0;
 }
-.iti-flag.az {
+.intl-tel-input .az {
   background-position: -224px 0;
 }
-.iti-flag.ba {
+.intl-tel-input .ba {
   background-position: -240px 0;
 }
-.iti-flag.bb {
+.intl-tel-input .bb {
   background-position: 0 -11px;
 }
-.iti-flag.bd {
+.intl-tel-input .bd {
   background-position: -16px -11px;
 }
-.iti-flag.be {
+.intl-tel-input .be {
   background-position: -32px -11px;
 }
-.iti-flag.bf {
+.intl-tel-input .bf {
   background-position: -48px -11px;
 }
-.iti-flag.bg {
+.intl-tel-input .bg {
   background-position: -64px -11px;
 }
-.iti-flag.bh {
+.intl-tel-input .bh {
   background-position: -80px -11px;
 }
-.iti-flag.bi {
+.intl-tel-input .bi {
   background-position: -96px -11px;
 }
-.iti-flag.bj {
+.intl-tel-input .bj {
   background-position: -112px -11px;
 }
-.iti-flag.bm {
+.intl-tel-input .bm {
   background-position: -128px -11px;
 }
-.iti-flag.bn {
+.intl-tel-input .bn {
   background-position: -144px -11px;
 }
-.iti-flag.bo {
+.intl-tel-input .bo {
   background-position: -160px -11px;
 }
-.iti-flag.br {
+.intl-tel-input .br {
   background-position: -176px -11px;
 }
-.iti-flag.bs {
+.intl-tel-input .bs {
   background-position: -192px -11px;
 }
-.iti-flag.bt {
+.intl-tel-input .bt {
   background-position: -208px -11px;
 }
-.iti-flag.bw {
+.intl-tel-input .bw {
   background-position: -224px -11px;
 }
-.iti-flag.by {
+.intl-tel-input .by {
   background-position: -240px -11px;
 }
-.iti-flag.bz {
+.intl-tel-input .bz {
   background-position: 0 -22px;
 }
-.iti-flag.ca {
+.intl-tel-input .ca {
   background-position: -16px -22px;
 }
-.iti-flag.cd {
+.intl-tel-input .cd {
   background-position: -32px -22px;
 }
-.iti-flag.cf {
+.intl-tel-input .cf {
   background-position: -48px -22px;
 }
-.iti-flag.cg {
+.intl-tel-input .cg {
   background-position: -64px -22px;
 }
-.iti-flag.ch {
+.intl-tel-input .ch {
   background-position: -80px -22px;
 }
-.iti-flag.ci {
+.intl-tel-input .ci {
   background-position: -96px -22px;
 }
-.iti-flag.ck {
+.intl-tel-input .ck {
   background-position: -112px -22px;
 }
-.iti-flag.cl {
+.intl-tel-input .cl {
   background-position: -128px -22px;
 }
-.iti-flag.cm {
+.intl-tel-input .cm {
   background-position: -144px -22px;
 }
-.iti-flag.cn {
+.intl-tel-input .cn {
   background-position: -160px -22px;
 }
-.iti-flag.co {
+.intl-tel-input .co {
   background-position: -176px -22px;
 }
-.iti-flag.cr {
+.intl-tel-input .cr {
   background-position: -192px -22px;
 }
-.iti-flag.cu {
+.intl-tel-input .cu {
   background-position: -208px -22px;
 }
-.iti-flag.cv {
+.intl-tel-input .cv {
   background-position: -224px -22px;
 }
-.iti-flag.cw {
+.intl-tel-input .cw {
   background-position: -240px -22px;
 }
-.iti-flag.cy {
+.intl-tel-input .cy {
   background-position: 0 -33px;
 }
-.iti-flag.cz {
+.intl-tel-input .cz {
   background-position: -16px -33px;
 }
-.iti-flag.de {
+.intl-tel-input .de {
   background-position: -32px -33px;
 }
-.iti-flag.dj {
+.intl-tel-input .dj {
   background-position: -48px -33px;
 }
-.iti-flag.dk {
+.intl-tel-input .dk {
   background-position: -64px -33px;
 }
-.iti-flag.dm {
+.intl-tel-input .dm {
   background-position: -80px -33px;
 }
-.iti-flag.do {
+.intl-tel-input .do {
   background-position: -96px -33px;
 }
-.iti-flag.dz {
+.intl-tel-input .dz {
   background-position: -112px -33px;
 }
-.iti-flag.ec {
+.intl-tel-input .ec {
   background-position: -128px -33px;
 }
-.iti-flag.ee {
+.intl-tel-input .ee {
   background-position: -144px -33px;
 }
-.iti-flag.eg {
+.intl-tel-input .eg {
   background-position: -160px -33px;
 }
-.iti-flag.er {
+.intl-tel-input .er {
   background-position: -176px -33px;
 }
-.iti-flag.es {
+.intl-tel-input .es {
   background-position: -192px -33px;
 }
-.iti-flag.et {
+.intl-tel-input .et {
   background-position: -208px -33px;
 }
-.iti-flag.fi {
+.intl-tel-input .fi {
   background-position: -224px -33px;
 }
-.iti-flag.fj {
+.intl-tel-input .fj {
   background-position: -240px -33px;
 }
-.iti-flag.fk {
+.intl-tel-input .fk {
   background-position: 0 -44px;
 }
-.iti-flag.fm {
+.intl-tel-input .fm {
   background-position: -16px -44px;
 }
-.iti-flag.fo {
+.intl-tel-input .fo {
   background-position: -32px -44px;
 }
-.iti-flag.fr, .iti-flag.bl, .iti-flag.mf {
+.intl-tel-input .fr, .intl-tel-input .bl, .intl-tel-input .mf {
   background-position: -48px -44px;
 }
-.iti-flag.ga {
+.intl-tel-input .ga {
   background-position: -64px -44px;
 }
-.iti-flag.gb {
+.intl-tel-input .gb {
   background-position: -80px -44px;
 }
-.iti-flag.gd {
+.intl-tel-input .gd {
   background-position: -96px -44px;
 }
-.iti-flag.ge {
+.intl-tel-input .ge {
   background-position: -112px -44px;
 }
-.iti-flag.gf {
+.intl-tel-input .gf {
   background-position: -128px -44px;
 }
-.iti-flag.gh {
+.intl-tel-input .gh {
   background-position: -144px -44px;
 }
-.iti-flag.gi {
+.intl-tel-input .gi {
   background-position: -160px -44px;
 }
-.iti-flag.gl {
+.intl-tel-input .gl {
   background-position: -176px -44px;
 }
-.iti-flag.gm {
+.intl-tel-input .gm {
   background-position: -192px -44px;
 }
-.iti-flag.gn {
+.intl-tel-input .gn {
   background-position: -208px -44px;
 }
-.iti-flag.gp {
+.intl-tel-input .gp {
   background-position: -224px -44px;
 }
-.iti-flag.gq {
+.intl-tel-input .gq {
   background-position: -240px -44px;
 }
-.iti-flag.gr {
+.intl-tel-input .gr {
   background-position: 0 -55px;
 }
-.iti-flag.gt {
+.intl-tel-input .gt {
   background-position: -16px -55px;
 }
-.iti-flag.gu {
+.intl-tel-input .gu {
   background-position: -32px -55px;
 }
-.iti-flag.gw {
+.intl-tel-input .gw {
   background-position: -48px -55px;
 }
-.iti-flag.gy {
+.intl-tel-input .gy {
   background-position: -64px -55px;
 }
-.iti-flag.hk {
+.intl-tel-input .hk {
   background-position: -80px -55px;
 }
-.iti-flag.hn {
+.intl-tel-input .hn {
   background-position: -96px -55px;
 }
-.iti-flag.hr {
+.intl-tel-input .hr {
   background-position: -112px -55px;
 }
-.iti-flag.ht {
+.intl-tel-input .ht {
   background-position: -128px -55px;
 }
-.iti-flag.hu {
+.intl-tel-input .hu {
   background-position: -144px -55px;
 }
-.iti-flag.id {
+.intl-tel-input .id {
   background-position: -160px -55px;
 }
-.iti-flag.ie {
+.intl-tel-input .ie {
   background-position: -176px -55px;
 }
-.iti-flag.il {
+.intl-tel-input .il {
   background-position: -192px -55px;
 }
-.iti-flag.in {
+.intl-tel-input .in {
   background-position: -208px -55px;
 }
-.iti-flag.io {
+.intl-tel-input .io {
   background-position: -224px -55px;
 }
-.iti-flag.iq {
+.intl-tel-input .iq {
   background-position: -240px -55px;
 }
-.iti-flag.ir {
+.intl-tel-input .ir {
   background-position: 0 -66px;
 }
-.iti-flag.is {
+.intl-tel-input .is {
   background-position: -16px -66px;
 }
-.iti-flag.it {
+.intl-tel-input .it {
   background-position: -32px -66px;
 }
-.iti-flag.jm {
+.intl-tel-input .jm {
   background-position: -48px -66px;
 }
-.iti-flag.jo {
+.intl-tel-input .jo {
   background-position: -64px -66px;
 }
-.iti-flag.jp {
+.intl-tel-input .jp {
   background-position: -80px -66px;
 }
-.iti-flag.ke {
+.intl-tel-input .ke {
   background-position: -96px -66px;
 }
-.iti-flag.kg {
+.intl-tel-input .kg {
   background-position: -112px -66px;
 }
-.iti-flag.kh {
+.intl-tel-input .kh {
   background-position: -128px -66px;
 }
-.iti-flag.ki {
+.intl-tel-input .ki {
   background-position: -144px -66px;
 }
-.iti-flag.km {
+.intl-tel-input .km {
   background-position: -160px -66px;
 }
-.iti-flag.kn {
+.intl-tel-input .kn {
   background-position: -176px -66px;
 }
-.iti-flag.kp {
+.intl-tel-input .kp {
   background-position: -192px -66px;
 }
-.iti-flag.kr {
+.intl-tel-input .kr {
   background-position: -208px -66px;
 }
-.iti-flag.kw {
+.intl-tel-input .kw {
   background-position: -224px -66px;
 }
-.iti-flag.ky {
+.intl-tel-input .ky {
   background-position: -240px -66px;
 }
-.iti-flag.kz {
+.intl-tel-input .kz {
   background-position: 0 -77px;
 }
-.iti-flag.la {
+.intl-tel-input .la {
   background-position: -16px -77px;
 }
-.iti-flag.lb {
+.intl-tel-input .lb {
   background-position: -32px -77px;
 }
-.iti-flag.lc {
+.intl-tel-input .lc {
   background-position: -48px -77px;
 }
-.iti-flag.li {
+.intl-tel-input .li {
   background-position: -64px -77px;
 }
-.iti-flag.lk {
+.intl-tel-input .lk {
   background-position: -80px -77px;
 }
-.iti-flag.lr {
+.intl-tel-input .lr {
   background-position: -96px -77px;
 }
-.iti-flag.ls {
+.intl-tel-input .ls {
   background-position: -112px -77px;
 }
-.iti-flag.lt {
+.intl-tel-input .lt {
   background-position: -128px -77px;
 }
-.iti-flag.lu {
+.intl-tel-input .lu {
   background-position: -144px -77px;
 }
-.iti-flag.lv {
+.intl-tel-input .lv {
   background-position: -160px -77px;
 }
-.iti-flag.ly {
+.intl-tel-input .ly {
   background-position: -176px -77px;
 }
-.iti-flag.ma {
+.intl-tel-input .ma {
   background-position: -192px -77px;
 }
-.iti-flag.mc {
+.intl-tel-input .mc {
   background-position: -208px -77px;
 }
-.iti-flag.md {
+.intl-tel-input .md {
   background-position: -224px -77px;
 }
-.iti-flag.me {
+.intl-tel-input .me {
   background-position: -112px -154px;
   height: 12px;
 }
-.iti-flag.mg {
+.intl-tel-input .mg {
   background-position: 0 -88px;
 }
-.iti-flag.mh {
+.intl-tel-input .mh {
   background-position: -16px -88px;
 }
-.iti-flag.mk {
+.intl-tel-input .mk {
   background-position: -32px -88px;
 }
-.iti-flag.ml {
+.intl-tel-input .ml {
   background-position: -48px -88px;
 }
-.iti-flag.mm {
+.intl-tel-input .mm {
   background-position: -64px -88px;
 }
-.iti-flag.mn {
+.intl-tel-input .mn {
   background-position: -80px -88px;
 }
-.iti-flag.mo {
+.intl-tel-input .mo {
   background-position: -96px -88px;
 }
-.iti-flag.mp {
+.intl-tel-input .mp {
   background-position: -112px -88px;
 }
-.iti-flag.mq {
+.intl-tel-input .mq {
   background-position: -128px -88px;
 }
-.iti-flag.mr {
+.intl-tel-input .mr {
   background-position: -144px -88px;
 }
-.iti-flag.ms {
+.intl-tel-input .ms {
   background-position: -160px -88px;
 }
-.iti-flag.mt {
+.intl-tel-input .mt {
   background-position: -176px -88px;
 }
-.iti-flag.mu {
+.intl-tel-input .mu {
   background-position: -192px -88px;
 }
-.iti-flag.mv {
+.intl-tel-input .mv {
   background-position: -208px -88px;
 }
-.iti-flag.mw {
+.intl-tel-input .mw {
   background-position: -224px -88px;
 }
-.iti-flag.mx {
+.intl-tel-input .mx {
   background-position: -240px -88px;
 }
-.iti-flag.my {
+.intl-tel-input .my {
   background-position: 0 -99px;
 }
-.iti-flag.mz {
+.intl-tel-input .mz {
   background-position: -16px -99px;
 }
-.iti-flag.na {
+.intl-tel-input .na {
   background-position: -32px -99px;
 }
-.iti-flag.nc {
+.intl-tel-input .nc {
   background-position: -48px -99px;
 }
-.iti-flag.ne {
+.intl-tel-input .ne {
   background-position: -64px -99px;
 }
-.iti-flag.nf {
+.intl-tel-input .nf {
   background-position: -80px -99px;
 }
-.iti-flag.ng {
+.intl-tel-input .ng {
   background-position: -96px -99px;
 }
-.iti-flag.ni {
+.intl-tel-input .ni {
   background-position: -112px -99px;
 }
-.iti-flag.nl, .iti-flag.bq {
+.intl-tel-input .nl, .intl-tel-input .bq {
   background-position: -128px -99px;
 }
-.iti-flag.no {
+.intl-tel-input .no {
   background-position: -144px -99px;
 }
-.iti-flag.np {
+.intl-tel-input .np {
   background-position: -160px -99px;
 }
-.iti-flag.nr {
+.intl-tel-input .nr {
   background-position: -176px -99px;
 }
-.iti-flag.nu {
+.intl-tel-input .nu {
   background-position: -192px -99px;
 }
-.iti-flag.nz {
+.intl-tel-input .nz {
   background-position: -208px -99px;
 }
-.iti-flag.om {
+.intl-tel-input .om {
   background-position: -224px -99px;
 }
-.iti-flag.pa {
+.intl-tel-input .pa {
   background-position: -240px -99px;
 }
-.iti-flag.pe {
+.intl-tel-input .pe {
   background-position: 0 -110px;
 }
-.iti-flag.pf {
+.intl-tel-input .pf {
   background-position: -16px -110px;
 }
-.iti-flag.pg {
+.intl-tel-input .pg {
   background-position: -32px -110px;
 }
-.iti-flag.ph {
+.intl-tel-input .ph {
   background-position: -48px -110px;
 }
-.iti-flag.pk {
+.intl-tel-input .pk {
   background-position: -64px -110px;
 }
-.iti-flag.pl {
+.intl-tel-input .pl {
   background-position: -80px -110px;
 }
-.iti-flag.pm {
+.intl-tel-input .pm {
   background-position: -96px -110px;
 }
-.iti-flag.pr {
+.intl-tel-input .pr {
   background-position: -112px -110px;
 }
-.iti-flag.ps {
+.intl-tel-input .ps {
   background-position: -128px -110px;
 }
-.iti-flag.pt {
+.intl-tel-input .pt {
   background-position: -144px -110px;
 }
-.iti-flag.pw {
+.intl-tel-input .pw {
   background-position: -160px -110px;
 }
-.iti-flag.py {
+.intl-tel-input .py {
   background-position: -176px -110px;
 }
-.iti-flag.qa {
+.intl-tel-input .qa {
   background-position: -192px -110px;
 }
-.iti-flag.re {
+.intl-tel-input .re {
   background-position: -208px -110px;
 }
-.iti-flag.ro {
+.intl-tel-input .ro {
   background-position: -224px -110px;
 }
-.iti-flag.rs {
+.intl-tel-input .rs {
   background-position: -240px -110px;
 }
-.iti-flag.ru {
+.intl-tel-input .ru {
   background-position: 0 -121px;
 }
-.iti-flag.rw {
+.intl-tel-input .rw {
   background-position: -16px -121px;
 }
-.iti-flag.sa {
+.intl-tel-input .sa {
   background-position: -32px -121px;
 }
-.iti-flag.sb {
+.intl-tel-input .sb {
   background-position: -48px -121px;
 }
-.iti-flag.sc {
+.intl-tel-input .sc {
   background-position: -64px -121px;
 }
-.iti-flag.sd {
+.intl-tel-input .sd {
   background-position: -80px -121px;
 }
-.iti-flag.se {
+.intl-tel-input .se {
   background-position: -96px -121px;
 }
-.iti-flag.sg {
+.intl-tel-input .sg {
   background-position: -112px -121px;
 }
-.iti-flag.sh {
+.intl-tel-input .sh {
   background-position: -128px -121px;
 }
-.iti-flag.si {
+.intl-tel-input .si {
   background-position: -144px -121px;
 }
-.iti-flag.sk {
+.intl-tel-input .sk {
   background-position: -160px -121px;
 }
-.iti-flag.sl {
+.intl-tel-input .sl {
   background-position: -176px -121px;
 }
-.iti-flag.sm {
+.intl-tel-input .sm {
   background-position: -192px -121px;
 }
-.iti-flag.sn {
+.intl-tel-input .sn {
   background-position: -208px -121px;
 }
-.iti-flag.so {
+.intl-tel-input .so {
   background-position: -224px -121px;
 }
-.iti-flag.sr {
+.intl-tel-input .sr {
   background-position: -240px -121px;
 }
-.iti-flag.ss {
+.intl-tel-input .ss {
   background-position: 0 -132px;
 }
-.iti-flag.st {
+.intl-tel-input .st {
   background-position: -16px -132px;
 }
-.iti-flag.sv {
+.intl-tel-input .sv {
   background-position: -32px -132px;
 }
-.iti-flag.sx {
+.intl-tel-input .sx {
   background-position: -48px -132px;
 }
-.iti-flag.sy {
+.intl-tel-input .sy {
   background-position: -64px -132px;
 }
-.iti-flag.sz {
+.intl-tel-input .sz {
   background-position: -80px -132px;
 }
-.iti-flag.tc {
+.intl-tel-input .tc {
   background-position: -96px -132px;
 }
-.iti-flag.td {
+.intl-tel-input .td {
   background-position: -112px -132px;
 }
-.iti-flag.tg {
+.intl-tel-input .tg {
   background-position: -128px -132px;
 }
-.iti-flag.th {
+.intl-tel-input .th {
   background-position: -144px -132px;
 }
-.iti-flag.tj {
+.intl-tel-input .tj {
   background-position: -160px -132px;
 }
-.iti-flag.tk {
+.intl-tel-input .tk {
   background-position: -176px -132px;
 }
-.iti-flag.tl {
+.intl-tel-input .tl {
   background-position: -192px -132px;
 }
-.iti-flag.tm {
+.intl-tel-input .tm {
   background-position: -208px -132px;
 }
-.iti-flag.tn {
+.intl-tel-input .tn {
   background-position: -224px -132px;
 }
-.iti-flag.to {
+.intl-tel-input .to {
   background-position: -240px -132px;
 }
-.iti-flag.tr {
+.intl-tel-input .tr {
   background-position: 0 -143px;
 }
-.iti-flag.tt {
+.intl-tel-input .tt {
   background-position: -16px -143px;
 }
-.iti-flag.tv {
+.intl-tel-input .tv {
   background-position: -32px -143px;
 }
-.iti-flag.tw {
+.intl-tel-input .tw {
   background-position: -48px -143px;
 }
-.iti-flag.tz {
+.intl-tel-input .tz {
   background-position: -64px -143px;
 }
-.iti-flag.ua {
+.intl-tel-input .ua {
   background-position: -80px -143px;
 }
-.iti-flag.ug {
+.intl-tel-input .ug {
   background-position: -96px -143px;
 }
-.iti-flag.us {
+.intl-tel-input .us {
   background-position: -112px -143px;
 }
-.iti-flag.uy {
+.intl-tel-input .uy {
   background-position: -128px -143px;
 }
-.iti-flag.uz {
+.intl-tel-input .uz {
   background-position: -144px -143px;
 }
-.iti-flag.va {
+.intl-tel-input .va {
   background-position: -160px -143px;
 }
-.iti-flag.vc {
+.intl-tel-input .vc {
   background-position: -176px -143px;
 }
-.iti-flag.ve {
+.intl-tel-input .ve {
   background-position: -192px -143px;
 }
-.iti-flag.vg {
+.intl-tel-input .vg {
   background-position: -208px -143px;
 }
-.iti-flag.vi {
+.intl-tel-input .vi {
   background-position: -224px -143px;
 }
-.iti-flag.vn {
+.intl-tel-input .vn {
   background-position: -240px -143px;
 }
-.iti-flag.vu {
+.intl-tel-input .vu {
   background-position: 0 -154px;
 }
-.iti-flag.wf {
+.intl-tel-input .wf {
   background-position: -16px -154px;
 }
-.iti-flag.ws {
+.intl-tel-input .ws {
   background-position: -32px -154px;
 }
-.iti-flag.ye {
+.intl-tel-input .ye {
   background-position: -48px -154px;
 }
-.iti-flag.za {
+.intl-tel-input .za {
   background-position: -64px -154px;
 }
-.iti-flag.zm {
+.intl-tel-input .zm {
   background-position: -80px -154px;
 }
-.iti-flag.zw {
+.intl-tel-input .zw {
   background-position: -96px -154px;
 }

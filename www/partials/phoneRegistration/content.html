@@ -2,7 +2,7 @@
     <div ng-show="phoneEnterPhase">
         <form name="reg">
             <div class="width-92 inline-block">
-                <input type="tel" id="mobile-number" ng-model="newUser.phone" ng-keypress="bindInputToModal($event)" required>
+                <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
             </div>
             <div class="width-92 inline-block" ng-show="!isIn">
                 <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
@@ -25,13 +25,13 @@
     <div ng-show="!phoneEnterPhase">
         <form name="confirm">
             <div class="width-92 inline-block">
-               <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="номер телефона" required>
+               <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="код подтверждения" required>
             </div>
             <div class="width-92 inline-block" ng-show="!isIn">
-                <a data-role="button" ng-click="" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                <button ng-click="confirmPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || confirm.$invalid">
                     <span ng-show="!showSpinner">Подтвердить</span>
                     <span ng-show="showSpinner" spinner spinner-color="white"></span>
-                </a>
+                </button>
             </div>
         </form>
         <div class="row text-silver">
@@ -40,6 +40,11 @@
                 <span>ввести другой номер</span>
             </div>
         </div>
+    </div>
+
+    <div ng-show="serverResponse" data-alert class="alert-box warning">
+        <span ng-bind="serverResponse"></span>
+        <span ng-click="closeServerResponse()" class="close">&times;</span>
     </div>
     
 </div>

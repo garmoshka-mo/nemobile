@@ -308,12 +308,17 @@ services
                 data: {
                     "phone_number": phoneNumber,
                     "activation_code": activationCode
-
                 }
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    console.log(res.data);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject();
+                    }
                 },
                 function(res) {
                     console.log(res);

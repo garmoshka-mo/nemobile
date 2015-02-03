@@ -1,4 +1,4 @@
-var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", "ngAnimate"]);
+var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", "ngAnimate", "internationalPhoneNumber"]);
 
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider

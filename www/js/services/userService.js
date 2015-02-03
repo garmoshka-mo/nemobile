@@ -212,35 +212,46 @@ services
     }
 
     //public methods
-    this.signin = function(name, password) {
+    this.signin = function(name, password, accessToken) {
         var self = this;
-        return api.signin(name, password)
-        .then(
-            function setAccesssToken(res) {
-                self.accessToken = res.accessToken;
-            },
-            function showError(res) {
-                return $q.reject(res.errorDescription); 
-            }
-        )
-        .then(
-            function() {
-                api.getUserInfo(self.accessToken)
-                .then(
-                    function(userInfo) {
-                        handleSuccessSignIn(userInfo);
-                        console.log("user is logged", user);
-                    },
-                    function(res) {
-                        console.error("sign in fail");
-                        return $q.reject(res);
-                    }
-                )
-            },
-            function(res) {
-                return $q.reject(res);
-            }
-        )
+
+        function getUserInfo(accessToken) {
+            api.getUserInfo(accessToken)
+            .then(
+                function(userInfo) {
+                    handleSuccessSignIn(userInfo);
+                    console.log("user is logged", user);
+                },
+                function(res) {
+                    console.error("sign in fail");
+                    return $q.reject(res);
+                }
+            )
+        }
+
+        if (accessToken) {
+            self.accessToken = accessToken;
+            getUserInfo(self.accessToken);
+        }
+        else {
+            return api.signin(name, password)
+            .then(
+                function setAccesssToken(res) {
+                    self.accessToken = res.accessToken;
+                },
+                function showError(res) {
+                    return $q.reject(res.errorDescription); 
+                }
+            )
+            .then(
+                function() {
+                    getUserInfo(self.accessToken)    
+                },
+                function(res) {
+                    return $q.reject(res);
+                }
+            )
+        }
     }
 
     
@@ -358,6 +369,19 @@ services
     this.initRegistrationWithPhone = function(phoneNumber) {
         return  api.initPhoneActivation(phoneNumber);
     }
+
+    this.confirmPhoneNumber = function(phoneNumber, activationCode) {
+        var self = this;
+        return api.confirmPhoneNumber(phoneNumber, activationCode)
+        .then(
+            function(res) {    
+                self.signin(null, null, res.access_token);
+            },
+            function(res) {
+                return $q.reject(res);
+            }
+        )
+    } 
 
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey

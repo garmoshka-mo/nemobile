@@ -41,6 +41,7 @@ app.directive('overscrollableWithoutFooter', function() {
         }
     }
 })
+
 app.directive('stickersGalleryHeight', function() {
     return {
         link: function(scope, elem, attr) {
@@ -67,6 +68,7 @@ app.directive('stickersGalleryHeight', function() {
         }
     }
 })
+
 app.directive('spinner', function() {
     return {
         template: '<div class="spinner"><div class="dot dot1"></div><div class="dot dot2"></div></div>',
@@ -81,7 +83,7 @@ app.directive('spinner', function() {
             else {
                 dots.addClass("black");
             }
-
         }
     }
 })
+
