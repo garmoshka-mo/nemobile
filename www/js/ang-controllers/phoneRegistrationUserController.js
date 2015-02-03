@@ -4,10 +4,12 @@ angular.module("angControllers").controller("phoneRegistrationController",
         $scope.newUser = {};
         $scope.showSpinner = false;
         $scope.phoneEnterPhase = true;
+        $scope.showSuccess = false;
         $scope.serverResponse = "";
 
-        $scope.initRegistration = function () {
+        $scope.attachPhoneNumber = function () {
             $scope.showSpinner = true;
+            $scope.showSuccess = false;
             var phone = "+" + $scope.newUser.phone;
             user.initRegistrationWithPhone(phone)
             .then(
@@ -26,12 +28,12 @@ angular.module("angControllers").controller("phoneRegistrationController",
         $scope.confirmPhoneNumber = function() {
             $scope.showSpinner = true;
             var phone = "+" + $scope.newUser.phone;
-            user.confirmPhoneNumber(phone, $scope.newUser.confirmCode)
+            user.confirmPhoneNumber(phone, $scope.newUser.confirmCode, true)
             .then(
                 function(res) {
                     $scope.showSpinner = false;
+                    $scope.showSuccess = true;
                     $scope.serverResponse = "";
-                    $state.go('chats');
                 },
                 function(res) {
                     $scope.showSpinner = false;

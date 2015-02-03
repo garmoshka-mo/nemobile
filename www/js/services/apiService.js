@@ -301,18 +301,50 @@ services
             )
         },
 
-        confirmPhoneNumber: function(phoneNumber, activationCode) {
+        confirmPhoneNumber: function(phoneNumber, activationCode, sendAccessToken) {
+            var data = {
+                "phone_number": phoneNumber,
+                "activation_code": activationCode
+            };
+
+            if (sendAccessToken) {
+                data["access_token"] = api.accessToken;
+            }
+
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + "/phone/activation/confirm",
-                data: {
-                    "phone_number": phoneNumber,
-                    "activation_code": activationCode
-                }
+                data: data
             })
             .then(
                 function(res) {
                     console.log(res.data);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject();
+                    }
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            )
+        },
+
+        attachPhoneNumber: function(phoneNumber) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/phone/activation/attach",
+                data: {
+                    "phone_number": phoneNumber,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
                     if (res.data.success) {
                         return res.data;
                     }

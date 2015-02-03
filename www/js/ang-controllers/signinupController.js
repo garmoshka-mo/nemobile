@@ -15,7 +15,6 @@ angular.module("angControllers").controller("signinupController",
         notification.set("Регистрация")
     }
 
-
     $scope.signin = function() {
         $scope.showSpinner = true;
         $scope.serverResponse = "";

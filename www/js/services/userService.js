@@ -370,9 +370,13 @@ services
         return  api.initPhoneActivation(phoneNumber);
     }
 
-    this.confirmPhoneNumber = function(phoneNumber, activationCode) {
+    this.attachPhoneNumber = function(phoneNumber) {
+        return api.attachPhoneNumber(phoneNumber);
+    }
+ 
+    this.confirmPhoneNumber = function(phoneNumber, activationCode, sendAccessToken) {
         var self = this;
-        return api.confirmPhoneNumber(phoneNumber, activationCode)
+        return api.confirmPhoneNumber(phoneNumber, activationCode, sendAccessToken)
         .then(
             function(res) {    
                 self.signin(null, null, res.access_token);

@@ -1,13 +1,43 @@
 <div class="pt1rem ta-center">
-    <form name="reg">
-        <div class="width-92 inline-block">
-           <input name="phone" type="text" ng-model="newUser.phone" placeholder="номер телефона" required>
+    <div ng-show="phoneEnterPhase">
+        <form name="reg">
+            <div class="width-92 inline-block">
+                <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
+            </div>
+            <div class="width-92 inline-block" ng-show="!isIn">
+                <button ng-click="attachPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                    <span ng-show="!showSpinner">Отправить смс</span>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div ng-show="!phoneEnterPhase">
+        <form name="confirm">
+            <div class="width-92 inline-block">
+               <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="код подтверждения" required>
+            </div>
+            <div class="width-92 inline-block" ng-show="!isIn">
+                <button ng-click="confirmPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || confirm.$invalid">
+                    <span ng-show="!showSpinner">Подтвердить</span>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </form>
+        <div class="row text-silver" ng-show="!showSuccess">
+            <div class="small-12 columns" ng-click="goToEnterPhase()">
+                <i class="fa fa-arrow-left"></i>
+                <span>ввести другой номер</span>
+            </div>
         </div>
-        <div class="width-92 inline-block" ng-show="!isIn">
-            <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
-                <span ng-show="!showSpinner">Привязать</span>
-                <span ng-show="showSpinner" spinner spinner-color="white"></span>
-            </a>
-        </div>
-    </form>
+    </div>
+    <div ng-show="showSuccess">
+        <i class="fa fa-check"></i> Номер успешно привязан
+    </div>
+
+    <div ng-show="serverResponse" data-alert class="alert-box warning">
+        <span ng-bind="serverResponse"></span>
+        <span ng-click="closeServerResponse()" class="close">&times;</span>
+    </div>
+    
 </div>
