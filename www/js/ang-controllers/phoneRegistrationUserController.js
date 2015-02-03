@@ -11,7 +11,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
             $scope.showSpinner = true;
             $scope.showSuccess = false;
             var phone = "+" + $scope.newUser.phone;
-            user.initRegistrationWithPhone(phone)
+            user.attachPhoneNumber(phone)
             .then(
                 function () {
                     $scope.phoneEnterPhase = false;
@@ -20,7 +20,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
                 },
                 function (err) {
                     $scope.showSpinner = false;
-                    $scope.serverResponse = "Ошибка. Проверьте правильность номера";
+                    $scope.serverResponse = err;
                 }
             )    
         }

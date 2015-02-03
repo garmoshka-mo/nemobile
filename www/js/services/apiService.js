@@ -344,12 +344,12 @@ services
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    console.log("attch fn res",res);
                     if (res.data.success) {
                         return res.data;
                     }
                     else {
-                        return $q.reject();
+                        return $q.reject(res.data.error);
                     }
                 },
                 function(res) {
