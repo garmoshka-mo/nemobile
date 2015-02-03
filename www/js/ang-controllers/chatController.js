@@ -89,7 +89,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.newMessage = {
             text: '',
-            ttl: 10,
+            ttl: 600,
             clearText: function() {
                 this.text = '';
             }
