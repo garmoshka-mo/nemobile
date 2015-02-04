@@ -1,7 +1,7 @@
 factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSession) {
     
     function Friend(fields) {
-        this.displayName = fields['displayName'];
+        this.displayName = fields.name.formatted;
         this.phoneNumbers = fields['phoneNumbers'];
         this.photos = fields['photos'];
         this.uuid = fields['uuid'];
