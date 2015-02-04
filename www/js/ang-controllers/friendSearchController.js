@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendSearchController", [
-    'user', '$scope', '$http', '$state', 'api', 'contacts',
-    function(user, $scope, $http, $state, api, contacts){
+    'user', '$scope', '$http', '$state', 'api', 'friendsList',
+    function(user, $scope, $http, $state, api, friendsList){
 
     // api.getUnseenMessages();
     $scope.showSpinner = false;

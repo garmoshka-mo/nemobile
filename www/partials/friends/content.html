@@ -7,9 +7,19 @@
             <i class="fa fa-check"></i>готово
         </div>
     </div>
-    <div class="row friend" ng-repeat="(uuid, friend) in user.friends">
+<!--     <div class="row friend" ng-repeat="(uuid, friend) in user.friends">
         <a ng-href="#/chat?senderId={{uuid}}" >
             <div class="columns hide-overflow-text h100p" ng-bind="friend.name" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
+        </a>
+        <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
+            <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">
+                <i class="fa fa-trash"></i>
+            </span>
+        </div>
+    </div> -->
+    <div class="row friend" ng-repeat="friend in friends">
+        <a ng-href="" >
+            <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
         </a>
         <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
             <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">

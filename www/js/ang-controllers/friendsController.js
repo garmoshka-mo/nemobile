@@ -1,11 +1,13 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', 'contacts',
-    function(user, $scope, $stateParams, contacts) {
-    
+    ['user','$scope', '$stateParams', 'friendsList',
+    function(user, $scope, $stateParams, friendsList) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
 
+    friendsList.getUserContacts();
+    $scope.friends = friendsList.friends;
+    
     $scope.removeFriend = function(friendUuid) {
         var _friends = {};
 
