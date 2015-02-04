@@ -440,6 +440,7 @@ input.category-name-change-input {
 .friendListHeader {
   position: fixed;
   width: 100%;
+  background-color: #fff;
 }
 .friendList {
   padding-top: 72px;
