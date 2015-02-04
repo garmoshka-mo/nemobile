@@ -441,6 +441,7 @@ input.category-name-change-input {
   position: fixed;
   width: 100%;
   background-color: #fff;
+  z-index: 9999;
 }
 .friendList {
   padding-top: 72px;

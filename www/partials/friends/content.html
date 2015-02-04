@@ -1,21 +1,21 @@
 <div class="friendListHeader">
-    <div class="ta-right">
-        <div ng-show="!isEditMode" ng-click="isEditMode = true">
-            <i class="fa fa-gear"></i>изменить
+        <div class="ta-right">
+            <div ng-show="!isEditMode" ng-click="isEditMode = true">
+                <i class="fa fa-gear"></i>изменить
+            </div>
+            <div ng-show="isEditMode" ng-click="isEditMode = false">
+                <i class="fa fa-check"></i>готово
+            </div>
         </div>
-        <div ng-show="isEditMode" ng-click="isEditMode = false">
-            <i class="fa fa-check"></i>готово
+        <div class="ta-center">
+            <form name="listFilter">
+                <input id="radio1" type="radio" name="ttl" value="10" checked autocomplete="off">
+                <label class="radioLabel" for="radio1">nepotom</label>
+                <input id="radio2" type="radio" name="ttl" value="600" autocomplete="off">
+                <label class="radioLabel" for="radio2">все</label>
+            </form>
         </div>
     </div>
-    <div class="ta-center">
-        <form name="listFilter">
-            <input id="radio1" type="radio" name="ttl" value="10" checked autocomplete="off">
-            <label class="radioLabel" for="radio1">nepotom</label>
-            <input id="radio2" type="radio" name="ttl" value="600" autocomplete="off">
-            <label class="radioLabel" for="radio2">все</label>
-        </form>
-    </div>
-</div>
 <div class="friend-list" overscrollable-without-footer>
     
 <!--     <div class="row friend" ng-repeat="(uuid, friend) in user.friends">
