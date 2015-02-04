@@ -1,10 +1,20 @@
 <div class="friend-list" overscrollable-without-footer>
-    <div class="ta-right">
-        <div ng-show="!isEditMode" ng-click="isEditMode = true">
-            <i class="fa fa-gear"></i>изменить
+    <div class="friendListHeader">
+        <div class="ta-right">
+            <div ng-show="!isEditMode" ng-click="isEditMode = true">
+                <i class="fa fa-gear"></i>изменить
+            </div>
+            <div ng-show="isEditMode" ng-click="isEditMode = false">
+                <i class="fa fa-check"></i>готово
+            </div>
         </div>
-        <div ng-show="isEditMode" ng-click="isEditMode = false">
-            <i class="fa fa-check"></i>готово
+        <div class="ta-center">
+            <form name="listFilter">
+                <input id="radio1" type="radio" name="ttl" value="10" checked autocomplete="off">
+                <label class="radioLabel" for="radio1">nepotom</label>
+                <input id="radio2" type="radio" name="ttl" value="600" autocomplete="off">
+                <label class="radioLabel" for="radio2">все</label>
+            </form>
         </div>
     </div>
 <!--     <div class="row friend" ng-repeat="(uuid, friend) in user.friends">
@@ -17,14 +27,16 @@
             </span>
         </div>
     </div> -->
-    <div class="row friend" ng-repeat="friend in friends">
-        <a ng-href="" >
-            <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
-        </a>
-        <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
-            <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">
-                <i class="fa fa-trash"></i>
-            </span>
+    <div class="friendList">
+        <div class="row friend" ng-repeat="friend in friends">
+            <a ng-href="" >
+                <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
+            </a>
+            <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
+                <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">
+                    <i class="fa fa-trash"></i>
+                </span>
+            </div>
         </div>
     </div>
 </div>

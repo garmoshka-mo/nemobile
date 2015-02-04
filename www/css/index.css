@@ -437,6 +437,13 @@ input.category-name-change-input {
   color: #bdc3c7;
 }
 
+.friendListHeader {
+  position: fixed;
+  width: 100%;
+}
+.friendList {
+  padding-top: 72px;
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{
