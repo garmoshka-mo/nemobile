@@ -58,6 +58,9 @@ services
         var lastContactIndex = contacts.length - 1;
         var lastContactId = +contacts[lastContactIndex].id;
 
+        console.log(lastContactId);
+        console.log(friendsList);
+
         if (lastContactId > friendsList.lastContactId) {
             contacts.forEach(function(contact, index) {
                 friendsList.friends.push(new Friend(contact));
