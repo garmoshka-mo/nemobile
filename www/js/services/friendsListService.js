@@ -7,6 +7,13 @@ services
         friends: [],
         nepotomFriends: {},
         lastContactId: null,
+
+        clear: function() {
+            this.friends = [];
+            this.nepotomFriends = {};
+            this.lastContactId = null;
+        },
+
         addFriend: function(friendData) {
             var friend = new Friend(friendData);
             this.friends.push(friend);

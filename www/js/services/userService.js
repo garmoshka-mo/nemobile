@@ -71,6 +71,7 @@ services
         user.friends = {};
         user.chats = {};
         user.lastMessageTimestamp = null;
+        friendsList.clear();
     }
 
     function unsubscribe() {
