@@ -55,12 +55,18 @@ services
 
     //private methods
     function parseUserContacts(contacts) {
-        contacts.forEach(function(contact, index) {
-            friendsList.friends.push(new Friend(contact));
-            if (index === contacts.length - 1) {
-                friendsList.lastContactId = index;
-            }
-        });
+        var lastContactIndex = contacts.length - 1;
+        var lastContactId = contacts[lastContactId];
+
+        if (lastContactId > friendsList.lastContactId) {
+            contacts.forEach(function(contact, index) {
+                friendsList.friends.push(new Friend(contact));
+                if (index === contacts.length - 1) {
+                    friendsList.lastContactId = index;
+                }
+            });
+        }
+        
         friendsList.save();
     }
 
