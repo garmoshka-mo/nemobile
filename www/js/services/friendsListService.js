@@ -56,17 +56,15 @@ services
     //private methods
     function parseUserContacts(contacts) {
         var lastContactIndex = contacts.length - 1;
-        var lastContactId = contacts[lastContactId];
+        var lastContactId = +contacts[lastContactIndex];
 
         if (lastContactId > friendsList.lastContactId) {
             contacts.forEach(function(contact, index) {
                 friendsList.friends.push(new Friend(contact));
-                if (index === contacts.length - 1) {
-                    friendsList.lastContactId = index;
-                }
             });
+            friendsList.lastContactId = +contacts[lastContactIndex].id;
         }
-        
+
         friendsList.save();
     }
 
