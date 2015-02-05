@@ -4,15 +4,15 @@ angular.module("angControllers").controller("chatController",
         
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
-        $scope.isMessageSending = false; 
+        $scope.isMessageSending = "false"; 
 
         console.log("state params", $stateParams);
         var $chatInput = $('.chat-input');
 
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
-            $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500)
-        }
+            $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500);
+        };
 
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
@@ -28,7 +28,7 @@ angular.module("angControllers").controller("chatController",
                     }, 300);
                 }
             }
-        }
+        };
         
         $scope.toggleCategory = function(category) {
             if ($scope.stickersGallery.currentCategory == category.name) {
@@ -38,11 +38,11 @@ angular.module("angControllers").controller("chatController",
                 $scope.stickersGallery.currentCategory = category.name;
             }
             $scope.isNewCategoryBlockVisible = false;
-        }
+        };
 
         $scope.formatMessage = function(messageText) {
             if (messageText.match(/(http|https):/)) {
-                var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg']
+                var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg'];
                 var splitted = messageText.split(".");
                 var extensition = splitted[splitted.length - 1];
 
@@ -56,7 +56,7 @@ angular.module("angControllers").controller("chatController",
             else {
                 return messageText;
             }
-        }
+        };
 
 
         $scope.chat = user.chats[$stateParams.senderId];
@@ -70,7 +70,7 @@ angular.module("angControllers").controller("chatController",
 
         
         if (!lastSession) {
-            chat.addChatSession(user.uuid, chat.senderId)
+            chat.addChatSession(user.uuid, chat.senderId);
             chat.getLastUnexpiredChatSession();
             lastSession = chat.lastUnexpiredChatSession;
         }
@@ -81,10 +81,10 @@ angular.module("angControllers").controller("chatController",
         $scope.$watch("chatSession.messages.length", function() {
             $scope.scrollToBottom();
             chat.isRead = true;
-        })
+        });
 
         if (user.friends[chat.senderId]) {
-            notification.set(user.friends[chat.senderId].name)
+            notification.set(user.friends[chat.senderId].name);
         }
 
         $scope.newMessage = {
@@ -109,7 +109,7 @@ angular.module("angControllers").controller("chatController",
                 var lastIndex = $scope.chat.chatSessionsIndexes.indexOf(self.lastVisibleChatSessionId);
                 var previousId = $scope.chat.chatSessionsIndexes[lastIndex - 1];
                 
-                if (lastIndex - 1 == 0) {
+                if (lastIndex - 1 === 0) {
                     self.isAllChatSessionsVisbile = true;
                 }
 
@@ -122,9 +122,9 @@ angular.module("angControllers").controller("chatController",
                         console.log(self.previousMessages);
                         self.isUpdating = false;
                     }
-                )
+                );
             }
-        }
+        };
 
         $scope.handleSuccessSending = function() {
             
@@ -136,15 +136,15 @@ angular.module("angControllers").controller("chatController",
             $scope.errorDescription = "";
             
             console.log("user:", user);
-        }
+        };
 
         $scope.handleFailedSending = function(errorDescription) {
             $scope.errorDescription = errorDescription;
-        }
+        };
 
         $scope.closeErrorDescription = function() {
             $scope.errorDescription = "";
-        }
+        };
 
         chat.sendMessage = function() {
             $scope.setFocusOnTextField();
@@ -177,22 +177,22 @@ angular.module("angControllers").controller("chatController",
                         $scope.newMessage.clearText();
                         $scope.isMessageSending = false; 
                     }
-                )
+                );
             }
-        }
+        };
 
         $scope.sendSticker = function(stickerLink) {
             $scope.newMessage.text = stickerLink;
             $scope.isStickersGalleryVisiable = false;
             chat.sendMessage();
-        }
+        };
 
         $scope.checkIfEnter = function(event) {
             console.log(event);
             if (event.keyCode === 13) {
                 chat.sendMessage();
             }
-        }
+        };
 
         $scope.addStickerURL = function(message) {
             console.log(message);
@@ -201,7 +201,7 @@ angular.module("angControllers").controller("chatController",
                     location.href = "#/addImage?imageURL=" + message.text;
                 }
             }
-        }
+        };
         
         if ($stateParams.messageText) {
             $scope.newMessage.text = $stateParams.messageText;
@@ -212,8 +212,8 @@ angular.module("angControllers").controller("chatController",
             if (location.href.match("chat?")) {
                 $scope.setFocusOnTextField();
             }
-        })
+        });
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
-}])    
+}]);   

@@ -2,7 +2,7 @@
 window.clearAll =  function() {
     localStorage.clear();
     localforage.clear();
-}
+};
 services
 .factory('storage', ['$localForage', '$timeout', function($localForage, $timeout) {
     
@@ -22,11 +22,8 @@ services
     }
 
     var storage = {
-        clear: function() {
-            localStorage.clear();
-            $localForage.clear();
-        },
         
+        //get methods
         getUser: function() {   
             return $localForage.getItem('user');
         },
@@ -39,6 +36,10 @@ services
             return $localForage.getItem('friends');
         },
 
+        getFriendsList: function() {
+            return $localForage.getItem('friendsList');
+        },
+
         getChatSession: function(senderId, index) {
             var key = "chatSession_" + senderId + "_" + index;
             return $localForage.getItem(key);
@@ -48,39 +49,51 @@ services
             return $localForage.getItem('lastMessageTimestamp');
         },
 
+        //save methods
         saveUser: function(currentUser) {
-            var _user = filterObject(currentUser, ['chats', 'friends']);
+            var notToSave = ['chats', 'friends', 'friendsList'];
+            var _user = filterObject(currentUser, notToSave);
             $localForage.setItem('user', _user);
         },
 
         saveFriends: function(userFriends) {
             $localForage.setItem('friends', userFriends);
         },
+
+        saveFriendsList: function(userFriendsList) {
+            var notToSave = ['nepotomFriends'];
+            $localForage.setItem('friendsList', filterObject(userFriendsList, notToSave));
+        },
         
         saveChats: function(userChats) {
             var _chats = {};
-            var forbiddenFields = ['chatSessions', 'lastUnexpiredChatSession', 'currentUser'];
+            var notToSave = ['chatSessions', 'lastUnexpiredChatSession', 'currentUser'];
             for (var chatId in userChats) {
-                _chats[chatId] = filterObject(userChats[chatId], forbiddenFields);
+                _chats[chatId] = filterObject(userChats[chatId], notToSave);
             }
-            $localForage.setItem('chats', _chats)
+            $localForage.setItem('chats', _chats);
         },
 
         saveChatSession: function(chatSessionObj) {
-            var notToCopyProperties = ['timer', 'currentChat'];
-            var _chatSession = filterObject(chatSessionObj, notToCopyProperties);
-            $localForage.setItem('chatSession_' + chatSessionObj.senderId + "_" + chatSessionObj.id, _chatSession)
+            var notToSave = ['timer', 'currentChat'];
+            var _chatSession = filterObject(chatSessionObj, notToSave);
+            $localForage.setItem('chatSession_' + chatSessionObj.senderId + "_" + chatSessionObj.id, _chatSession);
         },
 
         saveLastMessageTimestamp: function(timestamp) {
             $localForage.setItem('lastMessageTimestamp', timestamp);
         },
 
+        //clear methods
         removeChatSession: function(senderId, index) {
             var key = "chatSession_" + senderId + "_" + index;
             $localForage.removeItem(key);
-        } 
+        },
 
-    }
+        clear: function() {
+            localStorage.clear();
+            $localForage.clear();
+        }
+    };
     return storage;   
-}])
+}]);

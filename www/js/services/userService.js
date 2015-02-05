@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', 
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList) {
     
     this.name = null;
     this.uuid = null;
@@ -11,6 +11,7 @@ services
     this.friends = {};
     this.chats = {};
     this.lastMessageTimestamp = null;
+    this.friendsList = friendsList;
 
     var user = this;
     var differencePubnubDeviceTime;
@@ -33,7 +34,7 @@ services
         
         notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
             location.href = "#/chat?senderId=" + senderUuid;
-        })
+        });
        
     }
 
@@ -75,7 +76,7 @@ services
     function unsubscribe() {
         pubnub.unsubscribe({
             channel: user.channel
-        })
+        });
     }
 
     function handleIncomeMessage(m) {
@@ -84,7 +85,7 @@ services
         var messageText = m.pn_gcm.data.message;
 
         if (self.chats[senderUuid]) {
-            console.log("added to existing chat")
+            console.log("added to existing chat");
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession;
             
@@ -109,9 +110,9 @@ services
             });
         }
         else {
-            console.log("created new chat")
-            self.addChat(senderUuid)
-            self.chats[senderUuid].addChatSession(senderUuid, senderUuid)
+            console.log("created new chat");
+            self.addChat(senderUuid);
+            self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             lastSession.messages.push(
@@ -129,11 +130,11 @@ services
         self.saveLastMessageTimestamp();
 
         showNotification(self, messageText, senderUuid);
-        lastSession.setTimer(m.expires)
+        lastSession.setTimer(m.expires);
         lastSession.save();
 
         console.log("When chatSession expires: ", lastSession.whenExipires);
-        console.log("income message", m)
+        console.log("income message", m);
         console.log(self);
         $rootScope.$apply();
     }
@@ -144,7 +145,7 @@ services
             differencePubnubDeviceTime = time / 10000 - new Date().getTime();
             console.log("difference between pubnub and device time: ", differencePubnubDeviceTime);
             d.resolve(differencePubnubDeviceTime);
-        })
+        });
         return d.promise;
     }
 
@@ -186,7 +187,7 @@ services
                 function(res) {
                     console.log(res);
                 }
-            )
+            );
         }
     }
 
@@ -205,12 +206,12 @@ services
                 function(res) {
                     console.log("register device error", res);
                 }
-            )
+            );
         }
         else {
             console.error("device id is undefined");
         }     
-    }
+    };
 
     //public methods
     this.signin = function(name, password, accessToken) {
@@ -227,7 +228,7 @@ services
                     console.error("sign in fail");
                     return $q.reject(res);
                 }
-            )
+            );
         }
 
         if (accessToken) {
@@ -246,14 +247,14 @@ services
             )
             .then(
                 function() {
-                    getUserInfo(self.accessToken)    
+                    getUserInfo(self.accessToken);    
                 },
                 function(res) {
                     return $q.reject(res);
                 }
-            )
+            );
         }
-    }
+    };
 
     
 
@@ -266,8 +267,8 @@ services
             function(res) {
                 return $q.reject(res.errorDescription);
             }
-        )
-    }
+        );
+    };
 
     this.logout = function() {
         storage.clear();
@@ -275,7 +276,7 @@ services
         clearCurrentUser();
         removeDeviceFromChannel();
         console.log('user is logged out', user);
-    }
+    };
 
     this.getUnseenMessages = function() {
         if (differencePubnubDeviceTime) {
@@ -285,19 +286,24 @@ services
             getPubnubTimeDifference()
             .then(function() {
                 getUnseenMessages();
-            })
+            });
         }        
-    }
+    };
 
     this.addFriend = function(uuid, name) {
-        this.friends[uuid] = {name: name};
-        this.saveFriends();
+        var data = {
+            name: {
+                formatted: name
+            },
+            uuid: uuid
+        };
+        friendsList.addFriend(data);
     },
 
     this.addChat = function(senderId) {
         this.chats[senderId] = new Chat(senderId, this);
-        this.saveChats()
-    }
+        this.saveChats();
+    };
    
     this.parseFromStorage = function() {
         var self = this;
@@ -315,7 +321,7 @@ services
             setApiAccessToken();
             stickersGallery.getCurrentUserCategories();
             console.log("user info is taken from storage", self);
-        })
+        });
 
         storage.getChats().then(function(dataFromStorage) {
             var _chats = {};
@@ -324,57 +330,62 @@ services
             }
             self.chats = _chats;
             console.log("user chats are taken from storage", user.chats);
-        })
+        });
 
         storage.getFriends().then(function(dataFromStorage) {
             self.friends = dataFromStorage;
             console.log("user friends are taken from storage", user.friends);
-        })
+        });
 
         storage.getLastMessageTimestamp().then(function(timestamp) {
             self.lastMessageTimestamp = timestamp;
-            self.getUnseenMessages()
-        })
-    }
+            self.getUnseenMessages();
+        });
+
+        storage.getFriendsList().then(function(dataFromStorage){
+            friendsList.parseFromStorage(dataFromStorage);
+            self.friendsList = friendsList;
+        });
+    };
 
     this.save = function() {
         storage.saveUser(this);
         console.log("user info is saved");
-    }
+    };
 
     this.saveFriends = function() {
-        storage.saveFriends(this.friends)
+        storage.saveFriends(this.friends);
         console.log("user friends is saved");
-    }
+    };
 
     this.saveChats = function() {
         storage.saveChats(this.chats);
         console.log("user chats are saved");
-    }
+    };
 
     this.saveLastMessageTimestamp = function() {
         storage.saveLastMessageTimestamp(this.lastMessageTimestamp); 
-    }
+    };
 
     this.isLogged = function() {
-        return !!localStorage.getItem('isLogged')
-    }
+        return !!localStorage.getItem('isLogged');
+    };
 
     this.subscribe = function() {
         var self = this;
         pubnub.subscribe({
             channel: self.channel,
             message: function(m) { handleIncomeMessage(m) }
-        })
-    }
+        });
+    };
 
     this.initRegistrationWithPhone = function(phoneNumber) {
         return  api.initPhoneActivation(phoneNumber);
-    }
+    };
 
     this.attachPhoneNumber = function(phoneNumber) {
         return api.attachPhoneNumber(phoneNumber);
-    }
+    };
  
     this.confirmPhoneNumber = function(phoneNumber, activationCode, sendAccessToken) {
         var self = this;
@@ -386,12 +397,12 @@ services
             function(res) {
                 return $q.reject(res);
             }
-        )
-    } 
+        );
+    } ;
 
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
-    })
+    });
 
 
 
@@ -400,4 +411,4 @@ services
         console.log("user data is taken from storage");
     }
 
-}])
+}]);

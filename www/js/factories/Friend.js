@@ -13,10 +13,10 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.uuid = uuid; 
         },
         addPhoneNumber: function(phoneNumber) {
-            this.phoneNumbers.push({value: phoneNumber})
+            this.phoneNumbers.push({value: phoneNumber});
         }
-    }
+    };
 
     return Friend;
 
-}])
+}]);

@@ -1,13 +1,11 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', 'friendsList',
-    function(user, $scope, $stateParams, friendsList) {
+    ['user','$scope', '$stateParams',
+    function(user, $scope, $stateParams) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
+    $scope.showAll = "0";
 
-    friendsList.getUserContacts();
-    $scope.friends = friendsList.friends;
-    
     $scope.removeFriend = function(friendUuid) {
         var _friends = {};
 
@@ -19,6 +17,6 @@ angular.module("angControllers").controller("friendsController",
 
         user.friends = _friends;
         console.log("friend was deleted");
-    }        
+    };        
 
-}])    
+}]);    

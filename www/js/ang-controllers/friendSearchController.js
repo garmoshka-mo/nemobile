@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendSearchController", [
-    'user', '$scope', '$http', '$state', 'api', 'friendsList',
-    function(user, $scope, $http, $state, api, friendsList){
+    'user', '$scope', '$http', '$state', 'api',
+    function(user, $scope, $http, $state, api){
 
     // api.getUnseenMessages();
     $scope.showSpinner = false;
@@ -10,10 +10,10 @@ angular.module("angControllers").controller("friendSearchController", [
         api.searchUser($scope.nameToSearch)
         .then(
             function(results) {
-                $scope.handleSearchResults(results)
+                $scope.handleSearchResults(results);
             },
             function() {
-                console.error("friend search error")
+                console.error("friend search error");
             }
         )
         .then(
@@ -23,11 +23,11 @@ angular.module("angControllers").controller("friendSearchController", [
             function() {
                 $scope.showSpinner = false;
             }
-        )
-    }
+        );
+    };
 
     $scope.handleSearchResults = function(res) {
-        console.log(res)
+        console.log(res);
         $scope.foundUuid = "";
         var results = res.search_results[0];
         if (results.type) {
@@ -38,7 +38,7 @@ angular.module("angControllers").controller("friendSearchController", [
             
             if (user.friends[results.uuid]) {
                 $scope.canBeAdded = false;
-                $scope.serverResponse = "Пользователь уже ваш друг"
+                $scope.serverResponse = "Пользователь уже ваш друг";
                 return;                
             }
             
@@ -46,7 +46,7 @@ angular.module("angControllers").controller("friendSearchController", [
             $scope.nameToAdd = $scope.nameToSearch;
             $scope.foundUuid = results.uuid; 
         }
-    }
+    };
 
     $scope.addToFriends = function() {
         if (!user.chats[$scope.foundUuid]) {
@@ -56,8 +56,8 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.canBeAdded = false;
         $scope.serverResponse = "пользователь добавлен";
         console.log(user);
-    }
+    };
 
 
     
-}])
+}]);

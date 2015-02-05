@@ -9,10 +9,10 @@ angular.module("angControllers").controller("signinupController",
     $scope.isIn = $stateParams.inOrUp == "in" ? true : false;
 
     if ($scope.isIn) {
-        notification.set("Авторизация")
+        notification.set("Авторизация");
     }
     else {
-        notification.set("Регистрация")
+        notification.set("Регистрация");
     }
 
     $scope.signin = function() {
@@ -22,14 +22,14 @@ angular.module("angControllers").controller("signinupController",
         .then(
             function() {
                 $scope.showSpinner = false;
-                $state.go('chats');
+                $state.go('friends');
             },
             function(errorText) {
                 $scope.showSpinner = false;
                 $scope.serverResponse = errorText;
             }
-        )
-    }
+        );
+    };
 
     $scope.signup = function() {
         console.log("sign up is invoked");
@@ -37,17 +37,17 @@ angular.module("angControllers").controller("signinupController",
         user.signup($scope.newUser.name, $scope.newUser.password)
         .then(
             function(res) {
-                $scope.signin()
+                $scope.signin();
             },
             function(errorText) {
                 $scope.serverResponse = errorText;
                 $scope.showSpinner = false;
             }
-        )
-    }
+        );
+    };
 
     $scope.closeServerResponse = function() {
         $scope.serverResponse = false;
-    }
-}])
+    };
+}]);
     

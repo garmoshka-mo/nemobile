@@ -1,10 +1,11 @@
 services
-.factory('friendsList', ['$rootScope', '$q', 'Friend', function($rootScope, $q, Friend) {
+.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', function($rootScope, $q, Friend, storage) {
 
     var friendsList = {
 
         friends: [],
         nepotomFriends: {},
+        lastContactId: null,
         addFriend: function(friendData) {
             var friend = new Friend(friendData);
             this.friends.push(friend);
@@ -20,11 +21,11 @@ services
                 navigator.contacts.find(
                     ['displayName', 'phoneNumber'], 
                     function(contacts) {
-                        q.resolve(parseUserContacts(contacts))
+                        q.resolve(parseUserContacts(contacts));
                     },
                     onError,
                     {multiple: true}
-                )
+                );
             }
             else {
                 q.reject("contacts is not defined");
@@ -32,17 +33,35 @@ services
             return q.promise;
         },
 
-        parseFromStorage: function(dataFromStorage) {
+        save: function() {
+            storage.saveFriendsList(this);
+        },
 
+        parseFromStorage: function(dataFromStorage) {
+            if (dataFromStorage) {
+                var self = this;
+                dataFromStorage.friends.forEach(function(friendData) {
+                    var friend = new Friend(friendData);
+                    self.friends.push(friend);
+                    if (friend.uuid) {
+                        self.nepotomFriends[friend.uuid] = friend;
+                    }
+                });
+                self.lastContactId = dataFromStorage.lastContactId;
+            }
         }
 
-    }
+    };
 
     //private methods
     function parseUserContacts(contacts) {
-        contacts.forEach(function(contact) {
+        contacts.forEach(function(contact, index) {
             friendsList.friends.push(new Friend(contact));
-        })
+            if (index === contacts.length - 1) {
+                friendsList.lastContactId = index;
+            }
+        });
+        friendsList.save();
     }
 
     function onError(err) {
@@ -50,4 +69,4 @@ services
     }
 
     return friendsList;
-}])
+}]);
