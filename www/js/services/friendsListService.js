@@ -77,7 +77,7 @@ services
                 if (contacts[i].id > friendsList.lastContactId) {
                     var newFriend = new Friend(contacts[i]);
                     friendsList.friends.push(newFriend);
-                    newContacts.push(nf);
+                    newContacts.push(newFriend);
                 }
                 else {
                     break;
