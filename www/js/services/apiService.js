@@ -25,7 +25,7 @@ services
                     return {accessToken: res.data.access_token};
                 }
                 else {
-                    return $q.reject({errorDescription: res.data.error[1]})
+                    return $q.reject({errorDescription: res.data.error[1]});
                 }
             });
         },
@@ -42,9 +42,9 @@ services
                     return true;
                 }
                 else {
-                    return $q.reject({errorDescription: res.data.error})
+                    return $q.reject({errorDescription: res.data.error});
                 }
-            })
+            });
         },
 
         getUserInfo: function(access_token) {
@@ -60,7 +60,7 @@ services
                 else {
                     return $q.reject();
                 }
-            })
+            });
         },
 
         getServerTime: function() {
@@ -75,7 +75,7 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
 
         getTimeDifference: function() {
@@ -84,7 +84,7 @@ services
                 var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
                 console.log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
                 return deviceServerTimeDifference_msec;
-            })
+            });
         },
 
         sendMessage: function(messageText, recepientId, ttl) {
@@ -97,7 +97,7 @@ services
                     "message_text": messageText,
                     "ttl": ttl
                 }
-            })
+            });
         },
 
         searchUser: function(userName) {
@@ -119,9 +119,9 @@ services
                     }
                 },
                 function(res) {
-                    return $q.reject();;
+                    return $q.reject();
                 }
-            )
+            );
         },
 
         getCategories: function() {
@@ -136,7 +136,7 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
 
         addNewCategory: function(name) {
@@ -147,7 +147,7 @@ services
                     "access_token": api.accessToken,
                     "category": {"name": name}
                 }
-            })
+            });
         },
 
         removeCategory: function(categoryId) {
@@ -163,7 +163,7 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
 
         updateCategory: function(categoryId, name) {
@@ -182,9 +182,8 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
-
         addStickerURL: function(categoryId, imageURL) {
             return $http({
                 method: 'POST',
@@ -203,9 +202,8 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
-
         addStickerFile: function(categoryId, file) {
             var d = $q.defer();
             fileTypeDeterminer.detect(file, 
@@ -229,12 +227,12 @@ services
                         function(res) {
                             d.reject();
                         }
-                    )
+                    );
                 },
                 function() {
-                    alert("wrong file type")
+                    alert("wrong file type");
                 }
-            )
+            );
             return d.promise;
             
         },
@@ -258,7 +256,7 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
 
         removeSticker: function(categoryId, imageId) {
@@ -276,7 +274,7 @@ services
                 function(res) {
                     return $q.reject();
                 }
-            )
+            );
         },
 
         initPhoneActivation: function(phoneNumber) {
@@ -298,7 +296,7 @@ services
                     console.log(res);
                     return $q.reject();
                 }
-            )
+            );
         },
 
         confirmPhoneNumber: function(phoneNumber, activationCode, sendAccessToken) {
@@ -330,7 +328,7 @@ services
                     console.log(res);
                     return $q.reject();
                 }
-            )
+            );
         },
 
         attachPhoneNumber: function(phoneNumber) {
@@ -344,7 +342,6 @@ services
             })
             .then(
                 function(res) {
-                    console.log("attch fn res",res);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -356,13 +353,39 @@ services
                     console.log(res);
                     return $q.reject();
                 }
-            )
+            );
+        },
+
+        findNepotomUsers: function(phoneNumbersArr) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/users/phonebook_search",
+                data: {
+                    "phonebook": phoneNumbersArr,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log("findNepotomUsers res",res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            );
         }
-    }
+    };
 
 
     //for debugging purpose
     window.api = api;
 
     return api;
-}])
+}]);

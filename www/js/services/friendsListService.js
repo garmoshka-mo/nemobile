@@ -1,5 +1,6 @@
 services
-.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', function($rootScope, $q, Friend, storage) {
+.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'api', 
+    function($rootScope, $q, Friend, storage, api) {
 
     var friendsList = {
 
@@ -35,6 +36,7 @@ services
 
         save: function() {
             storage.saveFriendsList(this);
+            console.log("friends list is saved");
         },
 
         parseFromStorage: function(dataFromStorage) {
@@ -61,14 +63,48 @@ services
         console.log(lastContactId);
         console.log(friendsList);
 
+        //checking if there are new contacts
         if (lastContactId > friendsList.lastContactId) {
-            contacts.forEach(function(contact, index) {
-                friendsList.friends.push(new Friend(contact));
-            });
+            var newContacts = [];
+            for (var i = lastContactIndex; i > 0; i--) {
+                if (contacts[i].id > friendsList.lastContactId) {
+                    var newFriend = new Friend(contacts[i]);
+                    friendsList.friends.push(newFriend);
+                    newContacts.push(nf);
+                }
+                else {
+                    break;
+                }
+            }
             friendsList.lastContactId = +contacts[lastContactIndex].id;
         }
 
+        findNepotomUsers(newContacts);
         friendsList.save();
+    }
+
+    function findNepotomUsers(newFriendsList) {
+        var phoneNumbersArr = [];
+        var phoneNumbersUsers = {};
+        
+        newFriendsList.forEach(function(friend) {
+            friend.phoneNumbers.forEach(function(phoneNumber) {
+                phoneNumbersArr.push(phoneNumber);
+                phoneNumbersUsers[phoneNumber] = friend;
+            });
+        });
+
+        api.findNepotomUsers(phoneNumbers)
+        .then(function(res) {
+            for (var key in res.search_results) {
+                var uuid = res.search_results[key];
+                phoneNumbersUsers[key].setUuid(uuid);
+                friendsList.nepotomFriends[uuid] = phoneNumbersUsers[key];
+                console.log("user is added to nepotom friends"); 
+            }
+            friendsList.save();
+        });
+
     }
 
     function onError(err) {
