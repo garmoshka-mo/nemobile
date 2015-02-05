@@ -17,6 +17,7 @@ angular.module("angControllers").controller("friendsController",
 
         user.friends = _friends;
         console.log("friend was deleted");
-    };        
+    };
 
-}]);    
+    user.friendsList.getUserContacts();
+}]);
