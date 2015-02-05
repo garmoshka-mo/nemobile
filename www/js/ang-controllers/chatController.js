@@ -2,11 +2,12 @@ angular.module("angControllers").controller("chatController",
     ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery',
     function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
         
+        console.log("chat controller is invoked");
+
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
-        $scope.isMessageSending = "false"; 
+        $scope.isMessageSending = false; 
 
-        console.log("state params", $stateParams);
         var $chatInput = $('.chat-input');
 
         $scope.scrollToBottom = function() {
@@ -67,12 +68,12 @@ angular.module("angControllers").controller("chatController",
             chat.currentUser.saveChats();
         }
         var lastSession = chat.lastUnexpiredChatSession;
-
         
         if (!lastSession) {
             chat.addChatSession(user.uuid, chat.senderId);
             chat.getLastUnexpiredChatSession();
             lastSession = chat.lastUnexpiredChatSession;
+            lastSession.save();
         }
 
         $scope.chatSession = lastSession;
@@ -188,7 +189,6 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.checkIfEnter = function(event) {
-            console.log(event);
             if (event.keyCode === 13) {
                 chat.sendMessage();
             }

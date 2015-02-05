@@ -56,7 +56,7 @@ services
     //private methods
     function parseUserContacts(contacts) {
         var lastContactIndex = contacts.length - 1;
-        var lastContactId = +contacts[lastContactIndex];
+        var lastContactId = +contacts[lastContactIndex].id;
 
         if (lastContactId > friendsList.lastContactId) {
             contacts.forEach(function(contact, index) {

@@ -9,7 +9,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         this.timer = null;
         this.creatorId = creatorId;
         this.currentChat = currentChat;
-        this.whenExipires = null;
+        this.whenExipires = Infinity;
     }
 
     var deviceServerTimeDifference_msec;
@@ -26,7 +26,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
             dataFromStorage.creatorId,
             dataFromStorage.senderId,
             dataFromStorage.id
-        )
+        );
 
         chatSession.messages = dataFromStorage.messages;
         chatSession.isReplied = dataFromStorage.isReplied;
@@ -39,8 +39,8 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         if (ttl < 0) {
             chatSession.isExpired = true;
             $timeout(function() {
-                chatSession.close()
-            }, 0)
+                chatSession.close();
+            }, 0);
         } 
         else {
             chatSession.isExpired = false;
@@ -48,7 +48,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         }
 
         return chatSession;
-    }
+    };
 
     ChatSession.prototype = {
             
@@ -103,8 +103,8 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     self.setTimeout(self.extraTime);
                     return false;
                 }
-                self.close()
-            }, time)
+                self.close();
+            }, time);
         },
 
         setTimer: function(expires) {
@@ -123,12 +123,13 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     chatSession.setTimeout(ttl);
                     chatSession.whenExipires = new Date().getTime() + ttl;
                     storage.saveChatSession(chatSession);
-                })
+                });
             }
         },
 
         save: function() {
             storage.saveChatSession(this, this.senderId);
+            console.log("chat session is saved");
         },
 
         getLastMessage: function() {
@@ -136,7 +137,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                 var messagesAmount = this.messages.length;
                 var text = this.messages[messagesAmount - 1].text;
                 if (text.match(/(http|https):/)) {
-                    var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg']
+                    var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg'];
                     var splitted = text.split(".");
                     var extensition = splitted[splitted.length - 1];
 
@@ -169,7 +170,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                         self.messages.push({
                             text: message,
                             isOwn: true
-                        })
+                        });
                         self.setTimer(res.data.expires);
                         self.save();
                         console.log("chat session is saved");
@@ -181,11 +182,11 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
                 },
                 function(res) {
-                    console.error(res)
+                    console.error(res);
                 }
-            )
+            );
         }
-    }
+    };
     
     return ChatSession;
-}])
+}]);

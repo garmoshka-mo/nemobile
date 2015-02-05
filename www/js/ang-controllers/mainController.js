@@ -4,7 +4,7 @@ angular.module("angControllers").controller("mainController", [
   
   $scope.user = user;
   
-  console.log('main controller is invoked')
+  console.log('main controller is invoked');
 
   $rootScope.isAppInBackground = false;
 
@@ -26,12 +26,12 @@ angular.module("angControllers").controller("mainController", [
   $scope.openMenu = function() {
     console.log("swipe open");
     $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
-  }
+  };
 
   $scope.closeMenu = function() {
     console.log("swipe close");
     $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
-  }
+  };
   
   $scope.$on('$stateChangeStart',
     function(evt, toState, toParams, fromState, fromParams) {
