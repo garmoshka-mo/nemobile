@@ -103,6 +103,7 @@ services
 
         api.findNepotomUsers(phoneNumbers)
         .then(function(res) {
+            console.log("find nepotom users res:", res);
             for (var key in res.search_results) {
                 var uuid = res.search_results[key];
                 phoneNumbersUsers[key].setUuid(uuid);
