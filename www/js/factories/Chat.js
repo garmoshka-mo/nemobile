@@ -82,8 +82,8 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         },
 
         getChatTitle: function() {
-            if (this.currentUser.friends[this.senderId]) {
-                return this.currentUser.friends[this.senderId].name;
+            if (this.currentUser.friendsList.nepotomFriends[this.senderId]) {
+                return this.currentUser.friendsList.nepotomFriends[this.senderId].name;
             }
             else {
                 return this.senderId;

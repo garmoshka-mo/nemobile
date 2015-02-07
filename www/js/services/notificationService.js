@@ -1,7 +1,7 @@
 services
 .factory('notification', ['$rootScope', '$timeout', function($rootScope, $timeout) {
     console.log("notification service is enabled");
-    $rootScope.notification = {}
+    $rootScope.notification = {};
     return {
         
         set: function(text, handler) {
@@ -10,25 +10,36 @@ services
                 if (handler) {
                     handler();
                 }
-            }
+            };
         },
 
         setTemporary: function(text, time, handler) {
             var self = this;
+            var previousText = $scope.notification.text;
+            var previousHandler = $scope.notification.handler;
             $rootScope.notification.text = text;
             $rootScope.notification.handler = function() {
                 if (handler) {
                     handler();
                 }
-            }
+            };
             $rootScope.notification.animated = true;
             time = time || 1000;
             $timeout(
                 function() {
                     self.clear();
+                    if (previousText) {
+                        if (previousHandler) {
+                            self.set(previousText, previousHandler);
+                        }
+                        else {
+                            self.set(previousText);
+                        }
+                    }
+
                 }, 
                 time
-            )
+            );
         },
         
         clear: function() {
@@ -36,5 +47,5 @@ services
             $rootScope.notification.animated = false;
         },
 
-    }
-}])
+    };
+}]);
