@@ -14,12 +14,18 @@ services
             this.lastContactId = null;
         },
 
+        save: function() {
+            storage.saveFriendsList(this);
+            console.log("friends list is saved");
+        },
+        
         addFriend: function(friendData) {
             var friend = new Friend(friendData);
             this.friends.push(friend);
             if (friend.uuid) {
                 this.nepotomFriends[friend.uuid] = friend;
             }
+            this.save();
         },
 
         getUserContacts: function() {
@@ -39,11 +45,6 @@ services
                 q.reject("contacts is not defined");
             }
             return q.promise;
-        },
-
-        save: function() {
-            storage.saveFriendsList(this);
-            console.log("friends list is saved");
         },
 
         parseFromStorage: function(dataFromStorage) {

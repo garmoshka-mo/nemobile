@@ -15,8 +15,8 @@ services
 
         setTemporary: function(text, time, handler) {
             var self = this;
-            var previousText = $scope.notification.text;
-            var previousHandler = $scope.notification.handler;
+            var previousText = $rootScope.notification.text;
+            var previousHandler = $rootScope.notification.handler;
             $rootScope.notification.text = text;
             $rootScope.notification.handler = function() {
                 if (handler) {
@@ -36,7 +36,6 @@ services
                             self.set(previousText);
                         }
                     }
-
                 }, 
                 time
             );

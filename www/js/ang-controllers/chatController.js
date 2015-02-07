@@ -84,8 +84,10 @@ angular.module("angControllers").controller("chatController",
             chat.isRead = true;
         });
 
+        console.log("is friend", user.friendsList.nepotomFriends);
+        console.log("is friend", chat.senderId);
         if (user.friendsList.nepotomFriends[chat.senderId]) {
-            notification.set(user.friendsList.nepotomFriends[chat.senderId].name);
+            notification.set(user.friendsList.nepotomFriends[chat.senderId].displayName);
         }
 
         $scope.newMessage = {
