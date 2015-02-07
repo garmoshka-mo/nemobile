@@ -1,15 +1,14 @@
 <div overscrollable-without-footer>
     <div class="invitation ta-center">
         К сожалению,
-        <span ng-show="friend.displayName" ng-bind="friend.displayName"></span>
+        <b><span ng-show="friend.displayName" ng-bind="friend.displayName"></span></b>
         <span ng-show="!friend.displayName">ваш друг</span>
         не является пользователем nepotom.<br> 
         Вы можете отправить ему приглашение
-        через смс или whatsapp. <br>
+        через смс. <br>
         Для этого нажмите соответсвующую кнопку снизу
     </div>
     <div class="socialShareButtons ta-center">
-        <button ng-click="inviteViaSms()">sms</button>
-        <button ng-click="inviteViaWhatsapp()">wa</button>
+        <button ng-click="inviteViaSms()">Пригласить</button>
     </div>
 </div>
