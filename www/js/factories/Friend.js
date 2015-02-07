@@ -1,11 +1,21 @@
 factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSession) {
     
     function Friend(fields) {
-        this.displayName = fields.name.formatted;
-        this.phoneNumbers = fields['phoneNumbers'];
-        this.photos = fields['photos'];
-        this.uuid = fields['uuid'];
-        this.id = fields['id'];
+        if (fields) {
+            if (fields.displayName) {
+                this.displayName = fields.displayName;    
+            }
+            else {
+                this.displayName = fields.name.formatted;
+            }
+            this.phoneNumbers = fields['phoneNumbers'];
+            this.photos = fields['photos'];
+            this.uuid = fields['uuid'];
+            this.id = fields['id'];
+        }
+        else {
+            console.error("Friend constructor is called without necessary data");
+        }
     }
 
     Friend.prototype = {

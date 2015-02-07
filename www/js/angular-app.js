@@ -212,6 +212,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("invitation", {
+    url: "/invitation?friendIndex",
+    views: {
+      "title": {
+        template: "Приглашение"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "invitationController",
+        templateUrl: "partials/invitation/content.html"
+      }
+    }
+  })
 });
 
 var pushNotification;

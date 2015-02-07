@@ -19,5 +19,17 @@ angular.module("angControllers").controller("friendsController",
         console.log("friend was deleted");
     };
 
+    $scope.getFriendLink = function(friend) {
+        var templateForNepotomUser = "#/chat?senderId=";
+        var templateForInvitation = "#/invitation?friendIndex=";
+
+        if (friend.uuid) {
+            return templateForNepotomUser + friend.uuid;
+        }
+        else {
+            return templateForInvitation + user.friendsList.friends.indexOf(friend);
+        }
+    };
+
     user.friendsList.getUserContacts();
 }]);
