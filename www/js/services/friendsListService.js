@@ -73,7 +73,7 @@ services
         //checking if there are new contacts
         if (lastContactId > friendsList.lastContactId) {
             var newContacts = [];
-            for (var i = lastContactIndex; i > 0; i--) {
+            for (var i = lastContactIndex; i >= 0; i--) {
                 if (contacts[i].id > friendsList.lastContactId) {
                     var newFriend = new Friend(contacts[i]);
                     friendsList.friends.push(newFriend);
@@ -96,12 +96,12 @@ services
         
         newFriendsList.forEach(function(friend) {
             friend.phoneNumbers.forEach(function(phoneNumber) {
-                phoneNumbersArr.push(phoneNumber);
-                phoneNumbersUsers[phoneNumber] = friend;
+                phoneNumbersArr.push(phoneNumber.value);
+                phoneNumbersUsers[phoneNumber.value] = friend;
             });
         });
 
-        api.findNepotomUsers(phoneNumbers)
+        api.findNepotomUsers(phoneNumbersArr)
         .then(function(res) {
             console.log("find nepotom users res:", res);
             for (var key in res.search_results) {
