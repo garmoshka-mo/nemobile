@@ -12,7 +12,7 @@ angular.module("angControllers").controller("invitationController", [
             window.plugins.socialsharing.shareViaSMS(
                 invitationText, $scope.friend.phoneNumbers[0].value,
                 function(msg) {console.log('ok: ' + msg)},
-                function(msg) {alert('error: ' + msg)}
+                function(msg) {console.log('error: ' + msg)}
             );
         };
 
