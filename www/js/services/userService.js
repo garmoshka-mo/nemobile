@@ -100,8 +100,8 @@ services
             } 
            
             if (!lastSession.isReplied) {
-                if (lastSession.creatorId == self.uuid) {
-                    lastSession.isReplied = true;
+                if (lastSession.creatorId === self.uuid) {
+                    lastSession.setReplied();
                 }
             }
 

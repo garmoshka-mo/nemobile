@@ -1,4 +1,4 @@
-<a ng-show="!chat.isExpired" ng-repeat="chat in user.chats | orderObjectBy:isRead:true" ng-href="#/chat?senderId={{chat.senderId}}">
+<a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectBy:isRead:true" ng-href="#/chat?senderId={{chat.senderId}}">
   <div class="chats-chat" ng-class="{'unread': !chat.isRead}">
     <div class="small-9 column">
         <span class="chat-title" ng-bind="chat.getChatTitle()"></span>

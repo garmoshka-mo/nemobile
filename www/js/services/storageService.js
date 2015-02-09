@@ -57,7 +57,8 @@ services
         },
 
         saveFriends: function(userFriends) {
-            $localForage.setItem('friends', userFriends);
+            $localForage.setItem('friends', userFriends)
+            .then(function(res) {console.log(res)},function(res) {console.log(res)});
         },
 
         saveFriendsList: function(userFriendsList) {

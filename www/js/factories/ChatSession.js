@@ -30,10 +30,15 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
         chatSession.messages = dataFromStorage.messages;
         chatSession.isReplied = dataFromStorage.isReplied;
-        chatSession.whenExipires = dataFromStorage.whenExipires;
         chatSession.extraTime = dataFromStorage.extraTime; 
         chatSession.currentChat = currentChat;
-
+        if (dataFromStorage.whenExipires === null) {
+            chatSession.whenExipires = Infinity;
+        }
+        else {
+            chatSession.whenExipires = dataFromStorage.whenExipires;
+        }
+        
         var ttl = chatSession.whenExipires - new Date().getTime();
 
         if (ttl < 0) {
@@ -124,6 +129,13 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     chatSession.whenExipires = new Date().getTime() + ttl;
                     storage.saveChatSession(chatSession);
                 });
+            }
+        },
+
+        setReplied: function() {
+            this.isReplied = true;
+            if (!this.currentChat.isReplied) {
+                this.currentChat.isReplied = true;
             }
         },
 

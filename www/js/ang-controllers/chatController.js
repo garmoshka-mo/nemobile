@@ -158,7 +158,7 @@ angular.module("angControllers").controller("chatController",
                 
                 if (!$scope.chatSession.isReplied) {
                     if ($scope.chatSession.creatorId != user.uuid) { 
-                        $scope.chatSession.isReplied = true;
+                        $scope.chatSession.setReplied();
                     }
                 }
 

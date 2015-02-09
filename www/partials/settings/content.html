@@ -1,31 +1,31 @@
 <div overscrollable-without-footer>
     <div class="width-92 block-center">
         <div class="row">
-            <div class="small-1 columns">
+            <div class="small-2 columns">
                 <i class="fa fa-user"></i>
             </div>
-            <div class="small-6 columns settings-property-title">
+            <div class="small-5 columns settings-property-title">
                 Ваш ник
             </div>
             <div class="small-5 columns ta-right settings-property-value" ng-bind="user.name"></div>
         </div>
         <div class="row">
-            <div class="small-1 columns">
+            <div class="small-2 columns">
                 <i class="fa fa-star"></i>
             </div>
             <div class="small-5 columns settings-property-title">
                 Ваш рейтинг
             </div>
-            <div class="small-6 columns ta-right settings-property-value" ng-bind="user.scores"></div>
+            <div class="small-5 columns ta-right settings-property-value" ng-bind="user.scores"></div>
         </div>
         <div class="row" ng-show="user.phoneNumber">
-            <div class="small-1 columns">
+            <div class="small-2 columns">
                 <i class="fa fa-phone"></i>
             </div>
             <div class="small-5 columns settings-property-title">
                 Ваш телефон
             </div>
-            <div class="small-6 columns ta-right settings-property-value" ng-bind="user.phoneNumber"></div>
+            <div class="small-5 columns ta-right settings-property-value" ng-bind="user.phoneNumber"></div>
         </div>
         <div class="ta-center mt20" ng-hide="user.phoneNumber">
             <a href="#/phoneRegistrationUser"><button>Привязать номер</button></a>

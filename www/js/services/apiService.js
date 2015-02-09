@@ -367,7 +367,6 @@ services
             })
             .then(
                 function(res) {
-                    console.log("findNepotomUsers res",res);
                     if (res.data.success) {
                         return res.data;
                     }

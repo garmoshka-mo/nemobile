@@ -6,6 +6,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         this.chatSessions = {};
         this.chatSessionsIndexes = [];
         this.isExpired = true;
+        this.isReplied = false;
         this.lastChatSessionIndex = null;
         this.lastUnexpiredChatSession = null;
         this.currentUser = currentUser;

@@ -87,6 +87,7 @@ services
             friendsList.lastContactId = +contacts[lastContactIndex].id;
         }
 
+        console.log("user's contacts are exported");
         findNepotomUsers(newContacts);
         friendsList.save();
     }
