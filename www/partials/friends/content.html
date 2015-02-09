@@ -25,7 +25,7 @@
             <a href="#/friendSearch"><button class="friendListAddFriendButton">+</button></a>
             чтобы найти друга 
         </div>
-        <div class="row friend" ng-repeat="friend in user.friendsList.friends" ng-show="showAll === '1'">
+        <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName" ng-show="showAll === '1'">
             <a ng-href="{{getFriendLink(friend)}}" >
                 <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
             </a>
@@ -35,7 +35,7 @@
                 </span>
             </div>
         </div>
-        <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends" ng-show="showAll === '0'">
+        <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName" ng-show="showAll === '0'">
             <a ng-href="{{getFriendLink(friend)}}" >
                 <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
             </a>
