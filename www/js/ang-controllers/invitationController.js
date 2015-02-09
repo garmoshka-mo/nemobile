@@ -8,6 +8,7 @@ angular.module("angControllers").controller("invitationController", [
         }
 
         $scope.inviteViaSms = function() {
+            console.log("invite via sms is called");
             window.plugins.socialsharing.shareViaSMS(
                 invitationText, $scope.friend.phoneNumbers[0].value,
                 function(msg) {console.log('ok: ' + msg)},
@@ -15,12 +16,4 @@ angular.module("angControllers").controller("invitationController", [
             );
         };
 
-        $scope.inviteViaWhatsapp = function() {
-            window.plugins.socialsharing.shareViaWhatsApp(
-                invitationText,
-                null /* img */,
-                null /* url */,
-                function() {console.log('share ok')},
-                function(errormsg){alert(errormsg)})
-        };
 }]);
