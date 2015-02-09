@@ -213,7 +213,7 @@ angular.module("angApp").config(function($stateProvider) {
     }
   })
   .state("invitation", {
-    url: "/invitation?friendI",
+    url: "/invitation?friendIndex",
     views: {
       "title": {
         template: "Приглашение"
