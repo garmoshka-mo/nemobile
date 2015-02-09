@@ -30,7 +30,7 @@
                 <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
             </a>
             <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
-                <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">
+                <span class="category-button category-button-red"  ng-click="removeFriend(friend)">
                     <i class="fa fa-trash"></i>
                 </span>
             </div>
@@ -40,7 +40,7 @@
                 <div class="columns hide-overflow-text h100p" ng-bind="friend.displayName" ng-class="{'small-12': !isEditMode, 'small-6': isEditMode}"></div>
             </a>
             <div class="small-6 columns hide-overflow-text ta-right" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event>
-                <span class="category-button category-button-red"  ng-click="removeFriend(uuid)">
+                <span class="category-button category-button-red"  ng-click="removeFriend(friend)">
                     <i class="fa fa-trash"></i>
                 </span>
             </div>

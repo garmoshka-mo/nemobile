@@ -8,7 +8,6 @@ services
     this.accessToken = null;
     this.channel = null;
     this.scores = null;
-    this.friends = {};
     this.chats = {};
     this.lastMessageTimestamp = null;
     this.friendsList = friendsList;
@@ -333,11 +332,6 @@ services
             console.log("user chats are taken from storage", user.chats);
         });
 
-        storage.getFriends().then(function(dataFromStorage) {
-            self.friends = dataFromStorage;
-            console.log("user friends are taken from storage", user.friends);
-        });
-
         storage.getLastMessageTimestamp().then(function(timestamp) {
             self.lastMessageTimestamp = timestamp;
             self.getUnseenMessages();
@@ -346,6 +340,7 @@ services
         storage.getFriendsList().then(function(dataFromStorage){
             friendsList.parseFromStorage(dataFromStorage);
             self.friendsList = friendsList;
+            console.log("user's friends list is taken from storage");
         });
     };
 

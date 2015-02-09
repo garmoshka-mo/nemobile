@@ -6,17 +6,8 @@ angular.module("angControllers").controller("friendsController",
     $scope.isEditMode = false;
     $scope.showAll = "0";
 
-    $scope.removeFriend = function(friendUuid) {
-        var _friends = {};
-
-        for (var key in user.friends) {
-            if (key != friendUuid) {
-                _friends[key] = user.friends[key];
-            }
-        }
-
-        user.friends = _friends;
-        console.log("friend was deleted");
+    $scope.removeFriend = function(friend) {
+        user.friendsList.removeFriend(friend);
     };
 
     $scope.getFriendLink = function(friend) {

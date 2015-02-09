@@ -28,6 +28,28 @@ services
             this.save();
         },
 
+        removeFriend: function(friend) {
+            var indexToRemove = this.friends.indexOf(friend);
+            var uuidToRemove = friend.uuid;
+            
+            var _nepotomFriends = {};
+            if (indexToRemove !== -1) {
+                this.friends.splice(indexToRemove, 1);
+
+                for (var key in this.nepotomFriends) {
+                    if (key == uuidToRemove) {
+                        continue;
+                    }
+                    else {
+                        _nepotomFriends[key] = this.nepotomFriends[key];
+                    }
+                }
+                this.nepotomFriends = _nepotomFriends;
+            }
+            
+            this.save();
+        },
+
         getUserContacts: function() {
             var q = $q.defer();
             

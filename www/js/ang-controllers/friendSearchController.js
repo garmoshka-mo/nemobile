@@ -36,7 +36,7 @@ angular.module("angControllers").controller("friendSearchController", [
         }
         else {
             
-            if (user.friends[results.uuid]) {
+            if (user.friendsList.nepotomFriends[results.uuid]) {
                 $scope.canBeAdded = false;
                 $scope.serverResponse = "Пользователь уже ваш друг";
                 return;                
