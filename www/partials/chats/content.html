@@ -1,8 +1,11 @@
 <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectBy:isRead:true" ng-href="#/chat?senderId={{chat.senderId}}">
   <div class="card" ng-class="{'unread': !chat.isRead}">
     <div class="row">
-      <div class="small-3 column ta-right">
-        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{$index}}" alt="">    
+      <div class="small-3 column ava-container">
+        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{$index}}" alt=""> 
+        <div class="new-message-ava" ng-hide="chat.isRead">
+            <i class="fa fa-envelope"></i>
+        </div>
       </div>
       <div class="small-6 column p0">
           <span class="chat-title title" ng-bind="chat.getChatTitle()"></span>

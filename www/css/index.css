@@ -69,7 +69,7 @@ button {
   padding-top: 1rem;
 }
 .iphone-status-bar-margin {
-  background-color: #333333;
+  background-color: #68C168;
   height: 20px;
   display: none;
 }
@@ -222,6 +222,23 @@ a.button:hover{
 .card .rounded-ava {
   margin-right: 10px;
   margin-top: 8px;
+}
+.card .ava-container {
+  position: relative;
+  text-align: right;
+}
+.card .new-message-ava {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, .5);
+  top: 13px;
+  right: 30px;
+  border-radius: 15px;
+  border: 3px solid #FFF;
+  font-size: 15px;
+  text-align: center;
+  color: #FFF;
 }
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
