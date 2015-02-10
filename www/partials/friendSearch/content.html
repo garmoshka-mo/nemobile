@@ -7,18 +7,19 @@
     </button>
   </div>
   
-  <div ng-show="canBeAdded">
-    <div class="small-10 columns">
-      <span ng-bind="nameToAdd"></span><br>
-      <span class="small-gray-text" ng-bind="foundUuid"></span><br>
+  <div class="width-92" >
+    <div class="row" ng-show="canBeAdded">
+      <div class="small-10 columns">
+        <span ng-bind="nameToAdd"></span><br>
+        <span class="small-gray-text" ng-bind="foundUuid"></span><br>
+      </div>
+      <div class="small-2 columns">
+        <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
+      </div>
     </div>
-    <div class="small-2 columns">
-      <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
+    <div class="ta-center" ng-show="!canBeAdded">
+        <span ng-bind="serverResponse"></span><br>
+        <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
     </div>
-  </div>
-
-  <div class="ta-center" ng-show="!canBeAdded">
-      <span ng-bind="serverResponse"></span><br>
-      <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
   </div>
 </div>

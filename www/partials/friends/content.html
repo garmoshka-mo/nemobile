@@ -44,7 +44,7 @@
             <div class="card">
                 <a ng-href="{{getFriendLink(friend)}}" >
                     <div class="columns small-3 ava-container">
-                        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{$index}}">
+                        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{friend.uuid}}">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-3': isEditMode}"></div>
                 </a>

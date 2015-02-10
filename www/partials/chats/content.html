@@ -2,7 +2,7 @@
   <div class="card" ng-class="{'unread': !chat.isRead}">
     <div class="row">
       <div class="small-3 column ava-container">
-        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{$index}}" alt=""> 
+        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{chat.senderId}}" alt=""> 
         <div class="new-message-ava" ng-hide="chat.isRead">
             <i class="fa fa-envelope"></i>
         </div>
