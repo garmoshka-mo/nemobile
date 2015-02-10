@@ -23,8 +23,8 @@ services
     function showNotification(user, messageText, senderUuid) {
         var notificationText;
         
-        if (user.friends[senderUuid]) {
-            notificationText = user.friends[senderUuid].name;    
+        if (user.friendsList.nepotomFriends[senderUuid]) {
+            notificationText = user.friendsList.nepotomFriends[senderUuid].displayName;    
         }
         else {
             notificationText = "Новое сообщение";
