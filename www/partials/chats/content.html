@@ -1,12 +1,17 @@
 <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectBy:isRead:true" ng-href="#/chat?senderId={{chat.senderId}}">
-  <div class="chats-chat" ng-class="{'unread': !chat.isRead}">
-    <div class="small-9 column">
-        <span class="chat-title" ng-bind="chat.getChatTitle()"></span>
-        <span class="small-gray-text chat-last-message-text" ng-bind="chat.lastUnexpiredChatSession.getLastMessage()"></span>
-    </div>
-    <div class="small-3 column" ng-show="chat.senderScores">
-      <i class="fa fa-star"></i>
-      <span ng-bind="chat.senderScores"></span>
+  <div class="card" ng-class="{'unread': !chat.isRead}">
+    <div class="row">
+      <div class="small-3 column ta-right">
+        <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{$index}}" alt="">    
+      </div>
+      <div class="small-6 column p0">
+          <span class="chat-title title" ng-bind="chat.getChatTitle()"></span>
+          <span class="small-gray-text chat-last-message-text" ng-bind="chat.lastUnexpiredChatSession.getLastMessage()"></span>
+      </div>
+      <div class="small-3 column" ng-show="chat.senderScores">
+        <i class="fa fa-star"></i>
+        <span ng-bind="chat.senderScores"></span>
+      </div>
     </div>
   </div>
 </a>

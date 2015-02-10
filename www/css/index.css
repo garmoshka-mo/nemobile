@@ -1,9 +1,19 @@
+ @font-face {
+  font-family: "Open Sans Normal";
+  src: url("../fonts/OpenSans-Regular.ttf");
+ }
+@font-face {
+  font-family: "Open Sans Bold";
+  src: url("../fonts/OpenSans-Bold.ttf");
+ }
 html{
   height: 100%;
 }
 body{
+  background-color: #F1F3F6;
   height: 100%;
   font-size: 1.3rem !important;
+  font-family: "Open Sans Normal";
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
@@ -37,6 +47,9 @@ button {
 .text-silver {
   color: #bdc3c7;
 }
+.text-bold {
+  font-family: "Open Sans Bold";
+}
 .h13 {
   height: 13px;
 }
@@ -48,6 +61,9 @@ button {
 }
 .m0 {
   margin: 0;
+}
+.p0 {
+  padding: 0;
 }
 .pt1rem {
   padding-top: 1rem;
@@ -65,6 +81,25 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.tab-bar {
+  background-color: #68C168;
+  box-shadow: 0 2px 0 0px #3F853F;
+}
+.left-off-canvas-menu {
+  background-color: #363645;
+}
+.rounded-ava {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+ul.off-canvas-list li a.menu-item {
+  padding-left: 20px;
+}
+ul.off-canvas-list li a {
+  border-bottom: 1px solid #2A2935;
 }
 
 #wrapper{
@@ -173,9 +208,20 @@ a.button:hover{
   margin-right: 0.7rem;
 }
 
-.chats-chat {
-  border-bottom: 1px solid #7f8c8d;
-  min-height: 65px;
+.card {
+  padding: 15px 0;
+  color: #D7D7DC;
+  border-bottom: 1px solid #D7D7DC;
+  font-family: "Open Sans Normal";
+  height: 87px;
+}
+.card .title {
+  color: #4C5162;
+  font-family: "Open Sans Bold";
+}
+.card .rounded-ava {
+  margin-right: 10px;
+  margin-top: 8px;
 }
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
@@ -372,7 +418,7 @@ input.category-name-change-input {
   border-right: 10px solid rgba(52, 152, 219,1.0);
 }
 .chat-buttons-container {
-  background-color: rgba(149, 165, 166,1.0);
+  background-color: #363645;
   padding-top: 10px;
 }
 .chat-left-buttons {
@@ -407,11 +453,11 @@ input.category-name-change-input {
   max-width: 100%;
 }
 
-.friend-list .friend {
+/*.friend-list .friend {
   padding-top: 5px;
   height: 65px;
   border-bottom: 1px solid #7f8c8d;
-}
+}*/
 
 .firstMessage {
   margin-bottom: 20px;
@@ -422,13 +468,16 @@ input.category-name-change-input {
 }
 
 .friendListHeader {
+  box-shadow: 0 2px 5px rgba(193,193,193, .7);
+  margin-top: 2px;
+  padding-bottom: 10px;
   position: fixed;
   width: 100%;
-  background-color: #fff;
+  background-color: #C1C1C1;
   z-index: 9999;
 }
 .friendList {
-  padding-top: 72px;
+  padding-top: 82px;
 }
 .friendListAddFriendButton {
   background-color: #3498db;
@@ -550,7 +599,6 @@ input[type="radio"] {
 }
 .radioLabel {
   color: #fff;
-  font-family:Arial, sans-serif;
   font-size: 14px;
 }
 .radioLabel {
