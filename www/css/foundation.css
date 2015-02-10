@@ -1090,7 +1090,6 @@ button, .button {
   border-style: solid;
   border-width: 0px;
   cursor: pointer;
-  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -1100,12 +1099,13 @@ button, .button {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   display: inline-block;
+  background-color: #65C6BB ;
+  font-family: "Open Sans Normal" ;
   padding-top: 1rem;
   padding-right: 2rem;
   padding-bottom: 1.0625rem;
   padding-left: 2rem;
   font-size: 1rem;
-  background-color: #008cba;
   border-color: #007095;
   color: white;
   border-radius: 5px;
