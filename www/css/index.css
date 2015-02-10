@@ -484,6 +484,9 @@ input.category-name-change-input {
 .settings-property-value {
   color: #bdc3c7;
 }
+.settings div {
+  word-wrap: break-word;
+}
 
 .friendListHeader {
   box-shadow: 0 2px 5px rgba(193,193,193, .7);
