@@ -38,8 +38,8 @@
             </div>
         </div>
         <button class="chat-send" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">
-            <i ng-show="!isMessageSending" class="fa fa-paper-plane"></i>
-            <span ng-show="isMessageSending" spinner spinner-color="white"></span>
+            <i ng-show="!isMessageSending && false" class="fa fa-paper-plane"></i>
+            <span ng-show="isMessageSending || true" spinner spinner-color="white"></span>
         </button>
         <!-- <button class="chat-send" ng-click="chatSession.close()">close</button> -->
         <div class="stickersGallery-container" ng-show="isStickersGalleryVisiable">
