@@ -3,7 +3,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
     function(user, $scope, $stateParams, $state) {
         $scope.newUser = {};
         $scope.showSpinner = false;
-        $scope.phoneEnterPhase = true;
+        $scope.screenToShow = "infoScreen";
         $scope.showSuccess = false;
         $scope.serverResponse = "";
 
@@ -14,7 +14,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
             user.attachPhoneNumber(phone)
             .then(
                 function () {
-                    $scope.phoneEnterPhase = false;
+                    $scope.screenToShow = "phoneConfirm";
                     $scope.showSpinner = false;
                     $scope.serverResponse = "";
                 },
@@ -22,8 +22,8 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
                     $scope.showSpinner = false;
                     $scope.serverResponse = err;
                 }
-            )    
-        }
+            ) ;   
+        };
 
         $scope.confirmPhoneNumber = function() {
             $scope.showSpinner = true;
@@ -40,16 +40,24 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
                     $scope.serverResponse = "Ошибка. Проверьте правильность кода";
                     console.log(res);
                 }
-            )
-        }
+            );
+        };
 
-        $scope.goToEnterPhase = function () {
-            $scope.phoneEnterPhase = true;
-        }
+        $scope.attachViaSms = function() {
+            window.plugins.socialsharing.shareViaSMS(
+                user.accessToken, "+14845145060",
+                function(msg) {console.log('ok: ' + msg)},
+                function(msg) {console.log('error: ' + msg)}
+            );
+        };
+
+        $scope.goToEnterPhase = function() {
+            $scope.screenToShow = 'phoneEnter';
+        };
 
         $scope.closeServerResponse = function() {
             $scope.serverResponse = "";
-        }
+        };
 
 
-}])    
+}]);   

@@ -1,10 +1,11 @@
-<div class="pt1rem ta-center">
-    <div ng-show="phoneEnterPhase">
+<div class="pt1rem ta-center width-92 block-center" ng-switch="screenToShow">
+    
+    <div ng-switch-when="phoneEnter">
         <form name="reg">
-            <div class="width-92 inline-block">
+            <div class="inline-block">
                 <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
             </div>
-            <div class="width-92 inline-block" ng-show="!isIn">
+            <div class="inline-block" ng-show="!isIn">
                 <button ng-click="attachPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
                     <span ng-show="!showSpinner">Отправить смс</span>
                     <span ng-show="showSpinner" spinner spinner-color="white"></span>
@@ -12,12 +13,13 @@
             </div>
         </form>
     </div>
-    <div ng-show="!phoneEnterPhase">
+
+    <div ng-switch-when="phoneConfirm">
         <form name="confirm">
-            <div class="width-92 inline-block">
+            <div class="inline-block">
                <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="код подтверждения" required>
             </div>
-            <div class="width-92 inline-block" ng-show="!isIn">
+            <div class="inline-block" ng-show="!isIn">
                 <button ng-click="confirmPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || confirm.$invalid">
                     <span ng-show="!showSpinner">Подтвердить</span>
                     <span ng-show="showSpinner" spinner spinner-color="white"></span>
@@ -31,6 +33,24 @@
             </div>
         </div>
     </div>
+
+    <div class="ta-left" ng-switch-when="infoScreen">
+        Есть два способа привязать номер:<br>
+        1) Ввести ваш номер, получить код <br>
+        затем ввести код в поле потверждения <br>
+        <div class="ta-center">
+            <button ng-click="goToEnterPhase()">выбрать</button>
+        </div>
+        2) Отправить смс на специальный номер <br>
+        <span class="text-bold">
+            За отправку смс снимается сумма, согласно тарифу
+        </span>
+        <br>
+        <div class="ta-center">
+            <button ng-click="attachViaSms()">выбрать</button>
+        </div>
+    </div>
+
     <div ng-show="showSuccess">
         <i class="fa fa-check"></i> Номер успешно привязан
     </div>
