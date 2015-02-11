@@ -84,6 +84,10 @@ services
         var senderUuid = m.pn_gcm.data.uuid;
         var messageText = m.pn_gcm.data.message;
 
+        if (senderUuid === "System") {
+            updateUserInfo(user.access_token);
+        }
+
         if (self.chats[senderUuid]) {
             console.log("added to existing chat");
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
@@ -189,6 +193,10 @@ services
                 }
             );
         }
+    }
+
+    function updateUserInfo(accessToken) {
+        self.signin(null, null, accessToken);
     }
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
@@ -387,8 +395,8 @@ services
         var self = this;
         return api.confirmPhoneNumber(phoneNumber, activationCode, sendAccessToken)
         .then(
-            function(res) {    
-                self.signin(null, null, res.access_token);
+            function(res) {
+                updateUserInfo(res.access_token);    
             },
             function(res) {
                 return $q.reject(res);
