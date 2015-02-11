@@ -1,4 +1,4 @@
-<div overscrollable-without-footer class="pt1rem ta-center width-92 block-center" ng-switch="screenToShow">
+<div overscrollable-without-footer class="pt1rem ta-center width-92 block-center ta-center" ng-switch="screenToShow">
     <div ng-switch-when="phoneEnter">
         <form name="reg">
             <div class="inline-block">
@@ -33,10 +33,11 @@
         </div>
     </div>
 
-    <div class="ta-left" ng-switch-when="infoScreen">
-        Есть два способа привязать номер:<br>
-        1) Ввести ваш номер, получить код <br>
-        затем ввести код в поле потверждения <br>
+    <div ng-switch-when="infoScreen">
+
+        
+        Есть два способа:<br>
+        1) Привязка через входящую бесплатную SMS<br>
         <div class="ta-center">
             <button ng-click="goToEnterPhase()">выбрать</button>
         </div>
