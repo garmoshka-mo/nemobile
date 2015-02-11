@@ -84,8 +84,8 @@ services
         var senderUuid = m.pn_gcm.data.uuid;
         var messageText = m.pn_gcm.data.message;
 
-        if (senderUuid === "System") {
-            updateUserInfo(user.access_token);
+        if (senderUuid === "system") {
+            updateUserInfo(user.accessToken);
         }
 
         if (self.chats[senderUuid]) {
@@ -196,7 +196,8 @@ services
     }
 
     function updateUserInfo(accessToken) {
-        self.signin(null, null, accessToken);
+        user.signin(null, null, accessToken);
+        console.log('user info is updated');
     }
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
