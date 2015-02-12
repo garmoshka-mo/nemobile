@@ -1187,7 +1187,7 @@ button, .button {
   button.round, .button.round {
     border-radius: 1000px; }
   button.disabled, button[disabled], .button.disabled, .button[disabled] {
-    background-color: #008cba;
+    background-color: rgba(101, 198, 187, .3);
     border-color: #007095;
     color: white;
     cursor: default;
@@ -4800,14 +4800,14 @@ ul.off-canvas-list {
   ul.off-canvas-list li label {
     display: block;
     padding: 0.3rem 0.9375rem;
-    color: #999999;
+    color: rgba(255,255,255,.3);
     text-transform: uppercase;
     font-size: 0.75rem;
     font-weight: bold;
-    background: #444444;
+    background: #272736;
     border-top: 1px solid #5e5e5e;
     border-bottom: none;
-    margin: 0; }
+    margin: 0;}
   ul.off-canvas-list li a {
     display: block;
     padding: 0.66667rem;

@@ -19,10 +19,10 @@ app.directive('overscrollableWithFooter', function() {
                     "padding-right": "15px",
                     "box-sizing": "content-box",
                     "overflow": "auto"
-            })
+            });
         }
-    }
-})
+    };
+});
 
 app.directive('overscrollableWithoutFooter', function() {
     return {
@@ -37,10 +37,10 @@ app.directive('overscrollableWithoutFooter', function() {
                   "padding-right": "15px",
                   "box-sizing": "content-box",
                   "overflow": "auto"
-            })
+            });
         }
-    }
-})
+    };
+});
 
 app.directive('stickersGalleryHeight', function() {
     return {
@@ -66,8 +66,8 @@ app.directive('stickersGalleryHeight', function() {
 
             $(elem).height(stickersGalleryHeight);
         }
-    }
-})
+    };
+});
 
 app.directive('spinner', function() {
     return {
@@ -84,6 +84,6 @@ app.directive('spinner', function() {
                 dots.addClass("black");
             }
         }
-    }
-})
+    };
+});
 

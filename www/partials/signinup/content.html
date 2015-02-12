@@ -1,5 +1,5 @@
 <div class="loginRegisterForm">
-  <form name="registration_form" novalidate>
+  <form name="regForm" novalidate>
     <div class="width-92 inline-block">
       <!--  <label for="reg_user_name">Имя</label> -->
         <input id="reg_user_name" name="name" type="text" ng-model="newUser.name" placeholder="Имя" required>
@@ -9,16 +9,16 @@
         <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" required> 
     </div>
     <div class="width-92 inline-block" ng-show="isIn">
-        <a data-role="button" ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner">
-            <span ng-show="!showSpinner">Войти</span>
-            <span ng-show="showSpinner" spinner spinner-color="white"></span>
-        </a>
+        <button ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
+            <span ng-show="!showSpinner" class="ng-animate-disabled" >Войти</span>
+            <span ng-show="showSpinner"  class="ng-animate-disabled" spinner spinner-color="white"></span>
+        </button>
     </div>
     <div class="width-92 inline-block" ng-show="!isIn">
-        <a data-role="button" ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner">
+        <button ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
             <span ng-show="!showSpinner">Зарегистрироваться</span>
             <span ng-show="showSpinner" spinner spinner-color="white"></span>
-        </a>
+        </button>
     </div>
     
     <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
