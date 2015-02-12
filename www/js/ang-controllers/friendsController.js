@@ -6,6 +6,12 @@ angular.module("angControllers").controller("friendsController",
     $scope.isEditMode = false;
     $scope.showAll = "0";
 
+    $(".friend-list").scroll(function(){
+        if (window.device) {
+            cordova.plugins.Keyboard.close();
+        }
+    });
+
     $scope.removeFriend = function(friend) {
         user.friendsList.removeFriend(friend);
     };
