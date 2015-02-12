@@ -29,9 +29,10 @@ angular.module("angControllers").controller("phoneRegistrationController",
                     $state.go('chats');
                 },
                 function(res) {
-                    $scope.showSpinner = false;
                     timesCheckedSmsRegistration++;
                     if (timesCheckedSmsRegistration > 10) {
+                        $scope.showSpinner = false;
+                        $scope.serverResponse = "Произошла ошибка \n Попробуйте альтернативный способ регистрации";
                         console.log("10 times registration was checked");
                     }
                     else { 

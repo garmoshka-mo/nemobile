@@ -62,6 +62,10 @@
         <div class="ta-center">
             Пожалуйста подождите, идет регистрация номера
             <span ng-show="showSpinner" spinner></span>
+            <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
+                <span ng-bind="serverResponse"></span>
+                <span ng-click="closeServerResponse()" class="close">&times;</span>
+            </div>
         </div>
     </div>    
 </div>
