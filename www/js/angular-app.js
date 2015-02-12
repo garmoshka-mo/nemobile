@@ -265,13 +265,13 @@ document.addEventListener("deviceready", function(){
           }
           $('body').height(this.normalHeight - pixelsToShrink);
           $("#footer").css('position','relative');
-          document.dispatchEvent(webViewShrunkEvent)
+          document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
           $('body').height(this.normalHeight);
           $("#footer").css('position','fixed');
         } 
-      }
+      };
       
       cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -293,7 +293,7 @@ document.addEventListener("deviceready", function(){
           'sound': 'true',
           'alert': 'true',
           'ecb': 'onNotificationAPN'
-      })
+      });
 
       function tokenHandler(deviceToken) {
         window.deviceId = deviceToken;
@@ -317,7 +317,7 @@ document.addEventListener("deviceready", function(){
         if (e.foreground === "0") {
           location.href = "#/chat?senderId=" + e.uuid;
         }
-      }
+      };
     }
 
     if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
@@ -343,7 +343,7 @@ document.addEventListener("deviceready", function(){
             location.href = "#/chat?senderId=" + e.payload.uuid;
           }
         }
-      }
+      };
     }
 });
 

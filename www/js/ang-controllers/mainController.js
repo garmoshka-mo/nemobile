@@ -18,13 +18,16 @@ angular.module("angControllers").controller("mainController", [
   });
 
   document.addEventListener("deviceready", function() {
-    if (device.platform == "iOS") {
+    if (device.platform === "iOS") {
       $(".iphone-status-bar-margin").show();
     }
   });
 
   $scope.openMenu = function() {
     console.log("swipe open");
+    if (device.platform === "iOS") {
+      cordova.plugins.Keyboard.close();
+    }
     $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
   };
 
