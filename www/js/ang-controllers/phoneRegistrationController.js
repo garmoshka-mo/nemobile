@@ -21,7 +21,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
         }
 
         function checkSmsRegistration(activationCode) {
-            user.confirmPhoneNumber(null, activationCode)
+            user.confirmPhoneNumber("", activationCode)
             .then(
                 function() {
                     $scope.showSpinner = false;
