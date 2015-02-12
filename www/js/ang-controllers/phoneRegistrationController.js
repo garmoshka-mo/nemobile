@@ -36,7 +36,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
                         console.log("10 times registration was checked");
                     }
                     else { 
-                        setTimeout(checkSmsRegistration, 500);
+                        setTimeout(checkSmsRegistration, 1000);
                     }
                     console.log(res);
                 }
