@@ -380,7 +380,7 @@ services
         var self = this;
         pubnub.subscribe({
             channel: self.channel,
-            message: function(m) { handleIncomeMessage(m) }
+            message: function(m) {handleIncomeMessage(m);}
         });
     };
 

@@ -3,7 +3,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
     function(user, $scope, $stateParams, $state) {
         $scope.newUser = {};
         $scope.showSpinner = false;
-        $scope.screenToShow = "infoScreen";
+        $scope.screenToShow = "phoneEnter";
         $scope.showSuccess = false;
         $scope.serverResponse = "";
 
@@ -46,8 +46,13 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
         $scope.attachViaSms = function() {
             window.plugins.socialsharing.shareViaSMS(
                 user.accessToken, "+14845145060",
-                function(msg) {console.log('ok: ' + msg)},
-                function(msg) {console.log('error: ' + msg)}
+                function(msg) {
+                    console.log('ok: ' + msg);
+                    $scope.screenToShow = "seccessfulSmsSending";
+                },
+                function(msg) {
+                    console.log('error: ' + msg);
+                }
             );
         };
 

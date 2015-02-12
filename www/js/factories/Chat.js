@@ -112,9 +112,11 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         },
 
         removeLastChatSession: function() {
-            //will remove chat if there is one expired chat session and 
-            //sender is not friend
-            if (this.chatSessionsIndexes.length == 1 && !this.currentUser.friends[this.senderId]) {
+            //will remove chat if there is one expired chat session, 
+            //chat is not replied and sender is not a friend
+            if (this.chatSessionsIndexes.length === 1 && 
+                    !this.isReplied && 
+                        !this.currentUser.friendsList.nepotomFriends[this.senderId]) {
                 this.remove();
             }
             

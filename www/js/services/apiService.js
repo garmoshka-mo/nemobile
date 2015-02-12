@@ -261,7 +261,7 @@ services
 
         removeSticker: function(categoryId, imageId) {
             var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images" + "/" + imageId
-                        + "?access_token=" + api.accessToken 
+                        + "?access_token=" + api.accessToken;
             return $http({
                 method: 'DELETE',
                 url: url

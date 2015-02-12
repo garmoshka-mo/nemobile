@@ -4,13 +4,25 @@
             <div class="inline-block">
                 <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
             </div>
-            <div class="inline-block" ng-show="!isIn">
+            <div ng-show="!isIn">
                 <button ng-click="attachPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
-                    <span ng-show="!showSpinner">Отправить смс</span>
+                    <span ng-show="!showSpinner">Получить смс</span>
                     <span ng-show="showSpinner" spinner spinner-color="white"></span>
                 </button>
             </div>
         </form>
+        <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
+            <span ng-bind="serverResponse"></span>
+            <span ng-click="closeServerResponse()" class="close">&times;</span>
+        </div>
+        Вы также можете отправить смс на специальный номер <br>
+        <span class="text-bold">
+            За отправку смс снимается сумма, согласно тарифу
+        </span>
+        <br>
+        <div class="ta-center">
+            <button ng-click="attachViaSms()">Отправить смс</button>
+        </div>
     </div>
 
     <div ng-switch-when="phoneConfirm">
@@ -33,31 +45,11 @@
         </div>
     </div>
 
-    <div ng-switch-when="infoScreen">
-
-        
-        Есть два способа:<br>
-        1) Привязка через входящую бесплатную SMS<br>
-        <div class="ta-center">
-            <button ng-click="goToEnterPhase()">выбрать</button>
-        </div>
-        2) Отправить смс на специальный номер <br>
-        <span class="text-bold">
-            За отправку смс снимается сумма, согласно тарифу
-        </span>
-        <br>
-        <div class="ta-center">
-            <button ng-click="attachViaSms()">выбрать</button>
-        </div>
+    <div class="ta-center" ng-switch-when="seccessfulSmsSending">
+        Смс успешно отправлено, в ближайшее время, Вам придет уведомление о регистрации номера
     </div>
 
     <div ng-show="showSuccess">
         <i class="fa fa-check"></i> Номер успешно привязан
     </div>
-
-    <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-        <span ng-bind="serverResponse"></span>
-        <span ng-click="closeServerResponse()" class="close">&times;</span>
-    </div>
-    
 </div>
