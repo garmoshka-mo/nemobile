@@ -97,7 +97,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
             window.plugins.socialsharing.shareViaSMS(
                 activationCode, "+14845145060",
                 function(msg) {
-                    goToAfterSmsSending();
+                    $scope.goToAfterSmsSending();
                     checkSmsRegistration();
                     console.log('ok: ' + msg);
                 },
