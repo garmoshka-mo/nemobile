@@ -4,6 +4,7 @@ app.directive('stopEvent', function () {
         link: function (scope, element, attr) {
             element.bind("click touchstart", function (e) {
                 e.stopPropagation();
+                e.preventDefault();
             });
         }
     };
