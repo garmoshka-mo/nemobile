@@ -646,3 +646,27 @@ input[type="radio"]:checked + .radioLabel {
   -moz-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+
+.custom-file-input {
+  color: #F1F3F6;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Выбрать с галереи';
+  display: inline-block;
+  color: #FFF;
+  font-family: "Open Sans Normal";
+  background: #65C6BB;
+  border-radius: 3px;
+  padding: 10px 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}

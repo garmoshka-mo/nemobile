@@ -7,7 +7,7 @@
             Вставьте ссылку на картинку
             <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
         </form>
-        <input type="file" ng-file-select ng-model="newImage.file" ng-file-change="addStickerFile()" name="image_data">
+        <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="addStickerFile()" name="image_data">
         <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
         <br>
         <div class="ta-center">
