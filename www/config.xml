@@ -54,6 +54,8 @@
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/drawable-mdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/drawable-hdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="xhdpi" src="www/res/icon/android/drawable-xhdpi/appicon.png" />
+    <icon gap:platform="android" gap:qualifier="xxhdpi" src="www/res/icon/android/drawable-xxhdpi/appicon.png" />
+    <icon gap:platform="android" gap:qualifier="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi/appicon.png" />
     <icon gap:platform="blackberry" src="www/res/icon/blackberry/icon-80.png" />
     <icon gap:platform="blackberry" gap:state="hover" src="www/res/icon/blackberry/icon-80.png" />
     <icon gap:platform="ios" height="57" src="www/res/icon/ios/icon-57.png" width="57" />
