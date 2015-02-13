@@ -4,6 +4,17 @@ app.directive('stopEvent', function () {
         link: function (scope, element, attr) {
             element.bind("click touchstart", function (e) {
                 e.stopPropagation();
+            });
+        }
+    };
+ });
+
+app.directive('stopEventPrevent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            element.bind("click touchstart", function (e) {
+                e.stopPropagation();
                 e.preventDefault();
             });
         }
