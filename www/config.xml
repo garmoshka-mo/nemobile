@@ -49,6 +49,7 @@
     <gap:plugin name="com.ionic.keyboard" version="1.0.3" />
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
+    <icon src="www/res/icon/ios/appicon-60@2x.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/drawable-ldpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/drawable-mdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/drawable-hdpi/appicon.png" />
