@@ -25,14 +25,14 @@
             <a href="#/friendSearch"><button class="friendListAddFriendButton">+</button></a>
             чтобы найти друга 
         </div>
-        <div class="ta-center block-center width-92">
+        <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0">
             <input type="text" ng-model="search" placeholder="введите имя для поиска">
         </div>
         <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search" ng-show="showAll === '1'">
             <div class="card">
                 <a ng-href="{{getFriendLink(friend)}}">
                     <div class="columns small-3 ava-container">
-                        <img src="http://api.adorable.io/avatars/40/{{$index}}" alt="" class="rounded-ava" ng-src="">
+                        <img src="http://api.adorable.io/avatars/40/{{friend.uuid || $index}}" alt="" class="rounded-ava" ng-src="">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-3': isEditMode}"></div>
                 </a>
