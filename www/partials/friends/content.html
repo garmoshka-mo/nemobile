@@ -35,8 +35,8 @@
                         <img src="http://api.adorable.io/avatars/40/{{friend.uuid || $index}}" alt="" class="rounded-ava" ng-src="">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-3': isEditMode}"></div>
-                    <div class="small-6 columns hide-overflow-text ta-right ng-animate-disabled" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}">
-                        <span class="category-button category-button-red"  ng-click="removeFriend(friend)" stop-event-prevent>
+                    <div class="small-6 columns hide-overflow-text ta-right ng-animate-disabled" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event-prevent>
+                        <span class="category-button category-button-red"  ng-click="removeFriend(friend)" stop-event>
                             <i class="fa fa-trash"></i>
                         </span>
                     </div>
@@ -50,8 +50,8 @@
                         <img class="rounded-ava" ng-src="http://api.adorable.io/avatars/40/{{friend.uuid}}">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-3': isEditMode}"></div>
-                    <div class="small-6 columns hide-overflow-text ta-right " ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}">
-                        <span class="category-button category-button-red"  ng-click="removeFriend(friend)" stop-event-prevent>
+                    <div class="small-6 columns hide-overflow-text ta-right " ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event-prevent>
+                        <span class="category-button category-button-red"  ng-click="removeFriend(friend)" stop-event>
                             <i class="fa fa-trash"></i>
                         </span>
                     </div>
