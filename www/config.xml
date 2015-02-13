@@ -50,10 +50,10 @@
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
     <icon src="icon.png" />
-    <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
-    <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
-    <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />
-    <icon gap:platform="android" gap:qualifier="xhdpi" src="www/res/icon/android/icon-96-xhdpi.png" />
+    <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/drawable-ldpi/appicon.png" />
+    <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/drawable-mdpi/appicon.png" />
+    <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/drawable-hdpi/appicon.png" />
+    <icon gap:platform="android" gap:qualifier="xhdpi" src="www/res/icon/android/drawable-xhdpi/appicon.png" />
     <icon gap:platform="blackberry" src="www/res/icon/blackberry/icon-80.png" />
     <icon gap:platform="blackberry" gap:state="hover" src="www/res/icon/blackberry/icon-80.png" />
     <icon gap:platform="ios" height="57" src="www/res/icon/ios/icon-57.png" width="57" />
