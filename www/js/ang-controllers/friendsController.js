@@ -7,6 +7,7 @@ angular.module("angControllers").controller("friendsController",
     $scope.showAll = "0";
 
     $scope.hideKeyboard = function() {
+        console.log("keyboard is hidden");
         if (window.device) {
             cordova.plugins.Keyboard.close();
         }

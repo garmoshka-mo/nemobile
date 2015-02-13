@@ -1,5 +1,5 @@
-<div class="friendListHeader">
-        <div class="ta-right">
+<div class="friendListHeader no-select">
+        <div class="ta-right friendListHeader-edit-block">
             <div ng-show="!isEditMode" ng-click="isEditMode = true">
                 <i class="fa fa-gear"></i>изменить
             </div>
@@ -17,7 +17,7 @@
             </form>
         </div>
     </div>
-<div class="friend-list" overscrollable-without-footer hm-tap="hideKeyboard()">
+<div class="friend-list" overscrollable-without-footer np-touchstart="hideKeyboard">
     <div class="friendList">
         <div class="ta-center mt20" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    

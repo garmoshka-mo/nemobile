@@ -43,6 +43,16 @@ app.directive('overscrollableWithoutFooter', function() {
     };
 });
 
+app.directive('npTouchstart', function() {
+    return {
+        link: function(scope, elem, attr) {
+            $(elem).on("click touchstart", function() {
+                scope[attr.npTouchstart]();
+            });
+        }
+    };
+});
+
 app.directive('stickersGalleryHeight', function() {
     return {
         link: function(scope, elem, attr) {

@@ -489,6 +489,7 @@ input.category-name-change-input {
 }
 
 .friendListHeader {
+  height: 92px;
   box-shadow: 0 2px 5px rgba(193,193,193, .7);
   margin-top: 2px;
   padding-bottom: 10px;
@@ -496,6 +497,9 @@ input.category-name-change-input {
   width: 100%;
   background-color: #C1C1C1;
   z-index: 9999;
+}
+.friendListHeader-edit-block {
+  padding: 5px 20px;
 }
 .friendList {
   padding-top: 90px;
