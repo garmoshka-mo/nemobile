@@ -1,9 +1,9 @@
 <div class="friendListHeader no-select">
         <div class="ta-right friendListHeader-edit-block">
-            <div ng-show="!isEditMode" ng-click="isEditMode = true">
+            <div ng-show="!isEditMode" class="ng-animate-disabled" ng-click="isEditMode = true">
                 <i class="fa fa-gear"></i>изменить
             </div>
-            <div ng-show="isEditMode" ng-click="isEditMode = false">
+            <div ng-show="isEditMode" class="ng-animate-disabled" ng-click="isEditMode = false">
                 <i class="fa fa-check"></i>готово
             </div>
         </div>
@@ -25,7 +25,7 @@
             <a href="#/friendSearch"><button class="friendListAddFriendButton">+</button></a>
             чтобы найти друга 
         </div>
-        <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0">
+        <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0" stop-event>
             <input type="text" ng-model="search" placeholder="введите имя для поиска">
         </div>
         <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search" ng-show="showAll === '1'">
