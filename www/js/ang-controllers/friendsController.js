@@ -13,8 +13,9 @@ angular.module("angControllers").controller("friendsController",
         }
     };
 
-    $scope.removeFriend = function(friend) {
+    $scope.removeFriend = function(event, friend) {
         user.friendsList.removeFriend(friend);
+        event.preventDefault();
     };
 
     $scope.getFriendLink = function(friend) {
