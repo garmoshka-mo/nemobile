@@ -1096,6 +1096,7 @@ button, .button {
   position: relative;
   text-decoration: none;
   text-align: center;
+  outline: 0;
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   display: inline-block;
