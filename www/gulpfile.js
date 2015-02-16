@@ -4,7 +4,7 @@ var gutil = require('gulp-util');
 var uglify = require('gulp-uglifyjs');
  
 gulp.task('uglify', function() {
-  gulp.src('public/js/*.js')
+  gulp.src('js/ang-controllers/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
 });
