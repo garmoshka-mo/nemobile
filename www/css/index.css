@@ -416,7 +416,7 @@ input.category-name-change-input {
   content: '';
   top: 10px;
   position: absolute;
-  right: -19px;
+  right: -20px;
   border: 10px solid transparent;
   border-left: 10px solid rgba(104, 193, 104, .6)
 }
