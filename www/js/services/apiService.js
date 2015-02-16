@@ -100,13 +100,20 @@ services
             });
         },
 
-        searchUser: function(userName) {
+        searchUser: function(userName, userPhone) {
+            var searchParams;
+            if (userPhone) {
+                searchParams = [{"phone_number": userPhone}];
+            }
+            else {
+                searchParams = [{"name": userName}];
+            }
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/users/search',
                 data: {
                     "access_token": api.accessToken,
-                    "search_params": [{name: userName}]
+                    "search_params": searchParams
                 }
             })
             .then(

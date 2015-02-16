@@ -5,9 +5,12 @@ angular.module("angControllers").controller("friendSearchController", [
     $scope.searchBy = "0"; //0 - by name, 1 - by phone number
     $scope.showSpinner = false;
 
-    $scope.findUserByName = function() {
+    $scope.findUser = function() {
         $scope.showSpinner = true;
-        api.searchUser($scope.nameToSearch)
+        var args = $scope.searchBy === "0" ? 
+            [$scope.nameToSearch] :
+            [null, $scope.phoneToSearch]; 
+        api.searchUser.apply(this, args)
         .then(
             function(results) {
                 $scope.handleSearchResults(results);
@@ -43,17 +46,17 @@ angular.module("angControllers").controller("friendSearchController", [
             }
             
             $scope.canBeAdded = true;
-            $scope.nameToAdd = $scope.nameToSearch;
+            $scope.nameToAdd = $scope.searchBy === '0' ? $scope.nameToSearch : $scope.phoneToSearch;
             $scope.foundUuid = results.uuid; 
         }
     };
 
     $scope.addToFriends = function() {
+        $scope.canBeAdded = false;
+        user.addFriend($scope.foundUuid, $scope.nameToAdd);
         if (!user.chats[$scope.foundUuid]) {
             user.addChat($scope.foundUuid);
         }
-        user.addFriend($scope.foundUuid, $scope.nameToAdd);
-        $scope.canBeAdded = false;
         $scope.serverResponse = "пользователь добавлен";
         console.log(user);
     };

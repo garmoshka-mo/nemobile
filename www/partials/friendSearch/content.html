@@ -11,7 +11,7 @@
   <div class="width-92 block-center inline-input-button-block" ng-show="searchBy === '0'">
     <form name="friendSearch">
       <input type="text" ng-model="nameToSearch" placeholder="введите имя">
-      <button ng-click="findUserByName()" ng-disabled="showSpinner">
+      <button ng-click="findUser()" ng-disabled="showSpinner">
         <i class="fa fa-search" ng-show="!showSpinner"></i>
         <span ng-show="showSpinner" spinner spinner-color="white"></span>
       </button>
@@ -23,7 +23,7 @@
       <div class="searchByPhoneInput">
         <input type="text" international-phone-number preferred-countries="ru" ng-model="phoneToSearch">
       </div>
-      <button ng-click="findUserByName()" ng-disabled="showSpinner" class="searchByPhoneButton">
+      <button ng-click="findUser()" ng-disabled="showSpinner" class="searchByPhoneButton">
         <i class="fa fa-search" ng-show="!showSpinner"></i>
         <span ng-show="showSpinner" spinner spinner-color="white"></span>
       </button>
