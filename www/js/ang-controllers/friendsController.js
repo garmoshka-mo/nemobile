@@ -4,7 +4,14 @@ angular.module("angControllers").controller("friendsController",
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
-    $scope.showAll = "0";
+    
+    var storedLastChosenList = localStorage.lastChosenList;
+    if (storedLastChosenList) {
+        $scope.showAll = storedLastChosenList;
+    }
+    else {
+        $scope.showAll = "1"; // 0 - nepotom friends, 1 - all friends
+    }
 
     $scope.hideKeyboard = function() {
         console.log("keyboard is hidden");
@@ -29,6 +36,10 @@ angular.module("angControllers").controller("friendsController",
             return templateForInvitation + user.friendsList.friends.indexOf(friend);
         }
     };
+
+    $scope.$watch('showAll', function() {
+        localStorage.lastChosenList = $scope.showAll;
+    });
 
     user.friendsList.getUserContacts();
 }]);

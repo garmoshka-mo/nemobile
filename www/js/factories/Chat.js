@@ -1,7 +1,6 @@
-factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSession) {
+factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(storage, ChatSession, api, $q) {
     
     function Chat(senderId, currentUser) {
-        
         this.senderId = senderId;
         this.chatSessions = {};
         this.chatSessionsIndexes = [];
@@ -11,7 +10,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         this.lastUnexpiredChatSession = null;
         this.currentUser = currentUser;
         this.senderScores = null;
-
+        this.title = senderId;
     }
 
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
@@ -21,6 +20,7 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
         chat.lastChatSessionIndex = dataFromStorage.lastChatSessionIndex;
         chat.senderScores = dataFromStorage.senderScores;
         chat.isRead = dataFromStorage.isRead;
+        chat.title = dataFromStorage.title;
         chat.currentUser = currentUser;
         return chat;
     };
@@ -82,13 +82,32 @@ factories.factory("Chat", ['storage', 'ChatSession', function(storage, ChatSessi
             }
         },
 
-        getChatTitle: function() {
-            if (this.currentUser.friendsList.nepotomFriends[this.senderId]) {
-                return this.currentUser.friendsList.nepotomFriends[this.senderId].displayName;
+        updateChatTitle: function() {
+            var self = this;
+
+            if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {
+                self.title = self.currentUser.friendsList.nepotomFriends[self.senderId].displayName;
             }
             else {
-                return this.senderId;
+                api.getUserInfoByUuid(self.senderId)
+                .then(
+                    function(res) {
+                        if (res.success) {
+                            if (res.user.name) {
+                                self.title = res.user.name;
+                            }
+                            else {
+                                self.title = res.user.phone_number;
+                            }
+                        }
+                    },
+                    function() {
+                        console.error("get chat title error");
+                    }
+                );
             }
+
+            this.currentUser.saveChats();
         },
 
         remove: function() {

@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="small-6 column p0">
-          <span class="chat-title title" ng-bind="chat.getChatTitle()"></span>
+          <span class="chat-title title" ng-bind="getChatTitle(chat)"></span>
           <span class="small-gray-text chat-last-message-text" ng-bind="chat.lastUnexpiredChatSession.getLastMessage()"></span>
       </div>
       <div class="small-3 column" ng-show="chat.senderScores">

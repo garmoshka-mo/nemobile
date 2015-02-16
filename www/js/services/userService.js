@@ -311,7 +311,7 @@ services
 
     this.addChat = function(senderId) {
         this.chats[senderId] = new Chat(senderId, this);
-        this.saveChats();
+        this.chats[senderId].updateChatTitle();
     };
    
     this.parseFromStorage = function() {

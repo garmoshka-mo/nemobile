@@ -86,7 +86,7 @@ a {
 
 .tab-bar {
   background-color: #68C168;
-  box-shadow: 0 2px 0 0px #3F853F;
+  border-bottom: 2px solid #3F853F;
 }
 .left-off-canvas-menu {
   background-color: #363645;
@@ -493,7 +493,6 @@ input.category-name-change-input {
 .friendListHeader {
   height: 92px;
   box-shadow: 0 2px 5px rgba(193,193,193, .7);
-  margin-top: 2px;
   padding-bottom: 10px;
   position: fixed;
   width: 100%;

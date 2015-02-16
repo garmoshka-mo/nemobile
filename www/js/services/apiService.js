@@ -379,11 +379,37 @@ services
                     return $q.reject();
                 }
             );
+        },
+
+        getUserInfoByUuid: function(uuid) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/users",
+                data: {
+                    "user_uuid": uuid,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            );
         }
     };
 
 
-    //for debugging purpose
+    //for testing
     window.api = api;
 
     return api;
