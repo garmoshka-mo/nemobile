@@ -2,7 +2,7 @@ angular.module("angControllers").controller("friendSearchController", [
     'user', '$scope', '$http', '$state', 'api',
     function(user, $scope, $http, $state, api){
 
-    // api.getUnseenMessages();
+    $scope.searchBy = "0"; //0 - by name, 1 - by phone number
     $scope.showSpinner = false;
 
     $scope.findUserByName = function() {
