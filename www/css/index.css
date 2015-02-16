@@ -271,7 +271,9 @@ a.button:hover{
   height: 100%;
 }
 .chat {
-  
+  background-image: url(../img/chat_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .overscrollable {
   height: 100%;
@@ -407,7 +409,7 @@ input.category-name-change-input {
   text-decoration: underline;
 }
 .message-own {
-  background-color: rgba(46, 204, 113, 1.0);
+  background-color: rgba(104, 193, 104, .6);
   margin-right: 10px;
 }
 .message-own:after {
@@ -416,24 +418,24 @@ input.category-name-change-input {
   position: absolute;
   right: -19px;
   border: 10px solid transparent;
-  border-left: 10px solid rgba(46, 204, 113, 1.0)
+  border-left: 10px solid rgba(104, 193, 104, .6)
 }
 .old-messages-background {
   padding: 10px 0;
   background: rgba(52, 152, 219, .1)
 }
 .message-not-own {
-  background-color: rgba(52, 152, 219,1.0);
+  background-color: rgba(52, 152, 219, .6);
   margin-left: 20px; 
 }
 .message-not-own:after {
   content: '';
   top: 10px;
   position: absolute;
-  left: -19px;
+  left: -20px;
   border: 10px solid transparent;
   border: 10px solid transparent;
-  border-right: 10px solid rgba(52, 152, 219,1.0);
+  border-right: 10px solid rgba(52, 152, 219, .6);
 }
 .chat-buttons-container {
   background-color: #363645;
