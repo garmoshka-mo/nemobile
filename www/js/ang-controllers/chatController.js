@@ -10,6 +10,7 @@ angular.module("angControllers").controller("chatController",
 
         var $chatInput = $('.chat-input');
 
+
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
             $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500);
@@ -62,6 +63,8 @@ angular.module("angControllers").controller("chatController",
 
         $scope.chat = user.chats[$stateParams.senderId];
         var chat = $scope.chat;
+        notification.set(chat.title);
+
         chat.getLastUnexpiredChatSession();
         if (!chat.isRead) {
             chat.isRead = true;
@@ -83,10 +86,6 @@ angular.module("angControllers").controller("chatController",
             $scope.scrollToBottom();
             chat.isRead = true;
         });
-
-        if (user.friendsList.nepotomFriends[chat.senderId]) {
-            notification.set(user.friendsList.nepotomFriends[chat.senderId].displayName);
-        }
 
         $scope.newMessage = {
             text: '',
