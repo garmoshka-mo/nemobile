@@ -8,12 +8,13 @@
             </div>
         </div>
         <div class="ta-center">
-            <form name="listFilter">
-                <input id="radio1" type="radio" name="showAll" ng-model="showAll" value="0" checked autocomplete="off">
-                <label class="radioLabel" for="radio1">nepotom</label>
-                <input id="radio2" type="radio" name="showAll" ng-model="showAll" value="1" autocomplete="off">
-                <label class="radioLabel" for="radio2">все</label>
-                <a href="#/friendSearch"><button class="friendListAddFriendButton">+</button></a>
+            <form name="listFilter" class="checkbox-group-rounded">
+                    <input id="radio1" type="radio" name="showAll" ng-model="showAll" value="0" checked autocomplete="off">
+                    <label class="radioLabel" for="radio1">nepotom</label>
+                    <input id="radio2" type="radio" name="showAll" ng-model="showAll" value="1" autocomplete="off">
+                    <label class="radioLabel" for="radio2">все</label>
+                    <a href="#/friendSearch">
+                    <button class="friendListAddFriendButton">+</button></a>
             </form>
         </div>
     </div>
