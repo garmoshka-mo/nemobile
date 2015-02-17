@@ -234,11 +234,7 @@ angular.module("angApp").config(function($stateProvider) {
 var pushNotification;
 
 
-
-
-
-
-document.addEventListener("deviceready", function(){
+document.addEventListener("deviceready", function() {
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
 
     function successHandler(result) {
@@ -352,4 +348,8 @@ document.addEventListener("deviceready", function(){
 angular.module("angControllers", []);
 var services = angular.module("angServices", []);
 var factories = angular.module("angFactories", []);
+
+function onLoad() {
+  angular.bootstrap(document, ['angApp']);
+}
 

@@ -38,12 +38,3 @@ var app = {
     }
 };
 
-        // if(device.platform == 'Android')
-            App.Settings.pubnubNotificationType = "gcm";
-        // else
-            // App.Settings.pubnubNotificationType = "apns";
-
-        // app.pubnub = new Pubnub(App.Settings);
-        // angular.bootstrap( $("body"), ["angApp"]);
-
-// app.initialize();
