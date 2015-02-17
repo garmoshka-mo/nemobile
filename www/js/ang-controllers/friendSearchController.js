@@ -4,32 +4,10 @@ angular.module("angControllers").controller("friendSearchController", [
 
     $scope.searchBy = "0"; //0 - by name, 1 - by phone number
     $scope.showSpinner = false;
+    $scope.userToSearch = {};
+    var userToSearch = $scope.userToSearch;
 
-    $scope.findUser = function() {
-        $scope.showSpinner = true;
-        var args = $scope.searchBy === "0" ? 
-            [$scope.nameToSearch] :
-            [null, $scope.phoneToSearch]; 
-        api.searchUser.apply(this, args)
-        .then(
-            function(results) {
-                $scope.handleSearchResults(results);
-            },
-            function() {
-                console.error("friend search error");
-            }
-        )
-        .then(
-            function() {
-                $scope.showSpinner = false;
-            },
-            function() {
-                $scope.showSpinner = false;
-            }
-        );
-    };
-
-    $scope.handleSearchResults = function(res) {
+    function handleSearchResults(res) {
         console.log(res);
         $scope.foundUuid = "";
         var results = res.search_results[0];
@@ -46,11 +24,35 @@ angular.module("angControllers").controller("friendSearchController", [
             }
             
             $scope.canBeAdded = true;
-            $scope.nameToAdd = $scope.searchBy === '0' ? $scope.nameToSearch : $scope.phoneToSearch;
+            $scope.nameToAdd = $scope.searchBy === '0' ? userToSearch.name : "+" + userToSearch.phone;
             $scope.foundUuid = results.uuid; 
         }
-    };
+    }
 
+    $scope.findUser = function() {
+        $scope.showSpinner = true;
+        var args = $scope.searchBy === "0" ? 
+            [userToSearch.name] :
+            [null, "+" + userToSearch.phone]; 
+        api.searchUser.apply(this, args)
+        .then(
+            function(results) {
+                handleSearchResults(results);
+            },
+            function() {
+                console.error("friend search error");
+            }
+        )
+        .then(
+            function() {
+                $scope.showSpinner = false;
+            },
+            function() {
+                $scope.showSpinner = false;
+            }
+        );
+    };
+    
     $scope.addToFriends = function() {
         $scope.canBeAdded = false;
         user.addFriend($scope.foundUuid, $scope.nameToAdd);
@@ -60,7 +62,4 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.serverResponse = "пользователь добавлен";
         console.log(user);
     };
-
-
-    
 }]);

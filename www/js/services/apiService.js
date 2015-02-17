@@ -118,6 +118,7 @@ services
             })
             .then(
                 function(res) {
+                    console.log(res);
                     if (res.data.success) {
                         return res.data;
                     }
