@@ -135,7 +135,11 @@ ul.off-canvas-list li a {
   margin: 0.5rem;
   display: block;
 }
-
+.menu-ava-container {
+  color: #fff;
+  padding: 5px;
+  padding-left: 10px;
+}
 .mainButton{
   display: block;
   margin: 0.5rem 0.5rem 0 0.5rem;

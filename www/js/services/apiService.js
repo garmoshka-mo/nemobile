@@ -375,6 +375,7 @@ services
             })
             .then(
                 function(res) {
+                    console.log(res.data);
                     if (res.data.success) {
                         return res.data;
                     }

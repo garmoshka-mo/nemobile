@@ -43,6 +43,7 @@ services
         user.uuid = userInfo.uuid;
         user.scores = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
+        user.avatar = userInfo.uuid;
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
@@ -325,6 +326,7 @@ services
             self.scores = dataFromStorage.scores;
             self.phoneNumber = dataFromStorage.phoneNumber;
             self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
+            self.avatar = dataFromStorage.avatar;
             self.subscribe();
             registerDeviceToChannel();
             setApiAccessToken();

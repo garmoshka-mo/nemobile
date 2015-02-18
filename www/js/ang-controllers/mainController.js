@@ -7,6 +7,7 @@ angular.module("angControllers").controller("mainController", [
   console.log('main controller is invoked');
 
   $rootScope.isAppInBackground = false;
+  $scope.showChangeAvatarMenu = false;
 
   document.addEventListener("pause", function() {
      $rootScope.isAppInBackground = true;
@@ -36,6 +37,10 @@ angular.module("angControllers").controller("mainController", [
   $scope.closeMenu = function() {
     console.log("swipe close");
     $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
+  };
+
+  $scope.generateNewAvatar = function() {
+    user.avatar = Math.round(Math.random() * 10000);
   };
   
   $scope.$on('$stateChangeStart',
