@@ -8,6 +8,7 @@ angular.module("angControllers").controller("mainController", [
 
   $rootScope.isAppInBackground = false;
   $scope.showChangeAvatarMenu = false;
+  $scope.isAvaLoading = false;
 
   document.addEventListener("pause", function() {
      $rootScope.isAppInBackground = true;
@@ -41,6 +42,22 @@ angular.module("angControllers").controller("mainController", [
 
   $scope.generateNewAvatar = function() {
     user.avatar = Math.round(Math.random() * 10000);
+    $scope.showChangeAvatarMenu = true;
+    $scope.isAvaLoading = true;
+  };
+
+  $scope.applyCurrentAvatar = function() {
+    $scope.showChangeAvatarMenu = false;
+    user.save();
+  };
+
+  $scope.restoreDefaultAvatar = function() {
+    user.avatar = user.uuid;
+    $scope.isAvaLoading = true;
+  };
+
+  $scope.imageLoadedHandler = function() {
+    $scope.isAvaLoading = false;
   };
   
   $scope.$on('$stateChangeStart',

@@ -54,6 +54,18 @@ app.directive('overscrollableWithoutFooter', function() {
     };
 });
 
+app.directive('imageonload', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                //call the function that was passed
+                scope.$apply(attrs.imageonload);
+            });
+        }
+    };
+});
+
 app.directive('npTouchstart', function() {
     return {
         link: function(scope, elem, attr) {
