@@ -66,6 +66,9 @@ button {
 .m0 {
   margin: 0;
 }
+.mb1rem {
+  margin-bottom: 1rem;
+}
 .p0 {
   padding: 0;
 }
@@ -679,12 +682,14 @@ input[type="radio"]:checked + .radioLabel {
 
 .custom-file-input {
   color: #F1F3F6;
+  outline: none;
 }
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
+  outline: none;
 }
 .custom-file-input::before {
-  content: 'Выбрать с галереи';
+  content: 'Выбрать из галереи';
   display: inline-block;
   color: #FFF;
   font-family: "Open Sans Normal";

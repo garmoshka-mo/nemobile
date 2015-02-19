@@ -229,6 +229,21 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
+  .state("loadAvatar", {
+    url: "/loadAvatar",
+    views: {
+      "title": {
+        template: "Загрузка аватарки"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "loadAvatarController",
+        templateUrl: "partials/loadAvatar/content.html"
+      }
+    }
+  })
 });
 
 var pushNotification;

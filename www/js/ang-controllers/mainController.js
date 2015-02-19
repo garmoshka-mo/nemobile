@@ -59,6 +59,11 @@ angular.module("angControllers").controller("mainController", [
   $scope.imageLoadedHandler = function() {
     $scope.isAvaLoading = false;
   };
+
+  $scope.goToLoadAvatar = function() {
+    $scope.closeMenu();
+    location.href = "#/loadAvatar";
+  };
   
   $scope.$on('$stateChangeStart',
     function(evt, toState, toParams, fromState, fromParams) {
