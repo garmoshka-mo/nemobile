@@ -36,11 +36,15 @@ angular.module("angControllers").controller("phoneRegistrationController",
                         console.log("10 times registration was checked");
                     }
                     else { 
-                        setTimeout(checkSmsRegistration, 5000);
+                        setTimeout(
+                            function() {
+                                checkSmsRegistration(accessToken);
+                            },
+                            6000
+                        );
+                        console.log(res);
                     }
-                    console.log(res);
                 }
-
             );
         }
 
