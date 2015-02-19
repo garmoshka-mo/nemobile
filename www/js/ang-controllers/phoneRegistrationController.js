@@ -9,19 +9,19 @@ angular.module("angControllers").controller("phoneRegistrationController",
         var timesCheckedSmsRegistration = 0;
 
         function generateCode(codeLength) {
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var string = "";
 
             for (var i = 0; i < codeLength; i++) {
-                var charCode = Math.round(Math.random() * 9) + 48;
-                string += String.fromCharCode(charCode); 
+                var charCode = Math.round(Math.random() * (possible.length - 1));
+                string += possible[charCode]; 
             }
 
-            console.log(string);
             return string;
         }
 
-        function checkSmsRegistration(activationCode) {
-            user.confirmPhoneNumber("", activationCode)
+        function checkSmsRegistration(accessToken) {
+            user.signin(null, null, accessToken)
             .then(
                 function() {
                     $scope.showSpinner = false;
@@ -36,7 +36,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
                         console.log("10 times registration was checked");
                     }
                     else { 
-                        setTimeout(checkSmsRegistration, 1000);
+                        setTimeout(checkSmsRegistration, 5000);
                     }
                     console.log(res);
                 }
@@ -93,10 +93,10 @@ angular.module("angControllers").controller("phoneRegistrationController",
         };
 
         $scope.sendSms = function() {
-            $scope.generatedCode = generateCode(12);
+            $scope.generatedCode = generateCode(20);
             var activationCode = "pass" + $scope.generatedCode; 
             window.plugins.socialsharing.shareViaSMS(
-                activationCode, "+14845145060",
+                activationCode, "+79086230101",
                 function(msg) {
                     $scope.goToAfterSmsSending();
                     checkSmsRegistration();

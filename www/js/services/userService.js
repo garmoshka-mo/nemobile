@@ -228,7 +228,7 @@ services
         var self = this;
 
         function getUserInfo(accessToken) {
-            api.getUserInfo(accessToken)
+            return api.getUserInfo(accessToken)
             .then(
                 function(userInfo) {
                     handleSuccessSignIn(userInfo);
@@ -243,7 +243,7 @@ services
 
         if (accessToken) {
             self.accessToken = accessToken;
-            getUserInfo(self.accessToken);
+            return getUserInfo(self.accessToken);
         }
         else {
             return api.signin(name, password)
@@ -417,5 +417,8 @@ services
         this.parseFromStorage();
         console.log("user data is taken from storage");
     }
+
+    //for debugging
+    //window.user = this;
 
 }]);
