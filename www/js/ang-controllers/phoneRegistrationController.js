@@ -21,6 +21,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
         }
 
         function checkSmsRegistration(accessToken) {
+            console.log("trying to sign in with access token", accessToken);
             user.signin(null, null, accessToken)
             .then(
                 function() {
