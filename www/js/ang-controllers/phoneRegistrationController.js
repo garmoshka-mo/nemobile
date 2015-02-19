@@ -93,13 +93,12 @@ angular.module("angControllers").controller("phoneRegistrationController",
         };
 
         $scope.sendSms = function() {
-            $scope.generatedCode = generateCode(20);
-            var activationCode = "pass" + $scope.generatedCode; 
+            var generatedCode = generateCode(20);
             window.plugins.socialsharing.shareViaSMS(
-                activationCode, "+79086230101",
+                generatedCode, "+79086230101",
                 function(msg) {
                     $scope.goToAfterSmsSending();
-                    checkSmsRegistration();
+                    checkSmsRegistration(generatedCode);
                     console.log('ok: ' + msg);
                 },
                 function(msg) {
