@@ -84,6 +84,10 @@ a {
   color: inherit;
 }
 
+h1.title {
+  font-family: "Open Sans Normal";
+}
+
 .hide-overflow-text {
   overflow: hidden;
   text-overflow: ellipsis;

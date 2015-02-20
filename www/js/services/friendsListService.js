@@ -118,12 +118,16 @@ services
         var phoneNumbersArr = [];
         var phoneNumbersUsers = {};
         
-        newFriendsList.forEach(function(friend) {
-            friend.phoneNumbers.forEach(function(phoneNumber) {
-                phoneNumbersArr.push(phoneNumber.value);
-                phoneNumbersUsers[phoneNumber.value] = friend;
+        if (newFriendsList) {
+            newFriendsList.forEach(function(friend) {
+                if (friend.phoneNumbers) {
+                    friend.phoneNumbers.forEach(function(phoneNumber) {
+                        phoneNumbersArr.push(phoneNumber.value);
+                        phoneNumbersUsers[phoneNumber.value] = friend;
+                    });
+                }
             });
-        });
+        }
 
         api.findNepotomUsers(phoneNumbersArr)
         .then(function(res) {
@@ -132,7 +136,7 @@ services
                 var uuid = res.search_results[key];
                 phoneNumbersUsers[key].setUuid(uuid);
                 friendsList.nepotomFriends[uuid] = phoneNumbersUsers[key];
-                console.log("user is added to nepotom friends"); 
+                console.log("user is added to nepotom friends");
             }
             friendsList.save();
         });
