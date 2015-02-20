@@ -37,7 +37,7 @@ angular.module("angControllers").controller("friendsController",
         }
     };
 
-    $scope.getUserImage = function(friend, index) {
+    $scope.getFriendImage = function(friend, index) {
         var adorableLink = "http://api.adorable.io/avatars/40/";
 
         if (friend.photos) {
