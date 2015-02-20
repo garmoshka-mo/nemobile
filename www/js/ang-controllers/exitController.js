@@ -2,6 +2,6 @@ angular.module("angControllers").controller("exitController", ['$scope', '$state
     $scope.exit = function() {
         user.logout();
         $state.go('start');
-    }
-}])
+    };
+}]);
     
