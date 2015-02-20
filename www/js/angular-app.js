@@ -1,7 +1,10 @@
 var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/ "internationalPhoneNumber"]);
-app.config(function($animateProvider) {
+app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
-});
+  //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
+  //  chrome-extension: will be added to the end of the expression
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
+}]);
 angular.module("angApp").config(function($stateProvider) {
   $stateProvider
   .state("start", {

@@ -6,7 +6,9 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
                 this.displayName = fields.displayName;    
             }
             else {
-                this.displayName = fields.name.formatted;
+                if (fields.name) {
+                    this.displayName = fields.name.formatted;
+                }
             }
             this.phoneNumbers = fields['phoneNumbers'];
             this.photos = fields['photos'];

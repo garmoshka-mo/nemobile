@@ -33,7 +33,7 @@
             <div class="card">
                 <a ng-href="{{getFriendLink(friend)}}">
                     <div class="columns small-3 ava-container">
-                        <img src="{{getFriendImage(friend, index)}}" alt="" class="rounded-ava" ng-src="">
+                        <img ng-src="{{getFriendImage(friend, $index)}}" alt="" class="rounded-ava" ng-src="">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-3': isEditMode}"></div>
                     <div class="small-6 columns hide-overflow-text ta-right ng-animate-disabled" ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event-prevent>
@@ -48,7 +48,7 @@
             <div class="card">
                 <a ng-href="{{getFriendLink(friend)}}" >
                     <div class="columns small-3 ava-container">
-                        <img class="rounded-ava" ng-src="{{getFriendImage(friend, index)}}">
+                        <img class="rounded-ava" ng-src="{{getFriendImage(friend, $index)}}">
                     </div>
                     <div class="columns hide-overflow-text h100p title p0" ng-bind="friend.displayName" ng-class="{'small-9': !isEditMode, 'small-6': isEditMode}"></div>
                     <div class="small-3 columns hide-overflow-text ta-right " ng-show="isEditMode" ng-class="{'animated-min fadeInRight': isEditMode}" stop-event-prevent>
