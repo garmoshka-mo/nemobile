@@ -37,6 +37,20 @@ angular.module("angControllers").controller("friendsController",
         }
     };
 
+    $scope.getUserImage = function(friend, index) {
+        var adorableLink = "http://api.adorable.io/avatars/40/";
+
+        if (friend.photos) {
+            return friend.photos[0].value;
+        }
+
+        if (friend.uuid) {
+            return link + friend.uuid;
+        }
+
+        return index;
+    };
+
     $scope.$watch('showAll', function() {
         localStorage.lastChosenList = $scope.showAll;
     });
