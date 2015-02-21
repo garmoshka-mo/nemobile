@@ -87,6 +87,7 @@
         <icon src="res/icon/ios/appicon-Small-50.png" width="50" height="50" />
         <icon src="res/icon/ios/appicon-Small-50@2x.png" width="100" height="100" />
     </platform>
+    <gap:splash src="res/screen/ios/Default.png" />
     <platform name="android">
     <!-- you can use any density that exists in the Android project -->
         <splash src="res/screen/android/drawable-hdpi/screen.png" density="port-hdpi"/>
