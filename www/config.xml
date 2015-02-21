@@ -26,6 +26,7 @@
     <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
     <preference name="fullscreen" value="false" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
     <gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
@@ -88,11 +89,6 @@
     </platform>
     <platform name="android">
     <!-- you can use any density that exists in the Android project -->
-        <splash src="res/screen/android/drawable-land-hdpi/screen.png" density="land-hdpi"/>
-        <splash src="res/screen/android/drawable-land-ldpi/screen.png" density="land-ldpi"/>
-        <splash src="res/screen/android/drawable-land-mdpi/screen.png" density="land-mdpi"/>
-        <splash src="res/screen/android/drawable-land-xhdpi/screen.png" density="land-xhdpi"/>
-
         <splash src="res/screen/android/drawable-hdpi/screen.png" density="port-hdpi"/>
         <splash src="res/screen/android/drawable-ldpi/screen.png" density="port-ldpi"/>
         <splash src="res/screen/android/drawable-mdpi/screen.png" density="port-mdpi"/>
