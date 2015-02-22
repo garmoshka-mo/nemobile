@@ -23,7 +23,7 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
-        <!-- build:css -->
+        
         <link rel="stylesheet" type="text/css" href="css/foundation.css" />
         <link rel="stylesheet" type="text/css" href="css/animate.css" />
         <link rel="stylesheet" type="text/css" href="css/toastr.css" />
@@ -31,9 +31,7 @@
         <link rel="stylesheet" type="text/css" href="css/flags.css" />
         <link rel="stylesheet" type="text/css" href="css/intlTelInput.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <!-- endbuild -->
-
-        <!-- build:js -->
+        
         <script type="text/javascript" src="js/libs/jquery.js"></script>
         <script type="text/javascript" src="js/libs/angular.js"></script>
         <script type="text/javascript" src="js/settings.js"></script>
@@ -57,6 +55,7 @@
         <script type="text/javascript" src="js/libs/utils.js"></script>
         <script type="text/javascript" src="js/libs/international-phone-number.js"></script>
         <!-- end of files for internation phone number prefix plugin -->
+        <!-- build:js -->
         <script type="text/javascript" src="js/angular-app.js"></script>
         <script type="text/javascript" src="js/factories/Chat.js"></script>
         <script type="text/javascript" src="js/factories/ChatSession.js"></script>
@@ -89,6 +88,8 @@
         <script type="text/javascript" src="js/libs/pubnub.js"></script>
         <script type="text/javascript" src="js/libs/PushNotification.js"></script>
         <!-- endbuild -->
+        <!-- inject:js -->
+        <!-- endinject -->
         <title>Chat</title>
     </head>
     <body  ng-controller="mainController" ng-swipe-left="closeMenu()" onload="onLoad()">
