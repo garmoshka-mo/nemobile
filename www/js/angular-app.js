@@ -5,7 +5,7 @@ app.config(['$animateProvider', '$compileProvider', function($animateProvider, $
   //  chrome-extension: will be added to the end of the expression
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
-angular.module("angApp").config(function($stateProvider) {
+angular.module("angApp").config(["$stateProvider", function($stateProvider) {
   $stateProvider
   .state("start", {
     url: "",
@@ -247,7 +247,7 @@ angular.module("angApp").config(function($stateProvider) {
       }
     }
   })
-});
+}]);
 
 var pushNotification;
 
