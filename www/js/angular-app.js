@@ -367,7 +367,7 @@ angular.module("angControllers", []);
 var services = angular.module("angServices", []);
 var factories = angular.module("angFactories", []);
 
-function onLoad() {
+window.onload = function onLoad() {
   angular.bootstrap(document, ['angApp']);
 }
 
