@@ -435,12 +435,13 @@ input.category-name-change-input {
   display: inline-block;
   max-width: 90%;
   word-break: break-word;
+  padding: 5px 15px;
 }
 .message-link {
   text-decoration: underline;
 }
 .message-own {
-  background-color: rgb(104, 194, 110);
+  background-color: rgba(104, 194, 110, .3);
   margin-right: 10px;
 }
 .message-own:after {
@@ -449,14 +450,14 @@ input.category-name-change-input {
   position: absolute;
   right: -20px;
   border: 10px solid transparent;
-  border-left: 10px solid rgb(104, 194, 110)
+  border-left: 10px solid rgba(104, 194, 110, .3)
 }
 .old-messages-background {
   padding: 10px 0;
   background: rgba(52, 152, 219, .1)
 }
 .message-not-own {
-  background-color: rgb(89, 131, 158);
+  background-color: rgba(89, 131, 158, .3);
   margin-left: 20px; 
 }
 .message-not-own:after {
@@ -466,7 +467,7 @@ input.category-name-change-input {
   left: -20px;
   border: 10px solid transparent;
   border: 10px solid transparent;
-  border-right: 10px solid rgb(89, 131, 158);
+  border-right: 10px solid rgba(89, 131, 158, .3);
 }
 .chat-buttons-container {
   background-color: #363645;
