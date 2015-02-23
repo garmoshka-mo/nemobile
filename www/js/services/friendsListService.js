@@ -110,9 +110,10 @@ services
         }
 
         //updating previous ones
-        // contacts.forEach(function(contact) {
-        //     _.find()
-        // });
+        contacts.forEach(function(contact) {
+            var friend = _.find(friendsList.friends, {"id": contact.id});
+            friend.update(contact);
+        });
 
         console.log("user's contacts are exported");
         findNepotomUsers(newContacts);
