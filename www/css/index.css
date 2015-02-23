@@ -259,6 +259,9 @@ a.button:hover{
   text-align: center;
   color: #FFF;
 }
+.chatHistoryButton {
+  margin-top: 12px;
+}
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
 }
