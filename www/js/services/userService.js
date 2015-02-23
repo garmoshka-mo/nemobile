@@ -11,6 +11,7 @@ services
     this.chats = {};
     this.lastMessageTimestamp = null;
     this.friendsList = friendsList;
+    this.isParsingFromStorageNow = false;
 
     var user = this;
     var differencePubnubDeviceTime;
@@ -317,42 +318,53 @@ services
    
     this.parseFromStorage = function() {
         var self = this;
+        self.isParsingFromStorageNow = true;
+        $q.all([
+            storage.getUser().then(function(dataFromStorage) {
+                self.accessToken = dataFromStorage.accessToken;
+                self.name = dataFromStorage.name;
+                self.uuid = dataFromStorage.uuid;
+                self.channel = dataFromStorage.channel;
+                self.scores = dataFromStorage.scores;
+                self.phoneNumber = dataFromStorage.phoneNumber;
+                self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
+                self.avatar = dataFromStorage.avatar;
+                self.subscribe();
+                registerDeviceToChannel();
+                setApiAccessToken();
+                stickersGallery.getCurrentUserCategories();
+                console.log("user info is taken from storage", self);
+            }),
 
-        storage.getUser().then(function(dataFromStorage) {
-            self.accessToken = dataFromStorage.accessToken;
-            self.name = dataFromStorage.name;
-            self.uuid = dataFromStorage.uuid;
-            self.channel = dataFromStorage.channel;
-            self.scores = dataFromStorage.scores;
-            self.phoneNumber = dataFromStorage.phoneNumber;
-            self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
-            self.avatar = dataFromStorage.avatar;
-            self.subscribe();
-            registerDeviceToChannel();
-            setApiAccessToken();
-            stickersGallery.getCurrentUserCategories();
-            console.log("user info is taken from storage", self);
-        });
+            storage.getChats().then(function(dataFromStorage) {
+                var _chats = {};
+                for (var key in dataFromStorage) { 
+                    _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
+                }
+                self.chats = _chats;
+                console.log("user chats are taken from storage", user.chats);
+            }),
 
-        storage.getChats().then(function(dataFromStorage) {
-            var _chats = {};
-            for (var key in dataFromStorage) { 
-                _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
+            storage.getLastMessageTimestamp().then(function(timestamp) {
+                self.lastMessageTimestamp = timestamp;
+                self.getUnseenMessages();
+            }),
+
+            storage.getFriendsList().then(function(dataFromStorage){
+                friendsList.parseFromStorage(dataFromStorage);
+                self.friendsList = friendsList;
+                console.log("user's friends list is taken from storage");
+            })
+        ])
+        .then(
+            function() {
+                self.isParsingFromStorageNow = false;
+                console.log("all user info was parsed from storage");
+            },
+            function() {
+                console.warn("there was error while parsing");
             }
-            self.chats = _chats;
-            console.log("user chats are taken from storage", user.chats);
-        });
-
-        storage.getLastMessageTimestamp().then(function(timestamp) {
-            self.lastMessageTimestamp = timestamp;
-            self.getUnseenMessages();
-        });
-
-        storage.getFriendsList().then(function(dataFromStorage){
-            friendsList.parseFromStorage(dataFromStorage);
-            self.friendsList = friendsList;
-            console.log("user's friends list is taken from storage");
-        });
+        );
     };
 
     this.save = function() {

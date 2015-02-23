@@ -56,5 +56,7 @@ angular.module("angControllers").controller("friendsController",
         localStorage.lastChosenList = $scope.showAll;
     });
 
-    user.friendsList.getUserContacts();
+    if (!user.isParsingFromStorageNow) {
+        user.friendsList.getUserContacts();
+    }
 }]);
