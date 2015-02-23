@@ -87,7 +87,7 @@ services
 
     //private methods
     function parseUserContacts(contacts) {
-        var lastContactIndex = contacts.length - 1;
+        var lastContactIndex = _.findLastIndex(contacts);
         var lastContactId = +contacts[lastContactIndex].id;
 
         console.log(lastContactId);
@@ -108,6 +108,11 @@ services
             }
             friendsList.lastContactId = +contacts[lastContactIndex].id;
         }
+
+        //updating previous ones
+        // contacts.forEach(function(contact) {
+        //     _.find()
+        // });
 
         console.log("user's contacts are exported");
         findNepotomUsers(newContacts);

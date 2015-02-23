@@ -17,8 +17,8 @@ services
                 self.categories = res;
                 console.log("Stickers gallery is updated"); 
             }
-        )    
-    }
+        );  
+    };
 
     this.addNewCategory = function(name) {
         return api.addNewCategory(name)
@@ -26,8 +26,8 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
     this.removeCategory = function(category) {
         return api.removeCategory(category.id)
@@ -35,8 +35,8 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
     this.updateCategory = function(categoryId, name) {
         return api.updateCategory(categoryId, name)
@@ -44,8 +44,8 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
     this.addStickerURL = function(categoryId, imageURL) {
         return api.addStickerURL(categoryId, imageURL)
@@ -53,8 +53,8 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
     this.addStickerFile = function(categoryId, file) {
         return api.addStickerFile(categoryId, file)
@@ -65,8 +65,8 @@ services
             function() {
                 return $q.reject();
             }
-        )
-    }
+        );
+    };
 
     this.removeSticker = function(categoryId, imageId) {
         return api.removeSticker(categoryId, imageId)
@@ -74,8 +74,8 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
     this.moveSticker = function(categoryId, imageId, newCategoryId) {
         api.moveSticker(categoryId, imageId, newCategoryId)
@@ -83,7 +83,7 @@ services
             function() {
                 self.getCurrentUserCategories();
             }
-        )
-    }
+        );
+    };
 
-}])
+}]);
