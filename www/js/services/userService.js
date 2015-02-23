@@ -312,7 +312,7 @@ services
 
     this.addChat = function(senderId) {
         this.chats[senderId] = new Chat(senderId, this);
-        this.chats[senderId].updateChatTitle();
+        this.chats[senderId].updateTitle();
     };
    
     this.parseFromStorage = function() {

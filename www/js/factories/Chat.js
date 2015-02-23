@@ -82,7 +82,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             }
         },
 
-        updateChatTitle: function() {
+        updateTitle: function() {
             var self = this;
 
             if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {

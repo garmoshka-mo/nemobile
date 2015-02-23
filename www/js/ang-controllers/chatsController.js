@@ -13,6 +13,9 @@ angular.module("angControllers").controller("chatsController", [
         });
 
         $scope.getChatTitle = function(chat) {
+            if (chat.senderId === chat.title) {
+                chat.updateTitle();
+            }
             return chat.title;
         };
 }]);

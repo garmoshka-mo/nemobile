@@ -2,8 +2,10 @@
     <div class="ta-center">
         Вы действительно хотите выйти?
     </div>
-    <div class="ta-center">
+    <div ng-hide="showSpinner" class="ta-center exitButtons">
         <button class="btn" ng-click="exit()">Да</button>
         <a href="#/chats"><button class="btn">Нет</button></a>
     </div>
+    <span ng-show="showSpinner" spinner></span>
+
 </div>

@@ -478,7 +478,12 @@ input.category-name-change-input {
   position: relative;
   width: 80%;
 }
-
+.exitButtons {
+  padding-top: 1rem;
+}
+.exitButtons button {
+  width: 110px;
+}
 
 .inline-input-button-block input {
   display: inline-block;
