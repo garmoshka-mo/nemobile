@@ -28,7 +28,7 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.phoneNumbers.push({value: phoneNumber});
         },
         update: function(contactObj) {
-            this.displayName = fields.name.foramtted;
+            this.displayName = contactObj.name.formatted;
             this.phoneNumbers = contactObj.phoneNumbers;
             this.photos = contactObj.photos;
         }
