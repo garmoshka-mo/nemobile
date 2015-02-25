@@ -532,16 +532,16 @@ input.category-name-change-input {
   height: 92px;
   box-shadow: 0 2px 5px rgba(193,193,193, .7);
   padding-bottom: 10px;
-  position: fixed;
+  /*position: fixed;*/
   width: 100%;
   background-color: #C1C1C1;
-  z-index: 9999;
+  z-index: 1000;
 }
 .friendListHeader-edit-block {
   padding: 5px 20px;
 }
 .friendList {
-  padding-top: 90px;
+  /*padding-top: 90px;*/
 }
 .friendListAddFriendButton {
   background-color: #65C6BB;
