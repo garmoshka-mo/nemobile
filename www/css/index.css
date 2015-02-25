@@ -544,10 +544,10 @@ input.category-name-change-input {
   /*padding-top: 90px;*/
 }
 .friendListAddFriendButton {
-  background-color: #65C6BB;
+  background-color: #5BAB60;
   margin: 0 !important;
   padding: 5px 18px 8px;
-  border-radius: 0px;
+  border-radius: 0px 10px 10px 0;
 }
 /*elements css*/
 @media only screen and (max-height: 20rem){
@@ -671,11 +671,11 @@ input[type="radio"] {
 }
 
 .radioLabel  {
- background-color: #65C6BB;
+ background-color: #5BAB60;
 }
 
 input[type="radio"]:checked + .radioLabel {
- background-color: #34958A;
+ background-color: #3E8743;
 }
 
 .checkbox-group-rounded { 
@@ -683,8 +683,8 @@ input[type="radio"]:checked + .radioLabel {
   border-radius: 10px;
   overflow: hidden;
   font-size: 0;
-  background: #34958A;
-  border: 1px solid #34958A;
+  background: #3E8743;
+  border: 1px solid #3E8743;
 }
 .radioLabel,
 .radioLabel  {

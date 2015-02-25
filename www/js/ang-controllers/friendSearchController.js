@@ -24,16 +24,20 @@ angular.module("angControllers").controller("friendSearchController", [
             }
             
             $scope.canBeAdded = true;
-            $scope.nameToAdd = $scope.searchBy === '0' ? userToSearch.name : "+" + userToSearch.phone;
+            $scope.nameToAdd = $scope.stringToSearch;
             $scope.foundUuid = results.uuid; 
         }
     }
 
+    function isPhoneNumber(string) {
+        return string.match(/[a-zA-Zа-яА-Я]/) === null ? true : false; 
+    }
+
     $scope.findUser = function() {
         $scope.showSpinner = true;
-        var args = $scope.searchBy === "0" ? 
-            [userToSearch.name] :
-            [null, "+" + userToSearch.phone]; 
+        var args = isPhoneNumber($scope.stringToSearch) ? 
+            [null, $scope.stringToSearch] :
+            [$scope.stringToSearch]; 
         api.searchUser.apply(this, args)
         .then(
             function(results) {
