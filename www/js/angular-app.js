@@ -98,7 +98,7 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
     }
   })
   .state("friendSearch", {
-    url: "/friendSearch",
+    url: "/friendSearch?stringToSearch",
     views: {
       "title": {
         template: "Поиск друзей"

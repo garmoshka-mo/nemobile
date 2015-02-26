@@ -539,6 +539,7 @@ input.category-name-change-input {
 }
 .friendListHeader-edit-block {
   padding: 5px 20px;
+  height: 41px;
 }
 .friendList {
   /*padding-top: 90px;*/

@@ -14,6 +14,13 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.photos = fields['photos'];
             this.uuid = fields['uuid'];
             this.id = fields['id'];
+            
+            if (fields.whenCreated) {
+                this.whenCreated = fields.whenCreated;
+            }
+            else {
+                this.whenCreated = new Date().getTime();
+            }
         }
         else {
             console.error("Friend constructor is called without necessary data");

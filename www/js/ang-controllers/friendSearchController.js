@@ -1,11 +1,13 @@
 angular.module("angControllers").controller("friendSearchController", [
-    'user', '$scope', '$http', '$state', 'api',
-    function(user, $scope, $http, $state, api){
+    'user', '$scope', '$http', '$state', 'api', '$stateParams',
+    function(user, $scope, $http, $state, api, $stateParams){
 
-    $scope.searchBy = "0"; //0 - by name, 1 - by phone number
+    $scope.searchBy = "2"; //0 - by name, 1 - by phone number, 2 - newest first
     $scope.showSpinner = false;
     $scope.userToSearch = {};
     var userToSearch = $scope.userToSearch;
+
+
 
     function handleSearchResults(res) {
         console.log(res);
@@ -66,4 +68,9 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.serverResponse = "пользователь добавлен";
         console.log(user);
     };
+
+    if ($stateParams.stringToSearch) {
+        $scope.stringToSearch = $stateParams.stringToSearch;
+        $scope.findUser();
+    }
 }]);

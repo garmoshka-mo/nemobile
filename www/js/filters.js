@@ -39,3 +39,22 @@ app.filter('orderByName', function() {
   };
 });
 
+app.filter('filterNewFriends', function() {
+  return function(items, field, reverse) {
+    var MAX_DIFFERENCE_MSEC = 120000; //two minutes
+    var filtered = [];
+    var currentTimestump = new Date().getTime();
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    // filtered = filtered.filter(function (friend) {
+    //   return  currentTimestump - friend.whenCreated < MAX_DIFFERENCE_MSEC;
+    // });
+    filtered.sort(function(a, b) {
+      return a.whenCreated > b.whenCreated ? -1 : 1;
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
+});
+
