@@ -10,7 +10,7 @@ angular.module("angControllers").controller("friendsController",
         $scope.showAll = storedLastChosenList;
     }
     else {
-        $scope.showAll = "1"; // 0 - nepotom friends, 1 - all friends
+        $scope.showAll = "2"; // 0 - nepotom friends, 1 - all friends, 2 - newest friends
     }
 
     $scope.hideKeyboard = function() {
