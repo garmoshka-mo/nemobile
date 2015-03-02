@@ -51,6 +51,9 @@ button {
 .text-bold {
   font-family: "Open Sans Bold";
 }
+.pointer:hover {
+  cursor: pointer;
+}
 .h13 {
   height: 13px;
 }
@@ -154,6 +157,9 @@ ul.off-canvas-list li a {
 .change-ava-button {
   display: inline-block;
   padding: 0px 10px;
+}
+.change-ava-button:hover {
+  cursor: pointer;  
 }
 .mainButton{
   display: block;
