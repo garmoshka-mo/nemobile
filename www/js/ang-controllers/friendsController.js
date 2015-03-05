@@ -76,6 +76,5 @@ angular.module("angControllers").controller("friendsController",
 
     if (!user.isParsingFromStorageNow) {
         user.friendsList.getUserContacts();
-        $scope.generateCards()
     }
 }]);
