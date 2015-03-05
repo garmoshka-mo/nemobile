@@ -24,7 +24,7 @@
         </div>
     </div>
 <div class="friend-list" overscrollable-without-footer np-touchstart="hideKeyboard">
-    <div class="friendList">
+    <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'>
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    
             Введите логин или номер телефона для поиска
@@ -39,8 +39,8 @@
             <input type="text" ng-model="search" placeholder="введите имя для поиска">
         </div>
         <div class="row" ng-show="showAll === '1'">
-            <div class="columns small-9">
-                <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search as results" >
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | limitTo: limitTo | filter:search as results" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-3 ava-container">
@@ -53,22 +53,22 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search as results">
+                <div class="card ta-center" ng-repeat="friend in user.friendsList.friends | orderByName | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search as results">
+                <div class="card p0" ng-repeat="friend in user.friendsList.friends | orderByName | limitTo: limitTo | filter:search as results">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>
         </div>
-        
+
         <div ng-show="showAll === '0'">
-            <div class="columns small-9">
-                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | filter:search as results" >
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | limitTo: limitTo | filter:search as results" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-3 ava-container">
@@ -81,22 +81,22 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | filter:search as results">
+                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | filter:search as results">
+                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | limitTo: limitTo | filter:search as results">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>
         </div>
 
         <div ng-show="showAll === '2'">
-            <div class="columns small-9">
-                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search as results" >
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | limitTo: limitTo | filter:search as results" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-3 ava-container">
@@ -109,14 +109,14 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search as results">
+                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search as results">
+                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | limitTo: limitTo | filter:search as results">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>

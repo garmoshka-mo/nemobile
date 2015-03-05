@@ -30,7 +30,7 @@ app.directive('overscrollableWithFooter', function() {
                     "width": "100%",
                     "padding-right": "15px",
                     "box-sizing": "content-box",
-                    "overflow": "auto"
+                    "overflow": "scroll"
             });
         }
     };
@@ -48,7 +48,7 @@ app.directive('overscrollableWithoutFooter', function() {
                   "width": "100%",
                   "padding-right": "15px",
                   "box-sizing": "content-box",
-                  "overflow": "auto"
+                  "overflow": "scroll"
             });
         }
     };

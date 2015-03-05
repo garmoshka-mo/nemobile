@@ -4,7 +4,8 @@ angular.module("angControllers").controller("friendsController",
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
-    
+    $scope.limitTo = 20;
+
     var storedLastChosenList = localStorage.lastChosenList;
     if (storedLastChosenList) {
         $scope.showAll = storedLastChosenList;
@@ -35,6 +36,10 @@ angular.module("angControllers").controller("friendsController",
         else {
             return templateForInvitation + user.friendsList.friends.indexOf(friend);
         }
+    };
+
+    $scope.getNextLimit = function() {
+        $scope.limitTo = $scope.limitTo + 20; 
     };
 
     $scope.getFriendImage = function(friend, index) {
