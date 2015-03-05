@@ -78,6 +78,11 @@ button {
 .pt1rem {
   padding-top: 1rem;
 }
+.fullBlockLink {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 .iphone-status-bar-margin {
   background-color: #68C168;
   height: 20px;
