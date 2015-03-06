@@ -59,9 +59,13 @@ app.directive('imageonload', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             element.bind('load', function(event) {
-                console.log(event);
                 //call the function that was passed
                 scope.$apply(attrs.imageonload);
+            });
+            element.bind('error', function(event) {
+                //call the function that was passed
+                var randomNum = Math.round(Math.random() * 100);
+                $(element).attr('src', "http://api.adorable.io/avatars/40/" + randomNum); 
             });
         }
     };
