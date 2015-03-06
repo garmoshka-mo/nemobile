@@ -58,7 +58,8 @@ app.directive('imageonload', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-            element.bind('load', function() {
+            element.bind('load', function(event) {
+                console.log(event);
                 //call the function that was passed
                 scope.$apply(attrs.imageonload);
             });

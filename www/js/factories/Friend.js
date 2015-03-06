@@ -7,7 +7,15 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             }
             else {
                 if (fields.name) {
-                    this.displayName = fields.name.formatted;
+                    if (fields.name.formatted) {
+                        this.displayName = fields.name.formatted;
+                    }
+                    else if (fields.emails) {
+                        this.displayName = fields.emails[0].value;
+                    }
+                    else {
+                        this.displayName = "без имени";
+                    }
                 }
             }
             this.phoneNumbers = fields['phoneNumbers'];

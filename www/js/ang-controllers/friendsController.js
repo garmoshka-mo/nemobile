@@ -56,25 +56,6 @@ angular.module("angControllers").controller("friendsController",
         return adorableLink + index;
     };
 
-    // $scope.generateCards = function() {
-    //     function generateCard(friend, index) {
-    //         var template = '<div class="card">' +
-    //             '<a href="' + $scope.getFriendLink(friend) +'>' +
-    //                 '<div class="columns small-3 ava-container">' +
-    //                 '    <img src="' + $scope.getFriendImage(friend, index) + '" alt="" class="rounded-ava">' +
-    //                ' </div>' +
-    //                 '<div class="columns hide-overflow-text h100p title p0 small-9" >' + friend.displayName + '</div>' +
-    //             '</a>' +
-    //         '</div>';
-    //         return template;
-    //     }
-    //     var generatedCards = '';
-    //     user.friendsList.friends.forEach(function(friend, index){
-    //         generatedCards += generateCard(friend, index);
-    //     })
-    //     $('.allFriends').html(generatedCards);
-    // }
-
     $scope.$watch('showAll', function() {
         localStorage.lastChosenList = $scope.showAll;
     });

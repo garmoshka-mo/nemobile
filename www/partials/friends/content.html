@@ -44,7 +44,7 @@
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-3 ava-container">
-                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
+                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
                            
@@ -72,7 +72,7 @@
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-3 ava-container">
-                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
+                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
                            
