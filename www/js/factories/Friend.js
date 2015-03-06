@@ -22,10 +22,11 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
     function Friend(fields) {
         if (fields) {
             this.displayName = getContactName(fields);
-            this.phoneNumbers = fields['phoneNumbers'];
-            this.photos = fields['photos'];
-            this.uuid = fields['uuid'];
-            this.id = fields['id'];
+            this.phoneNumbers = fields.phoneNumbers;
+            this.photos = fields.photos;
+            this.uuid = fields.uuid;
+            this.id = fields.id;
+            this.emails = fields.emails;
             
             if (fields.whenCreated) {
                 this.whenCreated = fields.whenCreated;

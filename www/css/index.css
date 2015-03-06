@@ -31,6 +31,9 @@ button {
 .ta-center {
   text-align: center;
 }
+.ta-justify {
+  text-align: justify;
+}
 .ta-left {
   text-align: left;
 }
@@ -557,6 +560,12 @@ input.category-name-change-input {
   margin: 0 !important;
   padding: 5px 18px 8px;
   border-radius: 0px 10px 10px 0;
+}
+.invitation-message {
+  padding: 10px 0;
+  border-top: 1px solid #bdc3c7;
+  border-bottom: 1px solid #bdc3c7;
+  margin: 10px 0;
 }
 /*elements css*/
 @media only screen and (max-height: 20rem){

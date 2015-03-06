@@ -1,10 +1,16 @@
 angular.module("angControllers").controller("invitationController", [
     'user', '$scope', '$stateParams',
     function(user, $scope, $stateParams) {
-        var invitationText = "Привет! Давай общаться в мессенджере nepotom http://linktoapp.com";
+        $scope.invitationText = "Привет! Давай общаться в мессенджере nepotom http://linktoapp.com";
 
         if ($stateParams.friendIndex) {
             $scope.friend = user.friendsList.friends[+$stateParams.friendIndex];
+        }
+
+        if ($scope.friend.phoneNumbers) {
+            if ($scope.friend.phoneNumbers.length > 1) {
+                $scope.selectedNumber = $scope.friend.phoneNumbers[0];
+            }
         }
 
         $scope.inviteViaSms = function() {

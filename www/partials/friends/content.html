@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="friend-list" overscrollable-without-footer np-touchstart="hideKeyboard">
-    <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'>
+    <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'  infinite-scroll-distance="50">
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    
             Введите логин или номер телефона для поиска
@@ -41,7 +41,7 @@
         
         <div class="row" ng-show="showAll === '1'">
             <div class="columns small-9 p0">
-                <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results " >
+                <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results ">
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
                             <div class="columns small-4 ava-container p0">
