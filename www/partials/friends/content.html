@@ -1,28 +1,31 @@
 <div class="friendListHeader no-select">
-        <div class="ta-right friendListHeader-edit-block" >
-            <div ng-show="user.friendsList.friends.length !== 0">
-                <div ng-show="!isEditMode" class="pointer">
-                    <span ng-click="isEditMode = true"><i class="fa fa-gear"></i>изменить</span>
-                </div>
-                <div ng-show="isEditMode" class="pointer">
-                    <span ng-click="isEditMode = false"><i class="fa fa-check"></i>готово</span>
-                </div>
+    <div class="ta-right friendListHeader-edit-block" >
+        <div ng-show="user.friendsList.friends.length !== 0">
+            <div ng-show="!isEditMode" class="pointer">
+                <span ng-click="isEditMode = true"><i class="fa fa-gear"></i>изменить</span>
+            </div>
+            <div ng-show="isEditMode" class="pointer">
+                <span ng-click="isEditMode = false"><i class="fa fa-check"></i>готово</span>
             </div>
         </div>
-        <div class="ta-center">
-            <form name="listFilter" class="checkbox-group-rounded">
-                    <input id="radio3" type="radio" name="showAll" ng-model="showAll" value="2" autocomplete="off">
-                    <label class="radioLabel" for="radio3">новые</label>
-                    <input id="radio1" type="radio" name="showAll" ng-model="showAll" value="0" autocomplete="off">
-                    <label class="radioLabel" for="radio1">nepotom</label>
-                    <input id="radio2" type="radio" name="showAll" ng-model="showAll" value="1" autocomplete="off">
-                    <label class="radioLabel" for="radio2">все</label>
-                    <a href="#/friendSearch">
-                    <button class="friendListAddFriendButton">+</button>
-                    </a>
-            </form>
-        </div>
     </div>
+    <div class="ta-center">
+        <form name="listFilter" class="checkbox-group-rounded">
+                <input id="radio3" type="radio" name="showAll" ng-model="showAll" value="2" autocomplete="off">
+                <label class="radioLabel" for="radio3">новые</label>
+                <input id="radio1" type="radio" name="showAll" ng-model="showAll" value="0" autocomplete="off">
+                <label class="radioLabel" for="radio1">nepotom</label>
+                <input id="radio2" type="radio" name="showAll" ng-model="showAll" value="1" autocomplete="off">
+                <label class="radioLabel" for="radio2">все</label>
+                <a href="#/friendSearch">
+                <button class="friendListAddFriendButton">+</button>
+                </a>
+        </form>
+    </div>
+    <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0" stop-event>
+        <input type="text" ng-model="search" placeholder="введите имя для поиска">
+    </div>
+</div>
 <div class="friend-list" overscrollable-without-footer np-touchstart="hideKeyboard">
     <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'>
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
@@ -35,9 +38,7 @@
                 </button>
             </a>
         </div>
-        <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0" stop-event>
-            <input type="text" ng-model="search" placeholder="введите имя для поиска">
-        </div>
+        
         <div class="row" ng-show="showAll === '1'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | limitTo: limitTo | filter:search as results" >
@@ -52,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="columns small-3 p0" ng-show="isEditMode">
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
                 <div class="card ta-center" ng-repeat="friend in user.friendsList.friends | orderByName | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
@@ -80,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="columns small-3 p0" ng-show="isEditMode">
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
                 <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
@@ -103,12 +104,11 @@
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
-                           
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="columns small-3 p0" ng-show="isEditMode">
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
                 <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | limitTo: limitTo | filter:search as results">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>

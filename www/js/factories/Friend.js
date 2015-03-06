@@ -15,7 +15,9 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
                 name = fields.emails[0].value;
             }
         }
-
+        if (name === "без имени") {
+            console.log(fields);
+        }
         return name;
     }
 
@@ -47,7 +49,7 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.phoneNumbers.push({value: phoneNumber});
         },
         update: function(contactObj) {
-            this.displayName = getContactName(fields);
+            this.displayName = getContactName(contactObj);
             this.phoneNumbers = contactObj.phoneNumbers;
             this.photos = contactObj.photos;
         }
