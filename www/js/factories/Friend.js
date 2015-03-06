@@ -15,9 +15,7 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
                 name = fields.emails[0].value;
             }
         }
-        if (name === "без имени") {
-            console.log(fields);
-        }
+      
         return name;
     }
 
