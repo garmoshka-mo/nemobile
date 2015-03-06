@@ -44,10 +44,10 @@
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results " >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
-                            <div class="columns small-3 ava-container">
+                            <div class="columns small-4 ava-container">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
-                            <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
                            
                         </a>
                     </div>
@@ -72,10 +72,10 @@
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
-                            <div class="columns small-3 ava-container">
+                            <div class="columns small-4 ava-container">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
-                            <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
                            
                         </a>
                     </div>
@@ -100,10 +100,10 @@
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
-                            <div class="columns small-3 ava-container">
+                            <div class="columns small-4 ava-container">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
                             </div>
-                            <div class="columns hide-overflow-text h100p title p0 small-9" ng-bind="::friend.displayName"></div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
                         </a>
                     </div>
                 </div>
