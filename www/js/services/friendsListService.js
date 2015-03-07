@@ -66,9 +66,13 @@ services
                 );
             }
             else {
-                q.resolve(parseUserContacts(testDataset));
+                if (App.Settings.environment === "development") {
+                    q.resolve(parseUserContacts(testDataset));
+                }
+                else {
+                    q.reject("contacts is not defined");
+                }
                 console.timeEnd('getting user contacts from phonebook');
-                //q.reject("contacts is not defined");
             }
             return q.promise;
         },
