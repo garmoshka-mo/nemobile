@@ -22,4 +22,27 @@ angular.module("angControllers").controller("invitationController", [
             );
         };
 
+        $scope.inviteViaSocialNetwork = function(networkName) {
+            var platform = device.platform;
+            switch(networkName) {
+                
+                case "twitter":
+                    window.plugins.socialsharing.shareViaTwitter($scope.invitationText);
+                break;
+
+                case "vk": {
+                    if (platform === "iOS") {
+                        window.plugins.socialsharing.shareVia('com.apple.social.vk', 'Message via Bogus App', null, null, null, function(){console.log('share ok')}, function(msg) {alert('error: ' + msg)});
+                    }
+                    else if (platform === "Android") {
+                        window.plugins.socialsharing.shareVia('vk', 'Message via Bogus App', null, null, null, function(){console.log('share ok')}, function(msg) {alert('error: ' + msg)});
+                    }
+                }
+            }
+        };
+
+        $scope.openSocialShareMenu = function() {
+            window.plugins.socialsharing.share($scope.invitationText);
+        };
+
 }]);

@@ -17,13 +17,20 @@
                 <select ng-show="friend.phoneNumbers.length > 1" ng-options="phoneNumber.value for phoneNumber in friend.phoneNumbers" ng-model="selectedNumber"></select>
             
             <textarea ng-bind="invitationText"></textarea>
+            <div class="socialShareButtons ta-center">
+                <button ng-click="inviteViaSms()">Послать СМС</button>
+            </div>
         </div>
-        <div class="ta-center" ng-hide="!!friend.phoneNumbers.length || !!friend.emails.length">
+        <div class="socialShareButtons">
+            Или отправьте уведомление другим способом: <br>
+            <button ng-click="inviteViaSocialNetwork('vk')"><i class="fa fa-vk"></i></button> 
+            <button ng-click="inviteViaSocialNetwork('twitter')"><i class="fa fa-twitter"></i></button> 
+            <button><i class="fa fa-facebook"></i></button>
+            <button ng-click="openSocialShareMenu()">Еще...</button>
+        </div>
+        <!-- <div class="ta-center" ng-hide="!!friend.phoneNumbers.length || !!friend.emails.length">
             К сожалению, у вашего друга нету ни номера телефона, ни email
-        </div>
-        <div class="socialShareButtons ta-center">
-            <button ng-click="inviteViaSms()">Послать СМС</button>
-        </div>
-        <button onclick="window.plugins.socialsharing.share('Message only')">message only</button>
+        </div> -->
+       
     </div>
 </div>
