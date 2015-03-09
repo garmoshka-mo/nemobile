@@ -1023,7 +1023,12 @@ var testDataset = [
     "id": 170,
     "name": {
       "formatted": "Abby"
-    }
+    },
+    "phoneNumbers":[
+      {
+        "value": "+79182941997"
+      }
+    ]
   },
   {
     "id": 171,
@@ -3033,7 +3038,15 @@ var testDataset = [
     "id": 505,
     "name": {
       "formatted": "Acevedo"
-    }
+    },
+    "phoneNumbers":[
+      {
+        "value": "+79182941998"
+      },
+      {
+        "value": "+79092991313"
+      }
+    ]
   },
   {
     "id": 506,
@@ -5607,7 +5620,13 @@ var testDataset = [
     "id": 934,
     "name": {
       "formatted": "Adams"
-    }
+    },
+    "phoneNumbers": null, 
+    "emails": [
+      {
+        "value": "mail@mail.ru"
+      }
+    ]
   },
   {
     "id": 935,

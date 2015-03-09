@@ -31,12 +31,14 @@
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    
             Введите логин или номер телефона для поиска
-            <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона">
-            <a ng-href="#/friendSearch?stringToSearch={{stringToSearch}}">
-                <button>
-                    <i class="fa fa-search"></i>
-                </button>
-            </a>
+            <form>
+                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона">
+                <a ng-href="#/friendSearch?stringToSearch={{stringToSearch}}">
+                    <button>
+                        <i class="fa fa-search"></i>
+                    </button>
+                </a>
+            </form>
         </div>
         
         <div class="row" ng-show="showAll === '1'">

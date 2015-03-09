@@ -51,6 +51,7 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.displayName = getContactName(contactObj);
             this.phoneNumbers = contactObj.phoneNumbers;
             this.photos = contactObj.photos;
+            this.emails = contactObj.emails;
         }
     };
 
