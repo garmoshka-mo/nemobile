@@ -10,6 +10,13 @@ angular.module("angControllers").controller("mainController", [
   $scope.showChangeAvatarMenu = false;
   $scope.isAvaLoading = false;
 
+  if (navigator.device) {
+    $scope.isWeb = false;
+  }
+  else {
+    $scope.isWeb = true;
+  }
+
   document.addEventListener("pause", function() {
      $rootScope.isAppInBackground = true;
      user.saveChats();
