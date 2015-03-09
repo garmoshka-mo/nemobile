@@ -54,14 +54,18 @@ angular.module("angControllers").controller("invitationController", [
                 break;
 
                 case "googlePlus": 
-                    
+
                 break;
 
                 case "email":
+                    var emailToSend = null; 
+                    if ($scope.friend.emails) {
+                        emailToSend = $scope.friend.emails[0].value;
+                    }
                     window.plugins.socialsharing.shareViaEmail(
                       $scope.invitationText,
                       'Приглашение',
-                      null,
+                      emailToSend,
                       null,
                       null,
                       null,
