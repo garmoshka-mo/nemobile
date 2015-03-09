@@ -49,6 +49,14 @@ angular.module("angControllers").controller("invitationController", [
                 }
                 break;
 
+                case "facebook": 
+                    window.plugins.socialsharing.shareViaFacebook($scope.invitationText, null, null, onSuccess, onError);
+                break;
+
+                case "googlePlus": 
+                    
+                break;
+
                 case "email":
                     window.plugins.socialsharing.shareViaEmail(
                       $scope.invitationText,
