@@ -1,6 +1,15 @@
 angular.module("angControllers").controller("invitationController", [
     'user', '$scope', '$stateParams',
     function(user, $scope, $stateParams) {
+
+        function onSuccess() {
+            console.log('share ok');
+        }
+
+        function onError(msg) {
+            alert('error: ' + msg);
+        }
+
         $scope.invitationText = "Привет! Давай общаться в мессенджере nepotom http://linktoapp.com";
 
         if ($stateParams.friendIndex) {
@@ -32,12 +41,26 @@ angular.module("angControllers").controller("invitationController", [
 
                 case "vk": {
                     if (platform === "iOS") {
-                        window.plugins.socialsharing.shareVia('com.apple.social.vk', 'Message via Bogus App', null, null, null, function(){console.log('share ok')}, function(msg) {alert('error: ' + msg)});
+                        window.plugins.socialsharing.shareVia('com.apple.social.vk', 'Message via Bogus App', null, null, null, onSuccess, onError);
                     }
                     else if (platform === "Android") {
-                        window.plugins.socialsharing.shareVia('vk', 'Message via Bogus App', null, null, null, function(){console.log('share ok')}, function(msg) {alert('error: ' + msg)});
+                        window.plugins.socialsharing.shareVia('vk', 'Message via Bogus App', null, null, null, onSuccess, onError);
                     }
                 }
+                break;
+
+                case "email":
+                    window.plugins.socialsharing.shareViaEmail(
+                      $scope.invitationText,
+                      'Приглашение',
+                      null,
+                      null,
+                      null,
+                      null,
+                      onSuccess, 
+                      onError 
+                    );
+                break;
             }
         };
 
