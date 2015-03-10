@@ -41,10 +41,10 @@ angular.module("angControllers").controller("invitationController", [
 
                 case "vk": {
                     if (platform === "iOS") {
-                        window.plugins.socialsharing.shareVia('com.apple.social.vk', 'Message via Bogus App', null, null, null, onSuccess, onError);
+                        window.plugins.socialsharing.shareVia('com.apple.social.vk', $scoe.invitationText, null, null, null, onSuccess, onError);
                     }
                     else if (platform === "Android") {
-                        window.plugins.socialsharing.shareVia('vk', 'Message via Bogus App', null, null, null, onSuccess, onError);
+                        window.plugins.socialsharing.shareVia('vk', $scoe.invitationText, null, null, null, onSuccess, onError);
                     }
                 }
                 break;
