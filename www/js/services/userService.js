@@ -86,7 +86,7 @@ services
         var senderUuid = m.pn_gcm.data.uuid;
         var messageText = m.pn_gcm.data.message;
 
-        if (senderUuid === "system") {
+        if (senderUuid === App.Settings.systemUuid) {
             updateUserInfo(user.accessToken);
         }
 
