@@ -52,7 +52,7 @@ angular.module("angControllers").controller("chatController",
                     return "<img src='" + messageText + "'>";
                 }
                 else {
-                    return "<a class='message-link' href='" + messageText + "'>" + messageText + "</a>";
+                    return "<a class='message-link' target='_blank' href='" + messageText + "'>" + messageText + "</a>";
                 }
             }
             else {
