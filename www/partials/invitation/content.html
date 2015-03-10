@@ -21,14 +21,14 @@
                 <button ng-click="inviteViaSms()">Послать СМС</button>
             </div>
         </div>
-        <div class="socialShareButtons">
+        <div class="socialShareButtonsMini">
             Или отправьте уведомление другим способом: <br>
             <button ng-click="inviteViaSocialNetwork('vk')"><i class="fa fa-vk"></i></button> 
             <button ng-click="inviteViaSocialNetwork('twitter')"><i class="fa fa-twitter"></i></button> 
             <button ng-click="inviteViaSocialNetwork('facebook')"><i class="fa fa-facebook"></i></button>
             <!-- <button ng-click="inviteViaSocialNetwork('googlePlus')"><i class="fa fa-google-plus"></i></button> -->
             <button ng-click="inviteViaSocialNetwork('email')"><i class="fa fa-envelope"></i></button>
-            <button ng-click="openSocialShareMenu()">Еще...</button>
+            <button class="w80" ng-click="openSocialShareMenu()">Еще...</button>
         </div>
         <!-- <div class="ta-center" ng-hide="!!friend.phoneNumbers.length || !!friend.emails.length">
             К сожалению, у вашего друга нету ни номера телефона, ни email

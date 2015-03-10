@@ -81,6 +81,9 @@ button {
 .pt1rem {
   padding-top: 1rem;
 }
+.w80 {
+  width: 80px !important;
+}
 .fullBlockLink {
   display: block;
   height: 100%;
@@ -566,6 +569,10 @@ input.category-name-change-input {
   border-top: 1px solid #bdc3c7;
   border-bottom: 1px solid #bdc3c7;
   margin: 10px 0;
+}
+.socialShareButtonsMini button {
+  width: 50px;
+  padding: 10px;
 }
 /*elements css*/
 @media only screen and (max-height: 20rem){
