@@ -16,13 +16,15 @@
             <span ng-bind="serverResponse"></span>
             <span ng-click="closeServerResponse()" class="close">&times;</span>
         </div>
-        Вы также можете отправить смс на специальный номер <br>
-        <span class="text-bold">
-            За отправку смс снимается сумма, согласно тарифу
-        </span>
-        <br>
-        <div class="ta-center">
-            <button ng-click="attachViaSms()">Отправить смс</button>
+        <div ng-hide="isWeb">
+            Вы также можете отправить смс на специальный номер <br>
+            <span class="text-bold">
+                За отправку смс снимается сумма, согласно тарифу
+            </span>
+            <br>
+            <div class="ta-center">
+                <button ng-click="attachViaSms()">Отправить смс</button>
+            </div>
         </div>
     </div>
 
