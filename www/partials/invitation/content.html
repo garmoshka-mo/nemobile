@@ -21,7 +21,7 @@
                 <button ng-click="inviteViaSms()">Послать СМС</button>
             </div>
         </div>
-        <div class="socialShareButtonsMini">
+        <div class="socialShareButtonsMini" ng-hide="isWeb">
             Или отправьте уведомление другим способом: <br>
             <button ng-click="inviteViaSocialNetwork('vk')"><i class="fa fa-vk"></i></button> 
             <button ng-click="inviteViaSocialNetwork('twitter')"><i class="fa fa-twitter"></i></button> 
