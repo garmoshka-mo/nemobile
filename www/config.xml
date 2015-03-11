@@ -23,7 +23,7 @@
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
     <preference name="KeyboardShrinksView" value="true" />
-    <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
+    <preference name="android-windowSoftInputMode" value="stateHidden|adjustResize" />
     <preference name="fullscreen" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
