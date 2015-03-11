@@ -35,7 +35,9 @@ angular.module("angControllers").controller("mainController", [
   $scope.openMenu = function() {
     console.log("swipe open");
     if (window.device) {
-      cordova.plugins.Keyboard.close();
+      if (window.device.platform === "iOS") {
+        cordova.plugins.Keyboard.close();
+      }
     }
     $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
   };
