@@ -100,7 +100,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
         $scope.sendSms = function() {
             var generatedCode = generateCode(20);
             window.plugins.socialsharing.shareViaSMS(
-                "pass" + generatedCode, "+79086230101",
+                "pass" + generatedCode, "+79021113612",
                 function(msg) {
                     $scope.goToAfterSmsSending();
                     checkSmsRegistration(generatedCode);
