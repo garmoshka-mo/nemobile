@@ -56,14 +56,14 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1">
+                <div class="card ta-center" ng-repeat="friend in results1">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1">
+                <div class="card p0" ng-repeat="friend in results1">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>
@@ -71,8 +71,8 @@
                 Такого пользователя нет в ваших контактах<br>
                 <a ng-href="#/friendSearch?stringToSearch={{search}}">
                     <button class="mt20">
-                            искать пользователя "<span class="text-bold" ng-bind="search"></span>"
-                            в сети
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
                     </button>
                 </a>
             </div>
@@ -93,14 +93,14 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0">
+                <div class="card ta-center" ng-repeat="friend in results0">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0">
+                <div class="card p0" ng-repeat="friend in results0">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>
@@ -108,8 +108,8 @@
                 Такого пользователя нет в ваших контактах<br>
                 <a ng-href="#/friendSearch?stringToSearch={{search}}">
                     <button class="mt20">
-                            искать пользователя "<span class="text-bold" ng-bind="search"></span>"
-                            в сети
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
                     </button>
                 </a>
             </div>
@@ -129,14 +129,14 @@
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
-                <div class="card ta-center" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2">
+                <div class="card ta-center" ng-repeat="friend in results2">
                     <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
                         <i class="fa fa-trash"></i>
                     </span>
                 </div>
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
-                <div class="card p0" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2">
+                <div class="card p0" ng-repeat="friend in results2">
                     <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
                 </div>
             </div>
@@ -144,8 +144,8 @@
                 Такого пользователя нет в ваших контактах<br>
                 <a ng-href="#/friendSearch?stringToSearch={{search}}">
                     <button class="mt20">
-                            искать пользователя "<span class="text-bold" ng-bind="search"></span>"
-                            в сети
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
                     </button>
                 </a>
             </div>
