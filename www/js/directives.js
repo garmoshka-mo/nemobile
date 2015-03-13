@@ -88,8 +88,8 @@ app.directive('stickersGalleryHeight', function() {
             var bodyHeight = $('body').height();
             var topBarHeight_rem = 2.8125;
 
-            console.log("top bar height: ", emPixels * topBarHeight_rem);
-            console.log("chat keyboard height: ", $('.chat-buttons-container').height());
+            // console.log("top bar height: ", emPixels * topBarHeight_rem);
+            // console.log("chat keyboard height: ", $('.chat-buttons-container').height());
             
             var INPUT_FIELD_HEIGHT = 72;
             var KEYBOARD_PADDING = 20;

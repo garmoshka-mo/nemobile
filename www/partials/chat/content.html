@@ -26,6 +26,9 @@
     <div class="h13"></div>
 </div>
 <div id="footer">
+    <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" ng-swipe-right="stopPropagation($event)">
+        <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers" ng-click="::sendAppropriateSticker(image.url)">
+    </div>
     <div ng-show="errorDescription" data-alert class="alert-box alert m0">
         <span ng-bind="errorDescription"></span>
         <span ng-click="closeErrorDescription()" class="close">&times;</span>
@@ -36,7 +39,7 @@
                 <i class="fa fa-image"></i>
             </div>
             <div class="chat-input-container">
-                <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text" ng-keypress="checkIfEnter($event)">
+                <input type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text" ng-keypress="checkIfEnter($event)" ng-change="findAppropriateStiker()">
             </div>
         </div>
         <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">
@@ -58,7 +61,7 @@
                             В этой категории нету стикеров
                         </div>
                         <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
-                            <img alt="gif" class="category-img" ng-src="{{image.url}}" ng-click="sendSticker(image.url)">
+                            <img alt="gif" class="category-img" ng-src="{{image.url}}" ng-click="::sendSticker(image.url)">
                         </div>
                     </div>
                 </div>

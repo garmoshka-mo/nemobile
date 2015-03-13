@@ -6,10 +6,14 @@ angular.module("angControllers").controller("chatController",
 
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
-        $scope.isMessageSending = false; 
+        $scope.isMessageSending = false;
 
         var $chatInput = $('.chat-input');
 
+        function retriveWords(inputString) {
+            var output = inputString.match(/[A-Za-zА-Яа-я]+/g);
+            return output === null ? [] : output;
+        }
 
         $scope.scrollToBottom = function() {
             var $chatContainer = $(".chat");
@@ -150,10 +154,11 @@ angular.module("angControllers").controller("chatController",
             $scope.errorDescription = "";
         };
 
-        chat.sendMessage = function() {
+        chat.sendMessage = function(text) {
             $scope.setFocusOnTextField();
             
-            if ($scope.newMessage.text) {
+            var textToSend = text || $scope.newMessage.text;
+            if (textToSend) {
                 
                 $scope.isMessageSending = true; 
                 
@@ -163,7 +168,7 @@ angular.module("angControllers").controller("chatController",
                     }
                 }
 
-                $scope.chatSession.sendMessage($scope.newMessage.text, chat.senderId, $scope.newMessage.ttl)
+                $scope.chatSession.sendMessage(textToSend, chat.senderId, $scope.newMessage.ttl)
                 .then(
                     function() {
                         $scope.handleSuccessSending();
@@ -186,9 +191,35 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.sendSticker = function(stickerLink) {
-            $scope.newMessage.text = stickerLink;
+            chat.sendMessage(stickerLink);
             $scope.isStickersGalleryVisiable = false;
-            chat.sendMessage();
+        };
+
+        $scope.sendAppropriateSticker = function(stickerLink) {
+            chat.sendMessage(stickerLink);
+            $scope.appropriateStickers = [];
+        };
+
+        $scope.stopPropagation = function(event) {
+            event.stopPropagation();
+        };
+
+        $scope.findAppropriateStiker = function() {
+            var words = retriveWords($scope.newMessage.text);
+            
+            if (words.length < 5) {
+                $scope.appropriateStickers = [];
+
+                if (stickersGallery.dictionary) {
+                    words.forEach(function(word) {
+                        if (stickersGallery.dictionary[word]) {
+                            $scope.appropriateStickers = $scope.appropriateStickers.concat(stickersGallery.dictionary[word].images);
+                        }
+                    });
+                }
+
+                console.log($scope.appropriateStickers);
+            }
         };
 
         $scope.checkIfEnter = function(event) {

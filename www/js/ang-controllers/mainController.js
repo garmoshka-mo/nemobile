@@ -33,7 +33,7 @@ angular.module("angControllers").controller("mainController", [
   });
 
   $scope.openMenu = function() {
-    console.log("swipe open");
+    // console.log("swipe open");
     if (window.device) {
       if (window.device.platform === "iOS") {
         cordova.plugins.Keyboard.close();
@@ -43,7 +43,7 @@ angular.module("angControllers").controller("mainController", [
   };
 
   $scope.closeMenu = function() {
-    console.log("swipe close");
+    // console.log("swipe close");
     $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
   };
 

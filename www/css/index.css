@@ -527,6 +527,17 @@ input.category-name-change-input {
   max-width: 100%;
 }
 
+.appropriateStickers-container {
+  height: 200px;
+  padding: 10px;
+  overflow: auto;
+  white-space: nowrap;
+}
+.appropriateStickers-container img {
+max-height: 100%;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+margin-right: 10px;
+}
 /*.friend-list .friend {
   padding-top: 5px;
   height: 65px;

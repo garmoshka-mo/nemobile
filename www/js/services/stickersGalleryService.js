@@ -7,6 +7,18 @@ services
     this.categories = null;
     this.isUpdating = false;
     
+    function makeDictionary() {
+        self.dictionary = {};
+        if (self.categories) {
+            self.categories.forEach(function(category) {
+                category.associated_words.forEach(function(word){
+                    self.dictionary[word] = category;
+                });    
+            }); 
+        }
+        console.log("dictionary is made", self.dictionary);
+    }
+
     //public methods
     this.getCurrentUserCategories = function() {
         self.isUpdating = true;
@@ -15,7 +27,10 @@ services
             function(res) {
                 self.isUpdating = false;
                 self.categories = res;
-                console.log("Stickers gallery is updated"); 
+                if (res) {
+                    makeDictionary();
+                }
+                console.log("Stickers gallery is updated", self.categories); 
             }
         );  
     };
@@ -85,5 +100,7 @@ services
             }
         );
     };
+
+    this.getCurrentUserCategories();
 
 }]);

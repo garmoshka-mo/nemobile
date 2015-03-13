@@ -10,7 +10,7 @@ angular.module("angControllers").controller("friendSearchController", [
 
 
     function handleSearchResults(res) {
-        console.log(res);
+        // console.log('friendSearch results',res);
         $scope.foundUuid = "";
         var results = res.search_results[0];
         if (results.type) {
@@ -66,7 +66,6 @@ angular.module("angControllers").controller("friendSearchController", [
             user.addChat($scope.foundUuid);
         }
         $scope.serverResponse = "пользователь добавлен";
-        console.log(user);
     };
 
     if ($stateParams.stringToSearch) {
