@@ -26,7 +26,7 @@
         <input type="text" ng-model="search" placeholder="введите имя для поиска">
     </div>
 </div>
-<div class="friend-list" overscrollable-without-footer np-touchstart="hideKeyboard">
+<div class="friend-list" overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" np-touchstart="hideKeyboard">
     <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'  infinite-scroll-distance="50">
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    

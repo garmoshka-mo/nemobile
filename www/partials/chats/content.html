@@ -1,4 +1,4 @@
-<div>
+<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
   <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectBy:isRead:true" ng-href="#/chat?senderId={{chat.senderId}}">
     <div class="card" ng-class="{'unread': !chat.isRead}">
       <div class="row">
