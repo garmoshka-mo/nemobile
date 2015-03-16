@@ -27,7 +27,7 @@
 </div>
 <div id="footer">
     <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" >
-        <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers" ng-click="::sendAppropriateSticker(image.url)">
+        <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers track by $index" ng-click="::sendAppropriateSticker(image.url)">
     </div>
     <div ng-show="errorDescription" data-alert class="alert-box alert m0">
         <span ng-bind="errorDescription"></span>

@@ -208,13 +208,15 @@ angular.module("angControllers").controller("chatController",
         $scope.findAppropriateStiker = function() {
             var words = retriveWords($scope.newMessage.text);
             
-            if (words.length < 5) {
+            if (words.length < 10) {
                 $scope.appropriateStickers = [];
-
+                words = _.uniq(words);
+                
                 if (stickersGallery.dictionary) {
                     words.forEach(function(word) {
-                        if (stickersGallery.dictionary[word]) {
-                            $scope.appropriateStickers = $scope.appropriateStickers.concat(stickersGallery.dictionary[word].images);
+                        var wordToCheck = word.toLowerCase();
+                        if (stickersGallery.dictionary[wordToCheck]) {
+                            $scope.appropriateStickers = $scope.appropriateStickers.concat(stickersGallery.dictionary[wordToCheck].images);
                         }
                     });
                 }
