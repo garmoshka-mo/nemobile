@@ -115,7 +115,7 @@
                 </nav>
                 
                 <aside class="left-off-canvas-menu">
-                    <div ui-view="menu"></div>
+                    <div ui-view="menu" ng-swipe-left="closeMenu()"></div>
                 </aside>
 
                 <section class="main-section"> <!-- content goes here -->
@@ -124,7 +124,7 @@
                         <div ui-view="content" class="content" ></div>
                     </div>
                 </section>
-                <a class="exit-off-canvas"></a>
+                <a class="exit-off-canvas" ng-swipe-left="closeMenu()"></a>
             </div>
         </div>
 
