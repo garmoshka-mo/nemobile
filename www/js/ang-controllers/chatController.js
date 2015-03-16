@@ -180,6 +180,7 @@ angular.module("angControllers").controller("chatController",
                 .then( //doubling function because .finally doesn't work on android 2.2
                     function() {
                         $scope.newMessage.clearText();
+                        $scope.appropriateStickers = [];
                         $scope.isMessageSending = false; 
                     },
                     function() {
