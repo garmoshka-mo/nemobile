@@ -92,7 +92,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                 api.getUserInfoByUuid(self.senderId)
                 .then(
                     function(res) {
-                        console.log(res);
+                        // console.log(res);
                         if (res.success) {
                             if (res.user.name) {
                                 self.title = res.user.name;

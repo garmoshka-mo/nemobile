@@ -94,7 +94,7 @@
         <!-- endinject -->
         <title>Chat</title>
     </head>
-    <body  ng-controller="mainController" ng-swipe-left="closeMenu()">
+    <body  ng-controller="mainController" >
         <div class="off-canvas-wrap" data-offcanvas>
             <div class="iphone-status-bar-margin"></div>
             <div class="inner-wrap">
@@ -120,7 +120,7 @@
 
                 <section class="main-section"> <!-- content goes here -->
                     <!-- MAIN CONTENT -->
-                    <div id="wrapper" ng-swipe-right="openMenu()">
+                    <div id="wrapper" >
                         <div ui-view="content" class="content"></div>
                     </div>
                 </section>

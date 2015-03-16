@@ -401,7 +401,7 @@ services
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    // console.log('got user info by uuid', res);
                     if (res.data.success) {
                         return res.data;
                     }

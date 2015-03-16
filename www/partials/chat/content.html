@@ -1,4 +1,4 @@
-<div class="chat" overscrollable-with-footer>
+<div class="chat" overscrollable-with-footer >
     <div class="firstMessage ta-center" ng-show="isFirstMessage && false"><!--remove && false-->
         <div>ваше первое сообщение</div>
         <form name="ttl_form" class="checkbox-group-rounded no-select">
@@ -18,15 +18,15 @@
         <button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>
     </div>
     <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-        <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
+        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
     </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-        <span class="message" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="formatMessage(message.text)" hm-double-tap="addStickerURL(message)"></span>
+        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)" hm-double-tap="::addStickerURL(message)"></span>
     </div>
     <div class="h13"></div>
 </div>
 <div id="footer">
-    <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" ng-swipe-right="stopPropagation($event)">
+    <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" >
         <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers" ng-click="::sendAppropriateSticker(image.url)">
     </div>
     <div ng-show="errorDescription" data-alert class="alert-box alert m0">
@@ -55,7 +55,7 @@
                     <a ng-href="#/stickersGallery?fromChat={{chatSession.senderId}}">настройки <i class="fa fa-gear"></i></a>
                 </div>
                 <div ng-repeat="category in stickersGallery.categories" class="category">
-                    <div class="category-name" ng-click="toggleCategory(category)" ng-bind="category.name" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>
+                    <div class="category-name" ng-click="::toggleCategory(category)" ng-bind="::category.name" ng-class="::{'category-name-rounded': category.name != stickersGallery.currentCategory }"></div>
                     <div ng-show="category.name == stickersGallery.currentCategory" class="category-content">
                         <div class="ta-center" ng-show="!category.images.length">
                             В этой категории нету стикеров
