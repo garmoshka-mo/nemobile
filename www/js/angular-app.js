@@ -270,21 +270,24 @@ document.addEventListener("deviceready", function() {
     if (device.platform == 'iOS') {
 
       var webViewShrunkEvent = new CustomEvent("webViewShrunk");
+      var $body = $('body');
+      var $footer = $('#footer');
 
       window.webViewShrinker = {
         normalHeight: null,
         shrink: function(pixelsToShrink) {
           if (!this.normalHeight) {
-            this.normalHeight = $('body').height();
+            this.normalHeight = $body.height();
           }
-          $('body').height(this.normalHeight - pixelsToShrink);
-          $("#footer").css('position','relative');
-          // console.log('webview is shrunk on(px)', pixelsToShrink);
+          console.log('body normal height', this.normalHeight);
+          $body.height(this.normalHeight - pixelsToShrink);
+          $footer.css('position','relative');
+          console.log('webview is shrunk on(px)', pixelsToShrink);
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
-          $('body').height(this.normalHeight);
-          $("#footer").css('position','fixed');
+          $body.height(this.normalHeight);
+          $footer.css('position','fixed');
         } 
       };
       
