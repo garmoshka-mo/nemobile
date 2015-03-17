@@ -12,7 +12,12 @@ services
         if (self.categories) {
             self.categories.forEach(function(category) {
                 category.associated_words.forEach(function(word){
-                    self.dictionary[word] = category;
+                    if (self.dictionary[word]) {
+                        self.dictionary[word].push(category);        
+                    }
+                    else {
+                        self.dictionary[word] = [category];
+                    }
                 });    
             }); 
         }
@@ -53,8 +58,8 @@ services
         );
     };
 
-    this.updateCategory = function(categoryId, name) {
-        return api.updateCategory(categoryId, name)
+    this.updateCategory = function(categoryId, name, associatedWords) {
+        return api.updateCategory(categoryId, name, associatedWords)
         .then(
             function() {
                 self.getCurrentUserCategories();

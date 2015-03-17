@@ -210,13 +210,16 @@ angular.module("angControllers").controller("chatController",
             
             if (words.length < 10) {
                 $scope.appropriateStickers = [];
-                words = _.uniq(words);
                 
                 if (stickersGallery.dictionary) {
                     words.forEach(function(word) {
                         var wordToCheck = word.toLowerCase();
-                        if (stickersGallery.dictionary[wordToCheck]) {
-                            $scope.appropriateStickers = $scope.appropriateStickers.concat(stickersGallery.dictionary[wordToCheck].images);
+                        var dictionaryEntry = stickersGallery.dictionary[wordToCheck];
+                        if (dictionaryEntry) {
+                            dictionaryEntry.forEach(function(category){
+                                $scope.appropriateStickers = $scope.appropriateStickers.concat(category.images);
+                            });
+                            $scope.appropriateStickers = _.uniq($scope.appropriateStickers);
                         }
                     });
                 }

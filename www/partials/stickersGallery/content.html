@@ -40,8 +40,15 @@
                         <h3 class="ta-center">Теги</h3>
                         <span class="tag" ng-repeat="word in category.associated_words">
                             <span ng-bind="::word"></span>
-                            <i class="fa fa-close pointer"></i>
+                            <span class="pointer" ng-click="::removeAssociatedWord(category, $index)"><i class="fa fa-close "></i></span>
                         </span>
+                        <div class="tag-add-block block-center w250">
+                            <input type="text" placeholder="введите новый тег" ng-model="category.tagToAdd">
+                            <span class="category-button category-button-green" ng-click="::addAssociatedWord(category)"><i class="fa fa-plus"></i></span>
+                        </div>
+                        <div ng-show="category.isTagsChanged" class="ta-center">
+                            <button ng-click="saveAssociatedWords(category)">сохранить изменения</button>
+                        </div>
                     </div>
                     <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
                         <div class="ta-center">

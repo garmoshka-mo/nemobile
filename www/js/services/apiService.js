@@ -174,13 +174,22 @@ services
             );
         },
 
-        updateCategory: function(categoryId, name) {
+        updateCategory: function(categoryId, name, associatedWords) {
+            var categoryData = {};
+            if (name) {
+                categoryData.name = name;
+            }
+
+            if (associatedWords) {
+                categoryData.associated_words = associatedWords;
+            }
+
             return $http({
                 method: 'PUT',
                 url: App.Settings.apiUrl + "/categories/" + categoryId,
                 data: {
                     "access_token": api.accessToken,
-                    "category": {"name": name}
+                    "category": categoryData
                 }
             })
             .then(

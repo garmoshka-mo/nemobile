@@ -84,6 +84,9 @@ button {
 .w80 {
   width: 80px !important;
 }
+.w250 {
+  width: 250px;
+}
 .fullBlockLink {
   display: block;
   height: 100%;
@@ -403,6 +406,10 @@ button.chat-send {
   color: #FFF;  
   background: #e74c3c;
 }
+.category-button-green {
+  color: #FFF;
+  background: #2ecc71;
+}
 input.category-name-change-input {
   margin-bottom: 0;
   background: #29B6F6;
@@ -596,6 +603,10 @@ margin-right: 10px;
   border-radius: 5px;
   margin: 5px;
   color: #FFF;
+}
+.tag-add-block input {
+  display: inline-block;
+  width: 80%;
 }
 /*elements css*/
 @media only screen and (max-height: 20rem){
