@@ -585,6 +585,18 @@ margin-right: 10px;
   width: 50px;
   padding: 10px;
 }
+.tags-container {
+  background: rgba(255,255,255, 0.8);
+  border-radius: 5px;
+}
+.tag {
+  background: #3498db;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 5px;
+  color: #FFF;
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{

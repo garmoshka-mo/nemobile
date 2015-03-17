@@ -5,7 +5,7 @@
         <div ng-show="!stickersGallery.isUpdating">
             <div ng-repeat="category in stickersGallery.categories" class="category">
                 <div class="category-name row" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
-                    <div class="small-5 columns" ng-click="toggleCategory(category)"  ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
+                    <div class="small-5 columns pointer" ng-click="toggleCategory(category)"  ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
                         <span ng-show="!category.isCategoryNameChanging" ng-bind="category.name"></span>
                         <div stop-event ng-show="category.isCategoryNameChanging">
                                 <input class="category-name-change-input {{category.name + '-input'}}" ng-model="category.newName" type="text"  >
@@ -36,6 +36,13 @@
                     <!-- buttons end -->
                 </div>
                 <div ng-show="category.name == stickersGallery.currentCategory" class="category-content" ng-class="{activeCategory: category.name == stickersGallery.currentCategory}">
+                    <div class="tags-container">
+                        <h3 class="ta-center">Теги</h3>
+                        <span class="tag" ng-repeat="word in category.associated_words">
+                            <span ng-bind="::word"></span>
+                            <i class="fa fa-close pointer"></i>
+                        </span>
+                    </div>
                     <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
                         <div class="ta-center">
                             <a ng-href="#/chat?senderId={{fromChat}}&messageText={{image.url}}">
