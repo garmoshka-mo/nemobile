@@ -279,7 +279,7 @@ document.addEventListener("deviceready", function() {
           }
           $('body').height(this.normalHeight - pixelsToShrink);
           $("#footer").css('position','relative');
-          console.log('webview is shrunk on(px)', pixelsToShrink);
+          // console.log('webview is shrunk on(px)', pixelsToShrink);
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
