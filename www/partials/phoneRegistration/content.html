@@ -1,72 +1,74 @@
-<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" class="pt1rem ta-center width-92 block-center ta-center" ng-switch="screenToShow">
-    <div ng-switch-when="phoneEnter">
-        <form name="reg">
-            <div class="width-92 inline-block">
-                <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
-            </div>
-            <div class="width-92 inline-block" ng-show="!isIn">
-                <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
-                    <span ng-show="!showSpinner">Получить смс</span>
-                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
-                </button>
-            </div>
-        </form>
-
-        <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-            <span ng-bind="serverResponse"></span>
-            <span ng-click="closeServerResponse()" class="close">&times;</span>
-        </div>
-
-        <div ng-hide="isWeb">
-            Вы также можете отправить смс на специальный номер <br>
-            <span class="text-bold">
-                За отправку смс снимается сумма, согласно тарифу
-            </span>
-            <br>
-            <div class="ta-center">
-                <button ng-click="sendSms()">Отправить смс</button>
-            </div>
-        </div>
-        <div class="row text-silver">
-            <a href="#/signinup/up">
-                <div class="small-10 columns">
-                    <span>зарегистрироваться без телефона</span>
-                </div>
-                <div class="small-2 columns">
-                    <i class="fa fa-arrow-right"></i>
-                </div>
-            </a>
+<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    <div class="pt1rem ta-center width-92 block-center ta-center" ng-switch="screenToShow">
+        <div ng-switch-when="phoneEnter">
+           <form name="reg">
+               <div class="width-92 inline-block">
+                   <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
+               </div>
+               <div class="width-92 inline-block" ng-show="!isIn">
+                   <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                       <span ng-show="!showSpinner">Получить смс</span>
+                       <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                   </button>
+               </div>
+           </form>
+       
+           <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
+               <span ng-bind="serverResponse"></span>
+               <span ng-click="closeServerResponse()" class="close">&times;</span>
+           </div>
+       
+           <div ng-hide="isWeb">
+               Вы также можете отправить смс на специальный номер <br>
+               <span class="text-bold">
+                   За отправку смс снимается сумма, согласно тарифу
+               </span>
+               <br>
+               <div class="ta-center">
+                   <button ng-click="sendSms()">Отправить смс</button>
+               </div>
+           </div>
+           <div class="row text-silver">
+               <a href="#/signinup/up">
+                   <div class="small-10 columns">
+                       <span>зарегистрироваться без телефона</span>
+                   </div>
+                   <div class="small-2 columns">
+                       <i class="fa fa-arrow-right"></i>
+                   </div>
+               </a>
+           </div>
+       </div>
+       
+       <div ng-switch-when="phoneConfirm">
+           <form name="confirm">
+               <div class="width-92 inline-block">
+                  <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="код подтверждения" required>
+               </div>
+               <div class="width-92 inline-block" ng-show="!isIn">
+                   <button ng-click="confirmPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || confirm.$invalid">
+                       <span ng-show="!showSpinner">Подтвердить</span>
+                       <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                   </button>
+               </div>
+           </form>
+           <div class="row text-silver">
+               <div class="small-12 columns" ng-click="goToEnterPhase()">
+                   <i class="fa fa-arrow-left"></i>
+                   <span>ввести другой номер</span>
+               </div>
+           </div>
+       </div>
+       
+       <div ng-switch-when="afterSmsSending">
+           <div class="ta-center">
+               Пожалуйста подождите, идет регистрация номера
+               <span ng-show="showSpinner" spinner></span>
+               <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
+                   <span ng-bind="serverResponse"></span>
+                   <span ng-click="closeServerResponse()" class="close">&times;</span>
+               </div>
+           </div>
         </div>
     </div>
-
-    <div ng-switch-when="phoneConfirm">
-        <form name="confirm">
-            <div class="width-92 inline-block">
-               <input name="phone" type="text" ng-model="newUser.confirmCode" placeholder="код подтверждения" required>
-            </div>
-            <div class="width-92 inline-block" ng-show="!isIn">
-                <button ng-click="confirmPhoneNumber()" class="button loginRegisterButton" ng-disabled="showSpinner || confirm.$invalid">
-                    <span ng-show="!showSpinner">Подтвердить</span>
-                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
-                </button>
-            </div>
-        </form>
-        <div class="row text-silver">
-            <div class="small-12 columns" ng-click="goToEnterPhase()">
-                <i class="fa fa-arrow-left"></i>
-                <span>ввести другой номер</span>
-            </div>
-        </div>
-    </div>
-
-    <div ng-switch-when="afterSmsSending">
-        <div class="ta-center">
-            Пожалуйста подождите, идет регистрация номера
-            <span ng-show="showSpinner" spinner></span>
-            <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-                <span ng-bind="serverResponse"></span>
-                <span ng-click="closeServerResponse()" class="close">&times;</span>
-            </div>
-        </div>
-    </div>    
 </div>

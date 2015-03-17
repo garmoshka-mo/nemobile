@@ -24,7 +24,6 @@ app.directive('stopEventPrevent', function () {
 app.directive('overscrollableWithFooter', function() {
     return {
         link: function(scope, elem, attr) {
- 
             $(elem).css({
                     "height": "100%",
                     "width": "100%",
@@ -42,7 +41,6 @@ app.directive('overscrollableWithoutFooter', function() {
             var emPixels = getEmPixels();
             var bodyHeight = $('body').height();
             var topBarHeight_rem = 2.8125;
-
             $(elem).height(bodyHeight - emPixels * topBarHeight_rem);
             $(elem).css({
                   "width": "100%",
