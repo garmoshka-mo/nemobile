@@ -49,7 +49,6 @@
     <gap:plugin name="com.ionic.keyboard" version="1.0.3" />
     <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
-    <icon src="res/icon/ios/appicon-60@2x.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/drawable-ldpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/drawable-mdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/drawable-hdpi/appicon.png" />
@@ -92,7 +91,6 @@
         <splash src="res/screen/android/drawable-mdpi/screen.png" density="port-mdpi"/>
         <splash src="res/screen/android/drawable-xhdpi/screen.png" density="port-xhdpi"/>
     </platform>
-    <gap:splash src="res/screen/ios/Default~iphone.png"/> 
     <platform name="ios">
         <!-- images are determined by width and height. The following are supported -->
         <splash src="res/screen/ios/Default~iphone.png" width="320" height="480"/>
