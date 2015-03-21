@@ -55,35 +55,33 @@
     <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/drawable-xhdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/drawable-xxhdpi/appicon.png" />
     <icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/drawable-xxxhdpi/appicon.png" />
-    <platform name="ios">
-        <!-- iOS 8.0+ -->
-        <!-- iPhone 6 Plus  -->
-        <icon src="res/icon/ios/appicon-60@3x.png" width="180" height="180" />
-        <!-- iOS 7.0+ -->
-        <!-- iPhone / iPod Touch  -->
-        <icon src="res/icon/ios/appicon-60.png" width="60" height="60" />
-        <icon src="res/icon/ios/appicon-60@2x.png" width="120" height="120" />
-        <!-- iPad -->
-        <icon src="res/icon/ios/appicon-76.png" width="76" height="76" />
-        <icon src="res/icon/ios/appicon-76@2x.png" width="152" height="152" />
-        <!-- iOS 6.1 -->
-        <!-- Spotlight Icon -->
-        <icon src="res/icon/ios/icon-40.png" width="40" height="40" />
-        <icon src="res/icon/ios/icon-40@2x.png" width="80" height="80" />
-        <!-- iPhone / iPod Touch -->
-        <icon src="res/icon/ios/appicon.png" width="57" height="57" />
-        <icon src="res/icon/ios/appicon@2x.png" width="114" height="114" />
-        <!-- iPad -->
-        <icon src="res/icon/ios/appicon-72.png" width="72" height="72" />
-        <icon src="res/icon/ios/appicon-72@2x.png" width="144" height="144" />
-        <!-- iPhone Spotlight and Settings Icon -->
-        <icon src="res/icon/ios/appicon-Small.png" width="29" height="29" />
-        <icon src="res/icon/ios/appicon-Small@2x.png" width="58" height="58" />
-        <icon src="res/icon/ios/appicon-Small@3x.png" width="87" height="87" />
-        <!-- iPad Spotlight and Settings Icon -->
-        <icon src="res/icon/ios/appicon-Small-50.png" width="50" height="50" />
-        <icon src="res/icon/ios/appicon-Small-50@2x.png" width="100" height="100" />
-    </platform>
+    <!-- iOS 8.0+ -->
+    <!-- iPhone 6 Plus  -->
+    <icon src="res/icon/ios/appicon-60@3x.png" gap:platform="ios" width="180" height="180" />
+    <!-- iOS 7.0+ -->
+    <!-- iPhone / iPod Touch  -->
+    <icon src="res/icon/ios/appicon-60.png" gap:platform="ios" width="60" height="60" />
+    <icon src="res/icon/ios/appicon-60@2x.png" gap:platform="ios" width="120" height="120" />
+    <!-- iPad -->
+    <icon src="res/icon/ios/appicon-76.png" gap:platform="ios" width="76" height="76" />
+    <icon src="res/icon/ios/appicon-76@2x.png" gap:platform="ios" width="152" height="152" />
+    <!-- iOS 6.1 -->
+    <!-- Spotlight Icon -->
+    <icon src="res/icon/ios/icon-40.png" gap:platform="ios" width="40" height="40" />
+    <icon src="res/icon/ios/icon-40@2x.png" gap:platform="ios" width="80" height="80" />
+    <!-- iPhone / iPod Touch -->
+    <icon src="res/icon/ios/appicon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/appicon@2x.png" gap:platform="ios" width="114" height="114" />
+    <!-- iPad -->
+    <icon src="res/icon/ios/appicon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="res/icon/ios/appicon-72@2x.png" gap:platform="ios" width="144" height="144" />
+    <!-- iPhone Spotlight and Settings Icon -->
+    <icon src="res/icon/ios/appicon-Small.png" gap:platform="ios" width="29" height="29" />
+    <icon src="res/icon/ios/appicon-Small@2x.png" gap:platform="ios" width="58" height="58" />
+    <icon src="res/icon/ios/appicon-Small@3x.png" gap:platform="ios" width="87" height="87" />
+    <!-- iPad Spotlight and Settings Icon -->
+    <icon src="res/icon/ios/appicon-Small-50.png" gap:platform="ios" width="50" height="50" />
+    <icon src="res/icon/ios/appicon-Small-50@2x.png" gap:platform="ios" width="100" height="100" />
     <platform name="android">
     <!-- you can use any density that exists in the Android project -->
         <splash src="res/screen/android/drawable-hdpi/screen.png" density="port-hdpi"/>
