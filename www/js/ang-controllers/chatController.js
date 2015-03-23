@@ -254,6 +254,6 @@ angular.module("angControllers").controller("chatController",
             }
         });
 
-        // $scope.setFocusOnTextField();
+        $scope.setFocusOnTextField();
         $scope.scrollToBottom();
 }]);   
