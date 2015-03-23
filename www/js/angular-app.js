@@ -275,19 +275,31 @@ document.addEventListener("deviceready", function() {
 
       window.webViewShrinker = {
         normalHeight: null,
+        footer: null,
+        body: null,
+        state: 'normal',
         shrink: function(pixelsToShrink) {
+          if (footer) {
+            this.footer = $("#footer");
+          }
+          if (body) {
+            this.body = $('body');
+          }
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
           console.log('body normal height', this.normalHeight);
-          $('body').height(this.normalHeight - pixelsToShrink);
-          $('#footer').css('bottom', pixelsToShrink + 'px');
-          console.log('webview is shrunk on(px)', pixelsToShrink);
+          this.body.height(this.normalHeight - pixelsToShrink);
+          if (this.state !== "normal") {
+            this.footer.css('bottom', pixelsToShrink + 'px');
+          }
+          this.state = "shrunk";
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
-          $('body').height(this.normalHeight);
-          $('#footer').css('bottom','0rem');
+          this.body.height(this.normalHeight);
+          this.footer.css('bottom','0rem');
+          this.state = "normal";
         } 
       };
       
