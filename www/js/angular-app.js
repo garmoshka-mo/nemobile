@@ -281,13 +281,13 @@ document.addEventListener("deviceready", function() {
           }
           console.log('body normal height', this.normalHeight);
           $('body').height(this.normalHeight - pixelsToShrink);
-          $('#footer').css('position','relative');
+          $('#footer').css('bottom', pixelsToShrink + 'px');
           console.log('webview is shrunk on(px)', pixelsToShrink);
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
           $('body').height(this.normalHeight);
-          $('#footer').css('position','fixed');
+          $('#footer').css('bottom','0rem');
         } 
       };
       
