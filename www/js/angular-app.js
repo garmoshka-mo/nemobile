@@ -277,7 +277,7 @@ document.addEventListener("deviceready", function() {
         normalHeight: null,
         footer: null,
         body: null,
-        state: 'normal',
+        isFooterUp: false,
         shrink: function(pixelsToShrink) {
           if (this.footer) {
             this.footer = $("#footer");
@@ -288,18 +288,17 @@ document.addEventListener("deviceready", function() {
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
-          console.log('body normal height', this.normalHeight);
           this.body.height(this.normalHeight - pixelsToShrink);
-          if (this.state !== "normal") {
+          if (!this.isFooterUp) {
             this.footer.css('bottom', pixelsToShrink + 'px');
+            this.isFooterUp = true;
           }
-          this.state = "shrunk";
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
           this.body.height(this.normalHeight);
           this.footer.css('bottom','0rem');
-          this.state = "normal";
+          this.isFooterUp = false;
         } 
       };
       
