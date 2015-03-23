@@ -254,6 +254,17 @@ angular.module("angControllers").controller("chatController",
             }
         });
 
+        if (window.device) {
+            if (device.platform == "iOS") {
+                $('.appropriateStickers-container').css(
+                    {
+                      'margin-top': '200px',
+                      'position': 'absolute'
+                    }
+                );
+            }
+        }
+        
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
 }]);   
