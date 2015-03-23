@@ -288,6 +288,7 @@ document.addEventListener("deviceready", function() {
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
+          console.log(this);
           this.body.height(this.normalHeight - pixelsToShrink);
           console.log("isFooterUp", this.isFooterUp);
           if (!this.isFooterUp) {
