@@ -294,8 +294,8 @@ document.addEventListener("deviceready", function() {
       cordova.plugins.Keyboard.disableScroll(true);
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       
-      // window.addEventListener('native.keyboardshow', keyboardShowHandler);
-      // window.addEventListener('native.keyboardhide', keyboardHideHandler);
+      window.addEventListener('native.keyboardshow', keyboardShowHandler);
+      window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
 
       function keyboardShowHandler(e){
