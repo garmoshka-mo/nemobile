@@ -289,7 +289,7 @@ document.addEventListener("deviceready", function() {
             this.normalHeight = $('body').height();
           }
           this.body.height(this.normalHeight - pixelsToShrink);
-          console.log("isFooterUp", thos.isFooterUp);
+          console.log("isFooterUp", this.isFooterUp);
           if (!this.isFooterUp) {
             this.footer.css('bottom', pixelsToShrink + 'px');
             this.isFooterUp = true;
