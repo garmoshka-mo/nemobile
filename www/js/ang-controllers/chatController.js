@@ -258,13 +258,13 @@ angular.module("angControllers").controller("chatController",
             if (device.platform == "iOS") {
                 $('.appropriateStickers-container').css(
                     {
-                      'margin-top': '200px',
+                      'margin-top': '-200px',
                       'position': 'absolute'
                     }
                 );
             }
         }
-        
+
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
 }]);   
