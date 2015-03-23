@@ -540,7 +540,6 @@ input.category-name-change-input {
   padding: 10px;
   overflow: auto;
   white-space: nowrap;
-  position: absolute;
 }
 .appropriateStickers-container img {
 max-height: 100%;

@@ -272,7 +272,7 @@ document.addEventListener("deviceready", function() {
       var webViewShrunkEvent = new CustomEvent("webViewShrunk");
       // var $body = $('body');
       // var $footer = $('#footer');
-
+      $('.appropriateStickers-container').css('margin-top', '200px')
       window.webViewShrinker = {
         normalHeight: null,
         footer: null,
