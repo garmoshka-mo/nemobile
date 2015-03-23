@@ -279,10 +279,10 @@ document.addEventListener("deviceready", function() {
         body: null,
         isFooterUp: false,
         shrink: function(pixelsToShrink) {
-          if (this.footer) {
+          if (!this.footer) {
             this.footer = $("#footer");
           }
-          if (this.body) {
+          if (!this.body) {
             this.body = $('body');
           }
           if (!this.normalHeight) {
