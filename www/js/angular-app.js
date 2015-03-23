@@ -277,25 +277,19 @@ document.addEventListener("deviceready", function() {
         normalHeight: null,
         footer: null,
         body: null,
-        isFooterUp: false,
         shrink: function(pixelsToShrink) {
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
-          console.log(this);
+          console.log('body normal height', this.normalHeight);
           $('body').height(this.normalHeight - pixelsToShrink);
-          console.log("isFooterUp", this.isFooterUp);
-          if (!this.isFooterUp) {
-            $('#footer').css('bottom', pixelsToShrink + 'px');
-            this.isFooterUp = true;
-            console.log("footer is up!");
-          }
+          $('#footer').css('bottom', pixelsToShrink + 'px');
+          console.log('webview is shrunk on(px)', pixelsToShrink);
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
           $('body').height(this.normalHeight);
           $('#footer').css('bottom','0rem');
-          this.isFooterUp = false;
         } 
       };
       
