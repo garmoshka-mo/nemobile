@@ -279,28 +279,22 @@ document.addEventListener("deviceready", function() {
         body: null,
         isFooterUp: false,
         shrink: function(pixelsToShrink) {
-          if (!this.footer) {
-            this.footer = $("#footer");
-          }
-          if (!this.body) {
-            this.body = $('body');
-          }
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
           console.log(this);
-          this.body.height(this.normalHeight - pixelsToShrink);
+          $('body').height(this.normalHeight - pixelsToShrink);
           console.log("isFooterUp", this.isFooterUp);
           if (!this.isFooterUp) {
-            this.footer.css('bottom', pixelsToShrink + 'px');
+            $('#footer').css('bottom', pixelsToShrink + 'px');
             this.isFooterUp = true;
             console.log("footer is up!");
           }
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
-          this.body.height(this.normalHeight);
-          this.footer.css('bottom','0rem');
+          $('body').height(this.normalHeight);
+          $('#footer').css('bottom','0rem');
           this.isFooterUp = false;
         } 
       };
