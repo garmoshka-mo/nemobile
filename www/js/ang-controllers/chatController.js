@@ -60,7 +60,7 @@ angular.module("angControllers").controller("chatController",
                         return "<a class='message-link' target='_blank' href='" + messageText + "'>" + messageText + "</a>";
                     }
                     else {
-                        return "<a class='message-link' onclick='navigator.app.loadUrl(" + messageText + ", {openExternal: true})'>" + messageText + "</a>";
+                        return "<a class='message-link' open-in-system-browser=" + messageText + ">" + messageText + "</a>";
                     }
                 }
             }

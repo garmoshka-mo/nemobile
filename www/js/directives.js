@@ -69,6 +69,21 @@ app.directive('imageonload', function() {
     };
 });
 
+app.directive('openInSystemBrowser', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var a = $(element);
+            a.click(function(e) {
+                e.preventDefault();
+                navigator.app.loadUrl(attrs.openInSystemBrowser, {openExternal: true});
+            });
+        }
+    };
+});
+
+
+
 app.directive('npTouchstart', function() {
     return {
         link: function(scope, elem, attr) {
