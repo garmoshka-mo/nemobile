@@ -56,7 +56,12 @@ angular.module("angControllers").controller("chatController",
                     return "<img src='" + messageText + "'>";
                 }
                 else {
-                    return "<a class='message-link' target='_system' href='" + messageText + "'>" + messageText + "</a>";
+                    if ($scope.isWeb) {
+                        return "<a class='message-link' target='_blank' href='" + messageText + "'>" + messageText + "</a>";
+                    }
+                    else {
+                        return "<a class='message-link' onclick='navigator.app.loadUrl(" + messageText + ", {openExternal: true})'>" + messageText + "</a>";
+                    }
                 }
             }
             else {
