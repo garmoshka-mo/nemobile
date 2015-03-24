@@ -45,7 +45,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
 
         $scope.attachViaSms = function() {
             window.plugins.socialsharing.shareViaSMS(
-                user.accessToken, "+79021113612",
+                user.accessToken, App.Settings.phoneToSendSms,
                 function(msg) {
                     console.log('ok: ' + msg);
                     $scope.screenToShow = "seccessfulSmsSending";
