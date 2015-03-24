@@ -35,6 +35,9 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
         };
 
         $scope.addAssociatedWord = function(category) {
+            if (!category.tagToAdd) {
+                return false;
+            }
             category.isTagsChanged = true;
             category.associated_words.push(category.tagToAdd);
             category.associated_words = _.uniq(category.associated_words);
