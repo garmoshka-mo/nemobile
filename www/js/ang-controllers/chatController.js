@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce) {
         
         console.log("chat controller is invoked");
 
@@ -60,7 +60,7 @@ angular.module("angControllers").controller("chatController",
                         return "<a class='message-link' target='_blank' href='" + messageText + "'>" + messageText + "</a>";
                     }
                     else {
-                        return "<a class='message-link' open-in-system-browser='" + messageText + "'>" + messageText + "</a>";
+                        return $sce.trustAsHtml("<span class='message-link' open-in-system-browser='" + messageText + "'>" + messageText + "</span>");
                     }
                 }
             }

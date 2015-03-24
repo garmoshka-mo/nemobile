@@ -75,7 +75,6 @@ app.directive('openInSystemBrowser', function() {
         link: function(scope, element, attrs) {
             var a = $(element);
             a.click(function(e) {
-                e.preventDefault();
                 navigator.app.loadUrl(attrs.openInSystemBrowser, {openExternal: true});
             });
         }
