@@ -3,11 +3,10 @@
   "version": "0.0.1",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "http-server www"
   },
   "dependencies": {
-      "winston" : "0.7.3",
-      "mime": "*"
+      "http-server": "*",
   },
   "engines" : { 
       "node" : "0.10.21",
