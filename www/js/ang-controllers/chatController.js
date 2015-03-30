@@ -229,7 +229,7 @@ angular.module("angControllers").controller("chatController",
                     });
                 }
 
-                console.log($scope.appropriateStickers);
+                // console.log($scope.appropriateStickers);
             }
         };
 

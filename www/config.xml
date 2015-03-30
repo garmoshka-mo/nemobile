@@ -26,7 +26,7 @@
     <preference name="android-windowSoftInputMode" value="stateHidden|adjustResize" />
     <preference name="fullscreen" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="10000" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
     <gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
@@ -85,11 +85,11 @@
     <icon src="res/icon/ios/appicon-Small-50.png" gap:platform="ios" width="50" height="50" />
     <icon src="res/icon/ios/appicon-Small-50@2x.png" gap:platform="ios" width="100" height="100" />
     <!-- you can use any density that exists in the Android project -->
-    <gap:splash src="res/screen/android/drawable-hdpi/screen.png" gap:platform="android" density="port-hdpi"/>
-    <gap:splash src="res/screen/android/drawable-ldpi/screen.png" gap:platform="android" density="port-ldpi"/>
-    <gap:splash src="res/screen/android/drawable-mdpi/screen.png" gap:platform="android" density="port-mdpi"/>
-    <gap:splash src="res/screen/android/drawable-xhdpi/screen.png" gap:platform="android" density="port-xhdpi"/>
-    <gap:splash src="res/screen/android/drawable-xxhdpi/screen.png" gap:platform="android" density="port-xxhdpi"/>
+    <gap:splash src="res/screen/android/drawable-hdpi/screen.png" gap:platform="android" gap:qualifier="hdpi"/>
+    <gap:splash src="res/screen/android/drawable-ldpi/screen.png" gap:platform="android" gap:qualifier="ldpi"/>
+    <gap:splash src="res/screen/android/drawable-mdpi/screen.png" gap:platform="android" gap:qualifier="mdpi"/>
+    <gap:splash src="res/screen/android/drawable-xhdpi/screen.png" gap:platform="android" gap:qualifier="xhdpi"/>
+    <gap:splash src="res/screen/android/drawable-xxhdpi/screen.png" gap:platform="android" gap:qualifier="xxhdpi"/>
     <!-- images are determined by width and height. The following are supported -->
     <gap:splash src="res/screen/ios/Default~iPhone.png" gap:platform="ios" width="320" height="480"/>
     <gap:splash src="res/screen/ios/Default@2x~iphone.png" gap:platform="ios" width="640" height="960"/>

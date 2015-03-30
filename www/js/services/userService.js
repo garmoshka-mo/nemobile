@@ -267,8 +267,6 @@ services
         }
     };
 
-    
-
     this.signup = function(name, password) {
         return api.signup(name, password)
         .then(
