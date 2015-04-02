@@ -3,8 +3,10 @@ angular.module("angControllers").controller("exitController", ['$scope', '$state
 
     $scope.exit = function() {
         $scope.showSpinner = true;
-        user.logout();
-        $state.go('start');
+        user.logout()
+        .then(function() {
+            $state.go('start');
+        });
     };
 }]);
     

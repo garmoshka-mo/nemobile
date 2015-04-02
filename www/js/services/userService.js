@@ -232,6 +232,7 @@ services
             return api.getUserInfo(accessToken)
             .then(
                 function(userInfo) {
+                    console.log('userInfo', userInfo);
                     handleSuccessSignIn(userInfo);
                     console.log("user is logged", user);
                 },
@@ -280,11 +281,16 @@ services
     };
 
     this.logout = function() {
-        storage.clear();
-        unsubscribe();
-        clearCurrentUser();
-        removeDeviceFromChannel();
-        console.log('user is logged out', user);
+        var d = $q.defer();
+        $timeout(function() {
+            storage.clear();
+            unsubscribe();
+            clearCurrentUser();
+            removeDeviceFromChannel();
+            d.resolve();
+            console.log('user is logged out', user);
+        }, 0);
+        return d.promise;
     };
 
     this.getUnseenMessages = function() {
@@ -415,7 +421,35 @@ services
                 return $q.reject(res);
             }
         );
-    } ;
+    };
+
+    this.updateAvatarURL = function(url) {
+        return api.updateAvatarText({url: url})
+        .then(
+            function() {
+                updateUserInfo(user.accessToken);
+            },
+            function() {
+                console.log("updating avatar is failed");
+            }
+        );
+    };
+
+    this.updateAvatarGuid = function(guid) {
+        return api.updateAvatarText({guid: guid})
+        .then(
+            function() {
+                updateUserInfo(user.accessToken);
+            },
+            function() {
+                console.log("updating avatar is failed");
+            }
+        );
+    };
+
+    this.updateAvatarFile = function() {
+
+    };
 
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
@@ -429,6 +463,6 @@ services
     }
 
     //for debugging
-    //window.user = this;
+    window.user = this;
 
 }]);

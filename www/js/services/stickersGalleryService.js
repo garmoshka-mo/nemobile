@@ -21,7 +21,7 @@ services
                 });    
             }); 
         }
-        console.log("dictionary is made", self.dictionary);
+        // console.log("dictionary is made", self.dictionary);
     }
 
     //public methods
@@ -35,7 +35,7 @@ services
                 if (res) {
                     makeDictionary();
                 }
-                console.log("Stickers gallery is updated", self.categories); 
+                // console.log("Stickers gallery is updated", self.categories); 
             }
         );  
     };

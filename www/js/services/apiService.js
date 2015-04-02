@@ -22,6 +22,7 @@ services
             })
             .then(function(res) {
                 if (res.data.success) {
+                    console.log('api.signin', res);
                     return {accessToken: res.data.access_token};
                 }
                 else {
@@ -37,7 +38,7 @@ services
                 data: {name: name, password: password}
             })
             .then(function(res) {
-                console.log(res);
+                // console.log('api.signup', res);
                 if (res.data.success) {
                     return true;
                 }
@@ -54,6 +55,7 @@ services
                 data: {access_token: access_token}
             })
             .then(function(res) {
+                console.log('api.getUserInfo', res);
                 if (res.data.success) {
                     return res.data.user;
                 }
@@ -393,7 +395,7 @@ services
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    // console.log(res);
                     return $q.reject();
                 }
             );
@@ -423,6 +425,31 @@ services
                     return $q.reject();
                 }
             );
+        },
+
+        //method to upload image as avatar
+        updateAvatarFile: function(avatar) {
+            return $upload.upload({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
+                data: {
+                    "access_token": api.accessToken,
+                    "id": categoryId,
+                },
+                file: file,
+                fileName: "image." + type,
+                fileFormDataName: "image[image_data]"
+            });        
+        },
+
+        //method to upload url or random string which are used to generate avatar
+        updateAvatarText: function(avatarData) {
+            avatarData.access_token = api.accessToken;
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/avatar",
+                data: avatarData
+            });
         }
     };
 
