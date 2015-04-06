@@ -44,7 +44,17 @@ services
         user.uuid = userInfo.uuid;
         user.scores = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
-        user.avatar = userInfo.uuid;
+        
+        
+        if (userInfo.avatar_url) {
+            user.avatarUrl = userInfo.avatar_url;
+        }
+        else if (userInfo.avatar_guid) {
+            user.avatarUrl = App.Settings.adorableUrl + "/40/" + userInfo.avatar_guid; 
+        }
+        else {
+            user.avatarUrl = App.Settings.adorableUrl + "/40/" + userInfo.uuid; 
+        }
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
@@ -332,7 +342,7 @@ services
                 self.scores = dataFromStorage.scores;
                 self.phoneNumber = dataFromStorage.phoneNumber;
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
-                self.avatar = dataFromStorage.avatar;
+                self.avatarUrl = dataFromStorage.avatarUrl;
                 self.subscribe();
                 registerDeviceToChannel();
                 setApiAccessToken();
@@ -447,8 +457,16 @@ services
         );
     };
 
-    this.updateAvatarFile = function() {
-
+    this.updateAvatarFile = function(file) {
+        return api.updateAvatarFile(file)
+        .then(
+            function () {
+                updateUserInfo(user.accessToken);
+            },
+            function () {
+                console.error("image upload error");
+            }
+        );
     };
 
     var pubnub = PUBNUB.init({

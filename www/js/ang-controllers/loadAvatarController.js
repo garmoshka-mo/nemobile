@@ -1,13 +1,13 @@
-angular.module("angControllers").controller("loadAvatarController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 
-    function($scope, $stateParams, stickersGallery, notification) {
+angular.module("angControllers").controller("loadAvatarController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 'user', 
+    function($scope, $stateParams, stickersGallery, notification, user) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
 
         function handleSuccessUploading() {
             $scope.isImageUploading = false;
-            stickersGallery.currentCategory = $scope.selectedCategory.name;
-            window.history.back();
+            // stickersGallery.currentCategory = $scope.selectedCategory.name;
+            // window.history.back();
         }
 
         if ($stateParams.categoryId) {
@@ -23,22 +23,24 @@ angular.module("angControllers").controller("loadAvatarController", ['$scope', '
             url: $stateParams.imageURL == "null" ? null : $stateParams.imageURL,
         };
 
-        $scope.addStickerURL = function() {
-            $scope.newImage.categoryId = $scope.selectedCategory.id;
-            console.log($scope.newImage);
+        $scope.updateAvatarUrl = function() {
+            // console.log($scope.newImage);
             $scope.isImageUploading = true;
-            stickersGallery.addStickerURL($scope.newImage.categoryId, $scope.newImage.url)
+            user.updateAvatarURL($scope.newImage.url)
             .then(
-                function() {
-                    handleSuccessUploading();
+                function () {
+                    $scope.isImageUploading = false;
+                    user.save();
+                },
+                function () {
+                    $scope.isImageUploading = false;
                 }
             );
         };
 
-        $scope.addStickerFile = function() {
-            $scope.newImage.categoryId = $scope.selectedCategory.id;
+        $scope.uploadPhoto = function() {
             $scope.isImageUploading = true;
-            stickersGallery.addStickerFile($scope.newImage.categoryId, $scope.newImage.file[0])
+            user.updateAvatarFile($scope.newImage.file[0])
             .then(
                 function() {
                     handleSuccessUploading();

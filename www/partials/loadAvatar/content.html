@@ -7,11 +7,11 @@
         <div class="mb1rem">
             или загрузите из галереи
         </div>
-        <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="addStickerFile()" name="image_data">
+        <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="uploadPhoto()" name="data">
         <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
         <br>
         <div class="ta-center">
-            <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="addStickerURL()">
+            <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="updateAvatarUrl()">
                 <span ng-show="!isImageUploading">Загрузить</span>
                 <span spinner spinner-color="white" ng-show="isImageUploading"></span>
             </button>

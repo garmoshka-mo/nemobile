@@ -203,6 +203,7 @@ services
                 }
             );
         },
+
         addStickerURL: function(categoryId, imageURL) {
             return $http({
                 method: 'POST',
@@ -223,6 +224,7 @@ services
                 }
             );
         },
+
         addStickerFile: function(categoryId, file) {
             var d = $q.defer();
             fileTypeDeterminer.detect(file, 
@@ -428,18 +430,34 @@ services
         },
 
         //method to upload image as avatar
-        updateAvatarFile: function(avatar) {
-            return $upload.upload({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
-                data: {
-                    "access_token": api.accessToken,
-                    "id": categoryId,
+        updateAvatarFile: function(file) {
+            var d = $q.defer();
+            fileTypeDeterminer.detect(file, 
+                function(type) {
+                    $upload.upload({
+                        method: 'POST',
+                        url: App.Settings.apiUrl + "/avatar",
+                        data: {
+                            "access_token": api.accessToken,
+                        },
+                        file: file,
+                        fileName: "image." + type,
+                        fileFormDataName: "avatar[data]"
+                    })
+                    .then(
+                        function(res) {
+                            d.resolve();
+                        },
+                        function(res) {
+                            d.reject();
+                        }
+                    );
                 },
-                file: file,
-                fileName: "image." + type,
-                fileFormDataName: "image[image_data]"
-            });        
+                function() {
+                    alert("wrong file type");
+                }
+            );
+            return d.promise;  
         },
 
         //method to upload url or random string which are used to generate avatar

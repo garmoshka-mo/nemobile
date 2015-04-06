@@ -1,7 +1,7 @@
-<div class="menu-ava-container" ng-click="generateNewAvatar()">
-    <img class="rounded-ava pointer" ng-src="http://api.adorable.io/avatars/40/{{user.avatar}}" alt="ava" imageonload="imageLoadedHandler()">
-    <span class="text-bold" ng-bind="user.name" ng-hide="showChangeAvatarMenu"></span>
-    <div class="inline-block" ng-show="showChangeAvatarMenu" ng-class="{'animated fadeIn': showChangeAvatarMenu}" stop-event>
+<div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
+    <img class="rounded-ava pointer" ng-src="{{user.avatarUrl}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
+    <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
+    <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>
         <div class="change-ava-button" ng-click="applyCurrentAvatar()">
             <i class="fa fa-check"></i>
         </div>
