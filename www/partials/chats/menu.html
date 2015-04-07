@@ -1,5 +1,5 @@
 <div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
-    <img class="rounded-ava pointer" ng-src="{{user.avatarUrl}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
+    <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
     <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
     <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>
         <div class="change-ava-button" ng-click="applyCurrentAvatar()">
@@ -15,7 +15,12 @@
     </div>
 </div>
 <ul class="off-canvas-list">
-    <li><a class="menu-item" href="#/chats"><i class="fa fa-envelope"></i> Чаты</a></li>
+    <li>
+        <a class="menu-item" href="#/chats">
+            <i class="fa fa-envelope"></i> Чаты
+            <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
+        </a>
+    </li>
     <li><a class="menu-item" href="#/friends"><i class="fa fa-group"></i> Друзья</a></li>
     <li><a class="menu-item" href="#/friendSearch"><i class="fa fa-search"></i> Найти друга</a></li>
     <li><a class="menu-item" href="#/settings"><i class="fa fa-gear"></i> Настройки</a></li>

@@ -46,7 +46,8 @@ angular.module("angControllers").controller("friendsController",
         var adorableLink = "http://api.adorable.io/avatars/40/";
 
         if (friend.photos) {
-            return friend.photos[0].value;
+            return friend.photos[0].valueMini ? 
+                friend.photos[0].valueMini : friend.photos[0].value;
         }
 
         if (friend.uuid) {

@@ -14,8 +14,38 @@ angular.module("angControllers").controller("chatsController", [
 
         $scope.getChatTitle = function(chat) {
             if (chat.senderId === chat.title) {
-                chat.updateTitle();
+                chat.updateInfo();
+                chat.title = "...";
+                return chat.title;
             }
             return chat.title;
+        };
+
+        $scope.getChatPhoto = function(chat) {
+            if (chat.photoUrl === null) {
+                chat.updateInfo()
+                .then(function () {
+                    console.log(chat);
+                });
+                //setting temporary photoUrl
+                chat.photoUrl = App.Settings.adorableUrl + '/40/' + chat.senderId;
+                console.log("get chat photo function is invoked");
+                return chat.photoUrl;
+            }
+            return chat.photoUrl;
+        };
+
+        $scope.getFriendImage = function(friend, index) {
+            var adorableLink = "http://api.adorable.io/avatars/40/";
+
+            if (friend.photos) {
+                return friend.photos[0].value;
+            }
+
+            if (friend.uuid) {
+                return adorableLink + friend.uuid;
+            }
+
+            return adorableLink + index;
         };
 }]);

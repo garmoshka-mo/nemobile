@@ -27,7 +27,8 @@ angular.module("angControllers").controller("friendSearchController", [
             
             $scope.canBeAdded = true;
             $scope.nameToAdd = $scope.stringToSearch;
-            $scope.foundUuid = results.uuid; 
+            $scope.foundUuid = results.uuid;
+            $scope.avatarToAdd = user.parseAvatarDataFromServer(results);
         }
     }
 
@@ -61,7 +62,7 @@ angular.module("angControllers").controller("friendSearchController", [
     
     $scope.addToFriends = function() {
         $scope.canBeAdded = false;
-        user.addFriend($scope.foundUuid, $scope.nameToAdd);
+        user.addFriend($scope.foundUuid, $scope.nameToAdd, $scope.avatarToAdd);
         if (!user.chats[$scope.foundUuid]) {
             user.addChat($scope.foundUuid);
         }

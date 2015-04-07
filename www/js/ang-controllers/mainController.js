@@ -39,6 +39,7 @@ angular.module("angControllers").controller("mainController", [
                 cordova.plugins.Keyboard.close();
             }
         }
+        $scope.countUnreadChats();
         $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
     };
 
@@ -49,7 +50,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.generateNewAvatar = function() {
         var newGuid = Math.round(Math.random() * 10000);
-        user.avatarUrl = App.Settings.adorableUrl + "/40/" + newGuid;
+        user.avatarUrlMini = App.Settings.adorableUrl + "/40/" + newGuid;
         $scope.isChangeAvaMenuShown = true;
         $scope.isAvaLoading = true;
 
@@ -61,13 +62,13 @@ angular.module("angControllers").controller("mainController", [
     };
 
     $scope.showChangeAvatarMenu = function() {
-        $scope.initialAvatarUrl = user.avatarUrl; 
+        $scope.initialAvatarUrl = user.avatarUrlMini; 
         $scope.isChangeAvaMenuShown = true;
         $scope.generateNewAvatar();
     };
 
     $scope.restoreDefaultAvatar = function() {
-        user.avatarUrl = $scope.initialAvatarUrl;
+        user.avatarUrlMini = $scope.initialAvatarUrl;
         $scope.isChangeAvaMenuShown = false;
         $scope.isAvaLoading = true;
     };
@@ -77,9 +78,19 @@ angular.module("angControllers").controller("mainController", [
     };
 
     $scope.goToLoadAvatar = function() {
+        location.href = "#/loadAvatar";
         $scope.closeMenu();
         $scope.isChangeAvaMenuShown = false;
-        location.href = "#/loadAvatar";
+        user.avatarUrlMini = $scope.initialAvatarUrl;
+    };
+
+    $scope.countUnreadChats = function () {
+        $scope.unreadChatsAmount = 0;
+        for (var chat in user.chats) {
+            if (!user.chats[chat].isRead) {
+                $scope.unreadChatsAmount++;
+            }
+        }
     };
 
     $scope.$on('$stateChangeStart',

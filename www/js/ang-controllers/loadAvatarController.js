@@ -1,14 +1,57 @@
-angular.module("angControllers").controller("loadAvatarController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 'user', 
-    function($scope, $stateParams, stickersGallery, notification, user) {
+angular.module("angControllers").controller("loadAvatarController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 'user', '$timeout', 
+    function($scope, $stateParams, stickersGallery, notification, user, $timeout) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
+        $scope.isServerResponseShown = false;
 
         function handleSuccessUploading() {
             $scope.isImageUploading = false;
-            // stickersGallery.currentCategory = $scope.selectedCategory.name;
-            // window.history.back();
+            $scope.serverResponse = "аватарка успешно изменена";
+            $scope.isServerResponseShown = true;
+            $timeout(function() {
+                $scope.isServerResponseShown = false;
+            }, 3000);
+            user.save();
         }
+
+        function handleFailedUploading () {
+            $scope.isImageUploading = false;
+            $scope.serverResponse = "произошла ошибка";
+            $scope.isServerResponseShown = true;
+        }
+
+        function doBeforeUploading() {
+            $scope.isImageUploading = true;
+            $scope.isServerResponseShown = false;
+        }
+
+        $scope.updateAvatarUrl = function() {
+            doBeforeUploading();
+            user.updateAvatarURL($scope.newImage.url)
+            .then(
+                function () {
+                    handleSuccessUploading();
+                },
+                function () {
+                    handleFailedUploading();
+                }
+            );
+        };
+
+        $scope.uploadPhoto = function() {
+            doBeforeUploading();
+            $scope.isServerResponseShown = false;
+            user.updateAvatarFile($scope.newImage.file[0])
+            .then(
+                function() {
+                    handleSuccessUploading();
+                },
+                function () {
+                    handleFailedUploading();
+                }
+            );
+        };
 
         if ($stateParams.categoryId) {
             for (var i = 0; i < stickersGallery.categories.length; i++) {
@@ -22,31 +65,5 @@ angular.module("angControllers").controller("loadAvatarController", ['$scope', '
         $scope.newImage = {
             url: $stateParams.imageURL == "null" ? null : $stateParams.imageURL,
         };
-
-        $scope.updateAvatarUrl = function() {
-            // console.log($scope.newImage);
-            $scope.isImageUploading = true;
-            user.updateAvatarURL($scope.newImage.url)
-            .then(
-                function () {
-                    $scope.isImageUploading = false;
-                    user.save();
-                },
-                function () {
-                    $scope.isImageUploading = false;
-                }
-            );
-        };
-
-        $scope.uploadPhoto = function() {
-            $scope.isImageUploading = true;
-            user.updateAvatarFile($scope.newImage.file[0])
-            .then(
-                function() {
-                    handleSuccessUploading();
-                }
-            );
-        };
-
 }]);
     

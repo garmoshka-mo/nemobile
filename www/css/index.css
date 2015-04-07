@@ -609,6 +609,14 @@ margin-right: 10px;
   display: inline-block;
   width: 80%;
 }
+.menu-new-messages-number {
+  display: inline-block;
+  background: rgba(255,255,255, 0.2);
+  width: 33px;
+  text-align: center;
+  border-radius: 15px;
+  text-shadow: 0 0 5px rgba(255,255,255,0.8);
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{

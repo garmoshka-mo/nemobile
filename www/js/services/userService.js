@@ -45,16 +45,9 @@ services
         user.scores = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
         
-        
-        if (userInfo.avatar_url) {
-            user.avatarUrl = userInfo.avatar_url;
-        }
-        else if (userInfo.avatar_guid) {
-            user.avatarUrl = App.Settings.adorableUrl + "/40/" + userInfo.avatar_guid; 
-        }
-        else {
-            user.avatarUrl = App.Settings.adorableUrl + "/40/" + userInfo.uuid; 
-        }
+        var avatarParseResult = user.parseAvatarDataFromServer(userInfo);
+        user.avatarUrl = avatarParseResult.fullSize;
+        user.avatarUrlMini = avatarParseResult.mini;
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
@@ -315,19 +308,22 @@ services
         }        
     };
 
-    this.addFriend = function(uuid, name) {
+    this.addFriend = function(uuid, name, avatarObj) {
+        var photos = avatarObj ? 
+            [{value: avatarObj.fullSize, valueMini: avatarObj.mini}] : null;
         var data = {
             name: {
                 formatted: name
             },
-            uuid: uuid
+            uuid: uuid,
+            photos: photos
         };
         friendsList.addFriend(data);
     },
 
     this.addChat = function(senderId) {
         this.chats[senderId] = new Chat(senderId, this);
-        this.chats[senderId].updateTitle();
+        this.chats[senderId].updateInfo();
     };
    
     this.parseFromStorage = function() {
@@ -343,6 +339,7 @@ services
                 self.phoneNumber = dataFromStorage.phoneNumber;
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
                 self.avatarUrl = dataFromStorage.avatarUrl;
+                self.avatarUrlMini = dataFromStorage.avatarUrlMini;
                 self.subscribe();
                 registerDeviceToChannel();
                 setApiAccessToken();
@@ -467,6 +464,32 @@ services
                 console.error("image upload error");
             }
         );
+    };
+
+    this.parseAvatarDataFromServer = function(dataFromServer) {
+        var output = {
+            fullSize: null,
+            mini: null, 
+        };
+
+        if (dataFromServer.avatar_url) {
+            output.fullSize = dataFromServer.avatar_url;
+            output.mini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80' + '$3');
+        }
+        else if (dataFromServer.avatar_guid) {
+            output.fullSize = App.Settings.adorableUrl + '/' + dataFromServer.avatar_guid;
+            output.mini = App.Settings.adorableUrl + '/40/' + dataFromServer.avatar_guid;
+        }
+        else if (dataFromServer.uuid) {
+            output.fullSize = App.Settings.adorableUrl + '/' + dataFromServer.uuid;
+            output.mini = App.Settings.adorableUrl + '/40/' + dataFromServer.uuid;
+        }
+        else {
+            output.fullSize = App.Settings.adorableUrl + '/' + Math.round(Math.random() * 1000);
+            output.mini = App.Settings.adorableUrl + '/40/' + Math.round(Math.random() * 1000);
+        }
+
+        return output;
     };
 
     var pubnub = PUBNUB.init({

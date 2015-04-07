@@ -10,6 +10,9 @@
         <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="uploadPhoto()" name="data">
         <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
         <br>
+        <div class="h41">
+            <div class="ta-center" ng-show="isServerResponseShown" ng-bind="serverResponse"></div>
+        </div>
         <div class="ta-center">
             <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="updateAvatarUrl()">
                 <span ng-show="!isImageUploading">Загрузить</span>

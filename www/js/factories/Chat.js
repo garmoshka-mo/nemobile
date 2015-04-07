@@ -11,6 +11,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         this.currentUser = currentUser;
         this.senderScores = null;
         this.title = senderId;
+        this.photoUrl = null;
     }
 
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
@@ -21,6 +22,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         chat.senderScores = dataFromStorage.senderScores;
         chat.isRead = dataFromStorage.isRead;
         chat.title = dataFromStorage.title;
+        chat.photoUrl = dataFromStorage.photoUrl;
         chat.currentUser = currentUser;
         return chat;
     };
@@ -76,23 +78,29 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                         var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
                         self.lastUnexpiredChatSession = parsedChatSession;
                         self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                        console.log(self.currentUser);
+                        // console.log("user", self.currentUser);
                     }
                 });
             }
         },
 
-        updateTitle: function() {
+        //updates chat's photo and title
+        updateInfo: function() {
             var self = this;
 
             if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {
-                self.title = self.currentUser.friendsList.nepotomFriends[self.senderId].displayName;
+                var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
+                self.title = friend.displayName;
+                if (friend.photos) {
+                    self.photoUrl = friend.photos[0].valueMini ? 
+                        friend.photos[0].valueMini : friend.photos[0].value;
+                }
             }
             else {
-                api.getUserInfoByUuid(self.senderId)
+                return api.getUserInfoByUuid(self.senderId)
                 .then(
                     function(res) {
-                        // console.log(res);
+                        console.log("api.getUserInfoByUuid", res);
                         if (res.success) {
                             if (res.user.name) {
                                 self.title = res.user.name;
@@ -100,10 +108,22 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                             else {
                                 self.title = res.user.phone_number;
                             }
+
+                            if (res.user.avatar_guid || res.user.avatar_url) {
+                                self.photoUrl = user.parseAvatarDataFromServer(res.user).mini;
+                            }
+                            else {
+                                self.photoUrl = App.Settings.adorableUrl + '/40/' + self.SenderId;
+                            }
                         }
                     },
                     function() {
                         console.error("get chat title error");
+                    }
+                )
+                .then(
+                    function() {
+                        self.currentUser.saveChats();
                     }
                 );
             }
