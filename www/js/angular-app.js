@@ -247,6 +247,21 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
       }
     }
   })
+  .state("showImage", {
+    url: "/showImage?link",
+    views: {
+      "title": {
+        template: "Просмотр изображения"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "showImageController",
+        templateUrl: "partials/showImage/content.html"
+      }
+    }
+  })
 }]);
 
 var pushNotification;

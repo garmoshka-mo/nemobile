@@ -22,16 +22,16 @@ angular.module("angControllers").controller("chatsController", [
         };
 
         $scope.getChatPhoto = function(chat) {
-            if (chat.photoUrl === null) {
+            if (chat.photoUrlMini === null) {
                 chat.updateInfo();
-                //setting temporary photoUrl
-                chat.photoUrl = App.Settings.adorableUrl + '/40/' + chat.senderId;
+                //setting temporary photoUrlMini
+                chat.photoUrlMini = App.Settings.adorableUrl + '/40/' + chat.senderId;
                 
-                // console.log("temporary chat photo Url", chat.photoUrl);
+                // console.log("temporary chat photo Url", chat.photoUrlMini);
                 // console.log("get chat photo function is invoked");
-                return chat.photoUrl;
+                return chat.photoUrlMini;
             }
-            return chat.photoUrl;
+            return chat.photoUrlMini;
         };
 
         $scope.getFriendImage = function(friend, index) {

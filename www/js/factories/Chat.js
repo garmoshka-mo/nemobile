@@ -23,6 +23,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         chat.isRead = dataFromStorage.isRead;
         chat.title = dataFromStorage.title;
         chat.photoUrl = dataFromStorage.photoUrl;
+        chat.photoUrlMini = dataFromStorage.photoUrlMini;
         chat.currentUser = currentUser;
         return chat;
     };
@@ -92,8 +93,9 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                 var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
                 self.title = friend.displayName;
                 if (friend.photos) {
-                    self.photoUrl = friend.photos[0].valueMini ? 
-                        friend.photos[0].valueMini : friend.photos[0].value;
+                    self.photoUrl = friend.photos[0].value; 
+                    self.photoUrlMini = friend.photos[0].valueMini ?
+                        friend.photos[0].valueMini : friend.photos[0].value; 
                 }
             }
             else {
@@ -110,7 +112,8 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                             }
 
                             if (res.user.avatar_guid || res.user.avatar_url) {
-                                self.photoUrl = user.parseAvatarDataFromServer(res.user).mini;
+                                self.photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
+                                self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
                             }
                             else {
                                 self.photoUrl = App.Settings.adorableUrl + '/40/' + self.senderId;

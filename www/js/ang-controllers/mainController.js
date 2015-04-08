@@ -9,6 +9,12 @@ angular.module("angControllers").controller("mainController", [
     $rootScope.isAppInBackground = false;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
+    $scope.isMenuOpened = false;
+
+    var statesWhereShowBackArrow = [
+        'chat',
+        'showImage' 
+    ];
 
     if (navigator.device) {
         $scope.isWeb = false;
@@ -34,6 +40,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.openMenu = function() {
         // console.log("swipe open");
+        $scope.isMenuOpened = true;
         if (window.device) {
             if (window.device.platform === "iOS") {
                 cordova.plugins.Keyboard.close();
@@ -45,6 +52,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.closeMenu = function() {
         // console.log("swipe close");
+        $scope.isMenuOpened = false;
         $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
     };
 
@@ -93,9 +101,28 @@ angular.module("angControllers").controller("mainController", [
         }
     };
 
+    $scope.showBackArrow = function() {
+        $scope.isBackArrownShown = true;
+    };
+
+    $scope.hideBackArrow = function () {
+        $scope.isBackArrownShown = false;
+    };
+
+    $scope.backArrowHandler = function() {
+        window.history.back();
+    };
+
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-        notification.clear();
-    });
+            if (statesWhereShowBackArrow.indexOf(toState.name) != -1) {
+                $scope.showBackArrow();
+            }
+            else {
+                $scope.hideBackArrow();
+            }
+            notification.clear();
+        }
+    );
 
 }]);

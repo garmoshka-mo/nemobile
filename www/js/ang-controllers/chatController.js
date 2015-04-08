@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, $state) {
         
         console.log("chat controller is invoked");
 
@@ -77,10 +77,17 @@ angular.module("angControllers").controller("chatController",
         }
         var chat = $scope.chat;
         
-        var notificationString = "<img src='" + chat.photoUrl + 
+        var notificationString = "<img src='" + chat.photoUrlMini + 
             "' class='chat-toolbar-image'>" +
             chat.title;
-        notification.set(notificationString);
+        var notificationCallback = function() {
+            $state.go('showImage',
+                {
+                    link:chat.photoUrl
+                });
+            // location.replace("#/showImage?link=" + chat.photoUrl);
+        };
+        notification.set(notificationString, notificationCallback);
 
         chat.getLastUnexpiredChatSession();
         if (!chat.isRead) {

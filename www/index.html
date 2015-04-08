@@ -76,6 +76,7 @@
         <script type="text/javascript" src="js/ang-controllers/chatController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/startController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/signinupController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/showImageController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/settingsController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/friendSearchController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/invitationController.js"></script>
@@ -99,13 +100,16 @@
             <div class="iphone-status-bar-margin"></div>
             <div class="inner-wrap">
                 <nav class="tab-bar">
-                    <section class="left-small" ng-click="openMenu()">
-                        <a class="menu-icon"><span></span></a>
+                    <section class="left-small">
+                        <a ng-hide="isBackArrownShown" class="menu-icon" ng-click="openMenu()"><span></span></a>
+                        <i ng-show="isBackArrownShown" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10"></i>
                     </section>
                     <section class="middle tab-bar-section">
                         <h1 class="title">
                             <div ng-hide="notification.text" ui-view="title"></div>
-                            <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}"><span ng-bind-html="notification.text"></span></div>
+                            <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}">
+                                <span ng-bind-html="notification.text"></span>
+                            </div>
                         </h1>
                     </section>
                     <section ng-show="user.scores" class="right-small ta-center">

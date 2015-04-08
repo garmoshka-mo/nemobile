@@ -438,6 +438,7 @@ services
             },
             function() {
                 console.log("updating avatar is failed");
+                return $q.reject();
             }
         );
     };
@@ -450,6 +451,7 @@ services
             },
             function() {
                 console.log("updating avatar is failed");
+                return $q.reject();
             }
         );
     };
@@ -462,6 +464,7 @@ services
             },
             function () {
                 console.error("image upload error");
+                return $q.reject();
             }
         );
     };

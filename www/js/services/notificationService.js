@@ -1,5 +1,5 @@
 services
-.factory('notification', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+.factory('notification', ['$rootScope', '$timeout',  function($rootScope, $timeout) {
     console.log("notification service is enabled");
     $rootScope.notification = {};
     return {
