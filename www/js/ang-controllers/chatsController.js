@@ -23,13 +23,12 @@ angular.module("angControllers").controller("chatsController", [
 
         $scope.getChatPhoto = function(chat) {
             if (chat.photoUrl === null) {
-                chat.updateInfo()
-                .then(function () {
-                    console.log(chat);
-                });
+                chat.updateInfo();
                 //setting temporary photoUrl
                 chat.photoUrl = App.Settings.adorableUrl + '/40/' + chat.senderId;
-                console.log("get chat photo function is invoked");
+                
+                // console.log("temporary chat photo Url", chat.photoUrl);
+                // console.log("get chat photo function is invoked");
                 return chat.photoUrl;
             }
             return chat.photoUrl;

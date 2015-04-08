@@ -304,6 +304,14 @@ a.button:hover{
 .chats-chat:active {
   background-color: #ecf0f1;
 }
+.chat-toolbar-image {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-top: -5px;
+  margin-right: 5px;
+  object-fit: cover;
+}
 .small-gray-text {
   font-size: 17px;
   color: #7f8c8d;

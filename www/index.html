@@ -104,8 +104,8 @@
                     </section>
                     <section class="middle tab-bar-section">
                         <h1 class="title">
-                            <div ng-show="!notification.text" ui-view="title"></div>
-                            <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}"><span ng-bind="notification.text"></span></div>
+                            <div ng-hide="notification.text" ui-view="title"></div>
+                            <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}"><span ng-bind-html="notification.text"></span></div>
                         </h1>
                     </section>
                     <section ng-show="user.scores" class="right-small ta-center">

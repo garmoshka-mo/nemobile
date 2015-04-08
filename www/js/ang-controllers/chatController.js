@@ -76,7 +76,11 @@ angular.module("angControllers").controller("chatController",
             $scope.chat = user.chats[$stateParams.senderId];
         }
         var chat = $scope.chat;
-        notification.set(chat.title);
+        
+        var notificationString = "<img src='" + chat.photoUrl + 
+            "' class='chat-toolbar-image'>" +
+            chat.title;
+        notification.set(notificationString);
 
         chat.getLastUnexpiredChatSession();
         if (!chat.isRead) {

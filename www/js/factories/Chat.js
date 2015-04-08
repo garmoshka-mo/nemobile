@@ -113,7 +113,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                                 self.photoUrl = user.parseAvatarDataFromServer(res.user).mini;
                             }
                             else {
-                                self.photoUrl = App.Settings.adorableUrl + '/40/' + self.SenderId;
+                                self.photoUrl = App.Settings.adorableUrl + '/40/' + self.senderId;
                             }
                         }
                     },
