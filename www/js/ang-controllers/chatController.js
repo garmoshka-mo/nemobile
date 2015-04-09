@@ -69,7 +69,7 @@ angular.module("angControllers").controller("chatController",
             }
         };
 
-
+        //getting chat object, if chat does not exist create new one
         $scope.chat = user.chats[$stateParams.senderId];
         if (!$scope.chat) {
             user.addChat($stateParams.senderId);
