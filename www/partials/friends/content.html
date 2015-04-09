@@ -23,7 +23,7 @@
         </form>
     </div>
     <div class="ta-center block-center width-92 pt1rem" ng-hide="user.friendsList.friends.length === 0" stop-event>
-        <input type="text" ng-model="search" placeholder="введите имя для поиска">
+        <input type="text" ng-model="search" placeholder="введите имя для поиска" clear-all-button>
     </div>
 </div>
 <div class="friend-list" overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" np-touchstart="hideKeyboard">
@@ -31,8 +31,8 @@
         <div class="ta-center mt20 width-92 block-center inline-input-button-block pt1rem" ng-show="user.friendsList.friends.length === 0">
             У вас пока нету друзей <br>    
             Введите логин или номер телефона для поиска
-            <form>
-                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона">
+            <form class="relative">
+                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button>
                 <a ng-href="#/friendSearch?stringToSearch={{stringToSearch}}">
                     <button>
                         <i class="fa fa-search"></i>

@@ -2,19 +2,20 @@
   <form name="regForm" novalidate>
     <div class="width-92 inline-block">
       <!--  <label for="reg_user_name">Имя</label> -->
-        <input id="reg_user_name" name="name" type="text" ng-model="newUser.name" placeholder="Имя" autocomplete="off" required>
+        <input id="reg_user_name" name="name" type="text" ng-model="newUser.name" placeholder="Имя" autocomplete="off" clear-all-button required>
     </div>
     <div class="width-92 inline-block">
      <!--    <label for="reg_user_password">Пароль</label> -->
-        <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" autocomplete="off" required> 
+        <input id="reg_user_password" name="password" type="text" ng-model="newUser.password" placeholder="Пароль" clear-all-button autocomplete="off" required> 
     </div>
     <div class="width-92 inline-block" ng-show="isIn">
         <button ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
             <span ng-show="!showSpinner" class="ng-animate-disabled" >Войти</span>
             <span ng-show="showSpinner"  class="ng-animate-disabled" spinner spinner-color="white"></span>
         </button>
+        <div class="text-silver"><a href="#/signinup/up">зарегистрироваться</a></div>
     </div>
-    <div class="width-92 inline-block" ng-show="!isIn">
+    <div class="width-92 inline-block" ng-hide="isIn">
         <button ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
             <span ng-show="!showSpinner">Зарегистрироваться</span>
             <span ng-show="showSpinner" spinner spinner-color="white"></span>
@@ -26,13 +27,17 @@
         <span ng-click="closeServerResponse()" class="close">&times;</span>
     </div>
 
-    <div ng-show="!isIn" class="row text-silver">
-        <a href="#/phoneRegistration">
-            <div class="small-12 columns">
+    <div ng-hide="isIn" class="row text-silver">
+        <div>
+            <a href="#/phoneRegistration">
                 <i class="fa fa-arrow-left"></i>
                 <span>зарегистрировать номер</span>
-            </div>
-        </a>
+            </a>
+        </div>
+        <div class="width-92 line"></div>
+        <div>
+            <a href="#/signinup/in">войти</a>
+        </div>
     </div>
       
   </form>
