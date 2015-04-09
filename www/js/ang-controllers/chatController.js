@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
     ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, $state) {
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce) {
         
         console.log("chat controller is invoked");
 
@@ -72,7 +72,7 @@ angular.module("angControllers").controller("chatController",
         //getting chat object, if chat does not exist create new one
         $scope.chat = user.chats[$stateParams.senderId];
         if (!$scope.chat) {
-            user.addChat($stateParams.senderId);
+            user.addChat({senderId: $stateParams.senderId});
             $scope.chat = user.chats[$stateParams.senderId];
         }
         var chat = $scope.chat;

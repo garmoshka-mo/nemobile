@@ -120,7 +120,7 @@ services
         }
         else {
             console.log("created new chat");
-            self.addChat(senderUuid);
+            self.addChat({senderId: senderUuid});
             self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
@@ -321,9 +321,10 @@ services
         friendsList.addFriend(data);
     },
 
-    this.addChat = function(senderId) {
-        this.chats[senderId] = new Chat(senderId, this);
-        this.chats[senderId].updateInfo();
+    this.addChat = function(chatData) {
+        chatData.currentUser = this;
+        this.chats[chatData.senderId] = new Chat(chatData);
+        this.chats[chatData.senderId].updateInfo();
     };
    
     this.parseFromStorage = function() {

@@ -262,6 +262,21 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
       }
     }
   })
+  .state("addVirtualChat", {
+    url: "/addVirtualChat?friendIndex",
+    views: {
+      "title": {
+        template: "Создание чата"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "addVirtualChatController",
+        templateUrl: "partials/addVirtualChat/content.html"
+      }
+    }
+  })
 }]);
 
 var pushNotification;

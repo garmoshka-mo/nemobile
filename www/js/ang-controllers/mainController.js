@@ -15,6 +15,9 @@ angular.module("angControllers").controller("mainController", [
         'chat',
         'showImage' 
     ];
+    var forbidToGoBackStates = [
+        'addVirtualChat'
+    ];
 
     if (navigator.device) {
         $scope.isWeb = false;
@@ -95,7 +98,7 @@ angular.module("angControllers").controller("mainController", [
     $scope.countUnreadChats = function () {
         $scope.unreadChatsAmount = 0;
         for (var chat in user.chats) {
-            if (!user.chats[chat].isRead) {
+            if (!user.chats[chat].isRead && !user.chats[chat].isExpired) {
                 $scope.unreadChatsAmount++;
             }
         }
@@ -115,7 +118,8 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            if (statesWhereShowBackArrow.indexOf(toState.name) != -1) {
+            if (statesWhereShowBackArrow.indexOf(toState.name) != -1 && 
+                forbidToGoBackStates.indexOf(fromState.name) === -1) {
                 $scope.showBackArrow();
             }
             else {

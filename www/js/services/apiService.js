@@ -468,6 +468,32 @@ services
                 url: App.Settings.apiUrl + "/avatar",
                 data: avatarData
             });
+        },
+
+        addVirtualAccount: function() {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/add_virtual_user",
+                // data: {
+                //     "user_uuid": uuid,
+                //     "access_token": api.accessToken
+                // }
+            })
+            .then(
+                function(res) {
+                    console.log("addVirtualAccount", res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        console.error("add virtual account failed");
+                        return $q.reject();
+                    }
+                },
+                function(res) {
+                    console.error("add virtual account failed");
+                }
+            );
         }
     };
 

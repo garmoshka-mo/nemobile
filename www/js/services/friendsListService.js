@@ -89,6 +89,12 @@ services
                 });
                 self.lastContactId = dataFromStorage.lastContactId;
             }
+        },
+
+        transferToNepotomFriends: function(friendIndex, uuid) {
+            this.friends[friendIndex].uuid = uuid;
+            this.nepotomFriends[uuid] = this.friends[friendIndex];
+            this.save();
         }
 
     };

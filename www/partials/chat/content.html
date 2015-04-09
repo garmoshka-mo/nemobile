@@ -14,6 +14,12 @@
             <label class="radioLabel" for="radio4">1 нед</label>
         </form>
     </div>
+    <div class="ta-center width-92" ng-show="chat.isVirtual">
+        Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
+        <div>
+            <button><a href="#/invitation?friendIndex={{chat.friendIndex}}">Пригласить</a></button>
+        </div>
+    </div>
     <div class="ta-center chatHistoryButton" ng-show="!chatHistory.isAllChatSessionsVisbile">    
         <button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>
     </div>
