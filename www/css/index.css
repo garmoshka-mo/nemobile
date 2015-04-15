@@ -22,7 +22,9 @@ button {
   user-select: none;
 
 }
-
+input[type="password"] {
+  height: 46px;
+}
 .no-select {
   -webkit-user-select: none; 
   user-select: none;
