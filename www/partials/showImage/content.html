@@ -3,4 +3,10 @@
         <img class="imageShow"ng-show="linkToShow" ng-src="{{linkToShow}}" alt="image">
         <div ng-hide="linkToShow" ng-bind="error"></div>
     </div>
+    <div class="width-92 ta-center block-center pt1rem" ng-hide="isOffensive">
+        <button ng-click="makeItOffensive()">пожаловаться</button>
+    </div>
+    <div class="ta-center pt1rem" ng-show="isOffensive">
+        Спасибо. Мы просмотрим данное изображение
+    </div>
 </div>

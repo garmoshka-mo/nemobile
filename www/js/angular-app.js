@@ -262,6 +262,21 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
       }
     }
   })
+  .state("chatInfo", {
+    url: "/chatInfo?senderId",
+    views: {
+      "title": {
+        template: "Информация о чате"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "chatInfoController",
+        templateUrl: "partials/chatInfo/content.html"
+      }
+    }
+  })
 }]);
 
 var pushNotification;

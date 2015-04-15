@@ -81,9 +81,9 @@ angular.module("angControllers").controller("chatController",
             "' class='chat-toolbar-image'>" +
             chat.title;
         var notificationCallback = function() {
-            $state.go('showImage',
+            $state.go('chatInfo',
                 {
-                    link:chat.photoUrl
+                    senderId: chat.senderId
                 });
             // location.replace("#/showImage?link=" + chat.photoUrl);
         };

@@ -653,6 +653,9 @@ img.imageShow {
 .clear-all-button-inline {
   right: 28%;
 }
+.clear-all-button:hover {
+  cursor: pointer;
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{

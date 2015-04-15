@@ -13,7 +13,8 @@ angular.module("angControllers").controller("mainController", [
 
     var statesWhereShowBackArrow = [
         'chat',
-        'showImage' 
+        'showImage',
+        'chatInfo' 
     ];
 
     if (navigator.device) {
