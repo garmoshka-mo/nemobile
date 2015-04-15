@@ -4,9 +4,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         this.senderId = chatData.senderId;
         this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
         this.chatSessionsIndexes = chatData.chatSessionsIndexes ? chatData.chatSessionsIndexes : [];
-        this.isExpired = chatData.isExpired ? chatData.isExpired : true;
-        this.isReplied = chatData.isReplied ? chatData.isReplied : false;
-        this.lastChatSessionIndex = chatData.lastChatSessionIndex ? 
+        this.lastChatSessionIndex = !_.isUndefined(chatData.lastChatSessionIndex) ? 
             chatData.lastChatSessionIndex : null;
         this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
             chatData.lastUnexpiredChatSession : null;
@@ -15,6 +13,9 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
         this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
+        this.isExpired = chatData.isExpired ? chatData.isExpired : false;
+        this.isRead = chatData.isRead ? chatData.isRead : true;
+        this.isReplied = chatData.isReplied ? chatData.isReplied : false;
         this.isVirtual = chatData.isVirtual ? chatData.isVirtual : false;
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
@@ -47,6 +48,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             this.chatSessions[nextIndex] = chatSession;
             this.lastUnexpiredChatSession = chatSession;
 
+            chatSession.save();
             this.currentUser.saveChats();
         },
         
@@ -60,29 +62,47 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         },
 
         getLastUnexpiredChatSession: function() {
+            var d = $q.defer();
+
             var found = false;
             var self = this;
 
             if (this.isExpired) {
-                return false;
+                d.reject();
             }
 
-            if (this.lastChatSessionIndex !== undefined) {
+            //if chatSessionIndexes length === 0, that means that chat is new
+            if (!this.chatSessionsIndexes.length) {
+                d.reject();
+            }
+
+            if (this.lastChatSessionIndex !== null) {
                 this.lastUnexpiredChatSession = this.chatSessions[this.lastChatSessionIndex];
                 found = this.lastUnexpiredChatSession ? true : false;
             }
 
-            if (!found) {
-                storage.getChatSession(this.senderId, this.lastChatSessionIndex)
-                .then(function(chatSession) {
-                    if (chatSession) {
-                        var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
-                        self.lastUnexpiredChatSession = parsedChatSession;
-                        self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                        // console.log("user", self.currentUser);
-                    }
-                });
+            if (found) {
+                d.resolve();
             }
+            else {
+                storage.getChatSession(this.senderId, this.lastChatSessionIndex)
+                .then(
+                    function(chatSession) {
+                        if (chatSession) {
+                            var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
+                            self.lastUnexpiredChatSession = parsedChatSession;
+                            self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
+                            d.resolve();
+                            // console.log("user", self.currentUser);
+                        }
+                    },
+                    function() {
+                        d.reject();
+                    }
+                );
+
+            }
+            return d.promise;
         },
 
         //updates chat's photo and title

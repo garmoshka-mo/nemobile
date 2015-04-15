@@ -388,7 +388,7 @@ services
             })
             .then(
                 function(res) {
-                    // console.log('find nepotom users res', res.data);
+                    console.log('find nepotom users res', res.data);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -474,10 +474,9 @@ services
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + "/add_virtual_user",
-                // data: {
-                //     "user_uuid": uuid,
-                //     "access_token": api.accessToken
-                // }
+                data: {
+                    "access_token": api.accessToken
+                }
             })
             .then(
                 function(res) {
