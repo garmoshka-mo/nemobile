@@ -61,6 +61,9 @@ input[type="password"] {
 .text-silver {
   color: #bdc3c7;
 }
+.text-red {
+  color: #e74c3c;
+}
 .text-bold {
   font-family: "Open Sans Bold";
 }
@@ -475,7 +478,6 @@ input.category-name-change-input {
   margin-top: 10px;
 }
 .message {
-  padding: 5px;
   border-radius: 5px;
   position: relative;
   display: inline-block;

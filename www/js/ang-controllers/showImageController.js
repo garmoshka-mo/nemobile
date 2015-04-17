@@ -13,5 +13,6 @@ angular.module("angControllers").controller("showImageController", [
 
         $scope.makeItOffensive = function() {
             $scope.isOffensive = true;
+            user.forbidImage();
         };
 }]);

@@ -14,7 +14,8 @@ angular.module("angControllers").controller("mainController", [
     var statesWhereShowBackArrow = [
         'chat',
         'showImage',
-        'chatInfo' 
+        'chatInfo',
+        'about' 
     ];
 
     if (navigator.device) {
@@ -112,6 +113,10 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.backArrowHandler = function() {
         window.history.back();
+    };
+
+    $scope.goToAboutProgram = function() {
+        $state.go('about');
     };
 
     $scope.$on('$stateChangeStart',

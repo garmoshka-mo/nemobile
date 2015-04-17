@@ -468,6 +468,44 @@ services
                 url: App.Settings.apiUrl + "/avatar",
                 data: avatarData
             });
+        },
+
+        blockUser: function(uuid) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/users/blacklist",
+                data: {
+                    "user_uuid": uuid,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );    
+        },
+
+        forbidImage: function(imageId) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/images/abuse",
+                data: {
+                    "image_id": imageId,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );        
         }
     };
 

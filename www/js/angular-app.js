@@ -11,7 +11,7 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
     url: "",
     views: {
       "title": {
-        template: "Чат 0.0.1"  
+        template: "dub.ink"  
       },
       "menu": {
         templateUrl: "partials/start/menu.html"
@@ -274,6 +274,21 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
       "content": {
         controller: "chatInfoController",
         templateUrl: "partials/chatInfo/content.html"
+      }
+    }
+  })
+  .state("about", {
+    url: "/about",
+    views: {
+      "title": {
+        template: "О программе"
+      },
+      "menu": {
+        templateUrl: "partials/chats/menu.html"
+      }, 
+      "content": {
+        controller: "aboutController",
+        templateUrl: "partials/about/content.html"
       }
     }
   })

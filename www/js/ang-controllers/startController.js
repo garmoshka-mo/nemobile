@@ -9,7 +9,9 @@ angular.module("angControllers").controller("startController", ['user', '$state'
       }
     }
     else {
-      $state.go('start');
+      $state.go('signin', {
+        inOrUp: 'in'
+      });
     }
     
 }]);

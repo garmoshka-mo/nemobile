@@ -154,10 +154,10 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     var extensition = splitted[splitted.length - 1];
 
                     if (imagesExtensitions.indexOf(extensition) != -1) {
-                        return "(image)";
+                        return "(изображение)";
                     }
                     else {
-                        return "(link)";
+                        return "(ссылка)";
                     }
                 }
                 else {

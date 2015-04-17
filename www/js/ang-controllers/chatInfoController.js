@@ -3,6 +3,7 @@ angular.module("angControllers").controller("chatInfoController",
     function(user, $scope, $stateParams, $state) {
         $scope.chat = user.chats[$stateParams.senderId];
         $scope.isFriend = user.friendsList.nepotomFriends[$stateParams.senderId];
+        $scope.isBlocked = false;
 
         $scope.imageClickHandler = function() {
             $state.go('showImage', {
@@ -18,5 +19,9 @@ angular.module("angControllers").controller("chatInfoController",
             $scope.isFriend = true;
         };
 
-
+        $scope.blockUser = function() {
+            console.log("user is blocked");
+            user.blockUser($scope.chat.senderId);
+            $scope.isBlocked = true;
+        };
 }]);

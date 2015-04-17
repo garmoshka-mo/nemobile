@@ -17,8 +17,11 @@
             <span ng-bind="::chat.title"></span>   
         </div>
     </div>
-    <div class="width-92 pt1rem ta-center block-center">
-        <button>блокировать</button>
+    <div class="ta-center text-red width-92 block-center" ng-show="isBlocked">
+        Вы больше не будете получать сообщения от этого пользователя
+    </div>
+    <div class="width-92 pt1rem ta-center block-center" ng-hide="isBlocked">
+        <button ng-click="blockUser()">блокировать</button>
     </div>
     <div class="ta-center text-silver" ng-show="::isFriend">
         пользователь ваш друг
