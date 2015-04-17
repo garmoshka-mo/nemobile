@@ -17,7 +17,7 @@
     <div class="ta-center width-92 block-center" ng-show="chat.isVirtual">
         Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
         <div>
-            <button><a href="#/invitation?friendIndex={{chat.friendIndex}}">Пригласить</a></button>
+            <button><a href="#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}">Пригласить</a></button>
         </div>
     </div>
     <div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">    

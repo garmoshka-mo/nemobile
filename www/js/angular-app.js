@@ -218,7 +218,7 @@ angular.module("angApp").config(["$stateProvider", function($stateProvider) {
     }
   })
   .state("invitation", {
-    url: "/invitation?friendIndex",
+    url: "/invitation?friendIndex&senderId",
     views: {
       "title": {
         template: "Приглашение"
