@@ -85,7 +85,8 @@ angular.module("angControllers").controller("chatController",
                 var extensition = splitted[splitted.length - 1];
 
                 if (imagesExtensitions.indexOf(extensition) != -1) {
-                    return "<img src='" + messageText + "'>";
+                    return $sce.trustAsHtml("<a href='#/showImage?link=" + messageText + "''><img hm-double-tap='imageDoubleTap()' src='" +
+                        messageText + "'></a>");
                 }
                 else {
                     if ($scope.isWeb) {
@@ -114,11 +115,10 @@ angular.module("angControllers").controller("chatController",
             "' class='chat-toolbar-image'>" +
             chat.title;
         var notificationCallback = function() {
-            $state.go('showImage',
-                {
-                    link:chat.photoUrl
-                }
-            );
+            $state.go('chatInfo',{
+                senderId: chat.senderId
+            });
+            // location.replace("#/showImage?link=" + chat.photoUrl);
         };
         notification.set(notificationString, notificationCallback);
 
@@ -272,6 +272,10 @@ angular.module("angControllers").controller("chatController",
                     location.href = "#/addImage?imageURL=" + message.text;
                 }
             }
+        };
+
+        $scope.imageDoubleTap = function() {
+            alert("double tap");
         };
         
         if ($stateParams.messageText) {

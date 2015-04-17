@@ -20,7 +20,7 @@
             <button><a href="#/invitation?friendIndex={{chat.friendIndex}}">Пригласить</a></button>
         </div>
     </div>
-    <div class="ta-center chatHistoryButton" ng-show="!chatHistory.isAllChatSessionsVisbile">    
+    <div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">    
         <button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>
     </div>
     <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">

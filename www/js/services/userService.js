@@ -470,6 +470,14 @@ services
         );
     };
 
+    this.blockUser = function(uuid) {
+        api.blockUser(uuid);
+    };
+
+    this.forbidImage = function(imageUrl) {
+        api.forbidImage(imageUrl);
+    };
+
     this.parseAvatarDataFromServer = function(dataFromServer) {
         var output = {
             fullSize: null,

@@ -20,9 +20,10 @@ body{
 button {
   -webkit-user-select: none; 
   user-select: none;
-
 }
-
+input[type="password"] {
+  height: 46px;
+}
 .no-select {
   -webkit-user-select: none; 
   user-select: none;
@@ -58,6 +59,9 @@ button {
 }
 .text-silver {
   color: #bdc3c7;
+}
+.text-red {
+  color: #e74c3c;
 }
 .text-bold {
   font-family: "Open Sans Bold";
@@ -473,7 +477,6 @@ input.category-name-change-input {
   margin-top: 10px;
 }
 .message {
-  padding: 5px;
   border-radius: 5px;
   position: relative;
   display: inline-block;
@@ -653,6 +656,9 @@ img.imageShow {
 .clear-all-button-inline {
   right: 28%;
 }
+.clear-all-button:hover {
+  cursor: pointer;
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{
@@ -759,19 +765,19 @@ img.imageShow {
 
 /*radio buttons styles*/
 input[type="radio"] {
-    display:none;
+  display:none;
 }
 .radioLabel {
   color: #fff;
   font-size: 14px;
-}
-.radioLabel {
   display: inline-block;
   vertical-align: top !important;
   cursor: pointer;
   margin: 0 !important;
   margin-right: 1px !important;
-  padding: 5px 10px;;
+  padding: 5px 10px;
+  -webkit-user-select: none; 
+  user-select: none;
 }
 
 .radioLabel  {

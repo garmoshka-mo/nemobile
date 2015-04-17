@@ -493,6 +493,36 @@ services
                     console.error("add virtual account failed");
                 }
             );
+        },
+
+        blockUser: function(uuid) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/users/blacklist",
+                data: {
+                    "access_token": api.accessToken,
+                    "user_uuid": uuid
+                }
+            });
+        },
+
+        forbidImage: function(imageId) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/images/abuse",
+                data: {
+                    "image_id": imageId,
+                    "access_token": api.accessToken
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );        
         }
     };
 

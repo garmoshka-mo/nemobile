@@ -13,7 +13,9 @@ angular.module("angControllers").controller("mainController", [
 
     var statesWhereShowBackArrow = [
         'chat',
-        'showImage' 
+        'showImage',
+        'chatInfo',
+        'about' 
     ];
     var forbidToGoBackStates = [
         'addVirtualChat'
@@ -114,6 +116,10 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.backArrowHandler = function() {
         window.history.back();
+    };
+
+    $scope.goToAboutProgram = function() {
+        $state.go('about');
     };
 
     $scope.$on('$stateChangeStart',

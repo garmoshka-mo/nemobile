@@ -1,0 +1,32 @@
+<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    <div class="row pt1rem">
+        <div class="columns small-6">
+            <div class="text-silver">Кликните, чтобы увеличить</div>
+        </div>
+        <div class="columns small-6">
+            <div class="text-silver">Имя пользователя</div>
+        </div>
+    </div>
+    <div class="row pt1rem">
+        <div class="columns small-6">
+            <div class="ta-center">
+                <img ng-src="{{::chat.photoUrlMini}}" alt="ava" class="rounded-ava" ng-click="imageClickHandler()" imageonload>
+            </div>
+        </div>
+        <div class="columns small-6">
+            <span ng-bind="::chat.title"></span>   
+        </div>
+    </div>
+    <div class="ta-center text-red width-92 block-center" ng-show="isBlocked">
+        Вы больше не будете получать сообщения от этого пользователя
+    </div>
+    <div class="width-92 pt1rem ta-center block-center" ng-hide="isBlocked">
+        <button ng-click="blockUser()">блокировать</button>
+    </div>
+    <div class="ta-center text-silver" ng-show="::isFriend">
+        пользователь ваш друг
+    </div>
+     <div ng-hide="::isFriend" class="width-92 pt1rem ta-center block-center">
+        <button ng-click="addFriend()">добавить в друзья</button>
+    </div>
+</div>
