@@ -114,7 +114,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.newMessage = {
             text: '',
-            ttl: 10080,
+            ttl: 2592000,//30 days
             clearText: function() {
                 this.text = '';
             }
