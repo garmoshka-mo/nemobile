@@ -66,6 +66,9 @@ input[type="password"] {
 .text-bold {
   font-family: "Open Sans Bold";
 }
+.text-underline {
+  text-decoration: underline;
+}
 .pointer:hover {
   cursor: pointer;
 }
