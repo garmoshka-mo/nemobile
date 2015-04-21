@@ -88,7 +88,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
         setTimeout: function(time) {
             var self = this;
-            console.log("timer for chatSession is set. Left(msec): " + time);
+            // console.log("timer for chatSession is set. Left(msec): " + time);
             
             // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly 
             // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
@@ -96,7 +96,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
             if (time > 2147483647) {
                 this.extraTime = time - 2147483647;
                 time = 2147483647;
-                console.log("extra time is added(msec): " + this.extraTime);
+                // console.log("extra time is added(msec): " + this.extraTime);
             }
 
             if (this.timer) {

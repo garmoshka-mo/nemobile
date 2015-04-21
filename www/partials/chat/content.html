@@ -14,10 +14,15 @@
             <label class="radioLabel" for="radio4">1 нед</label>
         </form>
     </div>
-    <div class="ta-center width-92 block-center" ng-show="chat.isVirtual">
+    <div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
+        Чтобы разблокировать все функции преложения. Необходима регистрация.
+        <br>
+        <a href="#/updateProfile"><button>зарегистрироваться</button></a>
+    </div>
+    <div class="ta-center width-92 block-center chat-notification" ng-show="chat.isVirtual">
         Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
-        <div>
-            <button><a href="#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}">Пригласить</a></button>
+        <div class="pt1rem">
+            <a href="#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}"><button>Пригласить</button></a>
         </div>
     </div>
     <div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">    
@@ -35,13 +40,10 @@
     <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" >
         <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers track by $index" ng-click="::sendAppropriateSticker(image.url)">
     </div>
-    <div ng-show="errorDescription" data-alert class="alert-box alert m0">
-        <span ng-bind="errorDescription"></span>
-        <span ng-click="closeErrorDescription()" class="close">&times;</span>
-    </div>
+    <div ng-model="errorDescription" alert-box></div>
     <div class="chat-buttons-container">
         <div class="chat-left-buttons">
-            <div class="chat-sticker-button" ng-click="isStickersGalleryVisiable = !isStickersGalleryVisiable">
+            <div class="chat-sticker-button pointer" ng-click="isStickersGalleryVisiable = !isStickersGalleryVisiable">
                 <i class="fa fa-image"></i>
             </div>
             <div class="chat-input-container">

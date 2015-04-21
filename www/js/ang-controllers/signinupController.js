@@ -46,8 +46,5 @@ angular.module("angControllers").controller("signinupController",
         );
     };
 
-    $scope.closeServerResponse = function() {
-        $scope.serverResponse = false;
-    };
 }]);
     

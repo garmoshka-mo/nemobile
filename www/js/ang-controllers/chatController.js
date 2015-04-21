@@ -4,6 +4,7 @@ angular.module("angControllers").controller("chatController",
         
         console.log("chat controller is invoked");
 
+        $scope.user = user;
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
@@ -45,6 +46,19 @@ angular.module("angControllers").controller("chatController",
                     );
                 }
             };
+        }
+
+        function setNotification() {
+            var notificationString = "<img src='" + chat.photoUrlMini + 
+                "' class='chat-toolbar-image'>" +
+                chat.title;
+            var notificationCallback = function() {
+                $state.go('chatInfo',{
+                    senderId: chat.senderId
+                });
+                // location.replace("#/showImage?link=" + chat.photoUrl);
+            };
+            notification.set(notificationString, notificationCallback);
         }
 
         $scope.scrollToBottom = function() {
@@ -110,17 +124,14 @@ angular.module("angControllers").controller("chatController",
         }
         var chat = $scope.chat;
         console.log("chat", chat);
+        setNotification();
         
-        var notificationString = "<img src='" + chat.photoUrlMini + 
-            "' class='chat-toolbar-image'>" +
-            chat.title;
-        var notificationCallback = function() {
-            $state.go('chatInfo',{
-                senderId: chat.senderId
+        if (chat.title === chat.senderId) {
+            chat.updateInfo()
+            .then(function() {
+                setNotification();
             });
-            // location.replace("#/showImage?link=" + chat.photoUrl);
-        };
-        notification.set(notificationString, notificationCallback);
+        }
 
         if (!chat.isRead) {
             chat.isRead = true;
@@ -179,10 +190,6 @@ angular.module("angControllers").controller("chatController",
 
         $scope.handleFailedSending = function(errorDescription) {
             $scope.errorDescription = errorDescription;
-        };
-
-        $scope.closeErrorDescription = function() {
-            $scope.errorDescription = "";
         };
 
         chat.sendMessage = function(text) {

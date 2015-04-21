@@ -26,7 +26,8 @@ angular.module("angControllers").controller("chatsController", [
                 chat.updateInfo();
                 //setting temporary photoUrlMini
                 chat.photoUrlMini = App.Settings.adorableUrl + '/40/' + chat.senderId;
-                
+                chat.photoUrl = App.Settings.adorableUrl + '/' + chat.senderId;
+
                 // console.log("temporary chat photo Url", chat.photoUrlMini);
                 // console.log("get chat photo function is invoked");
                 return chat.photoUrlMini;

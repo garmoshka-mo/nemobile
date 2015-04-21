@@ -108,6 +108,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         //updates chat's photo and title
         updateInfo: function() {
             var self = this;
+            var d = $q.defer();
 
             if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {
                 var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
@@ -117,9 +118,10 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                     self.photoUrlMini = friend.photos[0].valueMini ?
                         friend.photos[0].valueMini : friend.photos[0].value; 
                 }
+                d.resolve();
             }
             else {
-                return api.getUserInfoByUuid(self.senderId)
+                api.getUserInfoByUuid(self.senderId)
                 .then(
                     function(res) {
                         console.log("api.getUserInfoByUuid", res);
@@ -136,22 +138,26 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                                 self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
                             }
                             else {
-                                self.photoUrl = App.Settings.adorableUrl + '/40/' + self.senderId;
+                                self.photoUrl = App.Settings.adorableUrl + '/' + self.senderId;
+                                self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.senderId;
                             }
                         }
                     },
                     function() {
                         console.error("get chat title error");
+                        d.reject();
                     }
                 )
                 .then(
                     function() {
                         self.currentUser.saveChats();
+                        d.resolve();
                     }
                 );
             }
 
             this.currentUser.saveChats();
+            return  d.promise;
         },
 
         remove: function() {

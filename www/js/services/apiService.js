@@ -65,6 +65,40 @@ services
             });
         },
 
+        updateProfile: function(name, password) {
+            var data = {
+                access_token: api.accessToken
+            };
+
+            if (name) {
+                data.name = name;
+            }
+
+            if (password) {
+                data.password = password;
+            }
+
+            return $http({
+                method: 'PUT',
+                url: App.Settings.apiUrl + '/profile',
+                data: data
+            })
+            .then(
+                function(res) {
+                    console.log('update profile', res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+                },
+                function(res) {
+                    console.error(res);
+                }
+            );
+        },
+
         getServerTime: function() {
             return $http({
                 method: 'GET',

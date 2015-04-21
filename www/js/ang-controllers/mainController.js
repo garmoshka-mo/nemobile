@@ -21,6 +21,11 @@ angular.module("angControllers").controller("mainController", [
         'addVirtualChat'
     ];
 
+    var statesAllowedForVirtualUser = [
+        'updateProfile',
+        'chat'
+    ];
+
     if (navigator.device) {
         $scope.isWeb = false;
     }
@@ -124,14 +129,22 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            if (statesWhereShowBackArrow.indexOf(toState.name) != -1 && 
-                forbidToGoBackStates.indexOf(fromState.name) === -1) {
+            console.log("state is changed!");
+            notification.clear();
+            if (user.isVirtual) {
+                if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
+                    evt.preventDefault();
+                }
+                return;
+            }
+
+            if (_.includes(statesWhereShowBackArrow, toState.name) && 
+                !_.includes(forbidToGoBackStates, fromState.name)) {
                 $scope.showBackArrow();
             }
             else {
                 $scope.hideBackArrow();
             }
-            notification.clear();
         }
     );
 
