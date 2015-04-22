@@ -106,11 +106,12 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         },
 
         //updates chat's photo and title
-        updateInfo: function() {
+        updateInfo: function(force) {
+            //force parameter forces function to get information from server
             var self = this;
             var d = $q.defer();
 
-            if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {
+            if (self.currentUser.friendsList.nepotomFriends[self.senderId] && !force) {
                 var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
                 self.title = friend.displayName;
                 if (friend.photos) {
