@@ -10,7 +10,10 @@ angular.module("angControllers").controller("invitationController", [
             alert('error: ' + msg);
         }
 
-        $scope.invitationText = "Привет! Давай общаться в мессенджере nepotom http://linktoapp.com";
+        var chat = user.chats[$stateParams.senderId];
+        // var link = App.Settings.appUrl + "/#/virtualChat?at=" + chat.link;
+        $scope.link = "http://localhost:3000" + "/#/virtualChat?at=" + chat.link;
+        $scope.invitationText = "Привет! Давай общаться в мессенджере dub.ink " + $scope.link;
 
         if ($stateParams.friendIndex) {
             $scope.friend = user.friendsList.friends[+$stateParams.friendIndex];
@@ -26,8 +29,8 @@ angular.module("angControllers").controller("invitationController", [
             console.log("invite via sms is called");
             window.plugins.socialsharing.shareViaSMS(
                 invitationText, $scope.friend.phoneNumbers[0].value,
-                function(msg) {console.log('ok: ' + msg)},
-                function(msg) {console.log('error: ' + msg)}
+                function(msg) {console.log('ok: ' + msg);},
+                function(msg) {console.log('error: ' + msg);}
             );
         };
 

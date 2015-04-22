@@ -28,13 +28,13 @@ angular.module("angControllers").controller("friendsController",
 
     $scope.getFriendLink = function(friend) {
         var templateForNepotomUser = "#/chat?senderId=";
-        var templateForInvitation = "#/invitation?friendIndex=";
+        var templateForVirtualChat = "#/addVirtualChat?friendIndex=";
 
         if (friend.uuid) {
             return templateForNepotomUser + friend.uuid;
         }
         else {
-            return templateForInvitation + user.friendsList.friends.indexOf(friend);
+            return templateForVirtualChat + user.friendsList.friends.indexOf(friend);
         }
     };
 

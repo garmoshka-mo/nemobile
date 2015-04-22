@@ -330,6 +330,12 @@ a.button:hover{
   margin-right: 5px;
   object-fit: cover;
 }
+.chat-notification {
+  background: rgba(46, 204, 113,0.3);
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
+}
 .small-gray-text {
   font-size: 17px;
   color: #7f8c8d;
@@ -615,7 +621,21 @@ margin-right: 10px;
   border-bottom: 1px solid #bdc3c7;
   margin: 10px 0;
 }
+textarea.invitationText {
+  min-height: 110px;
+}
 .socialShareButtonsMini button {
+  width: 50px;
+  padding: 10px;
+}
+.socialButtonsWeb ul {
+  list-style-type: none;
+}
+.socialButtonsWeb li {
+  display: inline-block;
+
+}
+.socialButtonsWeb button {
   width: 50px;
   padding: 10px;
 }

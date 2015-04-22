@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', 
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce',
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce) {
     
     this.name = null;
     this.uuid = null;
@@ -12,6 +12,7 @@ services
     this.lastMessageTimestamp = null;
     this.friendsList = friendsList;
     this.isParsingFromStorageNow = false;
+    this.isVirtual = false;
 
     var user = this;
     var differencePubnubDeviceTime;
@@ -49,17 +50,21 @@ services
         user.avatarUrl = avatarParseResult.fullSize;
         user.avatarUrlMini = avatarParseResult.mini;
 
+        if (user.isVirtual) {
+            getMessagesForVirtualChat();
+        }
+
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
         user.save();
         user.saveFriends();
-        setApiAccessToken();
         stickersGallery.getCurrentUserCategories();
         registerDeviceToChannel();
     }
 
-    function setApiAccessToken() {
-        api.setAccessToken(user.accessToken);
+    function setAccessToken(accessToken) {
+        user.accessToken = accessToken;
+        api.setAccessToken(accessToken);
     }
 
     function clearApiAccessToken() {
@@ -113,24 +118,26 @@ services
                 }
             }
 
-            lastSession.messages.push({
-                text: messageText,
-                isOwn: false
-            });
+           
         }
         else {
             console.log("created new chat");
-            self.addChat(senderUuid);
+            self.addChat({senderId: senderUuid});
             self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
-            lastSession.messages.push(
-                {
-                    text: messageText,
-                    isOwn: false
-                }
-            );
         }
+
+        if (messageText === "$===real===") {
+            self.chats[senderUuid].isVirtual = false;
+            messageText = "<span class='text-bold'>пользователь зарегистрировался</span>";
+            // messageText = $sce.trustAsHtml(messageText);
+        }
+
+        lastSession.messages.push({
+            text: messageText,
+            isOwn: false
+        });
 
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
@@ -160,18 +167,19 @@ services
 
     function getUnseenMessages() {
         if (user.lastMessageTimestamp) {
-            console.log("last seen message timestamp * 10000: ", 
-                (user.lastMessageTimestamp * 10000).toString());
+            // console.log("last seen message timestamp * 10000: ", 
+            //     (user.lastMessageTimestamp * 10000).toString());
             pubnub.history(
                 {
                     channel: user.channel,
                     end: (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000,
                     callback: function(res) {
-                        console.log("unseen messages: ", res);
+                        // console.log("unseen messages: ", res);
                         var messages = res[0];
                         for (var i = 0; i < messages.length; i++) {
                             handleIncomeMessage(messages[i]);                            
                         }
+
                         if (window.goToLastMessageChat) {
                             location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
                         }
@@ -181,6 +189,30 @@ services
                 }
             );
         }
+    }
+
+    function getMessagesForVirtualChat() {
+        // console.log("last seen message timestamp * 10000: ", 
+        //     (user.lastMessageTimestamp * 10000).toString());
+        var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
+        pubnub.history(
+            {
+                channel: user.channel,
+                end: MSEC_IN_MONTH * 10000,
+                callback: function(res) {
+                    console.log("unseen messages: ", res);
+                    var messages = res[0];
+                    for (var i = 0; i < messages.length; i++) {
+                        handleIncomeMessage(messages[i]);
+                    }
+
+                    if (messages.length) {
+                        console.log("redirected to chat");
+                        location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
+                    }
+                }
+            }
+        );
     }
 
     function removeDeviceFromChannel() {
@@ -201,8 +233,22 @@ services
     }
 
     function updateUserInfo(accessToken) {
-        user.signin(null, null, accessToken);
+        var at = accessToken ? accessToken : user.accessToken;
+        user.signin(null, null, at);
         console.log('user info is updated');
+    }
+
+
+    function notifyThatBecomeReal() {
+        var realMessage = "$===real===";
+        var ONE_DAY_MSEC = 24 * 3600 * 1000;
+        for (senderId in user.chats) {
+            if (!user.chats[senderId].isExpired) {
+                var chat = user.chats[senderId];
+                chat.getLastUnexpiredChatSession();
+                chat.lastUnexpiredChatSession.sendMessage(realMessage, senderId, ONE_DAY_MSEC);
+            }
+        }
     }
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
@@ -228,14 +274,15 @@ services
     };
 
     //public methods
-    this.signin = function(name, password, accessToken) {
+    this.signin = function(name, password, accessToken, isVirtual) {
         var self = this;
 
         function getUserInfo(accessToken) {
             return api.getUserInfo(accessToken)
             .then(
                 function(userInfo) {
-                    console.log('userInfo', userInfo);
+                    // console.log('userInfo', userInfo);
+                    user.isVirtual = isVirtual ? true : false;
                     handleSuccessSignIn(userInfo);
                     console.log("user is logged", user);
                 },
@@ -247,14 +294,14 @@ services
         }
 
         if (accessToken) {
-            self.accessToken = accessToken;
+            setAccessToken(accessToken);
             return getUserInfo(self.accessToken);
         }
         else {
             return api.signin(name, password)
             .then(
                 function setAccesssToken(res) {
-                    self.accessToken = res.accessToken;
+                    setAccessToken(res.accessToken);
                 },
                 function showError(res) {
                     return $q.reject(res.errorDescription); 
@@ -321,9 +368,10 @@ services
         friendsList.addFriend(data);
     },
 
-    this.addChat = function(senderId) {
-        this.chats[senderId] = new Chat(senderId, this);
-        this.chats[senderId].updateInfo();
+    this.addChat = function(chatData) {
+        chatData.currentUser = this;
+        this.chats[chatData.senderId] = new Chat(chatData);
+        this.chats[chatData.senderId].updateInfo();
     };
    
     this.parseFromStorage = function() {
@@ -331,7 +379,6 @@ services
         self.isParsingFromStorageNow = true;
         $q.all([
             storage.getUser().then(function(dataFromStorage) {
-                self.accessToken = dataFromStorage.accessToken;
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
                 self.channel = dataFromStorage.channel;
@@ -340,9 +387,10 @@ services
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
                 self.avatarUrl = dataFromStorage.avatarUrl;
                 self.avatarUrlMini = dataFromStorage.avatarUrlMini;
+
+                setAccessToken(dataFromStorage.accessToken);
                 self.subscribe();
                 registerDeviceToChannel();
-                setApiAccessToken();
                 stickersGallery.getCurrentUserCategories();
                 console.log("user info is taken from storage", self);
             }),
@@ -434,7 +482,7 @@ services
         return api.updateAvatarText({url: url})
         .then(
             function() {
-                updateUserInfo(user.accessToken);
+                updateUserInfo();
             },
             function() {
                 console.log("updating avatar is failed");
@@ -447,7 +495,7 @@ services
         return api.updateAvatarText({guid: guid})
         .then(
             function() {
-                updateUserInfo(user.accessToken);
+                updateUserInfo();
             },
             function() {
                 console.log("updating avatar is failed");
@@ -460,7 +508,7 @@ services
         return api.updateAvatarFile(file)
         .then(
             function () {
-                updateUserInfo(user.accessToken);
+                updateUserInfo();
             },
             function () {
                 console.error("image upload error");
@@ -476,6 +524,24 @@ services
     this.forbidImage = function(imageUrl) {
         api.forbidImage(imageUrl);
     };
+
+    this.updateProfile = function(name, password) {
+        return api.updateProfile(name, password)
+        .then(
+            function(res) {
+                updateUserInfo();
+                if (user.isVirtual) {
+                    user.isVirtual = false;
+                    notifyThatBecomeReal();
+                }
+                console.log('updateProfile', res);
+            },
+            function(res) {
+                return $q.reject(res);
+            }
+        );
+    };
+
 
     this.parseAvatarDataFromServer = function(dataFromServer) {
         var output = {

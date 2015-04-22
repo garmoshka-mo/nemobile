@@ -162,3 +162,18 @@ app.directive('clearAllButtonInline', function() {
     };
 });
 
+app.directive('alertBox', function() {
+    return {
+        template: '<div ng-show="ngModel" data-alert class="alert-box warning"><span ng-bind="ngModel"></span><span ng-click="close()" class="close pointer">&times;</span></div>',
+        scope: {
+            ngModel: "="
+        },
+        link: function(scope, elem, attr) {
+            scope.close = function() {
+                console.log("closed");
+                scope.ngModel = '';
+            };       
+        }
+    };
+});
+

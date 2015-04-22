@@ -1,30 +1,31 @@
 factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(storage, ChatSession, api, $q) {
     
-    function Chat(senderId, currentUser) {
-        this.senderId = senderId;
-        this.chatSessions = {};
-        this.chatSessionsIndexes = [];
-        this.isExpired = true;
-        this.isReplied = false;
-        this.lastChatSessionIndex = null;
-        this.lastUnexpiredChatSession = null;
-        this.currentUser = currentUser;
-        this.senderScores = null;
-        this.title = senderId;
-        this.photoUrl = null;
+    function Chat(chatData) {
+        this.senderId = chatData.senderId;
+        this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
+        this.chatSessionsIndexes = chatData.chatSessionsIndexes ? chatData.chatSessionsIndexes : [];
+        this.lastChatSessionIndex = !_.isUndefined(chatData.lastChatSessionIndex) ? 
+            chatData.lastChatSessionIndex : null;
+        this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
+            chatData.lastUnexpiredChatSession : null;
+        this.currentUser = chatData.currentUser;
+        this.senderScores = chatData.senderScores ? chatData.senderScores : null;
+        this.title = chatData.title ? chatData.title : chatData.senderId;
+        this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
+        this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
+        this.isExpired = chatData.isExpired ? chatData.isExpired : false;
+        this.isRead = chatData.isRead ? chatData.isRead : true;
+        this.isReplied = chatData.isReplied ? chatData.isReplied : false;
+        this.isVirtual = chatData.isVirtual ? chatData.isVirtual : false;
+        if (chatData.isVirtual) {
+            this.link = chatData.isVirtual ? chatData.link : null;
+            this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
+        }
     }
 
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
-        var chat = new Chat(dataFromStorage.senderId);
-        chat.chatSessionsIndexes = dataFromStorage.chatSessionsIndexes;
-        chat.isExpired = dataFromStorage.isExpired;
-        chat.lastChatSessionIndex = dataFromStorage.lastChatSessionIndex;
-        chat.senderScores = dataFromStorage.senderScores;
-        chat.isRead = dataFromStorage.isRead;
-        chat.title = dataFromStorage.title;
-        chat.photoUrl = dataFromStorage.photoUrl;
-        chat.photoUrlMini = dataFromStorage.photoUrlMini;
-        chat.currentUser = currentUser;
+        dataFromStorage.currentUser = currentUser;
+        var chat = new Chat(dataFromStorage);
         return chat;
     };
 
@@ -47,6 +48,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             this.chatSessions[nextIndex] = chatSession;
             this.lastUnexpiredChatSession = chatSession;
 
+            chatSession.save();
             this.currentUser.saveChats();
         },
         
@@ -60,34 +62,53 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         },
 
         getLastUnexpiredChatSession: function() {
+            var d = $q.defer();
+
             var found = false;
             var self = this;
 
             if (this.isExpired) {
-                return false;
+                d.reject();
             }
 
-            if (this.lastChatSessionIndex !== undefined) {
+            //if chatSessionIndexes length === 0, that means that chat is new
+            if (!this.chatSessionsIndexes.length) {
+                d.reject();
+            }
+
+            if (this.lastChatSessionIndex !== null) {
                 this.lastUnexpiredChatSession = this.chatSessions[this.lastChatSessionIndex];
                 found = this.lastUnexpiredChatSession ? true : false;
             }
 
-            if (!found) {
-                storage.getChatSession(this.senderId, this.lastChatSessionIndex)
-                .then(function(chatSession) {
-                    if (chatSession) {
-                        var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
-                        self.lastUnexpiredChatSession = parsedChatSession;
-                        self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                        // console.log("user", self.currentUser);
-                    }
-                });
+            if (found) {
+                d.resolve();
             }
+            else {
+                storage.getChatSession(this.senderId, this.lastChatSessionIndex)
+                .then(
+                    function(chatSession) {
+                        if (chatSession) {
+                            var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
+                            self.lastUnexpiredChatSession = parsedChatSession;
+                            self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
+                            d.resolve();
+                            // console.log("user", self.currentUser);
+                        }
+                    },
+                    function() {
+                        d.reject();
+                    }
+                );
+
+            }
+            return d.promise;
         },
 
         //updates chat's photo and title
         updateInfo: function() {
             var self = this;
+            var d = $q.defer();
 
             if (self.currentUser.friendsList.nepotomFriends[self.senderId]) {
                 var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
@@ -97,9 +118,10 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                     self.photoUrlMini = friend.photos[0].valueMini ?
                         friend.photos[0].valueMini : friend.photos[0].value; 
                 }
+                d.resolve();
             }
             else {
-                return api.getUserInfoByUuid(self.senderId)
+                api.getUserInfoByUuid(self.senderId)
                 .then(
                     function(res) {
                         console.log("api.getUserInfoByUuid", res);
@@ -116,22 +138,26 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                                 self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
                             }
                             else {
-                                self.photoUrl = App.Settings.adorableUrl + '/40/' + self.senderId;
+                                self.photoUrl = App.Settings.adorableUrl + '/' + self.senderId;
+                                self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.senderId;
                             }
                         }
                     },
                     function() {
                         console.error("get chat title error");
+                        d.reject();
                     }
                 )
                 .then(
                     function() {
                         self.currentUser.saveChats();
+                        d.resolve();
                     }
                 );
             }
 
             this.currentUser.saveChats();
+            return  d.promise;
         },
 
         remove: function() {
@@ -169,7 +195,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             this.lastUnexpiredChatSession = null;
             this.isExpired = true;
             console.log("chatSession is removed");
-        }
+        },
     };
 
     return Chat;

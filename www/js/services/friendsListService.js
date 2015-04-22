@@ -89,6 +89,12 @@ services
                 });
                 self.lastContactId = dataFromStorage.lastContactId;
             }
+        },
+
+        transferToNepotomFriends: function(friendIndex, uuid) {
+            this.friends[friendIndex].uuid = uuid;
+            this.nepotomFriends[uuid] = this.friends[friendIndex];
+            this.save();
         }
 
     };
@@ -148,17 +154,19 @@ services
             });
         }
 
-        api.findNepotomUsers(phoneNumbersArr)
-        .then(function(res) {
-            console.log("find nepotom users res:", res);
-            for (var key in res.search_results) {
-                var uuid = res.search_results[key];
-                phoneNumbersUsers[key].setUuid(uuid);
-                friendsList.nepotomFriends[uuid] = phoneNumbersUsers[key];
-                console.log("user is added to nepotom friends");
-            }
-            friendsList.save();
-        });
+        if (phoneNumbersArr.length) {
+            api.findNepotomUsers(phoneNumbersArr)
+            .then(function(res) {
+                console.log("find nepotom users res:", res);
+                for (var key in res.search_results) {
+                    var uuid = res.search_results[key];
+                    phoneNumbersUsers[key].setUuid(uuid);
+                    friendsList.nepotomFriends[uuid] = phoneNumbersUsers[key];
+                    console.log("user is added to nepotom friends");
+                }
+                friendsList.save();
+            });
+        }
 
     }
 

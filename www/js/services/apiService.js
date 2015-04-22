@@ -65,6 +65,40 @@ services
             });
         },
 
+        updateProfile: function(name, password) {
+            var data = {
+                access_token: api.accessToken
+            };
+
+            if (name) {
+                data.name = name;
+            }
+
+            if (password) {
+                data.password = password;
+            }
+
+            return $http({
+                method: 'PUT',
+                url: App.Settings.apiUrl + '/profile',
+                data: data
+            })
+            .then(
+                function(res) {
+                    console.log('update profile', res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+                },
+                function(res) {
+                    console.error(res);
+                }
+            );
+        },
+
         getServerTime: function() {
             return $http({
                 method: 'GET',
@@ -388,7 +422,7 @@ services
             })
             .then(
                 function(res) {
-                    // console.log('find nepotom users res', res.data);
+                    console.log('find nepotom users res', res.data);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -470,23 +504,40 @@ services
             });
         },
 
-        blockUser: function(uuid) {
+        addVirtualAccount: function() {
             return $http({
                 method: 'POST',
-                url: App.Settings.apiUrl + "/users/blacklist",
+                url: App.Settings.apiUrl + "/add_virtual_user",
                 data: {
-                    "user_uuid": uuid,
                     "access_token": api.accessToken
                 }
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    console.log("addVirtualAccount", res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        console.error("add virtual account failed");
+                        return $q.reject();
+                    }
                 },
                 function(res) {
-                    console.log(res);
+                    console.error("add virtual account failed");
                 }
-            );    
+            );
+        },
+
+        blockUser: function(uuid) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/users/blacklist",
+                data: {
+                    "access_token": api.accessToken,
+                    "user_uuid": uuid
+                }
+            });
         },
 
         forbidImage: function(imageId) {

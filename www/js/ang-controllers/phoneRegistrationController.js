@@ -86,6 +86,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
 
         $scope.goToEnterPhase = function () {
             $scope.screenToShow = "phoneEnter";
+            $scope.serverResponse = "";
         };
 
         $scope.goToAfterSmsSending = function() {
@@ -93,9 +94,6 @@ angular.module("angControllers").controller("phoneRegistrationController",
             $scope.showSpinner = true;        
         };
 
-        $scope.closeServerResponse = function() {
-            $scope.serverResponse = "";
-        };
 
         $scope.sendSms = function() {
             var generatedCode = generateCode(20);

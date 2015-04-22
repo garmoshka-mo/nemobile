@@ -12,10 +12,9 @@
                    </button>
                </div>
            </form>
-           <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-               <span ng-bind="serverResponse"></span>
-               <span ng-click="closeServerResponse()" class="close">&times;</span>
-           </div>
+           
+           <div ng-model="serverResponse" alert-box class="width-92 block-center">
+           
            <div ng-hide="isWeb">
                Вы также можете отправить смс на специальный номер <br>
                <span class="text-bold">

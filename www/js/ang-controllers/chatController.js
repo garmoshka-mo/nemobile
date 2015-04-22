@@ -1,9 +1,10 @@
 angular.module("angControllers").controller("chatController", 
     ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, $state) {
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce) {
         
         console.log("chat controller is invoked");
 
+        $scope.user = user;
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
@@ -13,6 +14,51 @@ angular.module("angControllers").controller("chatController",
         function retriveWords(inputString) {
             var output = inputString.match(/[A-Za-zА-Яа-я]+/g);
             return output === null ? [] : output;
+        }
+
+        function initChatHistory() {
+            $scope.chatHistory = {
+                previousMessages: [],
+                isUpdating: false,
+                lastVisibleChatSessionId: lastSession.id,
+                isAllChatSessionsVisbile: $scope.chat.chatSessionsIndexes.length == 1 ? true : false,
+                
+                getOneMoreChatSession: function() {
+                    var self = this;
+                    self.isUpdating = true;
+
+                    var lastIndex = $scope.chat.chatSessionsIndexes.indexOf(self.lastVisibleChatSessionId);
+                    var previousId = $scope.chat.chatSessionsIndexes[lastIndex - 1];
+                    
+                    if (lastIndex - 1 === 0) {
+                        self.isAllChatSessionsVisbile = true;
+                    }
+
+                    self.lastVisibleChatSessionId = previousId;
+
+                    $scope.chat.getChatSessionFromStorage(previousId)
+                    .then(
+                        function(chatSession) {
+                            self.previousMessages = chatSession.messages.concat(self.previousMessages);
+                            console.log(self.previousMessages);
+                            self.isUpdating = false;
+                        }
+                    );
+                }
+            };
+        }
+
+        function setNotification() {
+            var notificationString = "<img src='" + chat.photoUrlMini + 
+                "' class='chat-toolbar-image'>" +
+                chat.title;
+            var notificationCallback = function() {
+                $state.go('chatInfo',{
+                    senderId: chat.senderId
+                });
+                // location.replace("#/showImage?link=" + chat.photoUrl);
+            };
+            notification.set(notificationString, notificationCallback);
         }
 
         $scope.scrollToBottom = function() {
@@ -73,39 +119,47 @@ angular.module("angControllers").controller("chatController",
         //getting chat object, if chat does not exist create new one
         $scope.chat = user.chats[$stateParams.senderId];
         if (!$scope.chat) {
-            user.addChat($stateParams.senderId);
+            user.addChat({senderId: $stateParams.senderId});
             $scope.chat = user.chats[$stateParams.senderId];
         }
         var chat = $scope.chat;
+        console.log("chat", chat);
+        setNotification();
         
-        var notificationString = "<img src='" + chat.photoUrlMini + 
-            "' class='chat-toolbar-image'>" +
-            chat.title;
-        var notificationCallback = function() {
-            $state.go('chatInfo',
-                {
-                    senderId: chat.senderId
-                });
-            // location.replace("#/showImage?link=" + chat.photoUrl);
-        };
-        notification.set(notificationString, notificationCallback);
+        if (chat.title === chat.senderId) {
+            chat.updateInfo()
+            .then(function() {
+                setNotification();
+            });
+        }
 
-        chat.getLastUnexpiredChatSession();
         if (!chat.isRead) {
             chat.isRead = true;
             chat.currentUser.saveChats();
         }
-        var lastSession = chat.lastUnexpiredChatSession;
-        
-        if (!lastSession) {
-            chat.addChatSession(user.uuid, chat.senderId);
-            chat.getLastUnexpiredChatSession();
-            lastSession = chat.lastUnexpiredChatSession;
-            lastSession.save();
-        }
 
-        $scope.chatSession = lastSession;
-        $scope.isFirstMessage = !$scope.chatSession.messages.length;
+        var lastSession;
+        chat.getLastUnexpiredChatSession()
+        .then(
+            function() {
+                lastSession = chat.lastUnexpiredChatSession;
+                $scope.isFirstMessage = lastSession.messages.length;
+                console.log("got chat session");
+            },
+            function() {
+                chat.addChatSession(user.uuid, chat.senderId);
+                chat.getLastUnexpiredChatSession();
+                lastSession = chat.lastUnexpiredChatSession;
+                console.log("created new chat session");
+            }
+        )
+        .then(
+            function() {
+                initChatHistory();
+                $scope.chatSession = lastSession;
+            }
+        );
+        
 
         $scope.$watch("chatSession.messages.length", function() {
             $scope.scrollToBottom();
@@ -121,36 +175,7 @@ angular.module("angControllers").controller("chatController",
         };
 
 
-        $scope.chatHistory = {
-            previousMessages: [],
-            isUpdating: false,
-            lastVisibleChatSessionId: lastSession.id,
-            isAllChatSessionsVisbile: $scope.chat.chatSessionsIndexes.length == 1 ? true : false,
-            
-            getOneMoreChatSession: function() {
-                var self = this;
-                self.isUpdating = true;
-
-                var lastIndex = $scope.chat.chatSessionsIndexes.indexOf(self.lastVisibleChatSessionId);
-                var previousId = $scope.chat.chatSessionsIndexes[lastIndex - 1];
-                
-                if (lastIndex - 1 === 0) {
-                    self.isAllChatSessionsVisbile = true;
-                }
-
-                self.lastVisibleChatSessionId = previousId;
-
-                $scope.chat.getChatSessionFromStorage(previousId)
-                .then(
-                    function(chatSession) {
-                        self.previousMessages = chatSession.messages.concat(self.previousMessages);
-                        console.log(self.previousMessages);
-                        self.isUpdating = false;
-                    }
-                );
-            }
-        };
-
+       
         $scope.handleSuccessSending = function() {
             
             if (!$scope.chatSession.messages.length) {
@@ -165,10 +190,6 @@ angular.module("angControllers").controller("chatController",
 
         $scope.handleFailedSending = function(errorDescription) {
             $scope.errorDescription = errorDescription;
-        };
-
-        $scope.closeErrorDescription = function() {
-            $scope.errorDescription = "";
         };
 
         chat.sendMessage = function(text) {

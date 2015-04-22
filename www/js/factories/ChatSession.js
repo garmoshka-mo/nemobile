@@ -1,4 +1,5 @@
-factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($timeout, storage, api, $q) {
+factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce', 
+    function($timeout, storage, api, $q, $sce) {
     
     function ChatSession(creatorId, senderId, id, currentChat) {
         this.isExpired = false;
@@ -19,6 +20,10 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         var ttl = expires * 1000 - currentServerTime;
         console.log("time to live(sec): " +  ttl / 1000);
         return ttl;
+    }
+
+    function htmlToPlaintext(text) {
+        return String(text).replace(/<[^>]+>/gm, '');
     }
 
     ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
@@ -88,7 +93,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
 
         setTimeout: function(time) {
             var self = this;
-            console.log("timer for chatSession is set. Left(msec): " + time);
+            // console.log("timer for chatSession is set. Left(msec): " + time);
             
             // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly 
             // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
@@ -96,7 +101,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
             if (time > 2147483647) {
                 this.extraTime = time - 2147483647;
                 time = 2147483647;
-                console.log("extra time is added(msec): " + this.extraTime);
+                // console.log("extra time is added(msec): " + this.extraTime);
             }
 
             if (this.timer) {
@@ -161,7 +166,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     }
                 }
                 else {
-                    return text;
+                    return htmlToPlaintext(text);
                 }
             }
         }, 
@@ -179,10 +184,16 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                             self.creatorId = self.currentChat.currentUser.uuid;
                         }
 
+                        if (message === "$===real===") {
+                            message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";
+                            // message = $sce.trustAsHtml(message);
+                        }
+
                         self.messages.push({
                             text: message,
                             isOwn: true
                         });
+
                         self.setTimer(res.data.expires);
                         self.save();
                         console.log("chat session is saved");

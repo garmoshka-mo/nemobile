@@ -1,297 +1,341 @@
-var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/ "internationalPhoneNumber", "infinite-scroll"]);
+var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "mm.foundation", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/ "internationalPhoneNumber", "infinite-scroll", "ngSocial"]);
 app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
   //  chrome-extension: will be added to the end of the expression
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
-angular.module("angApp").config(["$stateProvider", function($stateProvider) {
-  $stateProvider
-  .state("start", {
-    url: "",
-    views: {
-      "title": {
-        template: "dub.ink"  
-      },
-      "menu": {
-        templateUrl: "partials/start/menu.html"
-      },
-      "content": {
-        templateUrl: "partials/start/content.html",
-        controller: "startController"
+angular.module("angApp").config(["$stateProvider", "$urlRouterProvider", 
+  function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("signinup/in"); 
+    $stateProvider
+    .state("start", {
+      url: "",
+      views: {
+        "title": {
+          template: "dub.ink"  
+        },
+        "menu": {
+          templateUrl: "partials/start/menu.html"
+        },
+        "content": {
+          templateUrl: "partials/start/content.html",
+          controller: "startController"
+        }
       }
-    }
-  })
-  .state("signin", {
-    url: "/signinup/:inOrUp",
-    views: {
-      "title": {
-        template: ""
-      },
-      "menu": {
-        templateUrl: "partials/start/menu.html"
-      }, 
-      "content": {
-        controller: "signinupController",
-        templateUrl: "partials/signinup/content.html"
+    })
+    .state("signin", {
+      url: "/signinup/:inOrUp",
+      views: {
+        "title": {
+          template: ""
+        },
+        "menu": {
+          templateUrl: "partials/start/menu.html"
+        }, 
+        "content": {
+          controller: "signinupController",
+          templateUrl: "partials/signinup/content.html"
+        }
       }
-    }
-  })
-  .state("signup", {
-    url: "/signup",
-    views: {
-      "title": {
-        template: "Регистрация"
-      },
-      "menu": {
-        templateUrl: "partials/start/menu.html"
-      }, 
-      "content": {
-        controller: "registrationController",
-        templateUrl: "partials/signup/content.html"
+    })
+    .state("signup", {
+      url: "/signup",
+      views: {
+        "title": {
+          template: "Регистрация"
+        },
+        "menu": {
+          templateUrl: "partials/start/menu.html"
+        }, 
+        "content": {
+          controller: "registrationController",
+          templateUrl: "partials/signup/content.html"
+        }
       }
-    }
-  })
-  .state("chats", {
-    url: "/chats",
-    views: {
-      "title": {
-        template: "Чаты"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "chatsController",
-        templateUrl: "partials/chats/content.html"
+    })
+    .state("chats", {
+      url: "/chats",
+      views: {
+        "title": {
+          template: "Чаты"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "chatsController",
+          templateUrl: "partials/chats/content.html"
+        }
       }
-    }
-  })
-  .state("chat", {
-    url: "/chat?senderId&messageText",
-    views: {
-      "title": {
-        template: "Чат"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "chatController",
-        templateUrl: "partials/chat/content.html"
+    })
+    .state("chat", {
+      url: "/chat?senderId&messageText",
+      views: {
+        "title": {
+          template: "Чат"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "chatController",
+          templateUrl: "partials/chat/content.html"
+        }
       }
-    }
-  })
-  .state("exit", {
-    url: "/exit",
-    views: {
-      "title": {
-        template: "Выход"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "exitController",
-        templateUrl: "partials/exit/content.html"
+    })
+    .state("exit", {
+      url: "/exit",
+      views: {
+        "title": {
+          template: "Выход"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "exitController",
+          templateUrl: "partials/exit/content.html"
+        }
       }
-    }
-  })
-  .state("friendSearch", {
-    url: "/friendSearch?stringToSearch",
-    views: {
-      "title": {
-        template: "Поиск друзей"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "friendSearchController",
-        templateUrl: "partials/friendSearch/content.html"
+    })
+    .state("friendSearch", {
+      url: "/friendSearch?stringToSearch",
+      views: {
+        "title": {
+          template: "Поиск друзей"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "friendSearchController",
+          templateUrl: "partials/friendSearch/content.html"
+        }
       }
-    }
-  })
-  .state("localForage", {
-    url: "/localForage",
-    views: {
-      "title": {
-        template: "Local Forage Test"
-      },
-      "menu": {
-        templateUrl: "partials/start/menu.html"
-      }, 
-      "content": {
-        controller: "localForageController",
-        templateUrl: "partials/localForage/content.html"
+    })
+    .state("localForage", {
+      url: "/localForage",
+      views: {
+        "title": {
+          template: "Local Forage Test"
+        },
+        "menu": {
+          templateUrl: "partials/start/menu.html"
+        }, 
+        "content": {
+          controller: "localForageController",
+          templateUrl: "partials/localForage/content.html"
+        }
       }
-    }
-  })
-  .state("stickersGallery", {
-    url: "/stickersGallery?fromChat",
-    views: {
-      "title": {
-        template: "Галерея стикеров"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "stickersGalleryController",
-        templateUrl: "partials/stickersGallery/content.html"
+    })
+    .state("stickersGallery", {
+      url: "/stickersGallery?fromChat",
+      views: {
+        "title": {
+          template: "Галерея стикеров"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "stickersGalleryController",
+          templateUrl: "partials/stickersGallery/content.html"
+        }
       }
-    }
-  })
-  .state("addImage", {
-    url: "/addImage?imageURL&categoryId",
-    views: {
-      "title": {
-        template: "Добавить изображение"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "addImageController",
-        templateUrl: "partials/addImage/content.html"
+    })
+    .state("addImage", {
+      url: "/addImage?imageURL&categoryId",
+      views: {
+        "title": {
+          template: "Добавить изображение"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "addImageController",
+          templateUrl: "partials/addImage/content.html"
+        }
       }
-    }
-  })
-  .state("friends", {
-    url: "/friends",
-    views: {
-      "title": {
-        template: "Друзья"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "friendsController",
-        templateUrl: "partials/friends/content.html"
+    })
+    .state("friends", {
+      url: "/friends",
+      views: {
+        "title": {
+          template: "Друзья"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "friendsController",
+          templateUrl: "partials/friends/content.html"
+        }
       }
-    }
-  })
-  .state("phoneRegistration", {
-    url: "/phoneRegistration",
-    views: {
-      "title": {
-        template: "Регистрация номера"
-      },
-      "menu": {
-        templateUrl: "partials/start/menu.html"
-      }, 
-      "content": {
-        controller: "phoneRegistrationController",
-        templateUrl: "partials/phoneRegistration/content.html"
+    })
+    .state("phoneRegistration", {
+      url: "/phoneRegistration",
+      views: {
+        "title": {
+          template: "Регистрация номера"
+        },
+        "menu": {
+          templateUrl: "partials/start/menu.html"
+        }, 
+        "content": {
+          controller: "phoneRegistrationController",
+          templateUrl: "partials/phoneRegistration/content.html"
+        }
       }
-    }
-  })
-  .state("phoneRegistrationUser", {
-    url: "/phoneRegistrationUser",
-    views: {
-      "title": {
-        template: "Регистрация номера"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "phoneRegistrationUserController",
-        templateUrl: "partials/phoneRegistrationUser/content.html"
+    })
+    .state("phoneRegistrationUser", {
+      url: "/phoneRegistrationUser",
+      views: {
+        "title": {
+          template: "Регистрация номера"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "phoneRegistrationUserController",
+          templateUrl: "partials/phoneRegistrationUser/content.html"
+        }
       }
-    }
-  })
-  .state("settings", {
-    url: "/settings",
-    views: {
-      "title": {
-        template: "Настройки"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "settingsController",
-        templateUrl: "partials/settings/content.html"
+    })
+    .state("settings", {
+      url: "/settings",
+      views: {
+        "title": {
+          template: "Настройки"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "settingsController",
+          templateUrl: "partials/settings/content.html"
+        }
       }
-    }
-  })
-  .state("invitation", {
-    url: "/invitation?friendIndex",
-    views: {
-      "title": {
-        template: "Приглашение"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "invitationController",
-        templateUrl: "partials/invitation/content.html"
+    })
+    .state("invitation", {
+      url: "/invitation?friendIndex&senderId",
+      views: {
+        "title": {
+          template: "Приглашение"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "invitationController",
+          templateUrl: "partials/invitation/content.html"
+        }
       }
-    }
-  })
-  .state("loadAvatar", {
-    url: "/loadAvatar",
-    views: {
-      "title": {
-        template: "Загрузка аватарки"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "loadAvatarController",
-        templateUrl: "partials/loadAvatar/content.html"
+    })
+    .state("loadAvatar", {
+      url: "/loadAvatar",
+      views: {
+        "title": {
+          template: "Загрузка аватарки"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "loadAvatarController",
+          templateUrl: "partials/loadAvatar/content.html"
+        }
       }
-    }
-  })
-  .state("showImage", {
-    url: "/showImage?link",
-    views: {
-      "title": {
-        template: "Просмотр изображения"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "showImageController",
-        templateUrl: "partials/showImage/content.html"
+    })
+    .state("showImage", {
+      url: "/showImage?link",
+      views: {
+        "title": {
+          template: "Просмотр изображения"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "showImageController",
+          templateUrl: "partials/showImage/content.html"
+        }
       }
-    }
-  })
-  .state("chatInfo", {
-    url: "/chatInfo?senderId",
-    views: {
-      "title": {
-        template: "Информация о чате"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "chatInfoController",
-        templateUrl: "partials/chatInfo/content.html"
+    })
+    .state("addVirtualChat", {
+      url: "/addVirtualChat?friendIndex",
+      views: {
+        "title": {
+          template: "Создание чата"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "addVirtualChatController",
+          templateUrl: "partials/addVirtualChat/content.html"
+        }
       }
-    }
-  })
-  .state("about", {
-    url: "/about",
-    views: {
-      "title": {
-        template: "О программе"
-      },
-      "menu": {
-        templateUrl: "partials/chats/menu.html"
-      }, 
-      "content": {
-        controller: "aboutController",
-        templateUrl: "partials/about/content.html"
+    })
+    .state("chatInfo", {
+      url: "/chatInfo?senderId",
+      views: {
+        "title": {
+          template: "Информация о чате"
+        },
+        "content": {
+          controller: "chatInfoController",
+          templateUrl: "partials/chatInfo/content.html"
+        }
       }
-    }
-  })
+    })
+    .state("about", {
+      url: "/about",
+      views: {
+        "title": {
+          template: "О программе"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "aboutController",
+          templateUrl: "partials/about/content.html"
+        }
+      }
+    })
+    .state("virtualChat", {
+      url: "/virtualChat?at",
+      views: {
+        "title": {
+          template: "Виртуальный чат"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "virtualChatController",
+          templateUrl: "partials/virtualChat/content.html"
+        }
+      }
+    })
+    .state("updateProfile", {
+      url: "/updateProfile",
+      views: {
+        "title": {
+          template: "Обновления профиля"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "updateProfileController",
+          templateUrl: "partials/updateProfile/content.html"
+        }
+      }
+    })
 }]);
 
 var pushNotification;

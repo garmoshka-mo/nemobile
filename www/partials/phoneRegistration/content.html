@@ -13,10 +13,6 @@
                </div>
            </form>
        
-           <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-               <span ng-bind="serverResponse"></span>
-               <span ng-click="closeServerResponse()" class="close">&times;</span>
-           </div>
        
            <div ng-hide="isWeb">
                Вы также можете отправить смс на специальный номер <br>
@@ -42,6 +38,7 @@
            <div class="text-silver">
             <a href="#/signinup/in">войти</a>  
            </div>
+           <div ng-model="serverResponse" alert-box class="width-92 block-center pt1rem"></div>
        </div>
        
        <div ng-switch-when="phoneConfirm">
@@ -62,16 +59,14 @@
                    <span>ввести другой номер</span>
                </div>
            </div>
+           <div ng-model="serverResponse" class="width-92 block-center pt1rem" alert-box></div>
        </div>
        
        <div ng-switch-when="afterSmsSending">
            <div class="ta-center">
                Пожалуйста подождите, идет регистрация номера
                <span ng-show="showSpinner" spinner></span>
-               <div ng-show="serverResponse" data-alert class="alert-box warning ng-animate-disabled">
-                   <span ng-bind="serverResponse"></span>
-                   <span ng-click="closeServerResponse()" class="close">&times;</span>
-               </div>
+               <div ng-model="serverResponse" alert-box class="width-92 block-center"></div>
            </div>
         </div>
     </div>
