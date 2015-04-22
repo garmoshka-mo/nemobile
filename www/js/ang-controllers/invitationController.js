@@ -11,7 +11,7 @@ angular.module("angControllers").controller("invitationController", [
         }
 
         var chat = user.chats[$stateParams.senderId];
-        var link = App.Settings.appUrl + "/#/virtualChat?at=" + chat.link;
+        $scope.link = App.Settings.appUrl + "/#/virtualChat?at=" + chat.link;
         // $scope.link = "http://localhost:3000" + "/#/virtualChat?at=" + chat.link;
         $scope.invitationText = "Привет! Давай общаться в мессенджере dub.ink " + $scope.link;
 
