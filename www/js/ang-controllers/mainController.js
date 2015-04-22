@@ -129,7 +129,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            console.log("state is changed!");
+            // console.log("state is changed!");
             notification.clear();
             if (user.isVirtual) {
                 if (!_.includes(statesAllowedForVirtualUser, toState.name)) {

@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', 
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce',
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce) {
     
     this.name = null;
     this.uuid = null;
@@ -118,10 +118,7 @@ services
                 }
             }
 
-            lastSession.messages.push({
-                text: messageText,
-                isOwn: false
-            });
+           
         }
         else {
             console.log("created new chat");
@@ -129,13 +126,18 @@ services
             self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
-            lastSession.messages.push(
-                {
-                    text: messageText,
-                    isOwn: false
-                }
-            );
         }
+
+        if (messageText === "$===real===") {
+            self.chats[senderUuid].isVirtual = false;
+            messageText = "<span class='text-bold'>пользователь зарегистрировался</span>";
+            // messageText = $sce.trustAsHtml(messageText);
+        }
+
+        lastSession.messages.push({
+            text: messageText,
+            isOwn: false
+        });
 
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
@@ -234,6 +236,19 @@ services
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
         console.log('user info is updated');
+    }
+
+
+    function notifyThatBecomeReal() {
+        var realMessage = "$===real===";
+        var ONE_DAY_MSEC = 24 * 3600 * 1000;
+        for (senderId in user.chats) {
+            if (!user.chats[senderId].isExpired) {
+                var chat = user.chats[senderId];
+                chat.getLastUnexpiredChatSession();
+                chat.lastUnexpiredChatSession.sendMessage(realMessage, senderId, ONE_DAY_MSEC);
+            }
+        }
     }
 
     window.registerDeviceToChannel = function registerDeviceToChannel() {
@@ -517,6 +532,7 @@ services
                 updateUserInfo();
                 if (user.isVirtual) {
                     user.isVirtual = false;
+                    notifyThatBecomeReal();
                 }
                 console.log('updateProfile', res);
             },
@@ -525,6 +541,7 @@ services
             }
         );
     };
+
 
     this.parseAvatarDataFromServer = function(dataFromServer) {
         var output = {

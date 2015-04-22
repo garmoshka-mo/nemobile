@@ -12,8 +12,8 @@ angular.module("angControllers").controller("invitationController", [
 
         var chat = user.chats[$stateParams.senderId];
         // var link = App.Settings.appUrl + "/#/virtualChat?at=" + chat.link;
-        var link = "http://localhost:3000" + "/#/virtualChat?at=" + chat.link;
-        $scope.invitationText = "Привет! Давай общаться в мессенджере dub.ink " + link;
+        $scope.link = "http://localhost:3000" + "/#/virtualChat?at=" + chat.link;
+        $scope.invitationText = "Привет! Давай общаться в мессенджере dub.ink " + $scope.link;
 
         if ($stateParams.friendIndex) {
             $scope.friend = user.friendsList.friends[+$stateParams.friendIndex];

@@ -5,9 +5,12 @@
             <b><span ng-show="friend.displayName" ng-bind="friend.displayName"></span></b>
             <span ng-show="!friend.displayName">ваш друг</span>
             не зарегистрирован в dub.ink<br> 
-            <div class="text-silver">
+            <div class="text-silver" ng-hide="isWeb">
                 Вы можете отправить ему СМС
                 или сообщение через социальную сеть, e-mail и т.п. 
+            </div>
+            <div class="text-silver" ng-show="isWeb">
+                Вы можете отправить ему сообщение через социальную сеть, e-mail или любым другим удобным вам способом 
             </div>
         </div>
         <div class="invitation-message">
@@ -18,7 +21,7 @@
             
             <textarea class="invitationText" ng-bind="invitationText"></textarea>
             <div class="socialShareButtons ta-center">
-                <button ng-click="inviteViaSms()">Послать СМС</button>
+                <button ng-click="inviteViaSms()" ng-hide="isWeb">Послать СМС</button>
             </div>
         </div>
         <div class="socialShareButtonsMini" ng-hide="isWeb">
@@ -33,6 +36,19 @@
         <!-- <div class="ta-center" ng-hide="!!friend.phoneNumbers.length || !!friend.emails.length">
             К сожалению, у вашего друга нету ни номера телефона, ни email
         </div> -->
-       
+        <div class="socialButtonsWeb" ng-show="isWeb">
+            <ul ng-social-buttons
+                 data-url="link"
+                 data-title="'Давай общаться в dub.ink'"
+                 data-description="invitationText"
+                 data-image="'http://s3.mistinfo.com/32/d8/32d8eab76f4c242f665bda66b5edc6c5.jpg'">
+                <li class="ng-social-facebook"><button><i class="fa fa-facebook"></i></button></li>
+                <!-- <li class="ng-social-google-plus">Google+</li> -->
+                <li class="ng-social-twitter"><button><i class="fa fa-twitter"></i></button></li>
+                <li class="ng-social-vk"><button><i class="fa fa-vk"></i></button></li>
+                <li><a href="mailto:?body={{invitationText}}"><button><i class="fa fa-envelope"></i></button></a></li>
+                <!-- <li class="ng-social-odnoklassniki">Одноклассники</li> -->
+            </ul>
+        </div>
     </div>
 </div>

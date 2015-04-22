@@ -1,4 +1,5 @@
-factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($timeout, storage, api, $q) {
+factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce', 
+    function($timeout, storage, api, $q, $sce) {
     
     function ChatSession(creatorId, senderId, id, currentChat) {
         this.isExpired = false;
@@ -19,6 +20,10 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
         var ttl = expires * 1000 - currentServerTime;
         console.log("time to live(sec): " +  ttl / 1000);
         return ttl;
+    }
+
+    function htmlToPlaintext(text) {
+        return String(text).replace(/<[^>]+>/gm, '');
     }
 
     ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
@@ -161,7 +166,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                     }
                 }
                 else {
-                    return text;
+                    return htmlToPlaintext(text);
                 }
             }
         }, 
@@ -179,10 +184,16 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', function($
                             self.creatorId = self.currentChat.currentUser.uuid;
                         }
 
+                        if (message === "$===real===") {
+                            message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";
+                            // message = $sce.trustAsHtml(message);
+                        }
+
                         self.messages.push({
                             text: message,
                             isOwn: true
                         });
+
                         self.setTimer(res.data.expires);
                         self.save();
                         console.log("chat session is saved");

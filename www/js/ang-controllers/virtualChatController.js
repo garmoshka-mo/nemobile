@@ -9,9 +9,6 @@ angular.module("angControllers").controller("virtualChatController", [
                 .then(function() {
                     $scope.showSpinner = false;
                     $scope.isEmpty = true;
-                    if ($scope.isEmpty) {
-                        console.log("empty chat");
-                    }
                 });
             });
         }
@@ -19,6 +16,7 @@ angular.module("angControllers").controller("virtualChatController", [
             user.signin(null, null, $stateParams.at, true)
             .then(function() {
                 $scope.showSpinner = false;
+                $scope.isEmpty = true;
             });
         }
 }]);

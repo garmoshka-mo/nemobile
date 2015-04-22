@@ -66,6 +66,9 @@ input[type="password"] {
 .text-bold {
   font-family: "Open Sans Bold";
 }
+.text-underline {
+  text-decoration: underline;
+}
 .pointer:hover {
   cursor: pointer;
 }
@@ -619,9 +622,20 @@ margin-right: 10px;
   margin: 10px 0;
 }
 textarea.invitationText {
-  min-height: 90px;
+  min-height: 110px;
 }
 .socialShareButtonsMini button {
+  width: 50px;
+  padding: 10px;
+}
+.socialButtonsWeb ul {
+  list-style-type: none;
+}
+.socialButtonsWeb li {
+  display: inline-block;
+
+}
+.socialButtonsWeb button {
   width: 50px;
   padding: 10px;
 }
