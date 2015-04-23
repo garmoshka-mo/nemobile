@@ -39,26 +39,54 @@
       
   </form>
 
-<div id="login_button" onclick="VK.Auth.login(authInfo);">войти через вк</div>
+<div id="login_button" onclick="plugin_vk.auth()">войти через вк</div>
 
 <script language="javascript">
-        // body...
+   var url_parser={
+        get_args: function (s) {
+            var tmp=new Array();
+            s=(s.toString()).split('&');
+            for (var i in s) {
+                i=s[i].split("=");
+                tmp[(i[0])]=i[1];
+            }
+            return tmp;
+        },
+        get_args_cookie: function (s) {
+            var tmp=new Array();
+            s=(s.toString()).split('; ');
+            for (var i in s) {
+                i=s[i].split("=");
+                tmp[(i[0])]=i[1];
+            }
+            return tmp;     
+        }
+}; 
+ var plugin_vk = {
+    wwwref: null,
+    plugin_perms: "friends,wall,photos,messages,wall,offline,notes",
     
-    VK.init({
-      apiId: 4889624
-    });
-   
-    VK.Auth.getLoginStatus(authInfo);
-    VK.UI.button('login_button');
-
-    function authInfo(response) {
-      if (response.session) {
-        console.log(response);
-        alert('user: '+ response.session.mid);
-      } else {
-        alert('not auth');
-      }
+    auth: function (force) {
+        if (!window.localStorage.getItem("plugin_vk_token") || force || window.localStorage.getItem("plugin_vk_perms")!=plugin_vk.plugin_perms) {
+            var authURL="https://oauth.vk.com/authorize?client_id=4889771&scope="+this.plugin_perms+"&redirect_uri=http://oauth.vk.com/blank.html&display=touch&response_type=token";
+            this.wwwref = window.open(encodeURI(authURL), '_blank', 'location=no');
+            this.wwwref.addEventListener('loadstop', this.auth_event_url);
+        }
+    },
+    auth_event_url: function (event) {
+        alert("loading is stopped");
+        var tmp=(event.url).split("#");
+        if (tmp[0]=='https://oauth.vk.com/blank.html' || tmp[0]=='http://oauth.vk.com/blank.html') {
+            console.log(tmp);
+            plugin_vk.wwwref.close();
+            var tmp=url_parser.get_args(tmp[1]);
+            window.localStorage.setItem("plugin_vk_token", tmp['access_token']);
+            window.localStorage.setItem("plugin_vk_user_id", tmp['user_id']);
+            window.localStorage.setItem("plugin_fb_exp", tmp['expires_in']);
+            window.localStorage.setItem("plugin_vk_perms", plugin_vk.plugin_perms);
+        }
     }
+};
 </script>
 
 </div>
