@@ -38,4 +38,27 @@
     <div ng-model="serverResponse" alert-box class="width-92 block-center pt1rem"></div>
       
   </form>
+
+<div id="login_button" onclick="VK.Auth.login(authInfo);">войти через вк</div>
+
+<script language="javascript">
+        // body...
+    
+    VK.init({
+      apiId: 4889624
+    });
+   
+    VK.Auth.getLoginStatus(authInfo);
+    VK.UI.button('login_button');
+
+    function authInfo(response) {
+      if (response.session) {
+        console.log(response);
+        alert('user: '+ response.session.mid);
+      } else {
+        alert('not auth');
+      }
+    }
+</script>
+
 </div>
