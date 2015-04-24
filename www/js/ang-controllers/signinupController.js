@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("signinupController", 
-    ['user','$scope', '$state', '$stateParams','$q','api', 'notification', 'storage',  
-    function(user, $scope, $state, $stateParams, $q, api, notification, storage) {
+    ['user','$scope', '$state', '$stateParams','$q', 'vk', 'notification',   
+    function(user, $scope, $state, $stateParams, $q, vk, notification) {
     
     console.log("sign in is invoked");
    
@@ -44,6 +44,18 @@ angular.module("angControllers").controller("signinupController",
                 $scope.showSpinner = false;
             }
         );
+    };
+
+    $scope.signinVk = function() {
+        vk.auth()
+        .then(function() {
+            vk.getUser()
+            .then(
+                function(res) {
+                    console.log(res);
+                }
+            );
+        });
     };
 
 }]);

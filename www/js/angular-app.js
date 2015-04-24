@@ -336,6 +336,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         }
       }
     })
+    // .state("updateProfile", {
+    //   url: "/updateProfile",
+    //   views: {
+    //     "title": {
+    //       template: "Обновления профиля"
+    //     },
+    //     "menu": {
+    //       templateUrl: "partials/chats/menu.html"
+    //     }, 
+    //     "content": {
+    //       controller: "updateProfileController",
+    //       templateUrl: "partials/updateProfile/content.html"
+    //     }
+    //   }
+    // })
 }]);
 
 var pushNotification;
