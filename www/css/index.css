@@ -682,6 +682,9 @@ img.imageShow {
 .clear-all-button:hover {
   cursor: pointer;
 }
+.vkLoginButton {
+  background: #3498db;
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{
