@@ -1,0 +1,12 @@
+<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+    <div class="pt1rem">
+        <div class="ta-center" ng-hide="showSpinner">
+            Вы действительно хотите выйти?
+        </div>
+        <div ng-hide="showSpinner" class="ta-center exitButtons">
+            <button class="btn" ng-click="exit()">Да</button>
+            <a href="#/chats"><button class="btn">Нет</button></a>
+        </div>
+        <span ng-show="showSpinner" spinner></span>
+    </div>
+</div>

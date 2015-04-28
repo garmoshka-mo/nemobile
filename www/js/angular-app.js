@@ -336,6 +336,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         }
       }
     })
+    .state("vkLogin", {
+      url: "/vkLogin?access_token$expires_in&user_id",
+      views: {
+        "title": {
+          template: "Обновления профиля"
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "vkLoginController",
+          templateUrl: "partials/vkLogin/content.html"
+        }
+      }
+    })
     // .state("updateProfile", {
     //   url: "/updateProfile",
     //   views: {

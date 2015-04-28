@@ -59,24 +59,31 @@ services
     var pluginPerms = "friends,wall,photos,messages,wall,offline,notes";
         
     //public methods 
-    this.auth = function (force) {
+    this.auth = function (accessToken, id) {
         var d = $q.defer();
-    
-        var authURL="https://oauth.vk.com/authorize?client_id=4889771&scope=" + 
-            pluginPerms + 
-            "&redirect_uri=http://oauth.vk.com/blank.html&display=touch&response_type=token";
-            wwwref = window.open(encodeURI(authURL), '_blank', 'location=no');
-            wwwref.addEventListener('loadstop', 
-            function(event) {
-                if(authEventUrl(event)) {
-                    d.resolve();
+        
+        if (accessToken && id) {
+            vkUserId = id;
+            vkToken = accessToken;
+            d.resolve();
+        }
+        else {
+            var authURL="https://oauth.vk.com/authorize?client_id=4889771&scope=" + 
+                pluginPerms + 
+                "&redirect_uri=http://oauth.vk.com/blank.html&display=touch&response_type=token";
+                wwwref = window.open(encodeURI(authURL), '_blank', 'location=no');
+                wwwref.addEventListener('loadstop', 
+                function(event) {
+                    if(authEventUrl(event)) {
+                        d.resolve();
+                    }
+                    else {
+                        console.error('vk auth failed');
+                        d.reject();
+                    }
                 }
-                else {
-                    console.error('vk auth failed');
-                    d.reject();
-                }
-            }
-        );
+            );
+        }
         
         return d.promise;
     };
