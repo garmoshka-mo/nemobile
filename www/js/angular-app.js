@@ -388,45 +388,47 @@ document.addEventListener("deviceready", function() {
     
     if (device.platform == 'iOS') {
 
-      var webViewShrunkEvent = new CustomEvent("webViewShrunk");
-      // var $body = $('body');
-      // var $footer = $('#footer');
+      //shrink webiew
+      // var webViewShrunkEvent = new CustomEvent("webViewShrunk");
+      // // var $body = $('body');
+      // // var $footer = $('#footer');
       
-      window.webViewShrinker = {
-        normalHeight: null,
-        footer: null,
-        body: null,
-        shrink: function(pixelsToShrink) {
-          if (!this.normalHeight) {
-            this.normalHeight = $('body').height();
-          }
-          console.log('body normal height', this.normalHeight);
-          $('body').height(this.normalHeight - pixelsToShrink);
-          $('#footer').css('position', 'relative');
-          console.log('webview is shrunk on(px)', pixelsToShrink);
-          document.dispatchEvent(webViewShrunkEvent);
-        },
-        unshrink: function() {
-          $('body').height(this.normalHeight);
-          $('#footer').css('position','fixed');
-        } 
-      };
+      // window.webViewShrinker = {
+      //   normalHeight: null,
+      //   footer: null,
+      //   body: null,
+      //   shrink: function(pixelsToShrink) {
+      //     if (!this.normalHeight) {
+      //       this.normalHeight = $('body').height();
+      //     }
+      //     console.log('body normal height', this.normalHeight);
+      //     $('body').height(this.normalHeight - pixelsToShrink);
+      //     $('#footer').css('position', 'relative');
+      //     console.log('webview is shrunk on(px)', pixelsToShrink);
+      //     document.dispatchEvent(webViewShrunkEvent);
+      //   },
+      //   unshrink: function() {
+      //     $('body').height(this.normalHeight);
+      //     $('#footer').css('position','fixed');
+      //   } 
+      // };
       
-      cordova.plugins.Keyboard.disableScroll(true);
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      // cordova.plugins.Keyboard.disableScroll(true);
+      // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       
-      window.addEventListener('native.keyboardshow', keyboardShowHandler);
-      window.addEventListener('native.keyboardhide', keyboardHideHandler);
+      // window.addEventListener('native.keyboardshow', keyboardShowHandler);
+      // window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
 
-      function keyboardShowHandler(e){
-        window.webViewShrinker.shrink(e.keyboardHeight);
-      }
+      // function keyboardShowHandler(e){
+      //   window.webViewShrinker.shrink(e.keyboardHeight);
+      // }
 
-      function keyboardHideHandler(){
-        window.webViewShrinker.unshrink();
-      }
+      // function keyboardHideHandler(){
+      //   window.webViewShrinker.unshrink();
+      // }
       
+      //ios push notifications
       pushNotification.register(tokenHandler, errorHandler, {
           'badge': 'true',
           'sound': 'true',
