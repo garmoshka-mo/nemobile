@@ -2,6 +2,7 @@ services
 .service('vk', ['api', '$rootScope', '$q', '$http', function(api, $rootScope, $q, $http) {
     var vkUserId = null;
     var vkToken = null;
+    var isWeb = window.device ? false : true;
 
     var url_parser={
         get_args: function (s) {
@@ -59,13 +60,16 @@ services
     var pluginPerms = "friends,wall,photos,messages,wall,offline,notes";
         
     //public methods 
-    this.auth = function (accessToken, id) {
+    this.auth = function () {
         var d = $q.defer();
         
-        if (accessToken && id) {
-            vkUserId = id;
-            vkToken = accessToken;
+        function authInfo(response) {
+            vkUserId = response.session.mid;
             d.resolve();
+        }
+
+        if (isWeb) {
+            VK.Auth.login(authInfo);
         }
         else {
             var authURL="https://oauth.vk.com/authorize?client_id=4889771&scope=" + 
@@ -89,15 +93,25 @@ services
     };
 
     this.getUser = function() {
-        var methodName = 'users.get';
-        var params = {
-            user_id: vkUserId,
-        };
-        return callMethod(methodName, params);
+        var fields = "photo_100, photo_max_orig";
+        if (isWeb) {
+            var d = $q.defer();
+            VK.Api.call('users.get', {uids: vkUserId, fields: fields}, function(res) {
+                d.resolve(res.response[0]);
+            });
+            return d.promise;
+        }
+        else {
+            var methodName = 'users.get';
+            var params = {
+                user_id: vkUserId,
+                fields: fields
+            };
+            return callMethod(methodName, params)
+            .then(function(res) {
+                return res.data.response[0];
+            });
+        }
     };
 
-    this.getUserAvatar = function() {
-
-    };
-    
 }]);
