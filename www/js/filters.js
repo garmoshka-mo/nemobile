@@ -48,10 +48,10 @@ app.filter('filterNewFriends', function() {
       filtered.push(item);
     });
     // filtered = filtered.filter(function (friend) {
-    //   return  currentTimestump - friend.whenCreated < MAX_DIFFERENCE_MSEC;
+    //   return  currentTimestump - friend.created < MAX_DIFFERENCE_MSEC;
     // });
     filtered.sort(function(a, b) {
-      return a.whenCreated > b.whenCreated ? -1 : 1;
+      return a.created > b.created ? -1 : 1;
     });
     if(reverse) filtered.reverse();
     return filtered;

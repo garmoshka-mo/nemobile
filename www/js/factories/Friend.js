@@ -28,11 +28,11 @@ factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSes
             this.id = fields.id;
             this.emails = fields.emails;
             
-            if (fields.whenCreated) {
-                this.whenCreated = fields.whenCreated;
+            if (fields.created) {
+                this.created = fields.created;
             }
             else {
-                this.whenCreated = new Date().getTime();
+                this.created = new Date().getTime();
             }
         }
         else {
