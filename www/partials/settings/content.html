@@ -4,28 +4,40 @@
             <div class="small-2 columns">
                 <i class="fa fa-user"></i>
             </div>
-            <div class="small-5 columns settings-property-title">
+            <div class="small-10 columns p0">
                 Ваш ник
             </div>
-            <div class="small-5 columns ta-right settings-property-value" ng-bind="user.name"></div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <span class="settings-property-value" ng-bind="user.name"></span>
+            </div>
         </div>
         <div class="row">
             <div class="small-2 columns">
                 <i class="fa fa-star"></i>
             </div>
-            <div class="small-5 columns settings-property-title">
+            <div class="small-10 columns p0">
                 Ваш рейтинг
             </div>
-            <div class="small-5 columns ta-right settings-property-value" ng-bind="user.scores"></div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <span class="settings-property-value" ng-bind="user.scores"></span>
+            </div>
         </div>
         <div class="row" ng-show="user.phoneNumber">
             <div class="small-2 columns">
                 <i class="fa fa-phone"></i>
             </div>
-            <div class="small-5 columns settings-property-title">
+            <div class="small-10 columns p0">
                 Ваш телефон
             </div>
-            <div class="small-5 columns ta-right settings-property-value" ng-bind="user.phoneNumber"></div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <span class="settings-property-value" ng-bind="user.phoneNumber"></span>
+            </div>
         </div>
         <div class="ta-center pt1rem">
              <a href="#/updateProfile" class="text-silver">изменить пароль/ник</a>

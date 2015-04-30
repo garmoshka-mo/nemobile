@@ -65,6 +65,7 @@ services
         
         function authInfo(response) {
             vkUserId = response.session.mid;
+            console.log(response);
             d.resolve();
         }
 

@@ -131,7 +131,7 @@
                         <a ng-hide="isBackArrownShown" class="menu-icon" ng-click="openMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
                     </section>
-                    <section class="middle tab-bar-section">
+                    <section class="middle tab-bar-section p0">
                         <h1 class="title">
                             <div ng-hide="notification.text" ui-view="title"></div>
                             <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated bounceInDown': notification.animated}">
@@ -139,7 +139,7 @@
                             </div>
                         </h1>
                     </section>
-                    <section ng-show="user.scores" class="right-small ta-center">
+                    <section ng-show="user.scores && isUserScoresShown" class="right-small ta-center">
                         <i class="fa fa-star"></i> <span ng-bind="user.scores"></span>
                     </section>
                 </nav>

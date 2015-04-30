@@ -10,6 +10,7 @@ angular.module("angControllers").controller("mainController", [
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
+    $scope.isUserScoresShown = true;
 
     var statesWhereShowBackArrow = [
         'chat',
@@ -24,6 +25,12 @@ angular.module("angControllers").controller("mainController", [
     var statesAllowedForVirtualUser = [
         'updateProfile',
         'chat'
+    ];
+
+    var statesNotShowScores = [
+        'chat',
+        'chatInfo',
+        'showImage'
     ];
 
     if (navigator.device) {
@@ -131,6 +138,14 @@ angular.module("angControllers").controller("mainController", [
         function(evt, toState, toParams, fromState, fromParams) {
             // console.log("state is changed!");
             notification.clear();
+
+            if (_.includes(statesNotShowScores, toState.name)) {
+                $scope.isUserScoresShown = false;
+            }
+            else {
+                $scope.isUserScoresShown = true;
+            }
+            
             if (user.isVirtual) {
                 if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
                     evt.preventDefault();
