@@ -71,15 +71,6 @@ angular.module("angControllers").controller("chatController",
                 console.log("focus is set on textField");
                 $chatInput.focus();
             }, 0);
-
-            // if (window.device) {
-            //     if (device.platform == "iOS") {
-            //         $timeout(function() {
-            //             $chatInput.focus();
-            //             console.log("focus is set on textField ios");
-            //         }, 300);
-            //     }
-            // }
         };
         
         $scope.toggleCategory = function(category) {
