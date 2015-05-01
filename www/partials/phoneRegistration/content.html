@@ -5,8 +5,14 @@
                <div class="width-92 inline-block">
                    <input type="text" international-phone-number preferred-countries="ru" ng-model="newUser.phone">
                </div>
+               <div class="squaredFour" ng-hide="isIn">
+                   <input type="checkbox" value="None" id="squaredFour" name="isAgreed" ng-model="newUser.isAgreed" />
+                   <label for="squaredFour"></label>
+                   я прочитал и согласен с  
+                   <a class="text-underline" href="#/about">правилами сервиса</a>
+               </div> 
                <div class="width-92 inline-block" ng-show="!isIn">
-                   <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid">
+                   <button ng-click="initRegistration()" class="button loginRegisterButton" ng-disabled="showSpinner || reg.$invalid || !newUser.isAgreed">
                        <span ng-show="!showSpinner">Получить смс</span>
                        <span ng-show="showSpinner" spinner spinner-color="white"></span>
                    </button>

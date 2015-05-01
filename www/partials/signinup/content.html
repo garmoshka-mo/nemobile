@@ -6,8 +6,14 @@
         </div>
         <div class="width-92 inline-block">
          <!--    <label for="reg_user_password">Пароль</label> -->
-            <input id="reg_user_password" name="password" type="password" ng-model="newUser.password" placeholder="Пароль" clear-all-button autocomplete="off" required> 
+            <input id="reg_user_password" name="password" type="password" ng-model="newUser.password" placeholder="Пароль" clear-all-button autocomplete="off"> 
         </div>
+        <div class="squaredFour" ng-hide="isIn">
+            <input type="checkbox" value="None" id="squaredFour" name="isAgreed" ng-model="newUser.isAgreed" />
+            <label for="squaredFour"></label>
+            я прочитал и согласен с  
+            <a class="text-underline" href="#/about">правилами сервиса</a>
+        </div> 
         <div class="width-92 inline-block" ng-show="isIn">
             <button ng-click="signin()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
                 <span ng-show="!showSpinner" class="ng-animate-disabled" >войти</span>
@@ -15,7 +21,7 @@
             </button>
         </div>
         <div class="width-92 inline-block" ng-hide="isIn">
-            <button ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid">
+            <button ng-click="signup()" class="button loginRegisterButton" ng-disabled="showSpinner || regForm.$invalid || !newUser.isAgreed">
                 <span ng-show="!showSpinner">Зарегистрироваться</span>
                 <span ng-show="showSpinner" spinner spinner-color="white"></span>
             </button>

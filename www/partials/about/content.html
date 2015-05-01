@@ -13,6 +13,39 @@
         </form>
     </div>
         <div class="width-92 block-center ta-justify" ng-show="screenToShow == 'terms'">
+            <div class="ta-center">
+                <form name="languageForm" class="checkbox-group-rounded">
+                    <input id="radio-lan-1" type="radio" name="language" ng-model="language" value="en" autocomplete="off">
+                    <label class="radioLabel" for="radio-lan-1">English</label>
+                    <input id="radio-lan-2" type="radio" name="language" ng-model="language" value="ru" autocomplete="off">
+                    <label class="radioLabel" for="radio-lan-2">Русский</label>
+                </form>    
+            </div>
+            <div ng-show="language === 'ru'">
+                Пользователю при использовании приложения запрещается загружать, хранить, публиковать, распространять и предоставлять доступ или иным образом использовать любую информацию, которая: <br>
+                (а) содержит угрозы, дискредитирует, оскорбляет, порочит честь и достоинство или деловую репутацию или нарушает неприкосновенность частной жизни других Пользователей или третьих лиц;<br>
+                (б) нарушает права несовершеннолетних лиц;<br>
+                (в) является вульгарной или непристойной, содержит порнографические изображения и тексты или сцены сексуального характера с участием несовершеннолетних;<br>
+                (г) содержит сцены бесчеловечного обращения с животными;<br>
+                (д) содержит описание средств и способов суицида, любое подстрекательство к его совершению;<br>
+                (е) пропагандирует и/или способствует разжиганию расовой, религиозной, этнической ненависти или вражды, пропагандирует фашизм или идеологию расового превосходства;
+                (ж) содержит экстремистские материалы;<br>
+                (з) пропагандирует преступную деятельность или содержит советы, инструкции или руководства по совершению преступных действий;<br>
+                (и) содержит информацию ограниченного доступа, включая, но не ограничиваясь, государственной и коммерческой тайной, информацией о частной жизни третьих лиц;<br>
+                (к) содержит рекламу или описывает привлекательность употребления наркотических веществ, в том числе «цифровых наркотиков» (звуковых файлов, оказывающих воздействие на мозг человека за счет бинауральных ритмов), информацию о распространении наркотиков, рецепты их изготовления и советы по употреблению;<br>
+                (л) носит мошеннический характер;<br>
+            </div>
+            <div ng-show="language === 'en'">
+                You further agree that you will not:<br>   
+                (i) submit material that is copyrighted, protected by trade secret or otherwise subject to third party proprietary rights, including privacy and publicity rights, unless you are the owner of such rights or have permission from their rightful owner to post the material and to grant dub.ink all of the license rights granted herein;<br> 
+                (ii) publish falsehoods or misrepresentations that could damage dub.ink or any third party;<br>
+                (iii) submit material that is unlawful, obscene, defamatory, libelous, threatening, harassing, hateful, racially or ethnically offensive, or encourages conduct that would be considered a criminal offense, give rise to civil liability, violate any law, or is otherwise inappropriate;<br> 
+                (iv) post advertisements or solicitations of business; 
+                (envy) impersonate another person;<br>
+                (vi) send or store material containing software viruses, worms, Trojan horses or other harmful computer code, files, scripts, agents or programs;<br>
+                (vii) interfere with or disrupt the integrity or performance of the Service or the data contained therein; or<br> 
+                (viii) attempt to gain unauthorized access to the Service or its related systems or networks.<br>
+            </div>
             <h2 class="ta-center">Terms of Service</h2>
             <h2>1. Your Acceptance</h2>
             <br>                This is an agreement between the owner and operator of http://dub.ink (the “dub.ink Site”),  the dub.ink software, including dub.ink Messenger (collectively, including all content provided by dub.ink through dub.ink Messenger and the dub.ink Site, the "dub.ink Service", or the "Service"), and you (“you” or “You”), a user of the Service. BY USING THE SERVICE, YOU ACKNOWLEDGE AND AGREE TO THESE TERMS OF SERVICE, AND dub.ink'S PRIVACY POLICY, WHICH CAN BE FOUND AT http://dub.ink/, AND WHICH ARE INCORPORATED HEREIN BY REFERENCE. If you choose to not agree with any of these terms, you may not use the Service.
