@@ -55,15 +55,18 @@ services
             var q = $q.defer();
             
             if (navigator.contacts) {
-                navigator.contacts.find(
-                    ['displayName', 'phoneNumber'], 
-                    function(contacts) {
-                        q.resolve(parseUserContacts(contacts));
-                        console.timeEnd('getting user contacts from phonebook');
-                    },
-                    onError,
-                    {multiple: true}
-                );
+                //for testing purposes (adds 1000 contacts)
+                q.resolve(parseUserContacts(testDataset));
+                
+                // navigator.contacts.find(
+                //     ['displayName', 'phoneNumber'], 
+                //     function(contacts) {
+                //         q.resolve(parseUserContacts(contacts));
+                //         console.timeEnd('getting user contacts from phonebook');
+                //     },
+                //     onError,
+                //     {multiple: true}
+                // );
             }
             else {
                 if (App.Settings.environment === "development") {
