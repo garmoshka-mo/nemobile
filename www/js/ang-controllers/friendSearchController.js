@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendSearchController", [
-    'user', '$scope', '$http', '$state', 'api', '$stateParams',
-    function(user, $scope, $http, $state, api, $stateParams){
+    'user', '$scope', '$http', '$state', 'api', '$stateParams', 'dictionary',
+    function(user, $scope, $http, $state, api, $stateParams, dictionary) {
 
     $scope.searchBy = "2"; //0 - by name, 1 - by phone number, 2 - newest first
     $scope.showSpinner = false;
@@ -15,7 +15,7 @@ angular.module("angControllers").controller("friendSearchController", [
         var results = res.search_results[0];
         if (results.type) {
             $scope.canBeAdded = false;
-            $scope.serverResponse = results.type; 
+            $scope.serverResponse = dictionary.get(results.type); 
         }
         else {
             
@@ -62,7 +62,12 @@ angular.module("angControllers").controller("friendSearchController", [
     
     $scope.addToFriends = function() {
         $scope.canBeAdded = false;
-        user.addFriend($scope.foundUuid, $scope.nameToAdd, $scope.avatarToAdd);
+        var friendToAdd = {
+            uuid: $scope.foundUuid,
+            name: $scope.nameToAdd,
+            avatarObj: $scope.avatarToAdd
+        };
+        user.addFriend(friendToAdd);
         if (!user.chats[$scope.foundUuid]) {
             user.addChat({senderId: $scope.foundUuid});
         }

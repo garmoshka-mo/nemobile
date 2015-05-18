@@ -557,6 +557,51 @@ services
                     console.log(res);
                 }
             );        
+        },
+
+        setFriends: function(friendsArray) {
+            //for testing purporses
+
+            friendsArray = friendsArray ? friendsArray : [];
+            friendsArray = friendsArray.map(function(friend) {
+                return {
+                    "uuid": friend.uuid,
+                    "display_name": friend.displayName,
+                    "created": friend.created.toString()
+                };
+            });
+            console.log('friendsArray', friendsArray);
+            return $http({
+                method: 'PATCH',
+                url: App.Settings.apiUrl + "/set_friends",
+                data: {
+                    "access_token": api.accessToken,
+                    "friends": friendsArray
+                }
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );
+        },
+
+        getFriends: function() {
+            return $http({
+                method: 'GET',
+                url: App.Settings.apiUrl + "/get_friends?access_token=" + api.accessToken
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );
         }
     };
 

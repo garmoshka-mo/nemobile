@@ -136,10 +136,20 @@ app.directive('clearAllButton', function() {
             $(elem).wrap($wrapper);
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
-                console.log("clicked");
+                // console.log("clicked");
                 scope.ngModel = "";
-                scope.$apply();    
+                scope.$apply();
+                elem.focus();
             });
+            // $clearButton.hide();
+            // $(elem).on('focus', function() {
+            //     $clearButton.show();
+            // });
+            // $(elem).on('blur', function(event) {
+            //     console.log('blurred');
+            
+            //     setTimeout(function() {$clearButton.hide()},250);
+            // });
         }
     };
 });
@@ -154,7 +164,7 @@ app.directive('clearAllButtonInline', function() {
             $(elem).css({'padding-right':'30px'});
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
-                console.log("clicked");
+                // console.log("clicked");
                 scope.ngModel = "";
                 scope.$apply();    
             });

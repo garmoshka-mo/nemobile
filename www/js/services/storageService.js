@@ -56,11 +56,6 @@ services
             $localForage.setItem('user', _user);
         },
 
-        saveFriends: function(userFriends) {
-            $localForage.setItem('friends', userFriends)
-            .then(function(res) {console.log(res)},function(res) {console.log(res)});
-        },
-
         saveFriendsList: function(userFriendsList) {
             var notToSave = ['nepotomFriends'];
             $localForage.setItem('friendsList', filterObject(userFriendsList, notToSave));

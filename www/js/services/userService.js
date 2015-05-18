@@ -57,7 +57,6 @@ services
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
         user.save();
-        user.saveFriends();
         stickersGallery.getCurrentUserCategories();
         registerDeviceToChannel();
     }
@@ -355,15 +354,22 @@ services
         }        
     };
 
-    this.addFriend = function(uuid, name, avatarObj) {
-        var photos = avatarObj ? 
-            [{value: avatarObj.fullSize, valueMini: avatarObj.mini}] : null;
+    this.addFriend = function(fields) {
+        // fields objects that contains {
+        //     uuid: required,
+        //     name: required,
+        //     avatarObj: optional
+        //     created: optional,
+        //     email: optional
+        //     phoneNumber: optional
+        // }
+        var photos = fields.avatarObj ? 
+            [{value: fields.avatarObj.fullSize, valueMini: fields.avatarObj.mini}] : null;
         var data = {
-            name: {
-                formatted: name
-            },
-            uuid: uuid,
-            photos: photos
+            displayName: fields.name,
+            uuid: fields.uuid,
+            photos: photos,
+            created: fields.created ? fields.created : null,
         };
         friendsList.addFriend(data);
     },
@@ -429,11 +435,6 @@ services
     this.save = function() {
         storage.saveUser(this);
         console.log("user info is saved");
-    };
-
-    this.saveFriends = function() {
-        storage.saveFriends(this.friends);
-        console.log("user friends is saved");
     };
 
     this.saveChats = function() {

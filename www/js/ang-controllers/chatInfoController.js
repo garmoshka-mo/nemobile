@@ -12,10 +12,16 @@ angular.module("angControllers").controller("chatInfoController",
         };
 
         $scope.addFriend = function() {
-            user.addFriend($scope.chat.senderId, $scope.chat.title, {
+            var avatarObj = {
                 fullSize: $scope.chat.photoUrl,
                 mini: $scope.chat.photoUrlMini
-            });
+            };
+            var friendToAdd = {
+                uuid: $scope.chat.senderId,
+                name: $scope.chat.title,
+                avatarObj: avatarObj 
+            };
+            user.addFriend(friendToAdd);
             $scope.isFriend = true;
         };
 

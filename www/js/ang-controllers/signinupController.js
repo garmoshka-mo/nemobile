@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("signinupController", 
-    ['user','$scope', '$state', '$stateParams','$q', 'vk', 'notification',   
-    function(user, $scope, $state, $stateParams, $q, vk, notification) {
+    ['user','$scope', '$state', '$stateParams','$q', 'vk', 'notification', 'dictionary',   
+    function(user, $scope, $state, $stateParams, $q, vk, notification, dictionary) {
     
     console.log("sign in is invoked");
    
@@ -26,7 +26,7 @@ angular.module("angControllers").controller("signinupController",
             },
             function(errorText) {
                 $scope.showSpinner = false;
-                $scope.serverResponse = errorText;
+                $scope.serverResponse = dictionary.get(errorText);
             }
         );
     };
@@ -40,7 +40,7 @@ angular.module("angControllers").controller("signinupController",
                 $scope.signin();
             },
             function(errorText) {
-                $scope.serverResponse = errorText;
+                $scope.serverResponse = dictionary.get(errorText);
                 $scope.showSpinner = false;
             }
         );
