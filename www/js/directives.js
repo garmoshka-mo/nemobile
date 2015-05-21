@@ -191,6 +191,7 @@ app.directive('slideMenu', function() {
     return {
         link: function(scope, elem, attr) {
             var innerWrap = $(".inner-wrap")[0];
+            var offCanvasWrap = $(".off-canvas-wrap")[0];
             var hammertime = new Hammer(innerWrap, {});
             var END_X = 245;
             var BEGINING_X = 0;
@@ -198,19 +199,21 @@ app.directive('slideMenu', function() {
             var currentTransform; 
             
             function close() {
-                $(innerWrap).removeClass('move-right');
+                $(offCanvasWrap).removeClass('move-right');
                 $(innerWrap).css('transform', '');
             }
 
             function open() {
+                console.log('is openning');
                 $(innerWrap).css({"transform": "translate3d(" + END_X + "px, 0, 0)"});
-                $(innerWrap).addClass('move-right');
+                $(offCanvasWrap).addClass('move-right');
                 // $(innerWrap).css({"transform": ""});
             }
 
             function onEnd() {
                 console.log('ended');
                 $(innerWrap).removeClass('no-transition');
+                console.log(isOpenning);
                 if (isOpenning) {
                     open();
                 }
@@ -219,35 +222,40 @@ app.directive('slideMenu', function() {
                 }
             }
 
+            var exitOffCanvas = $(".exit-off-canvas")[0]; 
+            $(exitOffCanvas).off();
+            $(exitOffCanvas).on('click touchstart', function() {
+                $(innerWrap).removeClass('no-transition');
+                close();
+            });
+
+             $(document).on('click touchstart', '.off-canvas-list', function() {
+                $(innerWrap).removeClass('no-transition');
+                close();
+            });
+
+
             hammertime.on('pan', function(ev) {
-            hammertime.on('swiperight', function() {
-                console.log('touching started');
-            });
-            hammertime.on('dragend', function() {
-                console.log('touching ended');
-            });
-            if (-15 < ev.angle < 15) {
-                $(innerWrap).addClass('no-transition');
-                var cssTransform = +$(innerWrap).css("transform");
-                if (cssTransform) {
-                    currentTransform = +$(innerWrap).css("transform").match(/matrix\(\d+, \d+, \d+, \d+, (\d+), \d+\)/)[1];
+                if (-15 < ev.angle < 15) {
+                    $(innerWrap).addClass('no-transition');
+                    var cssTransform = +$(innerWrap).css("transform");
+                    if (cssTransform) {
+                        currentTransform = +$(innerWrap).css("transform").match(/matrix\(\d+, \d+, \d+, \d+, (\d+), \d+\)/)[1];
+                    }
+                    else {
+                        currentTransform = BEGINING_X;
+                    }
+                    console.log(ev);
+                    isOpenning = ev.deltaX > 0 ? true : false;
+                    var pxTransform = currentTransform + ev.deltaX;
+                    pxTransform = pxTransform < BEGINING_X ? BEGINING_X : pxTransform;
+                    pxTransform = pxTransform > END_X ? END_X : pxTransform;
+                    console.log(pxTransform);
+                    $(innerWrap).css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"});
+                    if (ev.srcEvent.type === "touchend") {
+                        onEnd();
+                    }
                 }
-                else {
-                    currentTransform = BEGINING_X;
-                }
-                console.log(ev);
-                isOpenning = ev.deltaX > 0 ? true : false;
-                var pxTransform = currentTransform + ev.deltaX;
-                pxTransform = pxTransform < BEGINING_X ? BEGINING_X : pxTransform;
-                pxTransform = pxTransform > END_X ? END_X : pxTransform;
-                // console.log(pxTransform);
-                $(innerWrap).css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"});
-                if (ev.srcEvent.type === "touchend") {
-                    onEnd();
-                }
-            }
-            else {
-            }
             }); 
         }
     };
