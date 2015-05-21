@@ -2,6 +2,8 @@ services
 .factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'api', 
     function($rootScope, $q, Friend, storage, api) {
     
+        var isNepotomFriendsInfoUpdated = false;
+
         //private methods
         function parseUserContacts(contacts) {
             console.time('parsing user contacts');
@@ -101,12 +103,14 @@ services
             },
             
             addFriend: function(friendData) {
-                var friend = new Friend(friendData);
-                this.friends.push(friend);
-                if (friend.uuid) {
-                    this.nepotomFriends[friend.uuid] = friend;
+                if (!this.nepotomFriends[friendData.uuid]) {
+                    var friend = new Friend(friendData);
+                    this.friends.push(friend);
+                    if (friend.uuid) {
+                        this.nepotomFriends[friend.uuid] = friend;
+                    }
+                    this.save();
                 }
-                this.save();
             },
 
             removeFriend: function(friend) {
@@ -128,6 +132,7 @@ services
                     this.nepotomFriends = _nepotomFriends;
                 }
                 
+                api.removeFriend([uuidToRemove]);
                 this.save();
             },
 
@@ -179,7 +184,41 @@ services
                 this.friends[friendIndex].uuid = uuid;
                 this.nepotomFriends[uuid] = this.friends[friendIndex];
                 this.save();
-            }
+            },
+
+            updateNepotomFriendsInfo: function() {
+                var self = this;
+                function updateFriend(uuid) {
+                    api.getUserInfoByUuid(uuid)
+                    .then(
+                        function(res) {
+                            if (res.success) {
+                                console.log(res);
+                                var photoUrl, photoUrlMini;
+                                if (res.user.avatar_guid || res.user.avatar_url) {
+                                    photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
+                                    photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
+                                }
+                                else {
+                                    photoUrl = App.Settings.adorableUrl + '/' + uuid;
+                                    photoUrlMini = App.Settings.adorableUrl + '/40/' + uuid;
+                                }
+                                self.nepotomFriends[uuid].photos = [{
+                                    value: photoUrl,
+                                    valueMini: photoUrlMini
+                                }];
+                                console.log(uuid);
+                                console.log(self.nepotomFriends[uuid]);
+                            }    
+                        }
+                    );
+
+                }
+                for (var uuid in self.nepotomFriends) {
+                    updateFriend(uuid);                    
+                }
+                self.save();
+            } 
 
         };
 

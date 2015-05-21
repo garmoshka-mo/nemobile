@@ -56,6 +56,12 @@ services
 
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
+        getUserFriendsFromServer()
+        .then(
+            function() {
+                user.friendsList.updateNepotomFriendsInfo();
+            }
+        );
         user.save();
         stickersGallery.getCurrentUserCategories();
         registerDeviceToChannel();
@@ -85,6 +91,21 @@ services
     function unsubscribe() {
         pubnub.unsubscribe({
             channel: user.channel
+        });
+    }
+
+    function getUserFriendsFromServer() {
+        return api.getFriends()
+        .then(function(res) {
+            res.friends.forEach(function(friendData) {
+                user.addFriend({
+                    uuid: friendData.uuid,
+                    name: friendData.display_name,
+                    created: friendData.created_at,
+                    email: friendData.email,
+                    phoneNumber: friendData.phoneNumber
+                });
+            });
         });
     }
 
@@ -355,7 +376,7 @@ services
     };
 
     this.addFriend = function(fields) {
-        // fields objects that contains {
+        // fields is object that contains {
         //     uuid: required,
         //     name: required,
         //     avatarObj: optional
@@ -365,11 +386,17 @@ services
         // }
         var photos = fields.avatarObj ? 
             [{value: fields.avatarObj.fullSize, valueMini: fields.avatarObj.mini}] : null;
+        var emails = fields.email ? 
+            [{value: fields.email}] : null;
+        var phoneNumbers = fields.phoneNumber ? 
+            [{value: phoneNumber}] : null;
         var data = {
             displayName: fields.name,
             uuid: fields.uuid,
             photos: photos,
             created: fields.created ? fields.created : null,
+            emails: emails,
+            phoneNumbers: phoneNumbers
         };
         friendsList.addFriend(data);
     },

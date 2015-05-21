@@ -570,23 +570,17 @@ services
                     "created": friend.created.toString()
                 };
             });
-            console.log('friendsArray', friendsArray);
-            return $http({
-                method: 'PATCH',
-                url: App.Settings.apiUrl + "/set_friends",
-                data: {
-                    "access_token": api.accessToken,
-                    "friends": friendsArray
-                }
-            })
-            .then(
-                function(res) {
-                    console.log(res);
-                },
-                function(res) {
-                    console.log(res);
-                }
-            );
+            // console.log('friendsArray', friendsArray);
+            if (!_.isEmpty(friendsArray)) {
+                return $http({
+                    method: 'PATCH',
+                    url: App.Settings.apiUrl + "/set_friends",
+                    data: {
+                        "access_token": api.accessToken,
+                        "friends": friendsArray
+                    }
+                });
+            }
         },
 
         getFriends: function() {
@@ -596,10 +590,39 @@ services
             })
             .then(
                 function(res) {
-                    console.log(res);
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
                 },
                 function(res) {
-                    console.log(res);
+                    return $q.reject();
+                }
+            );
+        },
+
+        removeFriend: function(uuids) {
+            return $http({
+                method: 'PATCH',
+                url: App.Settings.apiUrl + "/delete_friends",
+                data: {
+                    "access_token": api.accessToken,
+                    "uuids": uuids
+                }
+            })
+            .then(
+                function(res) {
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+                },
+                function(res) {
+                    return $q.reject();
                 }
             );
         }

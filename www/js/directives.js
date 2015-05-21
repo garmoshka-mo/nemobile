@@ -187,3 +187,28 @@ app.directive('alertBox', function() {
     };
 });
 
+app.directive('slideMenu', function() {
+    return {
+        link: function(scope, elem, attr) {
+            var hammertime = new Hammer($(".inner-wrap")[0], {}); 
+            hammertime.on('pan', function(ev) {
+    
+            if (-15 < ev.angle < 15) {
+                var cssTransform = +$(".inner-wrap").css("transform");
+            if (cssTransform) {
+                var currentTransform = +$(".inner-wrap").css("transform").match(/matrix\(\d+, \d+, \d+, \d+, (\d+), \d+\)/)[1];
+            }
+            else {
+                currentTransform = 0;
+            }
+            console.log(ev);
+            var pxTransform = currentTransform + ev.deltaX;
+            pxTransform = pxTransform < 0 ? 0 : pxTransform;
+            pxTransform = pxTransform > 245 ? 245 : pxTransform;
+            console.log(pxTransform) 
+              $('.inner-wrap').css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"})
+            }
+            }); 
+        }
+    };
+});
