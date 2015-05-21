@@ -236,7 +236,7 @@ app.directive('slideMenu', function() {
 
 
             hammertime.on('pan', function(ev) {
-                if (-15 < ev.angle < 15) {
+                if (-15 < ev.angle && ev.angle< 15) {
                     $(innerWrap).addClass('no-transition');
                     var cssTransform = +$(innerWrap).css("transform");
                     if (cssTransform) {
@@ -245,7 +245,7 @@ app.directive('slideMenu', function() {
                     else {
                         currentTransform = BEGINING_X;
                     }
-                    // console.log(ev);
+                    // console.log(ev.angle);
                     isOpenning = ev.deltaX > 0 ? true : false;
                     var pxTransform = currentTransform + ev.deltaX;
                     pxTransform = pxTransform < BEGINING_X ? BEGINING_X : pxTransform;
