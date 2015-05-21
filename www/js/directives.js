@@ -204,16 +204,16 @@ app.directive('slideMenu', function() {
             }
 
             function open() {
-                console.log('is openning');
+                // console.log('is openning');
                 $(innerWrap).css({"transform": "translate3d(" + END_X + "px, 0, 0)"});
                 $(offCanvasWrap).addClass('move-right');
                 // $(innerWrap).css({"transform": ""});
             }
 
             function onEnd() {
-                console.log('ended');
+                // console.log('ended');
                 $(innerWrap).removeClass('no-transition');
-                console.log(isOpenning);
+                // console.log(isOpenning);
                 if (isOpenning) {
                     open();
                 }
@@ -245,12 +245,12 @@ app.directive('slideMenu', function() {
                     else {
                         currentTransform = BEGINING_X;
                     }
-                    console.log(ev);
+                    // console.log(ev);
                     isOpenning = ev.deltaX > 0 ? true : false;
                     var pxTransform = currentTransform + ev.deltaX;
                     pxTransform = pxTransform < BEGINING_X ? BEGINING_X : pxTransform;
                     pxTransform = pxTransform > END_X ? END_X : pxTransform;
-                    console.log(pxTransform);
+                    // console.log(pxTransform);
                     $(innerWrap).css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"});
                     if (ev.srcEvent.type === "touchend") {
                         onEnd();

@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce',
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state',
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state) {
     
     this.name = null;
     this.uuid = null;
@@ -59,7 +59,11 @@ services
         getUserFriendsFromServer()
         .then(
             function() {
-                user.friendsList.updateNepotomFriendsInfo();
+                user.friendsList.updateNepotomFriendsInfo()
+                .then(function() {
+                    console.log("friends list is downloaded from server");
+                    $state.go($state.current, {}, {reload: true});
+                });
             }
         );
         user.save();

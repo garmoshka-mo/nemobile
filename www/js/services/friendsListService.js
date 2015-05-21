@@ -188,8 +188,9 @@ services
 
             updateNepotomFriendsInfo: function() {
                 var self = this;
+                var promises = [];
                 function updateFriend(uuid) {
-                    api.getUserInfoByUuid(uuid)
+                    return api.getUserInfoByUuid(uuid)
                     .then(
                         function(res) {
                             if (res.success) {
@@ -215,9 +216,13 @@ services
 
                 }
                 for (var uuid in self.nepotomFriends) {
-                    updateFriend(uuid);                    
+                    promises.push(updateFriend(uuid));                    
                 }
-                self.save();
+                return $q.all(promises).then(
+                    function() {
+                        self.save();
+                    }
+                );
             } 
 
         };
