@@ -190,23 +190,63 @@ app.directive('alertBox', function() {
 app.directive('slideMenu', function() {
     return {
         link: function(scope, elem, attr) {
-            var hammertime = new Hammer($(".inner-wrap")[0], {}); 
+            var innerWrap = $(".inner-wrap")[0];
+            var hammertime = new Hammer(innerWrap, {});
+            var END_X = 245;
+            var BEGINING_X = 0;
+            var isOpenning = false;
+            var currentTransform; 
+            
+            function close() {
+                $(innerWrap).removeClass('move-right');
+                $(innerWrap).css('transform', '');
+            }
+
+            function open() {
+                $(innerWrap).css({"transform": "translate3d(" + END_X + "px, 0, 0)"});
+                $(innerWrap).addClass('move-right');
+                // $(innerWrap).css({"transform": ""});
+            }
+
+            function onEnd() {
+                console.log('ended');
+                $(innerWrap).removeClass('no-transition');
+                if (isOpenning) {
+                    open();
+                }
+                else {
+                    close();
+                }
+            }
+
             hammertime.on('pan', function(ev) {
-    
+            hammertime.on('swiperight', function() {
+                console.log('touching started');
+            });
+            hammertime.on('dragend', function() {
+                console.log('touching ended');
+            });
             if (-15 < ev.angle < 15) {
-                var cssTransform = +$(".inner-wrap").css("transform");
-            if (cssTransform) {
-                var currentTransform = +$(".inner-wrap").css("transform").match(/matrix\(\d+, \d+, \d+, \d+, (\d+), \d+\)/)[1];
+                $(innerWrap).addClass('no-transition');
+                var cssTransform = +$(innerWrap).css("transform");
+                if (cssTransform) {
+                    currentTransform = +$(innerWrap).css("transform").match(/matrix\(\d+, \d+, \d+, \d+, (\d+), \d+\)/)[1];
+                }
+                else {
+                    currentTransform = BEGINING_X;
+                }
+                console.log(ev);
+                isOpenning = ev.deltaX > 0 ? true : false;
+                var pxTransform = currentTransform + ev.deltaX;
+                pxTransform = pxTransform < BEGINING_X ? BEGINING_X : pxTransform;
+                pxTransform = pxTransform > END_X ? END_X : pxTransform;
+                // console.log(pxTransform);
+                $(innerWrap).css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"});
+                if (ev.srcEvent.type === "touchend") {
+                    onEnd();
+                }
             }
             else {
-                currentTransform = 0;
-            }
-            console.log(ev);
-            var pxTransform = currentTransform + ev.deltaX;
-            pxTransform = pxTransform < 0 ? 0 : pxTransform;
-            pxTransform = pxTransform > 245 ? 245 : pxTransform;
-            console.log(pxTransform) 
-              $('.inner-wrap').css({"transform": "translate3d(" + pxTransform + "px, 0, 0)"})
             }
             }); 
         }

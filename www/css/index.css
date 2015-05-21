@@ -33,6 +33,13 @@ input[type=checkbox] {
   -webkit-user-select: none; 
   user-select: none;
 }
+.no-transition {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
 
 .ta-center {
   text-align: center;
