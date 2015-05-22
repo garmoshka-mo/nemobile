@@ -115,6 +115,9 @@ input[type=checkbox] {
 .pt1rem {
   padding-top: 1rem;
 }
+.w22 {
+  width: 22px;
+}
 .w80 {
   width: 80px !important;
 }

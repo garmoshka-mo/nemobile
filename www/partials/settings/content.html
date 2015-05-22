@@ -1,41 +1,35 @@
 <div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
     <div class="width-92 block-center settings pt1rem">
         <div class="row">
-            <div class="small-2 columns">
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="small-10 columns p0">
+            <div class="medium-6 columns ">
+                <div class="w22 inline-block">
+                    <i class="fa fa-user"></i>
+                </div>
                 Ваш ник
             </div>
-        </div>
-        <div class="row">
-            <div class="small-12 columns">
+            <div class="medium-6 columns">
                 <span class="settings-property-value" ng-bind="user.name"></span>
             </div>
         </div>
         <div class="row">
-            <div class="small-2 columns">
-                <i class="fa fa-star"></i>
-            </div>
-            <div class="small-10 columns p0">
+            <div class="medium-6 columns">
+                <div class="w22 inline-block">
+                    <i class="fa fa-star"></i>
+                </div>
                 Ваш рейтинг
             </div>
-        </div>
-        <div class="row">
-            <div class="small-12 columns">
+            <div class="medium-6 columns">
                 <span class="settings-property-value" ng-bind="user.scores"></span>
             </div>
         </div>
         <div class="row" ng-show="user.phoneNumber">
-            <div class="small-2 columns">
-                <i class="fa fa-phone"></i>
-            </div>
-            <div class="small-10 columns p0">
+            <div class="medium-6 columns">
+                <div class="w22 inline-block">
+                    <i class="fa fa-phone"></i>
+                </div>
                 Ваш телефон
             </div>
-        </div>
-        <div class="row">
-            <div class="small-12 columns">
+            <div class="medium-6 columns">
                 <span class="settings-property-value" ng-bind="user.phoneNumber"></span>
             </div>
         </div>
