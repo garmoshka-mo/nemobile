@@ -229,7 +229,7 @@ app.directive('slideMenu', function() {
                 close();
             });
 
-             $(document).on('click touchstart', '.off-canvas-list', function() {
+             $(document).on('click', '.off-canvas-list', function() {
                 $(innerWrap).removeClass('no-transition');
                 close();
             });

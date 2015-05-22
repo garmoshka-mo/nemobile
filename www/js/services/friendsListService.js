@@ -89,11 +89,13 @@ services
             friends: [],
             nepotomFriends: {},
             lastContactId: null,
+            gotUserContacts: false,
 
             clear: function() {
                 this.friends = [];
                 this.nepotomFriends = {};
                 this.lastContactId = null;
+                this.gotUserContacts = false;
             },
 
             save: function() {
@@ -137,6 +139,7 @@ services
             },
 
             getUserContacts: function() {
+                var self = this;
                 console.time('getting user contacts from phonebook');
                 var q = $q.defer();
                 
@@ -147,6 +150,7 @@ services
                     navigator.contacts.find(
                         ['displayName', 'phoneNumber'], 
                         function(contacts) {
+                            self.gotUserContacts = true;
                             q.resolve(parseUserContacts(contacts));
                             console.timeEnd('getting user contacts from phonebook');
                         },
@@ -156,6 +160,7 @@ services
                 }
                 else {
                     if (App.Settings.environment === "development") {
+                        self.gotUserContacts = true;
                         q.resolve(parseUserContacts(testDataset));
                     }
                     else {
