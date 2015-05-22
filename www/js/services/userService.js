@@ -410,6 +410,11 @@ services
         this.chats[chatData.senderId] = new Chat(chatData);
         this.chats[chatData.senderId].updateInfo();
     };
+
+    this.removeChat = function(senderUuid) {
+        this.chats = _.omit(this.chats, senderUuid);
+        this.save();    
+    }; 
    
     this.parseFromStorage = function() {
         var self = this;

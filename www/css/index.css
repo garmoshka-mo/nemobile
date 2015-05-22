@@ -21,6 +21,7 @@ button {
   -webkit-user-select: none; 
   user-select: none;
 }
+
 input[type="password"] {
   height: 46px;
 }
@@ -80,6 +81,9 @@ input[type=checkbox] {
 }
 .text-underline {
   text-decoration: underline;
+}
+.bg-red {
+  background: #e74c3c;
 }
 .pointer:hover {
   cursor: pointer;

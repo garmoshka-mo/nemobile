@@ -26,7 +26,10 @@
     <div class="ta-center text-silver" ng-show="::isFriend">
         пользователь ваш друг
     </div>
-     <div ng-hide="::isFriend" class="width-92 pt1rem ta-center block-center">
+    <div ng-hide="::isFriend" class="width-92 pt1rem ta-center block-center">
         <button ng-click="addFriend()">добавить в друзья</button>
+    </div>
+    <div class="width-92 pt1rem ta-center block-center">
+        <button class="bg-red" ng-click="removeChat()">удалить чат <i class="fa fa-trash"></i></button>
     </div>
 </div>

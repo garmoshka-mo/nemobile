@@ -30,4 +30,9 @@ angular.module("angControllers").controller("chatInfoController",
             user.blockUser($scope.chat.senderId);
             $scope.isBlocked = true;
         };
+
+        $scope.removeChat = function() {
+            user.removeChat($scope.chat.senderId);
+            $state.go('chats');
+        };
 }]);
