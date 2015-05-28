@@ -606,6 +606,13 @@ services
         return output;
     };
 
+    this.socialSignin = function(provider, providerId, providerToken) {
+        return api.socialSignin.apply(this, arguments)
+        .then(function(res) {
+            updateUserInfo(res.access_token);
+        });
+    };
+
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey
     });

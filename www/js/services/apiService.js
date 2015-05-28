@@ -625,6 +625,32 @@ services
                     return $q.reject();
                 }
             );
+        },
+
+        socialSignin: function(provider, providerId, providerToken) {
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/providers",
+                data: {
+                    "provider": provider,
+                    "provider_user_id": providerId,
+                    "provider_token": providerToken
+                }
+            })
+            .then(
+                function(res) {
+                    if (res.data.success) {
+                        return res.data;
+                    }
+                    else {
+                        return $q.reject();
+                    }
+                },
+                function(res) {
+                    console.log(res);
+                    return $q.reject();
+                }
+            );
         }
     };
 

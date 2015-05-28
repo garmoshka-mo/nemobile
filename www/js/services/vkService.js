@@ -35,9 +35,11 @@ services
             if (tmp['error']) {
                 return  false;
             }
-            vkUserId = tmp['user_id'];
-            vkToken = tmp['access_token'];
-            return true;
+            var output = {
+                'vkAccessToken': tmp['user_id'],
+                'vkUserId': tmp['access_token']
+            };
+            return output;
         }
     }
 
@@ -65,9 +67,11 @@ services
         
         function authInfo(response) {
             vkUserId = response.session.mid;
-            console.log('vkAccessToken:', response.session.sid);
-            console.log('vkUserId:', response.session.user.id);
-            d.resolve();
+            var output = {
+                'vkAccessToken': response.session.sid,
+                'vkUserId': response.session.user.id
+            };
+            d.resolve(output);
         }
 
         if (isWeb) {
@@ -80,8 +84,9 @@ services
                 wwwref = window.open(encodeURI(authURL), '_blank', 'location=no');
                 wwwref.addEventListener('loadstop', 
                 function(event) {
-                    if(authEventUrl(event)) {
-                        d.resolve();
+                    var result = authEventUrl(event);
+                    if(result) {
+                        d.resolve(result);
                     }
                     else {
                         console.error('vk auth failed');

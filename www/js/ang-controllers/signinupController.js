@@ -48,11 +48,11 @@ angular.module("angControllers").controller("signinupController",
 
     $scope.signinVk = function() {
         vk.auth()
-        .then(function() {
-            vk.getUser()
+        .then(function(res) {
+            user.socialSignin("vkontakte", res.vkUserId, res.vkAccessToken)
             .then(
-                function(res) {
-                    console.log(res);
+                function() {
+                    $state.go('chats');
                 }
             );
         });
