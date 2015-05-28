@@ -36,8 +36,8 @@ services
                 return  false;
             }
             var output = {
-                'vkAccessToken': tmp['user_id'],
-                'vkUserId': tmp['access_token']
+                'vkAccessToken': tmp['access_token'],
+                'vkUserId': tmp['user_id']
             };
             return output;
         }
