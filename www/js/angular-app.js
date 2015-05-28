@@ -292,7 +292,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
       }
     })
     .state("about", {
-      url: "/about",
+      url: "/about/:page",
       views: {
         "title": {
           template: "О программе"
