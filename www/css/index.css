@@ -338,6 +338,7 @@ a.button:hover{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 1.3rem;
 }
 .chats-chat:active {
   background-color: #ecf0f1;
