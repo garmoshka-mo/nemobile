@@ -30,6 +30,7 @@
         <link rel="stylesheet" type="text/css" href="css/flags.css" />
         <link rel="stylesheet" type="text/css" href="css/intlTelInput.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/snap.css" />
         <link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-icon-72x72.png">
@@ -71,6 +72,7 @@
         <script type="text/javascript" src="js/libs/pubnub.js"></script>
         <script type="text/javascript" src="js/libs/PushNotification.js"></script>
         <script type="text/javascript" src="js/libs/lodash.js"></script>
+        <script type="text/javascript" src="js/libs/snap.js"></script>
         <script type="text/javascript" src="js/libs/ng-infinite-scroll.js"></script>
         <!-- files for internation phone number prefix plugin -->
         <script type="text/javascript" src="js/libs/intlTelInput.js"></script>
@@ -124,12 +126,19 @@
         <title>Chat</title>
     </head>
     <body ng-controller="mainController" >
-        <div class="off-canvas-wrap" data-offcanvas>
+        <div class="snap-drawers">
+            <div class="snap-drawer snap-drawer-left">
+                <aside class="left-off-canvas-menu">
+                    <div ui-view="menu"></div>
+                </aside>
+            </div>
+        </div>
+        <div slide-menu class="off-canvas-wrap snap-content" data-offcanvas>
             <div class="iphone-status-bar-margin"></div>
             <div class="inner-wrap">
                 <nav class="tab-bar no-select">
                     <section class="left-small">
-                        <a ng-hide="isBackArrownShown" class="menu-icon" ng-click="openMenu()"><span></span></a>
+                        <a ng-hide="isBackArrownShown" class="menu-icon" ng-click="isMenuOpened? closeMenu() : openMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
                     </section>
                     <section class="middle tab-bar-section p0">
@@ -145,20 +154,17 @@
                     </section>
                 </nav>
                 
-                <aside class="left-off-canvas-menu">
-                    <div ui-view="menu" ng-swipe-left="closeMenu()"></div>
-                </aside>
+                
 
                 <section class="main-section"> <!-- content goes here -->
                     <!-- MAIN CONTENT -->
-                    <div id="wrapper" slide-menu>
+                    <div id="wrapper">
                         <div ui-view="content" class="content"></div>
                     </div>
                 </section>
                 <a class="exit-off-canvas"></a>
             </div>
         </div>
-
 
     </body>
 </html>

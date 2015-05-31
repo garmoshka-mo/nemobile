@@ -64,13 +64,13 @@ angular.module("angControllers").controller("mainController", [
             }
         }
         $scope.countUnreadChats();
-        $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-right');
+        snapper.open('left');
     };
 
     $scope.closeMenu = function() {
         // console.log("swipe close");
         $scope.isMenuOpened = false;
-        $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
+        snapper.close('left');
     };
 
     $scope.generateNewAvatar = function() {
