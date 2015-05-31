@@ -197,6 +197,10 @@ app.directive('slideMenu', function() {
                 maxPosition: 250,
                 minPosition: 0
             });
+            $(document).on('click','.off-canvas-list', function() {
+                console.log('clicked');
+                snapper.close();
+            });
         }
     };
 });
