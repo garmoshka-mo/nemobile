@@ -26,7 +26,12 @@ services
         var notificationText;
         
         if (user.friendsList.nepotomFriends[senderUuid]) {
-            notificationText = user.friendsList.nepotomFriends[senderUuid].displayName;    
+            var friend = user.friendsList.nepotomFriends[senderUuid];
+            var imgSrc = friend.photos[0].valueMini ? friend.photos[0].valueMini : 
+                friend.photos[0].value;
+            var image = "<img src='" + imgSrc + 
+                "' class='chat-toolbar-image pointer'>";
+            notificationText = image + friend.displayName;    
         }
         else {
             notificationText = "Новое сообщение";
@@ -123,7 +128,7 @@ services
         }
 
         if (self.chats[senderUuid]) {
-            console.log("added to existing chat");
+            // console.log("added to existing chat");
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
             var lastSession;
             
@@ -145,7 +150,7 @@ services
            
         }
         else {
-            console.log("created new chat");
+            // console.log("created new chat");
             self.addChat({senderId: senderUuid});
             self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
@@ -169,13 +174,15 @@ services
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 
-        showNotification(self, messageText, senderUuid);
+        if ($state.params.senderId !== senderUuid) {
+            showNotification(self, messageText, senderUuid);
+        }
         lastSession.setTimer(m.expires);
         lastSession.save();
 
-        console.log("When chatSession expires: ", lastSession.whenExipires);
-        console.log("income message", m);
-        console.log(self);
+        // console.log("When chatSession expires: ", lastSession.whenExipires);
+        // console.log("income message", m);
+        // console.log(self);
         $rootScope.$apply();
     }
 

@@ -1,33 +1,32 @@
-<div  overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
-  <div class="pt1rem">
-      <div class="width-92 block-center inline-input-button-block pt1rem">
-        <form name="friendSearch" class="relative">
-          <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
-          <button ng-click="findUser()" ng-disabled="showSpinner">
-            <i class="fa fa-search" ng-show="!showSpinner"></i>
-            <span ng-show="showSpinner" spinner spinner-color="white"></span>
-          </button>
-        </form>
-      </div>
-    
-      <div class="width-92 block-center">
-        <div class="card" ng-show="canBeAdded" ng-click="handleEntryClick()">
-          <div class="row">
-            <div class="small-3 column ava-container">
-              <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
-            </div>
-            <div class="small-6 column p0">
-                <span class="chat-title title" ng-bind="nameToAdd"></span>
-            </div>
-            <div class="small-3 column" stop-event>
-               <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
-            </div>
-          </div>
+<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+    <div class="pt1rem">
+        <div class="width-92 block-center inline-input-button-block pt1rem">
+            <form name="friendSearch" class="relative">
+                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
+                <button ng-click="findUser()" ng-disabled="showSpinner">
+                <i class="fa fa-search" ng-show="!showSpinner"></i>
+                <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </form>
         </div>
-        <div class="ta-center" ng-show="!canBeAdded">
-            <span ng-bind="serverResponse"></span><br>
-            <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
+        <div class="width-92 block-center">
+            <div class="card" ng-show="canBeAdded" ng-click="addToFriends(true)">
+                <div class="row" >
+                    <div class="small-3 column ava-container">
+                        <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
+                    </div>
+                    <div class="small-6 column p0">
+                        <span class="chat-title title" ng-bind="nameToAdd"></span>
+                    </div>
+                    <div class="small-3 column" stop-event>
+                        <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="ta-center" ng-hide="canBeAdded">
+                <span ng-bind="serverResponse"></span><br>
+                <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
+            </div>
         </div>
-      </div>
-  </div>
+    </div>
 </div>

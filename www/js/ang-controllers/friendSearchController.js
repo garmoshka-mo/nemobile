@@ -22,6 +22,7 @@ angular.module("angControllers").controller("friendSearchController", [
             if (user.friendsList.nepotomFriends[results.uuid]) {
                 $scope.canBeAdded = false;
                 $scope.serverResponse = "Пользователь уже ваш друг";
+                $scope.foundUuid = results.uuid;
                 return;                
             }
             
@@ -60,8 +61,7 @@ angular.module("angControllers").controller("friendSearchController", [
         );
     };
     
-    $scope.addToFriends = function() {
-        $scope.canBeAdded = false;
+    $scope.addToFriends = function(goToChat) {
         var friendToAdd = {
             uuid: $scope.foundUuid,
             name: $scope.nameToAdd,
@@ -71,12 +71,15 @@ angular.module("angControllers").controller("friendSearchController", [
         if (!user.chats[$scope.foundUuid]) {
             user.addChat({senderId: $scope.foundUuid});
         }
+        if (goToChat) {
+            $state.go('chat', {senderId: $scope.foundUuid});
+        }
+        $scope.canBeAdded = false;
         $scope.serverResponse = "пользователь добавлен";
     };
 
     $scope.handleEntryClick = function() {
         $scope.addToFriends();
-        $state.go('chat', {senderId: $scope.foundUuid});
     };
 
     if ($stateParams.stringToSearch) {

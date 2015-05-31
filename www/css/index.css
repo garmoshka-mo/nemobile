@@ -296,6 +296,7 @@ a.button:hover{
 .card .title {
   color: #4C5162;
   font-family: "Open Sans Bold";
+  font-size: 1.3rem;
 }
 .card .rounded-ava {
   margin-right: 10px;
@@ -865,7 +866,7 @@ input[type="radio"]:checked + .radioLabel {
   display: inline-block;
   color: #FFF;
   font-family: "Open Sans Normal";
-  background: #99E99E;
+  background: #5BAB60;
   border-radius: 3px;
   padding: 10px 5px;
   outline: none;
