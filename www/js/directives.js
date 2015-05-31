@@ -132,7 +132,7 @@ app.directive('clearAllButton', function() {
         link: function(scope, elem, attr) {
             $wrapper = $("<div class='clear-all-wrapper'></div>");
             var $clearButton = $("<div class='clear-all-button'><i class='fa fa-close'></i></div>");
-            $(elem).css({'padding-right':'30px'});
+            $(elem).css({'padding-right':'22px'});
             $(elem).wrap($wrapper);
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
@@ -161,7 +161,7 @@ app.directive('clearAllButtonInline', function() {
         },
         link: function(scope, elem, attr) {
             var $clearButton = $("<div class='clear-all-button clear-all-button-inline'><i class='fa fa-close'></i></div>");
-            $(elem).css({'padding-right':'30px'});
+            $(elem).css({'padding-right':'22px'});
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
                 // console.log("clicked");

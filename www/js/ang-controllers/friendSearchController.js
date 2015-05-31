@@ -74,6 +74,11 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.serverResponse = "пользователь добавлен";
     };
 
+    $scope.handleEntryClick = function() {
+        $scope.addToFriends();
+        $state.go('chat', {senderId: $scope.foundUuid});
+    };
+
     if ($stateParams.stringToSearch) {
         $scope.stringToSearch = $stateParams.stringToSearch;
         $scope.findUser();

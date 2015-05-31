@@ -11,7 +11,7 @@
       </div>
     
       <div class="width-92 block-center">
-        <div class="card" ng-show="canBeAdded">
+        <div class="card" ng-show="canBeAdded" ng-click="handleEntryClick()">
           <div class="row">
             <div class="small-3 column ava-container">
               <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
@@ -19,7 +19,7 @@
             <div class="small-6 column p0">
                 <span class="chat-title title" ng-bind="nameToAdd"></span>
             </div>
-            <div class="small-3 column">
+            <div class="small-3 column" stop-event>
                <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
             </div>
           </div>

@@ -12,7 +12,7 @@ html{
 body{
   background-color: #F1F3F6;
   height: 100%;
-  font-size: 1.3rem !important;
+  font-size: 1.0rem !important;
   font-family: "Open Sans Normal";
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
@@ -23,7 +23,7 @@ button {
 }
 
 input[type="password"] {
-  height: 46px;
+  height: 40px;
 }
 
 input[type=checkbox] {
@@ -204,6 +204,7 @@ ul.off-canvas-list li a {
   color: #fff;
   padding: 5px;
   padding-left: 10px;
+  font-size: 1.3rem;
 }
 .change-ava-button {
   display: inline-block;
@@ -229,7 +230,7 @@ ul.off-canvas-list li a {
 
 
 label, input, button, .button{
-  font-size: 1.3rem !important;
+  font-size: 1.0rem !important;
   height: auto;
 }
 
@@ -396,7 +397,7 @@ button.chat-send {
   vertical-align: top;
   width: 18%;
   padding: 0;
-  height: 46px;
+  height: 40px;
   border-radius: 5px;
   margin-right: 2px;
   margin-left: -2px;
@@ -521,7 +522,7 @@ input.category-name-change-input {
 }
 .message-own:after {
   content: '';
-  top: 10px;
+  top: 7px;
   position: absolute;
   right: -20px;
   border: 10px solid transparent;
@@ -537,7 +538,7 @@ input.category-name-change-input {
 }
 .message-not-own:after {
   content: '';
-  top: 10px;
+  top: 7px;
   position: absolute;
   left: -20px;
   border: 10px solid transparent;
@@ -569,7 +570,7 @@ input.category-name-change-input {
 
 .inline-input-button-block button {
   width: 24%;
-  height: 46px;
+  height: 40px;
   padding: 0;
   border-radius: 5px;
 }
@@ -823,6 +824,7 @@ input[type="radio"] {
   padding: 5px 10px;
   -webkit-user-select: none; 
   user-select: none;
+  height: 35px;
 }
 
 .radioLabel  {
@@ -858,18 +860,21 @@ input[type="radio"]:checked + .radioLabel {
   outline: none;
 }
 .custom-file-input::before {
-  content: 'Выбрать из галереи';
+  content: 'Выбрать из моей галереи';
   display: inline-block;
   color: #FFF;
   font-family: "Open Sans Normal";
-  background: #65C6BB;
+  background: #99E99E;
   border-radius: 3px;
   padding: 10px 5px;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
   cursor: pointer;
-  font-weight: 700;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
 }
 .custom-file-input:hover::before {
   border-color: black;
