@@ -124,6 +124,11 @@ input[type=checkbox] {
 .w250 {
   width: 250px;
 }
+.grey-line {
+  height: 1px;
+  background: #D7D7DC;
+  margin: 13px 0;
+}
 .fullBlockLink {
   display: block;
   height: 100%;
@@ -208,7 +213,7 @@ ul.off-canvas-list li a {
 }
 .change-ava-button {
   display: inline-block;
-  padding: 0px 10px;
+  padding: 0px 9px;
 }
 .change-ava-button:hover {
   cursor: pointer;  
@@ -232,6 +237,7 @@ ul.off-canvas-list li a {
 label, input, button, .button{
   font-size: 1.0rem !important;
   height: auto;
+  margin-bottom: 0.3rem;
 }
 
 .off-canvas-list{

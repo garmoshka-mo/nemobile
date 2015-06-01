@@ -124,7 +124,16 @@ services
         var messageText = m.pn_gcm.data.message;
 
         if (senderUuid === App.Settings.systemUuid) {
-            updateUserInfo(user.accessToken);
+            switch(messageText) {
+                case "contacts_updated": 
+                    console.log("friends list will be updated");
+                    user.friendsList.clear();
+                    getUserFriendsFromServer();
+                    break;
+                default:
+                    updateUserInfo(user.accessToken);
+                    break;
+            }
         }
 
         if (self.chats[senderUuid]) {

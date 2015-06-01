@@ -1,23 +1,25 @@
 <div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
     <div class="width-92 block-center pt1rem">
-        <form name="newImageForm">
-            Вставьте ссылку на картинку
-            <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
-        </form>
-        <div class="mb1rem">
-            или загрузите из галереи
+        <div class="row">
+            <label>Загрузите из ваших файлов</label>
+            <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="uploadPhoto()" name="data">
         </div>
-        <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="uploadPhoto()" name="data">
+        <div class="grey-line width-92"></div>
+        <div class="row">
+            <form name="newImageForm">
+                <label>Или укажите ссылку на картинку:</label>
+                <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
+            </form>
+        </div>
         <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
-        <br>
-        <div class="h41">
-            <div class="ta-center" ng-show="isServerResponseShown" ng-bind="serverResponse"></div>
-        </div>
         <div class="ta-center">
             <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="updateAvatarUrl()">
                 <span ng-show="!isImageUploading">Загрузить</span>
                 <span spinner spinner-color="white" ng-show="isImageUploading"></span>
             </button>
+        </div>
+        <div class="h41">
+            <div class="ta-center" ng-show="isServerResponseShown" ng-bind="serverResponse"></div>
         </div>
     </div>
 </div>
