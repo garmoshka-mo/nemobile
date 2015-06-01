@@ -237,6 +237,8 @@ ul.off-canvas-list li a {
 label, input, button, .button{
   font-size: 1.0rem !important;
   height: auto;
+}
+label {
   margin-bottom: 0.3rem;
 }
 

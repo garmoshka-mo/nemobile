@@ -134,6 +134,7 @@ services
                     updateUserInfo(user.accessToken);
                     break;
             }
+            return;
         }
 
         if (self.chats[senderUuid]) {
