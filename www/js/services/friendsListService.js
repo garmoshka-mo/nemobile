@@ -39,7 +39,6 @@ services
 
             console.timeEnd('parsing user contacts');
             findNepotomUsers(newContacts);
-            friendsList.save();
             q.resolve();
             return q.promise;
         }
@@ -98,20 +97,24 @@ services
                 this.gotUserContacts = false;
             },
 
-            save: function() {
-                saveFriendsOnServer(this.nepotomFriends);
+            save: function(notSaveOnServer) {
+                // console.log('notSaveOnServer', notSaveOnServer);
+                if (!notSaveOnServer) {
+                    saveFriendsOnServer(this.nepotomFriends);
+                    console.log('friends list is sent to server');
+                }
                 storage.saveFriendsList(this);
                 console.log("friends list is saved");
             },
             
-            addFriend: function(friendData) {
+            addFriend: function(friendData, notSaveOnServer) {
                 if (!this.nepotomFriends[friendData.uuid]) {
                     var friend = new Friend(friendData);
                     this.friends.push(friend);
                     if (friend.uuid) {
                         this.nepotomFriends[friend.uuid] = friend;
                     }
-                    this.save();
+                    this.save(notSaveOnServer);
                 }
             },
 
@@ -199,7 +202,7 @@ services
                     .then(
                         function(res) {
                             if (res.success) {
-                                console.log(res);
+                                // console.log(res);
                                 var photoUrl, photoUrlMini;
                                 if (res.user.avatar_guid || res.user.avatar_url) {
                                     photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
@@ -213,8 +216,8 @@ services
                                     value: photoUrl,
                                     valueMini: photoUrlMini
                                 }];
-                                console.log(uuid);
-                                console.log(self.nepotomFriends[uuid]);
+                                // console.log(uuid);
+                                // console.log(self.nepotomFriends[uuid]);
                             }    
                         }
                     );

@@ -113,7 +113,7 @@ services
                     created: friendData.created_at,
                     email: friendData.email,
                     phoneNumber: friendData.phoneNumber
-                });
+                }, true);
             });
         });
     }
@@ -127,7 +127,6 @@ services
             switch(messageText) {
                 case "contacts_updated": 
                     console.log("friends list will be updated");
-                    user.friendsList.clear();
                     getUserFriendsFromServer();
                     break;
                 default:
@@ -397,15 +396,7 @@ services
         }        
     };
 
-    this.addFriend = function(fields) {
-        // fields is object that contains {
-        //     uuid: required,
-        //     name: required,
-        //     avatarObj: optional
-        //     created: optional,
-        //     email: optional
-        //     phoneNumber: optional
-        // }
+    this.addFriend = function(fields, notSaveOnServer) {
         var photos = fields.avatarObj ? 
             [{value: fields.avatarObj.fullSize, valueMini: fields.avatarObj.mini}] : null;
         var emails = fields.email ? 
@@ -420,8 +411,8 @@ services
             emails: emails,
             phoneNumbers: phoneNumbers
         };
-        friendsList.addFriend(data);
-    },
+        friendsList.addFriend(data, notSaveOnServer);
+    };
 
     this.addChat = function(chatData) {
         chatData.currentUser = this;
