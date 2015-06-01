@@ -13,10 +13,10 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
         this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
-        this.isExpired = chatData.isExpired ? chatData.isExpired : false;
-        this.isRead = chatData.isRead ? chatData.isRead : true;
-        this.isReplied = chatData.isReplied ? chatData.isReplied : false;
-        this.isVirtual = chatData.isVirtual ? chatData.isVirtual : false;
+        this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;
+        this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
+        this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
+        this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;

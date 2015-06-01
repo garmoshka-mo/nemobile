@@ -179,6 +179,7 @@ services
         }
         lastSession.setTimer(m.expires);
         lastSession.save();
+        user.saveChats();
 
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);

@@ -23,7 +23,7 @@ button {
 }
 
 input[type="password"] {
-  height: 40px;
+  height: 36px;
 }
 
 input[type=checkbox] {
@@ -399,7 +399,7 @@ button.chat-send {
   vertical-align: top;
   width: 18%;
   padding: 0;
-  height: 40px;
+  height: 36px;
   border-radius: 5px;
   margin-right: 2px;
   margin-left: -2px;
