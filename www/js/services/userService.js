@@ -128,10 +128,39 @@ services
         });
     }
 
+
+    function pushMessageToSession(lastSession, messageText, expires) {
+        lastSession.messages.push({
+            text: messageText,
+            isOwn: false
+        });
+
+        if (!lastSession.isReplied) {
+            if (lastSession.creatorId === self.uuid) {
+                lastSession.setReplied();
+            }
+        }
+
+        lastSession.setTimer(expires);
+        lastSession.save();
+    }
+
+    function handleChatSessionAsync(senderUuid, messageText, expires) {
+        console.log('handle chat session async');
+        user.chats[senderUuid].getLastUnexpiredChatSession()
+        .then(
+            function(lastSession) {
+                pushMessageToSession(lastSession, messageText, expires);
+            }
+        );
+    }
+
     function handleIncomeMessage(m) {
         var self = user;
         var senderUuid = m.pn_gcm.data.uuid;
         var messageText = m.pn_gcm.data.message;
+
+        
 
         if (senderUuid === App.Settings.systemUuid) {
             console.log(messageText);
@@ -148,13 +177,18 @@ services
             return;
         }
 
+        //getting the last unexpired chat session
+        var lastSession;
         if (self.chats[senderUuid]) {
             // console.log("added to existing chat");
-            self.chats[senderUuid].getLastUnexpiredChatSession(); 
-            var lastSession;
             
             if (!self.chats[senderUuid].isExpired) {
-                lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+                if (!self.chats[senderUuid].lastUnexpiredChatSession) {
+                    handleChatSessionAsync(senderUuid, messageText, m.expires);
+                }
+                else {
+                    lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+                }
             }
             else {
                 self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
@@ -162,20 +196,13 @@ services
                 lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             } 
            
-            if (!lastSession.isReplied) {
-                if (lastSession.creatorId === self.uuid) {
-                    lastSession.setReplied();
-                }
-            }
-
-           
         }
         else {
             // console.log("created new chat");
             self.addChat({senderId: senderUuid});
             self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
             self.chats[senderUuid].getLastUnexpiredChatSession(); 
-            var lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+            lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
         }
 
         if (messageText === "$===real===") {
@@ -184,10 +211,9 @@ services
             // messageText = $sce.trustAsHtml(messageText);
         }
 
-        lastSession.messages.push({
-            text: messageText,
-            isOwn: false
-        });
+        if (lastSession) {
+            pushMessageToSession(lastSession, messageText, m.expires);
+        }
 
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
@@ -198,8 +224,7 @@ services
         if ($state.params.senderId !== senderUuid) {
             showNotification(self, messageText, senderUuid);
         }
-        lastSession.setTimer(m.expires);
-        lastSession.save();
+        
         user.saveChats();
 
         // console.log("When chatSession expires: ", lastSession.whenExipires);

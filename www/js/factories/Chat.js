@@ -68,12 +68,12 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             var self = this;
 
             if (this.isExpired) {
-                d.reject();
+                d.reject("chat is expired");
             }
 
             //if chatSessionIndexes length === 0, that means that chat is new
             if (!this.chatSessionsIndexes.length) {
-                d.reject();
+                d.reject("there are no chat sessions in this chat");
             }
 
             if (this.lastChatSessionIndex !== null) {
@@ -82,7 +82,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             }
 
             if (found) {
-                d.resolve();
+                d.resolve(this.lastUnexpiredChatSession);
             }
             else {
                 storage.getChatSession(this.senderId, this.lastChatSessionIndex)
@@ -92,12 +92,12 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                             var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
                             self.lastUnexpiredChatSession = parsedChatSession;
                             self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
-                            d.resolve();
+                            d.resolve(self.lastUnexpiredChatSession);
                             // console.log("user", self.currentUser);
                         }
                     },
                     function() {
-                        d.reject();
+                        d.reject("getting from storag error");
                     }
                 );
 
