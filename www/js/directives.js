@@ -190,7 +190,6 @@ app.directive('alertBox', function() {
 app.directive('slideMenu', function() {
     return {
         link: function(scope, elem, attr) {
-            console.log(elem[0]);
             window.snapper = new Snap({
                 element: elem[0],
                 hyperextensible: false,

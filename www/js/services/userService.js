@@ -52,6 +52,7 @@ services
         user.phoneNumber = userInfo.phone_number;
         
         var avatarParseResult = user.parseAvatarDataFromServer(userInfo);
+        console.log(avatarParseResult);
         user.avatarUrl = avatarParseResult.fullSize;
         user.avatarUrlMini = avatarParseResult.mini;
 
@@ -64,11 +65,11 @@ services
         getUserFriendsFromServer()
         .then(
             function() {
-                user.friendsList.updateNepotomFriendsInfo()
-                .then(function() {
-                    console.log("friends list is downloaded from server");
-                    $state.go($state.current, {}, {reload: true});
-                });
+                // user.friendsList.updateNepotomFriendsInfo()
+                // .then(function() {
+                //     console.log("friends list is downloaded from server");
+                //     $state.go($state.current, {}, {reload: true});
+                // });
             }
         );
         user.save();
@@ -111,8 +112,7 @@ services
                     uuid: friendData.uuid,
                     name: friendData.display_name,
                     created: friendData.created_at,
-                    email: friendData.email,
-                    phoneNumber: friendData.phoneNumber
+                    avatarObj: user.parseAvatarDataFromServer(friendData)
                 }, true);
             });
         });
@@ -126,10 +126,11 @@ services
         if (senderUuid === App.Settings.systemUuid) {
             switch(messageText) {
                 case "contacts_updated": 
-                    console.log("friends list will be updated");
+                    console.log('friends list will be updated');
                     getUserFriendsFromServer();
                     break;
                 default:
+                    console.log('user info will be updated');
                     updateUserInfo(user.accessToken);
                     break;
             }
@@ -597,7 +598,7 @@ services
 
         if (dataFromServer.avatar_url) {
             output.fullSize = dataFromServer.avatar_url;
-            output.mini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80' + '$3');
+            output.mini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80/$2' + '$3');
         }
         else if (dataFromServer.avatar_guid) {
             output.fullSize = App.Settings.adorableUrl + '/' + dataFromServer.avatar_guid;
