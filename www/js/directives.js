@@ -52,6 +52,23 @@ app.directive('overscrollableWithoutFooter', function() {
     };
 });
 
+app.directive('overscrollableFriends', function() {
+    return {
+        link: function(scope, elem, attr) {
+            var emPixels = getEmPixels();
+            var bodyHeight = $('body').height();
+            var topBarHeight_rem = 2.8125;
+            $(elem).height(bodyHeight - $(".friendListHeader ").height() - $('.tab-bar').height());
+            $(elem).css({
+                  "width": "100%",
+                  "padding-right": "15px",
+                  "box-sizing": "content-box",
+                  "overflow": "auto"
+            });
+        }
+    };
+});
+
 app.directive('imageonload', function() {
     return {
         restrict: 'A',

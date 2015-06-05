@@ -105,15 +105,25 @@ services
     }
 
     function getUserFriendsFromServer() {
+        var NOT_SENT_CHANGES_TO_SERVER = true;
         return api.getFriends()
         .then(function(res) {
+            // deleting deleted friends
+            var serverUuids = _.map(res.friends, 'uuid');
+            var userFriendsUuids = _.map(user.friendsList.nepotomFriends, 'uuid');
+            var deletedUuids = _.difference(userFriendsUuids, serverUuids);
+            deletedUuids.forEach(function(uuid) {
+                user.friendsList.removeFriend(user.friendsList.nepotomFriends[uuid], 
+                    NOT_SENT_CHANGES_TO_SERVER);
+            });
+            //adding new one
             res.friends.forEach(function(friendData) {
                 user.addFriend({
                     uuid: friendData.uuid,
                     name: friendData.display_name,
                     created: friendData.created_at,
                     avatarObj: user.parseAvatarDataFromServer(friendData)
-                }, true);
+                }, NOT_SENT_CHANGES_TO_SERVER);
             });
         });
     }
@@ -124,6 +134,7 @@ services
         var messageText = m.pn_gcm.data.message;
 
         if (senderUuid === App.Settings.systemUuid) {
+            console.log(messageText);
             switch(messageText) {
                 case "contacts_updated": 
                     console.log('friends list will be updated');

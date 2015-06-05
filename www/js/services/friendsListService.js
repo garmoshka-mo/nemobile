@@ -118,7 +118,7 @@ services
                 }
             },
 
-            removeFriend: function(friend) {
+            removeFriend: function(friend, notSaveOnServer) {
                 var indexToRemove = this.friends.indexOf(friend);
                 var uuidToRemove = friend.uuid;
                 
@@ -137,8 +137,10 @@ services
                     this.nepotomFriends = _nepotomFriends;
                 }
                 
-                api.removeFriend([uuidToRemove]);
-                this.save();
+                if (!notSaveOnServer) {
+                    api.removeFriend([uuidToRemove]);
+                }
+                this.save(notSaveOnServer);
             },
 
             getUserContacts: function() {
