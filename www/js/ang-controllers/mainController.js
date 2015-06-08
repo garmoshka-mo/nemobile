@@ -51,7 +51,7 @@ angular.module("angControllers").controller("mainController", [
 
     document.addEventListener("deviceready", function() {
         if (device.platform === "iOS") {
-          $(".iphone-status-bar-margin").show();
+          $(".iphone-hack").show();
         }
     });
 

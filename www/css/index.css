@@ -134,10 +134,16 @@ input[type=checkbox] {
   height: 100%;
   width: 100%;
 }
+.iphone-hack {
+  display: none;
+}
 .iphone-status-bar-margin {
   background-color: #68C168;
   height: 20px;
-  display: none;
+}
+.iphone-menu-margin {
+  background-color: #363645;
+  height: 20px;
 }
 a {
   color: inherit;
