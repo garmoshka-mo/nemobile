@@ -119,6 +119,10 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                     self.photoUrlMini = friend.photos[0].valueMini ?
                         friend.photos[0].valueMini : friend.photos[0].value; 
                 }
+                else {
+                    self.photoUrl = App.Settings.adorableUrl + '/' + self.senderId;
+                    self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.senderId;
+                }
                 d.resolve();
             }
             else {

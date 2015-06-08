@@ -117,7 +117,7 @@ angular.module("angControllers").controller("chatController",
         console.log("chat", chat);
         setNotification();
         
-        if (chat.title === chat.senderId) {
+        if (chat.title === chat.senderId || !chat.photoUrlMini) {
             chat.updateInfo()
             .then(function() {
                 setNotification();
