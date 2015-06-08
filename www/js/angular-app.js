@@ -373,7 +373,8 @@ var pushNotification;
 
 document.addEventListener("deviceready", function() {
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
-
+    FastClick.attach(document.body);
+    
     function successHandler(result) {
         console.log(result);
         // alert('result = ' + result);
