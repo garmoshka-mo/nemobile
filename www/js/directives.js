@@ -214,7 +214,7 @@ app.directive('slideMenu', function() {
                 minPosition: 0
             });
             $(document).on('click','.off-canvas-list', function() {
-                console.log('clicked');
+                // console.log('clicked');
                 snapper.close();
             });
         }
