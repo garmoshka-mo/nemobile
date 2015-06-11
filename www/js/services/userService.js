@@ -156,11 +156,10 @@ services
     }
 
     function handleIncomeMessage(m) {
+        console.log(m);
         var self = user;
         var senderUuid = m.pn_gcm.data.uuid;
         var messageText = m.pn_gcm.data.message;
-
-        
 
         if (senderUuid === App.Settings.systemUuid) {
             console.log(messageText);
@@ -660,7 +659,8 @@ services
     };
 
     var pubnub = PUBNUB.init({
-        subscribe_key: App.Settings.pubnubSubscribeKey
+        subscribe_key: App.Settings.pubnubSubscribeKey,
+        publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
     });
 
 
@@ -669,6 +669,22 @@ services
         this.parseFromStorage();
         console.log("user data is taken from storage");
     }
+
+    //function for testing purposes
+    this.pubnubPublish = function() {
+        pubnub.publish({
+            channel: user.channel,
+            message: {
+                text: "ale!",
+                pn_gcm: {
+                    data: {
+                        uuid: user.uuid,
+                        message: "ale"
+                    }
+                }
+            }
+        });
+    };
 
     //for debugging
     window.user = this;

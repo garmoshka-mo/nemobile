@@ -110,7 +110,6 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
 
             this.timer = $timeout(function() {
                 if (self.extraTime > 0) {
-                    self.setTimeout(self.extraTime);
                     return false;
                 }
                 self.close();

@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state', 'dictionary',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, $state, dictionary) {
         
         console.log("chat controller is invoked");
 
@@ -134,13 +134,14 @@ angular.module("angControllers").controller("chatController",
         .then(
             function() {
                 lastSession = chat.lastUnexpiredChatSession;
-                $scope.isFirstMessage = lastSession.messages.length;
+                $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
                 console.log("got chat session");
             },
             function() {
                 chat.addChatSession(user.uuid, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
+                $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
                 console.log("created new chat session");
             }
         )
@@ -159,13 +160,12 @@ angular.module("angControllers").controller("chatController",
 
         $scope.newMessage = {
             text: '',
-            ttl: 2592000,//30 days
+            // ttl: 2592000,//30 days
+            ttl: 10,
             clearText: function() {
                 this.text = '';
             }
         };
-
-
        
         $scope.handleSuccessSending = function() {
             
@@ -180,7 +180,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.handleFailedSending = function(errorDescription) {
-            $scope.errorDescription = errorDescription;
+            $scope.errorDescription = dictionary.get(errorDescription);
         };
 
         chat.sendMessage = function(text) {
