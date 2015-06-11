@@ -158,8 +158,8 @@ services
     function handleIncomeMessage(m) {
         console.log(m);
         var self = user;
-        var senderUuid = m.pn_gcm.data.uuid;
-        var messageText = m.pn_gcm.data.message;
+        var senderUuid = m.sender_uuid;
+        var messageText = m.message_text;
 
         if (senderUuid === App.Settings.systemUuid) {
             console.log(messageText);
