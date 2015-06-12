@@ -40,7 +40,7 @@
 </div>
 <div id="footer">
     <div class="appropriateStickers-container" ng-show="appropriateStickers.length" ng-class="{'animated fadeIn': appropriateStickers.length}" >
-        <img src="{{::image.url}}"  ng-repeat="image in appropriateStickers track by $index" ng-click="::sendAppropriateSticker(image.url)">
+        <img ng-src="{{::image.url}}"  ng-repeat="image in appropriateStickers track by $index" ng-click="::sendAppropriateSticker(image.url)">
     </div>
     <div ng-model="errorDescription" alert-box></div>
     <div class="chat-buttons-container">
