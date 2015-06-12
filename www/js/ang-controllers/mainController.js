@@ -55,22 +55,20 @@ angular.module("angControllers").controller("mainController", [
         }
     });
 
-    $scope.openMenu = function() {
-        // console.log("swipe open");
-        $scope.isMenuOpened = true;
-        if (window.device) {
-            if (window.device.platform === "iOS") {
-                cordova.plugins.Keyboard.close();
+    $scope.toggleMenu = function() {
+        var state = snapper.state().state;
+        if (state === 'right') {
+            if (window.device) {
+                if (window.device.platform === "iOS") {
+                    cordova.plugins.Keyboard.close();
+                }
             }
+            $scope.countUnreadChats();
+            snapper.open('left');
         }
-        $scope.countUnreadChats();
-        snapper.open('left');
-    };
-
-    $scope.closeMenu = function() {
-        // console.log("swipe close");
-        $scope.isMenuOpened = false;
-        snapper.close('left');
+        else {
+            snapper.close('left');
+        }
     };
 
     $scope.generateNewAvatar = function() {
@@ -162,5 +160,7 @@ angular.module("angControllers").controller("mainController", [
             }
         }
     );
+
+    
 
 }]);
