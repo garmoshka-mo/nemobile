@@ -35,13 +35,16 @@ app.directive('overscrollableWithFooter', function() {
     };
 });
 
+$(function() {
+    window.BODY_HEIGHT = $('body').height();
+    window.TAB_BAR_HEIGHT = $('.tab-bar').height();
+});
+
 app.directive('overscrollableWithoutFooter', function() {
     return {
         link: function(scope, elem, attr) {
-            var emPixels = getEmPixels();
             var bodyHeight = $('body').height();
-            var topBarHeight_rem = 2.8125;
-            $(elem).height(bodyHeight - emPixels * topBarHeight_rem);
+            $(elem).height(bodyHeight - $('.tab-bar').height());
             $(elem).css({
                   "width": "100%",
                   "padding-right": "15px",
@@ -55,16 +58,37 @@ app.directive('overscrollableWithoutFooter', function() {
 app.directive('overscrollableFriends', function() {
     return {
         link: function(scope, elem, attr) {
-            var emPixels = getEmPixels();
-            var bodyHeight = $('body').height();
-            var topBarHeight_rem = 2.8125;
-            $(elem).height(bodyHeight - $(".friendListHeader ").height() - $('.tab-bar').height());
+            $(elem).height(BODY_HEIGHT - $(".friendListHeader ").height() - TAB_BAR_HEIGHT);
             $(elem).css({
                   "width": "100%",
                   "padding-right": "15px",
                   "box-sizing": "content-box",
                   "overflow": "auto"
             });
+        }
+    };
+});
+
+app.directive('stickersGalleryHeight', function() {
+    return {
+        link: function(scope, elem, attr) {
+
+            // console.log("top bar height: ", emPixels * topBarHeight_rem);
+            // console.log("chat keyboard height: ", $('.chat-buttons-container').height());
+            
+            var INPUT_FIELD_HEIGHT = 72;
+            var KEYBOARD_PADDING = 20;
+            var IPHONE_TOP_BAR_HEIGHT = 20;
+
+            var stickersGalleryHeight = BODY_HEIGHT - TAB_BAR_HEIGHT - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING; 
+            
+            if (window.device) {
+                if (device.platform == "iOS") {
+                    stickersGalleryHeight = stickersGalleryHeight - IPHONE_TOP_BAR_HEIGHT;
+                }
+            }
+
+            $(elem).height(stickersGalleryHeight);
         }
     };
 });
@@ -92,33 +116,6 @@ app.directive('npTouchstart', function() {
             $(elem).on("click touchstart", function() {
                 scope[attr.npTouchstart]();
             });
-        }
-    };
-});
-
-app.directive('stickersGalleryHeight', function() {
-    return {
-        link: function(scope, elem, attr) {
-            var emPixels = getEmPixels();
-            var bodyHeight = $('body').height();
-            var topBarHeight_rem = 2.8125;
-
-            // console.log("top bar height: ", emPixels * topBarHeight_rem);
-            // console.log("chat keyboard height: ", $('.chat-buttons-container').height());
-            
-            var INPUT_FIELD_HEIGHT = 72;
-            var KEYBOARD_PADDING = 20;
-            var IPHONE_TOP_BAR_HEIGHT = 20;
-
-            var stickersGalleryHeight = bodyHeight - emPixels * topBarHeight_rem - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING; 
-            
-            if (window.device) {
-                if (device.platform == "iOS") {
-                    stickersGalleryHeight = stickersGalleryHeight - IPHONE_TOP_BAR_HEIGHT;
-                }
-            }
-
-            $(elem).height(stickersGalleryHeight);
         }
     };
 });
