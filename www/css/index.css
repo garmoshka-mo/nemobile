@@ -721,6 +721,33 @@ img.imageShow {
 .vkLoginButton {
   background: #3498db;
 }
+.tabs-menu {
+    border-radius: 5px;
+    border: 1px solid #3E8743;
+    display: inline-block;
+    padding: 0;
+    background: #3E8743; 
+}
+.tabs-menu li {
+    display: inline-block;
+    vertical-align: middle;    
+}
+.tabs-menu-item {
+    margin-right: 1px;
+    background: #5BAB60;
+    transition: all 0.3s ease;
+}
+.tabs-menu-item span {
+    color: #FFF ;
+    padding: 5px 10px;
+    display: block;
+}
+.tabs-menu span:hover {
+  cursor: pointer;
+}
+.tabs-menu-item.is-active {
+    background: #3E8743; 
+}
 /*elements css*/
 @media only screen and (max-height: 20rem){
   .modal{
