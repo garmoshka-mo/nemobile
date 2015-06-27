@@ -102,7 +102,7 @@ angular.module("angControllers").controller("aboutController",
                             React.createElement("br", null)
                         )),
                         React.createElement(Tabs.Panel, {title: "privacy"}, 
-                          React.createElement("div", {className: "width-92 block-center ta-justify"}, 
+                            React.createElement("div", {className: "width-92 block-center ta-justify"}, 
                                   React.createElement("h2", {className: "ta-center"}, "Privacy Notice"), 
                                   "Dub.ink Inc. (\"dub.ink\") recognizes that its customers, visitors and users, want to know what's up with privacy. dub.ink provides this Privacy Policy to help you make an informed decision about whether to use or continue using the dub.ink Site, dub.ink Software and/or the dub.ink Service. If you do not agree to our practices, please do not use the dub.ink Site, dub.ink Software,or dub.ink Service.", 
                                   React.createElement("br", null), 
@@ -164,9 +164,9 @@ angular.module("angControllers").controller("aboutController",
                                   React.createElement("br", null), "                This Privacy Notice was last modified April 7th, 2015"
                         )), 
                         React.createElement(Tabs.Panel, {title: "support"}, 
-                         React.createElement("div", {className: "width-92 block-center ta-center pt1rem"}, 
-        "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "dub.ink")
-      )
+                            React.createElement("div", {className: "width-92 block-center ta-center pt1rem"}, 
+                                "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "dub.ink")
+                            )
                         )
                       )
                     );

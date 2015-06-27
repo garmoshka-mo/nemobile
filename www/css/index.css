@@ -748,9 +748,9 @@ img.imageShow {
   cursor: pointer;
 }
 .tabs-menu-item.is-active {
-    background: #3E8743; 
+  background: #3E8743; 
 }
-.tabs-navigator {
+.tabs-navigation {
   height: 45px;
 }
 /*elements css*/

@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession', 
-    function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession) {
+    '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 
+    function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession, $timeout) {
 
     $scope.user = user;
 
@@ -56,19 +56,25 @@ angular.module("angControllers").controller("mainController", [
     });
 
     $scope.toggleMenu = function() {
-        var state = snapper.state().state;
-        if (state === 'right') {
-            if (window.device) {
-                if (window.device.platform === "iOS") {
-                    cordova.plugins.Keyboard.close();
+        //async call is necessary for correct work on android 4.1.1
+        $timeout(function() {
+            var state = snapper.state().state;
+            console.log(state);
+            if (state === 'right') {
+                console.log('openning menu!');
+                if (window.device) {
+                    if (window.device.platform === "iOS") {
+                        cordova.plugins.Keyboard.close();
+                    }
                 }
+                console.log("device's OS is not iOS");
+                $scope.countUnreadChats();
+                snapper.open('left');
             }
-            $scope.countUnreadChats();
-            snapper.open('left');
-        }
-        else {
-            snapper.close('left');
-        }
+            else {
+                snapper.close('left');
+            }
+        }, 0);
     };
 
     $scope.generateNewAvatar = function() {
