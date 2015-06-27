@@ -42,7 +42,9 @@
         </div>
         
         <div class="row" ng-show="showAll === '1'">
-            <div class="columns small-9 p0">
+        <div class="ta-center">all</div>
+            
+            <!-- <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1 ">
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
@@ -75,11 +77,12 @@
                         в сети
                     </button>
                 </a>
-            </div>
+            </div> -->
         </div>
 
         <div ng-show="showAll === '0'">
-            <div class="columns small-9 p0">
+        <div class="ta-center">dubink</div>
+            <!-- <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
@@ -112,11 +115,12 @@
                         в сети
                     </button>
                 </a>
-            </div>
+            </div> -->
         </div>
 
         <div ng-show="showAll === '2'">
-            <div class="columns small-9 p0">
+        <div class="ta-center">new</div>
+            <!-- <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
                     <div class="card">
                         <a ng-href="{{::getFriendLink(friend)}}">
@@ -149,6 +153,6 @@
                     </button>
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
