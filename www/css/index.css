@@ -722,20 +722,22 @@ img.imageShow {
   background: #3498db;
 }
 .tabs-menu {
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #3E8743;
     display: inline-block;
     padding: 0;
-    background: #3E8743; 
+    background: #3E8743;
+    overflow: hidden; 
 }
 .tabs-menu li {
     display: inline-block;
-    vertical-align: middle;    
+    vertical-align: top;    
 }
 .tabs-menu-item {
     margin-right: 1px;
     background: #5BAB60;
     transition: all 0.3s ease;
+    font-size: 1rem;
 }
 .tabs-menu-item span {
     color: #FFF ;
@@ -747,6 +749,9 @@ img.imageShow {
 }
 .tabs-menu-item.is-active {
     background: #3E8743; 
+}
+.tabs-navigator {
+  height: 45px;
 }
 /*elements css*/
 @media only screen and (max-height: 20rem){
