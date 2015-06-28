@@ -108,7 +108,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.goToLoadAvatar = function() {
         location.href = "#/loadAvatar";
-        $scope.closeMenu();
+        $scope.toggleMenu();
         $scope.isChangeAvaMenuShown = false;
         user.avatarUrlMini = $scope.initialAvatarUrl;
     };
