@@ -6,6 +6,7 @@ angular.module("angControllers").controller("friendsController",
     $scope.isEditMode = false;
     $scope.limitTo = 20;
 
+    ////delete
     var storedLastChosenList = localStorage.lastChosenList;
     if (storedLastChosenList) {
         $scope.showAll = storedLastChosenList;

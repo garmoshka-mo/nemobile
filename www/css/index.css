@@ -636,7 +636,7 @@ margin-right: 10px;
   padding-bottom: 10px;
   width: 100%;
   background-color: #C1C1C1;
-  z-index: 1000;
+  /*z-index: 1000;*/
 }
 .friendListHeader-edit-block {
   padding: 5px 20px;
@@ -864,19 +864,16 @@ input[type="radio"] {
 .radioLabel {
   color: #fff;
   font-size: 14px;
+  padding: 5px 10px;
   display: inline-block;
   vertical-align: top !important;
   cursor: pointer;
   margin: 0 !important;
   margin-right: 1px !important;
-  padding: 5px 10px;
   -webkit-user-select: none; 
   user-select: none;
   height: 35px;
-}
-
-.radioLabel  {
- background-color: #5BAB60;
+  background-color: #5BAB60;
 }
 
 input[type="radio"]:checked + .radioLabel {
