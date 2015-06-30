@@ -464,7 +464,7 @@ services
     this.parseFromStorage = function() {
         var self = this;
         self.isParsingFromStorageNow = true;
-        $q.all([
+        return $q.all([
             storage.getUser().then(function(dataFromStorage) {
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
@@ -665,10 +665,10 @@ services
 
 
 
-    if (this.isLogged()) {
-        this.parseFromStorage();
-        console.log("user data is taken from storage");
-    }
+    // if (this.isLogged()) {
+    //     this.parseFromStorage();
+    //     console.log("user data is taken from storage");
+    // }
 
     //function for testing purposes
     this.pubnubPublish = function() {
