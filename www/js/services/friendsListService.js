@@ -5,6 +5,10 @@ services
         var isNepotomFriendsInfoUpdated = false;
 
         //private methods
+        function hasPhoneNumber(contact) {
+            return !!contact.phoneNumbers;
+        }
+
         function parseUserContacts(contacts) {
             console.time('parsing user contacts');
             var q = $q.defer();
@@ -18,9 +22,11 @@ services
                 var newContacts = [];
                 for (var i = lastContactIndex; i >= 0; i--) {
                     if (contacts[i].id > friendsList.lastContactId) {
-                        var newFriend = new Friend(contacts[i]);
-                        friendsList.friends.push(newFriend);
-                        newContacts.push(newFriend);
+                        if (hasPhoneNumber(contacts[i])) {
+                            var newFriend = new Friend(contacts[i]);
+                            friendsList.friends.push(newFriend);
+                            newContacts.push(newFriend);
+                        }
                     }
                     else {
                         break;
