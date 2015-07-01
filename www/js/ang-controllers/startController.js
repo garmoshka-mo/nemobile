@@ -2,7 +2,9 @@ angular.module("angControllers").controller("startController", ['user', '$state'
     
     function hideSplashScreen() {
         if (window.device) {
-            navigator.splashscreen.hide();
+            setTimeout(function() {
+                navigator.splashscreen.hide();
+            }, 1000);
         }
     }
 
@@ -10,7 +12,7 @@ angular.module("angControllers").controller("startController", ['user', '$state'
         user.parseFromStorage()
         .then(
             function() {
-                if (Object.keys(user.chats).length === 0) {
+                if (_.isEmpty(user.chats)) {
                     $state.go('friends')
                     .then(
                         hideSplashScreen
