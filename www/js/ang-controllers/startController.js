@@ -13,7 +13,7 @@ angular.module("angControllers").controller("startController", ['user', '$state'
                 if (window.device) {
                     setTimeout(function() {
                         navigator.splashscreen.hide();
-                    }, 0);
+                    }, 100);
                 }
                 console.log("user data is taken from storage");
             }
