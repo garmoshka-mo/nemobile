@@ -7,6 +7,7 @@ angular.module("angControllers").controller("mainController", [
     console.log('main controller is invoked');
 
     $rootScope.isAppInBackground = false;
+    $scope.showViewPreloader = false;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
@@ -139,6 +140,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
+            $scope.showViewPreloader = true;
             // console.log("state is changed!");
             notification.clear();
 
@@ -163,6 +165,12 @@ angular.module("angControllers").controller("mainController", [
             else {
                 $scope.hideBackArrow();
             }
+        }
+    );
+
+    $scope.$on('$stateChangeSuccess',
+        function(evt, toState, toParams, fromState, fromParams) {
+            $scope.showViewPreloader = false;
         }
     );
 

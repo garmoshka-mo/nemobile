@@ -146,8 +146,11 @@
                     </section>
                     <section class="middle tab-bar-section p0">
                         <h1 class="title">
-                            <div ng-hide="notification.text" ui-view="title"></div>
-                            <div class="notification" ng-show="notification.text" ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
+                            <div ng-show="showViewPreloader">
+                                <span spinner spinner-color="white"></span>
+                            </div>
+                            <div ng-hide="notification.text || showViewPreloader" ui-view="title"></div>
+                            <div class="notification" ng-show="notification.text && !showViewPreloader" ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
                                 <span ng-bind-html="notification.text"></span>
                             </div>
                         </h1>
