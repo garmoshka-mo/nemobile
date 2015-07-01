@@ -131,6 +131,9 @@ app.directive('spinner', function() {
             if (attr.spinnerColor == "white") {
                 dots.addClass("white");
             }
+            if (attr.spinnerColor == "blue") {
+                dots.addClass("blue");
+            }
             else {
                 dots.addClass("black");
             }

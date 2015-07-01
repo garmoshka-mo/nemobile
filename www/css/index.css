@@ -635,7 +635,7 @@ margin-right: 10px;
   box-shadow: 0 2px 5px rgba(193,193,193, .7);
   padding-bottom: 10px;
   width: 100%;
-  background-color: #C1C1C1;
+  background-color: #C4ECC4;
   /*z-index: 1000;*/
 }
 .friendListHeader-edit-block {
@@ -814,6 +814,10 @@ img.imageShow {
 
 .white {
   background: rgba(255, 255, 255, .8);
+}
+
+.blue {
+  background: #4D6EA3;
 }
 
 /*webview animation*/
