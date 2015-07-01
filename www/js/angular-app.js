@@ -16,7 +16,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: "dub.ink"  
         },
         "menu": {
-          templateUrl: "partials/start/menu.html"
+          templateUrl: "partials/chats/menu.html"
         },
         "content": {
           templateUrl: "partials/start/content.html",
@@ -31,7 +31,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: ""
         },
         "menu": {
-          templateUrl: "partials/start/menu.html"
+          templateUrl: "partials/chats/menu.html"
         }, 
         "content": {
           controller: "signinupController",
@@ -46,7 +46,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: "Регистрация"
         },
         "menu": {
-          templateUrl: "partials/start/menu.html"
+          templateUrl: "partials/chats/menu.html"
         }, 
         "content": {
           controller: "registrationController",
@@ -121,7 +121,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: "Local Forage Test"
         },
         "menu": {
-          templateUrl: "partials/start/menu.html"
+          templateUrl: "partials/chats/menu.html"
         }, 
         "content": {
           controller: "localForageController",
@@ -181,7 +181,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: "Регистрация номера"
         },
         "menu": {
-          templateUrl: "partials/start/menu.html"
+          templateUrl: "partials/chats/menu.html"
         }, 
         "content": {
           controller: "phoneRegistrationController",

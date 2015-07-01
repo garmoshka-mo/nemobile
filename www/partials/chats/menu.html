@@ -1,30 +1,41 @@
-<div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
-    <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
-    <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
-    <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>
-        <div class="change-ava-button" ng-click="applyCurrentAvatar()">
-            <i class="fa fa-check"></i>
+<div ng-show="user.name">
+    <div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
+        <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
+        <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
+        <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>
+            <div class="change-ava-button" ng-click="applyCurrentAvatar()">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="change-ava-button" ng-click="restoreDefaultAvatar()">
+                <i class="fa fa-undo"></i>
+            </div>
+            <div class="change-ava-button" ng-click="goToLoadAvatar()">
+                <i class="fa fa-upload"></i>
+            </div>
+            <div ng-show="isAvaLoading" class="inline-block" spinner spinner-color="white"></div>
         </div>
-        <div class="change-ava-button" ng-click="restoreDefaultAvatar()">
-            <i class="fa fa-undo"></i>
-        </div>
-        <div class="change-ava-button" ng-click="goToLoadAvatar()">
-            <i class="fa fa-upload"></i>
-        </div>
-        <div ng-show="isAvaLoading" class="inline-block" spinner spinner-color="white"></div>
     </div>
+    <ul class="off-canvas-list">
+        <li>
+            <a class="menu-item" href="#/chats">
+                <i class="fa fa-envelope"></i> Чаты
+                <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
+            </a>
+        </li>
+        <li><a class="menu-item" href="#/friends"><i class="fa fa-group"></i> Друзья</a></li>
+        <li><a class="menu-item" href="#/friendSearch"><i class="fa fa-search"></i> Найти друга</a></li>
+        <li><a class="menu-item" href="#/settings"><i class="fa fa-gear"></i> Настройки</a></li>
+        <li><a class="menu-item" href="#/about/"><i class="fa fa-info-circle"></i> О программе</a></li>
+        <li><a class="menu-item" href="#/exit" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
+    </ul>
 </div>
-<ul class="off-canvas-list">
-    <li>
-        <a class="menu-item" href="#/chats">
-            <i class="fa fa-envelope"></i> Чаты
-            <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
-        </a>
-    </li>
-    <li><a class="menu-item" href="#/friends"><i class="fa fa-group"></i> Друзья</a></li>
-    <li><a class="menu-item" href="#/friendSearch"><i class="fa fa-search"></i> Найти друга</a></li>
-    <li><a class="menu-item" href="#/settings"><i class="fa fa-gear"></i> Настройки</a></li>
-    <li><a class="menu-item" href="#/about/"><i class="fa fa-info-circle"></i> О программе</a></li>
-    <li><a class="menu-item" href="#/exit" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
-</ul> 
+<div ng-hide="user.name">
+    <ul class="off-canvas-list">
+        <li><label>Меню</label></li>
+        <li><a href="#/signinup/in">Войти</a></li>
+        <li><a href="#/phoneRegistration" class="lessen-word">Зарегистрироваться</a></li>
+        <li><a href="#/about/" class="lessen-word">О программе</a></li>
+        <!-- <li><a href="#/localForage" class="lessen-word">Test local forage</a></li> -->
+    </ul>
+</div>
 

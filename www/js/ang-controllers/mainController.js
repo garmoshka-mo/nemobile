@@ -16,7 +16,6 @@ angular.module("angControllers").controller("mainController", [
         'chat',
         'showImage',
         'chatInfo',
-        'about' 
     ];
     var forbidToGoBackStates = [
         'addVirtualChat'
