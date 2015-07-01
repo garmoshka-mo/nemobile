@@ -11,7 +11,9 @@ angular.module("angControllers").controller("startController", ['user', '$state'
                 }
                 
                 if (window.device) {
-                    navigator.splashscreen.hide();
+                    setTimeout(function() {
+                        navigator.splashscreen.hide();
+                    }, 0);
                 }
                 console.log("user data is taken from storage");
             }
