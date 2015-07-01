@@ -32,6 +32,9 @@ angular.module("angControllers").controller("startController", ['user', '$state'
     else {
         $state.go('signin', {
             inOrUp: 'in'
-        });
+        })
+        .then(
+            hideSplashScreen
+        );
     }
 }]);
