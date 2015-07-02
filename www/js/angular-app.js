@@ -351,6 +351,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         }
       }
     })
+    .state("preloader", {
+      url: "/preloader/:stateToGo",
+      views: {
+        "title": {
+          template: ""
+        },
+        "menu": {
+          templateUrl: "partials/chats/menu.html"
+        }, 
+        "content": {
+          controller: "preloaderController",
+          templateUrl: "partials/preloader/content.html"
+        }
+      }
+    })
     // .state("updateProfile", {
     //   url: "/updateProfile",
     //   views: {
@@ -374,7 +389,6 @@ var RAN_AS_APP = !!window.device;
 
 document.addEventListener("deviceready", function() {
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
-    FastClick.attach(document.body);
     
     function successHandler(result) {
         console.log(result);
@@ -498,5 +512,5 @@ var factories = angular.module("angFactories", []);
 
 window.onload = function onLoad() {
   angular.bootstrap(document, ['angApp']);
-}
+};
 

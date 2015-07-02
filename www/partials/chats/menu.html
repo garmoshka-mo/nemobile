@@ -22,12 +22,13 @@
                 <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
             </a>
         </li>
-        <li><a class="menu-item" href="#/friends"><i class="fa fa-group"></i> Друзья</a></li>
+        <li><a class="menu-item" href="#/preloader/friends"><i class="fa fa-group"></i> Друзья</a></li>
         <li><a class="menu-item" href="#/friendSearch"><i class="fa fa-search"></i> Найти друга</a></li>
         <li><a class="menu-item" href="#/settings"><i class="fa fa-gear"></i> Настройки</a></li>
         <li><a class="menu-item" href="#/about/"><i class="fa fa-info-circle"></i> О программе</a></li>
         <li><a class="menu-item" href="#/exit" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
     </ul>
+    <div ng-show="showViewPreloader" spinner spinner-color="white"></div>
 </div>
 <div ng-hide="user.name">
     <ul class="off-canvas-list">
