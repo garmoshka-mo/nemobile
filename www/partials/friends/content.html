@@ -1,21 +1,29 @@
 <div class="friendListHeader no-select">
     <div class="ta-right friendListHeader-edit-block" >
-        <div ng-show="user.friendsList.friends.length !== 0">
-            <div ng-show="!isEditMode" class="pointer">
-                <span ng-click="isEditMode = true"><i class="fa fa-gear"></i>изменить</span>
+        <div class="row max-width">
+            <div class="small-4 columns small-offset-4 ta-center">
+                <div spinner spinner-color="white" ng-show="showSpinner"></div>
             </div>
-            <div ng-show="isEditMode" class="pointer">
-                <span ng-click="isEditMode = false"><i class="fa fa-check"></i>готово</span>
+            <div class="small-4 columns">
+                <div ng-show="user.friendsList.friends.length !== 0">
+                    <div ng-show="!isEditMode" class="pointer">
+                        <span ng-click="isEditMode = true"><i class="fa fa-gear"></i></span>
+                    </div>
+                    <div ng-show="isEditMode" class="pointer">
+                        <span ng-click="isEditMode = false"><i class="fa fa-check"></i></span>
+                    </div>
+                </div>
             </div>
         </div>
+        
     </div>
     <div class="ta-center mb1rem">
         <form name="listFilter" class="checkbox-group-rounded">
-            <input id="radio3" type="radio" name="showAll" ng-model="showAll" value="2" autocomplete="off">
+            <input id="radio3" type="radio" name="listToShow" ng-model="listToShow" value="new" autocomplete="off">
             <label class="radioLabel" for="radio3">новые</label>
-            <input id="radio1" type="radio" name="showAll" ng-model="showAll" value="0" autocomplete="off">
+            <input id="radio1" type="radio" name="listToShow" ng-model="listToShow" value="dub" autocomplete="off">
             <label class="radioLabel" for="radio1">dub.ink</label>
-            <input id="radio2" type="radio" name="showAll" ng-model="showAll" value="1" autocomplete="off">
+            <input id="radio2" type="radio" name="listToShow" ng-model="listToShow" value="all" autocomplete="off">
             <label class="radioLabel" for="radio2">все</label>
             <a href="#/friendSearch">
                 <button class="friendListAddFriendButton">+</button>
@@ -41,7 +49,7 @@
             </form>
         </div>
         
-        <div class="row" ng-show="showAll === '1'">
+        <div class="row" ng-show="shownList === 'all'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1 ">
                     <div class="card">
@@ -78,7 +86,7 @@
             </div>
         </div>
 
-        <div ng-show="showAll === '0'">
+        <div ng-show="shownList === 'dub'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
                     <div class="card">
@@ -115,7 +123,7 @@
             </div>
         </div>
 
-        <div ng-show="showAll === '2'">
+        <div ng-show="shownList === 'new'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
                     <div class="card">

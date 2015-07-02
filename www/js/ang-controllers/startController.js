@@ -1,14 +1,14 @@
 angular.module("angControllers").controller("startController", ['user', '$state', function(user, $state) {
     
     function hideSplashScreen() {
-        if (window.device) {
+        if (RAN_AS_APP) {
             setTimeout(function() {
                 navigator.splashscreen.hide();
             }, 1000);
         }
     }
 
-    if (user.isLogged()) {
+    if (user.isLogged() && RAN_AS_APP) {
         user.parseFromStorage()
         .then(
             function() {

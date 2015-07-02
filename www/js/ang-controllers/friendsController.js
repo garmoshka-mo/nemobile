@@ -1,19 +1,21 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams',
-    function(user, $scope, $stateParams) {
+    ['user','$scope', '$stateParams', '$timeout',
+    function(user, $scope, $stateParams, $timeout) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
     $scope.limitTo = 20;
+    $scope.showSpinner = false;
 
-    ////delete
     var storedLastChosenList = localStorage.lastChosenList;
-    if (storedLastChosenList) {
-        $scope.showAll = storedLastChosenList;
+    if (storedLastChosenList !== "undefined") {
+        $scope.listToShow = storedLastChosenList;
     }
     else {
-        $scope.showAll = "2"; // 0 - nepotom friends, 1 - all friends, 2 - newest friends
+        $scope.listToShow = "new"; 
     }
+
+    $scope.shownList = $scope.listToShow;
 
     $scope.hideKeyboard = function() {
         console.log("keyboard is hidden");
@@ -58,8 +60,13 @@ angular.module("angControllers").controller("friendsController",
         return adorableLink + index;
     };
 
-    $scope.$watch('showAll', function() {
-        localStorage.lastChosenList = $scope.showAll;
+    $scope.$watch('listToShow', function(newValue, oldValue) {
+        $scope.showSpinner = true;
+        $timeout(function() {
+            $scope.shownList = newValue;
+            $scope.showSpinner = false;
+            localStorage.lastChosenList = $scope.newValue;
+        },0);
     });
 
     if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {

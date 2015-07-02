@@ -686,6 +686,12 @@ services
         });
     };
 
+    //if ran as app, data from storage will be parsed
+    //in startController else in userService
+    if (!RAN_AS_APP) {
+        this.parseFromStorage();
+    }
+
     //for debugging
     window.user = this;
 
