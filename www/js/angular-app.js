@@ -388,6 +388,7 @@ var pushNotification;
 var RAN_AS_APP = !!window.device;
 
 document.addEventListener("deviceready", function() {
+    angular.bootstrap(document, ['angApp']);
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
     console.log("OS version: " + window.device.version);
     
@@ -512,6 +513,5 @@ var services = angular.module("angServices", []);
 var factories = angular.module("angFactories", []);
 
 window.onload = function onLoad() {
-  angular.bootstrap(document, ['angApp']);
 };
 

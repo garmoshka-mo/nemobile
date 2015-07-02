@@ -7,6 +7,7 @@ angular.module("angControllers").controller("mainController", [
     console.log('main controller is invoked');
 
     $rootScope.isAppInBackground = false;
+    $scope.RAN_AS_APP = RAN_AS_APP;
     $scope.showViewPreloader = false;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;

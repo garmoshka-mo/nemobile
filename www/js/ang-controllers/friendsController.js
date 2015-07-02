@@ -8,7 +8,7 @@ angular.module("angControllers").controller("friendsController",
     $scope.showSpinner = false;
 
     var storedLastChosenList = localStorage.lastChosenList;
-    if (storedLastChosenList !== "undefined") {
+    if (storedLastChosenList) {
         $scope.listToShow = storedLastChosenList;
     }
     else {
@@ -65,7 +65,7 @@ angular.module("angControllers").controller("friendsController",
         $timeout(function() {
             $scope.shownList = newValue;
             $scope.showSpinner = false;
-            localStorage.lastChosenList = $scope.newValue;
+            localStorage.lastChosenList = newValue;
         },0);
     });
 

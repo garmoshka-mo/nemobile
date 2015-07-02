@@ -688,8 +688,18 @@ services
 
     //if ran as app, data from storage will be parsed
     //in startController else in userService
-    if (!RAN_AS_APP) {
-        this.parseFromStorage();
+    if (this.isLogged() && !RAN_AS_APP) {
+        this.parseFromStorage()
+        .then(
+            function() {
+                if (_.isEmpty(user.chats)) {
+                    $state.go('friends')
+                }
+                else {
+                    $state.go('chats')
+                }
+            }
+        );
     }
 
     //for debugging
