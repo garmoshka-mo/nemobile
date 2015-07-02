@@ -727,7 +727,7 @@ img.imageShow {
     display: inline-block;
     padding: 0;
     background: #3E8743;
-    overflow: hidden; 
+    overflow: hidden;
 }
 .tabs-menu li {
     display: inline-block;
@@ -738,6 +738,7 @@ img.imageShow {
     background: #5BAB60;
     transition: all 0.3s ease;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 .tabs-menu-item span {
     color: #FFF ;

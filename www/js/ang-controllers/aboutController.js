@@ -51,7 +51,9 @@ angular.module("angControllers").controller("aboutController",
             var App = React.createClass({
                 displayName: "App",
                 handleAfter: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
-                    $state.go('about', {page: getTabName(selectedIndex)}, {location: 'replace'});
+                    if (!RAN_AS_APP) {
+                        $state.go('about', {page: getTabName(selectedIndex)}, {location: 'replace'});
+                    }
                 },
               render: function() {
                 return (

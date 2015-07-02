@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 
-    function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession, $timeout) {
+    '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', '$location', 
+    function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession, $timeout, $location) {
 
     $scope.user = user;
 
@@ -62,7 +62,7 @@ angular.module("angControllers").controller("mainController", [
             console.log(state);
             if (state === 'right') {
                 console.log('openning menu!');
-                if (window.device) {
+                if (RAN_AS_APP) {
                     if (window.device.platform === "iOS") {
                         cordova.plugins.Keyboard.close();
                     }

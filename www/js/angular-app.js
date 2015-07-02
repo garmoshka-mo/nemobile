@@ -370,6 +370,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
 
 var pushNotification;
 
+var RAN_AS_APP = !!window.device;
 
 document.addEventListener("deviceready", function() {
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");

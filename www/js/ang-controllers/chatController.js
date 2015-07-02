@@ -287,7 +287,7 @@ angular.module("angControllers").controller("chatController",
             }
         });
 
-        if (window.device) {
+        if (RAN_AS_APP) {
             if (device.platform == "iOS") {
                 $('.appropriateStickers-container').css(
                     {

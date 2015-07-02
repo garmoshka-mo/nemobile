@@ -17,7 +17,7 @@ angular.module("angControllers").controller("friendsController",
 
     $scope.hideKeyboard = function() {
         console.log("keyboard is hidden");
-        if (window.device) {
+        if (RAN_AS_APP) {
             cordova.plugins.Keyboard.close();
         }
     };
