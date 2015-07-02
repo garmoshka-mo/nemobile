@@ -389,6 +389,7 @@ var RAN_AS_APP = !!window.device;
 
 document.addEventListener("deviceready", function() {
     console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
+    console.log("OS version: " + window.device.version);
     
     function successHandler(result) {
         console.log(result);
