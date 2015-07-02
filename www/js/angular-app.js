@@ -385,7 +385,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
 
 var pushNotification;
 
-var RAN_AS_APP = !!window.device;
+var RAN_AS_APP = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 
 document.addEventListener("deviceready", function() {
     angular.bootstrap(document, ['angApp']);
@@ -513,5 +513,8 @@ var services = angular.module("angServices", []);
 var factories = angular.module("angFactories", []);
 
 window.onload = function onLoad() {
+  if (!RAN_AS_APP) {
+    angular.bootstrap(document, ['angApp']);
+  }
 };
 
