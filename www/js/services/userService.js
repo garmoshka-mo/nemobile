@@ -128,7 +128,6 @@ services
         });
     }
 
-
     function pushMessageToSession(lastSession, messageText, expires) {
         lastSession.messages.push({
             text: messageText,
@@ -261,6 +260,8 @@ services
                             location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
                         }
 
+                        console.log('while you were away', messages);
+                        
                         window.isGotUnseenMessage = true;
                     }
                 }

@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div ng-show="shownList === 'dub'">
+        <div class="row" ng-show="shownList === 'dub'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
                     <div class="card">
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div ng-show="shownList === 'new'">
+        <div class="row" ng-show="shownList === 'new'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
                     <div class="card">
