@@ -48,7 +48,7 @@
         });
         element.intlTelInput(options);
         if (!options.utilsScript) {
-          element.intlTelInput('loadUtils', 'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js');
+          element.intlTelInput('loadUtils', 'js/libs/utils.js');
         }
         ctrl.$parsers.push(function(value) {
           if (!value) {
