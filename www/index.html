@@ -92,6 +92,7 @@
         <script type="text/javascript" src="js/services/notificationService.js"></script>
         <script type="text/javascript" src="js/services/apiService.js"></script>
         <script type="text/javascript" src="js/services/storageService.js"></script>
+        <script type="text/javascript" src="js/services/routingService.js"></script>
         <script type="text/javascript" src="js/services/vkService.js"></script>
         <script type="text/javascript" src="js/services/dictionaryService.js"></script>
         <script type="text/javascript" src="js/services/friendsListService.js"></script>
@@ -146,11 +147,11 @@
                     </section>
                     <section class="middle tab-bar-section p0">
                         <h1 class="title">
-                            <div ng-show="showViewPreloader">
+                            <div ng-show="routing.is_preload">
                                 <span spinner spinner-color="white"></span>
                             </div>
-                            <div ng-hide="notification.text || showViewPreloader" ui-view="title"></div>
-                            <div class="notification" ng-show="notification.text && !showViewPreloader" ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
+                            <div ng-hide="notification.text || routing.is_preload" ui-view="title"></div>
+                            <div class="notification" ng-show="notification.text && !routing.is_preload" ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
                                 <span ng-bind-html="notification.text"></span>
                             </div>
                         </h1>
@@ -161,7 +162,7 @@
                 </nav>
                 <section class="main-section"> <!-- content goes here -->
                     <!-- MAIN CONTENT -->
-                    <div id="wrapper">
+                    <div id="wrapper" ng-hide="routing.is_preload">
                         <div ui-view="content" class="content"></div>
                     </div>
                 </section>

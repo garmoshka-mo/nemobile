@@ -51,7 +51,7 @@ services
             $rootScope.notification.animated = false;
             initialText = null;
             initialHandler = null;
-        },
+        }
 
     };
 }]);

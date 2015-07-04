@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', '$location', '$state', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', '$location', 
-    function($rootScope, $scope, $http, $location, $state, notification, api, storage, user, ChatSession, $timeout, $location) {
+    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing',
+    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing) {
 
     $scope.user = user;
 
@@ -8,7 +8,6 @@ angular.module("angControllers").controller("mainController", [
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
-    $scope.showViewPreloader = false;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
@@ -17,7 +16,7 @@ angular.module("angControllers").controller("mainController", [
     var statesWhereShowBackArrow = [
         'chat',
         'showImage',
-        'chatInfo',
+        'chatInfo'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat'
@@ -135,13 +134,9 @@ angular.module("angControllers").controller("mainController", [
         window.history.back();
     };
 
-    $scope.goToAboutProgram = function() {
-        $state.go('about');
-    };
-
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            $scope.showViewPreloader = true;
+            routing.is_preload = true;
             // console.log("state is changed!");
             notification.clear();
 
@@ -169,12 +164,7 @@ angular.module("angControllers").controller("mainController", [
         }
     );
 
-    $scope.$on('$stateChangeSuccess',
-        function(evt, toState, toParams, fromState, fromParams) {
-            $scope.showViewPreloader = false;
-        }
-    );
-
-    
+    $scope.routing = routing;
+    $scope.goto = routing.goto;
 
 }]);
