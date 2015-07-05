@@ -60,13 +60,14 @@ angular.module("angControllers").controller("friendsController",
         return adorableLink + index;
     };
 
+    $scope.showSpinner = false;
     $scope.$watch('listToShow', function(newValue, oldValue) {
         $scope.showSpinner = true;
         $timeout(function() {
             $scope.shownList = newValue;
             $scope.showSpinner = false;
             localStorage.lastChosenList = newValue;
-        },0);
+        },100);
     });
 
     if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {
