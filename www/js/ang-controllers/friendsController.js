@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', '$timeout',
-    function(user, $scope, $stateParams, $timeout) {
+    ['user','$scope', '$stateParams', '$timeout', '$state',
+    function(user, $scope, $stateParams, $timeout, $state) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
@@ -12,7 +12,7 @@ angular.module("angControllers").controller("friendsController",
         $scope.listToShow = storedLastChosenList;
     }
     else {
-        $scope.listToShow = "new"; 
+        $scope.listToShow = "новые"; 
     }
 
     $scope.shownList = $scope.listToShow;
@@ -62,12 +62,15 @@ angular.module("angControllers").controller("friendsController",
 
     $scope.showSpinner = false;
     $scope.$watch('listToShow', function(newValue, oldValue) {
-        $scope.showSpinner = true;
+        // $scope.showSpinner = true;
+        if (newValue == "+") {
+            $state.go('friendSearch');
+        }
         $timeout(function() {
             $scope.shownList = newValue;
-            $scope.showSpinner = false;
+            // $scope.showSpinner = false;
             localStorage.lastChosenList = newValue;
-        }, 200);
+        }, 0);
     });
 
     if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {

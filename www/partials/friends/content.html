@@ -15,20 +15,9 @@
                 </div>
             </div>
         </div>
-        
     </div>
     <div class="ta-center mb1rem">
-        <form name="listFilter" class="checkbox-group-rounded">
-            <input id="radio3" type="radio" name="listToShow" ng-model="listToShow" value="new" autocomplete="off">
-            <label class="radioLabel" for="radio3">новые</label>
-            <input id="radio1" type="radio" name="listToShow" ng-model="listToShow" value="dub" autocomplete="off">
-            <label class="radioLabel" for="radio1">dub.ink</label>
-            <input id="radio2" type="radio" name="listToShow" ng-model="listToShow" value="all" autocomplete="off">
-            <label class="radioLabel" for="radio2">все</label>
-            <a href="#/friendSearch">
-                <button class="friendListAddFriendButton">+</button>
-            </a>
-        </form>
+        <radio-buttons values='["новые","dub.ink","все", "+"]' ng-model="listToShow"></radio-buttons>
     </div>
     <div class="ta-center block-center width-92" ng-hide="user.friendsList.friends.length === 0" stop-event>
         <input type="text" ng-model="search" placeholder="введите имя для поиска" clear-all-button>
@@ -49,7 +38,7 @@
             </form>
         </div>
         
-        <div class="row" ng-show="shownList === 'all'">
+        <div class="row" ng-show="shownList === 'все'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1 ">
                     <div class="card">
@@ -86,7 +75,7 @@
             </div>
         </div>
 
-        <div class="row" ng-show="shownList === 'dub'">
+        <div class="row" ng-show="shownList === 'dub.ink'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
                     <div class="card">
@@ -123,7 +112,7 @@
             </div>
         </div>
 
-        <div class="row" ng-show="shownList === 'new'">
+        <div class="row" ng-show="shownList === 'новые'">
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
                     <div class="card">

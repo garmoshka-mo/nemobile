@@ -459,7 +459,7 @@ services
 
     this.removeChat = function(senderUuid) {
         this.chats = _.omit(this.chats, senderUuid);
-        this.save();    
+        this.saveChats();    
     }; 
    
     this.parseFromStorage = function() {

@@ -221,3 +221,39 @@ app.directive('slideMenu', function() {
         }
     };
 });
+
+app.directive('radioButtons', function() {
+    return {
+        restrict: 'AE',
+        scope: {
+            ngModel: '=',
+            values: '='
+        },
+        link: function(scope, elem, attr) {
+            var $ul = $('<ul class="tabs-menu"></ul>');
+            var valuesAsString = scope.values.map(function(el) {return el.toString()});
+
+            for (var i = 0; i < scope.values.length; i++) {
+                var $li = $('<li class="tabs-menu-item angular-radio-button" data-value=' +
+                    valuesAsString[i] + '><span>' + valuesAsString[i]
+                    + '</span></li>');
+                $ul.append($li);
+            }
+
+            $(document).on('click', '.angular-radio-button', function() {
+                // console.log('radio button was clicked!');
+                scope.ngModel = $(this).attr('data-value');
+                scope.$apply();
+            });
+
+            $(elem).append($ul);
+            // $ul.children()[0].click();
+
+            scope.$watch('ngModel', function(currentValue) {
+                var indexToSelect = _.indexOf(valuesAsString, currentValue);
+                $('.angular-radio-button.is-active').removeClass('is-active');
+                $($ul.children()[indexToSelect]).addClass('is-active');
+            });
+        }
+    };
+});
