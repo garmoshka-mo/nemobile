@@ -8,7 +8,7 @@ angular.module("angControllers").controller("mainController", [
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
-    $scope.isOnline = false;
+    $scope.isOnline = navigator.connection.type == Connection.NONE ? false : true;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
