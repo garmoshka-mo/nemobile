@@ -8,6 +8,7 @@ angular.module("angControllers").controller("mainController", [
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
+    $scope.isOnline = false;
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
@@ -163,6 +164,17 @@ angular.module("angControllers").controller("mainController", [
             }
         }
     );
+
+    document.addEventListener("online", onOnline, false);
+    document.addEventListener("offline", onOffline, false);
+ 
+    function onOnline() {
+        $scope.isOnline = true;
+    }
+
+    function onOffline() {
+        $scope.isOnline = false;
+    }
 
     $scope.routing = routing;
     $scope.goto = routing.goto;

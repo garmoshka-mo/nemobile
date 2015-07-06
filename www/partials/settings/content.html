@@ -34,7 +34,10 @@
             </div>
         </div>
         <div class="ta-center pt1rem">
-             <a href="#/updateProfile" class="text-silver">изменить пароль/ник</a>
+            <a href="#/updateProfile" class="text-silver">изменить пароль/ник</a>
+        </div>
+        <div ng-hide="isOnline" class="ta-center pt1rem">
+            <span class="text-silver">соединение с интернетом отсутствует</span>
         </div>
         <div class="ta-center mt20" ng-hide="user.phoneNumber">
             <div class="ta-center">

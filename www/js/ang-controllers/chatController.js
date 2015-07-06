@@ -72,6 +72,10 @@ angular.module("angControllers").controller("chatController",
                 $chatInput.focus();
             }, 0);
         };
+
+        $scope.$watch('newMessage.ttl', function() {
+            $scope.setFocusOnTextField();
+        })
         
         $scope.toggleCategory = function(category) {
             if ($scope.stickersGallery.currentCategory == category.name) {
