@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="ta-center mb1rem">
-        <radio-buttons values='["новые","dub.ink","все", "+"]' ng-model="listToShow"></radio-buttons>
+        <radio-buttons values='["новые","dub.ink","все", "+"]' titles='["новые","dub.ink","все", "+"]' ng-model="listToShow"></radio-buttons>
     </div>
     <div class="ta-center block-center width-92" ng-hide="user.friendsList.friends.length === 0" stop-event>
         <input type="text" ng-model="search" placeholder="введите имя для поиска" clear-all-button>

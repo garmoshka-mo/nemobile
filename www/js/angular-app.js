@@ -163,7 +163,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
       url: "/friends",
       views: {
         "title": {
-          template: "Друзья"
+          template: "Контакты"
         },
         "menu": {
           templateUrl: "partials/menu.html"
@@ -426,7 +426,7 @@ document.addEventListener("deviceready", function() {
         },
         unshrink: function() {
           $('body').height(this.normalHeight);
-          $('#footer').css('position','fixed');
+          // $('#footer').css('position','fixed');
         } 
       };
       

@@ -66,11 +66,13 @@ angular.module("angControllers").controller("friendsController",
         if (newValue == "+") {
             $state.go('friendSearch');
         }
-        $timeout(function() {
-            $scope.shownList = newValue;
-            // $scope.showSpinner = false;
-            localStorage.lastChosenList = newValue;
-        }, 0);
+        else {
+            $timeout(function() {
+                $scope.shownList = newValue;
+                // $scope.showSpinner = false;
+                localStorage.lastChosenList = newValue;
+            }, 0);
+        }
     });
 
     if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {
