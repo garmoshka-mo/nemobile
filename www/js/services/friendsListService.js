@@ -9,6 +9,47 @@ services
             return !!contact.phoneNumbers;
         }
 
+        function hasLocalImage(contact) {
+            if (!contact.photos) {
+                return false;
+            }
+            
+            if (contact.photos) {
+                return contact.photos[0].value.match(/content:\/\//) ?
+                    true : false;
+            }
+        }
+
+        function imageExists(url) {
+            var d = $q.defer();
+            var img = new Image();
+            
+            img.onload = function() { d.resolve(); };
+            img.onerror = function() { d.reject(); };
+            img.src = url;
+            
+            return d.proimse;
+        }
+
+        function addFriendFromLocalContacts(contact) {
+            var newFriend = new Friend(contacts);
+            friendsList.friends.push(newFriend);
+            newContacts.push(newFriend);
+        }
+
+        function onImageExist(contact) {
+            return function() {
+                addFriendFromLocalContacts(contact);
+            };
+        }
+
+        function onImageAbsence(contact) {
+            return function() {
+                contact.photos = null;
+                addFriendFromLocalContacts(contact);                                        
+            };
+        }
+
         function parseUserContacts(contacts) {
             console.time('parsing user contacts');
             var q = $q.defer();
@@ -16,16 +57,22 @@ services
             var lastContactIndex = _.findLastIndex(contacts);
             var lastContactId = +contacts[lastContactIndex].id;
 
-
             //checking if there are new contacts
             if (lastContactId > friendsList.lastContactId) {
                 var newContacts = [];
                 for (var i = lastContactIndex; i >= 0; i--) {
                     if (contacts[i].id > friendsList.lastContactId) {
                         if (hasPhoneNumber(contacts[i])) {
-                            var newFriend = new Friend(contacts[i]);
-                            friendsList.friends.push(newFriend);
-                            newContacts.push(newFriend);
+                            if (hasLocalImage(contacts[i])) {
+                                imageExists(contacts[i].photos[0].value)
+                                .then(
+                                    onImageExist(contacts[i]),
+                                    onImageAbsence(contacts[i])
+                                );
+                            }
+                            else {
+                                addFriendFromLocalContacts(contacts[i]);
+                            }
                         }
                     }
                     else {

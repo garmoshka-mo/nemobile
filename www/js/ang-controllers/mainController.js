@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing',
-    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing) {
+    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo',
+    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo) {
 
     $scope.user = user;
 
@@ -8,7 +8,7 @@ angular.module("angControllers").controller("mainController", [
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
-    $scope.isOnline = navigator.connection.type == Connection.NONE ? false : true;
+    $scope.isOnline = deviceInfo.isOnline; 
     $scope.showChangeAvatarMenu = false;
     $scope.isAvaLoading = false;
     $scope.isMenuOpened = false;
@@ -164,17 +164,6 @@ angular.module("angControllers").controller("mainController", [
             }
         }
     );
-
-    document.addEventListener("online", onOnline, false);
-    document.addEventListener("offline", onOffline, false);
- 
-    function onOnline() {
-        $scope.isOnline = true;
-    }
-
-    function onOffline() {
-        $scope.isOnline = false;
-    }
 
     $scope.routing = routing;
     $scope.goto = routing.goto;

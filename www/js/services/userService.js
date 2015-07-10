@@ -347,7 +347,7 @@ services
             );
         }
         else {
-            console.error("device id is undefined");
+            console.warn("device id is undefined");
         }     
     };
 

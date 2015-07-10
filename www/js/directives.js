@@ -235,8 +235,8 @@ app.directive('radioButtons', function() {
             var valuesAsString = scope.values.map(function(el) {return el.toString()});
 
             scope.handleItemClick = function(value) {
-                scope.ngModel = value
-            }
+                scope.ngModel = value;
+            };
         },
         template: "<ul class='tabs-menu'><li ng-repeat='value in values' class='tabs-menu-item'" +
             " ng-class='{\"is-active\": ngModel == value}' ng-click='::handleItemClick(value)'>" + 
