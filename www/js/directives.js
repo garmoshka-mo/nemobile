@@ -55,19 +55,23 @@ app.directive('overscrollableWithoutFooter', function() {
     };
 });
 
-app.directive('overscrollableFriends', function() {
+app.directive('overscrollableFriends', ['$timeout', function($timeout) {
     return {
         link: function(scope, elem, attr) {
-            $(elem).height(BODY_HEIGHT - $(".friendListHeader ").height() - TAB_BAR_HEIGHT);
-            $(elem).css({
-                  "width": "100%",
-                  "padding-right": "15px",
-                  "box-sizing": "content-box",
-                  "overflow": "auto"
+            scope.$watch('user.friendsList.friends.length', function() {
+                $timeout(function() {
+                    $(elem).height(BODY_HEIGHT - $(".friendListHeader ").outerHeight() - TAB_BAR_HEIGHT);
+                    $(elem).css({
+                          "width": "100%",
+                          "padding-right": "15px",
+                          "box-sizing": "content-box",
+                          "overflow": "auto"
+                    });
+                }, 0);
             });
         }
     };
-});
+}]);
 
 app.directive('stickersGalleryHeight', function() {
     return {

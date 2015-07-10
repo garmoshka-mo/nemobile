@@ -28,25 +28,22 @@ services
             img.onerror = function() { d.reject(); };
             img.src = url;
             
-            return d.proimse;
+            return d.promise;
         }
 
         function addFriendFromLocalContacts(contact) {
-            var newFriend = new Friend(contacts);
+            var newFriend = new Friend(contact);
             friendsList.friends.push(newFriend);
-            newContacts.push(newFriend);
+            return newFriend;
         }
 
-        function onImageExist(contact) {
-            return function() {
-                addFriendFromLocalContacts(contact);
-            };
+        function onImageExist(contact, link) {
+            contact.photos = [{value: link}];
         }
 
         function onImageAbsence(contact) {
             return function() {
                 contact.photos = null;
-                addFriendFromLocalContacts(contact);                                        
             };
         }
 
@@ -63,15 +60,19 @@ services
                 for (var i = lastContactIndex; i >= 0; i--) {
                     if (contacts[i].id > friendsList.lastContactId) {
                         if (hasPhoneNumber(contacts[i])) {
-                            if (hasLocalImage(contacts[i])) {
-                                imageExists(contacts[i].photos[0].value)
+                            var newFriend = addFriendFromLocalContacts(contacts[i]); 
+                            newContacts.push(newFriend);
+
+                            if (hasLocalImage(newFriend)) {
+                                var linkToCheck = newFriend.photos[0].value;
+                                //setting null, while image is being checked
+                                newFriend.photos = null;
+
+                                imageExists(linkToCheck)
                                 .then(
-                                    onImageExist(contacts[i]),
-                                    onImageAbsence(contacts[i])
+                                    onImageExist(newFriend, linkToCheck),
+                                    onImageAbsence(newFriend)
                                 );
-                            }
-                            else {
-                                addFriendFromLocalContacts(contacts[i]);
                             }
                         }
                     }
@@ -93,6 +94,7 @@ services
             console.timeEnd('parsing user contacts');
             findNepotomUsers(newContacts);
             q.resolve();
+
             return q.promise;
         }
 
