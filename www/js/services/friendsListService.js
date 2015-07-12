@@ -50,12 +50,13 @@ services
 
         function onImageExist(contact, link) {
             return function() {
-                // contact.photos = [{value: link}];
+                contact.photos = [{value: link}];
             };    
         }
 
         function onImageAbsence(contact) {
             return function() {
+                console.warn(contact.displayName + ' has invalid image link');
                 var hash = contact.phoneNumbers[0].value.hashCode();
                 var avatarObj = user.parseAvatarDataFromServer({"avatar_guid": hash});
                 contact.photos = [{
