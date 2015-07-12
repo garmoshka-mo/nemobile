@@ -10,6 +10,11 @@ function(notification, $location, $rootScope) {
     self.goto = function(target) {
         window.snapper.close();
 
+        if (!RAN_AS_APP) {
+            $location.path(target);
+            return;        
+        }
+
         if ($location.path() == target) return;
 
         self.is_preload = true;

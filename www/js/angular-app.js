@@ -103,7 +103,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
       url: "/friendSearch?stringToSearch",
       views: {
         "title": {
-          template: "Поиск друзей"
+          template: "Поиск контакта"
         },
         "menu": {
           templateUrl: "partials/menu.html"

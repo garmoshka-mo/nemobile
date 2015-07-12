@@ -4,6 +4,17 @@ services
     
         var isNepotomFriendsInfoUpdated = false;
 
+        String.prototype.hashCode = function(){
+            var hash = 0;
+            if (this.length === 0) return hash;
+            for (i = 0; i < this.length; i++) {
+                char = this.charCodeAt(i);
+                hash = ((hash<<5)-hash)+char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
+        };
+
         //private methods
         function hasPhoneNumber(contact) {
             return !!contact.phoneNumbers;
@@ -38,12 +49,19 @@ services
         }
 
         function onImageExist(contact, link) {
-            contact.photos = [{value: link}];
+            return function() {
+                contact.photos = [{value: link}];
+            };    
         }
 
         function onImageAbsence(contact) {
             return function() {
-                contact.photos = null;
+                var hash = contact.phoneNumbers[0].value.hashCode();
+                var avatarObj = user.parseAvatarDataFromServer({"avatar_guid": hash});
+                contact.photos = [{
+                    value: avatarObj.fullSize,
+                    valueMini: avatarObj.mini
+                }];
             };
         }
 

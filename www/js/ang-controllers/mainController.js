@@ -137,7 +137,6 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            routing.is_preload = true;
             // console.log("state is changed!");
             notification.clear();
 
