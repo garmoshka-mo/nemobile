@@ -1,4 +1,4 @@
-factories.factory("Friend", ['storage', 'ChatSession', function(storage, ChatSession) {
+factories.factory("Friend", ['storage', 'ChatSession', '$q', function(storage, ChatSession, $q) {
     
     String.prototype.hashCode = function(){
         var hash = 0;
