@@ -4,66 +4,15 @@ services
     
         var isNepotomFriendsInfoUpdated = false;
 
-        String.prototype.hashCode = function(){
-            var hash = 0;
-            if (this.length === 0) return hash;
-            for (i = 0; i < this.length; i++) {
-                char = this.charCodeAt(i);
-                hash = ((hash<<5)-hash)+char;
-                hash = hash & hash; // Convert to 32bit integer
-            }
-            return hash;
-        };
-
         //private methods
         function hasPhoneNumber(contact) {
             return !!contact.phoneNumbers;
-        }
-
-        function hasLocalImage(contact) {
-            if (!contact.photos) {
-                return false;
-            }
-            
-            if (contact.photos) {
-                return contact.photos[0].value.match(/content:\/\//) ?
-                    true : false;
-            }
-        }
-
-        function imageExists(url) {
-            var d = $q.defer();
-            var img = new Image();
-            
-            img.onload = function() { d.resolve(); };
-            img.onerror = function() { d.reject(); };
-            img.src = url;
-            
-            return d.promise;
         }
 
         function addFriendFromLocalContacts(contact) {
             var newFriend = new Friend(contact);
             friendsList.friends.push(newFriend);
             return newFriend;
-        }
-
-        function onImageExist(contact, link) {
-            return function() {
-                contact.photos = [{value: link}];
-            };    
-        }
-
-        function onImageAbsence(contact) {
-            return function() {
-                console.warn(contact.displayName + ' has invalid image link');
-                var hash = contact.phoneNumbers[0].value.hashCode();
-                var avatarObj = user.parseAvatarDataFromServer({"avatar_guid": hash});
-                contact.photos = [{
-                    value: avatarObj.fullSize,
-                    valueMini: avatarObj.mini
-                }];
-            };
         }
 
         function parseUserContacts(contacts) {
@@ -81,18 +30,6 @@ services
                         if (hasPhoneNumber(contacts[i])) {
                             var newFriend = addFriendFromLocalContacts(contacts[i]); 
                             newContacts.push(newFriend);
-
-                            if (hasLocalImage(newFriend)) {
-                                var linkToCheck = newFriend.photos[0].value;
-                                //setting null, while image is being checked
-                                newFriend.photos = null;
-
-                                imageExists(linkToCheck)
-                                .then(
-                                    onImageExist(newFriend, linkToCheck),
-                                    onImageAbsence(newFriend)
-                                );
-                            }
                         }
                     }
                     else {
