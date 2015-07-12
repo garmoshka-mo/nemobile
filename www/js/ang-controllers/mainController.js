@@ -183,9 +183,11 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.sendDebugInfo = function () {
         var currentScope = angular.element(document.getElementsByClassName('content')[0]).scope();
+        $scope.showDebugPreloader = true;
         // $http.post('http://localhost:5000', {msg: objectToString(currentScope)})
         $http.post('http://dubink-logger.herokuapp.com/', {msg: objectToString(currentScope)})
         .success(function(data) {
+            $scope.showDebugPreloader = false;
             prompt('Слепок №' + data + ' создан', 'http://dubink-logger.herokuapp.com/log' + data + ".txt");
         });
     };
