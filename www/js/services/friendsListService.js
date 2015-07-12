@@ -50,7 +50,7 @@ services
 
         function onImageExist(contact, link) {
             return function() {
-                contact.photos = [{value: link}];
+                // contact.photos = [{value: link}];
             };    
         }
 
