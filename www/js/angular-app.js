@@ -285,6 +285,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Информация о чате"
         },
+        "menu": {
+          templateUrl: "partials/menu.html"
+        }, 
         "content": {
           controller: "chatInfoController",
           templateUrl: "partials/chatInfo/content.html"

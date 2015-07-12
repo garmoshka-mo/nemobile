@@ -27,6 +27,7 @@
         <li><a class="menu-item" ng-click="goto('/settings')"><i class="fa fa-gear"></i> Настройки</a></li>
         <li><a class="menu-item" ng-click="goto('/about/')"><i class="fa fa-info-circle"></i> О программе</a></li>
         <li><a class="menu-item" ng-click="goto('/exit')" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
+        <li class="ta-center"><button ng-click="sendDebugInfo()">отправить слепок</button></li>
     </ul>
 </div>
 <div ng-hide="user.name">

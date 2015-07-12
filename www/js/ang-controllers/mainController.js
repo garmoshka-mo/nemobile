@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo',
-    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo) {
+    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo', '$state',
+    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state) {
 
     $scope.user = user;
 
@@ -164,6 +164,31 @@ angular.module("angControllers").controller("mainController", [
             }
         }
     );
+
+    function objectToString(object) {
+        var cache = [];
+
+        return JSON.stringify(object, function(key, value) {
+            if (typeof value === 'object' && value !== null) {
+                if (cache.indexOf(value) !== -1) {
+                    // Circular reference found, discard key
+                    return;
+                }
+                // Store value in our collection
+                cache.push(value);
+            }
+            return value;
+        });
+    }
+
+    $scope.sendDebugInfo = function () {
+        var currentScope = angular.element(document.getElementsByClassName('content')[0]).scope();
+        // $http.post('http://localhost:5000', {msg: objectToString(currentScope)})
+        $http.post('http://dubink-logger.herokuapp.com/', {msg: objectToString(currentScope)})
+        .success(function(data) {
+            prompt('Слепок №' + data + ' создан', 'http://dubink-logger.herokuapp.com/log' + data + ".txt");
+        });
+    };
 
     $scope.routing = routing;
     $scope.goto = routing.goto;

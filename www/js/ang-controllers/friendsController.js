@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', '$timeout', '$state',
-    function(user, $scope, $stateParams, $timeout, $state) {
+    ['user','$scope', '$stateParams', '$timeout', '$state', '$http',
+    function(user, $scope, $stateParams, $timeout, $state, $http) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
@@ -78,4 +78,43 @@ angular.module("angControllers").controller("friendsController",
     if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {
         user.friendsList.getUserContacts();
     }
+
+    //for debbuging 
+    $scope.debug = function(contact) {
+        var clicked = localStorage.clicked === "true" ? true : false;
+        if (clicked) {
+            localStorage.clicked = false;
+            var cache = [];
+            
+            var b = JSON.stringify(contact, function(key, value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Circular reference found, discard key
+                        return;
+                    }
+                    // Store value in our collection
+                    cache.push(value);
+                }
+                return value;
+            });
+            $http.post('http://localhost:5000/', {msg: b});
+        }
+        else {
+            cache = [];
+            b = JSON.stringify(contact, function(key, value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Circular reference found, discard key
+                        return;
+                    }
+                    // Store value in our collection
+                    cache.push(value);
+                }
+                return value;
+            });
+            $http.post('http://localhost:5000/', {msg: b});
+            localStorage.clicked = true;        
+        }
+
+    };
 }]);
