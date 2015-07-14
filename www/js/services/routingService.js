@@ -1,26 +1,28 @@
 services
     .service('routing', [
-        'notification', '$location', '$rootScope',
-function(notification, $location, $rootScope) {
+        'notification', '$state', '$rootScope',
+function(notification, $state, $rootScope) {
 
     var self = this;
 
     self.is_preload = false;
 
-    self.goto = function(target) {
+    self.goto = function(state, params) {
         window.snapper.close();
 
+        params = params ? params : {};
+        
         if (!RAN_AS_APP) {
-            $location.path(target);
+            $state.go(state, params);
             return;        
         }
 
-        if ($location.path() == target) return;
+        if ($state.current == state) return;
 
         self.is_preload = true;
         notification.clear();
 
-        setTimeout(function(){$location.path(target); $rootScope.$apply();}, 100);
+        setTimeout(function(){$state.go(state, params); $rootScope.$apply();}, 100);
     };
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);

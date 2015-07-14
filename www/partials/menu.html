@@ -17,16 +17,16 @@
     </div>
     <ul class="off-canvas-list">
         <li>
-            <a class="menu-item" ng-click="goto('/chats')">
+            <a class="menu-item" ng-click="goto('chats')">
                 <i class="fa fa-envelope"></i> Чаты
                 <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
             </a>
         </li>
-        <li><a class="menu-item" ng-click="goto('/friends')"><i class="fa fa-group"></i> Контакты</a></li>
-        <li><a class="menu-item" ng-click="goto('/friendSearch')"><i class="fa fa-plus"></i> Добавить контакт</a></li>
-        <li><a class="menu-item" ng-click="goto('/settings')"><i class="fa fa-gear"></i> Настройки</a></li>
-        <li><a class="menu-item" ng-click="goto('/about/')"><i class="fa fa-info-circle"></i> О программе</a></li>
-        <li><a class="menu-item" ng-click="goto('/exit')" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
+        <li><a class="menu-item" ng-click="goto('friends')"><i class="fa fa-group"></i> Контакты</a></li>
+        <li><a class="menu-item" ng-click="goto('friendSearch')"><i class="fa fa-plus"></i> Добавить контакт</a></li>
+        <li><a class="menu-item" ng-click="goto('settings')"><i class="fa fa-gear"></i> Настройки</a></li>
+        <li><a class="menu-item" ng-click="goto('about')"><i class="fa fa-info-circle"></i> О программе</a></li>
+        <li><a class="menu-item" ng-click="goto('exit')" class="lessen-word"><i class="fa fa-power-off"></i> Выход</a></li>
         <li class="ta-center">
             <button ng-click="sendDebugInfo()" ng-hide="showDebugPreloader">отправить слепок</button>
             <div spinner spinner-color="white" ng-show="showDebugPreloader"></div>
@@ -36,9 +36,10 @@
 <div ng-hide="user.name">
     <ul class="off-canvas-list">
         <li><label>Меню</label></li>
-        <li><a ng-click="goto('/signinup/in')">Войти</a></li>
-        <li><a ng-click="goto('/phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>
-        <li><a ng-click="goto('/about/')" class="lessen-word">О программе</a></li>
+        <li><a ng-click="goto('signin', {inOrUp: 'in'})">Войти</a></li>
+        <!-- <li><a ng-click="$state.go('signinup/in')">Войти</a></li> -->
+        <li><a ng-click="goto('phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>
+        <li><a ng-click="goto('about')" class="lessen-word">О программе</a></li>
         <!-- <li><a ng-click="goto('/localForage')" class="lessen-word">Test local forage</a></li> -->
     </ul>
 </div>

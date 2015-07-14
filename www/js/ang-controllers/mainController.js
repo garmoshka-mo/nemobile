@@ -140,6 +140,10 @@ angular.module("angControllers").controller("mainController", [
             // console.log("state is changed!");
             notification.clear();
 
+            if (RAN_AS_APP) {
+                routing.is_preload = true;
+            }   
+             
             if (_.includes(statesNotShowScores, toState.name)) {
                 $scope.isUserScoresShown = false;
             }
