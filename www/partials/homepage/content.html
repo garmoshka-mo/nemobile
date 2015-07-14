@@ -1,6 +1,7 @@
-<div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
-    <div class="pt1rem">
-        <div class="width-92 block-center inline-input-button-block pt1rem">
+<div overscrollable-without-footer>
+    <div class="row">
+        <div class="columns small-12 inline-input-button-block pt1rem">
+            <div class="ta-center">Найти пользователя в системе:</div>
             <form name="friendSearch" class="relative">
                 <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
                 <button ng-click="findUser()" ng-disabled="showSpinner || !stringToSearch">
@@ -9,7 +10,7 @@
                 </button>
             </form>
         </div>
-        <div class="width-92 block-center">
+        <div ng-show="canBeAdded" ng-class="{'animated slideInDown': canBeAdded}">
             <div class="card" ng-show="canBeAdded" ng-click="addToFriends(true)">
                 <div class="row" >
                     <div class="small-3 column ava-container">
@@ -23,10 +24,25 @@
                     </div>
                 </div>
             </div>
-            <div class="ta-center" ng-hide="canBeAdded">
-                <span ng-bind="serverResponse"></span><br>
-                <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
-            </div>
+        </div>
+    </div>
+    <div class="row ta-center">
+        <div class="columns small-12">
+            <button>
+                <i class="fa fa-envelope"></i>
+                Написать временное сообщение
+            </button>
+        </div>
+        <div class="columns small-12">
+            <button ng-click="goto('signin', {inOrUp: 'in'})">
+                Войти
+            </button>
+            <button ng-click="goto('phoneRegistration')">
+                Зарегистрироваться 
+            </button>
+        </div>
+        <div class="columns small-12">
+            
         </div>
     </div>
 </div>

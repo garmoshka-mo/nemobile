@@ -369,6 +369,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         }
       }
     })
+    .state("homepage", {
+      url: "/homepage",
+      views: {
+        "title": {
+          template: "dubink"
+        },
+        "menu": {
+          templateUrl: "partials/menu.html"
+        }, 
+        "content": {
+          controller: "homepageController",
+          templateUrl: "partials/homepage/content.html"
+        }
+      }
+    })
     // .state("updateProfile", {
     //   url: "/updateProfile",
     //   views: {
