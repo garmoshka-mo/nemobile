@@ -50,8 +50,8 @@ angular.module("angControllers").controller("chatController",
 
         function setNotification() {
             var notificationString = "<img src='" + chat.photoUrlMini + 
-                "' class='chat-toolbar-image pointer'>" +
-                chat.title;
+                "' class='chat-toolbar-image pointer'><span class='pointer'>" +
+                chat.title + "</span>";
             var notificationCallback = function() {
                 $state.go('chatInfo',{
                     senderId: chat.senderId

@@ -42,13 +42,13 @@
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1 ">
                     <div class="card">
-                        <a ng-href="{{::getFriendLink(friend)}}">
+                        <span ng-click="::handleFriendClick(friend)">
                             <div class="columns small-4 ava-container p0">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
                            
-                        </a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
                 <div class="card p0" ng-repeat="friend in results1">
-                    <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
+                    <span ng-click="::handleFriendClick(friend)"></span>
                 </div>
             </div>
             <div class="ta-center width-92 block-center" ng-show="results1.length === 0 && !!search">
@@ -79,13 +79,13 @@
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
                     <div class="card">
-                        <a ng-href="{{::getFriendLink(friend)}}">
+                        <span ng-click="::handleFriendClick(friend)">
                             <div class="columns small-4 ava-container p0">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
                            
-                        </a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
                 <div class="card p0" ng-repeat="friend in results0">
-                    <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
+                    <span ng-click="::handleFriendClick(friend)"></span>
                 </div>
             </div>
             <div class="ta-center width-92 block-center" ng-show="results0.length === 0 && !!search">
@@ -116,12 +116,12 @@
             <div class="columns small-9 p0">
                 <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
                     <div class="card">
-                        <a ng-href="{{::getFriendLink(friend)}}">
+                        <span ng-click="::handleFriendClick(friend)">
                             <div class="columns small-4 ava-container p0">
                                 <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
                             </div>
                             <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
-                        </a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="columns small-3 p0" ng-show="!isEditMode">
                 <div class="card p0" ng-repeat="friend in results2">
-                    <a class="fullBlockLink" ng-href="{{::getFriendLink(friend)}}"></a>
+                    <span ng-click="::handleFriendClick(friend)"></span>
                 </div>
             </div>
             <div class="ta-center width-92 block-center" ng-show="results2.length === 0 && !!search">

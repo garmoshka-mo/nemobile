@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', '$timeout', '$state', '$http',
-    function(user, $scope, $stateParams, $timeout, $state, $http) {
+    ['user','$scope', '$stateParams', '$timeout', '$state', '$http', 'routing',
+    function(user, $scope, $stateParams, $timeout, $state, $http, routing) {
     console.log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
@@ -40,6 +40,18 @@ angular.module("angControllers").controller("friendsController",
             return templateForVirtualChat + user.friendsList.friends.indexOf(friend);
         }
     };
+
+    $scope.handleFriendClick = function(friend) {
+
+        if (friend.uuid) {
+            routing.goto('chat', {senderId: friend.uuid});
+        }
+        else {
+            routing.goto('addVirtualChat', {friendIndex: user.friendsList.friends.indexOf(friend)});
+        }
+    };
+
+
 
     $scope.getNextLimit = function() {
         $scope.limitTo = $scope.limitTo + 20; 
