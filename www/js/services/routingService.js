@@ -11,11 +11,12 @@ function(notification, $state, $rootScope) {
         window.snapper.close();
 
         params = params ? params : {};
-        
-        if (!RAN_AS_APP) {
-            $state.go(state, params);
-            return;        
-        }
+
+        // For now show preloader always
+//        if (!RAN_AS_APP) {
+//            $state.go(state, params);
+//            return;
+//        }
 
         if ($state.current == state) return;
 

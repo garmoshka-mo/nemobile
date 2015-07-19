@@ -698,7 +698,7 @@ services
         .then(
             function() {
                 if (_.isEmpty(user.chats)) {
-                    $state.go('friends')
+                    //$state.go('friends')
                 }
                 else {
                     // todo: Сделать редирект на чаты, только если я на пустой странице
