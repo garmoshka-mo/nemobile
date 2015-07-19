@@ -177,11 +177,20 @@ services
 
         //getting the last unexpired chat session
         var lastSession;
+        
+        //checking if chat exist 
         if (self.chats[senderUuid]) {
             // console.log("added to existing chat");
             
             if (!self.chats[senderUuid].isExpired) {
+                if (self.chats[senderUuid].lastMessageTimestamp >= m.timestamp * 1000) {
+                    return;
+                }
+                
                 if (!self.chats[senderUuid].lastUnexpiredChatSession) {
+                    //it is necessary because some chat session is stored in 
+                    //local memory and it takes time to get them from there
+                    //that's why there is async handling 
                     handleChatSessionAsync(senderUuid, messageText, m.expires);
                 }
                 else {
@@ -193,7 +202,6 @@ services
                 self.chats[senderUuid].getLastUnexpiredChatSession(); 
                 lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
             } 
-           
         }
         else {
             // console.log("created new chat");
@@ -216,6 +224,7 @@ services
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
         self.chats[senderUuid].isRead = false;
+        self.chats[senderUuid].lastMessageTimestamp = m.timestamp * 1000;
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 

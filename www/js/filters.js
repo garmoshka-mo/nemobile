@@ -20,6 +20,22 @@ app.filter('orderObjectBy', function() {
   };
 });
 
+app.filter('orderObjectByTimestamp', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+
+    filtered.sort(function (a, b) {
+      return a.lastMessageTimestamp - b.lastMessageTimestamp < 0 ? 1 : -1;
+    });
+    
+    return filtered;
+  };
+});
+
 app.filter('orderByName', function() {
   return function(items, field, reverse) {
     var filtered = [];

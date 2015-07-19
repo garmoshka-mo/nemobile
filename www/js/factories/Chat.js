@@ -21,6 +21,8 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
         }
+        this.lastMessageTimestamp = chatData.lastMessageTimestamp ? chatData.lastMessageTimestamp : 
+            null;
     }
 
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
