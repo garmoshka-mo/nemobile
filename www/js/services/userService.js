@@ -687,6 +687,10 @@ services
         });
     };
 
+    // todo: Нелогично, что этот код здесь, в users
+    // кроме того этот файл и так гигантский
+    // логичнее было бы перенести эту логику в контроллер start
+
     //if ran as app, data from storage will be parsed
     //in startController else in userService
     if (this.isLogged() && !RAN_AS_APP) {
@@ -698,6 +702,12 @@ services
                 }
                 else {
                     $state.go('chats');
+                    //$state.go('friends')
+                    
+                    // todo: Сделать редирект на чаты, только если я на пустой странице
+                    // потому что я могу находиться на какой-то конкретной в браузере,
+                    // просто сделать рефреш
+                    //$state.go('chats')
                 }
             }
         );

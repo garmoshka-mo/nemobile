@@ -30,7 +30,16 @@ angular.module("angControllers").controller("startController", ['user', '$state'
         );
     }
     else {
-        $state.go('homepage')
+
+        $state.go('homepage');
+
+        // todo: На сайн-ин редиректим только если мы не залогинены еще
+        //  сейчас долгая пляска с переключениями при загрузке происходит
+        // Прелоадер, потом форма логина, потом форма чата
+        $state.go('signin', {
+            inOrUp: 'in'
+        })
+
         .then(
             hideSplashScreen
         );
