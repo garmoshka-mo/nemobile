@@ -115,6 +115,7 @@
         <script type="text/javascript" src="js/ang-controllers/addVirtualChatController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/settingsController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/virtualChatController.js"></script>
+        <script type="text/javascript" src="js/ang-controllers/menuController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/friendSearchController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/invitationController.js"></script>
         <script type="text/javascript" src="js/ang-controllers/updateProfileController.js"></script>
@@ -144,7 +145,7 @@
             <div class="snap-drawer snap-drawer-left">
                 <aside class="left-off-canvas-menu">
                     <div class="iphone-hack iphone-menu-margin"></div>
-                    <div ui-view="menu"></div>
+                    <div ng-include ng-controller="menuController" src="'partials/menu.html'"></div>
                 </aside>
             </div>
         </div>

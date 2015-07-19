@@ -17,9 +17,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "dub.ink"  
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        },
         "content": {
           templateUrl: "partials/start/content.html",
           controller: "startController"
@@ -32,9 +29,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: ""
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "signinupController",
           templateUrl: "partials/signinup/content.html"
@@ -47,9 +41,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Регистрация"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "registrationController",
           templateUrl: "partials/signup/content.html"
@@ -62,9 +53,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Чаты"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "chatsController",
           templateUrl: "partials/chats/content.html"
@@ -77,9 +65,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Чат"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "chatController",
           templateUrl: "partials/chat/content.html"
@@ -91,9 +76,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
       views: {
         "title": {
           template: "Чат наугад"
-        },
-        "menu": {
-          templateUrl: "partials/menu.html"
         },
         "content": {
           controller: "randomController",
@@ -107,9 +89,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Выход"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "exitController",
           templateUrl: "partials/exit/content.html"
@@ -122,9 +101,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Поиск контакта"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "friendSearchController",
           templateUrl: "partials/friendSearch/content.html"
@@ -137,9 +113,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Local Forage Test"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "localForageController",
           templateUrl: "partials/localForage/content.html"
@@ -152,9 +125,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Галерея стикеров"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "stickersGalleryController",
           templateUrl: "partials/stickersGallery/content.html"
@@ -167,9 +137,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Добавить изображение"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "addImageController",
           templateUrl: "partials/addImage/content.html"
@@ -182,9 +149,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Контакты"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "friendsController",
           templateUrl: "partials/friends/content.html"
@@ -197,9 +161,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Регистрация номера"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "phoneRegistrationController",
           templateUrl: "partials/phoneRegistration/content.html"
@@ -212,9 +173,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Регистрация номера"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "phoneRegistrationUserController",
           templateUrl: "partials/phoneRegistrationUser/content.html"
@@ -227,9 +185,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Настройки"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "settingsController",
           templateUrl: "partials/settings/content.html"
@@ -242,9 +197,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Приглашение"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "invitationController",
           templateUrl: "partials/invitation/content.html"
@@ -257,9 +209,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Загрузка аватарки"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "loadAvatarController",
           templateUrl: "partials/loadAvatar/content.html"
@@ -272,9 +221,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Просмотр изображения"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "showImageController",
           templateUrl: "partials/showImage/content.html"
@@ -287,9 +233,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Создание чата"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "addVirtualChatController",
           templateUrl: "partials/addVirtualChat/content.html"
@@ -302,9 +245,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Информация о чате"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "chatInfoController",
           templateUrl: "partials/chatInfo/content.html"
@@ -317,9 +257,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "О программе"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "aboutController",
           templateUrl: "partials/about/content.html"
@@ -332,9 +269,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Виртуальный чат"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "virtualChatController",
           templateUrl: "partials/virtualChat/content.html"
@@ -347,9 +281,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Обновления профиля"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "updateProfileController",
           templateUrl: "partials/updateProfile/content.html"
@@ -362,9 +293,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Обновления профиля"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "vkLoginController",
           templateUrl: "partials/vkLogin/content.html"
@@ -377,9 +305,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: ""
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "preloaderController",
           templateUrl: "partials/preloader/content.html"
@@ -392,9 +317,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "dubink"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "homepageController",
           templateUrl: "partials/homepage/content.html"
@@ -408,9 +330,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "title": {
           template: "Создание быстрого чата"
         },
-        "menu": {
-          templateUrl: "partials/menu.html"
-        }, 
         "content": {
           controller: "createFastChatController",
           templateUrl: "partials/createFastChat/content.html"

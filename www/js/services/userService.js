@@ -237,6 +237,7 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
+        $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }
 

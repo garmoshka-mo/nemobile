@@ -1,5 +1,5 @@
 angular.module("angControllers").controller("startController", ['user', '$state', function(user, $state) {
-    
+
     function hideSplashScreen() {
         if (RAN_AS_APP) {
             setTimeout(function() {
