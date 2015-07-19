@@ -384,6 +384,22 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         }
       }
     })
+    .state("createFastChat", {
+      //Fast Chat is a chat between two virtual users
+      url: "/createFastChat",
+      views: {
+        "title": {
+          template: "Создание быстрого чата"
+        },
+        "menu": {
+          templateUrl: "partials/menu.html"
+        }, 
+        "content": {
+          controller: "createFastChatController",
+          templateUrl: "partials/createFastChat/content.html"
+        }
+      }
+    })
     // .state("updateProfile", {
     //   url: "/updateProfile",
     //   views: {
