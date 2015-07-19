@@ -1,4 +1,6 @@
-var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories", "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/ "internationalPhoneNumber", "infinite-scroll", "ngSocial"]);
+var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories",
+  "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/
+  "internationalPhoneNumber", "infinite-scroll", "ngSocial", 'ngMaterial']);
 app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
@@ -7,7 +9,7 @@ app.config(['$animateProvider', '$compileProvider', function($animateProvider, $
 }]);
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider", 
   function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("signinup/in"); 
+    //$urlRouterProvider.otherwise("signinup/in");
     $stateProvider
     .state("start", {
       url: "",
@@ -81,6 +83,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         "content": {
           controller: "chatController",
           templateUrl: "partials/chat/content.html"
+        }
+      }
+    })
+    .state("random", {
+      url: "/random",
+      views: {
+        "title": {
+          template: "Чат наугад"
+        },
+        "menu": {
+          templateUrl: "partials/menu.html"
+        },
+        "content": {
+          controller: "randomController",
+          templateUrl: "partials/random/random.html"
         }
       }
     })

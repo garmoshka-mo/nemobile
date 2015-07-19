@@ -177,7 +177,13 @@ h1.title {
 }
 ul.off-canvas-list li a.menu-item {
   padding-left: 20px;
+  font-size: 1.2rem;
 }
+.menu-item i {
+  padding-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
 ul.off-canvas-list li a {
   border-bottom: 1px solid #2A2935;
 }
