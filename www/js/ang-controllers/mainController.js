@@ -135,6 +135,10 @@ angular.module("angControllers").controller("mainController", [
                 }    
             }
         }
+        else if (toState.name === 'start') {
+            evt.preventDefault();
+            $state.go('homepage');
+        }
 
         if (_.includes(statesWhereShowBackArrow, toState.name) && 
             !_.includes(forbidToGoBackStates, fromState.name)) {
