@@ -428,6 +428,7 @@ services
             storage.clear();
             unsubscribe();
             clearCurrentUser();
+            clearApiAccessToken();
             removeDeviceFromChannel();
             d.resolve();
             console.log('user is logged out', user);

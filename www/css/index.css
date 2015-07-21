@@ -47,6 +47,10 @@ input[type=checkbox] {
   transition: none;
 }
 
+.no-border {
+  border: none !important;
+}
+
 .ta-center {
   text-align: center;
 }

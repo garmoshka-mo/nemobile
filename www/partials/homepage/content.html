@@ -10,17 +10,15 @@
                 </button>
             </form>
         </div>
-        <div ng-show="canBeAdded" ng-class="{'animated slideInDown': canBeAdded}">
-            <div class="card" ng-show="canBeAdded" ng-click="addToFriends(true)">
+        <div ng-show="canBeAdded" class="columns small-12" ng-class="{'animated fadeIn': canBeAdded}">
+            <div class="card pointer no-border" ng-show="canBeAdded" ng-click="addToFriends(true)">
                 <div class="row" >
                     <div class="small-3 column ava-container">
                         <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
                     </div>
-                    <div class="small-6 column p0">
+                    <div class="small-9 column p0">
                         <span class="chat-title title" ng-bind="nameToAdd"></span>
-                    </div>
-                    <div class="small-3 column" stop-event>
-                        <i class="fa fa-plus-circle addButton" ng-click="addToFriends()"></i>
+                        <span class="text-silver">нажмите, чтобы начать общение</span>
                     </div>
                 </div>
             </div>
