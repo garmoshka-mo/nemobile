@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.dubink-dev" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.dubink-dev" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>dub-dev</name>
     <description>
         Simple chat
@@ -33,7 +33,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="fade-splash-screen-duration" value="5" />
-    <preference name="AndroidLaunchMode" value="singleInstance" />
+    <!-- <preference name="AndroidLaunchMode" value="singleInstance" /> -->
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
     <gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
     <gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
@@ -102,6 +102,7 @@
     <gap:splash src="res/screen/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136"/>
     <gap:splash src="res/screen/ios/Default-667h@2x.png" gap:platform="ios" width="750" height="1334"/>
     <gap:splash src="res/screen/ios/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208"/>
+    <gap:config-file platform="android" parent="/manifest/application"> <activity android:launchMode="singleTask" /> </gap:config-file>
     <access origin="*" />
     <feature name="Keyboard">
         <param name="ios-package" value="IonicKeyboard" onload="true" />
