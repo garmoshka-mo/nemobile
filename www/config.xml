@@ -33,7 +33,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="fade-splash-screen-duration" value="5" />
-    <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="AndroidLaunchMode" value="singleInstance" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
     <gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
     <gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
