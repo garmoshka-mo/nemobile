@@ -5,7 +5,7 @@ angular.module("angControllers").controller("exitController", ['$scope', '$state
         $scope.showSpinner = true;
         user.logout()
         .then(function() {
-            $state.go('start');
+            $state.go('homepage');
         });
     };
 }]);
