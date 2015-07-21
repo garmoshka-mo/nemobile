@@ -12,10 +12,13 @@ services
     this.lastMessageTimestamp = null;
     this.friendsList = friendsList;
     this.isParsingFromStorageNow = false;
+    this.parsedFromStorage = false;
     this.isVirtual = false;
+
 
     var user = this;
     var differencePubnubDeviceTime;
+    var isLogged = null;
 
     //private methods
     function handleOsNotificationClick (params) {
@@ -421,6 +424,7 @@ services
     this.logout = function() {
         var d = $q.defer();
         $timeout(function() {
+            isLogged = false;
             storage.clear();
             unsubscribe();
             clearCurrentUser();
@@ -475,7 +479,7 @@ services
     this.parseFromStorage = function() {
         var self = this;
         self.isParsingFromStorageNow = true;
-        return $q.all([
+        this.parsedFromStoragePromise = $q.all([
             storage.getUser().then(function(dataFromStorage) {
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
@@ -516,12 +520,15 @@ services
         .then(
             function() {
                 self.isParsingFromStorageNow = false;
+                self.parsedFromStorage = true;
                 console.log("all user info was parsed from storage");
             },
             function() {
                 console.warn("there was error while parsing");
             }
         );
+
+        return this.parsedFromStoragePromise;
     };
 
     this.save = function() {
@@ -539,7 +546,13 @@ services
     };
 
     this.isLogged = function() {
-        return !!localStorage.getItem('isLogged');
+        if (isLogged === null) {
+            isLogged = !!localStorage.getItem('isLogged');
+            return isLogged;
+        }
+        else {
+            return isLogged;
+        }
     };
 
     this.subscribe = function() {
@@ -703,25 +716,25 @@ services
 
     //if ran as app, data from storage will be parsed
     //in startController else in userService
-    if (this.isLogged() && !RAN_AS_APP) {
-        this.parseFromStorage()
-        .then(
-            function() {
-                if (_.isEmpty(user.chats)) {
-                    $state.go('friends');
-                }
-                else {
-                    $state.go('chats');
-                    //$state.go('friends')
+    // if (this.isLogged() && !RAN_AS_APP) {
+    //     this.parseFromStorage()
+    //     .then(
+    //         function() {
+    //             if (_.isEmpty(user.chats)) {
+    //                 $state.go('friends');
+    //             }
+    //             else {
+    //                 $state.go('chats');
+    //                 //$state.go('friends')
                     
-                    // todo: Сделать редирект на чаты, только если я на пустой странице
-                    // потому что я могу находиться на какой-то конкретной в браузере,
-                    // просто сделать рефреш
-                    //$state.go('chats')
-                }
-            }
-        );
-    }
+    //                 // todo: Сделать редирект на чаты, только если я на пустой странице
+    //                 // потому что я могу находиться на какой-то конкретной в браузере,
+    //                 // просто сделать рефреш
+    //                 //$state.go('chats')
+    //             }
+    //         }
+    //     );
+    // }
 
     //for debugging
     window.user = this;
