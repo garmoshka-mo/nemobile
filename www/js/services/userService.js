@@ -98,6 +98,7 @@ services
         user.friends = {};
         user.chats = {};
         user.lastMessageTimestamp = null;
+        user.isVirtual = null;
         friendsList.clear();
     }
 
@@ -490,6 +491,7 @@ services
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
                 self.avatarUrl = dataFromStorage.avatarUrl;
                 self.avatarUrlMini = dataFromStorage.avatarUrlMini;
+                self.isVirtual = dataFromStorage.isVirtual;
 
                 setAccessToken(dataFromStorage.accessToken);
                 self.subscribe();

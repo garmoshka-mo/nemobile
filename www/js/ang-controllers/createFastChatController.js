@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("createFastChatController", [
-    'user', '$scope', '$q',
-    function(user, $scope, $q) {
+    'user', '$scope', '$q', '$stateParams', '$state',
+    function(user, $scope, $q, $stateParams, $state) {
         $scope.showSpinner = true;
         
         function signinAsVirtualUser() {
@@ -11,6 +11,8 @@ angular.module("angControllers").controller("createFastChatController", [
                     user.signin(null, null, res.access_token, true)
                     .then(
                         function() {
+                            user.isVirtual = true;
+                            user.save();
                             d.resolve();
                         },
                         function() {
@@ -43,12 +45,19 @@ angular.module("angControllers").controller("createFastChatController", [
         signinAsVirtualUser()
         .then(
             function() {
-                createVirtualChat()
-                .then(function(senderId) {
+                if ($stateParams.senderId) {
                     $state.go('chat', {
-                        senderId: senderId
+                        senderId: $stateParams.senderId
                     });
-                });
+                }
+                else {
+                    createVirtualChat()
+                    .then(function(senderId) {
+                        $state.go('chat', {
+                            senderId: senderId
+                        });
+                    });    
+                }
             }
         );
 }]);

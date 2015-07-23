@@ -325,7 +325,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
     })
     .state("createFastChat", {
       //Fast Chat is a chat between two virtual users
-      url: "/createFastChat",
+      url: "/createFastChat?senderId",
       views: {
         "title": {
           template: "Создание быстрого чата"

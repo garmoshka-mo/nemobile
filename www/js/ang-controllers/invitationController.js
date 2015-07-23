@@ -17,13 +17,15 @@ angular.module("angControllers").controller("invitationController", [
 
         if ($stateParams.friendIndex) {
             $scope.friend = user.friendsList.friends[+$stateParams.friendIndex];
-        }
 
-        if ($scope.friend.phoneNumbers) {
-            if ($scope.friend.phoneNumbers.length > 1) {
-                $scope.selectedNumber = $scope.friend.phoneNumbers[0];
+            if ($scope.friend.phoneNumbers) {
+                if ($scope.friend.phoneNumbers.length > 1) {
+                    $scope.selectedNumber = $scope.friend.phoneNumbers[0];
+                }
             }
         }
+
+        
 
         $scope.inviteViaSms = function() {
             console.log("invite via sms is called");

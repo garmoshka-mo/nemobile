@@ -14,7 +14,8 @@ angular.module("angControllers").controller("mainController", [
     var statesWhereShowBackArrow = [
         'chat',
         'showImage',
-        'chatInfo'
+        'chatInfo',
+        'invitation'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat'
@@ -22,7 +23,10 @@ angular.module("angControllers").controller("mainController", [
 
     var statesAllowedForVirtualUser = [
         'updateProfile',
-        'chat'
+        'chat', 
+        'invitation',
+        'homepage',
+        'exit'
     ];
 
     var statesNotShowScores = [
@@ -120,6 +124,16 @@ angular.module("angControllers").controller("mainController", [
         if (user.isVirtual) {
             if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
                 evt.preventDefault();
+                var senderId = Object.keys(user.chats)[0];
+                if (senderId) {
+                    $state.go('chat', 
+                        {
+                            senderId: senderId
+                    });
+                }
+                else {
+                    $state.go('updateProfile');
+                }
             }
             return;
         }
