@@ -129,12 +129,14 @@ angular.module("angControllers").controller("mainController", [
                     $state.go('chat', 
                         {
                             senderId: senderId
-                    });
+                        }
+                    );
                 }
                 else {
                     $state.go('updateProfile');
                 }
             }
+            routing.is_preload = false;
             return;
         }
 
