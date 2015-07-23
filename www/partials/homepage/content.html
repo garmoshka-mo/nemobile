@@ -23,9 +23,10 @@
                 </div>
             </div>
         </div>
-        <div class="ta-center" ng-hide="canBeAdded">
-            <span ng-bind="serverResponse"></span><br>
-            <a ng-show="foundUuid" ng-href="#/chat?senderId={{foundUuid}}"><button>перейти к чату</button></a> 
+        <div class="ta-center row" ng-hide="canBeAdded">
+            <div class="columns small-12 h41">
+                <span ng-bind="serverResponse"></span><br>
+            </div>
         </div>
     </div>
     <div class="row ta-center">
