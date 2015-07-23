@@ -11,7 +11,7 @@
             </form>
         </div>
         <div ng-show="canBeAdded" class="columns small-12" ng-class="{'animated fadeIn': canBeAdded}">
-            <div class="card pointer no-border" ng-show="canBeAdded" ng-click="addToFriends(true)">
+            <div class="card pointer no-border" ng-show="canBeAdded" ng-click="goto('createFastChat', {senderId: foundUuid})">
                 <div class="row" >
                     <div class="small-3 column ava-container">
                         <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
