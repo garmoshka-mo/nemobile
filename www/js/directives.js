@@ -227,12 +227,10 @@ app.directive('slideMenu', function() {
 
             function onOpen() {
                 $preventClickDiv.show();     
-                console.log('open', snapper.state());
             }
 
             function onAnimated() {
                 var state = snapper.state();
-                console.log(state);
                 if (state.state == "left") {
                     onOpen();
                 }
