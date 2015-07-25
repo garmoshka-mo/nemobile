@@ -79,7 +79,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "randomController",
-          templateUrl: "partials/random/random.html"
+          templateUrl: "partials/random/content.html"
         }
       }
     })

@@ -197,6 +197,16 @@ ul.off-canvas-list li a {
   border-bottom: 1px solid #2A2935;
 }
 
+.prevent-click { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: none;
+}
+
 #wrapper{
   height: 100%;
   width: 100%;

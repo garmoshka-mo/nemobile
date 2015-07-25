@@ -218,10 +218,40 @@ app.directive('slideMenu', function() {
                 minPosition: 0
             });
 
+            var $preventClickDiv = $('.prevent-click');
+
             $(document).on('click','.off-canvas-list', function() {
                 // console.log('clicked');
                 snapper.close();
             });
+
+            function onOpen() {
+                $preventClickDiv.show();     
+                console.log('open', snapper.state());
+            }
+
+            function onAnimated() {
+                var state = snapper.state();
+                console.log(state);
+                if (state.state == "left") {
+                    onOpen();
+                }
+                else {
+                    onClose();
+                }
+            }
+
+            function onClose() {
+                $preventClickDiv.hide();                    
+            }
+            
+            setTimeout(function() {
+                snapper.on('open', onOpen);
+                snapper.on('animated', onAnimated);
+                snapper.on('end', onAnimated);
+                snapper.on('close', onClose);
+            }, 0);
+            
         }
     };
 });
