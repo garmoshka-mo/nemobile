@@ -263,8 +263,7 @@ app.directive('radioButtons', function() {
             titles: '='
         },
         link: function(scope, elem, attr) {
-            var $ul = $('<ul class="tabs-menu"></ul>');
-            var valuesAsString = scope.values.map(function(el) {return el.toString()});
+            var valuesAsString = scope.values.map(function(el) {return el.toString();});
 
             scope.handleItemClick = function(value) {
                 scope.ngModel = value;
@@ -273,5 +272,49 @@ app.directive('radioButtons', function() {
         template: "<ul class='tabs-menu'><li ng-repeat='value in values' class='tabs-menu-item'" +
             " ng-class='{\"is-active\": ngModel == value}' ng-click='::handleItemClick(value)'>" + 
             "<span>{{::titles[$index]}}</span></li></ul>"
+    };
+});
+
+app.directive('ageSelect', function() {
+    return {
+        restrict: 'AE',
+        scope: {
+            ngModel: '=',
+            values: '=',
+            titles: '='
+        },
+
+        link: function(scope, elem, attr) {
+            var valuesAsString = scope.values.map(function(el) {return el.toString();});
+
+            scope.handleItemClick = function(value) {
+                scope.ngModel = value;
+            };
+        },
+
+        template: "<ul class='age-select'><li ng-repeat='value in values' " +
+            " ng-class='{\"text-bold\": ngModel == value, \"text-silver\": ngModel != value}' ng-click='::handleItemClick(value)'>" + 
+            "<span>{{::titles[$index]}}</span></li></ul>"
+    };
+});
+
+app.directive('sexSelect', function() {
+    return {
+        restrict: 'AE',
+        scope: {
+            ngModel: '=',
+            
+        },
+
+        link: function(scope, elem, attr) {
+            scope.handleItemClick = function(value) {
+                scope.ngModel = value;
+            };
+        },
+
+        template: "<ul class='sex-select'><li class='sex-select-li man' " + 
+            "ng-class='{\"selected\": ngModel == \"man\"}' ng-click='handleItemClick(\"man\")'></li>" + 
+            "<li ng-click='handleItemClick(\"woman\")' class='sex-select-li woman' " + 
+            "ng-class='{\"selected\": ngModel == \"woman\"}'></li></ul>"
     };
 });

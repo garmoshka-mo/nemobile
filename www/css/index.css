@@ -35,6 +35,7 @@ input[type=checkbox] {
   visibility: hidden;
 }
 
+
 .no-select {
   -webkit-user-select: none; 
   user-select: none;
@@ -965,6 +966,85 @@ input[type="radio"]:checked + .radioLabel {
   -o-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
+}
+
+/*fab icons*/
+
+a.md-button.md-fab, .md-button.md-fab {
+  background: #FFF;
+}
+
+a.md-button.md-fab:not([disabled]):hover, 
+.md-button.md-fab:not([disabled]):hover {
+  background: #a2ce7b;
+}
+
+.md-button.md-fab:not([disabled]):hover  
+ .not-hover {
+  display: none;
+}
+
+.md-button.md-fab:not([disabled]):hover  
+.img-hover {
+  display: inline;
+}
+
+.img-hover {
+  display: none;
+}
+
+md-fab-actions {
+  height: 0 !important;
+}
+
+/*fab icons end*/
+
+.age-select {
+  list-style-type: none;
+  text-align: center;
+  margin: 0;
+  -webkit-user-select: none; 
+  user-select: none;
+}
+.age-select:hover {
+  cursor: pointer;
+}
+.age-select li {
+  transition: color 0.2s ease;
+}
+
+.sex-select {
+  list-style-type: none;
+  text-align: center;
+  margin: 0;   
+}
+.sex-select-li {
+  width: 40px;
+  height: 62px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  margin: 5px 10px;
+  transition: background 0.2s ease;
+}
+.sex-select-li:hover {
+  cursor: pointer;
+}
+.sex-select-li.man {
+  background-image: url('../img/man.png')
+}
+.sex-select-li.man.selected {
+  background-image: url('../img/man-selected.png')
+}
+.sex-select-li.woman {
+  background-image: url('../img/woman.png')
+}
+.sex-select-li.woman.selected {
+  background-image: url('../img/woman-selected.png')
+}
+
+.dashed {
+  border-bottom: 1px dashed #bdc3c7;
 }
 
 .squaredFour input[type=checkbox]:checked + label:after {
