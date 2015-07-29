@@ -312,7 +312,10 @@ app.directive('sexSelect', function() {
             };
         },
 
-        template: "<ul class='sex-select'><li class='sex-select-li man' " + 
+        template: "<ul class='sex-select'>" +
+            "<li class='sex-select-li no-gender' ng-class='{\"selected\": ngModel == \"no-gender\"}'" + 
+            "ng-click='handleItemClick(\"no-gender\")'><div></div></li>" +
+            "<li class='sex-select-li man' " + 
             "ng-class='{\"selected\": ngModel == \"man\"}' ng-click='handleItemClick(\"man\")'></li>" + 
             "<li ng-click='handleItemClick(\"woman\")' class='sex-select-li woman' " + 
             "ng-class='{\"selected\": ngModel == \"woman\"}'></li></ul>"
