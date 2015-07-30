@@ -104,6 +104,9 @@ input[type=checkbox] {
 .h41 {
   height: 41px;
 }
+.h80 {
+  height: 80px;
+}
 .h100p {
   height: 100%;
 }
@@ -993,10 +996,14 @@ a.md-button.md-fab:not([disabled]):hover,
   display: none;
 }
 
-md-fab-actions {
+.fab-buttons-container {
+  position: absolute;
+  width: 100%;
+}
+/*md-fab-actions {
   height: 0 !important;
 }
-
+*/
 
 .md-fab.md-raised.md-mini {
   overflow: auto;

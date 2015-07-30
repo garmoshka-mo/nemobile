@@ -1,4 +1,4 @@
-<div ng-show="user.name">
+<div class="no-select" ng-show="user.name">
     <div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
         <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
         <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
@@ -34,7 +34,7 @@
         </li>
     </ul>
 </div>
-<div ng-hide="user.name">
+<div class="no-select" ng-hide="user.name">
     <ul class="off-canvas-list">
         <li><label>Меню</label></li>
         <li><a ng-click="goto('signin', {inOrUp: 'in'})">Войти</a></li>
