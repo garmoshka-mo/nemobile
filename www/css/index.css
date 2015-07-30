@@ -1030,6 +1030,10 @@ a.md-button.md-fab:not([disabled]):hover,
   width: 100%; 
 }
 
+md-fab-speed-dial md-fab-actions {
+  height: auto;
+}
+
 .forbid-fab {
   background: #e59494 !important;
 }
