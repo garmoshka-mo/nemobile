@@ -13,6 +13,35 @@ angular.module("angControllers").controller("randomController", [
             age: '2'
         };
 
+        function selectValue(value) {
+            this.isOpened = false;
+            this.value = value;
+        }
+
+        $scope.theme = {
+            isOpened: false,
+            value: 'none',
+            selectValue: selectValue
+        };
+
+        $scope.geo = {
+            isOpened: false,
+            value: 'none',
+            selectValue: selectValue
+        };
+
+        $scope.sex = {
+            isOpened: false,
+            value: 'none',
+            selectValue: selectValue
+        };
+
+        $scope.video = {
+            isOpened: false,
+            value: 'none',
+            selectValue: selectValue
+        };
+
         $scope.filter = {
             selectedTheme: 'none',
             selectedGeo: 'none',
