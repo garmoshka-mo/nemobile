@@ -979,7 +979,7 @@ a.md-button.md-fab, .md-button.md-fab {
 
 a.md-button.md-fab:not([disabled]):hover, 
 .md-button.md-fab:not([disabled]):hover {
-  background: #a2ce7b;
+  background: #FFF;
 }
 
 .md-button.md-fab:not([disabled]):hover  
