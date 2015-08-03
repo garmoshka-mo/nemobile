@@ -221,6 +221,7 @@ app.directive('slideMenu', function() {
             });
 
             var $preventClickDiv = $('.prevent-click');
+            console.log('!!!!!!!!!!!!!!!!!!!!', $preventClickDiv);
 
             $(document).on('click','.off-canvas-list', function() {
                 // console.log('clicked');

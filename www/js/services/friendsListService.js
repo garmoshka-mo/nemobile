@@ -167,7 +167,10 @@ services
                         ['displayName', 'phoneNumber'], 
                         function(contacts) {
                             self.gotUserContacts = true;
-                            q.resolve(parseUserContacts(contacts));
+                            console.log('!!!!!!!!!!!!!!', contacts);
+                            if (contacts) {
+                                q.resolve(parseUserContacts(contacts));
+                            }
                             console.timeEnd('getting user contacts from phonebook');
                         },
                         onError,
