@@ -49,9 +49,23 @@ angular.module("angControllers").controller("chatController",
         }
 
         function setNotification() {
+            var title;
+            
+            if (chat.isVirtual) {
+                if (user.friendsList.nepotomFriends[chat.senderId]) {
+                    title = chat.title;
+                }
+                else { 
+                    title = "кто-то";
+                }
+            }
+            else {
+                title = chat.title;
+            }
+
             var notificationString = "<span class='pointer'><img src='" + chat.photoUrlMini + 
                 "' class='chat-toolbar-image pointer'>" +
-                chat.title + "</span>";
+                title + "</span>";
             var notificationCallback = function() {
                 $state.go('chatInfo',{
                     senderId: chat.senderId
@@ -75,7 +89,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.$watch('newMessage.ttl', function() {
             $scope.setFocusOnTextField();
-        })
+        });
         
         $scope.toggleCategory = function(category) {
             if ($scope.stickersGallery.currentCategory == category.name) {

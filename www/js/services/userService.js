@@ -49,7 +49,7 @@ services
 
     function handleSuccessSignIn(userInfo) {
         user.name = userInfo.name;
-        user.channel = userInfo.channel_name;
+        user.channel = userInfo.channel_group_name;
         user.uuid = userInfo.uuid;
         user.scores = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
@@ -104,7 +104,7 @@ services
 
     function unsubscribe() {
         pubnub.unsubscribe({
-            channel: user.channel
+            group: user.channel
         });
     }
 
@@ -561,7 +561,7 @@ services
     this.subscribe = function() {
         var self = this;
         pubnub.subscribe({
-            channel: self.channel,
+            group: self.channel,
             message: function(m) {handleIncomeMessage(m);}
         });
     };

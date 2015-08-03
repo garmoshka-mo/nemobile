@@ -1,5 +1,5 @@
-angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', '$state', '$timeout',  
-    function($scope, $stateParams, $state, $timeout) {
+angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', '$state', '$timeout', '$http',  
+    function($scope, $stateParams, $state, $timeout, $http) {
 
         $scope.showChangeAvatarMenu = false;
         $scope.isAvaLoading = false;

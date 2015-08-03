@@ -121,24 +121,24 @@ angular.module("angControllers").controller("mainController", [
             $scope.isUserScoresShown = true;
         }
         
-        if (user.isVirtual) {
-            if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
-                evt.preventDefault();
-                var senderId = Object.keys(user.chats)[0];
-                if (senderId) {
-                    $state.go('chat', 
-                        {
-                            senderId: senderId
-                        }
-                    );
-                }
-                else {
-                    $state.go('updateProfile');
-                }
-            }
-            routing.is_preload = false;
-            return;
-        }
+        // if (user.isVirtual) {
+        //     if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
+        //         evt.preventDefault();
+        //         var senderId = Object.keys(user.chats)[0];
+        //         if (senderId) {
+        //             $state.go('chat', 
+        //                 {
+        //                     senderId: senderId
+        //                 }
+        //             );
+        //         }
+        //         else {
+        //             $state.go('updateProfile');
+        //         }
+        //     }
+        //     routing.is_preload = false;
+        //     return;
+        // }
 
         if (user.isLogged()) {
             if (_.includes(statesFromRedirectLoggedUser, toState.name)) {

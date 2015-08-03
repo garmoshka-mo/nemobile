@@ -1,7 +1,8 @@
 <div class="no-select" ng-show="user.name">
     <div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
         <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
-        <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown"></span>
+        <span class="text-bold" ng-bind="user.name" ng-hide="isChangeAvaMenuShown || user.isVirtual"></span>
+        <span class="text-bold" ng-hide="isChangeAvaMenuShow || !user.isVirtual">Ваша аватарка</span>
         <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>
             <div class="change-ava-button" ng-click="applyCurrentAvatar()">
                 <i class="fa fa-check"></i>
@@ -40,8 +41,8 @@
         <li><a ng-click="goto('signin', {inOrUp: 'in'})">Войти</a></li>
         <!-- <li><a ng-click="$state.go('signinup/in')">Войти</a></li> -->
         <li><a ng-click="goto('phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>
+        <li><a class="menu-item" ng-click="goto('random')">Чат наугад</a></li>
         <li><a ng-click="goto('about')" class="lessen-word">О программе</a></li>
         <!-- <li><a ng-click="goto('/localForage')" class="lessen-word">Test local forage</a></li> -->
     </ul>
 </div>
-

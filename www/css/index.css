@@ -110,6 +110,10 @@ input[type=checkbox] {
 .h100p {
   height: 100%;
 }
+.hide-x {
+  overflow-x: hidden !important;
+}
+
 .mt20 {
   margin-top: 20px;
 }
@@ -998,7 +1002,7 @@ a.md-button.md-fab:not([disabled]):hover,
 
 .fab-buttons-container {
   position: absolute;
-  width: 100%;
+  width: 100% !important;
 }
 /*md-fab-actions {
   height: 0 !important;

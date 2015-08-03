@@ -29,7 +29,8 @@ app.directive('overscrollableWithFooter', function() {
                     "width": "100%",
                     "padding-right": "15px",
                     "box-sizing": "content-box",
-                    "overflow": "auto"
+                    "overflow": "auto",
+                    "position": "relative"
             });
         }
     };
@@ -46,10 +47,11 @@ app.directive('overscrollableWithoutFooter', function() {
             var bodyHeight = $('body').height();
             $(elem).height(bodyHeight - $('.tab-bar').height());
             $(elem).css({
-                  "width": "100%",
-                  "padding-right": "15px",
-                  "box-sizing": "content-box",
-                  "overflow": "auto"
+                "width": "100%",
+                "padding-right": "15px",
+                "box-sizing": "content-box",
+                "overflow": "auto",
+                "position": "relative"
             });
         }
     };
