@@ -167,6 +167,10 @@ services
         var senderUuid = m.sender_uuid;
         var messageText = m.pn_apns.message;
 
+        if (senderUuid == user.uuid) {
+            return;
+        }
+
         if (senderUuid === App.Settings.systemUuid) {
             console.log(messageText);
             switch(messageText) {
