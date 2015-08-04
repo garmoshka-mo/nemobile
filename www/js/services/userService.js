@@ -234,13 +234,14 @@ services
 
         self.scores = m.my_score;
         self.chats[senderUuid].senderScores = m.his_score;
-        self.chats[senderUuid].isRead = false;
         self.chats[senderUuid].lastMessageTimestamp = m.timestamp * 1000;
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 
         if ($state.params.senderId !== senderUuid) {
             showNotification(self, messageText, senderUuid);
+            self.chats[senderUuid].isRead = false;
+            self.countUnreadChats();
         }
         
         user.saveChats();
@@ -248,7 +249,6 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
-        self.countUnreadChats();
         $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }

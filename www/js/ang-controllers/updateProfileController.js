@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("updateProfileController", [
-    'user', '$scope', '$http', '$state', 'api', '$stateParams',
-    function(user, $scope, $http, $state, api, $stateParams){
+    'user', '$scope', '$http', '$state', 'api', '$stateParams', 'dictionary',
+    function(user, $scope, $http, $state, api, $stateParams, dictionary){
         $scope.user = user;
         $scope.showSpinner = false;
 
@@ -27,7 +27,7 @@ angular.module("angControllers").controller("updateProfileController", [
                     $scope.serverResponse = "изменения внесены";
                 },
                 function(res) {
-                    $scope.serverResponse = res;
+                    $scope.serverResponse = dictionary.get(res);
                 }
             )
             .then(
