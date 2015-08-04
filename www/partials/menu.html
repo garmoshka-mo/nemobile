@@ -20,7 +20,7 @@
         <li>
             <a class="menu-item" ng-click="goto('chats')">
                 <i class="fa fa-envelope"></i>Чаты
-                <span class="menu-new-messages-number" ng-show="!!unreadChatsAmount" ng-bind="unreadChatsAmount"></span>
+                <span class="menu-new-messages-number" ng-show="!!user.unreadChatsAmount" ng-bind="user.unreadChatsAmount"></span>
             </a>
         </li>
         <li><a class="menu-item" ng-click="goto('friends')"><i class="fa fa-group"></i>Контакты</a></li>

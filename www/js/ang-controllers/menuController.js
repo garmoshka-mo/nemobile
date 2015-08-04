@@ -43,11 +43,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
 
         $scope.countUnreadChats = function () {
             $scope.unreadChatsAmount = 0;
-            for (var chat in user.chats) {
-                if (!user.chats[chat].isRead && !user.chats[chat].isExpired) {
-                    $scope.unreadChatsAmount++;
-                }
-            }
+            
         };
 
         function objectToString(object) {
@@ -76,18 +72,6 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
                 prompt('Слепок №' + data + ' создан', 'http://dubink-logger.herokuapp.com/log' + data + ".txt");
             });
         };
-
-        $scope.$on('messageCame', function() {
-            $scope.countUnreadChats();
-        });
         
-        setTimeout(function() {
-            snapper.on('animated', function() {
-                $scope.countUnreadChats();
-                $scope.$apply();
-            });
-        }, 0);
-        
-
 }]);
     

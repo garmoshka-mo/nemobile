@@ -194,7 +194,7 @@ angular.module("angControllers").controller("chatController",
             $scope.isFirstMessage = false;
             $scope.errorDescription = "";
             
-            console.log("user:", user);
+            // console.log("user:", user);
         };
 
         $scope.handleFailedSending = function(errorDescription) {
@@ -318,4 +318,5 @@ angular.module("angControllers").controller("chatController",
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
+        user.countUnreadChats();
 }]);   

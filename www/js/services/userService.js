@@ -14,6 +14,7 @@ services
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
     this.isVirtual = false;
+    this.unreadChatsAmount = 0;
 
 
     var user = this;
@@ -46,6 +47,8 @@ services
         });
        
     }
+
+    
 
     function handleSuccessSignIn(userInfo) {
         user.name = userInfo.name;
@@ -104,7 +107,7 @@ services
 
     function unsubscribe() {
         pubnub.unsubscribe({
-            group: user.channel
+            channel_group: user.channel
         });
     }
 
@@ -162,7 +165,7 @@ services
         console.log(m);
         var self = user;
         var senderUuid = m.sender_uuid;
-        var messageText = m.message_text;
+        var messageText = m.pn_apns.message;
 
         if (senderUuid === App.Settings.systemUuid) {
             console.log(messageText);
@@ -241,6 +244,7 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
+        self.countUnreadChats();
         $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }
@@ -506,6 +510,7 @@ services
                     _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
                 }
                 self.chats = _chats;
+                self.countUnreadChats();
                 console.log("user chats are taken from storage", user.chats);
             }),
 
@@ -561,7 +566,7 @@ services
     this.subscribe = function() {
         var self = this;
         pubnub.subscribe({
-            group: self.channel,
+            channel_group: self.channel,
             message: function(m) {handleIncomeMessage(m);}
         });
     };
@@ -713,31 +718,15 @@ services
         });
     };
 
-    // todo: Нелогично, что этот код здесь, в users
-    // кроме того этот файл и так гигантский
-    // логичнее было бы перенести эту логику в контроллер start
-
-    //if ran as app, data from storage will be parsed
-    //in startController else in userService
-    // if (this.isLogged() && !RAN_AS_APP) {
-    //     this.parseFromStorage()
-    //     .then(
-    //         function() {
-    //             if (_.isEmpty(user.chats)) {
-    //                 $state.go('friends');
-    //             }
-    //             else {
-    //                 $state.go('chats');
-    //                 //$state.go('friends')
-                    
-    //                 // todo: Сделать редирект на чаты, только если я на пустой странице
-    //                 // потому что я могу находиться на какой-то конкретной в браузере,
-    //                 // просто сделать рефреш
-    //                 //$state.go('chats')
-    //             }
-    //         }
-    //     );
-    // }
+    this.countUnreadChats = function() {
+        this.unreadChatsAmount = 0;
+        for (var chat in this.chats) {
+            if (!this.chats[chat].isRead && !this.chats[chat].isExpired) {
+                this.unreadChatsAmount++;
+            }
+        }
+        console.log('unread chats is counted', this.unreadChatsAmount);
+    };
 
     //for debugging
     window.user = this;
