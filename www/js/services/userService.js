@@ -164,27 +164,27 @@ services
     function handleIncomeMessage(m) {
         console.log(m);
         var self = user;
-        var senderUuid = m.sender_uuid;
-        var messageText = m.pn_apns.message;
+        
+        if (m.event == "contacts_updated") {
+            console.log('friends list will be updated');
+            getUserFriendsFromServer();
+            return;        
+        }
+        
+        if (m.event == "profile_updated") {
+            console.log('user info will be updated');
+            updateUserInfo(user.accessToken);
+            return;        
+        }
 
         if (senderUuid == user.uuid) {
             return;
         }
 
-        if (senderUuid === App.Settings.systemUuid) {
-            console.log(messageText);
-            switch(messageText) {
-                case "contacts_updated": 
-                    console.log('friends list will be updated');
-                    getUserFriendsFromServer();
-                    break;
-                default:
-                    console.log('user info will be updated');
-                    updateUserInfo(user.accessToken);
-                    break;
-            }
-            return;
-        }
+        //if previous ifs didn't work
+        //therefore message is user_message
+        var senderUuid = m.sender_uuid;
+        var messageText = m.pn_apns.message;
 
         //getting the last unexpired chat session
         var lastSession;
