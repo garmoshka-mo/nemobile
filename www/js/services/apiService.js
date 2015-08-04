@@ -129,7 +129,7 @@ services
                 url: App.Settings.apiUrl + '/messages',
                 data: {
                     "access_token": api.accessToken,
-                    "recepient_uuid": recepientId,
+                    "recipient_uuid": recepientId,
                     "message_text": messageText,
                     "ttl": ttl
                 }

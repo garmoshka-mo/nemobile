@@ -199,7 +199,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
                         return true;
                     }
                     else {
-                        return $q.reject(res.data.type);
+                        return $q.reject(res.data.error);
                     }
 
                 },
