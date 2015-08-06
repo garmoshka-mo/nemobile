@@ -177,14 +177,14 @@ services
             return;        
         }
 
-        if (senderUuid == user.uuid) {
-            return;
-        }
-
         //if previous ifs didn't work
         //therefore message is user_message
         var senderUuid = m.sender_uuid;
         var messageText = m.pn_apns.message;
+
+        if (senderUuid == user.uuid) {
+            return;
+        }
 
         //getting the last unexpired chat session
         var lastSession;
