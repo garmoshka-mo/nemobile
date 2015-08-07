@@ -335,7 +335,7 @@ services
         initPhoneActivation: function(phoneNumber) {
             return $http({
                 method: 'POST',
-                url: App.Settings.apiUrl + "/phone/activation/init",
+                url: App.Settings.apiUrl + "/phone_number/initialize_authentication",
                 data: {
                     "phone_number": phoneNumber,
                 }
@@ -366,7 +366,7 @@ services
 
             return $http({
                 method: 'POST',
-                url: App.Settings.apiUrl + "/phone/activation/confirm",
+                url: App.Settings.apiUrl + "/phone_number/confirm",
                 data: data
             })
             .then(

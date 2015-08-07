@@ -19,7 +19,8 @@ angular.module("angControllers").controller("mainController", [
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',
-        'createFastChat'
+        'createFastChat',
+        'virtualChat'
     ];
 
     var statesAllowedForVirtualUser = [

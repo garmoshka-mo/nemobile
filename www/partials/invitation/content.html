@@ -19,7 +19,7 @@
                 <span ng-show="friend.phoneNumbers === null">(<span ng-bind="friend.emails[0].value"></span>)</span>
                 <select ng-show="friend.phoneNumbers.length > 1" ng-options="phoneNumber.value for phoneNumber in friend.phoneNumbers" ng-model="selectedNumber"></select>
             
-            <textarea class="invitationText" ng-bind="invitationText"></textarea>
+            <textarea class="invitationText" ng-bind="invitationText" data-snap-ignore="true"></textarea>
             <div class="socialShareButtons ta-center">
                 <button ng-click="inviteViaSms()" ng-hide="isWeb">Послать СМС</button>
             </div>
