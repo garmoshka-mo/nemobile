@@ -505,13 +505,22 @@ services
 
     this.getUnseenMessages = function() {
         if (differencePubnubDeviceTime) {
-            getUnseenMessages();
+            return getUnseenMessages();
         }
         else {
+            var d = $q.defer();
+
             getPubnubTimeDifference()
             .then(function() {
-                getUnseenMessages();
+                getUnseenMessages()
+                .then(
+                    function() {
+                        d.resolve();
+                    }
+                );
             });
+
+            return d.promise;
         }        
     };
 
