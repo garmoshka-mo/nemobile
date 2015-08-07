@@ -62,10 +62,6 @@ services
         user.avatarUrl = avatarParseResult.fullSize;
         user.avatarUrlMini = avatarParseResult.mini;
 
-        if (user.isVirtual) {
-            user.getUnseenMessages();
-        }
-
         user.subscribe(user.channel);
         localStorage.setItem('isLogged', true);
         getUserFriendsFromServer()
