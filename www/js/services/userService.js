@@ -263,31 +263,81 @@ services
         return d.promise;
     }
 
+    function getGroupChannels() {
+        var d = $q.defer();
+        
+        pubnub.channel_group_list_channels({
+            channel_group: user.channel,
+            callback: function(res) {
+                d.resolve(res.channels);
+            }
+        });
+
+        return d.promise;
+    }
+
+    function getChannelHistory(channel) {
+        var d = $q.defer();
+
+        pubnub.history(
+            {
+                channel: channel,
+                end: (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000,
+                callback: function(res) {
+                    console.log("unseen messages: ", res);
+                    d.resolve(res[0]);
+                }
+            }
+        );
+
+        return d.promise;
+    }
+
     function getUnseenMessages() {
         if (user.lastMessageTimestamp) {
             // console.log("last seen message timestamp * 10000: ", 
             //     (user.lastMessageTimestamp * 10000).toString());
-            pubnub.history(
-                {
-                    channel: user.channel,
-                    end: (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000,
-                    callback: function(res) {
-                        // console.log("unseen messages: ", res);
-                        var messages = res[0];
-                        for (var i = 0; i < messages.length; i++) {
-                            handleIncomeMessage(messages[i]);                            
-                        }
+            
+            getGroupChannels()
+            .then(
+                function(channels) {
+                    var channelsHistoriesPromises = [];
 
-                        if (window.goToLastMessageChat) {
-                            location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
-                        }
+                    // console.log('channels were got', channels);
+                    
+                    channels.forEach(function(channel) {
+                        channelsHistoriesPromises.push(getChannelHistory(channel));
+                    });
 
-                        console.log('while you were away', messages);
-                        
-                        window.isGotUnseenMessage = true;
-                    }
+                    return channelsHistoriesPromises;
                 }
-            );
+            )
+            .then(function(historiesPromises) {
+                $q.all(historiesPromises)
+                .then(function(res) {
+
+                    var messages = [];
+                    
+                    for (var i = 0; i < res.length; i++ ) {
+                        messages = messages.concat(res[i]);
+                    }
+
+                    for (var j = 0; j < messages.length; j++) {
+                        handleIncomeMessage(messages[j]);                            
+                    }
+
+                    if (window.goToLastMessageChat) {
+                        location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
+                    }
+
+                    console.log('while you were away', messages);
+                    
+                    window.isGotUnseenMessage = true;
+
+                });
+            });
+
+           
         }
     }
 
@@ -573,6 +623,7 @@ services
             channel_group: self.channel,
             message: function(m) {handleIncomeMessage(m);}
         });
+        
     };
 
     this.initRegistrationWithPhone = function(phoneNumber) {

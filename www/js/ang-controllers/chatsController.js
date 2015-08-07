@@ -13,6 +13,10 @@ angular.module("angControllers").controller("chatsController", [
         });
 
         $scope.getChatTitle = function(chat) {
+            if (chat.isVirtual) {
+                return "чат";
+            }
+
             if (chat.senderId === chat.title) {
                 chat.updateInfo();
                 chat.title = "...";
