@@ -2,6 +2,7 @@ angular.module("angControllers").controller("createFastChatController", [
     'user', '$scope', '$q', '$stateParams', '$state',
     function(user, $scope, $q, $stateParams, $state) {
         $scope.showSpinner = true;
+        $scope.serverResponse = null;
         
         function signinAsVirtualUser() {
             var d = $q.defer();
@@ -17,6 +18,7 @@ angular.module("angControllers").controller("createFastChatController", [
                         },
                         function() {
                             d.reject();
+                            $scope.serverResponse = "Произошла ошибка. Попробуйте еще раз";
                         }
                     );
                 }

@@ -63,7 +63,7 @@ services
         user.avatarUrlMini = avatarParseResult.mini;
 
         if (user.isVirtual) {
-            getMessagesForVirtualChat();
+            user.getUnseenMessages();
         }
 
         user.subscribe(user.channel);
@@ -279,10 +279,15 @@ services
     function getChannelHistory(channel) {
         var d = $q.defer();
 
+        var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
+        var end = user.isVirtual ? 
+            MSEC_IN_MONTH * 1000 : 
+            (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000;
+
         pubnub.history(
             {
                 channel: channel,
-                end: (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000,
+                end: end,
                 callback: function(res) {
                     console.log("unseen messages: ", res);
                     d.resolve(res[0]);
@@ -341,29 +346,31 @@ services
         }
     }
 
-    function getMessagesForVirtualChat() {
-        // console.log("last seen message timestamp * 10000: ", 
-        //     (user.lastMessageTimestamp * 10000).toString());
-        var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
-        pubnub.history(
-            {
-                channel: user.channel,
-                end: MSEC_IN_MONTH * 10000,
-                callback: function(res) {
-                    console.log("unseen messages: ", res);
-                    var messages = res[0];
-                    for (var i = 0; i < messages.length; i++) {
-                        handleIncomeMessage(messages[i]);
-                    }
+    // function getMessagesForVirtualChat() {
+    //     // console.log("last seen message timestamp * 10000: ", 
+    //     //     (user.lastMessageTimestamp * 10000).toString());
+    //     var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
 
-                    if (messages.length) {
-                        console.log("redirected to chat");
-                        location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
-                    }
-                }
-            }
-        );
-    }
+
+    //     pubnub.history(
+    //         {
+    //             channel: user.channel,
+    //             end: MSEC_IN_MONTH * 10000,
+    //             callback: function(res) {
+    //                 console.log("unseen messages: ", res);
+    //                 var messages = res[0];
+    //                 for (var i = 0; i < messages.length; i++) {
+    //                     handleIncomeMessage(messages[i]);
+    //                 }
+
+    //                 if (messages.length) {
+    //                     console.log("redirected to chat");
+    //                     location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
+    //                 }
+    //             }
+    //         }
+    //     );
+    // }
 
     function removeDeviceFromChannel() {
         if (window.deviceId) {

@@ -1,6 +1,7 @@
 <div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
-    <div class="ta-center pt1rem">
+    <div ng-hide="serverResponse" class="ta-center pt1rem">
         Подождите, пожалуйста
         <span ng-show="showSpinner" spinner></span>
     </div>
+    <div ng-show="serverResponse"></div>
 </div>
