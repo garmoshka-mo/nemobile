@@ -276,9 +276,14 @@ services
         var d = $q.defer();
 
         var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
-        var end = user.isVirtual ? 
-            MSEC_IN_MONTH * 1000 : 
-            (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000;
+        
+        var end;
+        if (user.lastMessageTimestamp) {
+            end = (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000
+        }
+        else {
+            end = MSEC_IN_MONTH * 1000; 
+        }
 
         pubnub.history(
             {
@@ -299,7 +304,7 @@ services
             // console.log("last seen message timestamp * 10000: ", 
             //     (user.lastMessageTimestamp * 10000).toString());
             
-            getGroupChannels()
+            return getGroupChannels()
             .then(
                 function(channels) {
                     var channelsHistoriesPromises = [];
