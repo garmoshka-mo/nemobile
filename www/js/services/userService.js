@@ -299,7 +299,7 @@ services
     }
 
     function getUnseenMessages() {
-        if (user.lastMessageTimestamp) {
+        if (user.lastMessageTimestamp || user.isVirtual) {
             // console.log("last seen message timestamp * 10000: ", 
             //     (user.lastMessageTimestamp * 10000).toString());
             
