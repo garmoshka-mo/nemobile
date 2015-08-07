@@ -300,11 +300,13 @@ services
     }
 
     function getUnseenMessages() {
+        var d = $q.defer();
+        
         if (user.lastMessageTimestamp || user.isVirtual) {
             // console.log("last seen message timestamp * 10000: ", 
             //     (user.lastMessageTimestamp * 10000).toString());
             
-            return getGroupChannels()
+            getGroupChannels()
             .then(
                 function(channels) {
                     var channelsHistoriesPromises = [];
@@ -340,14 +342,15 @@ services
                     
                     window.isGotUnseenMessage = true;
 
+                    d.resolve();
                 });
             });
         }
         else {
-            var d = $q.defer();
             d.reject();
-            return d.promise;
         }
+
+        return d.promise;
     }
 
     // function getMessagesForVirtualChat() {

@@ -9,6 +9,7 @@ angular.module("angControllers").controller("virtualChatController", [
                 $scope.showSpinner = false;
                 $scope.isEmpty = true;
 
+                console.log("Q!!!!!!!!!!!!!!", user.chats);
                 if (!_.isEmpty(user.chats)) {
                     var senderId = Object.keys(user.chats)[0];
                     routing.goto('chat', {senderId: senderId});
