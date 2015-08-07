@@ -342,8 +342,11 @@ services
 
                 });
             });
-
-           
+        }
+        else {
+            var d = $q.defer();
+            d.reject();
+            return d.promise;
         }
     }
 
