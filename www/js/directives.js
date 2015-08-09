@@ -197,7 +197,7 @@ app.directive('clearAllButtonInline', function() {
 
 app.directive('alertBox', function() {
     return {
-        template: '<div ng-show="ngModel" data-alert class="alert-box warning"><span ng-bind="ngModel"></span><span ng-click="close()" class="close pointer">&times;</span></div>',
+        template: '<div ng-show="ngModel" data-alert class="alert-box warning no-transition"><span ng-bind="ngModel"></span><span ng-click="close()" class="close pointer">&times;</span></div>',
         scope: {
             ngModel: "="
         },
@@ -316,11 +316,11 @@ app.directive('sexSelect', function() {
         },
 
         template: "<ul class='sex-select'>" +
-            "<li class='sex-select-li no-gender' ng-class='{\"selected\": ngModel == \"no-gender\"}'" + 
-            "ng-click='handleItemClick(\"no-gender\")'><div></div></li>" +
+            "<li class='sex-select-li no-gender' ng-class='{\"selected\": ngModel == \"-\"}'" + 
+            "ng-click='handleItemClick(\"-\")'><div></div></li>" +
             "<li class='sex-select-li man' " + 
-            "ng-class='{\"selected\": ngModel == \"man\"}' ng-click='handleItemClick(\"man\")'></li>" + 
-            "<li ng-click='handleItemClick(\"woman\")' class='sex-select-li woman' " + 
-            "ng-class='{\"selected\": ngModel == \"woman\"}'></li></ul>"
+            "ng-class='{\"selected\": ngModel == \"m\"}' ng-click='handleItemClick(\"m\")'></li>" + 
+            "<li ng-click='handleItemClick(\"w\")' class='sex-select-li woman' " + 
+            "ng-class='{\"selected\": ngModel == \"w\"}'></li></ul>"
     };
 });

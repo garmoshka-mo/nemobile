@@ -1,31 +1,54 @@
 <div overscrollable-without-footer class="hide-x">
     <div class="row">
+        <div class="columns small-12 pt1rem ta-center">
+            <button ng-click="lookForChat()">
+                <span ng-hide="isLookForSpinnerShown" >Начать чат <i class="fa fa-weixin"></i></span>
+                <div  ng-show="isLookForSpinnerShown" spinner spinner-color="white"></div>
+            </button>
+        </div>
+    </div>
+    <div class="animated no-transition" ng-class="{'fadeIn': isLookingFor}" ng-show="isLookingFor">
+        <div class="row">
+            <div class="columns small-12 ta-center">
+                <button class="bg-red" ng-click="cancelLookingFor()">
+                    <span ng-hide="isCancelSpinnerShown" >отмена</span>
+                    <div  ng-show="isCancelSpinnerShown" spinner spinner-color="white"></div>
+                </button>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="small-12 columns text-silver ta-center">
+                Ищем подходящего партнера...
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="columns small-12">
             <div class="row fab-buttons-container">
                     <div class="small-3 columns pt1rem">
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="theme.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === 'forbid'}">
-                                    <img ng-show="theme.value === 'none'" ng-src="img/theme-unselected.png"></img>
-                                    <img ng-show="theme.value === 'forbid'" ng-src="img/theme-forbid.png"></img>
-                                    <img ng-show="theme.value === 'prefer'" ng-src="img/theme-prefer.png"></img>
-                                    <img ng-show="theme.value === 'require'" ng-src="img/theme-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === 0}">
+                                    <img ng-show="theme.value === -1" ng-src="img/theme-unselected.png"></img>
+                                    <img ng-show="theme.value === 0" ng-src="img/theme-forbid.png"></img>
+                                    <img ng-show="theme.value === 1" ng-src="img/theme-prefer.png"></img>
+                                    <img ng-show="theme.value === 2" ng-src="img/theme-require.png"></img>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="theme.selectValue('none')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="theme.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-right">не указывать</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="theme.selectValue('prefer')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="theme.selectValue(1)" class="md-fab md-raised md-mini">
                                     <img src="img/prefer.png" alt="prefer">
                                     <div class="fab-title fab-title-right">желательно</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="theme.selectValue('require')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="theme.selectValue(2)" class="md-fab md-raised md-mini">
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-right">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="theme.selectValue('forbid')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="theme.selectValue(0)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-right">запретить</div>
                                 </md-button>
@@ -35,27 +58,27 @@
                     <div class="small-3 columns pt1rem">
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="geo.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === 'forbid'}">
-                                    <img ng-show="geo.value === 'none'" ng-src="img/geo-unselected.png"></img>
-                                    <img ng-show="geo.value === 'forbid'" ng-src="img/geo-forbid.png"></img>
-                                    <img ng-show="geo.value === 'prefer'" ng-src="img/geo-prefer.png"></img>
-                                    <img ng-show="geo.value === 'require'" ng-src="img/geo-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === 0}">
+                                    <img ng-show="geo.value === -1" ng-src="img/geo-unselected.png"></img>
+                                    <img ng-show="geo.value === 0" ng-src="img/geo-forbid.png"></img>
+                                    <img ng-show="geo.value === 1" ng-src="img/geo-prefer.png"></img>
+                                    <img ng-show="geo.value === 2" ng-src="img/geo-require.png"></img>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="geo.selectValue('none')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="geo.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-right">не указывать</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="geo.selectValue('prefer')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="geo.selectValue(1)" class="md-fab md-raised md-mini">
                                     <img src="img/prefer.png" alt="prefer">
                                     <div class="fab-title fab-title-right">желательно</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="geo.selectValue('require')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="geo.selectValue(2)" class="md-fab md-raised md-mini">
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-right">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="geo.selectValue('forbid')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="geo.selectValue(0)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-right">запретить</div>
                                 </md-button>
@@ -65,27 +88,27 @@
                     <div class="small-3 columns pt1rem">
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="sex.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === 'forbid'}">
-                                    <img ng-show="sex.value === 'none'" ng-src="img/sex-unselected.png"></img>
-                                    <img ng-show="sex.value === 'forbid'" ng-src="img/sex-forbid.png"></img>
-                                    <img ng-show="sex.value === 'prefer'" ng-src="img/sex-prefer.png"></img>
-                                    <img ng-show="sex.value === 'require'" ng-src="img/sex-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === 0}">
+                                    <img ng-show="sex.value === -1" ng-src="img/sex-unselected.png"></img>
+                                    <img ng-show="sex.value === 0" ng-src="img/sex-forbid.png"></img>
+                                    <img ng-show="sex.value === 1" ng-src="img/sex-prefer.png"></img>
+                                    <img ng-show="sex.value === 2" ng-src="img/sex-require.png"></img>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="sex.selectValue('none')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="sex.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-left">не указывать</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="sex.selectValue('prefer')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="sex.selectValue(1)" class="md-fab md-raised md-mini">
                                     <img src="img/prefer.png" alt="prefer">
                                     <div class="fab-title fab-title-left">желательно</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="sex.selectValue('require')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="sex.selectValue(2)" class="md-fab md-raised md-mini">
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-left">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="sex.selectValue('forbid')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="sex.selectValue(0)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-left">запретить</div>
                                 </md-button>
@@ -95,27 +118,27 @@
                     <div class="small-3 columns pt1rem">
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="video.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === 'forbid'}">
-                                    <img ng-show="video.value === 'none'" ng-src="img/video-unselected.png"></img>
-                                    <img ng-show="video.value === 'forbid'" ng-src="img/video-forbid.png"></img>
-                                    <img ng-show="video.value === 'prefer'" ng-src="img/video-prefer.png"></img>
-                                    <img ng-show="video.value === 'require'" ng-src="img/video-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === 0}">
+                                    <img ng-show="video.value === -1" ng-src="img/video-unselected.png"></img>
+                                    <img ng-show="video.value === 0" ng-src="img/video-forbid.png"></img>
+                                    <img ng-show="video.value === 1" ng-src="img/video-prefer.png"></img>
+                                    <img ng-show="video.value === 2" ng-src="img/video-require.png"></img>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="video.selectValue('none')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="video.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-left">не указывать</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="video.selectValue('prefer')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="video.selectValue(1)" class="md-fab md-raised md-mini">
                                     <img src="img/prefer.png" alt="prefer">
                                     <div class="fab-title fab-title-left">желательно</div>
                                 </md-button>
-                                <md-button aria-label="Google hangout" ng-click="video.selectValue('require')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="Google hangout" ng-click="video.selectValue(2)" class="md-fab md-raised md-mini">
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-left">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="video.selectValue('forbid')" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="video.selectValue(0)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-left">запретить</div>
                                 </md-button>
@@ -128,12 +151,12 @@
     <div class="h80"></div>
     <div class="row pt1rem">
         <div class="small-12 columns">
-            <input type="text" placeholder="Вступление (необязательно)">   
+            <input type="text" ng-model="iam.intro" placeholder="Вступление (необязательно)">   
         </div>
     </div>
     <div class="row">
         <div class="small-12 columns">
-            <input type="text" placeholder="Местоположение (необязательно)">      
+            <input type="text" ng-model="iam.location" placeholder="Местоположение (необязательно)">      
         </div>
     </div>
     <div class="row">
@@ -143,7 +166,7 @@
             </div>
             <div>
                 <sex-select ng-model="iam.sex"></sex-select>
-                <age-select ng-model="iam.age" values="[1, 2, 3, 4, 5, 6]" 
+                <age-select ng-model="iam.age" values="[0, 1, 2, 3, 4, 5]" 
                 titles="['Возраст: не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']">
                 </age-select> 
             </div>
@@ -154,7 +177,7 @@
             </div>
             <div>
                 <sex-select ng-model="another.sex"></sex-select>
-                <age-select ng-model="another.age" values="[1, 2, 3, 4, 5, 6]" 
+                <age-select ng-model="another.age" values="[0, 1, 2, 3, 4, 5]" 
                 titles="['Возраст: не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']">
                 </age-select>
             </div>

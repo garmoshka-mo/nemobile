@@ -7,9 +7,10 @@ app.config(['$animateProvider', '$compileProvider', function($animateProvider, $
   //  chrome-extension: will be added to the end of the expression
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
-angular.module("angApp").config(["$stateProvider", "$urlRouterProvider", 
+angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
   function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise("signinup/in");
+    // $animate.enabled(false);
     $stateProvider
     .state("start", {
       url: "",

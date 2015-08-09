@@ -651,6 +651,41 @@ services
                     return $q.reject();
                 }
             );
+        },
+
+        randomChatRequest: function(data) {
+            data.access_token = api.accessToken;
+            console.log(data);
+
+            return $http({
+                method: 'POST',
+                url: App.Settings.apiUrl + "/random",
+                data: data
+            })
+            .then(
+                function(res) {
+                    console.log(res);
+                    if (res.data.success) {
+
+                    }
+                    else {
+                        return $q.reject();
+                    }
+                },
+                function() {
+                    return $q.reject();
+                }
+            );
+        },
+
+        cancelRandomRequest: function() {
+            return $http({
+                method: 'DELETE',
+                url: App.Settings.apiUrl + "/random",
+                data: {
+                    "access_token": api.accessToken
+                }
+            });
         }
     };
 

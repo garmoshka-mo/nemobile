@@ -768,6 +768,26 @@ services
         });
     };
 
+    this.signinAsVirtualUser = function () {
+        var d = $q.defer();
+        api.addVirtualAccount()
+        .then(
+            function(res) {
+                user.signin(null, null, res.access_token, true)
+                .then(
+                    function() {
+                        user.save();
+                        d.resolve();
+                    },
+                    function() {
+                        d.reject();
+                    }
+                );
+            }
+        );
+        return d.promise;
+    };
+
     var pubnub = PUBNUB.init({
         subscribe_key: App.Settings.pubnubSubscribeKey,
         publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"

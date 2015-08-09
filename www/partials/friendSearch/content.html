@@ -2,7 +2,7 @@
     <div class="pt1rem">
         <div class="width-92 block-center inline-input-button-block pt1rem">
             <form name="friendSearch" class="relative">
-                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
+                <input class="search-field" type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
                 <button ng-click="findUser()" ng-disabled="showSpinner || !stringToSearch">
                 <i class="fa fa-search" ng-show="!showSpinner"></i>
                 <span ng-show="showSpinner" spinner spinner-color="white"></span>

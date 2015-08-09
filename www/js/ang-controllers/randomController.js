@@ -3,14 +3,21 @@ angular.module("angControllers").controller("randomController", [
     function(user, $scope) {
 
         $scope.showHelpText = false;
+        $scope.isLookingFor = false;
+        $scope.isCancelSpinnerShown = false;
+        $scope.isLookForSpinnerShown = false;
+
+        var ageRanges = [[], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
         $scope.iam = {
-            sex: 'man',
-            age: '1'
+            sex: 'm',
+            age: '1',
+            intro: '',
+            location: ''
         };
 
         $scope.another = {
-            sex: 'woman',
+            sex: 'w',
             age: '2'
         };
 
@@ -21,33 +28,26 @@ angular.module("angControllers").controller("randomController", [
 
         $scope.theme = {
             isOpened: false,
-            value: 'none',
+            value: -1,
             selectValue: selectValue
         };
 
         $scope.geo = {
             isOpened: false,
-            value: 'none',
+            value: -1,
             selectValue: selectValue
         };
 
         $scope.sex = {
             isOpened: false,
-            value: 'none',
+            value: -1,
             selectValue: selectValue
         };
 
         $scope.video = {
             isOpened: false,
-            value: 'none',
+            value: -1,
             selectValue: selectValue
-        };
-
-        $scope.filter = {
-            selectedTheme: 'none',
-            selectedGeo: 'none',
-            selectedSex: 'none',
-            selectedVideo: 'none'
         };
 
         $scope.selectTheme = function(theme) {
@@ -65,5 +65,68 @@ angular.module("angControllers").controller("randomController", [
         $scope.selectVideo = function(video) {
             $scope.filter.selectedVideo = video;
         };
+
+        $scope.lookForChat = function() {
+            var data = prepareDataForServer();
+            $scope.isLookForSpinnerShown = true;
+
+            if (user.isLogged()) {
+                api.randomChatRequest(data)
+                .then(
+                    function() {
+                        $scope.isLookingFor = true;
+                         $scope.isLookForSpinnerShown = false;
+
+                    }
+                );
+            }
+            else {
+                user.signinAsVirtualUser()
+                .then(
+                    function() {
+                        api.randomChatRequest(data)
+                        .then(
+                            function() {
+                                $scope.isLookingFor = true;
+                                 $scope.isLookForSpinnerShown = false;
+
+                            }
+                        );
+                    }
+                );
+            } 
+        };
+
+        $scope.cancelLookingFor = function() {
+            $scope.isCancelSpinnerShown = true;
+            api.cancelRandomRequest()
+            .then(
+                function() {
+                    $scope.isLookingFor = false;
+                    $scope.isCancelSpinnerShown = false;
+                }
+            );
+        };
+
+        function prepareDataForServer() {
+            return {
+                subjects: {
+                    free_talk: $scope.theme.value,
+                    real: $scope.geo.value,
+                    sexual: $scope.sex.value,
+                    video: $scope.video.value
+                },
+                intro: $scope.iam.intro,
+                location: $scope.iam.location, 
+                me: {
+                    gender: $scope.iam.sex,
+                    age_range: ageRanges[$scope.iam.age]
+                },
+                look_for: {
+                    gender: $scope.another.sex,
+                    age_range: ageRanges[$scope.another.age]
+                }
+            };
+        }
     }
 ]);

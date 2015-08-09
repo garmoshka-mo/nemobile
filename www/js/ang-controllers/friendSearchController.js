@@ -86,4 +86,6 @@ angular.module("angControllers").controller("friendSearchController", [
         $scope.stringToSearch = $stateParams.stringToSearch;
         $scope.findUser();
     }
+
+    $('.search-field').eq(0).focus();
 }]);

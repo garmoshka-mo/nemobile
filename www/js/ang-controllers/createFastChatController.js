@@ -4,28 +4,6 @@ angular.module("angControllers").controller("createFastChatController", [
         $scope.showSpinner = true;
         $scope.serverResponse = null;
         
-        function signinAsVirtualUser() {
-            var d = $q.defer();
-            api.addVirtualAccount()
-            .then(
-                function(res) {
-                    user.signin(null, null, res.access_token, true)
-                    .then(
-                        function() {
-                            user.isVirtual = true;
-                            user.save();
-                            d.resolve();
-                        },
-                        function() {
-                            d.reject();
-                            $scope.serverResponse = "Произошла ошибка. Попробуйте еще раз";
-                        }
-                    );
-                }
-            );
-            return d.promise;
-        }
-
         function createVirtualChat() {
             return api.addVirtualAccount()
             .then(
@@ -44,7 +22,7 @@ angular.module("angControllers").controller("createFastChatController", [
             );
         }
 
-        signinAsVirtualUser()
+        user.signinAsVirtualUser()
         .then(
             function() {
                 if ($stateParams.senderId) {
