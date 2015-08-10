@@ -51,7 +51,7 @@ angular.module("angControllers").controller("chatController",
         function setNotification() {
             var title;
             
-            if (chat.isVirtual) {
+            if (chat.isVirtual || !chat.senderId) {
                 if (user.friendsList.nepotomFriends[chat.senderId]) {
                     title = chat.title;
                 }

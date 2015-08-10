@@ -175,7 +175,8 @@ services
 
         var channelName = envelope[3];
         if (message.event == "chat_ready") {
-             
+            routing.goto('chat', {channelName: channelName});
+            return;
         }
 
         //if previous ifs didn't work
