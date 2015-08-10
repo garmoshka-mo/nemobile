@@ -64,6 +64,7 @@ services
 
         user.subscribe(user.channel);
         isLogged = true;
+        user.parsedFromStorage = true;
         localStorage.setItem('isLogged', true);
         getUserFriendsFromServer()
         .then(
