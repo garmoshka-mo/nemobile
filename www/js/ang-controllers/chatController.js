@@ -156,7 +156,7 @@ angular.module("angControllers").controller("chatController",
                 console.log("got chat session");
             },
             function() {
-                chat.addChatSession(user.uuid, channelName, chat.senderId);
+                chat.addChatSession(user.uuid, $stateParams.channelName, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
