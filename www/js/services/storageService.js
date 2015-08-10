@@ -40,8 +40,8 @@ services
             return $localForage.getItem('friendsList');
         },
 
-        getChatSession: function(senderId, index) {
-            var key = "chatSession_" + senderId + "_" + index;
+        getChatSession: function(channelName, index) {
+            var key = "chatSession_" + channelName + "_" + index;
             return $localForage.getItem(key);
         },
 
@@ -73,7 +73,7 @@ services
         saveChatSession: function(chatSessionObj) {
             var notToSave = ['timer', 'currentChat'];
             var _chatSession = filterObject(chatSessionObj, notToSave);
-            $localForage.setItem('chatSession_' + chatSessionObj.senderId + "_" + chatSessionObj.id, _chatSession);
+            $localForage.setItem('chatSession_' + chatSessionObj.channelName + "_" + chatSessionObj.id, _chatSession);
         },
 
         saveLastMessageTimestamp: function(timestamp) {

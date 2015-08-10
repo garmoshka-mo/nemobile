@@ -1,10 +1,11 @@
 factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce', 
     function($timeout, storage, api, $q, $sce) {
     
-    function ChatSession(creatorId, senderId, id, currentChat) {
+    function ChatSession(creatorId, channelName, senderId, id, currentChat) {
         this.isExpired = false;
         this.isReplied = false;
         this.id = id;
+        this.channelName = channelName;
         this.senderId = senderId;
         this.messages = [];
         this.timer = null;
@@ -29,6 +30,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
     ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
         var chatSession = new ChatSession(
             dataFromStorage.creatorId,
+            dataFromStorage.channelName,
             dataFromStorage.senderId,
             dataFromStorage.id
         );
@@ -144,7 +146,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
         },
 
         save: function() {
-            storage.saveChatSession(this, this.senderId);
+            storage.saveChatSession(this, this.channelName);
             console.log("chat session is saved");
         },
 
@@ -170,9 +172,9 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
             }
         }, 
 
-        sendMessage: function(message, receiverId, ttl) {
+        sendMessage: function(message, channelName, ttl) {
             var self = this;
-            return api.sendMessage(message, receiverId, ttl)
+            return api.sendMessage(message, channelName, ttl)
             .then(
                 function(res) {
                     console.log("message is sent", res);

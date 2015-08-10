@@ -1,7 +1,7 @@
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state',
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state) {
+    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
+    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing) {
     
     this.name = null;
     this.uuid = null;
@@ -26,7 +26,7 @@ services
         location.href = params.href;
     }
 
-    function showNotification(user, messageText, senderUuid) {
+    function showNotification(user, messageText, channelName, senderUuid) {
         var notificationText;
         
         if (user.friendsList.nepotomFriends[senderUuid]) {
@@ -43,7 +43,7 @@ services
 
         
         notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
-            location.href = "#/chat?senderId=" + senderUuid;
+            routing.goto('chat', {channelName: channelName});
         });
        
     }
@@ -147,9 +147,9 @@ services
         lastSession.save();
     }
 
-    function handleChatSessionAsync(senderUuid, messageText, expires) {
+    function handleChatSessionAsync(channelName, messageText, expires) {
         console.log('handle chat session async');
-        user.chats[senderUuid].getLastUnexpiredChatSession()
+        user.chats[channelName].getLastUnexpiredChatSession()
         .then(
             function(lastSession) {
                 pushMessageToSession(lastSession, messageText, expires);
@@ -157,26 +157,32 @@ services
         );
     }
 
-    function handleIncomeMessage(m) {
-        console.log(m);
+    function handleIncomeMessage(message, envelope) {
+        console.log(message);
         var self = user;
         
-        if (m.event == "contacts_updated") {
+        if (message.event == "contacts_updated") {
             console.log('friends list will be updated');
             getUserFriendsFromServer();
             return;        
         }
         
-        if (m.event == "profile_updated") {
+        if (message.event == "profile_updated") {
             console.log('user info will be updated');
             updateUserInfo(user.accessToken);
             return;        
         }
 
+        var channelName = envelope[3];
+        if (message.event == "chat_ready") {
+             
+        }
+
         //if previous ifs didn't work
         //therefore message is user_message
-        var senderUuid = m.sender_uuid;
-        var messageText = m.pn_apns.message;
+        var senderUuid = message.sender_uuid;
+        var messageText = message.pn_apns.message;
+        var messageTimestamp = parseInt((+envelope[1]/10000).toFixed(0));
 
         if (senderUuid == user.uuid) {
             return;
@@ -186,36 +192,38 @@ services
         var lastSession;
         
         //checking if chat exist 
-        if (self.chats[senderUuid]) {
+        if (self.chats[channelName]) {
             // console.log("added to existing chat");
             
-            if (!self.chats[senderUuid].isExpired) {
-                if (self.chats[senderUuid].lastMessageTimestamp >= m.timestamp * 1000) {
+            //if chat session exists 
+            if (!self.chats[channelName].isExpired) {
+                if (self.chats[channelName].lastMessageTimestamp >= messageTimestamp) {
                     return;
                 }
                 
-                if (!self.chats[senderUuid].lastUnexpiredChatSession) {
+                if (!self.chats[channelName].lastUnexpiredChatSession) {
                     //it is necessary because some chat session is stored in 
                     //local memory and it takes time to get them from there
                     //that's why there is async handling 
-                    handleChatSessionAsync(senderUuid, messageText, m.expires);
+                    handleChatSessionAsync(channelName, messageText, message.expires);
                 }
                 else {
-                    lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+                    lastSession = self.chats[channelName].lastUnexpiredChatSession;
                 }
             }
+            //if chat session exists but expired
             else {
-                self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
-                self.chats[senderUuid].getLastUnexpiredChatSession(); 
-                lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+                self.chats[channelName].addChatSession(senderUuid, channelName, senderUuid);
+                self.chats[channelName].getLastUnexpiredChatSession(); 
+                lastSession = self.chats[channelName].lastUnexpiredChatSession;
             } 
         }
         else {
             // console.log("created new chat");
-            self.addChat({senderId: senderUuid});
-            self.chats[senderUuid].addChatSession(senderUuid, senderUuid);
-            self.chats[senderUuid].getLastUnexpiredChatSession(); 
-            lastSession = self.chats[senderUuid].lastUnexpiredChatSession;
+            self.addChat({channelName: channelName, senderId: senderUuid});
+            self.chats[channelName].addChatSession(senderUuid, channelName, senderUuid);
+            self.chats[channelName].getLastUnexpiredChatSession(); 
+            lastSession = self.chats[channelName].lastUnexpiredChatSession;
         }
 
         if (messageText === "$===real===") {
@@ -225,18 +233,20 @@ services
         }
 
         if (lastSession) {
-            pushMessageToSession(lastSession, messageText, m.expires);
+            pushMessageToSession(lastSession, messageText, message.expires);
         }
 
-        self.scores = m.my_score;
-        self.chats[senderUuid].senderScores = m.his_score;
-        self.chats[senderUuid].lastMessageTimestamp = m.timestamp * 1000;
+        self.scores = message.my_score;
+        self.chats[channelName].senderScores = message.his_score;
+        self.chats[channelName].lastMessageTimestamp = messageTimestamp;
+        
+        //todo: check the correct work of self.lastMessageTimestamp
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 
-        if ($state.params.senderId !== senderUuid) {
-            showNotification(self, messageText, senderUuid);
-            self.chats[senderUuid].isRead = false;
+        if ($state.params.channelName !== channelName) {
+            showNotification(self, messageText, channelName, senderUuid);
+            self.chats[channelName].isRead = false;
             self.countUnreadChats();
         }
         
@@ -291,12 +301,27 @@ services
                 end: end,
                 callback: function(res) {
                     console.log("unseen messages: ", res);
-                    d.resolve(res[0]);
+                    d.resolve(res);
                 }
             }
         );
 
         return d.promise;
+    }
+
+    function handleChannelHistory(messages, envelope) {
+        
+        for (var j = 0; j < messages.length; j++) {
+            handleIncomeMessage(messages[j], envelope);                            
+        }
+
+        if (window.goToLastMessageChat) {
+            location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
+        }
+
+        console.log('while you were away', messages);
+        
+        window.isGotUnseenMessage = true;
     }
 
     function getUnseenMessages() {
@@ -313,8 +338,14 @@ services
 
                     // console.log('channels were got', channels);
                     
-                    channels.forEach(function(channel) {
-                        channelsHistoriesPromises.push(getChannelHistory(channel));
+                    var _promise = channels.forEach(function(channel) {
+                        getChannelHistory(channel)
+                        .then(
+                            function(res) {
+                                handleChannelHistory(res[0], [null, res[2], null, channel]);
+                            }
+                        );
+                        channelsHistoriesPromises.push(_promise);
                     });
 
                     return channelsHistoriesPromises;
@@ -323,25 +354,6 @@ services
             .then(function(historiesPromises) {
                 $q.all(historiesPromises)
                 .then(function(res) {
-
-                    var messages = [];
-                    
-                    for (var i = 0; i < res.length; i++ ) {
-                        messages = messages.concat(res[i]);
-                    }
-
-                    for (var j = 0; j < messages.length; j++) {
-                        handleIncomeMessage(messages[j]);                            
-                    }
-
-                    if (window.goToLastMessageChat) {
-                        location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
-                    }
-
-                    console.log('while you were away', messages);
-                    
-                    window.isGotUnseenMessage = true;
-
                     d.resolve();
                 });
             });
@@ -550,8 +562,8 @@ services
 
     this.addChat = function(chatData) {
         chatData.currentUser = this;
-        this.chats[chatData.senderId] = new Chat(chatData);
-        this.chats[chatData.senderId].updateInfo();
+        this.chats[chatData.channelName] = new Chat(chatData);
+        this.chats[chatData.channelName].updateInfo();
     };
 
     this.removeChat = function(senderUuid) {
@@ -644,7 +656,10 @@ services
         var self = this;
         pubnub.subscribe({
             channel_group: self.channel,
-            message: function(m) {handleIncomeMessage(m);}
+            message: function(message, envelope, channelName) {
+                console.log(message, envelope);
+                handleIncomeMessage(message, envelope);
+            }
         });
         
     };

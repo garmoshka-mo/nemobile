@@ -126,10 +126,10 @@ angular.module("angControllers").controller("chatController",
         };
 
         //getting chat object, if chat does not exist create new one
-        $scope.chat = user.chats[$stateParams.senderId];
+        $scope.chat = user.chats[$stateParams.channelName];
         if (!$scope.chat) {
-            user.addChat({senderId: $stateParams.senderId});
-            $scope.chat = user.chats[$stateParams.senderId];
+            user.addChat({channelName: $stateParams.channelName});
+            $scope.chat = user.chats[$stateParams.channelName];
         }
         var chat = $scope.chat;
         console.log("chat", chat);
@@ -156,7 +156,7 @@ angular.module("angControllers").controller("chatController",
                 console.log("got chat session");
             },
             function() {
-                chat.addChatSession(user.uuid, chat.senderId);
+                chat.addChatSession(user.uuid, channelName, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
@@ -215,7 +215,7 @@ angular.module("angControllers").controller("chatController",
                     }
                 }
 
-                $scope.chatSession.sendMessage(textToSend, chat.senderId, $scope.newMessage.ttl)
+                $scope.chatSession.sendMessage(textToSend, chat.channelName, $scope.newMessage.ttl)
                 .then(
                     function() {
                         $scope.handleSuccessSending();

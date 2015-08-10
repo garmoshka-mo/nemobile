@@ -61,7 +61,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
       }
     })
     .state("chat", {
-      url: "/chat?senderId&messageText",
+      url: "/chat?channelName&messageText",
       views: {
         "title": {
           template: "Чат"

@@ -123,13 +123,13 @@ services
             });
         },
 
-        sendMessage: function(messageText, recepientId, ttl) {
+        sendMessage: function(messageText, channelName, ttl) {
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
                 data: {
                     "access_token": api.accessToken,
-                    "recipient_uuid": recepientId,
+                    "channel": channelName,
                     "message_text": messageText,
                     "ttl": ttl
                 }
