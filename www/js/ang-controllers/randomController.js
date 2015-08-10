@@ -7,7 +7,7 @@ angular.module("angControllers").controller("randomController", [
         $scope.isCancelSpinnerShown = false;
         $scope.isLookForSpinnerShown = false;
 
-        var ageRanges = [[], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
+        var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
         $scope.iam = {
             sex: 'm',
@@ -66,6 +66,16 @@ angular.module("angControllers").controller("randomController", [
             $scope.filter.selectedVideo = video;
         };
 
+        function onSuccessChatRequest() {
+            $scope.isLookingFor = true;
+            $scope.isLookForSpinnerShown = false;
+        }
+
+        function onErrorChatRequest() {
+            $scope.isLookingFor = false;
+            $scope.isLookForSpinnerShown = false;
+        }
+
         $scope.lookForChat = function() {
             var data = prepareDataForServer();
             $scope.isLookForSpinnerShown = true;
@@ -73,11 +83,8 @@ angular.module("angControllers").controller("randomController", [
             if (user.isLogged()) {
                 api.randomChatRequest(data)
                 .then(
-                    function() {
-                        $scope.isLookingFor = true;
-                         $scope.isLookForSpinnerShown = false;
-
-                    }
+                    onSuccessChatRequest,
+                    onErrorChatRequest
                 );
             }
             else {
@@ -86,11 +93,8 @@ angular.module("angControllers").controller("randomController", [
                     function() {
                         api.randomChatRequest(data)
                         .then(
-                            function() {
-                                $scope.isLookingFor = true;
-                                 $scope.isLookForSpinnerShown = false;
-
-                            }
+                            onSuccessChatRequest,
+                            onErrorChatRequest
                         );
                     }
                 );

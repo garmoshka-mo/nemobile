@@ -63,6 +63,7 @@ services
         user.avatarUrlMini = avatarParseResult.mini;
 
         user.subscribe(user.channel);
+        isLogged = true;
         localStorage.setItem('isLogged', true);
         getUserFriendsFromServer()
         .then(
@@ -235,6 +236,13 @@ services
 
         if (lastSession) {
             pushMessageToSession(lastSession, messageText, message.expires);
+        }
+
+        if (senderUuid) {
+            if (!self.chats[channelName].senderId) {
+                self.chats[channelName].senderId = senderUuid;
+                self.chats[channelName].updateInfo(true);
+            } 
         }
 
         self.scores = message.my_score;
@@ -785,23 +793,20 @@ services
     };
 
     this.signinAsVirtualUser = function () {
-        var d = $q.defer();
-        api.addVirtualAccount()
+        return api.addVirtualAccount()
         .then(
             function(res) {
                 user.signin(null, null, res.access_token, true)
                 .then(
                     function() {
                         user.save();
-                        d.resolve();
                     },
                     function() {
-                        d.reject();
+                        return $q.reject();
                     }
                 );
             }
         );
-        return d.promise;
     };
 
     var pubnub = PUBNUB.init({
