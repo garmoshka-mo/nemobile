@@ -76,23 +76,6 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
             console.warn("chat session expired");
         },
 
-        // removeLastUnrepliedMessages: function() {
-        //     var lastMessageIndex = this.messages.length - 1;
-        //     var lastMessageIsOwn = this.messages[lastMessageIndex].isOwn;
-        //     var firstIndexToRemove = lastMessageIndex - 1;
-        //     for (var i = lastMessageIndex; i >= 0; i--) {
-        //         if (this.messages[i].isOwn === lastMessageIsOwn) {
-        //             firstIndexToRemove = i;
-        //         }
-        //         else {
-        //             break;
-        //         }
-        //     } 
-        //     var amountToDelete = lastMessageIndex - firstIndexToRemove + 1;
-        //     this.messages.splice(firstIndexToRemove, amountToDelete);
-        //     storage.saveChatSession(this);
-        // },
-
         setTimeout: function(time) {
             var self = this;
             // console.log("timer for chatSession is set. Left(msec): " + time);
@@ -133,7 +116,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
                     ttl = calculateMessageTtl(expires);
                     chatSession.setTimeout(ttl);
                     chatSession.whenExipires = new Date().getTime() + ttl;
-                    storage.saveChatSession(chatSession);
+                    chatSession.save();
                 });
             }
         },
@@ -146,7 +129,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
         },
 
         save: function() {
-            storage.saveChatSession(this, this.channelName);
+            storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
             console.log("chat session is saved");
         },
 
@@ -172,9 +155,9 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
             }
         }, 
 
-        sendMessage: function(message, channelName, ttl) {
+        sendMessage: function(message, address, ttl) {
             var self = this;
-            return api.sendMessage(message, channelName, ttl)
+            return api.sendMessage(message, address, ttl)
             .then(
                 function(res) {
                     console.log("message is sent", res);

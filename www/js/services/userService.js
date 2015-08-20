@@ -149,9 +149,9 @@ services
         lastSession.save();
     }
 
-    function handleChatSessionAsync(channelName, messageText, expires) {
+    function handleChatSessionAsync(chat, messageText, expires) {
         console.log('handle chat session async');
-        user.chats[channelName].getLastUnexpiredChatSession()
+        chat.getLastUnexpiredChatSession()
         .then(
             function(lastSession) {
                 pushMessageToSession(lastSession, messageText, expires);
@@ -195,38 +195,39 @@ services
         var lastSession;
         
         //checking if chat exist 
-        if (self.chats[channelName]) {
+        var chat = self.getChat(channelName, senderUuid);
+        if (chat) {
             // console.log("added to existing chat");
             
             //if chat session exists 
-            if (!self.chats[channelName].isExpired) {
-                if (self.chats[channelName].lastMessageTimestamp >= messageTimestamp) {
+            if (!chat.isExpired) {
+                if (chat.lastMessageTimestamp >= messageTimestamp) {
                     return;
                 }
                 
-                if (!self.chats[channelName].lastUnexpiredChatSession) {
+                if (!chat.lastUnexpiredChatSession) {
                     //it is necessary because some chat session is stored in 
                     //local memory and it takes time to get them from there
                     //that's why there is async handling 
-                    handleChatSessionAsync(channelName, messageText, message.expires);
+                    handleChatSessionAsync(chat, messageText, message.expires);
                 }
                 else {
-                    lastSession = self.chats[channelName].lastUnexpiredChatSession;
+                    lastSession = chat.lastUnexpiredChatSession;
                 }
             }
             //if chat session exists but expired
             else {
-                self.chats[channelName].addChatSession(senderUuid, channelName, senderUuid);
-                self.chats[channelName].getLastUnexpiredChatSession(); 
-                lastSession = self.chats[channelName].lastUnexpiredChatSession;
+                chat.addChatSession(senderUuid, channelName, senderUuid);
+                chat.getLastUnexpiredChatSession(); 
+                lastSession = chat.lastUnexpiredChatSession;
             } 
         }
         else {
             // console.log("created new chat");
-            self.addChat({channelName: channelName, senderId: senderUuid});
-            self.chats[channelName].addChatSession(senderUuid, channelName, senderUuid);
-            self.chats[channelName].getLastUnexpiredChatSession(); 
-            lastSession = self.chats[channelName].lastUnexpiredChatSession;
+            chat = self.addChat({channelName: channelName, senderId: senderUuid});
+            chat.addChatSession(senderUuid, channelName, senderUuid);
+            chat.getLastUnexpiredChatSession(); 
+            lastSession = chat.lastUnexpiredChatSession;
         }
 
         if (messageText === "$===real===") {
@@ -239,24 +240,30 @@ services
             pushMessageToSession(lastSession, messageText, message.expires);
         }
 
+        //filling sender uuid if it is undefined
         if (senderUuid) {
-            if (!self.chats[channelName].senderId) {
-                self.chats[channelName].senderId = senderUuid;
-                self.chats[channelName].updateInfo(true);
+            if (!chat.senderId) {
+                chat.senderId = senderUuid;
+                chat.updateInfo(true);
             } 
         }
 
+        //filling channel name if it is undefined
+        if (!chat.channelName) {
+            chat.channelName = channelName;
+        }
+
         self.scores = message.my_score;
-        self.chats[channelName].senderScores = message.his_score;
-        self.chats[channelName].lastMessageTimestamp = messageTimestamp;
+        chat.senderScores = message.his_score;
+        chat.lastMessageTimestamp = messageTimestamp;
         
         //todo: check the correct work of self.lastMessageTimestamp
         self.lastMessageTimestamp = new Date().getTime();
         self.saveLastMessageTimestamp();
 
-        if ($state.params.channelName !== channelName) {
+        if (!($state.params.channelName == channelName || $state.params.senderId == senderUuid)) {
             showNotification(self, messageText, channelName, senderUuid);
-            self.chats[channelName].isRead = false;
+            chat.isRead = false;
             self.countUnreadChats();
         }
         
@@ -572,8 +579,32 @@ services
 
     this.addChat = function(chatData) {
         chatData.currentUser = this;
-        this.chats[chatData.channelName] = new Chat(chatData);
-        this.chats[chatData.channelName].updateInfo();
+
+        if (chatData.channelName) {
+            chatData.primaryKey = 'channelName';
+            this.chats[chatData.channelName] = new Chat(chatData);
+            this.chats[chatData.channelName].updateInfo();
+            return this.chats[chatData.channelName];
+        }
+
+        if (chatData.senderId) {
+            chatData.primaryKey = 'senderId';
+            this.chats[chatData.senderId] = new Chat(chatData);
+            this.chats[chatData.senderId].updateInfo();
+            return this.chats[chatData.senderId];
+        }
+    };
+
+    this.getChat = function(channelName, senderId) {
+        if (user.chats[channelName]) {
+            return user.chats[channelName];
+        }
+
+        if (user.chats[senderId]) {
+            return user.chats[senderId];
+        }
+
+        return false;
     };
 
     this.removeChat = function(senderUuid) {
@@ -609,6 +640,7 @@ services
                     _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
                 }
                 self.chats = _chats;
+                
                 self.countUnreadChats();
                 console.log("user chats are taken from storage", user.chats);
             }),

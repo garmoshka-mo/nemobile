@@ -18,6 +18,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
         this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;
+        this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channelName'; 
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
@@ -56,10 +57,17 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         },
         
         getChatSessionFromStorage: function(chatSessionId) {
-            return storage.getChatSession(this.channelName, chatSessionId)
+            console.log('thisssssssssss', this);
+            var self = this;
+            return storage.getChatSession(this[this.primaryKey], chatSessionId)
             .then(
                 function(dataFromStorage) {
-                    return ChatSession.parseFromStorage(dataFromStorage);
+                    if (dataFromStorage) {
+                        return ChatSession.parseFromStorage(dataFromStorage, self);
+                    }
+                    else {
+                        console.warn("didn't find chatSession " + self[self.primaryKey] + "_" + chatSessionId);
+                    }
                 }
             );
         },
@@ -88,13 +96,12 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                 d.resolve(this.lastUnexpiredChatSession);
             }
             else {
-                storage.getChatSession(this.channelName, this.lastChatSessionIndex)
+                self.getChatSessionFromStorage(this.lastChatSessionIndex)
                 .then(
                     function(chatSession) {
                         if (chatSession) {
-                            var parsedChatSession = ChatSession.parseFromStorage(chatSession, self);
-                            self.lastUnexpiredChatSession = parsedChatSession;
-                            self.chatSessions[self.lastChatSessionIndex] = parsedChatSession;
+                            self.lastUnexpiredChatSession = chatSession;
+                            self.chatSessions[self.lastChatSessionIndex] = chatSession;
                             d.resolve(self.lastUnexpiredChatSession);
                             // console.log("user", self.currentUser);
                         }

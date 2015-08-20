@@ -123,16 +123,28 @@ services
             });
         },
 
-        sendMessage: function(messageText, channelName, ttl) {
+        sendMessage: function(messageText, address, ttl) {
+            var data = {
+                "access_token": api.accessToken,
+                "message_text": messageText,
+                "ttl": ttl
+            };
+
+            if (address.channel) {
+                data.channel = address.channel;
+            }
+            else if (address.uuid) {
+                data.recipient_uuid = address.uuid;
+            }
+            else {
+                console.error("there's no recipient address");
+                return;
+            }
+
             return $http({
                 method: 'POST',
                 url: App.Settings.apiUrl + '/messages',
-                data: {
-                    "access_token": api.accessToken,
-                    "channel": channelName,
-                    "message_text": messageText,
-                    "ttl": ttl
-                }
+                data: data
             });
         },
 

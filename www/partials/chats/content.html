@@ -1,5 +1,5 @@
 <div overscrollable-without-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
-  <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectByTimestamp" ng-click="goto('chat', {channelName: '{{::chat.channelName}}' })">
+  <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectByTimestamp" ng-click="goto('chat', {channelName: '{{::chat.channelName}}', senderId: '{{::chat.senderId}}' })">
     <div class="card" ng-class="{'unread': !chat.isRead}">
       <div class="row">
         <div class="small-3 column ava-container">

@@ -41,7 +41,7 @@
                 <input data-snap-ignore="true" type="text" class="chat-input" ng-focus="scrollToBottom()" ng-model="newMessage.text" ng-keypress="checkIfEnter($event)" ng-change="findAppropriateStiker()">
             </div>
         </div>
-        <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="chat.sendMessage()">
+        <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="sendMessage()">
             <i ng-show="!isMessageSending" class="fa fa-paper-plane"></i>
             <span ng-show="isMessageSending" spinner spinner-color="white"></span>
         </button>

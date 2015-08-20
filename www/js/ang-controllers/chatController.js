@@ -52,12 +52,7 @@ angular.module("angControllers").controller("chatController",
             var title;
             
             if (chat.isVirtual || !chat.senderId) {
-                if (user.friendsList.nepotomFriends[chat.senderId]) {
-                    title = chat.title;
-                }
-                else { 
-                    title = "кто-то";
-                }
+                title = "кто-то";
             }
             else {
                 title = chat.title;
@@ -126,10 +121,16 @@ angular.module("angControllers").controller("chatController",
         };
 
         //getting chat object, if chat does not exist create new one
-        $scope.chat = user.chats[$stateParams.channelName];
+        $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);
         if (!$scope.chat) {
-            user.addChat({channelName: $stateParams.channelName});
-            $scope.chat = user.chats[$stateParams.channelName];
+            if ($stateParams.channelName) {
+                user.addChat({channelName: $stateParams.channelName});
+                $scope.chat = user.chats[$stateParams.channelName];
+            }
+            else if ($stateParams.senderId) {
+                user.addChat({senderId: $stateParams.senderId});
+                $scope.chat = user.chats[$stateParams.senderId];
+            }
         }
         var chat = $scope.chat;
         console.log("chat", chat);
@@ -201,7 +202,21 @@ angular.module("angControllers").controller("chatController",
             $scope.errorDescription = dictionary.get(errorDescription);
         };
 
-        chat.sendMessage = function(text) {
+        function getAddress() {
+            if (chat.channelName) {
+                return {
+                    channel: chat.channelName
+                };
+            }
+
+            if (chat.senderId) {
+                return {
+                    uuid: chat.senderId
+                };
+            }
+        }
+
+        $scope.sendMessage = function(text) {
             $scope.setFocusOnTextField();
             
             var textToSend = text || $scope.newMessage.text;
@@ -215,7 +230,7 @@ angular.module("angControllers").controller("chatController",
                     }
                 }
 
-                $scope.chatSession.sendMessage(textToSend, chat.channelName, $scope.newMessage.ttl)
+                $scope.chatSession.sendMessage(textToSend, getAddress(), $scope.newMessage.ttl)
                 .then(
                     function() {
                         $scope.handleSuccessSending();
@@ -239,12 +254,12 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.sendSticker = function(stickerLink) {
-            chat.sendMessage(stickerLink);
+            $scope.sendMessage(stickerLink);
             $scope.isStickersGalleryVisiable = false;
         };
 
         $scope.sendAppropriateSticker = function(stickerLink) {
-            chat.sendMessage(stickerLink);
+            $scope.sendMessage(stickerLink);
             $scope.appropriateStickers = [];
         };
 
@@ -277,7 +292,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.checkIfEnter = function(event) {
             if (event.keyCode === 13) {
-                chat.sendMessage();
+                $scope.sendMessage();
             }
         };
 
@@ -296,7 +311,7 @@ angular.module("angControllers").controller("chatController",
         
         if ($stateParams.messageText) {
             $scope.newMessage.text = $stateParams.messageText;
-            chat.sendMessage();
+            $scope.sendMessage();
         }
 
         $(document).on("webViewShrunk", function() {
