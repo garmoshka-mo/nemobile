@@ -3,14 +3,14 @@
         <div>ваше первое сообщение</div>
         <radio-buttons values="[10, 600, 3600]" titles="['10 сек', '10 мин', '1 час']" ng-model="newMessage.ttl"></radio-buttons> 
     </div>
-    <div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
+    <!-- <div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
         Чтобы разблокировать все функции приложения. Необходима регистрация.
         <br>
         <div class="pt1rem">
             <a href="#/updateProfile"><button>зарегистрироваться</button></a>
         </div>
-    </div>
-    <div class="ta-center width-92 block-center chat-notification" ng-show="chat.isVirtual">
+    </div> -->
+    <div class="ta-center width-92 block-center chat-notification" ng-show="chat.isVirtual ">
         Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
         <div class="pt1rem">
             <a href="#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}"><button>Пригласить</button></a>

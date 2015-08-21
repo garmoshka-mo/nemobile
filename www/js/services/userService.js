@@ -306,7 +306,7 @@ services
         
         var end;
         if (user.lastMessageTimestamp) {
-            end = (user.lastMessageTimestamp + differencePubnubDeviceTime) * 10000
+            end = user.lastMessageTimestamp * 10000;
         }
         else {
             end = MSEC_IN_MONTH * 1000; 
@@ -319,17 +319,18 @@ services
                 callback: function(res) {
                     console.log("unseen messages: ", res);
                     d.resolve(res);
-                }
+                },
+                include_token: true 
             }
         );
 
         return d.promise;
     }
 
-    function handleChannelHistory(messages, envelope) {
+    function handleChannelHistory(messages, channel) {
         
         for (var j = 0; j < messages.length; j++) {
-            handleIncomeMessage(messages[j], envelope);                            
+            handleIncomeMessage(messages[j].message, [null, messages[j].timetoken, null, channel]);                            
         }
 
         if (window.goToLastMessageChat) {
@@ -359,7 +360,7 @@ services
                         getChannelHistory(channel)
                         .then(
                             function(res) {
-                                handleChannelHistory(res[0], [null, res[2], null, channel]);
+                                handleChannelHistory(res[0], channel);
                             }
                         );
                         channelsHistoriesPromises.push(_promise);
