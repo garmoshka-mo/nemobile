@@ -177,7 +177,7 @@ services
 
         var channelName = envelope[3];
         if (message.event == "chat_ready") {
-            routing.goto('chat', {channelName: channelName});
+            routing.goto('chat', {channelName: channelName, fromState: 'random'});
             return;
         }
 
@@ -700,7 +700,7 @@ services
         pubnub.subscribe({
             channel_group: self.channel,
             message: function(message, envelope, channelName) {
-                console.log(message, envelope);
+                // console.log(message, envelope);
                 handleIncomeMessage(message, envelope);
             }
         });

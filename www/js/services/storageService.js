@@ -73,7 +73,7 @@ services
         saveChatSession: function(chatSessionObj, primaryKeyValue) {
             var notToSave = ['timer', 'currentChat'];
             var _chatSession = filterObject(chatSessionObj, notToSave);
-            console.log('!!!!!!!!!!!!!!!!!!primaryKeyValue', primaryKeyValue);
+            // console.log('!!!!!!!!!!!!!!!!!!primaryKeyValue', primaryKeyValue);
             $localForage.setItem('chatSession_' + primaryKeyValue + "_" + chatSessionObj.id, _chatSession);
         },
 

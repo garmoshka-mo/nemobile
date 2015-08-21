@@ -79,9 +79,9 @@ angular.module("angControllers").controller("mainController", [
         //async call is necessary for correct work on android 4.1.1
         $timeout(function() {
             var state = snapper.state().state;
-            console.log(state);
+            // console.log(state);
             if (state === 'right') {
-                console.log('openning menu!');
+                // console.log('openning menu!');
                 if (RAN_AS_APP) {
                     if (window.device.platform === "iOS") {
                         cordova.plugins.Keyboard.close();

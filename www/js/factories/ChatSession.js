@@ -160,7 +160,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
             return api.sendMessage(message, address, ttl)
             .then(
                 function(res) {
-                    console.log("message is sent", res);
+                    // console.log("message is sent", res);
                     
                     if (res.data.success && !res.data.type) {
                        

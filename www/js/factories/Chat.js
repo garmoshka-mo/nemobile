@@ -57,7 +57,7 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
         },
         
         getChatSessionFromStorage: function(chatSessionId) {
-            console.log('thisssssssssss', this);
+            // console.log('thisssssssssss', this);
             var self = this;
             return storage.getChatSession(this[this.primaryKey], chatSessionId)
             .then(
@@ -218,6 +218,10 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
             this.isExpired = true;
             console.log("chatSession is removed");
         },
+
+        disconnect: function() {
+            return api.deleteChat(this.channelName);
+        }
     };
 
     return Chat;

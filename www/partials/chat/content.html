@@ -1,5 +1,5 @@
 <div class="chat" overscrollable-with-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
-    <div class="firstMessage ta-center chat-notification width-92 block-center" ng-show="isFirstMessage">
+    <div class="firstMessage ta-center chat-notification width-92 block-center" ng-show="isFirstMessage && !fromRandom">
         <div>ваше первое сообщение</div>
         <radio-buttons values="[10, 600, 3600]" titles="['10 сек', '10 мин', '1 час']" ng-model="newMessage.ttl"></radio-buttons> 
     </div>
@@ -10,6 +10,13 @@
             <a href="#/updateProfile"><button>зарегистрироваться</button></a>
         </div>
     </div> -->
+    <div class="ta-center width-92 block-center pt1rem" ng-show="fromRandom">
+        <button class="bg-red" ng-click="disconnectRandomChat()">
+            <span ng-hide="isCancelSpinnerShown" >отключиться</span>
+            <div  ng-show="isCancelSpinnerShown" spinner spinner-color="white"></div>
+        </button>
+    </div>
+    
     <div class="ta-center width-92 block-center chat-notification" ng-show="chat.isVirtual ">
         Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
         <div class="pt1rem">

@@ -698,6 +698,19 @@ services
                     "access_token": api.accessToken
                 }
             });
+        },
+
+        deleteChat: function(channel) {
+            return $http({
+                method: 'DELETE',
+                url: App.Settings.apiUrl + "/chats/" + channel,
+                data: {
+                    "access_token": api.accessToken
+                }
+            })
+            .then(function(res) {
+                console.log(res);
+            });
         }
     };
 

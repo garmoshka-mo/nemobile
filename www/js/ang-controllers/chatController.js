@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', '$state', 'dictionary',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, $state, dictionary) {
+    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
+    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
         
         console.log("chat controller is invoked");
 
@@ -8,6 +8,7 @@ angular.module("angControllers").controller("chatController",
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
+        $scope.fromRandom = $stateParams.fromState === 'random' ? true : false;
 
         var $chatInput = $('.chat-input');
 
@@ -118,6 +119,10 @@ angular.module("angControllers").controller("chatController",
             else {
                 return messageText;
             }
+        };
+
+        $scope.disconnectRandomChat = function() {
+            $scope.chat.disconnect();
         };
 
         //getting chat object, if chat does not exist create new one
