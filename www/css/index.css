@@ -494,6 +494,9 @@ button.chat-send {
   background: #29B6F6;
   border-radius: 15px 15px 0 0;
 }
+.stickersGallery .category-name:hover {
+  cursor: pointer;
+}
 .stickers-gallery-image-wrapper {
   display: inline-block;
   padding: 5px;

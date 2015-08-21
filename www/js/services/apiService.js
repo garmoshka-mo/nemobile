@@ -3,6 +3,19 @@ services
     function ($http, $q, $upload, user, notification, storage, $rootScope) {
     
     console.log("api service is enabled");
+
+    function Config(method, url, data, withoutAccessToken) {
+        this.method = method;
+        this.url = App.Settings.apiUrl + url;
+        if (data) {
+            this.data = data;
+        }
+        if (!withoutAccessToken) {
+            this.headers= {
+                "Authorization": "Token token=" + api.accessToken
+            };
+        }         
+    }
     
     var api = {
         
@@ -14,12 +27,15 @@ services
             this.accessToken = null;
         },
 
+
+
         signin: function(name, password) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + '/login',
-                data: {name: name, password: password}
-            })
+            return $http(new Config(
+                'POST',
+                '/login',
+                {name: name, password: password},
+                true
+            ))
             .then(function(res) {
                 if (res.data.success) {
                     console.log('api.signin', res);
@@ -32,11 +48,12 @@ services
         },
 
         signup: function(name, password) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + '/register',
-                data: {name: name, password: password}
-            })
+            return $http(new Config(
+                'POST',
+                '/register',
+                {name: name, password: password},
+                true
+            ))
             .then(function(res) {
                 // console.log('api.signup', res);
                 if (res.data.success) {
@@ -49,11 +66,10 @@ services
         },
 
         getUserInfo: function(access_token) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + '/profile',
-                data: {access_token: access_token}
-            })
+            return $http(new Config(
+                'POST',
+                '/profile'
+            ))
             .then(function(res) {
                 console.log('api.getUserInfo', res);
                 if (res.data.success) {
@@ -66,10 +82,6 @@ services
         },
 
         updateProfile: function(name, password) {
-            var data = {
-                access_token: api.accessToken
-            };
-
             if (name) {
                 data.name = name;
             }
@@ -78,11 +90,11 @@ services
                 data.password = password;
             }
 
-            return $http({
-                method: 'PUT',
-                url: App.Settings.apiUrl + '/profile',
-                data: data
-            })
+            return $http(new Config(
+                'PUT',
+                '/profile',
+                data
+            ))
             .then(
                 function(res) {
                     console.log('update profile', res);
@@ -100,10 +112,10 @@ services
         },
 
         getServerTime: function() {
-            return $http({
-                method: 'GET',
-                url: App.Settings.apiUrl + '//time?access_token=' + api.accessToken ,
-            })
+            return $http(new Config(
+                'GET',
+                '/time'
+            ))
             .then(
                 function(res) {
                     return res.data.origin_time;
@@ -125,7 +137,6 @@ services
 
         sendMessage: function(messageText, address, ttl) {
             var data = {
-                "access_token": api.accessToken,
                 "message_text": messageText,
                 "ttl": ttl
             };
@@ -140,12 +151,11 @@ services
                 console.error("there's no recipient address");
                 return;
             }
-
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + '/messages',
-                data: data
-            });
+            return $http(new Config(
+                'POST',
+                '/messages',
+                data
+            ));
         },
 
         searchUser: function(userName, userPhone) {
@@ -156,14 +166,14 @@ services
             else {
                 searchParams = [{"name": userName}];
             }
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + '/users/search',
-                data: {
-                    "access_token": api.accessToken,
+
+            return $http(new Config(
+                'POST',
+                '/users/search',
+                {
                     "search_params": searchParams
                 }
-            })
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -181,10 +191,10 @@ services
         },
 
         getCategories: function() {
-            return $http({
-                method: 'GET',
-                url: App.Settings.apiUrl + "/categories?access_token=" + api.accessToken ,
-            })
+            return $http(new Config(
+                'GET',
+                '/categories'
+            ))
             .then(
                 function(res) {
                     return res.data.categories;
@@ -196,21 +206,20 @@ services
         },
 
         addNewCategory: function(name) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/categories",
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'POST',
+                '/categories',
+                {
                     "category": {"name": name}
                 }
-            });
+            ));
         },
 
         removeCategory: function(categoryId) {
-            return $http({
-                method: 'DELETE',
-                url: App.Settings.apiUrl + "/categories/" + categoryId + "?access_token=" + api.accessToken,
-            })
+            return $http(new Config(
+                'DELETE',
+                '/categories/' + categoryId
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -232,14 +241,13 @@ services
                 categoryData.associated_words = associatedWords;
             }
 
-            return $http({
-                method: 'PUT',
-                url: App.Settings.apiUrl + "/categories/" + categoryId,
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'PUT',
+                '/categories/' + categoryId,
+                {
                     "category": categoryData
                 }
-            })
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -251,15 +259,14 @@ services
         },
 
         addStickerURL: function(categoryId, imageURL) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'POST',
+                '/categories/' + categoryId + '/images',
+                {
                     "id": categoryId,
                     "image": {"image_url": imageURL}
                 }
-            })
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -280,8 +287,10 @@ services
                         method: 'POST',
                         url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
                         data: {
-                            "access_token": api.accessToken,
                             "id": categoryId,
+                        },
+                        headers: {
+                            "Authorization": "Token token=" + api.accessToken
                         },
                         file: file,
                         fileName: "image." + type,
@@ -306,16 +315,15 @@ services
 
         moveSticker: function(categoryId, imageId, newCategoryId) {
             var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images/" + imageId;
-            return $http({
-                method: 'PUT',
-                url: url,
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'PUT',
+                url,
+                {
                     "id": categoryId,
                     "image_id": imageId,
                     "new_category_id": newCategoryId
                 }
-            })
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -327,12 +335,12 @@ services
         },
 
         removeSticker: function(categoryId, imageId) {
-            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images" + "/" + imageId
-                        + "?access_token=" + api.accessToken;
-            return $http({
-                method: 'DELETE',
-                url: url
-            })
+            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images" + "/" + imageId;
+                        
+            return $http(new Config(
+                'DELETE',
+                url
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -345,13 +353,14 @@ services
         },
 
         initPhoneActivation: function(phoneNumber) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/phone_number/initialize_authentication",
-                data: {
+            return $http(new Config(
+                'POST',
+                '/phone_number/initialize_authentication',
+                {
                     "phone_number": phoneNumber,
-                }
-            })
+                },
+                true
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -372,15 +381,17 @@ services
                 "activation_code": activationCode
             };
 
+            var withoutAccessToken = true;
             if (sendAccessToken) {
-                data["access_token"] = api.accessToken;
+                withoutAccessToken = false;
             }
 
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/phone_number/confirm",
-                data: data
-            })
+            return $http(new Config(
+                'POST',
+                '/phone_number/confirm',
+                data,
+                withoutAccessToken
+            ))
             .then(
                 function(res) {
                     console.log(res.data);
@@ -399,14 +410,13 @@ services
         },
 
         attachPhoneNumber: function(phoneNumber) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/phone/activation/attach",
-                data: {
+            return $http(new Config(
+                'POST',
+                '/phone/activation/attach',
+                {
                     "phone_number": phoneNumber,
-                    "access_token": api.accessToken
                 }
-            })
+            ))
             .then(
                 function(res) {
                     if (res.data.success) {
@@ -424,14 +434,13 @@ services
         },
 
         findNepotomUsers: function(phoneNumbersArr) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/users/phonebook_search",
-                data: {
+            return $http(new Config(
+                'POST',
+                '/users/phonebook_search',
+                {
                     "phonebook": phoneNumbersArr,
-                    "access_token": api.accessToken
                 }
-            })
+            ))
             .then(
                 function(res) {
                     // console.log('find nepotom users res', res.data);
@@ -450,14 +459,13 @@ services
         },
 
         getUserInfoByUuid: function(uuid) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/users",
-                data: {
+            return $http(new Config(
+                'POST',
+                '/users',
+                {
                     "user_uuid": uuid,
-                    "access_token": api.accessToken
                 }
-            })
+            ))
             .then(
                 function(res) {
                     // console.log('got user info by uuid', res);
@@ -483,8 +491,8 @@ services
                     $upload.upload({
                         method: 'POST',
                         url: App.Settings.apiUrl + "/avatar",
-                        data: {
-                            "access_token": api.accessToken,
+                        headers: {
+                            "Authorization": "Token token=" + api.accessToken
                         },
                         file: file,
                         fileName: "image." + type,
@@ -508,22 +516,18 @@ services
 
         //method to upload url or random string which are used to generate avatar
         updateAvatarText: function(avatarData) {
-            avatarData.access_token = api.accessToken;
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/avatar",
-                data: avatarData
-            });
+            $http(new Config(
+                'POST',
+                '/avatar',
+                avatarData
+            ));
         },
 
         addVirtualAccount: function() {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/add_virtual_user",
-                data: {
-                    "access_token": api.accessToken
-                }
-            })
+            return $http(new Config(
+                'POST',
+                '/add_virtual_user'
+            ))
             .then(
                 function(res) {
                     console.log("addVirtualAccount", res);
@@ -542,25 +546,23 @@ services
         },
 
         blockUser: function(uuid) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/users/blacklist",
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'POST',
+                '/users/blacklist',
+                {
                     "user_uuid": uuid
                 }
-            });
+            ));
         },
 
         forbidImage: function(imageId) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/images/abuse",
-                data: {
+            return $http(new Config(
+                'POST',
+                '/image/abuse',
+                {
                     "image_id": imageId,
-                    "access_token": api.accessToken
                 }
-            })
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -584,22 +586,22 @@ services
             });
             // console.log('friendsArray', friendsArray);
             if (!_.isEmpty(friendsArray)) {
-                return $http({
-                    method: 'PATCH',
-                    url: App.Settings.apiUrl + "/set_friends",
-                    data: {
-                        "access_token": api.accessToken,
+                return $http(new Config(
+                    'PATCH',
+                    '/set_friends',
+                    {
                         "friends": friendsArray
                     }
-                });
+
+                ));
             }
         },
 
         getFriends: function() {
-            return $http({
-                method: 'GET',
-                url: App.Settings.apiUrl + "/get_friends?access_token=" + api.accessToken
-            })
+            return $http(new Config(
+                'GET',
+                '/get_friends'
+            ))
             .then(
                 function(res) {
                     if (res.data.success) {
@@ -616,14 +618,13 @@ services
         },
 
         removeFriend: function(uuids) {
-            return $http({
-                method: 'PATCH',
-                url: App.Settings.apiUrl + "/delete_friends",
-                data: {
-                    "access_token": api.accessToken,
+            return $http(new Config(
+                'PATCH',
+                '/delete_friends',
+                {
                     "uuids": uuids
-                }
-            })
+                }           
+            ))
             .then(
                 function(res) {
                     if (res.data.success) {
@@ -640,15 +641,16 @@ services
         },
 
         socialSignin: function(provider, providerId, providerToken) {
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/providers",
-                data: {
+            
+            return $http(new Config(
+                'POST',
+                '/providers',
+                {
                     "provider": provider,
                     "provider_user_id": providerId,
                     "provider_token": providerToken
                 }
-            })
+            ))
             .then(
                 function(res) {
                     if (res.data.success) {
@@ -666,14 +668,13 @@ services
         },
 
         randomChatRequest: function(data) {
-            data.access_token = api.accessToken;
             console.log(data);
 
-            return $http({
-                method: 'POST',
-                url: App.Settings.apiUrl + "/random",
-                data: data
-            })
+            return $http(new Config(
+                'POST',
+                '/random',
+                data
+            ))
             .then(
                 function(res) {
                     console.log(res);
@@ -691,23 +692,17 @@ services
         },
 
         cancelRandomRequest: function() {
-            return $http({
-                method: 'DELETE',
-                url: App.Settings.apiUrl + "/random",
-                data: {
-                    "access_token": api.accessToken
-                }
-            });
+            return $http(new Config(
+                'DELETE',
+                '/random'
+            ));
         },
 
         deleteChat: function(channel) {
-            return $http({
-                method: 'DELETE',
-                url: App.Settings.apiUrl + "/chats/" + channel,
-                data: {
-                    "access_token": api.accessToken
-                }
-            })
+            return $http(new Config(
+                'DELETE',
+                '/chats/' + channel
+            ))
             .then(function(res) {
                 console.log(res);
             });

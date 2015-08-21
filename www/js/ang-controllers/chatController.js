@@ -185,7 +185,7 @@ angular.module("angControllers").controller("chatController",
         $scope.newMessage = {
             text: '',
             // ttl: 2592000,//30 days
-            ttl: 3600,
+            ttl: $scope.fromRandom ? 0 : 3600,
             clearText: function() {
                 this.text = '';
             }
