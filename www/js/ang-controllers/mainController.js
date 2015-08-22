@@ -145,17 +145,19 @@ angular.module("angControllers").controller("mainController", [
         if (user.isLogged()) {
             if (_.includes(statesFromRedirectLoggedUser, toState.name)) {
                 evt.preventDefault();
-                if (_.isEmpty(user.chats)) {
+                $state.go('random');
+/*                if (_.isEmpty(user.chats)) {
                     $state.go('friends');
                 }
                 else {
                     $state.go('chats');
-                }    
+                }  */
             }
         }
         else if (toState.name === 'start') {
             evt.preventDefault();
-            $state.go('homepage');
+            //$state.go('homepage');
+            $state.go('random');
         }
 
         if (_.includes(statesWhereShowBackArrow, toState.name) && 
@@ -196,13 +198,13 @@ angular.module("angControllers").controller("mainController", [
         .then(function() {
             if (RAN_AS_APP) {
                 if (_.isEmpty(user.chats)) {
-                    $state.go('friends')
+                    $state.go('random')
                     .then(
                         hideSplashScreen
                     );
                 }
                 else {
-                    $state.go('chats')
+                    $state.go('random')
                     .then(
                         hideSplashScreen
                     );
@@ -211,17 +213,17 @@ angular.module("angControllers").controller("mainController", [
             else {
                 if (_.includes(statesFromRedirectLoggedUser, $state.current.name)) {
                     if (_.isEmpty(user.chats)) {
-                        $state.go('friends');
+                        $state.go('random');
                     }
                     else {
-                        $state.go('chats');
+                        $state.go('random');
                     }    
                 }
             }
         });
     }
     else {
-        $state.go('homepage');
+        $state.go('random');
     }
 
     $scope.routing = routing;

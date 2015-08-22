@@ -9,10 +9,11 @@ angular.module("angControllers").controller("chatController",
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
         $scope.fromRandom = $stateParams.fromState === 'random' ? true : false;
+        $scope.isPaired = true;
 
         var $chatInput = $('.chat-input');
 
-        function retriveWords(inputString) {
+        function retrieveWords(inputString) {
             var output = inputString.match(/[A-Za-zА-Яа-я]+/g);
             return output === null ? [] : output;
         }
@@ -123,6 +124,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
+            $scope.isPaired = false;
         };
 
         //getting chat object, if chat does not exist create new one
@@ -273,7 +275,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.findAppropriateStiker = function() {
-            var words = retriveWords($scope.newMessage.text);
+            var words = retrieveWords($scope.newMessage.text);
             
             if (words.length < 10) {
                 $scope.appropriateStickers = [];

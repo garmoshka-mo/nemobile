@@ -8,7 +8,7 @@
                 <i class="fa fa-check"></i>
             </div>
             <div class="change-ava-button" ng-click="restoreDefaultAvatar()">
-                <i class="fa fa-undo"></i>
+                <i class="fa fa-close"></i>
             </div>
             <div class="change-ava-button" ng-click="goToLoadAvatar()">
                 <i class="fa fa-upload"></i>
@@ -23,14 +23,14 @@
                 <span class="menu-new-messages-number" ng-show="!!user.unreadChatsAmount" ng-bind="user.unreadChatsAmount"></span>
             </a>
         </li>
-        <li><a class="menu-item" ng-click="goto('friends')"><i class="fa fa-group"></i>Контакты</a></li>
-        <li><a class="menu-item" ng-click="goto('friendSearch')"><i class="fa fa-plus"></i>Добавить контакт</a></li>
+        <li><a class="menu-item" ng-click="goto('friends')" ng-show="fullMode"><i class="fa fa-group"></i>Контакты</a></li>
+        <li><a class="menu-item" ng-click="goto('friendSearch')" ng-show="fullMode"><i class="fa fa-plus"></i>Добавить контакт</a></li>
         <li><a class="menu-item" ng-click="goto('random')"><i class="fa fa-refresh"></i>Чат наугад</a></li>
-        <li><a class="menu-item" ng-click="goto('settings')"><i class="fa fa-gear"></i>Настройки</a></li>
+        <li><a class="menu-item" ng-click="goto('settings')" ng-show="fullMode"><i class="fa fa-gear"></i>Настройки</a></li>
         <li><a class="menu-item" ng-click="goto('about')"><i class="fa fa-info-circle"></i>О программе</a></li>
-        <li><a class="menu-item" ng-click="goto('exit')" class="lessen-word"><i class="fa fa-power-off"></i>Выход</a></li>
-        <li class="ta-center">
-            <button ng-click="sendDebugInfo()" ng-hide="showDebugPreloader">отправить слепок</button>
+        <li><a class="menu-item" ng-click="goto('exit')" ng-show="fullMode" class="lessen-word"><i class="fa fa-power-off"></i>Выход</a></li>
+        <li>
+            <a class="menu-item" ng-click="sendDebugInfo()" ng-show="debug"><i class="fa fa-life-ring"></i>отправить слепок</a>
             <div spinner spinner-color="white" ng-show="showDebugPreloader"></div>
         </li>
     </ul>
