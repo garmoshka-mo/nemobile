@@ -168,9 +168,6 @@ input[type="password"] {
   background-color: #363645;
   height: 20px;
 }
-a {
-  color: inherit;
-}
 
 h1.title {
   font-family: "Open Sans Normal";
@@ -220,12 +217,12 @@ ul.off-canvas-list li a {
 
  .main-section{
    overflow: scroll;
-   padding-bottom: 4rem;
  }
  #wrapper{
    width: 100%;
    max-width: 550px;
    margin: 0 auto;
+   padding-bottom: 100px;
  }
 
 #footer{

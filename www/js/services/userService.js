@@ -145,7 +145,8 @@ services
             }
         }
 
-        lastSession.setTimer(expires);
+        // todo: fix logic bugs and uncomment
+        //lastSession.setTimer(expires);
         lastSession.save();
     }
 
@@ -162,7 +163,8 @@ services
     function handleIncomeMessage(message, envelope) {
         console.log(message);
         var self = user;
-        
+        var channelName = envelope[3];
+
         if (message.event == "contacts_updated") {
             console.log('friends list will be updated');
             getUserFriendsFromServer();
@@ -175,21 +177,28 @@ services
             return;        
         }
 
-        var channelName = envelope[3];
+
         if (message.event == "chat_ready") {
             routing.goto('chat', {channelName: channelName, fromState: 'random'});
             return;
         }
 
+        if (message.event == "chat_empty") {
+            var chat = self.getChat(channelName);
+            handleChatSessionAsync(chat, '<b>Собеседник покинул чат</b> <a href="#/random">Начать новый диалог</a>', 0);
+            return;
+        }
+
         if (!message.pn_apns) {
-            console.log('Unknown message format');
+            console.warn('Unknown message format');
             return;
         }
 
         //if previous ifs didn't work
         //therefore message is user_message
         var senderUuid = message.sender_uuid;
-        var messageText = message.pn_apns.message;
+        var messageText = message.pn_apns.message.sanitize();
+
         var messageTimestamp = parseInt((+envelope[1]/10000).toFixed(0));
 
         if (senderUuid == user.uuid) {

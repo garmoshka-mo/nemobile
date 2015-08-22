@@ -72,8 +72,8 @@ angular.module("angControllers").controller("chatController",
         }
 
         $scope.scrollToBottom = function() {
-            var $chatContainer = $(".chat");
-            $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500);
+            var $chatContainer = $(".main-section");
+            $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         };
 
         $scope.setFocusOnTextField = function() {

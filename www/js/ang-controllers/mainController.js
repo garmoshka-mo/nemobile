@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo', '$state',
-    function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state) {
+function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state) {
 
     $scope.user = user;
 
@@ -45,12 +45,7 @@ angular.module("angControllers").controller("mainController", [
         'phoneRegistration'
     ];
 
-    if (navigator.device) {
-        $scope.isWeb = false;
-    }
-    else {
-        $scope.isWeb = true;
-    }
+    $scope.isWeb = !navigator.device;
 
     document.addEventListener("pause", function() {
         $rootScope.isAppInBackground = true;
@@ -107,6 +102,7 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.backArrowHandler = function() {
         window.history.back();
+        scrollToTop();
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
@@ -116,12 +112,7 @@ angular.module("angControllers").controller("mainController", [
             routing.is_preload = true;
         }   
          
-        if (_.includes(statesNotShowScores, toState.name)) {
-            $scope.isUserScoresShown = false;
-        }
-        else {
-            $scope.isUserScoresShown = true;
-        }
+        $scope.isUserScoresShown = !_.includes(statesNotShowScores, toState.name);
         
         // if (user.isVirtual) {
         //     if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
@@ -171,11 +162,9 @@ angular.module("angControllers").controller("mainController", [
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            // console.log("state is changed!");
-            var changeParamas = arguments;
             if (user.isLogged()) {
                 if (user.parsedFromStorage) {
-                    onStateChangeStart.apply(this, changeParamas);
+                    onStateChangeStart.apply(this, arguments);
                 }
                 else {
                     routing.is_preload = true;
@@ -188,10 +177,16 @@ angular.module("angControllers").controller("mainController", [
                 }
             }
             else {
-                onStateChangeStart.apply(this, changeParamas);
+                onStateChangeStart.apply(this, arguments);
             }
         }
     );
+
+    $scope.$on('stateChangeSuccess', scrollToTop);
+    var $scrollContainer = $(".main-section");
+    function scrollToTop() {
+        $scrollContainer.scrollTop(0);
+    }
 
     if (user.isLogged()) {
         user.parseFromStorage()
