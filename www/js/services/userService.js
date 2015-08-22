@@ -281,7 +281,6 @@ services
             showNotification(self, messageText, channelName, senderUuid);
             chat.isRead = false;
             self.countUnreadChats();
-            incomeMessageSound.play();
         }
         
         user.saveChats();
@@ -289,6 +288,7 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
+        incomeMessageSound.play();
         $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }
