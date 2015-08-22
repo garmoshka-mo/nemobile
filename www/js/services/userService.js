@@ -159,6 +159,8 @@ services
         );
     }
 
+    var incomeMessageSound = new Audio('sounds/alert.mp3');
+
     function handleIncomeMessage(message, envelope) {
         console.log(message);
         var self = user;
@@ -265,6 +267,7 @@ services
             showNotification(self, messageText, channelName, senderUuid);
             chat.isRead = false;
             self.countUnreadChats();
+            incomeMessageSound.play();
         }
         
         user.saveChats();
