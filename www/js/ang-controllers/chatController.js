@@ -123,6 +123,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
+            ga('send', 'event', 'random', 'finish');
             $state.go('random');
         };
 

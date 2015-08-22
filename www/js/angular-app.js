@@ -491,4 +491,6 @@ String.prototype.sanitize = function() {
 window.onload = function onLoad() {
   angular.bootstrap(document, ['angApp']);
 };
-
+$(window).bind('beforeunload', function() {
+  ga('send', 'event', 'page', 'close');
+});

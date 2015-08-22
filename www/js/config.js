@@ -8,5 +8,6 @@ window.App.Settings = {
     phoneToSendSms: "+79021192234",
     adorableUrl: "http://api.adorable.io/avatars",
     appUrl: "http://nemobile.herokuapp.com",
+    gaTrackingCode: '',
     fullMode: false
 };

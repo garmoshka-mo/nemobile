@@ -78,6 +78,7 @@ angular.module("angControllers").controller("randomController", [
         $scope.lookForChat = function() {
             var data = prepareDataForServer();
             $scope.waitingServer = true;
+            ga('send', 'event', 'random', 'start');
 
             if (user.isLogged()) {
                 api.randomChatRequest(data)

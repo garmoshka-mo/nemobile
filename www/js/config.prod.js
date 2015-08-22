@@ -8,5 +8,6 @@ window.App.Settings = {
     phoneToSendSms: "+79021113612",
     adorableUrl: "http://api.adorable.io/avatars",
     appUrl: "http://dub.ink",
+    gaTrackingCode: 'UA-50069297-8',
     fullMode: false
 };
