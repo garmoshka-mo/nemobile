@@ -23,7 +23,7 @@ div, li, button, a, span, img, i {
 }
 
 button {
-  -webkit-user-select: none; 
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -31,13 +31,9 @@ input[type="password"] {
   height: 36px;
 }
 
-input[type=checkbox] {
-  visibility: hidden;
-}
-
 
 .no-select {
-  -webkit-user-select: none; 
+  -webkit-user-select: none;
   user-select: none;
 }
 .no-transition {
@@ -108,6 +104,12 @@ input[type=checkbox] {
 .h80 {
   height: 80px;
 }
+ .h100 {
+   height: 100px;
+ }
+ .placeholder_for_fab_buttons {
+   height: 120px;
+ }
 .h100p {
   height: 100%;
 }
@@ -169,9 +171,6 @@ input[type=checkbox] {
   background-color: #363645;
   height: 20px;
 }
-a {
-  color: inherit;
-}
 
 h1.title {
   font-family: "Open Sans Normal";
@@ -209,7 +208,7 @@ ul.off-canvas-list li a {
   border-bottom: 1px solid #2A2935;
 }
 
-.prevent-click { 
+.prevent-click {
   position: fixed;
   top: 0;
   left: 0;
@@ -219,12 +218,15 @@ ul.off-canvas-list li a {
   display: none;
 }
 
-#wrapper{
-  height: 100%;
-  width: 100%;
-  padding-bottom: 8rem;
-  overflow: hidden;
-}
+ .main-section{
+   overflow: scroll;
+ }
+ #wrapper{
+   width: 100%;
+   max-width: 550px;
+   margin: 0 auto;
+   padding-bottom: 100px;
+ }
 
 #footer{
   position: fixed;
@@ -262,7 +264,7 @@ ul.off-canvas-list li a {
   padding: 0px 9px;
 }
 .change-ava-button:hover {
-  cursor: pointer;  
+  cursor: pointer;
 }
 .mainButton{
   display: block;
@@ -421,7 +423,7 @@ a.button:hover{
   height: 100%;
 }
 .chat {
-  background-image: url(../img/chat_bg.jpg);
+/*  background-image: url(../img/chat_bg.jpg);*/
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -515,7 +517,7 @@ button.chat-send {
   background: #008cba;
 }
 .category-button-red {
-  color: #FFF;  
+  color: #FFF;
   background: #e74c3c;
 }
 .category-button-green {
@@ -593,7 +595,7 @@ input.category-name-change-input {
 }
 .message-not-own {
   background-color: rgba(89, 131, 158, .3);
-  margin-left: 20px; 
+  margin-left: 20px;
 }
 .message-not-own:after {
   content: '';
@@ -774,7 +776,7 @@ img.imageShow {
 }
 .tabs-menu li {
     display: inline-block;
-    vertical-align: top;    
+    vertical-align: top;
 }
 .tabs-menu-item {
     margin-right: 1px;
@@ -792,7 +794,7 @@ img.imageShow {
   cursor: pointer;
 }
 .tabs-menu-item.is-active {
-  background: #3E8743; 
+  background: #3E8743;
 }
 .tabs-navigation {
   height: 45px;
@@ -840,10 +842,10 @@ img.imageShow {
 }
 
 @keyframes bouncedelay {
-  0%, 80%, 100% { 
+  0%, 80%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 40% { 
+  } 40% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }
@@ -858,6 +860,9 @@ img.imageShow {
 
 .white {
   background: rgba(255, 255, 255, .8);
+}
+.green {
+ background: rgba(91, 171, 96, 1);
 }
 
 .blue {
@@ -879,7 +884,7 @@ input[type="radio"] {
   cursor: pointer;
   margin: 0 !important;
   margin-right: 1px !important;
-  -webkit-user-select: none; 
+  -webkit-user-select: none;
   user-select: none;
   height: 35px;
   background-color: #5BAB60;
@@ -889,7 +894,7 @@ input[type="radio"]:checked + .radioLabel {
  background-color: #3E8743;
 }
 
-.checkbox-group-rounded { 
+.checkbox-group-rounded {
   display: inline-block;
   border-radius: 10px;
   overflow: hidden;
@@ -988,17 +993,17 @@ a.md-button.md-fab, .md-button.md-fab {
   background: #FFF;
 }
 
-a.md-button.md-fab:not([disabled]):hover, 
+a.md-button.md-fab:not([disabled]):hover,
 .md-button.md-fab:not([disabled]):hover {
   background: #FFF;
 }
 
-.md-button.md-fab:not([disabled]):hover  
+.md-button.md-fab:not([disabled]):hover
  .not-hover {
   display: none;
 }
 
-.md-button.md-fab:not([disabled]):hover  
+.md-button.md-fab:not([disabled]):hover
 .img-hover {
   display: inline;
 }
@@ -1038,7 +1043,7 @@ a.md-button.md-fab:not([disabled]):hover,
 
 .fab-empty-div {
   display: inline-block;
-  width: 100%; 
+  width: 100%;
 }
 
 md-fab-speed-dial md-fab-actions {
@@ -1054,7 +1059,7 @@ md-fab-speed-dial md-fab-actions {
   list-style-type: none;
   text-align: center;
   margin: 0;
-  -webkit-user-select: none; 
+  -webkit-user-select: none;
   user-select: none;
 }
 .age-select:hover {
@@ -1067,8 +1072,8 @@ md-fab-speed-dial md-fab-actions {
 .sex-select {
   list-style-type: none;
   text-align: center;
-  margin: 0;   
-  -webkit-user-select: none; 
+  margin: 0;
+  -webkit-user-select: none;
   user-select: none;
   outline: none;
 }

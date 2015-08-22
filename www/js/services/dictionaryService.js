@@ -3,11 +3,13 @@ services
     'storage',
     function(storage) {
         var translations = {
-            "user_not_found": "пользователь не найден",
-            "wrong name or password": "неправильное имя или логин",
-            "name has already been taken": "имя уже используется другим пользователем",
-            "chat_expired": "чат закрыт",
-            "password can't be blank": "введите пароль"
+            "user_not_found": "Пользователь не найден",
+            "wrong name or password": "Неправильное имя или логин",
+            "name has already been taken": "Имя уже используется другим пользователем",
+            "chat_expired": "Чат закрыт",
+            "no_access_to_chat": "Чат закрыт",
+            "password can't be blank": "Введите пароль",
+            "chat_empty": "Собеседник покинул чат"
         };
 
         this.get = function(phrase) {

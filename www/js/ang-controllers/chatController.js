@@ -12,7 +12,7 @@ angular.module("angControllers").controller("chatController",
 
         var $chatInput = $('.chat-input');
 
-        function retriveWords(inputString) {
+        function retrieveWords(inputString) {
             var output = inputString.match(/[A-Za-zА-Яа-я]+/g);
             return output === null ? [] : output;
         }
@@ -72,8 +72,8 @@ angular.module("angControllers").controller("chatController",
         }
 
         $scope.scrollToBottom = function() {
-            var $chatContainer = $(".chat");
-            $chatContainer.animate({scrollTop: $(".chat")[0].scrollHeight}, 500);
+            var $chatContainer = $(".main-section");
+            $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         };
 
         $scope.setFocusOnTextField = function() {
@@ -123,6 +123,8 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
+            ga('send', 'event', 'random', 'finish');
+            $state.go('random');
         };
 
         //getting chat object, if chat does not exist create new one
@@ -273,7 +275,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.findAppropriateStiker = function() {
-            var words = retriveWords($scope.newMessage.text);
+            var words = retrieveWords($scope.newMessage.text);
             
             if (words.length < 10) {
                 $scope.appropriateStickers = [];

@@ -174,11 +174,12 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
                         }
 
                         self.messages.push({
-                            text: message,
+                            text: message.sanitize(),
                             isOwn: true
                         });
 
-                        self.setTimer(res.data.expires);
+                        // todo: fix logic bugs and uncomment
+                        // self.setTimer(res.data.expires);
                         self.save();
                         console.log("chat session is saved");
                         return true;

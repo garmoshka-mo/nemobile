@@ -131,18 +131,7 @@ app.directive('spinner', function() {
         template: '<div class="spinner"><div class="dot bounce1"></div><div class="dot bounce2"></div><div class="dot bounce3"></div></div>',
         link: function(scope, elem, attr) {
             var dots = $(elem).find(".dot");
-            if (attr.spinnerColor == "grey") {
-                dots.addClass("grey");
-            }
-            if (attr.spinnerColor == "white") {
-                dots.addClass("white");
-            }
-            if (attr.spinnerColor == "blue") {
-                dots.addClass("blue");
-            }
-            else {
-                dots.addClass("black");
-            }
+            dots.addClass(attr.spinnerColor || "black");
         }
     };
 });

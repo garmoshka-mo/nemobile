@@ -1,31 +1,36 @@
-<div overscrollable-without-footer class="hide-x">
-    <div class="row">
+<div class="hide-x">
+    <div ng-hide="lookupInProgress" class="row">
         <div class="columns small-12 pt1rem ta-center">
-            <button ng-click="lookForChat()">
-                <span ng-hide="isLookForSpinnerShown" >Начать чат <i class="fa fa-weixin"></i></span>
-                <div  ng-show="isLookForSpinnerShown" spinner spinner-color="white"></div>
+            <button ng-hide="waitingServer" ng-click="lookForChat()">
+                <span>Начать чат <i class="fa fa-weixin"></i></span>
             </button>
+            <div  ng-show="waitingServer" spinner spinner-color="green"></div>
         </div>
     </div>
-    <div class="animated no-transition" ng-class="{'fadeIn': isLookingFor}" ng-show="isLookingFor">
+    <div ng-show="lookupInProgress">
+        <div class="row" >
+            <br/>
+            <div class="small-12 columns ta-center">
+                Ищем подходящего партнера...
+            </div>
+            <br/>
+            <br/>
+        </div>
         <div class="row">
             <div class="columns small-12 ta-center">
                 <button class="bg-red" ng-click="cancelLookingFor()">
-                    <span ng-hide="isCancelSpinnerShown" >отмена</span>
-                    <div  ng-show="isCancelSpinnerShown" spinner spinner-color="white"></div>
+                    <span ng-hide="waitingServer" >отмена</span>
+                    <div  ng-show="waitingServer" spinner spinner-color="white"></div>
                 </button>
             </div>
         </div>
-        <div class="row" >
-            <div class="small-12 columns text-silver ta-center">
-                Ищем подходящего партнера...
-            </div>
-        </div>
     </div>
+    <div id="searchParameters">
     <div class="row">
         <div class="columns small-12">
             <div class="row fab-buttons-container">
                     <div class="small-3 columns pt1rem">
+                        Беседы
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="theme.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === 0}">
@@ -56,6 +61,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Реал
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="geo.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === 0}">
@@ -86,6 +92,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Интимн.
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="sex.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === 0}">
@@ -116,6 +123,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Камера
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="video.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === 0}">
@@ -148,13 +156,13 @@
             </div>
         </div>
     </div>
-    <div class="h80"></div>
-    <div class="row pt1rem">
+    <div class="placeholder_for_fab_buttons"></div>
+    <div ng-show="false" class="row pt1rem">
         <div class="small-12 columns">
             <input type="text" ng-model="iam.intro" placeholder="Вступление (необязательно)">   
         </div>
     </div>
-    <div class="row">
+    <div ng-show="false" class="row">
         <div class="small-12 columns">
             <input type="text" ng-model="iam.location" placeholder="Местоположение (необязательно)">      
         </div>
@@ -194,6 +202,7 @@
                 В возрасте собеседника можно указать несколько диапазонов. 
             </div>
         </div>
+    </div>
     </div>
 </div>
 

@@ -3,22 +3,21 @@ angular.module("angControllers").controller("randomController", [
     function(user, $scope) {
 
         $scope.showHelpText = false;
-        $scope.isLookingFor = false;
-        $scope.isCancelSpinnerShown = false;
-        $scope.isLookForSpinnerShown = false;
+        $scope.waitingServer = false;
+        $scope.lookupInProgress = false;
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
         $scope.iam = {
-            sex: 'm',
-            age: '1',
+            sex: '-',
+            age: 0,
             intro: '',
             location: ''
         };
 
         $scope.another = {
-            sex: 'w',
-            age: '2'
+            sex: '-',
+            age: 0
         };
 
         function selectValue(value) {
@@ -67,18 +66,19 @@ angular.module("angControllers").controller("randomController", [
         };
 
         function onSuccessChatRequest() {
-            $scope.isLookingFor = true;
-            $scope.isLookForSpinnerShown = false;
+            $scope.waitingServer = false;
+            $scope.lookupInProgress = true;
         }
 
         function onErrorChatRequest() {
-            $scope.isLookingFor = false;
-            $scope.isLookForSpinnerShown = false;
+            $scope.waitingServer = false;
+            $scope.lookupInProgress = false;
         }
 
         $scope.lookForChat = function() {
             var data = prepareDataForServer();
-            $scope.isLookForSpinnerShown = true;
+            $scope.waitingServer = true;
+            ga('send', 'event', 'random', 'start');
 
             if (user.isLogged()) {
                 api.randomChatRequest(data)
@@ -102,12 +102,12 @@ angular.module("angControllers").controller("randomController", [
         };
 
         $scope.cancelLookingFor = function() {
-            $scope.isCancelSpinnerShown = true;
+            $scope.waitingServer = true;
             api.cancelRandomRequest()
             .then(
                 function() {
-                    $scope.isLookingFor = false;
-                    $scope.isCancelSpinnerShown = false;
+                    $scope.waitingServer = false;
+                    $scope.lookupInProgress = false;
                 }
             );
         };
