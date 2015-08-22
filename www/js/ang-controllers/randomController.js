@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope','externalChat',
-    function(user, $scope, externalChat) {
+         'user', '$scope',
+    function(user, $scope) {
 
         $scope.showHelpText = false;
         $scope.waitingServer = false;
