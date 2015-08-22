@@ -160,6 +160,8 @@ services
         );
     }
 
+    var incomeMessageSound = new Audio('sounds/alert.mp3');
+
     function handleIncomeMessage(message, envelope) {
         console.log(message);
         var self = user;
@@ -286,6 +288,7 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
+        incomeMessageSound.play();
         $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }
