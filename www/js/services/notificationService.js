@@ -45,6 +45,15 @@ services
                 time
             );
         },
+
+        setSmallIcon: function(html, handler) {
+            $rootScope.customSmallIconInner = html;
+            $rootScope.customSmallIconHandler = handler;
+            $rootScope.$on('$stateChangeStart', function() {
+                $rootScope.customSmallIconInner = 
+                $rootScope.customSmallIconHandler = null;
+            });
+        },
         
         clear: function() {
             $rootScope.notification.text = "";
