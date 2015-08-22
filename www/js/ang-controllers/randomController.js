@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope','externalChat',
-    function(user, $scope, externalChat) {
+         'user', '$scope',
+    function(user, $scope) {
 
         $scope.showHelpText = false;
         $scope.waitingServer = false;
@@ -81,10 +81,10 @@ angular.module("angControllers")
             $scope.waitingServer = true;
             ga('send', 'event', 'random', 'start');
 
-            if (user.isLogged()) sendMessage();
-            else user.signinAsVirtualUser().then(sendMessage);
+            if (user.isLogged()) sendRequest();
+            else user.signinAsVirtualUser().then(sendRequest);
 
-            function sendMessage() {
+            function sendRequest() {
                 api.randomChatRequest(preferences)
                     .then(
                     onSuccessChatRequest,
@@ -92,7 +92,7 @@ angular.module("angControllers")
                 );
             }
 
-            externalChat.start(preferences);
+            // externalChat.start(preferences);
 
         };
 

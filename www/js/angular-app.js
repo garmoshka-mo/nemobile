@@ -376,6 +376,7 @@ document.addEventListener("deviceready", function() {
     
     if (device.platform == 'iOS') {
 
+      navigator.splashscreen.hide();
       //shrink webiew
       var webViewShrunkEvent = new CustomEvent("webViewShrunk");
       // var $body = $('body');

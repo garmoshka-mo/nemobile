@@ -127,6 +127,8 @@ angular.module("angControllers").controller("chatController",
             $state.go('random');
         };
 
+        notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
+
         //getting chat object, if chat does not exist create new one
         $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);
         if (!$scope.chat) {
