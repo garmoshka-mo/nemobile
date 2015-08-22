@@ -5,24 +5,68 @@ function ExternalChat() {
 // ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
 //chat.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
 
+    var defaultOptions = {
+        'onConnect': function(){
+            console.log('Связь с сервером установлена. Идет соединение с пользователем...');
+        },
+        'onTyping': function(){
+            console.log('Собеседник печатает сообщение...');
+        },
+        'onOnline': function(count){
+            console.log('Сейчас на сайте: '+count);
+        },
+        'onReceiveMyMessage': function(message){
+            console.log('Мое сообщение: "'+message+'"');
+        }
+    };
+
+    var self = this;
+    this.chat = null;
+    this.talking = false;
+
     this.start = function(preferences) {
         var intro = composeIntro(preferences);
-        if (intro.length > 1)
-            alert(intro);
 
-        //chat.Connect();
-        //chat.Send('Hello, world!');
+        if (intro.length < 1) intro = '..';
+
+        conversation_machine(intro);
     };
+
+    function conversation_machine(intro) {
+        var chat = new Chat(_.extend({
+            onBegin: userFound,
+            onEnd: terminated,
+            onDisconnect: terminated,
+            onReceiveStrangerMessage: got_message
+        }, defaultOptions));
+
+        chat.Connect();
+
+        function userFound() {
+            chat.Send(intro);
+        }
+
+        function terminated() {
+            if (!self.talking)
+                chat.Connect();
+            else
+                alert('empty_chat');
+        }
+
+        function got_message(message) {
+            console.log('Сообщение от незнакомца: "' + message + '"');
+        }
+    }
 
     function composeIntro(p) {
         /*
         * Ж 18-22?
         * без общения на св.темы, только интимн.темы, только с видео
-        * Я: M (22-25)
+        * Я - M (22-25)
         *
-        * Ж 18-22?
+        * Ж 36+?
         * общение на своб.темы+, интимн.темы+, видео+
-        * Я: M (22-25)
+        * Я - M
         * */
         var req = [];
         if (p.subjects.free_talk == -1) req.push('без общения на св.темы');
@@ -46,7 +90,7 @@ function ExternalChat() {
         var you = [];
         if (p.look_for.gender == 'm') you.push('M');
         if (p.look_for.gender == 'w') you.push('Ж');
-        if (p.look_for.age_range != [0, 100]) {
+        if (!(p.look_for.age_range[0] == 0 && p.look_for.age_range[1] == 100)) {
             if (p.look_for.age_range[0] == 0)
                 you.push('до '+p.look_for.age_range[1]);
             else if (p.look_for.age_range[1] == 100)
@@ -71,30 +115,4 @@ function ExternalChat() {
         chat.Disconnect();
     };
 
-    var chat = new Chat({
-        'onConnect': function(){
-            console.log('Связь с сервером установлена. Идет соединение с пользователем...');
-        },
-        'onDisconnect': function(){
-            console.log('Связь с сервером разорвана');
-        },
-        'onBegin': function(){
-            console.log('Чат начат. Можете поговорить с собеседником');
-        },
-        'onEnd': function(){
-            console.log('Собеседник прервал связь');
-        },
-        'onTyping': function(){
-            console.log('Собеседник печатает сообщение...');
-        },
-        'onOnline': function(count){
-            console.log('Сейчас на сайте: '+count);
-        },
-        'onReceiveMyMessage': function(message){
-            console.log('Мое сообщение: "'+message+'"');
-        },
-        'onReceiveStrangerMessage': function(message){
-            console.log('Сообщение от незнакомца: "'+message+'"');
-        }
-    });
 }
