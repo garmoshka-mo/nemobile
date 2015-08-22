@@ -81,10 +81,10 @@ angular.module("angControllers")
             $scope.waitingServer = true;
             ga('send', 'event', 'random', 'start');
 
-            if (user.isLogged()) sendMessage();
-            else user.signinAsVirtualUser().then(sendMessage);
+            if (user.isLogged()) sendRequest();
+            else user.signinAsVirtualUser().then(sendRequest);
 
-            function sendMessage() {
+            function sendRequest() {
                 api.randomChatRequest(preferences)
                     .then(
                     onSuccessChatRequest,
