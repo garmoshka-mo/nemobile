@@ -65,7 +65,7 @@ angular.module("angControllers").controller("stickersGalleryController", ['$scop
         };
 
         $scope.scrollToLastAddedImage = function() {
-            var $scrollableContainer = $('div[overscrollable-without-footer]');
+            var $scrollableContainer = $('.main-section');
             var $activeCategory = $(".activeCategory");
             
             if ($activeCategory.length) {

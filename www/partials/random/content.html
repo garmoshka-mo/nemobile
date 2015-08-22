@@ -1,4 +1,4 @@
-<div overscrollable-without-footer class="hide-x">
+<div class="hide-x">
     <div class="row">
         <div class="columns small-12 pt1rem ta-center">
             <button ng-click="lookForChat()">
@@ -26,6 +26,7 @@
         <div class="columns small-12">
             <div class="row fab-buttons-container">
                     <div class="small-3 columns pt1rem">
+                        Беседы
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="theme.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === 0}">
@@ -56,6 +57,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Реал
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="geo.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === 0}">
@@ -86,6 +88,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Интимн.
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="sex.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === 0}">
@@ -116,6 +119,7 @@
                         </md-fab-speed-dial>
                     </div>
                     <div class="small-3 columns pt1rem">
+                        Камера
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="video.isOpened">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === 0}">
@@ -148,7 +152,7 @@
             </div>
         </div>
     </div>
-    <div class="h80"></div>
+    <div class="h100"></div>
     <div class="row pt1rem">
         <div class="small-12 columns">
             <input type="text" ng-model="iam.intro" placeholder="Вступление (необязательно)">   
