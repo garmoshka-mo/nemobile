@@ -92,7 +92,7 @@ angular.module("angControllers")
                 );
             }
 
-            externalChat.start(preferences);
+            // externalChat.start(preferences);
 
         };
 
