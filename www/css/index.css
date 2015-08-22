@@ -107,6 +107,9 @@ input[type="password"] {
  .h100 {
    height: 100px;
  }
+ .placeholder_for_fab_buttons {
+   height: 120px;
+ }
 .h100p {
   height: 100%;
 }
