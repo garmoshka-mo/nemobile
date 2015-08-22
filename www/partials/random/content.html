@@ -33,15 +33,15 @@
                         Беседы
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="theme.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === 0}">
-                                    <img ng-show="theme.value === -1" ng-src="img/theme-unselected.png"></img>
-                                    <img ng-show="theme.value === 0" ng-src="img/theme-forbid.png"></img>
-                                    <img ng-show="theme.value === 1" ng-src="img/theme-prefer.png"></img>
-                                    <img ng-show="theme.value === 2" ng-src="img/theme-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab"  ng-class="{'forbid-fab': theme.value === -1}">
+                                    <img ng-show="theme.value === -1" ng-src="img/theme-forbid.png"/>
+                                    <img ng-show="theme.value === 0" ng-src="img/theme-unselected.png"/>
+                                    <img ng-show="theme.value === 1" ng-src="img/theme-prefer.png"/>
+                                    <img ng-show="theme.value === 2" ng-src="img/theme-require.png"/>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="theme.selectValue(-1)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="theme.selectValue(0)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-right">не указывать</div>
                                 </md-button>
@@ -53,7 +53,7 @@
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-right">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="theme.selectValue(0)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="theme.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-right">запретить</div>
                                 </md-button>
@@ -64,15 +64,15 @@
                         Реал
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="geo.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === 0}">
-                                    <img ng-show="geo.value === -1" ng-src="img/geo-unselected.png"></img>
-                                    <img ng-show="geo.value === 0" ng-src="img/geo-forbid.png"></img>
-                                    <img ng-show="geo.value === 1" ng-src="img/geo-prefer.png"></img>
-                                    <img ng-show="geo.value === 2" ng-src="img/geo-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': geo.value === -1}">
+                                    <img ng-show="geo.value === 0" ng-src="img/geo-unselected.png"/>
+                                    <img ng-show="geo.value === -1" ng-src="img/geo-forbid.png"/>
+                                    <img ng-show="geo.value === 1" ng-src="img/geo-prefer.png"/>
+                                    <img ng-show="geo.value === 2" ng-src="img/geo-require.png"/>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="geo.selectValue(-1)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="geo.selectValue(0)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-right">не указывать</div>
                                 </md-button>
@@ -84,7 +84,7 @@
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-right">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="geo.selectValue(0)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="geo.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-right">запретить</div>
                                 </md-button>
@@ -95,15 +95,15 @@
                         Интимн.
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="sex.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === 0}">
-                                    <img ng-show="sex.value === -1" ng-src="img/sex-unselected.png"></img>
-                                    <img ng-show="sex.value === 0" ng-src="img/sex-forbid.png"></img>
-                                    <img ng-show="sex.value === 1" ng-src="img/sex-prefer.png"></img>
-                                    <img ng-show="sex.value === 2" ng-src="img/sex-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': sex.value === -1}">
+                                    <img ng-show="sex.value === 0" ng-src="img/sex-unselected.png"/>
+                                    <img ng-show="sex.value === -1" ng-src="img/sex-forbid.png"/>
+                                    <img ng-show="sex.value === 1" ng-src="img/sex-prefer.png"/>
+                                    <img ng-show="sex.value === 2" ng-src="img/sex-require.png"/>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="sex.selectValue(-1)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="sex.selectValue(0)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-left">не указывать</div>
                                 </md-button>
@@ -115,7 +115,7 @@
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-left">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="sex.selectValue(0)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="sex.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-left">запретить</div>
                                 </md-button>
@@ -126,15 +126,15 @@
                         Камера
                         <md-fab-speed-dial class="md-fling" md-direction="down" md-open="video.isOpened">
                             <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === 0}">
-                                    <img ng-show="video.value === -1" ng-src="img/video-unselected.png"></img>
-                                    <img ng-show="video.value === 0" ng-src="img/video-forbid.png"></img>
-                                    <img ng-show="video.value === 1" ng-src="img/video-prefer.png"></img>
-                                    <img ng-show="video.value === 2" ng-src="img/video-require.png"></img>
+                                <md-button aria-label="menu" class="md-fab" ng-class="{'forbid-fab': video.value === -1}">
+                                    <img ng-show="video.value === 0" ng-src="img/video-unselected.png"/>
+                                    <img ng-show="video.value === -1" ng-src="img/video-forbid.png"/>
+                                    <img ng-show="video.value === 1" ng-src="img/video-prefer.png"/>
+                                    <img ng-show="video.value === 2" ng-src="img/video-require.png"/>
                                 </md-button>
                             </md-fab-trigger>
                             <md-fab-actions>
-                                <md-button aria-label="twitter" ng-click="video.selectValue(-1)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="twitter" ng-click="video.selectValue(0)" class="md-fab md-raised md-mini">
                                     <div class="fab-empty-div"></div>
                                     <div class="fab-title fab-title-left">не указывать</div>
                                 </md-button>
@@ -146,7 +146,7 @@
                                     <img src="img/require.png" alt="require">
                                     <div class="fab-title fab-title-left">обязательно</div>
                                 </md-button>
-                                <md-button aria-label="facebook" ng-click="video.selectValue(0)" class="md-fab md-raised md-mini">
+                                <md-button aria-label="facebook" ng-click="video.selectValue(-1)" class="md-fab md-raised md-mini">
                                     <img src="img/forbid.png" alt="forbid">
                                     <div class="fab-title fab-title-left">запретить</div>
                                 </md-button>

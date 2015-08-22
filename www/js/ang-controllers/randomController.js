@@ -1,6 +1,7 @@
-angular.module("angControllers").controller("randomController", [
-         'user', '$scope',
-    function(user, $scope) {
+angular.module("angControllers")
+.controller("randomController", [
+         'user', '$scope','externalChat',
+    function(user, $scope, externalChat) {
 
         $scope.showHelpText = false;
         $scope.waitingServer = false;
@@ -27,25 +28,25 @@ angular.module("angControllers").controller("randomController", [
 
         $scope.theme = {
             isOpened: false,
-            value: -1,
+            value: 0,
             selectValue: selectValue
         };
 
         $scope.geo = {
             isOpened: false,
-            value: -1,
+            value: 0,
             selectValue: selectValue
         };
 
         $scope.sex = {
             isOpened: false,
-            value: -1,
+            value: 0,
             selectValue: selectValue
         };
 
         $scope.video = {
             isOpened: false,
-            value: -1,
+            value: 0,
             selectValue: selectValue
         };
 
@@ -76,29 +77,23 @@ angular.module("angControllers").controller("randomController", [
         }
 
         $scope.lookForChat = function() {
-            var data = prepareDataForServer();
+            var preferences = prepareDataForServer();
             $scope.waitingServer = true;
             ga('send', 'event', 'random', 'start');
 
-            if (user.isLogged()) {
-                api.randomChatRequest(data)
-                .then(
+            if (user.isLogged()) sendMessage();
+            else user.signinAsVirtualUser().then(sendMessage);
+
+            function sendMessage() {
+                api.randomChatRequest(preferences)
+                    .then(
                     onSuccessChatRequest,
                     onErrorChatRequest
                 );
             }
-            else {
-                user.signinAsVirtualUser()
-                .then(
-                    function() {
-                        api.randomChatRequest(data)
-                        .then(
-                            onSuccessChatRequest,
-                            onErrorChatRequest
-                        );
-                    }
-                );
-            } 
+
+            externalChat.start(preferences);
+
         };
 
         $scope.cancelLookingFor = function() {
