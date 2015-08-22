@@ -9,7 +9,6 @@ angular.module("angControllers").controller("chatController",
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
         $scope.fromRandom = $stateParams.fromState === 'random' ? true : false;
-        $scope.isPaired = true;
 
         var $chatInput = $('.chat-input');
 
@@ -124,7 +123,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
-            $scope.isPaired = false;
+            $state.go('random');
         };
 
         //getting chat object, if chat does not exist create new one

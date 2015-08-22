@@ -423,7 +423,7 @@ a.button:hover{
   height: 100%;
 }
 .chat {
-  background-image: url(../img/chat_bg.jpg);
+/*  background-image: url(../img/chat_bg.jpg);*/
   background-repeat: no-repeat;
   background-size: cover;
 }

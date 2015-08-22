@@ -7,7 +7,8 @@ services
             "wrong name or password": "неправильное имя или логин",
             "name has already been taken": "имя уже используется другим пользователем",
             "chat_expired": "чат закрыт",
-            "password can't be blank": "введите пароль"
+            "password can't be blank": "введите пароль",
+            "chat_empty": "Собеседник покинул чат"
         };
 
         this.get = function(phrase) {

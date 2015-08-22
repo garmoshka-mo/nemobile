@@ -181,6 +181,11 @@ services
             return;
         }
 
+        if (!message.pn_apns) {
+            console.log('Unknown message format');
+            return;
+        }
+
         //if previous ifs didn't work
         //therefore message is user_message
         var senderUuid = message.sender_uuid;
