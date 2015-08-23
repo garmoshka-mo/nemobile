@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
-    function(user, $scope, $stateParams, $state, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
+    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
+    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
         
         console.log("chat controller is invoked");
 
@@ -8,7 +8,7 @@ angular.module("angControllers").controller("chatController",
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
-        $scope.fromRandom = $stateParams.fromState === 'random' ? true : false;
+        $scope.fromRandom = $stateParams.fromState === 'random';
 
         var $chatInput = $('.chat-input');
 
@@ -22,7 +22,7 @@ angular.module("angControllers").controller("chatController",
                 previousMessages: [],
                 isUpdating: false,
                 lastVisibleChatSessionId: lastSession.id,
-                isAllChatSessionsVisbile: $scope.chat.chatSessionsIndexes.length == 1 ? true : false,
+                isAllChatSessionsVisbile: $scope.chat.chatSessionsIndexes.length == 1,
                 
                 getOneMoreChatSession: function() {
                     var self = this;
@@ -59,13 +59,17 @@ angular.module("angControllers").controller("chatController",
                 title = chat.title;
             }
 
-            var notificationString = "<span class='pointer'><img src='" + chat.photoUrlMini + 
+            var notificationString =
+                "<span class='pointer'><img src='" + chat.photoUrlMini +
                 "' class='chat-toolbar-image pointer'>" +
                 title + "</span>";
             var notificationCallback = function() {
-                $state.go('chatInfo',{
-                    senderId: chat.senderId
-                });
+                // todo: правильно обрабатывать, когда внешний чат -
+                // в этом случае у нас chat = externalChat
+                // и контроля над отправителем нет
+
+                // todo: исправить баги на chatInfo
+                //$state.go('chatInfo',{ senderId: chat.senderId });
                 // location.replace("#/showImage?link=" + chat.photoUrl);
             };
             notification.set(notificationString, notificationCallback);
@@ -86,7 +90,7 @@ angular.module("angControllers").controller("chatController",
         $scope.$watch('newMessage.ttl', function() {
             $scope.setFocusOnTextField();
         });
-        
+
         $scope.toggleCategory = function(category) {
             if ($scope.stickersGallery.currentCategory == category.name) {
                 $scope.stickersGallery.currentCategory = "";
@@ -129,18 +133,24 @@ angular.module("angControllers").controller("chatController",
 
         notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
 
-        //getting chat object, if chat does not exist create new one
-        $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);
-        if (!$scope.chat) {
-            if ($stateParams.channelName) {
-                user.addChat({channelName: $stateParams.channelName});
-                $scope.chat = user.chats[$stateParams.channelName];
-            }
-            else if ($stateParams.senderId) {
-                user.addChat({senderId: $stateParams.senderId});
-                $scope.chat = user.chats[$stateParams.senderId];
+
+        if ($stateParams.chatType == 'external_chat') {
+            $scope.chat = externalChat;
+        } else {
+            //getting chat object, if chat does not exist create new one
+            $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);
+            if (!$scope.chat) {
+                if ($stateParams.channelName) {
+                    user.addChat({channelName: $stateParams.channelName});
+                    $scope.chat = user.chats[$stateParams.channelName];
+                }
+                else if ($stateParams.senderId) {
+                    user.addChat({senderId: $stateParams.senderId});
+                    $scope.chat = user.chats[$stateParams.senderId];
+                }
             }
         }
+
         var chat = $scope.chat;
         console.log("chat", chat);
         setNotification();
@@ -152,7 +162,7 @@ angular.module("angControllers").controller("chatController",
             });
         }
 
-        if (!chat.isRead) {
+        if (!chat.isRead && chat.currentUser) {
             chat.isRead = true;
             chat.currentUser.saveChats();
         }
@@ -162,14 +172,14 @@ angular.module("angControllers").controller("chatController",
         .then(
             function() {
                 lastSession = chat.lastUnexpiredChatSession;
-                $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
+                $scope.isFirstMessage = lastSession.messages.length === 0;
                 console.log("got chat session");
             },
             function() {
                 chat.addChatSession(user.uuid, $stateParams.channelName, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
-                $scope.isFirstMessage = lastSession.messages.length === 0 ? true : false;
+                $scope.isFirstMessage = lastSession.messages.length === 0;
                 console.log("created new chat session");
             }
         )
