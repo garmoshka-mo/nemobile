@@ -1121,3 +1121,21 @@ md-fab-speed-dial md-fab-actions {
   filter: alpha(opacity=100);
   opacity: 1;
 }
+
+
+/* MENU */
+
+.off-canvas-list .app-setup-item i {
+  position: absolute;
+  left: 28px;
+  top: 9px;
+  font-size: 44px;
+}
+.off-canvas-list .app-setup-item a {
+  padding-bottom: 16px;
+}
+.off-canvas-list .app-setup-item {
+  text-align: center;
+   position: relative;
+   line-height: 20px;
+ }

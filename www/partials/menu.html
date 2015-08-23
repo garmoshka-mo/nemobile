@@ -29,6 +29,12 @@
         <li ng-show="fullMode"><a class="menu-item" ng-click="goto('settings')"><i class="fa fa-gear"></i>Настройки</a></li>
         <li><a class="menu-item" ng-click="goto('about')"><i class="fa fa-info-circle"></i>О программе</a></li>
         <li ng-show="fullMode"><a class="menu-item" ng-click="goto('exit')" class="lessen-word"><i class="fa fa-power-off"></i>Выход</a></li>
+        <li ng-hide="RAN_AS_APP" class="app-setup-item">
+            <a class="menu-item" href="https://play.google.com/store/apps/details?id=com.phonegap.dubink" target="_blank">
+                <i class="fa fa-mobile"></i>
+                Установить приложение
+            </a>
+        </li>
         <li>
             <a class="menu-item" ng-click="sendDebugInfo()" ng-show="debug"><i class="fa fa-life-ring"></i>отправить слепок</a>
             <div spinner spinner-color="white" ng-show="showDebugPreloader"></div>
