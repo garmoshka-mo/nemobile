@@ -134,8 +134,9 @@ angular.module("angControllers").controller("chatController",
         notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
 
 
-        if ($stateParams.chatType == 'external_chat') {
+        if ($stateParams.chatType == 'external') {
             $scope.chat = externalChat;
+            externalChat.reportStatusIfInactive();
         } else {
             //getting chat object, if chat does not exist create new one
             $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);

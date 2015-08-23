@@ -28,8 +28,8 @@ function composeIntro(p) {
     if (p.subjects.video == 2) req.push('только с видео');
 
     var you = [];
-    if (p.look_for.gender == 'm') you.push('M');
-    if (p.look_for.gender == 'w') you.push('Ж');
+    if (p.look_for.gender == 'm') you.push('м');
+    if (p.look_for.gender == 'w') you.push('ж');
     if (!(p.look_for.age_range[0] == 0 && p.look_for.age_range[1] == 100)) {
         if (p.look_for.age_range[0] == 0)
             you.push('до '+p.look_for.age_range[1]);
@@ -40,8 +40,8 @@ function composeIntro(p) {
     }
 
     var me;
-    if (p.me.gender == 'm') me = 'я - М';
-    if (p.me.gender == 'w') me = 'я - Ж';
+    if (p.me.gender == 'm') me = 'я - м';
+    if (p.me.gender == 'w') me = 'я - ж';
 
     var result = '';
     if (you.length > 0) result += you.join(' ')+'? ';

@@ -56,7 +56,7 @@ angular.module("angControllers")
                 );
             }
 
-            //externalChat.start(preferences);
+            externalChat.start(preferences);
 
         };
 
@@ -75,27 +75,28 @@ angular.module("angControllers")
 
             $scope.filter.theme = {
                 isOpened: false,
-                value: 0,
+                value: 0
             };
 
             $scope.filter.geo = {
                 isOpened: false,
-                value: 0,
+                value: 0
             };
 
             $scope.filter.sex = {
                 isOpened: false,
-                value: 0,
+                value: 0
             };
 
             $scope.filter.video = {
                 isOpened: false,
-                value: 0,
+                value: 0
             };
         };
 
         $scope.cancelLookingFor = function() {
             $scope.waitingServer = true;
+            externalChat.disconnect();
             api.cancelRandomRequest()
             .then(
                 function() {

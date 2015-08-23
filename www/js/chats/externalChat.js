@@ -1,217 +1,137 @@
+(function(){
 services
     .service('externalChat',
-    ['avatars', '$q', ExternalChat]);
-function ExternalChat(avatars, $q) {
+    ['avatars', '$q', 'routing', '$rootScope', 'externalChatSession', ExternalChat]);
+    function ExternalChat(avatars, $q, routing, $rootScope, externalChatSession) {
 
-// ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
-//chat.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
+    // ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
+    //chat.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
 
-    var self = this;
-    this.chat = null;
-    this.talking = false;
-    this.isVirtual = true;
+        var self = this;
+        self.chat = null;
+        self.talking = false;
+        self.lastUnexpiredChatSession = null;
+        self.provider = null;
 
-    var defaultOptions = {
-        'onConnect': function(){
-            console.log('Связь с сервером установлена. Идет соединение с пользователем...');
-        },
-        'onTyping': function(){
-            console.log('Собеседник печатает сообщение...');
-        },
-        'onOnline': function(count){
-            console.log('Сейчас на сайте: '+count);
-        },
-        'onReceiveMyMessage': function(message){
-            console.log('Мое сообщение: "'+message+'"');
-        }
-    };
+        var defaultOptions = {
+            'onConnect': function(){
+                console.log('Связь с сервером установлена. Идет соединение с пользователем...');
+            },
+            'onTyping': function(){
+                console.log('Собеседник печатает сообщение...');
+            },
+            'onOnline': function(count){
+                console.log('Сейчас на сайте: '+count);
+            },
+            'onEnd': function(){
+                console.log('Собеседник прервал связь');
+            }
+        };
 
-    self.start = function(preferences) {
-        var intro = composeIntro(preferences);
+        self.start = function(preferences) {
+            self.preferences = preferences;
+            self.start_timer = setTimeout(start, 4000);
+        };
 
-        if (intro.length < 1) intro = '..';
+        function start() {
+            self.talking = false;
 
-        conversation_machine(intro);
-    };
-
-    function conversation_machine(intro) {
-        var chat = new Chat(_.extend({
-            onBegin: userFound,
-            onEnd: terminated,
-            onDisconnect: terminated,
-            onReceiveStrangerMessage: got_message
-        }, defaultOptions));
-
-        chat.Connect();
-
-        function userFound() {
-            chat.Send(intro);
+            var intro = composeIntro(self.preferences);
+            if (intro.length < 1) intro = '..';
+            conversation_machine(intro);
         }
 
-        function terminated() {
-            console.log('Terminated while talking="' + self.talking + '"');
-            if (!self.talking)
-                chat.Connect();
-            else
-                alert('empty_chat');
+        function conversation_machine(intro) {
+            self.provider = new Chat(_.extend({
+                onBegin: userFound,
+                onDisconnect: terminated,
+                onReceiveStrangerMessage: got_his_message,
+                onReceiveMyMessage: my_message_sent
+            }, defaultOptions));
+
+            var user_found = false;
+            function userFound() {
+                if (user_found) return;
+                user_found = true;
+                self.provider.Send(intro);
+                console.log('Intro: '+intro);
+            }
+
+            function got_his_message(message) {
+                console.log('Сообщение от незнакомца: "'+message+'"');
+                if (!self.talking) begin_chat();
+                display_partners_message(message.sanitize());
+            }
+
+            function begin_chat() {
+                self.talking = true;
+                reinit_chat();
+                routing.goto('chat', {chatType: 'external', fromState: 'random'});
+                api.cancelRandomRequest();
+            }
+
+            function terminated() {
+                user_found = false;
+                console.log('terminated. talking="' + self.talking + '"');
+                if (!self.talking)
+                    self.provider.Connect();
+                else
+                    display_partners_message('<b>Собеседник покинул чат</b> <a href="#/random">Начать новый диалог</a>');
+            }
+
+            self.provider.Connect();
         }
 
-        function got_message(message) {
-            if (!self.talking) start_chat();
-            console.log('Сообщение от незнакомца: "' + message + '"');
-        }
-
-        function start_chat() {
-            init_chat();
-            routing.goto('chat', {chatType: 'external_chat', fromState: 'random'});
-            console.warn('Тут надо отключить старый запрос в нашу очередь.');
-        }
-    }
-
-    function init_chat() {
-        var partner_id = Math.random();
-        self.lastUnexpiredChatSession = new ChatSession(partner_id);
-        self.chatSessionsIndexes = [self.lastUnexpiredChatSession.id];
-        self.ava = avatars.from_id(partner_id);
-        self.photoUrl = self.ava.url;
-        self.photoUrlMini = self.ava.url_mini;
-    }
-
-    self.end = function() {
-        chat.Disconnect();
-    };
-
-    self.getLastUnexpiredChatSession = function() {
-        $q.resolve();
-    };
-
-    function ChatSession(senderId) {
-        this.isExpired = false;
-        this.isReplied = false;
-        this.id = Math.random();
-        this.channelName = null;
-        this.senderId = senderId;
-        this.messages = [];
-        this.timer = null;
-        this.creatorId = null;
-        this.currentChat = null;
-        this.whenExipires = Infinity;
-    }
-    ChatSession.prototype = {
-
-        close: function() {
-            this.isExpired = true;
-
-            if (this.isReplied) {
-                this.currentChat.handleExpiredChatSession();
+        self.reportStatusIfInactive = function() {
+            if (!(self.provider && self.talking)) {
+                display_partners_message('<b>Этот чат завершен</b> <a href="#/random">Начать новый диалог</a>');
             }
-            else {
-                this.currentChat.removeLastChatSession();
-            }
-            console.warn("chat session expired");
-        },
+        };
 
-        setTimeout: function(time) {
-            var self = this;
-            // console.log("timer for chatSession is set. Left(msec): " + time);
-
-            // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly
-            // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
-
-            if (time > 2147483647) {
-                this.extraTime = time - 2147483647;
-                time = 2147483647;
-                // console.log("extra time is added(msec): " + this.extraTime);
-            }
-
-            if (this.timer) {
-                $timeout.cancel(this.timer);
-            }
-
-            this.timer = $timeout(function() {
-                if (self.extraTime > 0) {
-                    return false;
-                }
-                self.close();
-            }, time);
-        },
-
-        setTimer: function(expires) {
-            var chatSession = this;
-            var ttl;
-            if (deviceServerTimeDifference_msec) {
-                ttl = calculateMessageTtl(expires);
-                chatSession.setTimeout(ttl);
-                chatSession.whenExipires = new Date().getTime() + ttl;
-            }
-            else {
-                api.getTimeDifference()
-                    .then(function(timeDifference) {
-                        deviceServerTimeDifference_msec = timeDifference;
-                        ttl = calculateMessageTtl(expires);
-                        chatSession.setTimeout(ttl);
-                        chatSession.whenExipires = new Date().getTime() + ttl;
-                        chatSession.save();
+        function display_partners_message(messageText) {
+            setTimeout(function() {
+                $rootScope.$apply(function(){
+                    self.lastUnexpiredChatSession.messages.push({
+                        text: messageText,
+                        isOwn: false
                     });
-            }
-        },
-
-        setReplied: function() {this.isReplied = true;},
-
-        save: function() {
-            storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
-            console.log("chat session is saved");
-        },
-
-        getLastMessage: function() {
-            if (this.messages.length) {
-                var messagesAmount = this.messages.length;
-                var text = this.messages[messagesAmount - 1].text;
-                if (text.match(/(http|https):/)) {
-                    var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg'];
-                    var splitted = text.split(".");
-                    var extensition = splitted[splitted.length - 1];
-
-                    if (imagesExtensitions.indexOf(extensition) != -1) {
-                        return "(изображение)";
-                    }
-                    else {
-                        return "(ссылка)";
-                    }
-                }
-                else {
-                    return htmlToPlaintext(text);
-                }
-            }
-        },
-
-        sendMessage: function(message) {
-            var self = this;
-            chat.Send(message);
-
-            var deferred = $q.defer();
-
-            deferred.resolve();
-
-            return deferred.promise;
-
-         /*   return api
-            .then(
-                function(res) {
-                    self.messages.push({
-                        text: message.sanitize(),
-                        isOwn: true
-                    });
-
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-
-                },
-                function(res) {
-                    console.error(res);
-                }
-            );*/
+                });
+            }, 0);
         }
-    };
-}
+
+        function my_message_sent(m) {
+            if (self.talking)
+                self.lastUnexpiredChatSession.my_message_sent(m);
+        }
+
+        function reinit_chat() {
+            var partner_id = Math.random();
+            self.lastUnexpiredChatSession =
+                externalChatSession.get_new_session(self, partner_id);
+            self.chatSessionsIndexes = [self.lastUnexpiredChatSession.id];
+            self.ava = avatars.from_id(partner_id);
+            self.photoUrl = self.ava.url;
+            self.photoUrlMini = self.ava.url_mini;
+            self.title = "кто-то";
+        }
+
+        reinit_chat();
+
+        self.send_my_message = function(m) {
+            self.provider.Send(m);
+        };
+
+        self.disconnect = function() {
+            clearInterval(self.start_timer);
+            self.provider.Disconnect();
+        };
+
+        self.getLastUnexpiredChatSession = function() {
+            return $q.when(true);
+        };
+
+        self.updateInfo = function() {
+            return $q.when(true);
+        };
+    }
+})();

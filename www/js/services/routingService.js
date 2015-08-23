@@ -10,7 +10,7 @@ function(notification, $state, $rootScope) {
     self.goto = function(state, params) {
         window.snapper.close();
 
-        params = params ? params : {};
+        params = params || {};
 
         // For now show preloader always
 //        if (!RAN_AS_APP) {

@@ -147,6 +147,7 @@ services
 
         // todo: fix logic bugs and uncomment
         //lastSession.setTimer(expires);
+
         lastSession.save();
     }
 
