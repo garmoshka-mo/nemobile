@@ -607,7 +607,7 @@ services
             chatData.primaryKey = 'channelName';
             this.chats[chatData.channelName] = new Chat(chatData);
             this.chats[chatData.channelName].updateInfo();
-            this.registerDeviceToChannel(channelName);
+            this.registerDeviceToChannel(chatData.channelName);
             return this.chats[chatData.channelName];
         }
 
