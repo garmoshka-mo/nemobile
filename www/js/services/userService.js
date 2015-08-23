@@ -426,24 +426,6 @@ services
     //         }
     //     );
     // }
-
-    function removeDeviceFromChannel() {
-        if (window.deviceId) {
-            var type = device.platform === "iOS" ? "apns" : "gcm";
-            var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-                + App.Settings.pubnubSubscribeKey  + "/devices/" 
-                + window.deviceId + "/remove?type=" + type;
-            $http.get(url).then(
-                function(res) {
-                    console.log(res);
-                },
-                function(res) {
-                    console.log(res);
-                }
-            );
-        }
-    }
-
     function updateUserInfo(accessToken) {
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
@@ -477,7 +459,7 @@ services
                 gw_type: type,
                 channel: channel,
                 callback: function(res) {
-                    console.log("device is registered to user's channel", res);
+                    console.log("device was registered channel", res);
                 },
                 error: function(res) {
                     console.log("register device error", res);
@@ -488,6 +470,41 @@ services
         else {
             if (RAN_AS_APP) console.warn("device id is undefined");
         }     
+    };
+
+    this.removeDeviceFromChannel = function(channel) {
+        if (window.deviceId) {
+            // if channel is defined remove only from
+            // this channel else remove from all channels
+            if (channel) {
+                pubnub.mobile_gw_provision ({
+                    device_id: window.deviceId,
+                    op: 'remove',
+                    gw_type: type,
+                    channel: channel,
+                    callback: function(res) {
+                        console.log("device was unregistered from", res);
+                    },
+                    error: function(res) {
+                        console.log("unregister device error", res);
+                    },
+                });
+            }
+            else {
+                var type = device.platform === "iOS" ? "apns" : "gcm";
+                var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+                    + App.Settings.pubnubSubscribeKey  + "/devices/" 
+                    + window.deviceId + "/remove?type=" + type;
+                $http.get(url).then(
+                    function(res) {
+                        console.log(res);
+                    },
+                    function(res) {
+                        console.log(res);
+                    }
+                );
+            }
+        }
     };
 
     this.signin = function(name, password, accessToken, isVirtual) {
@@ -554,7 +571,7 @@ services
             unsubscribe();
             clearCurrentUser();
             clearApiAccessToken();
-            removeDeviceFromChannel();
+            user.removeDeviceFromChannel();
             d.resolve();
             console.log('user is logged out', user);
         }, 0);

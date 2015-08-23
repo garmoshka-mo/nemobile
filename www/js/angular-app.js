@@ -463,7 +463,7 @@ document.addEventListener("deviceready", function() {
         console.log(e);
         if (e.event == "registered") {
           window.deviceId = e.regid;
-          registerDeviceToChannel(); 
+          // registerDeviceToChannel(); 
         }
         else {
           if (e.coldstart) {
