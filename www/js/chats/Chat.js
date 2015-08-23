@@ -223,6 +223,7 @@ factories.factory("Chat",
         },
 
         disconnect: function() {
+            this.currentUser.removeDeviceFromChannel(this.channelName);
             return api.deleteChat(this.channelName);
         }
     };

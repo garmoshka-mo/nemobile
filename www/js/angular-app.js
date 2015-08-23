@@ -427,7 +427,7 @@ document.addEventListener("deviceready", function() {
 
       function tokenHandler(deviceToken) {
         window.deviceId = deviceToken;
-        window.registerDeviceToChannel(deviceToken);
+        // window.registerDeviceToChannel(deviceToken);
       }
 
       function errorHandler(error) {
@@ -463,7 +463,7 @@ document.addEventListener("deviceready", function() {
         console.log(e);
         if (e.event == "registered") {
           window.deviceId = e.regid;
-          registerDeviceToChannel(); 
+          // registerDeviceToChannel(); 
         }
         else {
           if (e.coldstart) {

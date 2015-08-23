@@ -78,7 +78,7 @@ services
         );
         user.save();
         stickersGallery.getCurrentUserCategories();
-        registerDeviceToChannel();
+        // registerDeviceToChannel();
     }
 
     function setAccessToken(accessToken) {
@@ -266,8 +266,9 @@ services
         }
 
         //filling channel name if it is undefined
-        if (!chat.channelName) {
+        if (!chat.channelName && channelName) {
             chat.channelName = channelName;
+            self.registerDeviceToChannel(channelName);
         }
 
         self.scores = message.my_score;
@@ -426,24 +427,6 @@ services
     //         }
     //     );
     // }
-
-    function removeDeviceFromChannel() {
-        if (window.deviceId) {
-            var type = device.platform === "iOS" ? "apns" : "gcm";
-            var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-                + App.Settings.pubnubSubscribeKey  + "/devices/" 
-                + window.deviceId + "/remove?type=" + type;
-            $http.get(url).then(
-                function(res) {
-                    console.log(res);
-                },
-                function(res) {
-                    console.log(res);
-                }
-            );
-        }
-    }
-
     function updateUserInfo(accessToken) {
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
@@ -463,29 +446,68 @@ services
         }
     }
 
-    window.registerDeviceToChannel = function registerDeviceToChannel() {
+   
+
+    //public methods
+
+     this.registerDeviceToChannel = function(channel) {
         if (window.deviceId) {
             var type = device.platform === "iOS" ? "apns" : "gcm";
-            var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-                + App.Settings.pubnubSubscribeKey  + "/devices/" 
-                + window.deviceId + "?add=" + user.channel
-                + "&type=" + type;
-
-            $http.get(url).then(
-                function(res) {
-                    console.log("device is registered to user's channel", res);
+           
+            pubnub.mobile_gw_provision ({
+                device_id: window.deviceId,
+                op: 'add',
+                gw_type: type,
+                channel: channel,
+                callback: function(res) {
+                    console.log("device was registered channel", res);
                 },
-                function(res) {
+                error: function(res) {
                     console.log("register device error", res);
-                }
-            );
+                },
+            });
+            
         }
         else {
-            console.warn("device id is undefined");
+            if (RAN_AS_APP) console.warn("device id is undefined");
         }     
     };
 
-    //public methods
+    this.removeDeviceFromChannel = function(channel) {
+        if (window.deviceId) {
+            // if channel is defined remove only from
+            // this channel else remove from all channels
+            if (channel) {
+                pubnub.mobile_gw_provision ({
+                    device_id: window.deviceId,
+                    op: 'remove',
+                    gw_type: type,
+                    channel: channel,
+                    callback: function(res) {
+                        console.log("device was unregistered from", res);
+                    },
+                    error: function(res) {
+                        console.log("unregister device error", res);
+                    },
+                });
+            }
+            else {
+                var type = device.platform === "iOS" ? "apns" : "gcm";
+                var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
+                    + App.Settings.pubnubSubscribeKey  + "/devices/" 
+                    + window.deviceId + "/remove?type=" + type;
+                $http.get(url).then(
+                    function(res) {
+                        console.log(res);
+                    },
+                    function(res) {
+                        console.log(res);
+                    }
+                );
+            }
+        }
+    };
+
     this.signin = function(name, password, accessToken, isVirtual) {
         var self = this;
 
@@ -550,7 +572,7 @@ services
             unsubscribe();
             clearCurrentUser();
             clearApiAccessToken();
-            removeDeviceFromChannel();
+            user.removeDeviceFromChannel();
             d.resolve();
             console.log('user is logged out', user);
         }, 0);
@@ -603,6 +625,7 @@ services
             chatData.primaryKey = 'channelName';
             this.chats[chatData.channelName] = new Chat(chatData);
             this.chats[chatData.channelName].updateInfo();
+            this.registerDeviceToChannel(chatData.channelName);
             return this.chats[chatData.channelName];
         }
 
@@ -648,7 +671,7 @@ services
 
                 setAccessToken(dataFromStorage.accessToken);
                 self.subscribe();
-                registerDeviceToChannel();
+                // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
                 console.log("user info is taken from storage", self);
             }),
