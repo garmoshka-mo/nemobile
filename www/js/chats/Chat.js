@@ -1,4 +1,6 @@
-factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(storage, ChatSession, api, $q) {
+factories.factory("Chat",
+    ['storage', 'avatars', 'ChatSession', 'api', '$q',
+    function(storage, avatars, ChatSession, api, $q) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -125,15 +127,15 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                 if (self.currentUser.friendsList.nepotomFriends[self.senderId] && !force) {
                     var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
                     self.title = friend.displayName;
-                    if (friend.photos) {
-                        self.photoUrl = friend.photos[0].value; 
-                        self.photoUrlMini = friend.photos[0].valueMini ?
-                            friend.photos[0].valueMini : friend.photos[0].value; 
-                    }
-                    else {
-                        self.photoUrl = App.Settings.adorableUrl + '/' + self.senderId;
-                        self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.senderId;
-                    }
+
+                    if (friend.photos)
+                        self.ava = avatars.from_photos(friend.photos);
+                    else
+                        self.ava = avatars.from_id(self.senderId);
+                    // todo: заменить код на использование объекта self.ava = ava
+                    self.photoUrl = self.ava.url;
+                    self.photoUrlMini = self.ava.url_mini;
+
                     d.resolve();
                 }
                 else {
@@ -154,8 +156,9 @@ factories.factory("Chat", ['storage', 'ChatSession', 'api', '$q', function(stora
                                     self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
                                 }
                                 else {
-                                    self.photoUrl = App.Settings.adorableUrl + '/' + self.senderId;
-                                    self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.senderId;
+                                    self.ava = avatars.from_id(self.senderId);
+                                    self.photoUrl = self.ava.url;
+                                    self.photoUrlMini = self.ava.url_mini;
                                 }
                             }
                         },

@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope',
-    function(user, $scope) {
+         'user', '$scope', 'externalChat',
+    function(user, $scope, externalChat) {
 
         $scope.showHelpText = false;
         $scope.waitingServer = false;
@@ -92,7 +92,7 @@ angular.module("angControllers")
                 );
             }
 
-            // externalChat.start(preferences);
+            //externalChat.start(preferences);
 
         };
 

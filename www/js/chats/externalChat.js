@@ -1,9 +1,15 @@
 services
-    .service('externalChat', [ExternalChat]);
-function ExternalChat() {
+    .service('externalChat',
+    ['avatars', '$q', ExternalChat]);
+function ExternalChat(avatars, $q) {
 
 // ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
 //chat.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
+
+    var self = this;
+    this.chat = null;
+    this.talking = false;
+    this.isVirtual = true;
 
     var defaultOptions = {
         'onConnect': function(){
@@ -20,11 +26,7 @@ function ExternalChat() {
         }
     };
 
-    var self = this;
-    this.chat = null;
-    this.talking = false;
-
-    this.start = function(preferences) {
+    self.start = function(preferences) {
         var intro = composeIntro(preferences);
 
         if (intro.length < 1) intro = '..';
@@ -47,6 +49,7 @@ function ExternalChat() {
         }
 
         function terminated() {
+            console.log('Terminated while talking="' + self.talking + '"');
             if (!self.talking)
                 chat.Connect();
             else
@@ -54,65 +57,161 @@ function ExternalChat() {
         }
 
         function got_message(message) {
+            if (!self.talking) start_chat();
             console.log('Сообщение от незнакомца: "' + message + '"');
         }
-    }
 
-    function composeIntro(p) {
-        /*
-        * Ж 18-22?
-        * без общения на св.темы, только интимн.темы, только с видео
-        * Я - M (22-25)
-        *
-        * Ж 36+?
-        * общение на своб.темы+, интимн.темы+, видео+
-        * Я - M
-        * */
-        var req = [];
-        if (p.subjects.free_talk == -1) req.push('без общения на св.темы');
-        if (p.subjects.free_talk == 1) req.push('общение на разные темы+');
-        if (p.subjects.free_talk == 2) req.push('только общение');
-
-/*
-        if (p.subjects.real == -1) req.push('без общения на св.темы');
-        if (p.subjects.real == 1) req.push('общение на разные темы+');
-        if (p.subjects.real == 2) req.push('только общение');
-*/
-
-        if (p.subjects.sexual == -1) req.push('без интимн. тем');
-        if (p.subjects.sexual == 1) req.push('интим. темы+');
-        if (p.subjects.sexual == 2) req.push('только интимн.темы');
-
-        if (p.subjects.video == -1) req.push('без видео');
-        if (p.subjects.video == 1) req.push('с видео+');
-        if (p.subjects.video == 2) req.push('только с видео');
-
-        var you = [];
-        if (p.look_for.gender == 'm') you.push('M');
-        if (p.look_for.gender == 'w') you.push('Ж');
-        if (!(p.look_for.age_range[0] == 0 && p.look_for.age_range[1] == 100)) {
-            if (p.look_for.age_range[0] == 0)
-                you.push('до '+p.look_for.age_range[1]);
-            else if (p.look_for.age_range[1] == 100)
-                you.push(p.look_for.age_range[0]+'+');
-            else
-                you.push(p.look_for.age_range[0]+'-'+p.look_for.age_range[1]);
+        function start_chat() {
+            init_chat();
+            routing.goto('chat', {chatType: 'external_chat', fromState: 'random'});
+            console.warn('Тут надо отключить старый запрос в нашу очередь.');
         }
-
-        var me;
-        if (p.me.gender == 'm') me = 'я - М';
-        if (p.me.gender == 'w') me = 'я - Ж';
-
-        var result = '';
-        if (you.length > 0) result += you.join(' ')+'?\n';
-        if (req.length > 0) result += req.join(', ')+'\n';
-        if (me) result += me;
-
-        return result;
     }
 
-    this.end = function() {
+    function init_chat() {
+        var partner_id = Math.random();
+        self.lastUnexpiredChatSession = new ChatSession(partner_id);
+        self.chatSessionsIndexes = [self.lastUnexpiredChatSession.id];
+        self.ava = avatars.from_id(partner_id);
+        self.photoUrl = self.ava.url;
+        self.photoUrlMini = self.ava.url_mini;
+    }
+
+    self.end = function() {
         chat.Disconnect();
     };
 
+    self.getLastUnexpiredChatSession = function() {
+        $q.resolve();
+    };
+
+    function ChatSession(senderId) {
+        this.isExpired = false;
+        this.isReplied = false;
+        this.id = Math.random();
+        this.channelName = null;
+        this.senderId = senderId;
+        this.messages = [];
+        this.timer = null;
+        this.creatorId = null;
+        this.currentChat = null;
+        this.whenExipires = Infinity;
+    }
+    ChatSession.prototype = {
+
+        close: function() {
+            this.isExpired = true;
+
+            if (this.isReplied) {
+                this.currentChat.handleExpiredChatSession();
+            }
+            else {
+                this.currentChat.removeLastChatSession();
+            }
+            console.warn("chat session expired");
+        },
+
+        setTimeout: function(time) {
+            var self = this;
+            // console.log("timer for chatSession is set. Left(msec): " + time);
+
+            // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly
+            // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
+
+            if (time > 2147483647) {
+                this.extraTime = time - 2147483647;
+                time = 2147483647;
+                // console.log("extra time is added(msec): " + this.extraTime);
+            }
+
+            if (this.timer) {
+                $timeout.cancel(this.timer);
+            }
+
+            this.timer = $timeout(function() {
+                if (self.extraTime > 0) {
+                    return false;
+                }
+                self.close();
+            }, time);
+        },
+
+        setTimer: function(expires) {
+            var chatSession = this;
+            var ttl;
+            if (deviceServerTimeDifference_msec) {
+                ttl = calculateMessageTtl(expires);
+                chatSession.setTimeout(ttl);
+                chatSession.whenExipires = new Date().getTime() + ttl;
+            }
+            else {
+                api.getTimeDifference()
+                    .then(function(timeDifference) {
+                        deviceServerTimeDifference_msec = timeDifference;
+                        ttl = calculateMessageTtl(expires);
+                        chatSession.setTimeout(ttl);
+                        chatSession.whenExipires = new Date().getTime() + ttl;
+                        chatSession.save();
+                    });
+            }
+        },
+
+        setReplied: function() {this.isReplied = true;},
+
+        save: function() {
+            storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
+            console.log("chat session is saved");
+        },
+
+        getLastMessage: function() {
+            if (this.messages.length) {
+                var messagesAmount = this.messages.length;
+                var text = this.messages[messagesAmount - 1].text;
+                if (text.match(/(http|https):/)) {
+                    var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg'];
+                    var splitted = text.split(".");
+                    var extensition = splitted[splitted.length - 1];
+
+                    if (imagesExtensitions.indexOf(extensition) != -1) {
+                        return "(изображение)";
+                    }
+                    else {
+                        return "(ссылка)";
+                    }
+                }
+                else {
+                    return htmlToPlaintext(text);
+                }
+            }
+        },
+
+        sendMessage: function(message) {
+            var self = this;
+            chat.Send(message);
+
+            var deferred = $q.defer();
+
+            deferred.resolve();
+
+            return deferred.promise;
+
+         /*   return api
+            .then(
+                function(res) {
+                    self.messages.push({
+                        text: message.sanitize(),
+                        isOwn: true
+                    });
+
+                    else {
+                        return $q.reject(res.data.error);
+                    }
+
+                },
+                function(res) {
+                    console.error(res);
+                }
+            );*/
+        }
+    };
 }
