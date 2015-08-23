@@ -9,14 +9,16 @@ angular.module("angControllers")
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
-        $scope.iam = {
+        $scope.filter = {};
+        
+        $scope.filter.iam = {
             sex: '-',
             age: 0,
             intro: '',
             location: ''
         };
 
-        $scope.another = {
+        $scope.filter.another = {
             sex: '-',
             age: 0
         };
@@ -26,45 +28,34 @@ angular.module("angControllers")
             this.value = value;
         }
 
-        $scope.theme = {
+        $scope.filter.theme = {
             isOpened: false,
             value: 0,
-            selectValue: selectValue
         };
 
-        $scope.geo = {
+        $scope.filter.geo = {
             isOpened: false,
             value: 0,
-            selectValue: selectValue
         };
 
-        $scope.sex = {
+        $scope.filter.sex = {
             isOpened: false,
             value: 0,
-            selectValue: selectValue
         };
 
-        $scope.video = {
+        $scope.filter.video = {
             isOpened: false,
             value: 0,
-            selectValue: selectValue
         };
 
-        $scope.selectTheme = function(theme) {
-            $scope.filter.selectedTheme = theme;
-        };
-
-        $scope.selectGeo = function(geo) {
-            $scope.filter.selectedGeo = geo;
-        };
-
-        $scope.selectSex = function(sex) {
-            $scope.filter.selectedSex = sex;
-        };
-
-        $scope.selectVideo = function(video) {
-            $scope.filter.selectedVideo = video;
-        };
+        function extendFilterObject() {
+            $scope.filter.theme.selectValue = 
+            $scope.filter.geo.selectValue = 
+            $scope.filter.sex.selectValue = 
+            $scope.filter.video.selectValue =
+            selectValue; 
+        }
+        extendFilterObject();
 
         function onSuccessChatRequest() {
             $scope.waitingServer = false;
@@ -80,9 +71,11 @@ angular.module("angControllers")
             var preferences = prepareDataForServer();
             $scope.waitingServer = true;
             ga('send', 'event', 'random', 'start');
+            localStorage.randomFilter = JSON.stringify($scope.filter);
 
             if (user.isLogged()) sendRequest();
             else user.signinAsVirtualUser().then(sendRequest);
+
 
             function sendRequest() {
                 api.randomChatRequest(preferences)
@@ -110,22 +103,29 @@ angular.module("angControllers")
         function prepareDataForServer() {
             return {
                 subjects: {
-                    free_talk: $scope.theme.value,
-                    real: $scope.geo.value,
-                    sexual: $scope.sex.value,
-                    video: $scope.video.value
+                    free_talk: $scope.filter.theme.value,
+                    real: $scope.filter.geo.value,
+                    sexual: $scope.filter.sex.value,
+                    video: $scope.filter.video.value
                 },
-                intro: $scope.iam.intro,
-                location: $scope.iam.location, 
+                intro: $scope.filter.iam.intro,
+                location: $scope.filter.iam.location, 
                 me: {
-                    gender: $scope.iam.sex,
-                    age_range: ageRanges[$scope.iam.age]
+                    gender: $scope.filter.iam.sex,
+                    age_range: ageRanges[$scope.filter.iam.age]
                 },
                 look_for: {
-                    gender: $scope.another.sex,
-                    age_range: ageRanges[$scope.another.age]
+                    gender: $scope.filter.another.sex,
+                    age_range: ageRanges[$scope.filter.another.age]
                 }
             };
+        }
+
+        var storedFilterParams = localStorage.randomFilter;
+        if (storedFilterParams) {
+            console.log('filter params were taken from storage');
+            $scope.filter = JSON.parse(storedFilterParams);
+            extendFilterObject();
         }
     }
 ]);
