@@ -11,42 +11,10 @@ angular.module("angControllers")
 
         $scope.filter = {};
         
-        $scope.filter.iam = {
-            sex: '-',
-            age: 0,
-            intro: '',
-            location: ''
-        };
-
-        $scope.filter.another = {
-            sex: '-',
-            age: 0
-        };
-
         function selectValue(value) {
             this.isOpened = false;
             this.value = value;
         }
-
-        $scope.filter.theme = {
-            isOpened: false,
-            value: 0,
-        };
-
-        $scope.filter.geo = {
-            isOpened: false,
-            value: 0,
-        };
-
-        $scope.filter.sex = {
-            isOpened: false,
-            value: 0,
-        };
-
-        $scope.filter.video = {
-            isOpened: false,
-            value: 0,
-        };
 
         function extendFilterObject() {
             $scope.filter.theme.selectValue = 
@@ -55,7 +23,6 @@ angular.module("angControllers")
             $scope.filter.video.selectValue =
             selectValue; 
         }
-        extendFilterObject();
 
         function onSuccessChatRequest() {
             $scope.waitingServer = false;
@@ -67,15 +34,19 @@ angular.module("angControllers")
             $scope.lookupInProgress = false;
         }
 
+        function saveFilterState() {
+            localStorage.randomFilter = JSON.stringify($scope.filter);
+        }
+
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
             $scope.waitingServer = true;
             ga('send', 'event', 'random', 'start');
-            localStorage.randomFilter = JSON.stringify($scope.filter);
+            
 
             if (user.isLogged()) sendRequest();
             else user.signinAsVirtualUser().then(sendRequest);
-
+            saveFilterState();
 
             function sendRequest() {
                 api.randomChatRequest(preferences)
@@ -87,6 +58,40 @@ angular.module("angControllers")
 
             // externalChat.start(preferences);
 
+        };
+
+        $scope.setDefaultFilterParams = function() {
+            $scope.filter.iam = {
+                sex: '-',
+                age: 0,
+                intro: '',
+                location: ''
+            };
+
+            $scope.filter.another = {
+                sex: '-',
+                age: 0
+            };
+
+            $scope.filter.theme = {
+                isOpened: false,
+                value: 0,
+            };
+
+            $scope.filter.geo = {
+                isOpened: false,
+                value: 0,
+            };
+
+            $scope.filter.sex = {
+                isOpened: false,
+                value: 0,
+            };
+
+            $scope.filter.video = {
+                isOpened: false,
+                value: 0,
+            };
         };
 
         $scope.cancelLookingFor = function() {
@@ -125,6 +130,10 @@ angular.module("angControllers")
         if (storedFilterParams) {
             console.log('filter params were taken from storage');
             $scope.filter = JSON.parse(storedFilterParams);
+            extendFilterObject();
+        }
+        else {
+            $scope.setDefaultFilterParams();
             extendFilterObject();
         }
     }
