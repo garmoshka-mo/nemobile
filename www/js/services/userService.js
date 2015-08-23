@@ -78,7 +78,7 @@ services
         );
         user.save();
         stickersGallery.getCurrentUserCategories();
-        registerDeviceToChannel();
+        // registerDeviceToChannel();
     }
 
     function setAccessToken(accessToken) {
@@ -265,8 +265,9 @@ services
         }
 
         //filling channel name if it is undefined
-        if (!chat.channelName) {
+        if (!chat.channelName && channelName) {
             chat.channelName = channelName;
+            self.registerDeviceToChannel(channelName);
         }
 
         self.scores = message.my_score;
@@ -462,7 +463,11 @@ services
         }
     }
 
-    window.registerDeviceToChannel = function registerDeviceToChannel() {
+   
+
+    //public methods
+
+     this.registerDeviceToChannel = function(channel) {
         if (window.deviceId) {
             var type = device.platform === "iOS" ? "apns" : "gcm";
            
@@ -470,7 +475,7 @@ services
                 device_id: window.deviceId,
                 op: 'add',
                 gw_type: type,
-                channel_group: user.channel,
+                channel: channel,
                 callback: function(res) {
                     console.log("device is registered to user's channel", res);
                 },
@@ -481,11 +486,10 @@ services
             
         }
         else {
-            console.warn("device id is undefined");
+            if (RAN_AS_APP) console.warn("device id is undefined");
         }     
     };
 
-    //public methods
     this.signin = function(name, password, accessToken, isVirtual) {
         var self = this;
 
@@ -603,6 +607,7 @@ services
             chatData.primaryKey = 'channelName';
             this.chats[chatData.channelName] = new Chat(chatData);
             this.chats[chatData.channelName].updateInfo();
+            this.registerDeviceToChannel(channelName);
             return this.chats[chatData.channelName];
         }
 
@@ -648,7 +653,7 @@ services
 
                 setAccessToken(dataFromStorage.accessToken);
                 self.subscribe();
-                registerDeviceToChannel();
+                // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
                 console.log("user info is taken from storage", self);
             }),

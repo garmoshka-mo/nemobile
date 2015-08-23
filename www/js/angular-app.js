@@ -427,7 +427,7 @@ document.addEventListener("deviceready", function() {
 
       function tokenHandler(deviceToken) {
         window.deviceId = deviceToken;
-        window.registerDeviceToChannel(deviceToken);
+        // window.registerDeviceToChannel(deviceToken);
       }
 
       function errorHandler(error) {
