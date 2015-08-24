@@ -161,7 +161,7 @@ services
         );
     }
 
-    var incomeMessageSound = new Audio('sounds/alert.mp3');
+    var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
 
     function handleIncomeMessage(message, envelope) {
         console.log(message);
@@ -188,6 +188,7 @@ services
 
         if (message.event == "chat_empty") {
             var chat = self.getChat(channelName);
+            chat.disconnect();
             handleChatSessionAsync(chat, '<b>Собеседник покинул чат</b> <a href="#/random">Начать новый диалог</a>', 0);
             return;
         }

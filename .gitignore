@@ -3,4 +3,8 @@ node_modules/
 www/npm-debug.log
 npm-debug.log
 .idea/
-build-scripts/
+build/
+.vagrant/
+cookbooks/
+Cheffile.lock
+tmp/

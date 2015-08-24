@@ -18,107 +18,113 @@ var gulp = require('gulp'),
     strip = require('gulp-strip-comments');
 
  
-var projectDir = "../www/";
-var outputFolderJs = "../build";
+var sourceWww = "www/",
+    outputRoot = "build",
+    outputWww = "build/www";
 
-gulp.task('default', function() {
+gulp.task('default1', function() {
     runSequence('config', 'removeTestData','uglify:controllers', 'uglify:factories', 'uglify:rest',
         'uglify:services', 'uglify:libs', 'cssmin', 'cleanHtml', 'removeSources', 'changeName');
 });
 
+gulp.task('default', function() {
+    runSequence('config');
+});
+
 
 gulp.task('config', function () {
-    return gulp.src(projectDir + 'js/config.prod.js')
-        .pipe(gulp.dest(projectDir + 'js/config.js'));
+    return gulp.src(sourceWww + 'js/config.prod.js')
+        .pipe(gulp.dest(outputWww + 'js/config.js'));
 });
+
 gulp.task('cssmin', function () {
-    return gulp.src(projectDir + 'css/*.css')
+    return gulp.src(sourceWww + 'css/*.css')
         .pipe(cssmin())
-        .pipe(gulp.dest(projectDir + 'css'));
+        .pipe(gulp.dest(sourceWww + 'css'));
 });
  
 gulp.task('uglify:controllers', function() {
-  return gulp.src(projectDir + 'js/ang-controllers/*.js')
+  return gulp.src(sourceWww + 'js/ang-controllers/*.js')
     .pipe(concat('controllers.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + outputFolderJs));
+    .pipe(gulp.dest(sourceWww + outputFolderJs));
 });
 
 gulp.task('uglify:factories', function() {
-  return gulp.src(projectDir + 'js/factories/*.js')
+  return gulp.src(sourceWww + 'js/factories/*.js')
     .pipe(concat('factories.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + outputFolderJs));
+    .pipe(gulp.dest(sourceWww + outputFolderJs));
 });
 
 gulp.task('uglify:libs', function() {
-  return gulp.src(projectDir + 'js/libs/*.js')
+  return gulp.src(sourceWww + 'js/libs/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + 'js/libs/'));
+    .pipe(gulp.dest(sourceWww + 'js/libs/'));
 });
 
 gulp.task('uglify:services', function() {
-  return gulp.src(projectDir + 'js/services/*.js')
+  return gulp.src(sourceWww + 'js/services/*.js')
     .pipe(concat('services.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + outputFolderJs));
+    .pipe(gulp.dest(sourceWww + outputFolderJs));
 });
 
 gulp.task('uglify:rest', function() {
-    return gulp.src(projectDir + 'js/*.js')
+    return gulp.src(sourceWww + 'js/*.js')
       .pipe(concat('rest.js'))
       .pipe(uglify())
-      .pipe(gulp.dest(projectDir + outputFolderJs));
+      .pipe(gulp.dest(sourceWww + outputFolderJs));
 });
 
 gulp.task('removeComments', function() {
-  return gulp.src(projectDir + 'js/app/*.js')
+  return gulp.src(sourceWww + 'js/app/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + 'js/app'));
+    .pipe(gulp.dest(sourceWww + 'js/app'));
 });
 
 gulp.task('removeTestData', function() {
-  return gulp.src(projectDir + 'js/testDataset.js')
+  return gulp.src(sourceWww + 'js/testDataset.js')
         .pipe(clean({force: true}));
 });
 
 gulp.task('removeSources', function () {
-    gulp.src(projectDir + 'js/ang-controllers')
+    gulp.src(sourceWww + 'js/ang-controllers')
         .pipe(clean({force: true}));
-    gulp.src(projectDir + 'js/factories')
+    gulp.src(sourceWww + 'js/factories')
         .pipe(clean({force: true}));
-    gulp.src(projectDir + 'js/services')
+    gulp.src(sourceWww + 'js/services')
         .pipe(clean({force: true}));
-    gulp.src(projectDir + 'js/plugins')
+    gulp.src(sourceWww + 'js/plugins')
     .pipe(clean({force: true}));
-    gulp.src(projectDir + 'js/*.js')
+    gulp.src(sourceWww + 'js/*.js')
         .pipe(clean({force: true}));
 });
 
 gulp.task('injectFiles', function() {
-  var target = gulp.src(projectDir + 'index.html');
-  var rest = gulp.src([projectDir + 'js/app/rest.js'], {read: false});
+  var target = gulp.src(sourceWww + 'index.html');
+  var rest = gulp.src([sourceWww + 'js/app/rest.js'], {read: false});
   var angularFiles = gulp.src([
-    projectDir + 'js/app/factories.js',
-    projectDir + 'js/app/controllers.js',
-    projectDir + 'js/app/services.js'
+    sourceWww + 'js/app/factories.js',
+    sourceWww + 'js/app/controllers.js',
+    sourceWww + 'js/app/services.js'
     ], {read: false});
  
   return target.pipe(inject(series(rest, angularFiles), {relative: true}))
-    .pipe(gulp.dest(projectDir));
+    .pipe(gulp.dest(sourceWww));
 });
 
 gulp.task('changeName', function() {
-  return gulp.src(projectDir + 'config.xml')
+  return gulp.src(sourceWww + 'config.xml')
       .pipe(replace({regex:'dubink-dev', replace:'dubink'}))
       .pipe(replace({regex:'dub-dev', replace:'dub.ink'}))
-      .pipe(gulp.dest(projectDir));
+      .pipe(gulp.dest(sourceWww));
 });
 
 gulp.task('removetodo', function() {
-  return gulp.src(projectDir + 'js/libs/*.js')
+  return gulp.src(sourceWww + 'js/libs/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest(projectDir + 'js/libs'));
+    .pipe(gulp.dest(sourceWww + 'js/libs'));
 });
 
 gulp.task('makeFavicon', function () {
@@ -131,11 +137,11 @@ gulp.task('makeFavicon', function () {
 });
  
 gulp.task('cleanHtml', function() {
-  return gulp.src(projectDir + 'index.html')
+  return gulp.src(sourceWww + 'index.html')
     .pipe(htmlreplace({
         'js': ''
     }))
-    .pipe(gulp.dest(projectDir));
+    .pipe(gulp.dest(sourceWww));
 });
 
 gulp.task('imagemin', function () {
