@@ -1,4 +1,3 @@
-
 ## Deploy dev-environment
 
 1. Setup vagrant: https://www.vagrantup.com/downloads
@@ -13,4 +12,11 @@
 cd n<Tab>, <Enter>
 npm start
 ````
-3. Goto http://localhost:8080/
+Goto http://localhost:8080/
+
+## Build for *prod*
+
+Run `gulp`
+It will build project to sub-folder `build/`
+This sub-folder should be committed to production repo
+
