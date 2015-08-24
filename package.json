@@ -1,6 +1,12 @@
 {
-  "name": "worker",
+  "name": "dub.ink",
   "version": "0.0.1",
+  "description": "dub.ink",
+  "license": "Copyrights dub.ink 2015",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:garmoshka-mo/nepotom.git"
+  },
   "scripts": {
     "start": "http-server www"
   },
@@ -18,9 +24,9 @@
     "gulp-cssmin": "*",
     "gulp-favicons": "^1.0.9",
     "gulp-html-replace": "^1.4.4",
-    "gulp-imagemin": "^2.2.1",
+    "gulp-imagemin": "^2.3.0",
+    "imagemin-pngquant": "^4.0.0",
     "gulp-inject": "^1.2.0",
-    "gulp-jsfuck": "*",
     "gulp-obfuscate": "*",
     "gulp-regex-replace": "^0.2.3",
     "gulp-rename": "*",
@@ -29,8 +35,7 @@
     "gulp-uglify": "*",
     "gulp-util": "^3.0.3",
     "gulp-watch": "*",
-
     "run-sequence": "^1.0.2",
     "stream-series": "^0.1.1"
-  }, "imagemin-pngquant": "^4.0.0"
+  }
 }

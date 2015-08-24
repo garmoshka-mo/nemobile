@@ -19,8 +19,8 @@ var gulp = require('gulp'),
 
  
 var sourceWww = "www/",
-    outputRoot = "build",
-    outputWww = "build/www";
+    outputRoot = "build/",
+    outputWww = outputRoot+"www/";
 
 gulp.task('default1', function() {
     runSequence('config', 'removeTestData','uglify:controllers', 'uglify:factories', 'uglify:rest',

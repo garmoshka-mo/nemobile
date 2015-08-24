@@ -18,6 +18,7 @@ export LC_ALL=en_US.UTF-8
 #  Node modules
 ########################
 
+npm install npm -g
 npm install -g gulp
 
 
