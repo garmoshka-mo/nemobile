@@ -64,7 +64,7 @@ gulp.task('copy_static', function(){
     var filesToCopy = [
         source_www + 'partials/**/*.html',
         source_www + 'assets/fonts/*',
-        source_www + 'assets/img/*',
+        source_www + 'assets/img/**/*',
         source_www + 'assets/sounds/*'
     ];
     gulp.src(filesToCopy, { base: source_www })
