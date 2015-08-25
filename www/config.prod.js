@@ -9,5 +9,6 @@ window.App.Settings = {
     adorableUrl: "http://api.adorable.io/avatars",
     appUrl: "http://dub.ink",
     gaTrackingCode: 'UA-50069297-8',
+    externalChat: true,
     fullMode: false
 };

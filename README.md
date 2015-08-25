@@ -14,9 +14,10 @@ npm start
 ````
 Goto http://localhost:8080/
 
-## Build for *prod*
+## Build for PROD
 
-Run `gulp`
-It will build project to sub-folder `build/`
-This sub-folder should be committed to production repo
+1. Run `gulp`.
+This will build project to sub-folder `build/`
+which should be committed to production repo
+2. `npm test` to launch resulting **production** web-server locally
 

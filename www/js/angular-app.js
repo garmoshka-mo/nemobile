@@ -1,12 +1,13 @@
 var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories",
   "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/
-  "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial"]);
+  "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial", 'ngResource']);
 app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
   //  chrome-extension: will be added to the end of the expression
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
+var version = 'dev';
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
   function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise("signinup/in");
@@ -19,7 +20,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
           template: "dub.ink"  
         },
         "content": {
-          templateUrl: "partials/start/content.html",
+          templateUrl: "partials/start/content.html?"+version,
           controller: "startController"
         }
       }
@@ -32,7 +33,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "signinupController",
-          templateUrl: "partials/signinup/content.html"
+          templateUrl: "partials/signinup/content.html?"+version
         }
       }
     })
@@ -44,7 +45,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "registrationController",
-          templateUrl: "partials/signup/content.html"
+          templateUrl: "partials/signup/content.html?"+version
         }
       }
     })
@@ -56,7 +57,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "chatsController",
-          templateUrl: "partials/chats/content.html"
+          templateUrl: "partials/chats/content.html?"+version
         }
       }
     })
@@ -68,7 +69,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "chatController",
-          templateUrl: "partials/chat/content.html"
+          templateUrl: "partials/chat/content.html?"+version
         }
       }
     })
@@ -80,7 +81,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "randomController",
-          templateUrl: "partials/random/content.html"
+          templateUrl: "partials/random/content.html?"+version
         }
       }
     })
@@ -92,7 +93,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "exitController",
-          templateUrl: "partials/exit/content.html"
+          templateUrl: "partials/exit/content.html?"+version
         }
       }
     })
@@ -104,7 +105,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "friendSearchController",
-          templateUrl: "partials/friendSearch/content.html"
+          templateUrl: "partials/friendSearch/content.html?"+version
         }
       }
     })
@@ -116,7 +117,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "localForageController",
-          templateUrl: "partials/localForage/content.html"
+          templateUrl: "partials/localForage/content.html?"+version
         }
       }
     })
@@ -128,7 +129,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "stickersGalleryController",
-          templateUrl: "partials/stickersGallery/content.html"
+          templateUrl: "partials/stickersGallery/content.html?"+version
         }
       }
     })
@@ -140,7 +141,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "addImageController",
-          templateUrl: "partials/addImage/content.html"
+          templateUrl: "partials/addImage/content.html?"+version
         }
       }
     })
@@ -152,7 +153,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "friendsController",
-          templateUrl: "partials/friends/content.html"
+          templateUrl: "partials/friends/content.html?"+version
         }
       }
     })
@@ -164,7 +165,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "phoneRegistrationController",
-          templateUrl: "partials/phoneRegistration/content.html"
+          templateUrl: "partials/phoneRegistration/content.html?"+version
         }
       }
     })
@@ -176,7 +177,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "phoneRegistrationUserController",
-          templateUrl: "partials/phoneRegistrationUser/content.html"
+          templateUrl: "partials/phoneRegistrationUser/content.html?"+version
         }
       }
     })
@@ -188,7 +189,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "settingsController",
-          templateUrl: "partials/settings/content.html"
+          templateUrl: "partials/settings/content.html?"+version
         }
       }
     })
@@ -200,7 +201,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "invitationController",
-          templateUrl: "partials/invitation/content.html"
+          templateUrl: "partials/invitation/content.html?"+version
         }
       }
     })
@@ -212,7 +213,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "loadAvatarController",
-          templateUrl: "partials/loadAvatar/content.html"
+          templateUrl: "partials/loadAvatar/content.html?"+version
         }
       }
     })
@@ -224,7 +225,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "showImageController",
-          templateUrl: "partials/showImage/content.html"
+          templateUrl: "partials/showImage/content.html?"+version
         }
       }
     })
@@ -236,7 +237,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "addVirtualChatController",
-          templateUrl: "partials/addVirtualChat/content.html"
+          templateUrl: "partials/addVirtualChat/content.html?"+version
         }
       }
     })
@@ -248,7 +249,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "chatInfoController",
-          templateUrl: "partials/chatInfo/content.html"
+          templateUrl: "partials/chatInfo/content.html?"+version
         }
       }
     })
@@ -260,7 +261,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "aboutController",
-          templateUrl: "partials/about/content.html"
+          templateUrl: "partials/about/content.html?"+version
         }
       }
     })
@@ -272,7 +273,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "virtualChatController",
-          templateUrl: "partials/virtualChat/content.html"
+          templateUrl: "partials/virtualChat/content.html?"+version
         }
       }
     })
@@ -284,7 +285,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "updateProfileController",
-          templateUrl: "partials/updateProfile/content.html"
+          templateUrl: "partials/updateProfile/content.html?"+version
         }
       }
     })
@@ -296,7 +297,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "vkLoginController",
-          templateUrl: "partials/vkLogin/content.html"
+          templateUrl: "partials/vkLogin/content.html?"+version
         }
       }
     })
@@ -308,7 +309,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "preloaderController",
-          templateUrl: "partials/preloader/content.html"
+          templateUrl: "partials/preloader/content.html?"+version
         }
       }
     })
@@ -320,7 +321,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "homepageController",
-          templateUrl: "partials/homepage/content.html"
+          templateUrl: "partials/homepage/content.html?"+version
         }
       }
     })
@@ -333,7 +334,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         },
         "content": {
           controller: "createFastChatController",
-          templateUrl: "partials/createFastChat/content.html"
+          templateUrl: "partials/createFastChat/content.html?"+version
         }
       }
     });
@@ -344,11 +345,11 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
     //       template: "Обновления профиля"
     //     },
     //     "menu": {
-    //       templateUrl: "partials/menu.html"
+    //       templateUrl: "partials/menu.html?"+version
     //     }, 
     //     "content": {
     //       controller: "updateProfileController",
-    //       templateUrl: "partials/updateProfile/content.html"
+    //       templateUrl: "partials/updateProfile/content.html?"+version
     //     }
     //   }
     // })
@@ -497,7 +498,16 @@ String.prototype.sanitize = function() {
 
 window.onload = function onLoad() {
   angular.bootstrap(document, ['angApp']);
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', App.Settings.gaTrackingCode, 'auto');
+  ga('send', 'pageview');
 };
+
 $(window).bind('beforeunload', function() {
   ga('send', 'event', 'page', 'close');
 });

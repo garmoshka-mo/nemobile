@@ -123,7 +123,7 @@ services
 
         self.disconnect = function() {
             clearInterval(self.start_timer);
-            self.provider.Disconnect();
+            if (self.provider) self.provider.Disconnect();
         };
 
         self.getLastUnexpiredChatSession = function() {

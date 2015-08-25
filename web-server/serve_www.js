@@ -1,4 +1,5 @@
 var express = require('express');
+var version = require('./version');
 var path = require('path');
 //var favicon = require('serve-favicon');
 //var logger = require('morgan');
@@ -17,8 +18,16 @@ if (process.env.HTTP_AUTH)
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(cookieParser());
-app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, 'www'), {maxAge: 2629746000})); // cache: 1 month
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+var www_root = '../' + (process.env.WWW_ROOT ||'www');
+console.log('www_root at %s', www_root);
+
+app.use(express.static(path.join(__dirname, www_root), {maxAge: 2629746000})); // cache: 1 month
+
+app.get('/version', function (req, res) {
+    res.send('{"version":"'+version.version+'"}');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,7 +40,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.DEBUG) {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {

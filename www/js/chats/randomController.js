@@ -1,7 +1,9 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat',
-    function(user, $scope, externalChat) {
+         'user', '$scope', 'externalChat', 'updates',
+    function(user, $scope, externalChat, updates) {
+
+        updates.check();
 
         $scope.showHelpText = false;
         $scope.waitingServer = false;
@@ -56,7 +58,7 @@ angular.module("angControllers")
                 );
             }
 
-            externalChat.start(preferences);
+            if (App.Settings.externalChat) externalChat.start(preferences);
 
         };
 
