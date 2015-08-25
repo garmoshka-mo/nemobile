@@ -2,16 +2,17 @@
   "name": "dub.ink",
   "version": "0.0.1",
   "description": "dub.ink",
-  "license": "Copyrights dub.ink 2015",
+  "license": "UNLINCENSED",
   "repository": {
     "type": "git",
     "url": "git@github.com:garmoshka-mo/nepotom.git"
   },
   "scripts": {
-    "start": "http-server www"
+    "start": "node serve_www.js"
   },
   "dependencies": {
-    "http-server": "*"
+    "basic-auth-connect": "^1.0.0",
+    "express": "^4.13.3"
   },
   "engines": {
     "node": "0.10.21",
