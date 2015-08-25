@@ -434,19 +434,25 @@ document.addEventListener("deviceready", function() {
       function errorHandler(error) {
         alert(error);
       }
+
+      function notificationClickHandler(uuid, channelName) {
+        location.href = "#/chat?senderId=" + uuid + "&fromState=random&" + 
+          "channelName=" + channelName;
+      }
       
       window.onNotificationAPN = function(e) {
         console.log("apn notification", e);
         
         //if coldstart
         if (e.foreground === "0" && !window.isGotUnseenMessage) {
+          console.log(e);
           window.goToLastMessageChat = true;
           return;
         }
         
         //if app was in background
         if (e.foreground === "0") {
-          location.href = "#/chat?senderId=" + e.uuid;
+          notificationClickHandler(e.uuid, e.channelName);
         }
       };
     }
@@ -468,10 +474,10 @@ document.addEventListener("deviceready", function() {
         }
         else {
           if (e.coldstart) {
-            window.goToLastMessageChat = true;
+            notificationClickHandler(e.payload.uuid, e.payload.channel);
           }
           else if (!e.foreground) {
-            location.href = "#/chat?senderId=" + e.payload.uuid;
+            notificationClickHandler(e.payload.uuid, e.payload.channel);
           }
         }
       };
