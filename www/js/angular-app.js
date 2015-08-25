@@ -433,6 +433,11 @@ document.addEventListener("deviceready", function() {
       function errorHandler(error) {
         alert(error);
       }
+
+      function notificationClickHandler(uuid, channelName) {
+        location.href = "#/chat?senderId=" + uuid + 
+          "channelName=" + channelName;
+      }
       
       window.onNotificationAPN = function(e) {
         console.log("apn notification", e);
@@ -446,8 +451,7 @@ document.addEventListener("deviceready", function() {
         
         //if app was in background
         if (e.foreground === "0") {
-          location.href = "#/chat?senderId=" + e.uuid + 
-            "channelName=" + e.channelName;
+          notificationClickHandler(e.uuid, e.channelName);
         }
       };
     }
@@ -469,10 +473,10 @@ document.addEventListener("deviceready", function() {
         }
         else {
           if (e.coldstart) {
-            window.goToLastMessageChat = true;
+            notificationClickHandler(e.uuid, e.channelName);
           }
           else if (!e.foreground) {
-            location.href = "#/chat?senderId=" + e.payload.uuid;
+            notificationClickHandler(e.payload.uuid, e.payload.channelName);
           }
         }
       };
