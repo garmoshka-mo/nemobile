@@ -435,7 +435,7 @@ document.addEventListener("deviceready", function() {
       }
 
       function notificationClickHandler(uuid, channelName) {
-        location.href = "#/chat?senderId=" + uuid + 
+        location.href = "#/chat?senderId=" + uuid + "&fromState=random&" + 
           "channelName=" + channelName;
       }
       
