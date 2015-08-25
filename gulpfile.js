@@ -59,12 +59,12 @@ gulp.task('build_css', function () {
 gulp.task('build_js', function () {
     return merge2(
         gulp.src(source_www + 'jslibs/*.js')
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(addsrc.prepend(source_www + 'jslibs/angular_license.js')),
         gulp.src(source_www + 'js/**/*.js')
             .pipe(addsrc.append(source_www + 'config.prod.js'))
             .pipe(concat(output_js_file))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(insert.append('version="'+version+'";'))
             .pipe(addsrc.prepend(source_www + 'license.js'))
     )
