@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("aboutController",
-    ['$scope', '$state','user', '$stateParams', '$state', 
-    function($scope, $state, user, $stateParams, $state) {
+    ['$scope', '$state','user', '$stateParams',
+    function($scope, $state, user, $stateParams) {
         
         function getTabNum(tabName) {
             var output = 1;

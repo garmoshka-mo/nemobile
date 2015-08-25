@@ -9,5 +9,6 @@ window.App.Settings = {
     adorableUrl: "http://api.adorable.io/avatars",
     appUrl: "http://nemobile.herokuapp.com",
     gaTrackingCode: '',
+    externalChat: false,
     fullMode: false
 };

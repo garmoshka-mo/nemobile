@@ -56,7 +56,7 @@ angular.module("angControllers")
                 );
             }
 
-            externalChat.start(preferences);
+            if (App.Settings.externalChat) externalChat.start(preferences);
 
         };
 

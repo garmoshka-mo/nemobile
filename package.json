@@ -8,11 +8,20 @@
     "url": "git@github.com:garmoshka-mo/nepotom.git"
   },
   "scripts": {
-    "start": "node serve_www.js"
+    "start": "node serve_www.js",
+    "test": "WWW_ROOT='build/www' node serve_www.js"
   },
   "dependencies": {
     "basic-auth-connect": "^1.0.0",
-    "express": "^4.13.3"
+    "btoa": "^1.1.2",
+    "ejs": "^2.3.3",
+    "event-stream": "^3.3.1",
+    "express": "^4.13.3",
+    "gulp-add-src": "^0.2.0",
+    "gulp-insert": "^0.5.0",
+    "jade": "^1.11.0",
+    "merge-stream": "^1.0.0",
+    "merge2": "^0.3.6"
   },
   "engines": {
     "node": "0.10.21",
