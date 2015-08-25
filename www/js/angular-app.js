@@ -439,13 +439,15 @@ document.addEventListener("deviceready", function() {
         
         //if coldstart
         if (e.foreground === "0" && !window.isGotUnseenMessage) {
+          console.log(e);
           window.goToLastMessageChat = true;
           return;
         }
         
         //if app was in background
         if (e.foreground === "0") {
-          location.href = "#/chat?senderId=" + e.uuid;
+          location.href = "#/chat?senderId=" + e.uuid + 
+            "channelName=" + e.channelName;
         }
       };
     }
