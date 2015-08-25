@@ -30,13 +30,9 @@ var version = btoa(Math.round(Date.now()/1000)).replace(/=/g, ''),
     output_css_file = 'assets/css/' + version + '.css',
     output_css = output_www + output_css_file;
 
-gulp.task('default1', function() {
-    runSequence('cleanHtml');
-});
-
 gulp.task('default', function() {
     runSequence('cleanBuildFolder', 'build_css','build_js',
-        'copy_static', 'build_index', 'config.xml');
+        'copy_static', 'build_index', 'config.xml', 'copy_root');
 });
 
 
@@ -83,6 +79,17 @@ gulp.task('copy_static', function(){
         .pipe(gulp.dest(output_www));
 });
 
+gulp.task('copy_root', function(){
+    var filesToCopy = [
+        'package.json',
+        'web-server/**/*',
+        'plugins/**/*',
+        'res/**/*'
+    ];
+    gulp.src(filesToCopy, { "base" : "." })
+        .pipe(gulp.dest(output_root));
+});
+
 gulp.task('cleanBuildFolder', function() {
     return gulp.src(output_root+'/*')
         .pipe(clean());
@@ -92,7 +99,7 @@ gulp.task('config.xml', function() {
     return gulp.src(source_www + 'config.xml')
         .pipe(replace({regex:'dubink-dev', replace:'dubink'})) // package
         .pipe(replace({regex:'dub-dev', replace:'Dub.ink'})) // App name
-        .pipe(gulp.dest(output_root));
+        .pipe(gulp.dest(output_www));
 });
 
 

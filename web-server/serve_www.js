@@ -19,7 +19,8 @@ if (process.env.HTTP_AUTH)
 //app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-var www_root = process.env.WWW_ROOT ||'www';
+var www_root = '../' + (process.env.WWW_ROOT ||'www');
+console.log('www_root at %s', www_root);
 app.use(express.static(path.join(__dirname, www_root), {maxAge: 2629746000})); // cache: 1 month
 
 // catch 404 and forward to error handler

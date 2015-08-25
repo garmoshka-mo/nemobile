@@ -8,8 +8,8 @@
     "url": "git@github.com:garmoshka-mo/nepotom.git"
   },
   "scripts": {
-    "start": "node serve_www.js",
-    "test": "WWW_ROOT='build/www' node serve_www.js"
+    "start": "node web-server/serve_www.js",
+    "test": "node build/web-server/serve_www.js"
   },
   "dependencies": {
     "basic-auth-connect": "^1.0.0",
