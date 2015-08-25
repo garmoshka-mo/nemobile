@@ -1,25 +1,16 @@
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     cssmin = require('gulp-cssmin'),
     insert = require('gulp-insert'),
-    watch = require('gulp-watch'),
     concat = require('gulp-concat'),
-    htmlreplace = require('gulp-html-replace'),
     inject = require('gulp-inject'),
-    series = require('stream-series'),
-    obfuscate = require('gulp-obfuscate'),
     clean = require('gulp-clean'),
     runSequence = require('run-sequence'),
     replace = require('gulp-regex-replace'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
     merge2 = require('merge2'),
-    strip = require('gulp-strip-comments');
-
+    file = require('gulp-file');
  
 var version = btoa(Math.round(Date.now()/1000)).replace(/=/g, ''),
     source_www = "www/",
@@ -88,6 +79,12 @@ gulp.task('copy_root', function(){
     ];
     gulp.src(filesToCopy, { "base" : "." })
         .pipe(gulp.dest(output_root));
+});
+
+gulp.task('version.js', function(){
+    gulp.src('empty')
+        .pipe(file('version.js', 'module.exports = { version: "'+version+'" };'))
+        .pipe(gulp.dest(output_root+'web-server'));
 });
 
 gulp.task('cleanBuildFolder', function() {

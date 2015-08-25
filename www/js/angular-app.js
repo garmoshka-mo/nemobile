@@ -1,6 +1,6 @@
 var app = angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories",
   "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/
-  "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial"]);
+  "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial", 'ngResource']);
 app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//

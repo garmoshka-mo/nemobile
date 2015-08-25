@@ -1,3 +1,4 @@
+(function(){
 services
     .service('avatars',
     [Avatars]);
@@ -23,3 +24,5 @@ function Avatars() {
     };
 
 }
+
+})();
