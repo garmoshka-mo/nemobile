@@ -473,10 +473,10 @@ document.addEventListener("deviceready", function() {
         }
         else {
           if (e.coldstart) {
-            notificationClickHandler(e.uuid, e.channelName);
+            notificationClickHandler(e.payload.uuid, e.payload.channel);
           }
           else if (!e.foreground) {
-            notificationClickHandler(e.payload.uuid, e.payload.channelName);
+            notificationClickHandler(e.payload.uuid, e.payload.channel);
           }
         }
       };

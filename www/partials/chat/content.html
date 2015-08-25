@@ -1,5 +1,6 @@
 <div class="chat" overscrollable-with-footer ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
-    <div class="firstMessage ta-center chat-notification width-92 block-center" ng-show="isFirstMessage && !fromRandom">
+    <!-- temporary hid temp message feature -->
+    <div class="firstMessage ta-center chat-notification width-92 block-center" ng-show="isFirstMessage && !fromRandom && false">
         <div>ваше первое сообщение</div>
         <radio-buttons values="[10, 600, 3600]" titles="['10 сек', '10 мин', '1 час']" ng-model="newMessage.ttl"></radio-buttons> 
     </div>
