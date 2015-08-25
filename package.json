@@ -22,12 +22,12 @@
   },
   "devDependencies": {
     "btoa": "^1.1.2",
+    "dateformat": "^1.0.11",
     "gulp": "^3.8.11",
     "gulp-add-src": "^0.2.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.5.0",
     "gulp-cssmin": "*",
-    "gulp-file": "^0.2.0",
     "gulp-inject": "^1.2.0",
     "gulp-insert": "^0.5.0",
     "gulp-regex-replace": "^0.2.3",

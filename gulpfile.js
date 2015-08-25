@@ -9,10 +9,11 @@ var gulp = require('gulp'),
     replace = require('gulp-regex-replace'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
-    merge2 = require('merge2'),
-    file = require('gulp-file');
- 
-var version = btoa(Math.round(Date.now()/1000)).replace(/=/g, ''),
+    merge2 = require('merge2');
+
+var dateFormat = require('dateformat');
+var now = new Date();
+var version = dateFormat(now, "mm-dd_h-MM-ss");
     source_www = "www/",
     output_root = "build/",
     output_www = output_root+"www/",
@@ -23,7 +24,7 @@ var version = btoa(Math.round(Date.now()/1000)).replace(/=/g, ''),
 
 gulp.task('default', function() {
     runSequence('cleanBuildFolder', 'build_css','build_js',
-        'copy_static', 'build_index', 'config.xml', 'copy_root');
+        'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server');
 });
 
 
@@ -73,7 +74,6 @@ gulp.task('copy_static', function(){
 gulp.task('copy_root', function(){
     var filesToCopy = [
         'package.json',
-        'web-server/**/*',
         'plugins/**/*',
         'res/**/*'
     ];
@@ -81,10 +81,10 @@ gulp.task('copy_root', function(){
         .pipe(gulp.dest(output_root));
 });
 
-gulp.task('version.js', function(){
-    gulp.src('empty')
-        .pipe(file('version.js', 'module.exports = { version: "'+version+'" };'))
-        .pipe(gulp.dest(output_root+'web-server'));
+gulp.task('copy_web_server', function(){
+    gulp.src('web-server/**/*', { "base" : "." })
+        .pipe(replace({regex: 'version: "dev"', replace: 'version: "'+version+'"'}))
+        .pipe(gulp.dest(output_root));
 });
 
 gulp.task('cleanBuildFolder', function() {
