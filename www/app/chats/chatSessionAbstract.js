@@ -45,7 +45,8 @@
                         payload
                 };
                 spamFilter.save(data, function(response) {
-                    console.log(response);
+                    if (response.risk_percent > 50)
+                        this.chat.disconnect();
                 })
             }
         }

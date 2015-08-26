@@ -48,8 +48,10 @@ gulp.task('build_js', function () {
     return merge2(
         gulp.src(source_www + 'jslibs/*.js')
             .pipe(uglify())
-            .pipe(addsrc.prepend(source_www + 'jslibs/angular_license.js')),
-        gulp.src(source_www + 'js/**/*.js')
+            .pipe(addsrc.prepend(source_www + 'jslibs/angular_license.js'))
+        ,
+        gulp.src(source_www + 'angular_init.js')
+            .pipe(addsrc.append(source_www + 'app/**/*.js'))
             .pipe(addsrc.append(source_www + 'config.prod.js'))
             .pipe(concat(output_js_file))
             .pipe(uglify())
@@ -62,7 +64,8 @@ gulp.task('build_js', function () {
 
 gulp.task('copy_static', function(){
     var filesToCopy = [
-        source_www + 'partials/**/*.html',
+        source_www + 'app/**/*.html',
+        source_www + 'partials/**/*.html', // todo: move all to app
         source_www + 'assets/fonts/*',
         source_www + 'assets/img/**/*',
         source_www + 'assets/sounds/*'
