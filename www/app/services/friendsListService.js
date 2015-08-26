@@ -178,7 +178,7 @@ services
                     );
                 }
                 else {
-                    if (App.Settings.environment === "development") {
+                    if (config('environment') === "development") {
                         self.gotUserContacts = true;
                         q.resolve(parseUserContacts(testDataset));
                     }
@@ -225,8 +225,8 @@ services
                                     photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
                                 }
                                 else {
-                                    photoUrl = App.Settings.adorableUrl + '/' + uuid;
-                                    photoUrlMini = App.Settings.adorableUrl + '/40/' + uuid;
+                                    photoUrl = config('adorableUrl') + '/' + uuid;
+                                    photoUrlMini = config('adorableUrl') + '/40/' + uuid;
                                 }
                                 self.nepotomFriends[uuid].photos = [{
                                     value: photoUrl,

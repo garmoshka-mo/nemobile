@@ -4,12 +4,12 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
         $scope.showChangeAvatarMenu = false;
         $scope.isAvaLoading = false;
         $scope.isMenuOpened = false;
-        $scope.fullMode = App.Settings.fullMode;
-        $scope.debug = App.Settings.environment == "development";
+        $scope.fullMode = config('fullMode');
+        $scope.debug = config('environment') == "development";
 
         $scope.generateNewAvatar = function() {
             var newGuid = Math.round(Math.random() * 10000);
-            user.avatarUrlMini = App.Settings.adorableUrl + "/40/" + newGuid;
+            user.avatarUrlMini = config('adorableUrl') + "/40/" + newGuid;
             $scope.isChangeAvaMenuShown = true;
             $scope.isAvaLoading = true;
 

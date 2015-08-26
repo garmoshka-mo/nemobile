@@ -1,7 +1,10 @@
 (function(){
     factories.factory('chatSessionAbstract',
-        ['notification',
-    function(notification) {
+        ['notification', '$resource',
+    function(notification, $resource) {
+
+        var VersionResource = $resource(config('spam_filter_host')+'/version');
+
 
         return function () {
             this.incomeMessage = function(message){
@@ -16,12 +19,26 @@
                     notification.incomeMessage();
                 }
 
-                this.messages.push({
+                var m = {
                     text: text,
                     isOwn: false
-                });
+                };
+                this.spam_filter(this.id, m);
+                this.messages.push(m);
             };
+
+            this.spam_filter = function(session_id, payload) {
+                var data = {
+                    session_id: 1, // identification of session, can be used by async callback
+                                   // to inform about malicious session
+                    timestamp_ms: Date.now(),
+                    payload: // Your data to analyze. Can have arbitrary format.
+                        payload
+                };
+
+            }
         }
 
     }]);
 })();
+

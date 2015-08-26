@@ -98,7 +98,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
         $scope.sendSms = function() {
             var generatedCode = generateCode(20);
             window.plugins.socialsharing.shareViaSMS(
-                "pass" + generatedCode, App.Settings.phoneToSendSms,
+                "pass" + generatedCode, config('phoneToSendSms'),
                 function(msg) {
                     $scope.goToAfterSmsSending();
                     checkSmsRegistration(generatedCode);

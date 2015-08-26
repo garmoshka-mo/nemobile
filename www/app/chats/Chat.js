@@ -177,8 +177,8 @@ factories.factory("Chat",
             }
             else {
                 self.title = "кто-то";
-                self.photoUrl = App.Settings.adorableUrl + '/' + self.channelName;
-                self.photoUrlMini = App.Settings.adorableUrl + '/40/' + self.channelName;
+                self.photoUrl = config('adorableUrl') + '/' + self.channelName;
+                self.photoUrlMini = config('adorableUrl') + '/40/' + self.channelName;
                 d.resolve();
             }
 

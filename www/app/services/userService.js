@@ -489,7 +489,7 @@ services
             else {
                 var type = device.platform === "iOS" ? "apns" : "gcm";
                 var url = "http://pubsub.pubnub.com/v1/push/sub-key/"
-                    + App.Settings.pubnubSubscribeKey  + "/devices/" 
+                    + config('pubnubSubscribeKey')  + "/devices/"
                     + window.deviceId + "/remove?type=" + type;
                 $http.get(url).then(
                     function(res) {
@@ -840,16 +840,16 @@ services
             output.mini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80/$2' + '$3');
         }
         else if (dataFromServer.avatar_guid) {
-            output.fullSize = App.Settings.adorableUrl + '/' + dataFromServer.avatar_guid;
-            output.mini = App.Settings.adorableUrl + '/40/' + dataFromServer.avatar_guid;
+            output.fullSize = config('adorableUrl') + '/' + dataFromServer.avatar_guid;
+            output.mini = config('adorableUrl') + '/40/' + dataFromServer.avatar_guid;
         }
         else if (dataFromServer.uuid) {
-            output.fullSize = App.Settings.adorableUrl + '/' + dataFromServer.uuid;
-            output.mini = App.Settings.adorableUrl + '/40/' + dataFromServer.uuid;
+            output.fullSize = config('adorableUrl') + '/' + dataFromServer.uuid;
+            output.mini = config('adorableUrl') + '/40/' + dataFromServer.uuid;
         }
         else {
-            output.fullSize = App.Settings.adorableUrl + '/' + Math.round(Math.random() * 1000);
-            output.mini = App.Settings.adorableUrl + '/40/' + Math.round(Math.random() * 1000);
+            output.fullSize = config('adorableUrl') + '/' + Math.round(Math.random() * 1000);
+            output.mini = config('adorableUrl') + '/40/' + Math.round(Math.random() * 1000);
         }
 
         return output;
@@ -880,7 +880,7 @@ services
     };
 
     var pubnub = PUBNUB.init({
-        subscribe_key: App.Settings.pubnubSubscribeKey,
+        subscribe_key: config('pubnubSubscribeKey'),
         publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
     });
 

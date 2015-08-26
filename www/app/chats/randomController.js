@@ -58,7 +58,7 @@ angular.module("angControllers")
                 );
             }
 
-            if (App.Settings.externalChat || localStorage.externalChat === 'true')
+            if (config('externalChat'))
                 externalChat.start(preferences);
 
         };

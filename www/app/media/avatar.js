@@ -18,8 +18,8 @@ function Avatars() {
 
     this.from_id = function(user_id) {
         var a = new Avatar();
-        a.url = App.Settings.adorableUrl + '/' + user_id;
-        a.url_mini = App.Settings.adorableUrl + '/40/' + user_id;
+        a.url = config('adorableUrl') + '/' + user_id;
+        a.url_mini = config('adorableUrl') + '/40/' + user_id;
         return a;
     };
 

@@ -8,7 +8,7 @@ services
         this.method = method;
 
         var host = (localStorage['apiUrl'] && localStorage['apiUrl'].length > 0) ?
-            localStorage['apiUrl'] : App.Settings.apiUrl;
+            localStorage['apiUrl'] : config('apiUrl');
         this.url = host + url;
         if (data) {
             this.data = data;
@@ -288,7 +288,7 @@ services
 
                     $upload.upload({
                         method: 'POST',
-                        url: App.Settings.apiUrl + "/categories/" + categoryId + "/images",
+                        url: config('apiUrl') + "/categories/" + categoryId + "/images",
                         data: {
                             "id": categoryId,
                         },
@@ -317,7 +317,7 @@ services
         },
 
         moveSticker: function(categoryId, imageId, newCategoryId) {
-            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images/" + imageId;
+            var url = config('apiUrl') + "/categories/" + categoryId + "/images/" + imageId;
             return $http(new Config(
                 'PUT',
                 url,
@@ -338,7 +338,7 @@ services
         },
 
         removeSticker: function(categoryId, imageId) {
-            var url = App.Settings.apiUrl + "/categories/" + categoryId + "/images" + "/" + imageId;
+            var url = config('apiUrl') + "/categories/" + categoryId + "/images" + "/" + imageId;
                         
             return $http(new Config(
                 'DELETE',
@@ -493,7 +493,7 @@ services
                 function(type) {
                     $upload.upload({
                         method: 'POST',
-                        url: App.Settings.apiUrl + "/avatar",
+                        url: config('apiUrl') + "/avatar",
                         headers: {
                             "Authorization": "Token token=" + api.accessToken
                         },
