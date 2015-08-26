@@ -134,10 +134,7 @@ services
     }
 
     function pushMessageToSession(lastSession, messageText, expires) {
-        lastSession.messages.push({
-            text: messageText,
-            isOwn: false
-        });
+        lastSession.incomeMessage(messageText);
 
         if (!lastSession.isReplied) {
             if (lastSession.creatorId === self.uuid) {
@@ -161,7 +158,6 @@ services
         );
     }
 
-    var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
 
     function handleIncomeMessage(message, envelope) {
         console.log(message);
@@ -189,7 +185,7 @@ services
         if (message.event == "chat_empty") {
             var chat = self.getChat(channelName);
             chat.disconnect();
-            handleChatSessionAsync(chat, '<b>Собеседник покинул чат</b> <a href="#/random">Начать новый диалог</a>', 0);
+            handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
             return;
         }
 
@@ -291,8 +287,6 @@ services
         // console.log("When chatSession expires: ", lastSession.whenExipires);
         // console.log("income message", m);
         // console.log(self);
-        incomeMessageSound.play();
-        $rootScope.$broadcast('messageCame');
         $rootScope.$apply();
     }
 
@@ -465,7 +459,7 @@ services
                 },
                 error: function(res) {
                     console.log("register device error", res);
-                },
+                }
             });
             
         }
@@ -489,7 +483,7 @@ services
                     },
                     error: function(res) {
                         console.log("unregister device error", res);
-                    },
+                    }
                 });
             }
             else {

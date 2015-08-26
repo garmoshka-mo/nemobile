@@ -1,5 +1,7 @@
-factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce', 
-    function($timeout, storage, api, $q, $sce) {
+(function(){
+factories.factory('ChatSession',
+    ['$timeout', 'storage', 'api', '$q', 'notification', 'chatSessionAbstract',
+    function($timeout, storage, api, $q, notification, chatSessionAbstract) {
     
     function ChatSession(creatorId, channelName, senderId, id, currentChat) {
         this.isExpired = false;
@@ -12,6 +14,8 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
         this.creatorId = creatorId;
         this.currentChat = currentChat;
         this.whenExipires = Infinity;
+
+        angular.extend(this, new chatSessionAbstract());
     }
 
     var deviceServerTimeDifference_msec;
@@ -63,7 +67,7 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
     };
 
     ChatSession.prototype = {
-            
+
         close: function() {
             this.isExpired = true;
             
@@ -198,3 +202,4 @@ factories.factory('ChatSession', ['$timeout', 'storage', 'api', '$q', '$sce',
     
     return ChatSession;
 }]);
+})();

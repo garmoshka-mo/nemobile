@@ -82,7 +82,6 @@ angular.module("angControllers").controller("chatController",
 
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
-                console.log("focus is set on textField");
                 $chatInput.focus();
             }, 0);
         };
@@ -135,8 +134,8 @@ angular.module("angControllers").controller("chatController",
 
 
         if ($stateParams.chatType == 'external') {
-            $scope.chat = externalChat;
-            externalChat.reportStatusIfInactive();
+            $scope.chat = externalChat.current_instance;
+            $scope.chat.reportStatusIfInactive();
         } else {
             //getting chat object, if chat does not exist create new one
             $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);

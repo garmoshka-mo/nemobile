@@ -1,5 +1,6 @@
-angular.module("angControllers").controller("loadAvatarController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 'user', '$timeout', 
-    function($scope, $stateParams, stickersGallery, notification, user, $timeout) {
+angular.module("angControllers").controller("loadAvatarController",
+    ['$scope', '$stateParams', 'stickersGallery', 'user', '$timeout',
+    function($scope, $stateParams, stickersGallery, user, $timeout) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;

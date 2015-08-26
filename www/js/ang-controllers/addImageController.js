@@ -1,5 +1,6 @@
-angular.module("angControllers").controller("addImageController", ['$scope', '$stateParams', 'stickersGallery', 'notification', 
-    function($scope, $stateParams, stickersGallery, notification) {
+angular.module("angControllers").controller("addImageController",
+    ['$scope', '$stateParams', 'stickersGallery',
+    function($scope, $stateParams, stickersGallery) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;

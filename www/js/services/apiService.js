@@ -6,7 +6,10 @@ services
 
     function Config(method, url, data, withoutAccessToken) {
         this.method = method;
-        this.url = (localStorage['apiUrl'] || App.Settings.apiUrl) + url;
+
+        var host = (localStorage['apiUrl'] && localStorage['apiUrl'].length > 0) ?
+            localStorage['apiUrl'] : App.Settings.apiUrl;
+        this.url = host + url;
         if (data) {
             this.data = data;
         }

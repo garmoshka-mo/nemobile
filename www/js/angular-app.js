@@ -491,8 +491,13 @@ var services = angular.module("angServices", []);
 var factories = angular.module("angFactories", []);
 
 String.prototype.sanitize = function() {
-  return this.replace(/[\u00A0-\u9999<>]/gim, function(i) {
+  return this.replace(/[\\"<>]/gim, function(i) {
     return '&#'+i.charCodeAt(0)+';';
+  });
+};
+String.prototype.escape = function() {
+  return this.replace(/[\\\/]/gim, function(i) {
+    return '\\'+i;
   });
 };
 

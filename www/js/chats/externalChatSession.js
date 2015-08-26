@@ -1,14 +1,11 @@
 (function(){
     services
-        .service('externalChatSession',
-        ['$q', ExternalChatSession]);
-    function ExternalChatSession($q) {
+        .factory('externalChatSession',
+        ['$q', 'chatSessionAbstract', ExternalChatSession]);
+    function ExternalChatSession($q, chatSessionAbstract) {
 
-        this.get_new_session = function(chat, partner_id) {
-            return new ChatSession(chat, partner_id);
-        };
-
-        function ChatSession(chat, partner_id) {
+        return Session;
+        function Session(chat, partner_id) {
 
             var self = this;
 
@@ -63,6 +60,8 @@
                 });
                 deferred_send.resolve();
             };
+
+            angular.extend(this, new chatSessionAbstract());
         }
     }
 
