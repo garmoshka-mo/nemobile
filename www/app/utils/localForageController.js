@@ -1,5 +1,7 @@
-angular.module("angControllers").controller("localForageController", ['$scope', function($scope){
-
+angular.module("angControllers")
+    .controller("localForageController",
+    ['$scope', '$resource',
+function($scope, $resource){
 
     $scope.config =  localStorage['config'];
     $scope.apiUrl = config('apiUrl');

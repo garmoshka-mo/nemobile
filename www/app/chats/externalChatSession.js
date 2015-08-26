@@ -13,7 +13,7 @@
             this.senderId = partner_id;
             this.isExpired = false;
             this.isReplied = false;
-            this.id = Math.random();
+            this.id = Date.now();
             this.channelName = null;
             this.messages = [];
             this.timer = null;
@@ -54,7 +54,7 @@
             // Оповещается из externalChat:
             self.my_message_sent = function(message) {
                 // или же показывать queued_message ?
-                self.messages.push({
+                self.addMessage({
                     text: message.sanitize(),
                     isOwn: true
                 });

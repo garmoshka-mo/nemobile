@@ -177,7 +177,7 @@ factories.factory('ChatSession',
                             // message = $sce.trustAsHtml(message);
                         }
 
-                        self.messages.push({
+                        self.addMessage({
                             text: message.sanitize(),
                             isOwn: true
                         });
