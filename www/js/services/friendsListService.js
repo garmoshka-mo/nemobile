@@ -72,12 +72,12 @@ services
             if (phoneNumbersArr.length) {
                 api.findNepotomUsers(phoneNumbersArr)
                 .then(function(res) {
-                    console.log("find nepotom users res:", res);
+                    log("find nepotom users res:", res);
                     for (var key in res.search_results) {
                         var uuid = res.search_results[key];
                         phoneNumbersUsers[key].setUuid(uuid);
                         friendsList.nepotomFriends[uuid] = phoneNumbersUsers[key];
-                        console.log("user is added to nepotom friends");
+                        log("user is added to nepotom friends");
                     }
                     friendsList.save();
                 });
@@ -86,7 +86,7 @@ services
         }
 
         function onError(err) {
-            console.log(err);
+            log(err);
         }
         
         function saveFriendsOnServer(friendsObj) {
@@ -109,13 +109,13 @@ services
             },
 
             save: function(notSaveOnServer) {
-                // console.log('notSaveOnServer', notSaveOnServer);
+                // log('notSaveOnServer', notSaveOnServer);
                 if (!notSaveOnServer) {
                     saveFriendsOnServer(this.nepotomFriends);
-                    console.log('friends list is sent to server');
+                    log('friends list is sent to server');
                 }
                 storage.saveFriendsList(this);
-                console.log("friends list is saved");
+                log("friends list is saved");
             },
             
             addFriend: function(friendData, notSaveOnServer) {
@@ -167,7 +167,7 @@ services
                         ['displayName', 'phoneNumber'], 
                         function(contacts) {
                             self.gotUserContacts = true;
-                            console.log('!!!!!!!!!!!!!!', contacts);
+                            log('!!!!!!!!!!!!!!', contacts);
                             if (contacts) {
                                 q.resolve(parseUserContacts(contacts));
                             }
@@ -218,7 +218,7 @@ services
                     .then(
                         function(res) {
                             if (res.success) {
-                                // console.log(res);
+                                // log(res);
                                 var photoUrl, photoUrlMini;
                                 if (res.user.avatar_guid || res.user.avatar_url) {
                                     photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
@@ -232,8 +232,8 @@ services
                                     value: photoUrl,
                                     valueMini: photoUrlMini
                                 }];
-                                // console.log(uuid);
-                                // console.log(self.nepotomFriends[uuid]);
+                                // log(uuid);
+                                // log(self.nepotomFriends[uuid]);
                             }    
                         }
                     );

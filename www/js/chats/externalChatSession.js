@@ -25,8 +25,8 @@
 
             self.save = function() {
                 //storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
-                //console.log("chat session is saved");
-                console.log("chat session saving skipped");
+                //log("chat session is saved");
+                log("chat session saving skipped");
             };
 
             self.getLastMessage = function() {

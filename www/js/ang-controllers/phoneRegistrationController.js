@@ -21,7 +21,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
         }
 
         function checkSmsRegistration(accessToken) {
-            console.log(timesCheckedSmsRegistration + " trying to sign in with access token " + accessToken);
+            log(timesCheckedSmsRegistration + " trying to sign in with access token " + accessToken);
             user.signin(null, null, accessToken)
             .then(
                 function() {
@@ -34,7 +34,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
                     if (timesCheckedSmsRegistration > 10) {
                         $scope.showSpinner = false;
                         $scope.serverResponse = "Произошла ошибка \n Попробуйте альтернативный способ регистрации";
-                        console.log("10 times registration was checked");
+                        log("10 times registration was checked");
                     }
                     else { 
                         setTimeout(
@@ -43,7 +43,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
                             },
                             6000
                         );
-                        console.log(res);
+                        log(res);
                     }
                 }
             );
@@ -79,7 +79,7 @@ angular.module("angControllers").controller("phoneRegistrationController",
                 function(res) {
                     $scope.showSpinner = false;
                     $scope.serverResponse = "Ошибка. Проверьте правильность кода";
-                    console.log(res);
+                    log(res);
                 }
             );
         };
@@ -102,10 +102,10 @@ angular.module("angControllers").controller("phoneRegistrationController",
                 function(msg) {
                     $scope.goToAfterSmsSending();
                     checkSmsRegistration(generatedCode);
-                    console.log('ok: ' + msg);
+                    log('ok: ' + msg);
                 },
                 function(msg) {
-                    console.log('error: ' + msg);
+                    log('error: ' + msg);
                 }
             );
         };

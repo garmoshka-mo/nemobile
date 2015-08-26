@@ -3,7 +3,7 @@
         .service('notification',
         ['$rootScope', '$timeout', Service]);
     function Service($rootScope, $timeout) {
-        console.log("notification service is enabled");
+        log("notification service is enabled");
         $rootScope.notification = {};
         var initialText;
         var initialHandler;

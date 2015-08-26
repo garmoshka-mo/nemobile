@@ -34,16 +34,16 @@ services
 
             var defaultOptions = {
                 'onConnect': function(){
-                    console.log('Связь с сервером установлена. Идет соединение с пользователем...');
+                    log('Связь с сервером установлена. Идет соединение с пользователем...');
                 },
                 'onTyping': function(){
-                    console.log('Собеседник печатает сообщение...');
+                    log('Собеседник печатает сообщение...');
                 },
                 'onOnline': function(count){
-                    console.log('Сейчас на сайте: '+count);
+                    log('Сейчас на сайте: '+count);
                 },
                 'onEnd': function(){
-                    console.log('Собеседник прервал связь');
+                    log('Собеседник прервал связь');
                 }
             };
 
@@ -70,7 +70,7 @@ services
                     user_found = true;
                     if (intro.length > 0) {
                         self.provider.Send(intro);
-                        console.log('Intro: '+intro);
+                        log('Intro: '+intro);
                     } else {
                         begin_chat();
                     }
@@ -89,12 +89,12 @@ services
 
                 function terminated() {
                     user_found = false;
-                    console.log('terminated. talking="' + self.talking + '"');
+                    log('terminated. talking="' + self.talking + '"');
                     if (!self.talking) {
-                        console.log('trap into not talking');
+                        log('trap into not talking');
                         if (!self.dead) self.provider.Connect();
                     } else {
-                        console.log('calling display_partners_message...');
+                        log('calling display_partners_message...');
                         display_partners_message({type: 'chat_finished'});
                     }
                 }
@@ -109,8 +109,8 @@ services
             };
 
             function display_partners_message(message) {
-                console.log('Собеседник:');
-                console.log(message);
+                log('Собеседник:');
+                log(message);
                 setTimeout(function() {
                     $rootScope.$apply(function(){
                         self.lastUnexpiredChatSession.incomeMessage(message);

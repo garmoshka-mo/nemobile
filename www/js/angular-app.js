@@ -360,16 +360,16 @@ var pushNotification;
 var RAN_AS_APP = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 
 document.addEventListener("deviceready", function() {
-    console.log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
-    console.log("OS version: " + window.device.version);
+    log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
+    log("OS version: " + window.device.version);
     
     function successHandler(result) {
-        console.log(result);
+        log(result);
         // alert('result = ' + result);
     }
 
     function errorHandler(error) {
-        console.log(result);
+        log(result);
         // alert('error = ' + error);
     }
     
@@ -391,10 +391,10 @@ document.addEventListener("deviceready", function() {
           if (!this.normalHeight) {
             this.normalHeight = $('body').height();
           }
-          console.log('body normal height', this.normalHeight);
+          log('body normal height', this.normalHeight);
           $('body').height(this.normalHeight - pixelsToShrink);
           $('#footer').css('position', 'relative');
-          console.log('webview is shrunk on(px)', pixelsToShrink);
+          log('webview is shrunk on(px)', pixelsToShrink);
           document.dispatchEvent(webViewShrunkEvent);
         },
         unshrink: function() {
@@ -441,11 +441,11 @@ document.addEventListener("deviceready", function() {
       }
       
       window.onNotificationAPN = function(e) {
-        console.log("apn notification", e);
+        log("apn notification", e);
         
         //if coldstart
         if (e.foreground === "0" && !window.isGotUnseenMessage) {
-          console.log(e);
+          log(e);
           window.goToLastMessageChat = true;
           return;
         }
@@ -467,7 +467,7 @@ document.addEventListener("deviceready", function() {
       });
 
       window.onNotificationGCM = function onNotificationGCM(e) {
-        console.log(e);
+        log(e);
         if (e.event == "registered") {
           window.deviceId = e.regid;
           // registerDeviceToChannel(); 
@@ -500,6 +500,10 @@ String.prototype.escape = function() {
     return '\\'+i;
   });
 };
+function log() {
+  if (localStorage.externalChat === 'true' || App.Settings.debug)
+    console.log.apply(console, arguments);
+}
 
 window.onload = function onLoad() {
   angular.bootstrap(document, ['angApp']);

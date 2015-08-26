@@ -79,8 +79,8 @@ app.directive('stickersGalleryHeight', function() {
     return {
         link: function(scope, elem, attr) {
 
-            // console.log("top bar height: ", emPixels * topBarHeight_rem);
-            // console.log("chat keyboard height: ", $('.chat-buttons-container').height());
+            // log("top bar height: ", emPixels * topBarHeight_rem);
+            // log("chat keyboard height: ", $('.chat-buttons-container').height());
             
             var INPUT_FIELD_HEIGHT = 72;
             var KEYBOARD_PADDING = 20;
@@ -148,7 +148,7 @@ app.directive('clearAllButton', function() {
             $(elem).wrap($wrapper);
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
-                // console.log("clicked");
+                // log("clicked");
                 scope.ngModel = "";
                 scope.$apply();
                 elem.focus();
@@ -158,7 +158,7 @@ app.directive('clearAllButton', function() {
             //     $clearButton.show();
             // });
             // $(elem).on('blur', function(event) {
-            //     console.log('blurred');
+            //     log('blurred');
             
             //     setTimeout(function() {$clearButton.hide()},250);
             // });
@@ -176,7 +176,7 @@ app.directive('clearAllButtonInline', function() {
             $(elem).css({'padding-right':'22px'});
             $clearButton.insertAfter(elem);
             $clearButton.click(function () {
-                // console.log("clicked");
+                // log("clicked");
                 scope.ngModel = "";
                 scope.$apply();    
             });
@@ -192,7 +192,7 @@ app.directive('alertBox', function() {
         },
         link: function(scope, elem, attr) {
             scope.close = function() {
-                console.log("closed");
+                log("closed");
                 scope.ngModel = '';
             };       
         }
@@ -210,10 +210,10 @@ app.directive('slideMenu', function() {
             });
 
             var $preventClickDiv = $('.prevent-click');
-            // console.log('!!!!!!!!!!!!!!!!!!!!', $preventClickDiv);
+            // log('!!!!!!!!!!!!!!!!!!!!', $preventClickDiv);
 
             $(document).on('click','.off-canvas-list', function() {
-                // console.log('clicked');
+                // log('clicked');
                 snapper.close();
             });
 

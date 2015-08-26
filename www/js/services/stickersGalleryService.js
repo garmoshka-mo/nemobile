@@ -1,7 +1,7 @@
 services
 .service('stickersGallery', ['api', '$rootScope', '$q', function(api, $rootScope, $q) {
 
-    console.log("stickersGalleryService is enabled");
+    log("stickersGalleryService is enabled");
     
     var self = this;
     this.categories = null;
@@ -21,7 +21,7 @@ services
                 });    
             }); 
         }
-        // console.log("dictionary is made", self.dictionary);
+        // log("dictionary is made", self.dictionary);
     }
 
     //public methods
@@ -35,7 +35,7 @@ services
                 if (res) {
                     makeDictionary();
                 }
-                // console.log("Stickers gallery is updated", self.categories); 
+                // log("Stickers gallery is updated", self.categories);
             }
         );  
     };

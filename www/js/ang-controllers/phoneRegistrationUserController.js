@@ -38,7 +38,7 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
                 function(res) {
                     $scope.showSpinner = false;
                     $scope.serverResponse = "Ошибка. Проверьте правильность кода";
-                    console.log(res);
+                    log(res);
                 }
             );
         };
@@ -47,11 +47,11 @@ angular.module("angControllers").controller("phoneRegistrationUserController",
             window.plugins.socialsharing.shareViaSMS(
                 user.accessToken, App.Settings.phoneToSendSms,
                 function(msg) {
-                    console.log('ok: ' + msg);
+                    log('ok: ' + msg);
                     $scope.screenToShow = "seccessfulSmsSending";
                 },
                 function(msg) {
-                    console.log('error: ' + msg);
+                    log('error: ' + msg);
                 }
             );
         };

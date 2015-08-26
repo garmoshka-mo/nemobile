@@ -10,7 +10,7 @@ angular.module("angControllers").controller("friendSearchController", [
 
 
     function handleSearchResults(res) {
-        // console.log('friendSearch results',res);
+        // log('friendSearch results',res);
         $scope.foundUuid = "";
         var results = res.search_results[0];
         if (results.type) {

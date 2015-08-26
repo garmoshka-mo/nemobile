@@ -4,7 +4,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
 
     $scope.user = user;
 
-    console.log('main controller is invoked');
+    log('main controller is invoked');
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
@@ -74,15 +74,15 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
         //async call is necessary for correct work on android 4.1.1
         $timeout(function() {
             var state = snapper.state().state;
-            // console.log(state);
+            // log(state);
             if (state === 'right') {
-                // console.log('openning menu!');
+                // log('openning menu!');
                 if (RAN_AS_APP) {
                     if (window.device.platform === "iOS") {
                         cordova.plugins.Keyboard.close();
                     }
                 }
-                console.log("device's OS is not iOS");
+                log("device's OS is not iOS");
                 
                 snapper.open('left');
             }

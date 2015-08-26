@@ -3,7 +3,7 @@ angular.module("angControllers").controller("invitationController", [
     function(user, $scope, $stateParams) {
 
         function onSuccess() {
-            console.log('share ok');
+            log('share ok');
         }
 
         function onError(msg) {
@@ -28,11 +28,11 @@ angular.module("angControllers").controller("invitationController", [
         
 
         $scope.inviteViaSms = function() {
-            console.log("invite via sms is called");
+            log("invite via sms is called");
             window.plugins.socialsharing.shareViaSMS(
                 invitationText, $scope.friend.phoneNumbers[0].value,
-                function(msg) {console.log('ok: ' + msg);},
-                function(msg) {console.log('error: ' + msg);}
+                function(msg) {log('ok: ' + msg);},
+                function(msg) {log('error: ' + msg);}
             );
         };
 

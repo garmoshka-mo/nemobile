@@ -2,7 +2,7 @@ services
 .factory('api', ['$http', '$q', '$upload', 'notification','storage', '$rootScope',
     function ($http, $q, $upload, user, notification, storage, $rootScope) {
     
-    console.log("api service is enabled");
+    log("api service is enabled");
 
     function Config(method, url, data, withoutAccessToken) {
         this.method = method;
@@ -41,7 +41,7 @@ services
             ))
             .then(function(res) {
                 if (res.data.success) {
-                    console.log('api.signin', res);
+                    log('api.signin', res);
                     return {accessToken: res.data.access_token};
                 }
                 else {
@@ -58,7 +58,7 @@ services
                 true
             ))
             .then(function(res) {
-                // console.log('api.signup', res);
+                // log('api.signup', res);
                 if (res.data.success) {
                     return true;
                 }
@@ -74,7 +74,7 @@ services
                 '/profile'
             ))
             .then(function(res) {
-                console.log('api.getUserInfo', res);
+                log('api.getUserInfo', res);
                 if (res.data.success) {
                     return res.data.user;
                 }
@@ -100,7 +100,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log('update profile', res);
+                    log('update profile', res);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -133,7 +133,7 @@ services
             return api.getServerTime()
             .then(function(time) {
                 var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
-                console.log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
+                log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
                 return deviceServerTimeDifference_msec;
             });
         },
@@ -179,7 +179,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -225,7 +225,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return res.data.categories;
                 },
                 function(res) {
@@ -253,7 +253,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                 },
                 function(res) {
                     return $q.reject();
@@ -272,7 +272,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return res.data.categories;
                 },
                 function(res) {
@@ -329,7 +329,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                 },
                 function(res) {
                     return $q.reject();
@@ -346,7 +346,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return res.data.categories;
                 },
                 function(res) {
@@ -366,13 +366,13 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     if (!res.data.success) {
                         return $q.reject();
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return $q.reject();
                 }
             );
@@ -397,7 +397,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res.data);
+                    log(res.data);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -406,7 +406,7 @@ services
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return $q.reject();
                 }
             );
@@ -430,7 +430,7 @@ services
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return $q.reject();
                 }
             );
@@ -446,7 +446,7 @@ services
             ))
             .then(
                 function(res) {
-                    // console.log('find nepotom users res', res.data);
+                    // log('find nepotom users res', res.data);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -455,7 +455,7 @@ services
                     }
                 },
                 function(res) {
-                    // console.log(res);
+                    // log(res);
                     return $q.reject();
                 }
             );
@@ -471,7 +471,7 @@ services
             ))
             .then(
                 function(res) {
-                    // console.log('got user info by uuid', res);
+                    // log('got user info by uuid', res);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -480,7 +480,7 @@ services
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return $q.reject();
                 }
             );
@@ -533,7 +533,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log("addVirtualAccount", res);
+                    log("addVirtualAccount", res);
                     if (res.data.success) {
                         return res.data;
                     }
@@ -568,10 +568,10 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                 }
             );        
         },
@@ -587,7 +587,7 @@ services
                     "created": friend.created.toString()
                 };
             });
-            // console.log('friendsArray', friendsArray);
+            // log('friendsArray', friendsArray);
             if (!_.isEmpty(friendsArray)) {
                 return $http(new Config(
                     'PATCH',
@@ -664,14 +664,14 @@ services
                     }
                 },
                 function(res) {
-                    console.log(res);
+                    log(res);
                     return $q.reject();
                 }
             );
         },
 
         randomChatRequest: function(data) {
-            console.log(data);
+            log(data);
 
             return $http(new Config(
                 'POST',
@@ -680,7 +680,7 @@ services
             ))
             .then(
                 function(res) {
-                    console.log(res);
+                    log(res);
                     if (res.data.success) {
 
                     }
@@ -707,7 +707,7 @@ services
                 '/chats/' + channel
             ))
             .then(function(res) {
-                console.log(res);
+                log(res);
             });
         }
     };

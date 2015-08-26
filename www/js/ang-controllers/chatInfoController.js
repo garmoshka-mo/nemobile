@@ -26,7 +26,7 @@ angular.module("angControllers").controller("chatInfoController",
         };
 
         $scope.blockUser = function() {
-            console.log("user is blocked");
+            log("user is blocked");
             user.blockUser($scope.chat.senderId);
             $scope.isBlocked = true;
         };

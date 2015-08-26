@@ -23,7 +23,7 @@ factories.factory('ChatSession',
     function calculateMessageTtl(expires) {
         var currentServerTime = new Date().getTime() + deviceServerTimeDifference_msec;
         var ttl = expires * 1000 - currentServerTime;
-        console.log("time to live(sec): " +  ttl / 1000);
+        log("time to live(sec): " +  ttl / 1000);
         return ttl;
     }
 
@@ -82,7 +82,7 @@ factories.factory('ChatSession',
 
         setTimeout: function(time) {
             var self = this;
-            // console.log("timer for chatSession is set. Left(msec): " + time);
+            // log("timer for chatSession is set. Left(msec): " + time);
             
             // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly 
             // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
@@ -90,7 +90,7 @@ factories.factory('ChatSession',
             if (time > 2147483647) {
                 this.extraTime = time - 2147483647;
                 time = 2147483647;
-                // console.log("extra time is added(msec): " + this.extraTime);
+                // log("extra time is added(msec): " + this.extraTime);
             }
 
             if (this.timer) {
@@ -134,7 +134,7 @@ factories.factory('ChatSession',
 
         save: function() {
             storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
-            console.log("chat session is saved");
+            log("chat session is saved");
         },
 
         getLastMessage: function() {
@@ -164,7 +164,7 @@ factories.factory('ChatSession',
             return api.sendMessage(message, address, ttl)
             .then(
                 function(res) {
-                    // console.log("message is sent", res);
+                    // log("message is sent", res);
                     
                     if (res.data.success && !res.data.type) {
                        
@@ -185,7 +185,7 @@ factories.factory('ChatSession',
                         // todo: fix logic bugs and uncomment
                         // self.setTimer(res.data.expires);
                         self.save();
-                        console.log("chat session is saved");
+                        log("chat session is saved");
                         return true;
                     }
                     else {

@@ -59,7 +59,7 @@ factories.factory("Chat",
         },
         
         getChatSessionFromStorage: function(chatSessionId) {
-            // console.log('thisssssssssss', this);
+            // log('thisssssssssss', this);
             var self = this;
             return storage.getChatSession(this[this.primaryKey], chatSessionId)
             .then(
@@ -105,7 +105,7 @@ factories.factory("Chat",
                             self.lastUnexpiredChatSession = chatSession;
                             self.chatSessions[self.lastChatSessionIndex] = chatSession;
                             d.resolve(self.lastUnexpiredChatSession);
-                            // console.log("user", self.currentUser);
+                            // log("user", self.currentUser);
                         }
                     },
                     function() {
@@ -142,7 +142,7 @@ factories.factory("Chat",
                     api.getUserInfoByUuid(self.senderId)
                     .then(
                         function(res) {
-                            console.log("api.getUserInfoByUuid", res);
+                            log("api.getUserInfoByUuid", res);
                             if (res.success) {
                                 if (res.user.name) {
                                     self.title = res.user.name;
@@ -196,14 +196,14 @@ factories.factory("Chat",
                 }
             }
             this.currentUser.chats = _chats;
-            console.log("chat is removed");
+            log("chat is removed");
             this.currentUser.saveChats();
         },
 
         handleExpiredChatSession: function() {
             this.lastUnexpiredChatSession = null;
             this.isExpired = true;
-            console.log("chatSession is sent to archive");
+            log("chatSession is sent to archive");
         },
 
         removeLastChatSession: function() {
@@ -219,7 +219,7 @@ factories.factory("Chat",
             this.chatSessionsIndexes.pop();
             this.lastUnexpiredChatSession = null;
             this.isExpired = true;
-            console.log("chatSession is removed");
+            log("chatSession is removed");
         },
 
         disconnect: function() {

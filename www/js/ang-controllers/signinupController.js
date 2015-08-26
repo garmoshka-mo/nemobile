@@ -2,7 +2,7 @@ angular.module("angControllers").controller("signinupController",
     ['user','$scope', '$state', '$stateParams','$q', 'vk', 'notification', 'dictionary',   
     function(user, $scope, $state, $stateParams, $q, vk, notification, dictionary) {
     
-    console.log("sign in is invoked");
+    log("sign in is invoked");
    
     $scope.newUser = {};
     $scope.showSpinner = false;
@@ -32,7 +32,7 @@ angular.module("angControllers").controller("signinupController",
     };
 
     $scope.signup = function() {
-        console.log("sign up is invoked");
+        log("sign up is invoked");
         $scope.showSpinner = true;
         user.signup($scope.newUser.name, $scope.newUser.password)
         .then(

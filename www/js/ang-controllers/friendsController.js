@@ -1,7 +1,7 @@
 angular.module("angControllers").controller("friendsController", 
     ['user','$scope', '$stateParams', '$timeout', '$state', '$http', 'routing',
     function(user, $scope, $stateParams, $timeout, $state, $http, routing) {
-    console.log('friends controller is enabled');
+    log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
     $scope.limitTo = 20;
@@ -18,7 +18,7 @@ angular.module("angControllers").controller("friendsController",
     $scope.shownList = $scope.listToShow;
 
     $scope.hideKeyboard = function() {
-        console.log("keyboard is hidden");
+        log("keyboard is hidden");
         if (RAN_AS_APP) {
             cordova.plugins.Keyboard.close();
         }

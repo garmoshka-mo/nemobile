@@ -29,7 +29,7 @@ services
         // alert('loading stopped');
         var tmp = (event.url).split("#");
         if (tmp[0]=='https://oauth.vk.com/blank.html' || tmp[0]=='http://oauth.vk.com/blank.html') {
-            console.log(tmp);
+            log(tmp);
             wwwref.close();
             tmp = url_parser.get_args(tmp[1]);
             if (tmp['error']) {
@@ -54,7 +54,7 @@ services
     function callMethod(method, params) {
         var url = "https://api.vk.com/method/" + method + 
         "?" + paramsToString(params) + "&v=5.30&access_token=" + vkToken;
-        console.log('callMethod', url);
+        log('callMethod', url);
         return $http.get(encodeURI(url));
     } 
     

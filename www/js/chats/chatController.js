@@ -2,7 +2,7 @@ angular.module("angControllers").controller("chatController",
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
     function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
         
-        console.log("chat controller is invoked");
+        log("chat controller is invoked");
 
         $scope.user = user;
         $scope.isStickersGalleryVisiable = false;
@@ -41,7 +41,7 @@ angular.module("angControllers").controller("chatController",
                     .then(
                         function(chatSession) {
                             self.previousMessages = chatSession.messages.concat(self.previousMessages);
-                            console.log(self.previousMessages);
+                            log(self.previousMessages);
                             self.isUpdating = false;
                         }
                     );
@@ -152,7 +152,7 @@ angular.module("angControllers").controller("chatController",
         }
 
         var chat = $scope.chat;
-        console.log("chat", chat);
+        log("chat", chat);
         setNotification();
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {
@@ -173,14 +173,14 @@ angular.module("angControllers").controller("chatController",
             function() {
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0;
-                console.log("got chat session");
+                log("got chat session");
             },
             function() {
                 chat.addChatSession(user.uuid, $stateParams.channelName, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0;
-                console.log("created new chat session");
+                log("created new chat session");
             }
         )
         .then(
@@ -214,7 +214,7 @@ angular.module("angControllers").controller("chatController",
             $scope.isFirstMessage = false;
             $scope.errorDescription = "";
             
-            // console.log("user:", user);
+            // log("user:", user);
         };
 
         $scope.handleFailedSending = function(errorDescription) {
@@ -305,7 +305,7 @@ angular.module("angControllers").controller("chatController",
                     });
                 }
 
-                // console.log($scope.appropriateStickers);
+                // log($scope.appropriateStickers);
             }
         };
 
@@ -316,7 +316,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.addStickerURL = function(message) {
-            console.log(message);
+            log(message);
             if (!message.isOwn) {
                 if (message.text.match(/(http|https):/)) {
                     location.href = "#/addImage?imageURL=" + message.text;

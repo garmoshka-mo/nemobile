@@ -1,7 +1,7 @@
 angular.module("angControllers").controller("chatsController", [
     'user', '$scope', '$http', '$timeout', 'api', 'notification',
     function(user, $scope, $http, $timeout, api, notification) {
-        console.log("chats controller is invoked");
+        log("chats controller is invoked");
         $scope.$watch('user.chats', function() {
             if (user) {
                 var chats = user.chats;
@@ -32,8 +32,8 @@ angular.module("angControllers").controller("chatsController", [
                 chat.photoUrlMini = App.Settings.adorableUrl + '/40/' + chat.senderId;
                 chat.photoUrl = App.Settings.adorableUrl + '/' + chat.senderId;
 
-                // console.log("temporary chat photo Url", chat.photoUrlMini);
-                // console.log("get chat photo function is invoked");
+                // log("temporary chat photo Url", chat.photoUrlMini);
+                // log("get chat photo function is invoked");
                 return chat.photoUrlMini;
             }
             return chat.photoUrlMini;

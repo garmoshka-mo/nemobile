@@ -58,7 +58,7 @@ services
         user.phoneNumber = userInfo.phone_number;
         
         var avatarParseResult = user.parseAvatarDataFromServer(userInfo);
-        console.log(avatarParseResult);
+        log(avatarParseResult);
         user.avatarUrl = avatarParseResult.fullSize;
         user.avatarUrlMini = avatarParseResult.mini;
 
@@ -71,7 +71,7 @@ services
             function() {
                 // user.friendsList.updateNepotomFriendsInfo()
                 // .then(function() {
-                //     console.log("friends list is downloaded from server");
+                //     log("friends list is downloaded from server");
                 //     $state.go($state.current, {}, {reload: true});
                 // });
             }
@@ -149,7 +149,7 @@ services
     }
 
     function handleChatSessionAsync(chat, messageText, expires) {
-        console.log('handle chat session async');
+        log('handle chat session async');
         chat.getLastUnexpiredChatSession()
         .then(
             function(lastSession) {
@@ -160,18 +160,18 @@ services
 
 
     function handleIncomeMessage(message, envelope) {
-        console.log(message);
+        log(message);
         var self = user;
         var channelName = envelope[3];
 
         if (message.event == "contacts_updated") {
-            console.log('friends list will be updated');
+            log('friends list will be updated');
             getUserFriendsFromServer();
             return;        
         }
         
         if (message.event == "profile_updated") {
-            console.log('user info will be updated');
+            log('user info will be updated');
             updateUserInfo(user.accessToken);
             return;        
         }
@@ -211,7 +211,7 @@ services
         //checking if chat exist 
         var chat = self.getChat(channelName, senderUuid);
         if (chat) {
-            // console.log("added to existing chat");
+            // log("added to existing chat");
             
             //if chat session exists 
             if (!chat.isExpired) {
@@ -237,7 +237,7 @@ services
             } 
         }
         else {
-            // console.log("created new chat");
+            // log("created new chat");
             chat = self.addChat({channelName: channelName, senderId: senderUuid});
             chat.addChatSession(senderUuid, channelName, senderUuid);
             chat.getLastUnexpiredChatSession(); 
@@ -284,9 +284,9 @@ services
         
         user.saveChats();
 
-        // console.log("When chatSession expires: ", lastSession.whenExipires);
-        // console.log("income message", m);
-        // console.log(self);
+        // log("When chatSession expires: ", lastSession.whenExipires);
+        // log("income message", m);
+        // log(self);
         $rootScope.$apply();
     }
 
@@ -294,7 +294,7 @@ services
         var d = $q.defer();
         pubnub.time(function(time) {
             differencePubnubDeviceTime = time / 10000 - new Date().getTime();
-            console.log("difference between pubnub and device time: ", differencePubnubDeviceTime);
+            log("difference between pubnub and device time: ", differencePubnubDeviceTime);
             d.resolve(differencePubnubDeviceTime);
         });
         return d.promise;
@@ -331,7 +331,7 @@ services
                 channel: channel,
                 end: end,
                 callback: function(res) {
-                    console.log("unseen messages: ", res);
+                    log("unseen messages: ", res);
                     d.resolve(res);
                 },
                 include_token: true 
@@ -351,7 +351,7 @@ services
             location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
         }
 
-        console.log('while you were away', messages);
+        log('while you were away', messages);
         
         window.isGotUnseenMessage = true;
     }
@@ -360,7 +360,7 @@ services
         var d = $q.defer();
         
         if (user.lastMessageTimestamp || user.isVirtual) {
-            // console.log("last seen message timestamp * 10000: ", 
+            // log("last seen message timestamp * 10000: ",
             //     (user.lastMessageTimestamp * 10000).toString());
             
             getGroupChannels()
@@ -368,7 +368,7 @@ services
                 function(channels) {
                     var channelsHistoriesPromises = [];
 
-                    // console.log('channels were got', channels);
+                    // log('channels were got', channels);
                     
                     var _promise = channels.forEach(function(channel) {
                         getChannelHistory(channel)
@@ -398,7 +398,7 @@ services
     }
 
     // function getMessagesForVirtualChat() {
-    //     // console.log("last seen message timestamp * 10000: ", 
+    //     // log("last seen message timestamp * 10000: ",
     //     //     (user.lastMessageTimestamp * 10000).toString());
     //     var MSEC_IN_MONTH = 30 * 24 * 3600 * 1000;
 
@@ -408,14 +408,14 @@ services
     //             channel: user.channel,
     //             end: MSEC_IN_MONTH * 10000,
     //             callback: function(res) {
-    //                 console.log("unseen messages: ", res);
+    //                 log("unseen messages: ", res);
     //                 var messages = res[0];
     //                 for (var i = 0; i < messages.length; i++) {
     //                     handleIncomeMessage(messages[i]);
     //                 }
 
     //                 if (messages.length) {
-    //                     console.log("redirected to chat");
+    //                     log("redirected to chat");
     //                     location.href = "#/chat?senderId=" + messages[messages.length - 1].sender_uuid;
     //                 }
     //             }
@@ -425,7 +425,7 @@ services
     function updateUserInfo(accessToken) {
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
-        console.log('user info is updated');
+        log('user info is updated');
     }
 
 
@@ -455,10 +455,10 @@ services
                 gw_type: type,
                 channel: channel,
                 callback: function(res) {
-                    console.log("device was registered channel", res);
+                    log("device was registered channel", res);
                 },
                 error: function(res) {
-                    console.log("register device error", res);
+                    log("register device error", res);
                 }
             });
             
@@ -479,10 +479,10 @@ services
                     gw_type: type,
                     channel: channel,
                     callback: function(res) {
-                        console.log("device was unregistered from", res);
+                        log("device was unregistered from", res);
                     },
                     error: function(res) {
-                        console.log("unregister device error", res);
+                        log("unregister device error", res);
                     }
                 });
             }
@@ -493,10 +493,10 @@ services
                     + window.deviceId + "/remove?type=" + type;
                 $http.get(url).then(
                     function(res) {
-                        console.log(res);
+                        log(res);
                     },
                     function(res) {
-                        console.log(res);
+                        log(res);
                     }
                 );
             }
@@ -510,10 +510,10 @@ services
             return api.getUserInfo(accessToken)
             .then(
                 function(userInfo) {
-                    // console.log('userInfo', userInfo);
+                    // log('userInfo', userInfo);
                     user.isVirtual = isVirtual ? true : false;
                     handleSuccessSignIn(userInfo);
-                    console.log("user is logged", user);
+                    log("user is logged", user);
                 },
                 function(res) {
                     console.error("sign in fail");
@@ -569,7 +569,7 @@ services
             clearApiAccessToken();
             user.removeDeviceFromChannel();
             d.resolve();
-            console.log('user is logged out', user);
+            log('user is logged out', user);
         }, 0);
         return d.promise;
     };
@@ -668,7 +668,7 @@ services
                 self.subscribe();
                 // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
-                console.log("user info is taken from storage", self);
+                log("user info is taken from storage", self);
             }),
 
             storage.getChats().then(function(dataFromStorage) {
@@ -679,7 +679,7 @@ services
                 self.chats = _chats;
                 
                 self.countUnreadChats();
-                console.log("user chats are taken from storage", user.chats);
+                log("user chats are taken from storage", user.chats);
             }),
 
             storage.getLastMessageTimestamp().then(function(timestamp) {
@@ -690,14 +690,14 @@ services
             storage.getFriendsList().then(function(dataFromStorage){
                 friendsList.parseFromStorage(dataFromStorage);
                 self.friendsList = friendsList;
-                console.log("user's friends list is taken from storage");
+                log("user's friends list is taken from storage");
             })
         ])
         .then(
             function() {
                 self.isParsingFromStorageNow = false;
                 self.parsedFromStorage = true;
-                console.log("all user info was parsed from storage");
+                log("all user info was parsed from storage");
             },
             function() {
                 console.warn("there was error while parsing");
@@ -709,12 +709,12 @@ services
 
     this.save = function() {
         storage.saveUser(this);
-        console.log("user info is saved");
+        log("user info is saved");
     };
 
     this.saveChats = function() {
         storage.saveChats(this.chats);
-        console.log("user chats are saved");
+        log("user chats are saved");
     };
 
     this.saveLastMessageTimestamp = function() {
@@ -736,7 +736,7 @@ services
         pubnub.subscribe({
             channel_group: self.channel,
             message: function(message, envelope, channelName) {
-                // console.log(message, envelope);
+                // log(message, envelope);
                 handleIncomeMessage(message, envelope);
             }
         });
@@ -771,7 +771,7 @@ services
                 updateUserInfo();
             },
             function() {
-                console.log("updating avatar is failed");
+                log("updating avatar is failed");
                 return $q.reject();
             }
         );
@@ -784,7 +784,7 @@ services
                 updateUserInfo();
             },
             function() {
-                console.log("updating avatar is failed");
+                log("updating avatar is failed");
                 return $q.reject();
             }
         );
@@ -820,7 +820,7 @@ services
                     user.isVirtual = false;
                     notifyThatBecomeReal();
                 }
-                console.log('updateProfile', res);
+                log('updateProfile', res);
             },
             function(res) {
                 return $q.reject(res);
@@ -888,7 +888,7 @@ services
 
     // if (this.isLogged()) {
     //     this.parseFromStorage();
-    //     console.log("user data is taken from storage");
+    //     log("user data is taken from storage");
     // }
 
     //function for testing purposes
@@ -914,7 +914,7 @@ services
                 this.unreadChatsAmount++;
             }
         }
-        console.log('unread chats is counted', this.unreadChatsAmount);
+        log('unread chats is counted', this.unreadChatsAmount);
     };
 
     //for debugging

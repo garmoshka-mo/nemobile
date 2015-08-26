@@ -8,7 +8,7 @@ angular.module("angControllers").controller("vkLoginController", [
             .then(function() {
                 vk.getUser()
                 .then(function(res) {
-                    console.log(res);
+                    log(res);
                 });
             });
         }    

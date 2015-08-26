@@ -132,7 +132,7 @@ angular.module("angControllers")
 
         var storedFilterParams = localStorage.randomFilter;
         if (storedFilterParams) {
-            console.log('filter params were taken from storage');
+            log('filter params were taken from storage');
             $scope.filter = JSON.parse(storedFilterParams);
             extendFilterObject();
         }
