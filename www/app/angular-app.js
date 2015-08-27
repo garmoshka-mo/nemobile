@@ -179,7 +179,7 @@ window.onload = function onLoad() {
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'http://google-analytics.com/analytics.js', 'ga');
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', config('gaTrackingCode'), 'auto');
     ga('send', 'pageview');
