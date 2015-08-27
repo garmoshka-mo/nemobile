@@ -633,12 +633,14 @@ services
     };
 
     this.getChat = function(channelName, senderId) {
-        if (user.chats[channelName]) {
-            return user.chats[channelName];
-        }
+        if (!_.isUndefined(channelName) || !_.isUndefined(channelName)) {
+            if (user.chats[channelName]) {
+                return user.chats[channelName];
+            }
 
-        if (user.chats[senderId]) {
-            return user.chats[senderId];
+            if (user.chats[senderId]) {
+                return user.chats[senderId];
+            }
         }
 
         return false;
