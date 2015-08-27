@@ -633,7 +633,7 @@ services
     };
 
     this.getChat = function(channelName, senderId) {
-        if (!_.isUndefined(channelName) || !_.isUndefined(channelName)) {
+        if (!_.isUndefined(channelName) || !_.isUndefined(senderId)) {
             if (user.chats[channelName]) {
                 return user.chats[channelName];
             }
