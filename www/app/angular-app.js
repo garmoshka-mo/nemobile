@@ -151,8 +151,8 @@ String.prototype.escape = function() {
 };
 
 function log() {
-    if (localStorage.debug === 'true')
-        console.log.apply(console, arguments);
+  if (config('debug'))
+    console.log.apply(console, arguments);
 }
 
 function bootstrapAngularApp() {
