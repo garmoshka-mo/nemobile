@@ -50,14 +50,14 @@ angular.module("angControllers").controller("chatController",
         }
 
         function setNotification() {
-            var title;
+            var title = "кто-то";
             
-            if (chat.isVirtual || !chat.senderId) {
-                title = "кто-то";
-            }
-            else {
-                title = chat.title;
-            }
+            // if (chat.isVirtual || !chat.senderId) {
+            //     title = "кто-то";
+            // }
+            // else {
+            //     title = chat.title;
+            // }
 
             var notificationString =
                 "<span class='pointer'><img src='" + chat.photoUrlMini +

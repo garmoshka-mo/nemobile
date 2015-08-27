@@ -54,6 +54,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+    <gap:plugin name="com.danielcwilson.plugins.googleanalytics" version="0.6.1" />
     <gap:plugin name="com.ionic.keyboard" version="1.0.3" />
     <!-- <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" /> -->
     <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
