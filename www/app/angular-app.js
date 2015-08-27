@@ -153,7 +153,7 @@ String.prototype.escape = function() {
   });
 };
 function log() {
-  if (localStorage.debug === 'true')
+  if (config('debug'))
     console.log.apply(console, arguments);
 }
 
