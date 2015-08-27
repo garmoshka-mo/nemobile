@@ -15,6 +15,9 @@ document.addEventListener("deviceready", function() {
     log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
     log("OS version: " + window.device.version);
 
+    window.analytics.startTrackerWithId('UA-50069297-9');
+    window.analytics.trackView('pageview');
+
     function successHandler(result) {
         log(result);
         // alert('result = ' + result);
@@ -169,22 +172,29 @@ var config;
 window.onload = function onLoad() {
     config = new Config(App.Settings);
     bootstrapAngularApp();
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
+    if (!RAN_AS_APP) {
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', config('gaTrackingCode'), 'auto');
-    ga('send', 'pageview');
+        ga('create', config('gaTrackingCode'), 'auto');
+        ga('send', 'pageview');
+    }
 };
 
 $(window).bind('beforeunload', function() {
-    ga('send', 'event', 'page', 'close');
+    if (RAN_AS_APP) {
+        window.analytics.trackEvent('send', 'event', 'page', 'close');
+    }
+    else {
+        ga('send', 'event', 'page', 'close');
+    }
 });

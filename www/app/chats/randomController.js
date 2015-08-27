@@ -43,7 +43,12 @@ angular.module("angControllers")
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
             $scope.waitingServer = true;
-            ga('send', 'event', 'random', 'start');
+            if (RAN_AS_APP) {
+                window.analytics.trackEvent('send', 'event', 'random', 'start');
+            }
+            else {
+                ga('send', 'event', 'random', 'start');
+            }
             
 
             if (user.isLogged()) sendRequest();
