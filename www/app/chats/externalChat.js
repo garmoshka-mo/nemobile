@@ -48,15 +48,15 @@ services
             };
 
             self.schedule_start = function() {
-                self.start_timer = setTimeout(start, 5000);
+                self.start_timer = setTimeout(start, 6000);
             };
 
             function start() {
                 var intro = composeIntro(preferences);
-                conversation_machine(intro);
+                conversation_initiator(intro);
             }
 
-            function conversation_machine(intro) {
+            function conversation_initiator(intro) {
                 self.provider = new Chat(_.extend({
                     onBegin: userFound,
                     onDisconnect: terminated,
@@ -69,19 +69,27 @@ services
                     if (user_found) return;
                     user_found = true;
                     if (intro.length > 0) {
-                        self.provider.Send(intro);
-                        log('Intro: '+intro);
+                        var msg = 'Автофильтр: '+intro;
+                        self.provider.Send(msg);
+                        log('INTRO: '+msg);
                     } else {
                         begin_chat();
                     }
                 }
 
                 function got_his_message(message) {
-                    if (!self.talking) begin_chat();
-                    display_partners_message(message.sanitize());
+                    if (message.substring(0, 11) === 'Автофильтр:'){
+                        // наш клиент.
+                        // Если их не соединило по внутренней сети - то они не подходят друг другу.
+                        self.provider.Disconnect();
+                    } else {
+                        if (!self.talking) begin_chat();
+                        display_partners_message(message.sanitize());
+                    }
                 }
 
                 function begin_chat() {
+                    self.lastUnexpiredChatSession.intro(intro);
                     self.talking = true;
                     routing.goto('chat', {chatType: 'external', fromState: 'random'});
                     api.cancelRandomRequest();
@@ -92,11 +100,17 @@ services
                     log('terminated. talking="' + self.talking + '"');
                     if (!self.talking) {
                         log('trap into not talking');
-                        if (!self.dead) self.provider.Connect();
+                        if (!self.dead) reconnect();
                     } else {
                         log('calling display_partners_message...');
                         display_partners_message({type: 'chat_finished'});
                     }
+                }
+
+                var timeout = 1, maxTimeout = 8;
+                function reconnect() {
+                    setTimeout(self.provider.Connect, timeout * 1000);
+                    if (timeout < maxTimeout) timeout = timeout * 2;
                 }
 
                 self.provider.Connect();
