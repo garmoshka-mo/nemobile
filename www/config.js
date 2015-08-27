@@ -1,6 +1,7 @@
 window.App = {};
 
 window.App.Settings = {
+    debug: true,
     pubnubSubscribeKey: "sub-c-7171992a-395c-11e5-876e-02ee2ddab7fe",
     apiUrl: "http://nepotom.herokuapp.com",
     environment: "development",

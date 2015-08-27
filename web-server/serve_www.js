@@ -23,7 +23,9 @@ app.set('view engine', 'jade');
 var www_root = '../' + (process.env.WWW_ROOT ||'www');
 console.log('www_root at %s', www_root);
 
-app.use(express.static(path.join(__dirname, www_root), {maxAge: 2629746000})); // cache: 1 month
+var cache_expiration = process.env.NODE_ENV == 'production' ? 2629746000 : 0; // cache: 1 month
+
+app.use(express.static(path.join(__dirname, www_root), {maxAge: cache_expiration}));
 
 app.get('/version', function (req, res) {
     res.send('{"version":"'+version.version+'"}');
