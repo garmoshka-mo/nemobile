@@ -16,9 +16,6 @@ services
         this.current_instance = new ExternalChat({}); // Empty chat for reloaded page
 
         function ExternalChat(preferences) {
-            // ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
-            //provider.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
-
             var self = this;
             self.chat = null;
             self.talking = false;
@@ -78,14 +75,27 @@ services
                 }
 
                 function got_his_message(message) {
-                    if (message.substring(0, 11) === 'Автофильтр:'){
+                    if (!self.talking && message.substring(0, 11) === 'Автофильтр:') {
                         // наш клиент.
                         // Если их не соединило по внутренней сети - то они не подходят друг другу.
                         self.provider.Disconnect();
                     } else {
                         if (!self.talking) begin_chat();
                         display_partners_message(message.sanitize());
+                        bot(message);
                     }
+                }
+
+                var auto_filter_explained = false;
+                function bot(message) {
+                    if (!auto_filter_explained && /автофил|фильтр/i.exec(message)) {
+                        bot_message('Авто-пояснение: автофильтр - это функция из сайта dub.ink');
+                        auto_filter_explained = true;
+                    }
+                }
+                function bot_message(msg) {
+                    self.provider.Send(msg);
+                    self.lastUnexpiredChatSession.bot_log(msg);
                 }
 
                 function begin_chat() {
@@ -107,7 +117,7 @@ services
                     }
                 }
 
-                var timeout = 1, maxTimeout = 8;
+                var timeout = 2, maxTimeout = 8;
                 function reconnect() {
                     setTimeout(self.provider.Connect, timeout * 1000);
                     if (timeout < maxTimeout) timeout = timeout * 2;
@@ -133,6 +143,9 @@ services
             }
 
             function my_message_sent(m) {
+                if (m.substring(0, 15) === 'Авто-пояснение:')
+                    return;
+
                 if (self.talking)
                     self.lastUnexpiredChatSession.my_message_sent(m);
             }

@@ -34,8 +34,11 @@
             this.intro = function(msg) {
                 spamFilter.filter(this, {text: msg, isOwn: true});
                 // Maybe add intro handling...
-            }
+            };
 
+            this.bot_log = function(msg) {
+                spamFilter.filter(this, {text: msg, isOwn: true});
+            };
         }
 
     }]);
