@@ -28,10 +28,10 @@
         <button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>
     </div>
     <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  data-snap-ignore="true"></span>
+        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  allow-textselect></span>
     </div>
     <div ng-repeat="message in chatSession.messages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
-        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  data-snap-ignore="true"></span>
+        <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  allow-textselect></span>
     </div>
     <div class="h13"></div>
 </div>
