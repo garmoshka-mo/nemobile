@@ -45,6 +45,7 @@
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
     <gap:plugin name="org.apache.cordova.file" version="1.3.1" />
     <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.6" />
+    <gap:plugin name="com.ququplay.websocket.websocket" version="0.1.0" />
     <!-- <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" /> -->
     <gap:plugin name="org.apache.cordova.globalization" version="0.3.1" />
     <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
