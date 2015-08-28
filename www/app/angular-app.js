@@ -15,9 +15,6 @@ document.addEventListener("deviceready", function() {
     log(">>>>>>>>>>>>>>>>>>>DEVICE READY");
     log("OS version: " + window.device.version);
 
-    window.analytics.startTrackerWithId('UA-50069297-9');
-    window.analytics.trackView('pageview');
-
     function successHandler(result) {
         log(result);
         // alert('result = ' + result);
@@ -168,6 +165,47 @@ function bootstrapAngularApp() {
     }
 }
 
+
+var googleAnalytics = {
+    init: function() {
+        if (RAN_AS_APP){ 
+            this.executeMobile(function() {
+                window.analytics.startTrackerWithId(config('gaTrackingCodeMobile'));
+            });
+        }
+        else
+        ga('create', config('gaTrackingCodeWeb'), 'auto');
+    },
+    event: function(label, value) {
+        if (RAN_AS_APP){ 
+            this.executeMobile(function(){
+                window.analytics.trackEvent('send', 'event', label, value);
+            });
+        }
+        else
+        ga('send', 'event', label, value);
+    },
+    pageview: function() {
+        if (RAN_AS_APP){ 
+            this.executeMobile(function(){
+                window.analytics.trackView('pageview');
+            });
+        }
+        else
+        ga('send', 'pageview');
+    },
+    executeMobile: function(toExecute) {
+        if (window.device) {
+            toExecute();
+        }
+        else {
+            document.addEventListener('deviceready', function() {
+                toExecute();
+            });
+        }
+    }
+};
+
 var config;
 window.onload = function onLoad() {
     config = new Config(App.Settings);
@@ -185,16 +223,11 @@ window.onload = function onLoad() {
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', config('gaTrackingCode'), 'auto');
-        ga('send', 'pageview');
+        googleAnalytics.init();
+        googleAnalytics.pageview();
     }
 };
 
 $(window).bind('beforeunload', function() {
-    if (RAN_AS_APP) {
-        window.analytics.trackEvent('send', 'event', 'page', 'close');
-    }
-    else {
-        ga('send', 'event', 'page', 'close');
-    }
+    googleAnalytics.event('page', 'close');
 });

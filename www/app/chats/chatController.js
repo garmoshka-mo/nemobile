@@ -122,12 +122,8 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
-            if (RAN_AS_APP) {
-                window.analytics.trackEvent('send', 'event', 'random', 'finish');
-            }
-            else {
-                ga('send', 'event', 'random', 'finish');
-            }
+            googleAnalytics.event('random', 'finish');
+            
             $state.go('random');
         };
 
