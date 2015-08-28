@@ -175,8 +175,13 @@
                                 <span spinner spinner-color="white"></span>
                             </div>
                             <div ng-hide="notification.text || routing.is_preload" ui-view="title"></div>
-                            <div class="notification" ng-show="notification.text && !routing.is_preload" ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
-                                <span ng-bind-html="notification.text"></span>
+                            <div class="notification" ng-show="notification.text && !routing.is_preload"
+                                 ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
+                                <span class='pointer'>
+                                    <img ng-show="notification.ava_url" ng-src='{{notification.ava_url}}'
+                                         class='chat-toolbar-image pointer'>{{notification.text}}
+                                    <span class="typing" ng-show="notification.typing">печатает...</span>
+                                </span>
                             </div>
                         </h1>
                     </section>

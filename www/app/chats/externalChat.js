@@ -1,8 +1,8 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', 'routing', '$rootScope', 'externalChatSession',
-    function(avatars, $q, routing, $rootScope, externalChatSession) {
+    ['avatars', '$q', 'routing', '$rootScope', 'externalChatSession', 'notification',
+    function(avatars, $q, routing, $rootScope, externalChatSession, notification) {
 
         this.start = function(preferences) {
             this.current_instance = new ExternalChat(preferences);
@@ -17,7 +17,7 @@ services
 
         function ExternalChat(preferences) {
             // ToDo:  прикутить отправку уведомления о печатаньи на внешний чат!
-            //chat.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
+            //provider.Typing() - Отправляет собеседнику сообщение о том, что вы печатаете
 
             var self = this;
             self.chat = null;
@@ -37,7 +37,7 @@ services
                     log('Связь с сервером установлена. Идет соединение с пользователем...');
                 },
                 'onTyping': function(){
-                    log('Собеседник печатает сообщение...');
+                    notification.typing();
                 },
                 'onOnline': function(count){
                     log('Сейчас на сайте: '+count);

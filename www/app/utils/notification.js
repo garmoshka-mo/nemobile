@@ -8,21 +8,30 @@
         var initialText;
         var initialHandler;
         var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
+        var typing_timeout;
 
         return {
 
-            set: function(text, handler) {
-                $rootScope.notification.text = text;
+            set: function(title, ava_url, handler) {
+                $rootScope.notification.text = title;
+                $rootScope.notification.ava_url = ava_url;
                 $rootScope.notification.handler = function() {
-                    if (handler) {
-                        handler();
-                    }
+                    if (handler) handler();
                 };
-                initialText = text;
+                initialText = title;
                 initialHandler = $rootScope.notification.handler;
             },
 
+            typing: function() {
+                $rootScope.$apply(function() { $rootScope.notification.typing = true; });
+                clearInterval(typing_timeout);
+                typing_timeout = setTimeout(function() {
+                    $rootScope.$apply(function() { $rootScope.notification.typing = false; });
+                }, 2500);
+            },
+
             incomeMessage: function() {
+                $rootScope.notification.typing = false;
                 incomeMessageSound.play();
             },
 

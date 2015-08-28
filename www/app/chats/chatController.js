@@ -59,10 +59,6 @@ angular.module("angControllers").controller("chatController",
             //     title = chat.title;
             // }
 
-            var notificationString =
-                "<span class='pointer'><img src='" + chat.photoUrlMini +
-                "' class='chat-toolbar-image pointer'>" +
-                title + "</span>";
             var notificationCallback = function() {
                 // todo: правильно обрабатывать, когда внешний чат -
                 // в этом случае у нас chat = externalChat
@@ -72,7 +68,7 @@ angular.module("angControllers").controller("chatController",
                 //$state.go('chatInfo',{ senderId: chat.senderId });
                 // location.replace("#/showImage?link=" + chat.photoUrl);
             };
-            notification.set(notificationString, notificationCallback);
+            notification.set(title, chat.photoUrlMini, notificationCallback);
         }
 
         $scope.scrollToBottom = function() {
@@ -309,10 +305,11 @@ angular.module("angControllers").controller("chatController",
             }
         };
 
-        $scope.checkIfEnter = function(event) {
+        $scope.input_keypress = function(event) {
             if (event.keyCode === 13) {
                 $scope.sendMessage();
-            }
+            } else
+                $scope.chatSession.typing();
         };
 
         $scope.addStickerURL = function(message) {

@@ -32,7 +32,7 @@
             };
 
             this.intro = function(msg) {
-                spamFilter.filter(this, msg);
+                spamFilter.filter(this, {text: msg, isOwn: true});
                 // Maybe add intro handling...
             }
 

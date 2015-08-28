@@ -157,7 +157,11 @@ factories.factory('ChatSession',
                     return htmlToPlaintext(text);
                 }
             }
-        }, 
+        },
+
+        typing: function() {
+            // implement
+        },
 
         sendMessage: function(message, address, ttl) {
             var self = this;

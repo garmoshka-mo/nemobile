@@ -59,7 +59,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "chatController",
-                        templateUrl: "partials/chat/content.html?"+version
+                        templateUrl: "app/chats/chat.html?"+version
                     }
                 }
             })
