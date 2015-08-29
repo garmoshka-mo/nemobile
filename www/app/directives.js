@@ -313,3 +313,15 @@ app.directive('sexSelect', function() {
             "ng-class='{\"selected\": ngModel == \"w\"}'></li></ul>"
     };
 });
+
+app.directive('allowTextselect', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr) {
+            if (!RAN_AS_APP) {
+                console.log(elem);
+                angular.element(elem).attr('data-snap-ignore', true);
+            }
+        },
+    };
+});

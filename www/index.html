@@ -179,7 +179,7 @@
                                  ng-click="notification.handler()" ng-class="{'animated fadeIn': notification.animated}">
                                 <span class='pointer'>
                                     <img ng-show="notification.ava_url" ng-src='{{notification.ava_url}}'
-                                         class='chat-toolbar-image pointer'>{{notification.text}}
+                                         class='chat-toolbar-image pointer'><span ng-bind="notification.text"></span>
                                     <span class="typing" ng-show="notification.typing">печатает...</span>
                                 </span>
                             </div>
