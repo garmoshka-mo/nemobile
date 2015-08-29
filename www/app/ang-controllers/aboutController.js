@@ -203,13 +203,8 @@ angular.module("angControllers").controller("aboutController",
                               React.createElement("br", null), "                In the event that dub.ink is acquired by or merged with a third party entity, we reserve the right to transfer or assign the information we have collected from our users as part of such merger, acquisition, sale, or other change of control. In the (hopefully) unlikely event of our bankruptcy, insolvency, reorganization, receivership, or assignment for the benefit of creditors, or the application of laws or equitable principles affecting creditors' rights generally, we may not be able to control how your personal information is treated, transferred, or used.", 
                               React.createElement("br", null), 
                               React.createElement("br", null), "                Changes and updates to this Privacy Notice", 
-                              React.createElement("br", null), "                This Privacy Policy may be revised periodically and this will be reflected by the \"effective date\" below. Please revisit this page to stay aware of any changes. Your continued use of the dub.ink Site and dub.ink Service constitutes your agreement to this Privacy Policy and any amendments.", 
-                              React.createElement("br", null), 
-                              React.createElement("br", null), 
-                              React.createElement("br", null), "                Date Last Modified:", 
-                              React.createElement("br", null), 
-                              React.createElement("br", null), "                This Privacy Notice was last modified April 7th, 2015"
-                    )), 
+                              React.createElement("br", null), "                This Privacy Policy may be revised periodically and this will be reflected by the \"effective date\" below. Please revisit this page to stay aware of any changes. Your continued use of the dub.ink Site and dub.ink Service constitutes your agreement to this Privacy Policy and any amendments."
+                    )),
                     React.createElement(Tabs.Panel, {title: "support"}, 
                         React.createElement("div", {className: "width-92 block-center ta-center pt1rem"}, 
                             "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "dub.ink")

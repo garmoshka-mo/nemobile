@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates',
-    function(user, $scope, externalChat, updates) {
+         'user', '$scope', 'externalChat', 'updates', '$state',
+    function(user, $scope, externalChat, updates, $state) {
 
         updates.check();
 
@@ -106,6 +106,19 @@ angular.module("angControllers")
                     $scope.lookupInProgress = false;
                 }
             );
+        };
+
+        var helpClickCounter = 0;
+        $scope.helpClick = function() {
+            $scope.showHelpText = !$scope.showHelpText;
+            if (helpClickCounter == 0) {
+                setTimeout(function() {
+                    helpClickCounter = 0;
+                }, 2500)
+            } else if (helpClickCounter == 10) {
+                $state.go('localForage');
+            }
+            helpClickCounter++;
         };
 
         function prepareDataForServer() {
