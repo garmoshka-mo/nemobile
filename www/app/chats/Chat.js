@@ -82,11 +82,13 @@ factories.factory("Chat",
 
             if (this.isExpired) {
                 d.reject("chat is expired");
+                return d.promise;
             }
 
             //if chatSessionIndexes length === 0, that means that chat is new
             if (!this.chatSessionsIndexes.length) {
                 d.reject("there are no chat sessions in this chat");
+                return d.promise;
             }
 
             if (this.lastChatSessionIndex !== null) {

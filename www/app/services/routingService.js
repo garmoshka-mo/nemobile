@@ -18,7 +18,10 @@ function(notification, $state, $rootScope, $q) {
 //            return;
 //        }
 
-        if ($state.current.name == state) return;
+        if ($state.current.name == state) {
+            d.resolve();
+            return d.promise;
+        }
 
         self.is_preload = true;
         notification.clear();
