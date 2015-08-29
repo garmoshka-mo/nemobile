@@ -1,7 +1,7 @@
 services
     .service('routing', [
-        'notification', '$state', '$rootScope',
-function(notification, $state, $rootScope) {
+        'notification', '$state', '$rootScope', '$q',
+function(notification, $state, $rootScope, $q) {
 
     var self = this;
 
@@ -9,7 +9,7 @@ function(notification, $state, $rootScope) {
 
     self.goto = function(state, params) {
         window.snapper.close();
-
+        var d = $q.defer();
         params = params || {};
 
         // For now show preloader always
@@ -23,7 +23,16 @@ function(notification, $state, $rootScope) {
         self.is_preload = true;
         notification.clear();
 
-        setTimeout(function(){$state.go(state, params); $rootScope.$apply();}, 100);
+        setTimeout(function() {
+                $state.go(state, params)
+                .then(function(){
+                    d.resolve();
+                });
+                $rootScope.$apply();
+            },
+        100);
+
+        return d.promise;
     };
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);

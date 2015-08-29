@@ -10,6 +10,55 @@
         var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
         var typing_timeout;
 
+        var initialPageTitle = null;
+        var initialPageFavicon = null;
+        var pageTitleInterval = null;
+
+
+        function isTabVisible() {
+            var textValue =  
+            document.visibilityState ||
+            document.webkitVisibilityState;
+            return textValue === "visible" ? true : false;
+        }
+        window.onfocus = function() {
+            if (isTabVisible()) {
+                resetPageTitle();
+            }
+            // log('active');
+        };
+
+        function setPageTitle(text) {
+            document.title = text;
+        }
+
+        function setPageFavicon(src) {
+            var link = document.createElement('link'),
+            oldLink = document.getElementById('dynamic-favicon');
+            link.id = 'dynamic-favicon';
+            link.rel = 'shortcut icon';
+            link.href = src;
+            if (oldLink) {
+            document.head.removeChild(oldLink);
+            }
+            document.head.appendChild(link);
+        }
+
+        function resetPageTitle() {
+            if (pageTitleInterval !== null) {
+                setPageTitle(initialPageTitle);
+                initialPageTitle = null;
+                clearInterval(pageTitleInterval);
+                pageTitleInterval = null;
+            }
+        }
+
+        function startPageTitleInterval(text) {
+            pageTitleInterval = setInterval(function() {
+                document.title = document.title === initialPageTitle ? text : initialPageTitle;
+            }, 1000);
+        }
+
         return {
 
             set: function(title, ava_url, handler) {
@@ -36,7 +85,7 @@
             },
 
 
-        setTemporary: function(text, time, handler) {
+            setTemporary: function(text, time, handler) {
                 var self = this;
                 $rootScope.notification.text = text;
                 $rootScope.notification.handler = function() {
@@ -78,7 +127,23 @@
                 $rootScope.notification.animated = false;
                 initialText = null;
                 initialHandler = null;
-            }
+            },
+
+            setTemporaryPageTitle: function(text) {
+                // console.log(document.webkitVisibilityState);
+                // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
+                //     return;
+                // }
+                if (pageTitleInterval === null) {
+                    initialPageTitle = document.title;
+                    startPageTitleInterval(text);
+                }
+                else {
+                    resetPageTitle();
+                    initialPageTitle = document.title;
+                    startPageTitleInterval(text);
+                }
+            },
 
         };
     }
