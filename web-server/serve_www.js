@@ -5,13 +5,14 @@ var path = require('path');
 //var logger = require('morgan');
 //var cookieParser = require('cookie-parser');
 //var bodyParser = require('body-parser');
-
+var compression = require('compression')
 var app = express();
 
 var basicAuth = require('basic-auth-connect');
 if (process.env.HTTP_AUTH)
     app.use(basicAuth('nepotom', 'p5qw5BE5yeHYkseepbwt'));
 
+app.use(compression());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //app.use(logger('dev'));

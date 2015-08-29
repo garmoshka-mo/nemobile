@@ -2,7 +2,7 @@
   "name": "dub.ink",
   "version": "0.0.1",
   "description": "dub.ink",
-  "license": "UNLINCENSED",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git@github.com:garmoshka-mo/nepotom.git"
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "basic-auth-connect": "^1.0.0",
+    "compression": "^1.5.2",
     "express": "^4.13.3",
     "jade": "^1.11.0"
   },
