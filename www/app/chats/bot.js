@@ -1,7 +1,7 @@
 (function(){
 factories.factory('Bot',
-    ['notification', 'spamFilter', 'routing',
-function(notification, spamFilter, routing) {
+    ['notification', 'spamFilter', 'routing', 'api',
+function(notification, spamFilter, routing, api) {
 
     return function Bot(chat, session) {
         chat.provider = new Chat({
@@ -93,7 +93,7 @@ function(notification, spamFilter, routing) {
                     timestamp_ms: intro_timestamp
                 }
             };
-            
+
             spamFilter.filter(session, payload, take_decision);
             function take_decision(response) {
                 if (response.risk_percent > 50) {

@@ -10,7 +10,8 @@ function($resource) {
         if (_.isUndefined(spamFilter)) return;
 
         var data = {
-            session_id: session.id, // identification of session, can be used by async callback
+            client_id: user_uuid, // todo: replace to user.uuid after refactoring of user (right now creates circular dep)
+            talk_id: session.id, // identification of session, can be used by async callback
             // to inform about malicious session
             timestamp_ms: Date.now(),
             payload: // Your data to analyze. Can have arbitrary format.

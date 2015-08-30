@@ -1,3 +1,4 @@
+var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
     '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
@@ -54,6 +55,8 @@ services
         user.name = userInfo.name;
         user.channel = userInfo.channel_group_name;
         user.uuid = userInfo.uuid;
+        user_uuid = user.uuid; // todo: remove after refactoring of user
+
         user.scores = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
         
@@ -656,6 +659,8 @@ services
             storage.getUser().then(function(dataFromStorage) {
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
+                user_uuid = user.uuid; // todo: remove after refactoring of user
+
                 self.channel = dataFromStorage.channel;
                 self.scores = dataFromStorage.scores;
                 self.phoneNumber = dataFromStorage.phoneNumber;
