@@ -1,6 +1,6 @@
 factories.factory("Chat",
-    ['storage', 'avatars', 'ChatSession', 'api', '$q',
-    function(storage, avatars, ChatSession, api, $q) {
+    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification',
+    function(storage, avatars, ChatSession, api, $q, notification) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -29,10 +29,19 @@ factories.factory("Chat",
             null;
     }
 
+
+
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
         dataFromStorage.currentUser = currentUser;
         var chat = new Chat(dataFromStorage);
         return chat;
+    };
+
+    var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
+
+    Chat.onRandomChatBegin = function() {
+        newConversationSound.play();
+        notification.setTemporaryPageTitle('Собеседник найден');
     };
 
     Chat.prototype = {
@@ -227,7 +236,7 @@ factories.factory("Chat",
         disconnect: function() {
             this.currentUser.removeDeviceFromChannel(this.channelName);
             return api.deleteChat(this.channelName);
-        }
+        },
     };
 
     return Chat;
