@@ -37,12 +37,8 @@ factories.factory("Chat",
         return chat;
     };
 
-    var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
-    Chat.onRandomChatBegin = function() {
-        newConversationSound.play();
-        notification.setTemporaryPageTitle('Собеседник найден');
-    };
+    
 
     Chat.prototype = {
 

@@ -59,6 +59,10 @@
             }, 1000);
         }
 
+        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
+
+        
+
         return {
 
             set: function(title, ava_url, handler) {
@@ -144,6 +148,11 @@
                     startPageTitleInterval(text);
                 }
             },
+
+            onRandomChatBegin: function() {
+                newConversationSound.play();
+                notification.setTemporaryPageTitle('Собеседник найден');
+            }
 
         };
     }
