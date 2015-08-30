@@ -9,19 +9,14 @@ function(notification, spamFilter, routing, api) {
             onDisconnect: terminated,
             onReceiveStrangerMessage: got_his_message,
             onTyping: typing,
-            'onConnect': function(){
-                log('Связь с сервером установлена. Идет соединение с пользователем...');
-            },
-            'onOnline': function(count){
-                log('Сейчас на сайте: '+count);
-            },
-            'onEnd': function(){
-                log('Собеседник прервал связь');
-            },
+            'onConnect': function(){ log('Связь с сервером установлена. Идет соединение с пользователем...'); },
+            'onOnline': function(count){ log('Сейчас на сайте: '+count); },
+            'onEnd': function(){ log('Собеседник прервал связь'); },
             onReceiveMyMessage: myMessageSent
         });
 
         var self = this,
+            talking = false,
             boredom_timer,
             start_timer;
 
@@ -61,12 +56,12 @@ function(notification, spamFilter, routing, api) {
                 return;
             }
 
-            if (!chat.talking && message.substring(0, 11) === 'Автофильтр:') {
+            if (!talking && message.substring(0, 11) === 'Автофильтр:') {
                 // наш клиент.
                 // Если их не соединило по внутренней сети - то они не подходят друг другу.
                 chat.provider.Disconnect();
             } else {
-                if (!chat.talking)
+                if (!talking)
                     decide_to_chat(message);
                 else {
                     chat.display_partners_message(message.sanitize());
@@ -79,7 +74,7 @@ function(notification, spamFilter, routing, api) {
             if (m.substring(0, 15) === 'Авто-пояснение:')
                 return;
 
-            if (self.talking)
+            if (talking)
                 session.myMessageSent(m);
         }
 
@@ -125,7 +120,7 @@ function(notification, spamFilter, routing, api) {
         }
 
         function begin_chat() {
-            chat.talking = true;
+            talking = true;
             routing.goto('chat', {chatType: 'external', fromState: 'random'});
             api.cancelRandomRequest();
         }
@@ -135,8 +130,8 @@ function(notification, spamFilter, routing, api) {
 
             if (shadow) return;
 
-            log('terminated. talking="' + chat.talking + '"');
-            if (!chat.talking) {
+            log('terminated. talking="' + talking + '"');
+            if (!talking) {
                 log('trap into not talking');
                 reconnect();
             } else {

@@ -24,7 +24,6 @@ services
             var self = this;
             self.preferences = preferences;
             self.chat = null;
-            self.talking = false;
             self.provider = null;
             self.title = "кто-то";
 
@@ -53,9 +52,8 @@ services
             self.createEmptySession = initSession;
 
             self.reportStatusIfInactive = function() {
-                if (!(self.provider && self.talking)) {
+                if (!(self.provider))
                     self.display_partners_message({type: 'chat_empty'});
-                }
             };
 
             self.display_partners_message = function(message) {
@@ -68,7 +66,7 @@ services
                 }, 0);
             };
 
-            self.send_my_message = function(m) {
+            self.sendMyMessage = function(m) {
                 self.provider.Send(m.escape());
             };
 
