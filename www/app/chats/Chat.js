@@ -29,16 +29,11 @@ factories.factory("Chat",
             null;
     }
 
-
-
     Chat.parseFromStorage = function(dataFromStorage, currentUser) {
         dataFromStorage.currentUser = currentUser;
         var chat = new Chat(dataFromStorage);
         return chat;
     };
-
-
-    
 
     Chat.prototype = {
 
