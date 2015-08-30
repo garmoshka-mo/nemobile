@@ -184,7 +184,7 @@ services
             routing.goto('chat', {channelName: channelName, fromState: 'random'})
             .then(function() {
                 // log('собеседник найден');
-                Chat.onRandomChatBegin();
+                notification.onRandomChatBegin();
             });
             return;
         }

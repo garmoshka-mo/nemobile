@@ -151,7 +151,7 @@
 
             onRandomChatBegin: function() {
                 newConversationSound.play();
-                notification.setTemporaryPageTitle('Собеседник найден');
+                this.setTemporaryPageTitle('Собеседник найден');
             }
 
         };
