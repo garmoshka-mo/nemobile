@@ -310,7 +310,7 @@ angular.module("angControllers").controller("chatController",
             if (event.keyCode === 13) {
                 $scope.sendMessage();
             } else
-                $scope.chatSession.typing();
+                $scope.chat.typing();
         };
 
         $scope.addStickerURL = function(message) {

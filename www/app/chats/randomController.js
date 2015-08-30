@@ -3,8 +3,9 @@ angular.module("angControllers")
          'user', '$scope', 'externalChat', 'updates', '$state',
     function(user, $scope, externalChat, updates, $state) {
 
+        $scope.updates = updates;
         updates.check();
-
+        
         $scope.showHelpText = false;
         $scope.waitingServer = false;
         $scope.lookupInProgress = false;

@@ -41,7 +41,7 @@
 
             self.sendMessage = function(message) {
                 queued_message = message;
-                self.chat.send_my_message(message);
+                self.chat.sendMyMessage(message);
 
                 deferred_send = $q.defer();
                 return deferred_send.promise;
@@ -52,17 +52,13 @@
             };
 
             // Оповещается из externalChat:
-            self.my_message_sent = function(message) {
+            self.myMessageSent = function(message) {
                 // или же показывать queued_message ?
                 self.addMessage({
                     text: message.sanitize(),
                     isOwn: true
                 });
                 deferred_send.resolve();
-            };
-
-            self.typing = function() {
-                if (self.chat.provider) self.chat.provider.Typing();
             };
 
             angular.extend(this, new chatSessionAbstract());

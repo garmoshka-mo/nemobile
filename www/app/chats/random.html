@@ -1,11 +1,19 @@
 <div class="hide-x">
-    <div ng-hide="lookupInProgress" class="row">
+    <div ng-hide="lookupInProgress || updates.reloading" class="row">
         <div class="columns small-12 pt1rem ta-center">
             <button ng-hide="waitingServer" ng-click="lookForChat()">
                 <span>Начать чат <i class="fa fa-weixin"></i></span>
             </button>
             <div  ng-show="waitingServer" spinner spinner-color="green"></div>
         </div>
+    </div>
+    <div ng-show="updates.reloading" class="row">
+            <br/>
+            <div class="small-12 columns ta-center">
+                Подождите, идет обновление...
+            </div>
+            <br/>
+            <br/>
     </div>
     <div ng-show="lookupInProgress">
         <div class="row" >

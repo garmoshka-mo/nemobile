@@ -6,7 +6,11 @@ factories.factory('ChatSession',
     function ChatSession(creatorId, channelName, senderId, id, currentChat) {
         this.isExpired = false;
         this.isReplied = false;
-        this.id = id;
+
+        // todo: восстановить после фикса бага
+        // this.id = id;
+        this.id = 'internal' + Date.now();
+
         this.channelName = channelName;
         this.senderId = senderId;
         this.messages = [];
@@ -157,10 +161,6 @@ factories.factory('ChatSession',
                     return htmlToPlaintext(text);
                 }
             }
-        },
-
-        typing: function() {
-            // implement
         },
 
         sendMessage: function(message, address, ttl) {
