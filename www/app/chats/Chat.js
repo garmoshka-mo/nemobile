@@ -37,6 +37,10 @@ factories.factory("Chat",
 
     Chat.prototype = {
 
+        typing: function() {
+            // implement
+        },
+
         addChatSession: function(creatorId, channelName, senderId) {
             var nextIndex;
 

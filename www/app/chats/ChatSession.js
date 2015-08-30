@@ -163,10 +163,6 @@ factories.factory('ChatSession',
             }
         },
 
-        typing: function() {
-            // implement
-        },
-
         sendMessage: function(message, address, ttl) {
             var self = this;
             return api.sendMessage(message, address, ttl)

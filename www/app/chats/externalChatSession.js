@@ -61,10 +61,6 @@
                 deferred_send.resolve();
             };
 
-            self.typing = function() {
-                if (self.chat.provider) self.chat.provider.Typing();
-            };
-
             angular.extend(this, new chatSessionAbstract());
         }
     }

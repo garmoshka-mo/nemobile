@@ -1,8 +1,8 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', '$rootScope', 'externalChatSession', 'Bot',
-    function(avatars, $q, $rootScope, externalChatSession, Bot) {
+    ['avatars', '$q', '$rootScope', 'externalChatSession', 'ExternalProvider',
+    function(avatars, $q, $rootScope, externalChatSession, ExternalProvider) {
 
         var self = this;
 
@@ -22,12 +22,10 @@ services
 
         function ExternalChat(preferences) {
             var self = this;
-            self.preferences = preferences;
             self.chat = null;
-            self.provider = null;
             self.title = "кто-то";
 
-            var partner_id, start_timer, bot, lastUnexpiredChatSession;
+            var partner_id, start_timer, externalProvider, lastUnexpiredChatSession;
 
 
             self.schedule_start = function() {
@@ -36,7 +34,7 @@ services
 
             self.startNewSession = function() {
                 initSession();
-                bot = new Bot(self, lastUnexpiredChatSession);
+                externalProvider = new ExternalProvider(self, lastUnexpiredChatSession, preferences);
             };
 
             function initSession() {
@@ -52,13 +50,11 @@ services
             self.createEmptySession = initSession;
 
             self.reportStatusIfInactive = function() {
-                if (!(self.provider))
+                if (!externalProvider)
                     self.display_partners_message({type: 'chat_empty'});
             };
 
             self.display_partners_message = function(message) {
-                log('Собеседник:');
-                log(message);
                 setTimeout(function() {
                     $rootScope.$apply(function(){
                         lastUnexpiredChatSession.incomeMessage(message);
@@ -71,9 +67,13 @@ services
             };
 
             self.disconnect = function() {
+                log('chat.disconnect');
                 clearInterval(start_timer);
-                if (bot) bot.quit();
-                if (self.provider) self.provider.Disconnect();
+                if (externalProvider) externalProvider.quit();
+            };
+
+            self.typing = function() {
+                externalProvider.typing();
             };
 
             // todo: remove this after refactoring

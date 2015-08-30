@@ -23,8 +23,10 @@ function($resource) {
         });
 
         function defaultHandler(response) {
-            if (response.risk_percent > 50)
+            if (response.risk_percent > 50) {
+                log('level50');
                 session.chat.disconnect();
+            }
         }
     }
 

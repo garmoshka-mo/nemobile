@@ -1,10 +1,10 @@
 (function(){
-factories.factory('Bot',
+factories.factory('ExternalProvider',
     ['notification', 'spamFilter', 'routing', 'api',
 function(notification, spamFilter, routing, api) {
 
-    return function Bot(chat, session) {
-        chat.provider = new Chat({
+    return function ExternalProvider(chat, session, preferences) {
+        var provider = new Chat({
             onBegin: userFound,
             onDisconnect: terminated,
             onReceiveStrangerMessage: got_his_message,
@@ -20,7 +20,7 @@ function(notification, spamFilter, routing, api) {
             boredom_timer,
             start_timer;
 
-        var intro = composeIntro(chat.preferences),
+        var intro = composeIntro(preferences),
             intro_timestamp,
             user_found = false,
             shadow;
@@ -31,9 +31,9 @@ function(notification, spamFilter, routing, api) {
             if (intro.length > 0) {
                 var msg = 'Автофильтр: '+intro;
                 intro_timestamp = Date.now();
-                chat.provider.Send(msg);
+                provider.Send(msg);
                 log('INTRO: '+msg);
-                boredom_timer = setTimeout(becomeBored, 5 * 1000);
+                boredom_timer = setTimeout(becomeBored, (5 + Math.random() * 15) * 1000);
             } else {
                 bot_log('===начало===');
                 begin_chat();
@@ -41,17 +41,22 @@ function(notification, spamFilter, routing, api) {
         }
 
         function becomeBored() {
-            chat.provider.Send('ау');
-            boredom_timer = setTimeout(becomeTooBored, 5 * 1000);
+            log('Im bored...');
+            provider.Send('ау');
+            boredom_timer = setTimeout(becomeTooBored, 6 * 1000);
         }
 
         function becomeTooBored() {
-            chat.provider.Disconnect();
+            log('Im too bored now.');
+            provider.Disconnect();
         }
 
         function got_his_message(message) {
+            log('Собеседник:');
+            log(message);
+
             if (shadow) {
-                spamFilter.filter(session, message);
+                spamFilter.filter(session, {text: message, isOwn: false});
                 give_to_bot(message);
                 return;
             }
@@ -59,7 +64,8 @@ function(notification, spamFilter, routing, api) {
             if (!talking && message.substring(0, 11) === 'Автофильтр:') {
                 // наш клиент.
                 // Если их не соединило по внутренней сети - то они не подходят друг другу.
-                chat.provider.Disconnect();
+                log('Autofilter suggested - disconnecting.');
+                provider.Disconnect();
             } else {
                 if (!talking)
                     decide_to_chat(message);
@@ -81,8 +87,8 @@ function(notification, spamFilter, routing, api) {
         function decide_to_chat(message) {
             var payload = {
                 text: message,
-                isOwn: true,
-                preferences: chat.preferences,
+                isOwn: false,
+                preferences: preferences,
                 intro: {
                     text: intro,
                     timestamp_ms: intro_timestamp
@@ -92,9 +98,11 @@ function(notification, spamFilter, routing, api) {
             spamFilter.filter(session, payload, take_decision);
             function take_decision(response) {
                 if (response.risk_percent > 50) {
+                    log('Shadowing');
                     shadow = true;
                     chat.startNewSession();
                 } else {
+                    log('Begin chat');
                     begin_chat();
                     chat.display_partners_message(message.sanitize());
                     give_to_bot(message);
@@ -111,7 +119,7 @@ function(notification, spamFilter, routing, api) {
             }
         }
         function bot_message(msg) {
-            chat.provider.Send(msg);
+            provider.Send(msg);
             bot_log(msg);
         }
 
@@ -127,6 +135,7 @@ function(notification, spamFilter, routing, api) {
 
         function terminated() {
             user_found = false;
+            clearInterval(boredom_timer);
 
             if (shadow) return;
 
@@ -142,7 +151,7 @@ function(notification, spamFilter, routing, api) {
 
         var timeout = 1, maxTimeout = 8;
         function reconnect() {
-            start_timer = setTimeout(chat.provider.Connect, timeout * 1000);
+            start_timer = setTimeout(provider.Connect, timeout * 1000);
             if (timeout < maxTimeout) timeout = timeout * 2;
         }
 
@@ -153,10 +162,15 @@ function(notification, spamFilter, routing, api) {
             notification.typing();
         }
 
+        self.typing = function() {
+            if (provider) provider.Typing();
+        };
+
         self.quit = function() {
             shadow = true;
             clearInterval(start_timer);
             clearInterval(boredom_timer);
+            if (provider) provider.Disconnect();
         };
 
         reconnect();
