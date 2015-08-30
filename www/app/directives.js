@@ -319,7 +319,6 @@ app.directive('allowTextselect', function() {
         restrict: 'A',
         link: function(scope, elem, attr) {
             if (!RAN_AS_APP) {
-                console.log(elem);
                 angular.element(elem).attr('data-snap-ignore', true);
             }
         },

@@ -161,6 +161,7 @@ services
         );
     }
 
+    var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
     function handleIncomeMessage(message, envelope) {
         log(message);
@@ -181,7 +182,12 @@ services
 
 
         if (message.event == "chat_ready") {
-            routing.goto('chat', {channelName: channelName, fromState: 'random'});
+            routing.goto('chat', {channelName: channelName, fromState: 'random'})
+            .then(function() {
+                // log('собеседник найден');
+                newConversationSound.play();
+                notification.setTemporaryPageTitle('Собеседник найден');
+            });
             return;
         }
 
@@ -286,7 +292,7 @@ services
         }
         
         user.saveChats();
-
+        notification.setTemporaryPageTitle('Новое сообщение');
         // log("When chatSession expires: ", lastSession.whenExipires);
         // log("income message", m);
         // log(self);
