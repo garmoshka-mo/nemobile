@@ -13,6 +13,7 @@
         var initialPageTitle = null;
         var initialPageFavicon = null;
         var pageTitleInterval = null;
+        var canChangeTitle = true;
 
 
         function isTabVisible() {
@@ -59,9 +60,13 @@
             }, 1000);
         }
 
-        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
-
-        
+        function supressTitleChange() {
+            var TIME_TITLE_SUPRESSED_MSEC = 2000;
+            canChangeTitle = false;
+            setTimeout(function() {
+                canChangeTitle = true;
+            }, TIME_TITLE_SUPRESSED_MSEC);
+        }
 
         return {
 
@@ -138,6 +143,10 @@
                 // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
                 //     return;
                 // }
+                if (!canChangeTitle) {
+                    return;
+                }
+
                 if (pageTitleInterval === null) {
                     initialPageTitle = document.title;
                     startPageTitleInterval(text);
@@ -148,11 +157,6 @@
                     startPageTitleInterval(text);
                 }
             },
-
-            onRandomChatBegin: function() {
-                newConversationSound.play();
-                this.setTemporaryPageTitle('Собеседник найден');
-            }
 
         };
     }
