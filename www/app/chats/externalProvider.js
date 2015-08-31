@@ -7,8 +7,8 @@ function(notification, spamFilter, routing, api) {
         var provider = new Chat({
             onBegin: userFound,
             onDisconnect: terminated,
-            onReceiveStrangerMessage: got_his_message,
-            onTyping: typing,
+            onReceiveStrangerMessage: gotHisMessage,
+            onTyping: heTyping,
             'onConnect': function(){ log('Связь с сервером установлена. Идет соединение с пользователем...'); },
             'onOnline': function(count){ log('Сейчас на сайте: '+count); },
             'onEnd': function(){ log('Собеседник прервал связь'); },
@@ -17,7 +17,7 @@ function(notification, spamFilter, routing, api) {
 
         var self = this,
             talking = false,
-            boredom_timer,
+            boredomTimer,
             start_timer;
 
         var intro = composeIntro(preferences),
@@ -33,7 +33,7 @@ function(notification, spamFilter, routing, api) {
                 intro_timestamp = Date.now();
                 provider.Send(msg);
                 log('INTRO: '+msg);
-                boredom_timer = setTimeout(becomeBored, (5 + Math.random() * 15) * 1000);
+                boredomTimer = setTimeout(becomeBored, (5 + Math.random() * 15) * 1000);
             } else {
                 bot_log('===начало===');
                 begin_chat();
@@ -43,7 +43,7 @@ function(notification, spamFilter, routing, api) {
         function becomeBored() {
             log('Im bored...');
             provider.Send('ау');
-            boredom_timer = setTimeout(becomeTooBored, 6 * 1000);
+            boredomTimer = setTimeout(becomeTooBored, 6 * 1000);
         }
 
         function becomeTooBored() {
@@ -51,9 +51,10 @@ function(notification, spamFilter, routing, api) {
             provider.Disconnect();
         }
 
-        function got_his_message(message) {
+        function gotHisMessage(message) {
             log('Собеседник:');
             log(message);
+            clearInterval(boredomTimer);
 
             if (shadow) {
                 spamFilter.filter(session, {text: message, isOwn: false});
@@ -64,7 +65,7 @@ function(notification, spamFilter, routing, api) {
             if (!talking && message.substring(0, 11) === 'Автофильтр:') {
                 // наш клиент.
                 // Если их не соединило по внутренней сети - то они не подходят друг другу.
-                log('Autofilter suggested - disconnecting.');
+                log('Internal user - disconnecting.');
                 provider.Disconnect();
             } else {
                 if (!talking)
@@ -140,7 +141,7 @@ function(notification, spamFilter, routing, api) {
 
         function terminated() {
             user_found = false;
-            clearInterval(boredom_timer);
+            clearInterval(boredomTimer);
 
             if (shadow) return;
 
@@ -160,12 +161,16 @@ function(notification, spamFilter, routing, api) {
             if (timeout < maxTimeout) timeout = timeout * 2;
         }
 
-        function typing() {
+        function heTyping() {
             if (shadow) return;
 
-            clearInterval(boredom_timer);
+            clearInterval(boredomTimer);
             notification.typing();
         }
+
+        self.send = function(m) {
+            provider.Send(m.escape());
+        };
 
         self.typing = function() {
             if (provider) provider.Typing();
@@ -174,7 +179,7 @@ function(notification, spamFilter, routing, api) {
         self.quit = function() {
             shadow = true;
             clearInterval(start_timer);
-            clearInterval(boredom_timer);
+            clearInterval(boredomTimer);
             if (provider) provider.Disconnect();
         };
 

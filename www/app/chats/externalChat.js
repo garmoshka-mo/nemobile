@@ -63,7 +63,7 @@ services
             };
 
             self.sendMyMessage = function(m) {
-                self.provider.Send(m.escape());
+                externalProvider.send(m);
             };
 
             self.disconnect = function() {
