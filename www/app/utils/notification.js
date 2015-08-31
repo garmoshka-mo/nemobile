@@ -61,12 +61,14 @@
         }
 
         function supressTitleChange() {
-            var TIME_TITLE_SUPRESSED_MSEC = 2000;
+            var TIME_TITLE_SUPRESSED_MSEC = 5000;
             canChangeTitle = false;
             setTimeout(function() {
                 canChangeTitle = true;
             }, TIME_TITLE_SUPRESSED_MSEC);
         }
+
+        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
         return {
 
@@ -157,6 +159,13 @@
                     startPageTitleInterval(text);
                 }
             },
+
+            onRandomChatBegin: function() {
+                newConversationSound.play();
+                this.setTemporaryPageTitle('Собеседник найден');
+                supressTitleChange();
+            }
+
 
         };
     }
