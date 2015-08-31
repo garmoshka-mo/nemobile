@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state',
-    function(user, $scope, externalChat, updates, $state) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification',
+    function(user, $scope, externalChat, updates, $state, notification) {
 
         $scope.updates = updates;
         updates.check();
@@ -9,6 +9,7 @@ angular.module("angControllers")
         $scope.showHelpText = false;
         $scope.waitingServer = false;
         $scope.lookupInProgress = false;
+        $scope.notification = notification;
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
@@ -45,6 +46,7 @@ angular.module("angControllers")
             var preferences = prepareDataForServer();
             $scope.waitingServer = true;
             googleAnalytics.event('random', 'start');
+            notification.asked = 0;
 
             if (user.isLogged()) sendRequest();
             else user.signinAsVirtualUser().then(sendRequest);

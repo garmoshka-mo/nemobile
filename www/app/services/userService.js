@@ -1,8 +1,8 @@
 var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
-    function($timeout, storage, Chat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing) {
+    '$timeout', 'storage', 'Chat', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
+    function($timeout, storage, Chat, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing) {
     
     this.name = null;
     this.uuid = null;
@@ -181,6 +181,7 @@ services
 
 
         if (message.event == "chat_ready") {
+            externalChat.disconnect();
             routing.goto('chat', {channelName: channelName, fromState: 'random'})
             .then(function() {
                 // log('собеседник найден');

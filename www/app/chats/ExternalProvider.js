@@ -27,9 +27,12 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             user_found = false,
             shadow;
 
+        notification.asked = 0;
+
         function userFound() {
             if (user_found) return;
             user_found = true;
+            notification.incrementAsked();
             if (intro.length > 0) {
                 var msg = 'Автофильтр: '+intro;
                 intro_timestamp = Date.now();

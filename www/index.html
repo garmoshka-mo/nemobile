@@ -186,7 +186,7 @@
                                 <span class='pointer'>
                                     <img ng-show="notification.ava_url" ng-src='{{notification.ava_url}}'
                                          class='chat-toolbar-image pointer'><span ng-bind="notification.text"></span>
-                                    <span class="typing" ng-show="notification.typing">печатает...</span>
+                                    <span class="typing" ng-show="notification.typing" ng-bind='notification.typing_label'></span>
                                 </span>
                             </div>
                         </h1>
