@@ -130,7 +130,12 @@ function(notification, spamFilter, routing, api) {
 
         function begin_chat() {
             talking = true;
-            routing.goto('chat', {chatType: 'external', fromState: 'random'});
+            routing.goto('chat', {chatType: 'external', fromState: 'random'})
+            .then(
+                function() {
+                    notification.onRandomChatBegin();
+                }
+            );
             api.cancelRandomRequest();
         }
 

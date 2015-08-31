@@ -161,7 +161,6 @@ services
         );
     }
 
-    var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
     function handleIncomeMessage(message, envelope) {
         log(message);
@@ -185,8 +184,7 @@ services
             routing.goto('chat', {channelName: channelName, fromState: 'random'})
             .then(function() {
                 // log('собеседник найден');
-                newConversationSound.play();
-                notification.setTemporaryPageTitle('Собеседник найден');
+                notification.onRandomChatBegin();
             });
             return;
         }
