@@ -14,6 +14,11 @@
         var initialPageFavicon = null;
         var pageTitleInterval = null;
         var canChangeTitle = true;
+        var favicon = new Favico({
+            animation : 'popFade',
+            bgColor: '#4D6EA3',
+            position: 'up'
+        });
 
 
         function isTabVisible() {
@@ -33,30 +38,27 @@
             document.title = text;
         }
 
-        function setPageFavicon(src) {
-            var link = document.createElement('link'),
-            oldLink = document.getElementById('dynamic-favicon');
-            link.id = 'dynamic-favicon';
-            link.rel = 'shortcut icon';
-            link.href = src;
-            if (oldLink) {
-            document.head.removeChild(oldLink);
-            }
-            document.head.appendChild(link);
-        }
-
+        
         function resetPageTitle() {
             if (pageTitleInterval !== null) {
                 setPageTitle(initialPageTitle);
                 initialPageTitle = null;
                 clearInterval(pageTitleInterval);
                 pageTitleInterval = null;
+                favicon.reset();
             }
         }
 
         function startPageTitleInterval(text) {
             pageTitleInterval = setInterval(function() {
-                document.title = document.title === initialPageTitle ? text : initialPageTitle;
+                if (document.title === initialPageTitle) {
+                    document.title = text;
+                    favicon.badge(' ');
+                }
+                else {
+                    document.title = initialPageTitle;
+                    favicon.reset();
+                }
             }, 1000);
         }
 
