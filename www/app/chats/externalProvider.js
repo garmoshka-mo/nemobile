@@ -1,7 +1,7 @@
 (function(){
 factories.factory('ExternalProvider',
-    ['notification', 'spamFilter', 'routing', 'api',
-function(notification, spamFilter, routing, api) {
+    ['notification', 'SpamFilter', 'routing', 'api', 'TeacherBot', 'ActivityBot',
+function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
     return function ExternalProvider(chat, session, preferences) {
         var provider = new Chat({
@@ -17,8 +17,10 @@ function(notification, spamFilter, routing, api) {
 
         var self = this,
             talking = false,
-            boredomTimer,
-            start_timer;
+            start_timer,
+            filter = new SpamFilter(session),
+            teacher = new TeacherBot(provider, filter),
+            activity = new ActivityBot(provider);
 
         var intro = composeIntro(preferences),
             intro_timestamp,
@@ -33,32 +35,21 @@ function(notification, spamFilter, routing, api) {
                 intro_timestamp = Date.now();
                 provider.Send(msg);
                 log('INTRO: '+msg);
-                boredomTimer = setTimeout(becomeBored, (5 + Math.random() * 15) * 1000);
+                activity.wakeUp()
             } else {
-                bot_log('===начало===');
+                filter.log({text: '===начало===', isOwn: true});
                 begin_chat();
             }
-        }
-
-        function becomeBored() {
-            log('Im bored...');
-            provider.Send('ау');
-            boredomTimer = setTimeout(becomeTooBored, 6 * 1000);
-        }
-
-        function becomeTooBored() {
-            log('Im too bored now.');
-            provider.Disconnect();
         }
 
         function gotHisMessage(message) {
             log('Собеседник:');
             log(message);
-            clearInterval(boredomTimer);
+            activity.calmDown();
 
             if (shadow) {
-                spamFilter.filter(session, {text: message, isOwn: false});
-                give_to_bot(message);
+                filter.log({text: message, isOwn: false});
+                teacher.listen(message);
                 return;
             }
 
@@ -72,7 +63,7 @@ function(notification, spamFilter, routing, api) {
                     decide_to_chat(message);
                 else {
                     chat.display_partners_message(message.sanitize());
-                    give_to_bot(message);
+                    teacher.listen(message);
                 }
             }
         }
@@ -96,36 +87,21 @@ function(notification, spamFilter, routing, api) {
                 }
             };
 
-            spamFilter.filter(session, payload, take_decision);
+            filter.log(payload, take_decision);
             function take_decision(response) {
                 if (response.risk_percent > 50) {
                     log('Shadowing');
                     shadow = true;
                     chat.startNewSession();
+                    if (response.is_rude)
+                        teacher.explain('dont_be_rude');
                 } else {
                     log('Begin chat');
                     begin_chat();
                     chat.display_partners_message(message.sanitize());
-                    give_to_bot(message);
+                    teacher.listen(message);
                 }
             }
-        }
-
-
-        var auto_filter_explained = false;
-        function give_to_bot(message) {
-            if (!auto_filter_explained && /автофил|фильтр/i.exec(message)) {
-                bot_message('Авто-пояснение: автофильтр - это функция из сайта dub.ink');
-                auto_filter_explained = true;
-            }
-        }
-        function bot_message(msg) {
-            provider.Send(msg);
-            bot_log(msg);
-        }
-
-        function bot_log(msg) {
-            spamFilter.filter(session, {text: msg, isOwn: true});
         }
 
         function begin_chat() {
@@ -141,7 +117,7 @@ function(notification, spamFilter, routing, api) {
 
         function terminated() {
             user_found = false;
-            clearInterval(boredomTimer);
+            activity.calmDown();
 
             if (shadow) return;
 
@@ -150,7 +126,7 @@ function(notification, spamFilter, routing, api) {
                 log('trap into not talking');
                 reconnect();
             } else {
-                log('calling display_partners_message...');
+                log('calling display_partners_message');
                 chat.display_partners_message({type: 'chat_finished'});
             }
         }
@@ -162,9 +138,10 @@ function(notification, spamFilter, routing, api) {
         }
 
         function heTyping() {
+            log('he typing...');
             if (shadow) return;
 
-            clearInterval(boredomTimer);
+            activity.calmDown();
             notification.typing();
         }
 
@@ -179,7 +156,7 @@ function(notification, spamFilter, routing, api) {
         self.quit = function() {
             shadow = true;
             clearInterval(start_timer);
-            clearInterval(boredomTimer);
+            activity.calmDown();
             if (provider) provider.Disconnect();
         };
 

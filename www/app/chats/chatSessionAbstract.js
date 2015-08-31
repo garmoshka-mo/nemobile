@@ -1,9 +1,18 @@
 (function(){
-    factories.factory('chatSessionAbstract',
-        ['notification', 'spamFilter',
-    function(notification, spamFilter) {
+    factories.factory('ChatSessionAbstract',
+        ['notification', 'SpamFilter',
+    function(notification, SpamFilter) {
 
-        return function () {
+        return function AbstractSession() {
+            this.uuid = generateUuid();
+            this.filter = new SpamFilter(this);
+
+            function generateUuid() {
+                var u = Date.now().toString().substr(7);
+                u += Math.round(Math.random()*100).toString();
+                return btoa(u);
+            }
+
             this.incomeMessage = function(message){
                 var text;
 
@@ -25,9 +34,10 @@
             };
 
             this.addMessage = function(msg) {
-                var skip_spam_filter;
-                skip_spam_filter = msg.type == 'chat_empty';
-                if (!skip_spam_filter) spamFilter.filter(this, msg);
+                var skipSpamFilter;
+                skipSpamFilter = msg.type == 'chat_empty';
+                if (!skipSpamFilter) this.filter.log(msg);
+
                 this.messages.push(msg);
             };
         }
