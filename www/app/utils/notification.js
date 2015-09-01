@@ -17,7 +17,6 @@
         var favicon = new Favico({
             animation : 'popFade',
             bgColor: '#4D6EA3',
-            position: 'up'
         });
 
 
@@ -63,7 +62,7 @@
         }
 
         function supressTitleChange() {
-            var TIME_TITLE_SUPRESSED_MSEC = 5000;
+            var TIME_TITLE_SUPRESSED_MSEC = 2000;
             canChangeTitle = false;
             setTimeout(function() {
                 canChangeTitle = true;
@@ -147,7 +146,7 @@
                 // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
                 //     return;
                 // }
-                if (!canChangeTitle) {
+                if (!canChangeTitle || RAN_AS_APP || isTabVisible()) {
                     return;
                 }
 
