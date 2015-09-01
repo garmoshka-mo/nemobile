@@ -70,6 +70,10 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
         }
     }
 
+    $scope.openExternalURL = function(url) {
+        window.open(url,'_blank');
+    };
+
     $scope.toggleMenu = function() {
         //async call is necessary for correct work on android 4.1.1
         $timeout(function() {
