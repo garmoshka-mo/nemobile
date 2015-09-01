@@ -17,7 +17,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         var self = this,
             talking = false,
-            start_timer, stuck_timer,
+            delayTimer,
             filter = new SpamFilter(session),
             teacher = new TeacherBot(provider, filter),
             activity = new ActivityBot(provider);
@@ -30,26 +30,39 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
         notification.asked = 0;
 
         function userFound() {
-            clearInterval(stuck_timer);
+            cancelDelayedTask();
+
             if (user_found) return;
             user_found = true;
+
             notification.incrementAsked();
-            if (intro.length > 0) {
-                var msg = 'Автофильтр: '+intro;
-                intro_timestamp = Date.now();
-                provider.Send(msg);
-                log('INTRO: '+msg);
-                activity.wakeUp()
-            } else {
+
+            if (intro.length > 0)
+                initWithIntro();
+            else
+                initWithoutIntro();
+        }
+
+        function initWithIntro() {
+            var msg = 'Автофильтр: '+intro;
+            intro_timestamp = Date.now();
+            provider.Send(msg);
+            log('INTRO: '+msg);
+            activity.wakeUp();
+        }
+
+        function initWithoutIntro() {
+            delayTask(function startChatWhenNoHisIntro() {
                 filter.log({text: '===начало===', isOwn: true});
                 begin_chat();
-            }
+            }, 2000);
         }
 
         function gotHisMessage(message) {
             log('Собеседник:');
             log(message);
             activity.calmDown();
+            cancelDelayedTask();
 
             if (shadow) {
                 filter.log({text: message, isOwn: false});
@@ -86,7 +99,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
                 isOwn: false,
                 preferences: preferences,
                 intro: {
-                    text: intro,
+                    text: intro ? intro : '===начало===',
                     timestamp_ms: intro_timestamp
                 }
             };
@@ -143,13 +156,15 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         var timeout = 1, maxTimeout = 8;
         function reconnect() {
-            start_timer = setTimeout(connect, timeout * 1000);
+            var randomizeTime = true,
+                t = timeout + (randomizeTime ? Math.random() * timeout : 0);
+            delayTask(connect, t * 1000);
             if (timeout < maxTimeout) timeout = timeout * 2;
 
             function connect() {
                 provider.Connect();
                 // Handle stuck effect:
-                stuck_timer = setTimeout(provider.Disconnect, 15 * 1000);
+                delayTask(provider.Disconnect, 15 * 1000);
             }
         }
 
@@ -159,6 +174,14 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
             activity.calmDown();
             notification.typing();
+        }
+
+        function delayTask(callback, timeout) {
+            delayTimer = setTimeout(callback, timeout);
+        }
+
+        function cancelDelayedTask() {
+            clearInterval(delayTimer);
         }
 
         self.send = function(m) {
@@ -171,8 +194,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         self.quit = function() {
             shadow = true;
-            clearInterval(start_timer);
-            clearInterval(stuck_timer);
+            cancelDelayedTask();
             activity.calmDown();
             if (provider) provider.Disconnect();
         };

@@ -8,7 +8,8 @@ function() {
         var boredomTimer;
 
         this.wakeUp = function() {
-            boredomTimer = setTimeout(becomeBored, (5 + Math.random() * 15) * 1000);
+            var patience = 6 + Math.random() * 20;
+            boredomTimer = setTimeout(becomeBored, patience * 1000);
         };
 
         this.calmDown = function() {

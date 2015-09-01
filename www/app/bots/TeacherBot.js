@@ -20,6 +20,8 @@ function() {
         };
 
         this.listen = function(message) {
+            if (message.substring(0, 15) === 'Авто-пояснение:') return;
+
             if (/автофил|фильтр/i.exec(message))
                 self.explain('what_is_auto_filter');
         };
