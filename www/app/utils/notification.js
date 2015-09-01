@@ -4,7 +4,8 @@
         ['$rootScope', '$timeout', Service]);
     function Service($rootScope, $timeout) {
         log("notification service is enabled");
-        $rootScope.notification = {};
+        $rootScope.notification = { typing_label: "печатает..." };
+
         var initialText;
         var initialHandler;
         var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
@@ -13,6 +14,12 @@
         var initialPageTitle = null;
         var initialPageFavicon = null;
         var pageTitleInterval = null;
+        var canChangeTitle = true;
+        var favicon = new Favico({
+            animation : 'popFade',
+            bgColor: '#4D6EA3',
+            position: 'up'
+        });
 
 
         function isTabVisible() {
@@ -32,35 +39,41 @@
             document.title = text;
         }
 
-        function setPageFavicon(src) {
-            var link = document.createElement('link'),
-            oldLink = document.getElementById('dynamic-favicon');
-            link.id = 'dynamic-favicon';
-            link.rel = 'shortcut icon';
-            link.href = src;
-            if (oldLink) {
-            document.head.removeChild(oldLink);
-            }
-            document.head.appendChild(link);
-        }
-
+        
         function resetPageTitle() {
             if (pageTitleInterval !== null) {
                 setPageTitle(initialPageTitle);
                 initialPageTitle = null;
                 clearInterval(pageTitleInterval);
                 pageTitleInterval = null;
+                favicon.reset();
             }
         }
 
         function startPageTitleInterval(text) {
             pageTitleInterval = setInterval(function() {
-                document.title = document.title === initialPageTitle ? text : initialPageTitle;
+                if (document.title === initialPageTitle) {
+                    document.title = text;
+                    favicon.badge(' ');
+                }
+                else {
+                    document.title = initialPageTitle;
+                    favicon.reset();
+                }
             }, 1000);
         }
 
-        return {
+        function supressTitleChange() {
+            var TIME_TITLE_SUPRESSED_MSEC = 5000;
+            canChangeTitle = false;
+            setTimeout(function() {
+                canChangeTitle = true;
+            }, TIME_TITLE_SUPRESSED_MSEC);
+        }
 
+        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
+
+        return {
             set: function(title, ava_url, handler) {
                 $rootScope.notification.text = title;
                 $rootScope.notification.ava_url = ava_url;
@@ -84,6 +97,10 @@
                 incomeMessageSound.play();
             },
 
+            incrementAsked: function() {
+                var self = this;
+                $rootScope.$apply(function() { self.asked++; });
+            },
 
             setTemporary: function(text, time, handler) {
                 var self = this;
@@ -134,6 +151,10 @@
                 // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
                 //     return;
                 // }
+                if (!canChangeTitle) {
+                    return;
+                }
+
                 if (pageTitleInterval === null) {
                     initialPageTitle = document.title;
                     startPageTitleInterval(text);
@@ -144,6 +165,13 @@
                     startPageTitleInterval(text);
                 }
             },
+
+            onRandomChatBegin: function() {
+                newConversationSound.play();
+                this.setTemporaryPageTitle('Собеседник найден');
+                supressTitleChange();
+            }
+
 
         };
     }

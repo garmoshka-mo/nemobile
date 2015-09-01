@@ -1,8 +1,8 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', '$rootScope', 'externalChatSession', 'ExternalProvider',
-    function(avatars, $q, $rootScope, externalChatSession, ExternalProvider) {
+    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider',
+    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider) {
 
         var self = this;
 
@@ -39,7 +39,7 @@ services
 
             function initSession() {
                 partner_id = Math.random();
-                lastUnexpiredChatSession = new externalChatSession(self, partner_id);
+                lastUnexpiredChatSession = new ExternalChatSession(self, partner_id);
 
                 self.lastUnexpiredChatSession = lastUnexpiredChatSession; // todo: remove after refactoring
                 self.chatSessionsIndexes = [lastUnexpiredChatSession.id];
@@ -63,7 +63,7 @@ services
             };
 
             self.sendMyMessage = function(m) {
-                self.provider.Send(m.escape());
+                externalProvider.send(m);
             };
 
             self.disconnect = function() {

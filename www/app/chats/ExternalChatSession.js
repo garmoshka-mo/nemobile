@@ -1,8 +1,8 @@
 (function(){
     services
-        .factory('externalChatSession',
-        ['$q', 'chatSessionAbstract', ExternalChatSession]);
-    function ExternalChatSession($q, chatSessionAbstract) {
+        .factory('ExternalChatSession',
+        ['$q', 'ChatSessionAbstract', ExternalChatSession]);
+    function ExternalChatSession($q, ChatSessionAbstract) {
 
         return Session;
         function Session(chat, partner_id) {
@@ -13,7 +13,6 @@
             this.senderId = partner_id;
             this.isExpired = false;
             this.isReplied = false;
-            this.id = Date.now();
             this.channelName = null;
             this.messages = [];
             this.timer = null;
@@ -61,7 +60,7 @@
                 deferred_send.resolve();
             };
 
-            angular.extend(this, new chatSessionAbstract());
+            angular.extend(this, new ChatSessionAbstract());
         }
     }
 

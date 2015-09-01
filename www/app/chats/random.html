@@ -18,8 +18,11 @@
     <div ng-show="lookupInProgress">
         <div class="row" >
             <br/>
-            <div class="small-12 columns ta-center">
+            <div ng-hide="notification.asked > 0" class="small-12 columns ta-center">
                 Ищем подходящего собеседника...
+            </div>
+            <div ng-show="notification.asked > 0" class="small-12 columns ta-center">
+                Опрошено {{notification.asked}}...
             </div>
             <br/>
             <br/>

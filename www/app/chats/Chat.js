@@ -1,6 +1,6 @@
 factories.factory("Chat",
-    ['storage', 'avatars', 'ChatSession', 'api', '$q',
-    function(storage, avatars, ChatSession, api, $q) {
+    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification',
+    function(storage, avatars, ChatSession, api, $q, notification) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -231,7 +231,7 @@ factories.factory("Chat",
         disconnect: function() {
             this.currentUser.removeDeviceFromChannel(this.channelName);
             return api.deleteChat(this.channelName);
-        }
+        },
     };
 
     return Chat;
