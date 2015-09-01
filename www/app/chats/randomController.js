@@ -42,40 +42,50 @@ angular.module("angControllers")
             localStorage.randomFilter = JSON.stringify($scope.filter);
         }
 
+        function prepareAgeRange(arrayOfIndexes) {
+            var resultArray = [];
+            arrayOfIndexes.forEach(function(index) {
+                resultArray = resultArray.concat(ageRanges[index]);
+            });
+            return [_.min(resultArray), _.max(resultArray)];
+        }
+
         $scope.lookForChat = function() {
-            var preferences = prepareDataForServer();
-            $scope.waitingServer = true;
-            googleAnalytics.event('random', 'start');
-            notification.asked = 0;
+            log('i am', prepareAgeRange($scope.filter.iam.age));
+            log('another', prepareAgeRange($scope.filter.another.age));
+            // var preferences = prepareDataForServer();
+            // $scope.waitingServer = true;
+            // googleAnalytics.event('random', 'start');
+            // notification.asked = 0;
 
-            if (user.isLogged()) sendRequest();
-            else user.signinAsVirtualUser().then(sendRequest);
-            saveFilterState();
+            // if (user.isLogged()) sendRequest();
+            // else user.signinAsVirtualUser().then(sendRequest);
+            // saveFilterState();
 
-            function sendRequest() {
-                api.randomChatRequest(preferences)
-                    .then(
-                    onSuccessChatRequest,
-                    onErrorChatRequest
-                );
-            }
+            // function sendRequest() {
+            //     api.randomChatRequest(preferences)
+            //         .then(
+            //         onSuccessChatRequest,
+            //         onErrorChatRequest
+            //     );
+            // }
 
-            if (config('externalChat'))
-                externalChat.start(preferences);
+            // if (config('externalChat'))
+            //     externalChat.start(preferences);
 
         };
 
         $scope.setDefaultFilterParams = function() {
             $scope.filter.iam = {
                 sex: '-',
-                age: 0,
+                age: [0],
                 intro: '',
                 location: ''
             };
 
             $scope.filter.another = {
                 sex: '-',
-                age: 0
+                age: [0]
             };
 
             $scope.filter.theme = {
@@ -136,11 +146,11 @@ angular.module("angControllers")
                 location: $scope.filter.iam.location, 
                 me: {
                     gender: $scope.filter.iam.sex,
-                    age_range: ageRanges[$scope.filter.iam.age]
+                    age_range: prepareAgeRange[$scope.filter.iam.age]
                 },
                 look_for: {
                     gender: $scope.filter.another.sex,
-                    age_range: ageRanges[$scope.filter.another.age]
+                    age_range: prepareAgeRange[$scope.filter.another.age]
                 }
             };
         }
