@@ -127,12 +127,8 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         function begin_chat() {
             talking = true;
-            routing.goto('chat', {chatType: 'external', fromState: 'random'})
-            .then(
-                function() {
-                    notification.onRandomChatBegin();
-                }
-            );
+            routing.goto('chat', {chatType: 'external', fromState: 'random'});
+            notification.onRandomChatBegin();
             api.cancelRandomRequest();
         }
 

@@ -14,11 +14,10 @@
         var initialPageTitle = null;
         var initialPageFavicon = null;
         var pageTitleInterval = null;
-        var canChangeTitle = true;
+        var supressingSoundNotification = false;
         var favicon = new Favico({
             animation : 'popFade',
             bgColor: '#4D6EA3',
-            position: 'up'
         });
 
 
@@ -64,10 +63,10 @@
         }
 
         function supressTitleChange() {
-            var TIME_TITLE_SUPRESSED_MSEC = 5000;
-            canChangeTitle = false;
+            var TIME_TITLE_SUPRESSED_MSEC = 2000;
+            supressingSoundNotification = true;
             setTimeout(function() {
-                canChangeTitle = true;
+                supressingSoundNotification = false;
             }, TIME_TITLE_SUPRESSED_MSEC);
         }
 
@@ -93,8 +92,11 @@
             },
 
             incomeMessage: function() {
-                $rootScope.notification.typing = false;
-                incomeMessageSound.play();
+                if (!supressingSoundNotification) {
+                    console.log('income message sound is played');
+                    $rootScope.notification.typing = false;
+                    incomeMessageSound.play();
+                }
             },
 
             incrementAsked: function() {
@@ -147,11 +149,8 @@
             },
 
             setTemporaryPageTitle: function(text) {
-                // console.log(document.webkitVisibilityState);
-                // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
-                //     return;
-                // }
-                if (!canChangeTitle) {
+
+                if (supressingSoundNotification || RAN_AS_APP || isTabVisible()) {
                     return;
                 }
 
@@ -167,6 +166,7 @@
             },
 
             onRandomChatBegin: function() {
+                console.log('new random chat sound is played');
                 newConversationSound.play();
                 this.setTemporaryPageTitle('Собеседник найден');
                 supressTitleChange();
