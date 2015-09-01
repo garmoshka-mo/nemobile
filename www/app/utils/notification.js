@@ -62,12 +62,12 @@
             }, 1000);
         }
 
-        function supressTitleChange() {
-            var TIME_TITLE_SUPRESSED_MSEC = 2000;
+        function suppressTitleChange() {
+            var TIME_TITLE_SUPPRESSED_MSEC = 2000;
             suppressingNotifications = true;
             setTimeout(function() {
                 suppressingNotifications = false;
-            }, TIME_TITLE_SUPRESSED_MSEC);
+            }, TIME_TITLE_SUPPRESSED_MSEC);
         }
 
         var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
@@ -170,7 +170,7 @@
                 console.log('new random chat sound is played');
                 newConversationSound.play();
                 this.setTemporaryPageTitle('Собеседник найден');
-                supressTitleChange();
+                suppressTitleChange();
             }
 
 
