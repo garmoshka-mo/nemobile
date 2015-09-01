@@ -62,6 +62,7 @@ services
                         lastUnexpiredChatSession.incomeMessage(message);
                     });
                 }, 0);
+                lastUnexpiredChatSession.messageFromPartner(message);
             };
 
             self.sendMyMessage = function(m) {

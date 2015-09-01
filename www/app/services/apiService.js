@@ -1,6 +1,6 @@
 services
-.factory('api', ['$http', '$q', '$upload', 'notification','storage', '$rootScope',
-    function ($http, $q, $upload, user, notification, storage, $rootScope) {
+.factory('api', ['$http', '$q', '$upload',
+    function ($http, $q, $upload) {
     
     log("api service is enabled");
 
