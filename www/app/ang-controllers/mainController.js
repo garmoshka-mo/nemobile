@@ -71,7 +71,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     }
 
     $scope.openExternalURL = function(url) {
-        window.open(url,'_blank');
+        navigator.app.loadUrl(url, {openExternal: true});
     };
 
     $scope.toggleMenu = function() {
