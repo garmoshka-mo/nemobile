@@ -291,7 +291,7 @@ services
         }
         
         user.saveChats();
-        notification.setTemporaryPageTitle('Новое сообщение');
+        
         // log("When chatSession expires: ", lastSession.whenExipires);
         // log("income message", m);
         // log(self);

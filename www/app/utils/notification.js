@@ -14,7 +14,7 @@
         var initialPageTitle = null;
         var initialPageFavicon = null;
         var pageTitleInterval = null;
-        var supressingSoundNotification = false;
+        var suppressingNotifications = false;
         var favicon = new Favico({
             animation : 'popFade',
             bgColor: '#4D6EA3',
@@ -64,9 +64,9 @@
 
         function supressTitleChange() {
             var TIME_TITLE_SUPRESSED_MSEC = 2000;
-            supressingSoundNotification = true;
+            suppressingNotifications = true;
             setTimeout(function() {
-                supressingSoundNotification = false;
+                suppressingNotifications = false;
             }, TIME_TITLE_SUPRESSED_MSEC);
         }
 
@@ -92,10 +92,11 @@
             },
 
             incomeMessage: function() {
-                if (!supressingSoundNotification) {
+                if (!suppressingNotifications) {
                     console.log('income message sound is played');
                     $rootScope.notification.typing = false;
                     incomeMessageSound.play();
+                    this.setTemporaryPageTitle('Новое сообщение');
                 }
             },
 
@@ -150,7 +151,7 @@
 
             setTemporaryPageTitle: function(text) {
 
-                if (supressingSoundNotification || RAN_AS_APP || isTabVisible()) {
+                if (suppressingNotifications || RAN_AS_APP || isTabVisible()) {
                     return;
                 }
 
