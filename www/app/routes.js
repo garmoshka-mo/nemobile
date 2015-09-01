@@ -67,7 +67,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/random",
                 views: {
                     "title": {
-                        template: "Чат наугад - DUB.INK"
+                        template: "Чат наугад - DUB.iNK"
                     },
                     "content": {
                         controller: "randomController",

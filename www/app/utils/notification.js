@@ -4,7 +4,8 @@
         ['$rootScope', '$timeout', Service]);
     function Service($rootScope, $timeout) {
         log("notification service is enabled");
-        $rootScope.notification = {};
+        $rootScope.notification = { typing_label: "печатает..." };
+
         var initialText;
         var initialHandler;
         var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
@@ -72,7 +73,6 @@
         var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
         return {
-
             set: function(title, ava_url, handler) {
                 $rootScope.notification.text = title;
                 $rootScope.notification.ava_url = ava_url;
@@ -96,6 +96,10 @@
                 incomeMessageSound.play();
             },
 
+            incrementAsked: function() {
+                var self = this;
+                $rootScope.$apply(function() { self.asked++; });
+            },
 
             setTemporary: function(text, time, handler) {
                 var self = this;

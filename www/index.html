@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- Copyright (C) 2015 DUB.INK - All Rights Reserved
+ Copyright (C) 2015 DUB.iNK - All Rights Reserved
 
  This file is part of dub.ink
 
@@ -9,8 +9,9 @@
 -->
 <html>
     <head>
-        <title>Чат наугад - DUB.INK</title>
-        <meta name="description" content="Анонимный чат, где можно просто пообщаться или завести новые знакомства через быстрые диалоги">
+        <title>Чат наугад - DUB.iNK</title>
+        <meta name="description" content="Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги">
+        <meta property="og:image" content="assets/img/screen.jpg" />
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -95,17 +96,21 @@
         <script type="text/javascript" src="app/angular-app.js"></script>
         <script type="text/javascript" src="app/factories/Friend.js"></script>
 
+        <script type="text/javascript" src="app/bots/ActivityBot.js"></script>
+        <script type="text/javascript" src="app/bots/TeacherBot.js"></script>
+
         <script type="text/javascript" src="app/chats/Chat.js"></script>
         <script type="text/javascript" src="app/chats/ChatSession.js"></script>
-        <script type="text/javascript" src="app/chats/chatSessionAbstract.js"></script>
+        <script type="text/javascript" src="app/chats/ChatSessionAbstract.js"></script>
         <script type="text/javascript" src="app/chats/chatsController.js"></script>
         <script type="text/javascript" src="app/chats/chatController.js"></script>
         <script type="text/javascript" src="app/chats/externalChat.js"></script>
-        <script type="text/javascript" src="app/chats/externalChatSession.js"></script>
+        <script type="text/javascript" src="app/chats/ExternalChatSession.js"></script>
         <script type="text/javascript" src="app/chats/randomController.js"></script>
         <script type="text/javascript" src="app/chats/introComposer.js"></script>
-        <script type="text/javascript" src="app/chats/externalProvider.js"></script>
-        <script type="text/javascript" src="app/chats/spamFilter.js"></script>
+        <script type="text/javascript" src="app/chats/ExternalProvider.js"></script>
+        <script type="text/javascript" src="app/chats/SpamFilter.js"></script>
+
 
         <script type="text/javascript" src="app/media/avatar.js"></script>
         <script type="text/javascript" src="app/utils/updates.js"></script>
@@ -183,7 +188,7 @@
                                 <span class='pointer'>
                                     <img ng-show="notification.ava_url" ng-src='{{notification.ava_url}}'
                                          class='chat-toolbar-image pointer'><span ng-bind="notification.text"></span>
-                                    <span class="typing" ng-show="notification.typing">печатает...</span>
+                                    <span class="typing" ng-show="notification.typing" ng-bind='notification.typing_label'></span>
                                 </span>
                             </div>
                         </h1>

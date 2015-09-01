@@ -1,16 +1,12 @@
 (function(){
 factories.factory('ChatSession',
-    ['$timeout', 'storage', 'api', '$q', 'notification', 'chatSessionAbstract',
-    function($timeout, storage, api, $q, notification, chatSessionAbstract) {
+    ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract',
+    function($timeout, storage, api, $q, notification, ChatSessionAbstract) {
     
     function ChatSession(creatorId, channelName, senderId, id, currentChat) {
         this.isExpired = false;
         this.isReplied = false;
-
-        // todo: восстановить после фикса бага
-        // this.id = id;
-        this.id = 'internal' + Date.now();
-
+        this.id = id;
         this.channelName = channelName;
         this.senderId = senderId;
         this.messages = [];
@@ -19,7 +15,7 @@ factories.factory('ChatSession',
         this.currentChat = currentChat;
         this.whenExipires = Infinity;
 
-        angular.extend(this, new chatSessionAbstract());
+        angular.extend(this, new ChatSessionAbstract());
     }
 
     var deviceServerTimeDifference_msec;
