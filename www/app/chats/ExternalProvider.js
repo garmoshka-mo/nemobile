@@ -27,8 +27,6 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             user_found = false,
             shadow;
 
-        notification.asked = 0;
-
         function userFound() {
             cancelDelayedTask();
 
@@ -154,7 +152,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             }
         }
 
-        var timeout = 1, maxTimeout = 8;
+        var timeout = 1, maxTimeout = 40;
         function reconnect() {
             var randomizeTime = true,
                 t = timeout + (randomizeTime ? Math.random() * timeout : 0);

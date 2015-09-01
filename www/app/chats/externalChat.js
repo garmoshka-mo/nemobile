@@ -1,8 +1,8 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider',
-    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider) {
+    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification',
+    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
 
         var self = this;
 
@@ -24,6 +24,8 @@ services
             var self = this;
             self.chat = null;
             self.title = "кто-то";
+
+            notification.asked = 0;
 
             var partner_id, start_timer, externalProvider, lastUnexpiredChatSession;
 
