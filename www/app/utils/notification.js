@@ -142,10 +142,7 @@
             },
 
             setTemporaryPageTitle: function(text) {
-                // console.log(document.webkitVisibilityState);
-                // if (document.webkitVisibilityState === "visible" || RAN_AS_APP) {
-                //     return;
-                // }
+
                 if (!canChangeTitle || RAN_AS_APP || isTabVisible()) {
                     return;
                 }
