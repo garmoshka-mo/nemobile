@@ -1,15 +1,20 @@
 (function(){
     factories.factory('SpamFilter',
-        ['$resource',
-function($resource) {
+        ['$resource', '$q',
+function($resource, $q) {
 
     var spamFilterHost = config('spamFilterHost');
     if (spamFilterHost) var rest = $resource(spamFilterHost);
 
     return function SpamFilter(session) {
 
-        this.log = function(payload, callback) {
-            if (_.isUndefined(rest)) return;
+        this.log = function(payload) {
+
+            if (_.isUndefined(rest)) {
+                var deferred = $q.defer();
+                deferred.reject();
+                return deferred.promise;
+            }
 
             var data = {
                 client_id: user_uuid, // todo: replace to user.uuid after refactoring of user (right now creates circular dep)
@@ -19,17 +24,9 @@ function($resource) {
                 payload: // Your data to analyze. Can have arbitrary format.
                     payload
             };
-            rest.save(data, function(response) {
-                if (callback) callback(response);
-                else defaultHandler(response);
-            });
 
-            function defaultHandler(response) {
-                if (response.risk_percent > 50) {
-                    log('level50');
-                    session.chat.disconnect();
-                }
-            }
+            return rest.save(data).$promise;
+
         }
 
     };

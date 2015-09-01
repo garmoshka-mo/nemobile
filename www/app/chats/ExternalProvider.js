@@ -17,7 +17,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         var self = this,
             talking = false,
-            start_timer,
+            start_timer, stuck_timer,
             filter = new SpamFilter(session),
             teacher = new TeacherBot(provider, filter),
             activity = new ActivityBot(provider);
@@ -30,6 +30,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
         notification.asked = 0;
 
         function userFound() {
+            clearInterval(stuck_timer);
             if (user_found) return;
             user_found = true;
             notification.incrementAsked();
@@ -90,21 +91,27 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
                 }
             };
 
-            filter.log(payload, take_decision);
+            filter.log(payload).then(take_decision, begin);
+
             function take_decision(response) {
-                if (response.risk_percent > 50) {
+                if (response.risk_percent < 50)
+                    begin();
+                else {
                     log('Shadowing');
                     shadow = true;
                     chat.startNewSession();
                     if (response.is_rude)
                         teacher.explain('dont_be_rude');
-                } else {
-                    log('Begin chat');
-                    begin_chat();
-                    chat.display_partners_message(message.sanitize());
-                    teacher.listen(message);
                 }
             }
+
+            function begin() {
+                log('Begin chat');
+                begin_chat();
+                chat.display_partners_message(message.sanitize());
+                teacher.listen(message);
+            }
+
         }
 
         function begin_chat() {
@@ -136,8 +143,14 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
 
         var timeout = 1, maxTimeout = 8;
         function reconnect() {
-            start_timer = setTimeout(provider.Connect, timeout * 1000);
+            start_timer = setTimeout(connect, timeout * 1000);
             if (timeout < maxTimeout) timeout = timeout * 2;
+
+            function connect() {
+                provider.Connect();
+                // Handle stuck effect:
+                stuck_timer = setTimeout(provider.Disconnect, 15 * 1000);
+            }
         }
 
         function heTyping() {
@@ -159,6 +172,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
         self.quit = function() {
             shadow = true;
             clearInterval(start_timer);
+            clearInterval(stuck_timer);
             activity.calmDown();
             if (provider) provider.Disconnect();
         };
