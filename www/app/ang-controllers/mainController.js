@@ -71,7 +71,12 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     }
 
     $scope.openExternalURL = function(url) {
-        navigator.app.loadUrl(url, {openExternal: true});
+        if (RAN_AS_APP) {
+            navigator.app.loadUrl(url, {openExternal: true});
+        }
+        else {
+            window.open(url, '_blank');
+        }
     };
 
     $scope.toggleMenu = function() {
