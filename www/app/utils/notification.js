@@ -14,7 +14,7 @@
         var initialPageTitle = null;
         var initialPageFavicon = null;
         var pageTitleInterval = null;
-        var canChangeTitle = true;
+        var supressingSoundNotification = false;
         var favicon = new Favico({
             animation : 'popFade',
             bgColor: '#4D6EA3',
@@ -64,9 +64,9 @@
 
         function supressTitleChange() {
             var TIME_TITLE_SUPRESSED_MSEC = 2000;
-            canChangeTitle = false;
+            supressingSoundNotification = true;
             setTimeout(function() {
-                canChangeTitle = true;
+                supressingSoundNotification = false;
             }, TIME_TITLE_SUPRESSED_MSEC);
         }
 
@@ -92,8 +92,11 @@
             },
 
             incomeMessage: function() {
-                $rootScope.notification.typing = false;
-                incomeMessageSound.play();
+                if (!supressingSoundNotification) {
+                    console.log('income message sound is played');
+                    $rootScope.notification.typing = false;
+                    incomeMessageSound.play();
+                }
             },
 
             incrementAsked: function() {
@@ -147,7 +150,7 @@
 
             setTemporaryPageTitle: function(text) {
 
-                if (!canChangeTitle || RAN_AS_APP || isTabVisible()) {
+                if (supressingSoundNotification || RAN_AS_APP || isTabVisible()) {
                     return;
                 }
 
@@ -163,6 +166,7 @@
             },
 
             onRandomChatBegin: function() {
+                console.log('new random chat sound is played');
                 newConversationSound.play();
                 this.setTemporaryPageTitle('Собеседник найден');
                 supressTitleChange();
