@@ -26,13 +26,18 @@ function($scope, $resource){
     };
 
     function parse_config(text) {
-        text.match(/^(\w*)=(.*)$/mg).forEach(function(v) {
-            var match = /^(\w*)=(.*)/g.exec(v),
-                key = match[1],
-                value = match[2];
-            localStorage[key] = value;
-            $scope[key] = config(key);
-        });
+        if (text) {
+            var matchedText = text.match(/^(\w*)=(.*)$/mg);
+            if (matchedText) {
+                matchedText.forEach(function(v) {
+                    var match = /^(\w*)=(.*)/g.exec(v),
+                        key = match[1],
+                        value = match[2];
+                    localStorage[key] = value;
+                    $scope[key] = config(key);
+                });
+            }
+        }
     }
 
 
