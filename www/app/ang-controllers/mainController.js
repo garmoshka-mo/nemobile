@@ -10,6 +10,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     $scope.RAN_AS_APP = RAN_AS_APP;
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoresShown = true;
+    $scope.version = version;
 
     var statesWhereShowBackArrow = [
         'chat',
