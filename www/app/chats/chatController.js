@@ -98,22 +98,16 @@ angular.module("angControllers").controller("chatController",
 
         $scope.formatMessage = function(messageText) {
             if (messageText.match(/(http|https):/)) {
-                var imagesExtensitions = ['gif', 'png', 'jpeg', 'jpg'];
-                var splitted = messageText.split(".");
-                var extensition = splitted[splitted.length - 1];
 
-                if (imagesExtensitions.indexOf(extensition) != -1) {
-                    return $sce.trustAsHtml("<a href='#/showImage?link=" + messageText + "''><img hm-double-tap='imageDoubleTap()' src='" +
-                        messageText + "'></a>");
+                messageText = messageText.replace(/(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png))/g, '<img src="$&">');
+
+                if (RAN_AS_APP) {
+                    messageText = messageText.replace(/https?:\/\/(?![^" ]*(?:jpg|png|gif))[^" ]+/g, "<span class='message-link' onclick='navigator.app.loadUrl(\"$&\",{openExternal: true});'>$&</span>");
                 }
                 else {
-                    if ($scope.isWeb) {
-                        return "<a class='message-link' target='_blank' href='" + messageText + "'>" + messageText + "</a>";
-                    }
-                    else {
-                        return $sce.trustAsHtml("<span class='message-link' onclick='navigator.app.loadUrl(\"" + encodeURI(messageText) + "\", {openExternal: true});'>" + messageText + "</span>");
-                    }
+                    messageText = messageText.replace(/https?:\/\/(?![^" ]*(?:jpg|png|gif))[^" ]+/g, "<a class='message-link' target='_blank' href='$&'>$&</a>");
                 }
+                return $sce.trustAsHtml(messageText); 
             }
             else {
                 return messageText;
