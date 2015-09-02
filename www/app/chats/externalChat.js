@@ -27,7 +27,7 @@ services
 
             notification.asked = 0;
 
-            var partner_id, start_timer, externalProvider, lastUnexpiredChatSession;
+            var partner_id, start_timer, externalProvider, session;
 
 
             self.schedule_start = function() {
@@ -36,15 +36,15 @@ services
 
             self.startNewSession = function() {
                 initSession();
-                externalProvider = new ExternalProvider(self, lastUnexpiredChatSession, preferences);
+                externalProvider = new ExternalProvider(self, session, preferences);
             };
 
             function initSession() {
                 partner_id = Math.random();
-                lastUnexpiredChatSession = new ExternalChatSession(self, partner_id);
+                session = new ExternalChatSession(self, partner_id);
 
-                self.lastUnexpiredChatSession = lastUnexpiredChatSession; // todo: remove after refactoring
-                self.chatSessionsIndexes = [lastUnexpiredChatSession.id];
+                self.lastUnexpiredChatSession = session; // todo: remove after refactoring
+                self.chatSessionsIndexes = [session.id];
                 self.ava = avatars.from_id(partner_id);
                 self.photoUrl = self.ava.url;
                 self.photoUrlMini = self.ava.url_mini;
@@ -56,13 +56,18 @@ services
                     self.display_partners_message({type: 'chat_empty'});
             };
 
+            self.chatFinished = function() {
+                session.saveLog();
+                self.display_partners_message({type: 'chat_finished'});
+            };
+
             self.display_partners_message = function(message) {
                 setTimeout(function() {
                     $rootScope.$apply(function(){
-                        lastUnexpiredChatSession.incomeMessage(message);
+                        session.incomeMessage(message);
                     });
                 }, 0);
-                lastUnexpiredChatSession.messageFromPartner(message);
+                session.messageFromPartner(message);
             };
 
             self.sendMyMessage = function(m) {
@@ -72,7 +77,10 @@ services
             self.disconnect = function() {
                 log('chat.disconnect');
                 clearInterval(start_timer);
-                if (externalProvider) externalProvider.quit();
+                if (externalProvider) {
+                    externalProvider.quit();
+                    session.saveLog();
+                }
             };
 
             self.typing = function() {

@@ -17,11 +17,10 @@ services
 
 
         signin: function(name, password) {
-            return (apiRequest.send(
+            return (apiRequest.guestSend(
                 'POST',
                 '/login',
-                {name: name, password: password},
-                true
+                {name: name, password: password}
             ))
             .then(function(res) {
                 if (res.data.success) {
@@ -35,11 +34,10 @@ services
         },
 
         signup: function(name, password) {
-            return (apiRequest.send(
+            return (apiRequest.guestSend(
                 'POST',
                 '/register',
-                {name: name, password: password},
-                true
+                {name: name, password: password}
             ))
             .then(function(res) {
                 // log('api.signup', res);
@@ -340,13 +338,13 @@ services
         },
 
         initPhoneActivation: function(phoneNumber) {
-            return (apiRequest.send(
+            // todo: redo to send with token
+            return (apiRequest.guestSend(
                 'POST',
                 '/phone_number/initialize_authentication',
                 {
-                    "phone_number": phoneNumber,
-                },
-                true
+                    "phone_number": phoneNumber
+                }
             ))
             .then(
                 function(res) {
@@ -368,6 +366,7 @@ services
                 "activation_code": activationCode
             };
 
+            // todo: send always with token
             var withoutAccessToken = true;
             if (sendAccessToken) {
                 withoutAccessToken = false;
@@ -376,8 +375,7 @@ services
             return (apiRequest.send(
                 'POST',
                 '/phone_number/confirm',
-                data,
-                withoutAccessToken
+                data
             ))
             .then(
                 function(res) {
@@ -401,7 +399,7 @@ services
                 'POST',
                 '/phone/activation/attach',
                 {
-                    "phone_number": phoneNumber,
+                    "phone_number": phoneNumber
                 }
             ))
             .then(
@@ -425,7 +423,7 @@ services
                 'POST',
                 '/users/phonebook_search',
                 {
-                    "phonebook": phoneNumbersArr,
+                    "phonebook": phoneNumbersArr
                 }
             ))
             .then(
@@ -450,7 +448,7 @@ services
                 'POST',
                 '/users',
                 {
-                    "user_uuid": uuid,
+                    "user_uuid": uuid
                 }
             ))
             .then(

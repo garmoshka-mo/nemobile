@@ -22,8 +22,12 @@ function ($http) {
     }
 
     return {
-        send: function(method, url, data, withoutAccessToken) {
-            return $http(new Config(method, url, data, withoutAccessToken));
+        send: function(method, url, data) {
+            return $http(new Config(method, url, data));
+        },
+
+        guestSend: function(method, url, data) {
+            return $http(new Config(method, url, data, true));
         }
     };
     

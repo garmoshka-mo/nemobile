@@ -1,15 +1,15 @@
 (function(){
     services
         .factory('ExternalChatSession',
-        ['$q', 'ChatSessionAbstract', '$resource',
-function($q, ChatSessionAbstract, $resource) {
+        ['$q', 'ChatSessionAbstract', 'apiRequest',
+function($q, ChatSessionAbstract, apiRequest) {
 
     return Session;
     function Session(chat, partner_id) {
 
         var self = this;
 
-        var lastAuthor, rows = 0, swaps = 0;
+        var lastAuthor, rows = 0, swaps = 0, startTime, isClosed;
 
         this.chat = chat;
         this.senderId = partner_id;
@@ -70,15 +70,20 @@ function($q, ChatSessionAbstract, $resource) {
         function swap(writer) {
             rows++;
             if (lastAuthor != writer) swaps++;
+            if (!startTime) startTime = Date.now();
             lastAuthor = writer;
         }
 
         self.saveLog = function() {
+            if (rows < 1 || isClosed) return;
             var data = {
                 uuid: self.uuid,
                 rows: rows,
-                swaps: swaps
+                swaps: swaps,
+                duration: (Date.now() - startTime)/1000
             };
+            apiRequest.send('POST', '/chats/log', data);
+            isClosed = true;
         };
 
         angular.extend(this, new ChatSessionAbstract());

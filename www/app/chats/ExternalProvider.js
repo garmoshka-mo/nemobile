@@ -144,7 +144,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
                 reconnect();
             } else {
                 log('calling display_partners_message');
-                chat.display_partners_message({type: 'chat_finished'});
+                chat.chatFinished();
             }
         }
 
@@ -158,7 +158,10 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             function connect() {
                 provider.Connect();
                 // Handle stuck effect:
-                delayTask(provider.Disconnect, 15 * 1000);
+                delayTask(function() {
+                    log('Escape from stuck!');
+                    provider.Disconnect();
+                }, 15 * 1000);
             }
         }
 
