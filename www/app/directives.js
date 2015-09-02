@@ -288,7 +288,7 @@ app.directive('ageSelect', function() {
                         scope.selected.push(value);
                     }
                     else {
-                        scope.selected.splice(indexOfValue, 1);
+                        scope.selected = scope.selected.slice(0, indexOfValue);
                     }
 
                     //'не важно' can not be selected with other values
