@@ -299,6 +299,12 @@ app.directive('ageSelect', function() {
                     else {
                         scope.selected = [0];
                     }
+                    
+                    var min = _.min(scope.selected);
+                    var max = _.max(scope.selected);
+                    scope.selected = _.filter(scope.values, function(e) {
+                        return e >= min && e <= max;
+                    });
                 }
                 else {
                     scope.selected = [value];
