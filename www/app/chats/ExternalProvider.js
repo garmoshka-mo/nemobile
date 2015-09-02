@@ -148,7 +148,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             }
         }
 
-        var timeout = 1, maxTimeout = 40;
+        var timeout = 1, maxTimeout = 30;
         function reconnect() {
             var randomizeTime = true,
                 t = timeout + (randomizeTime ? Math.random() * timeout : 0);

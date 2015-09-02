@@ -157,7 +157,11 @@ angular.module("angControllers")
         var storedFilterParams = localStorage.randomFilter;
         if (storedFilterParams) {
             log('filter params were taken from storage');
-            $scope.filter = JSON.parse(storedFilterParams);
+            var filter = JSON.parse(storedFilterParams);
+            if (!filter.another || !(filter.another.age instanceof Array)) filter.another.age = [0];
+            if (!filter.iam || !(filter.iam.age instanceof Array)) filter.iam.age = [0];
+
+            $scope.filter = filter;
             extendFilterObject();
         }
         else {
