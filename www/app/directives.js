@@ -279,13 +279,50 @@ app.directive('ageSelect', function() {
         link: function(scope, elem, attr) {
             var valuesAsString = scope.values.map(function(el) {return el.toString();});
 
+            var allowMultiple = attr.multiple === "true" ? true : false;
+
             scope.handleItemClick = function(value) {
-                scope.ngModel = value;
+                if (allowMultiple) {
+                    var indexOfValue = scope.selected.indexOf(value);
+                    if (indexOfValue == -1) {
+                        scope.selected.push(value);
+                    }
+                    else {
+                        scope.selected = scope.selected.slice(0, indexOfValue);
+                    }
+
+                    //'не важно' can not be selected with other values
+                    //code below makes it possible
+                    if (value != 0) {
+                        _.remove(scope.selected, function(e) {return e == 0;});
+                    }
+                    else {
+                        scope.selected = [0];
+                    }
+                    
+                    var min = _.min(scope.selected);
+                    var max = _.max(scope.selected);
+                    scope.selected = _.filter(scope.values, function(e) {
+                        return e >= min && e <= max;
+                    });
+                }
+                else {
+                    scope.selected = [value];
+                }
+                scope.ngModel = scope.selected;
             };
+
+            if (_.isArray(scope.ngModel)) {
+                scope.selected = scope.ngModel;
+            }
+            else {
+                console.warn('ngModel in age-select should be an array');
+                scope.selected = [];
+            }
         },
 
         template: "<ul class='age-select'><li ng-repeat='value in values' " +
-            " ng-class='{\"text-bold\": ngModel == value, \"text-silver\": ngModel != value}' ng-click='::handleItemClick(value)'>" + 
+            " ng-class='{\"text-bold\": selected.indexOf(value) != -1, \"text-silver\": selected.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
             "<span>{{::titles[$index]}}</span></li></ul>"
     };
 });
