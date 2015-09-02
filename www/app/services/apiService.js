@@ -1,25 +1,9 @@
 services
-.factory('api', ['$http', '$q', '$upload',
-    function ($http, $q, $upload) {
+.factory('api', ['$http', '$q', '$upload', 'apiRequest',
+    function ($http, $q, $upload, apiRequest) {
     
     log("api service is enabled");
-
-    function Config(method, url, data, withoutAccessToken) {
-        this.method = method;
-
-        var host = (localStorage['apiUrl'] && localStorage['apiUrl'].length > 0) ?
-            localStorage['apiUrl'] : config('apiUrl');
-        this.url = host + url;
-        if (data) {
-            this.data = data;
-        }
-        if (!withoutAccessToken) {
-            this.headers= {
-                "Authorization": "Token token=" + api.accessToken
-            };
-        }         
-    }
-    
+        
     var api = {
         
         setAccessToken: function(accessToken) {
@@ -33,7 +17,7 @@ services
 
 
         signin: function(name, password) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/login',
                 {name: name, password: password},
@@ -51,7 +35,7 @@ services
         },
 
         signup: function(name, password) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/register',
                 {name: name, password: password},
@@ -69,7 +53,7 @@ services
         },
 
         getUserInfo: function(access_token) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/profile'
             ))
@@ -93,7 +77,7 @@ services
                 data.password = password;
             }
 
-            return $http(new Config(
+            return (apiRequest.send(
                 'PUT',
                 '/profile',
                 data
@@ -115,7 +99,7 @@ services
         },
 
         getServerTime: function() {
-            return $http(new Config(
+            return (apiRequest.send(
                 'GET',
                 '/time'
             ))
@@ -154,7 +138,7 @@ services
                 console.error("there's no recipient address");
                 return;
             }
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/messages',
                 data
@@ -170,7 +154,7 @@ services
                 searchParams = [{"name": userName}];
             }
 
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/users/search',
                 {
@@ -194,7 +178,7 @@ services
         },
 
         getCategories: function() {
-            return $http(new Config(
+            return (apiRequest.send(
                 'GET',
                 '/categories'
             ))
@@ -209,7 +193,7 @@ services
         },
 
         addNewCategory: function(name) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/categories',
                 {
@@ -219,7 +203,7 @@ services
         },
 
         removeCategory: function(categoryId) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'DELETE',
                 '/categories/' + categoryId
             ))
@@ -244,7 +228,7 @@ services
                 categoryData.associated_words = associatedWords;
             }
 
-            return $http(new Config(
+            return (apiRequest.send(
                 'PUT',
                 '/categories/' + categoryId,
                 {
@@ -262,7 +246,7 @@ services
         },
 
         addStickerURL: function(categoryId, imageURL) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/categories/' + categoryId + '/images',
                 {
@@ -318,7 +302,7 @@ services
 
         moveSticker: function(categoryId, imageId, newCategoryId) {
             var url = config('apiUrl') + "/categories/" + categoryId + "/images/" + imageId;
-            return $http(new Config(
+            return (apiRequest.send(
                 'PUT',
                 url,
                 {
@@ -340,7 +324,7 @@ services
         removeSticker: function(categoryId, imageId) {
             var url = config('apiUrl') + "/categories/" + categoryId + "/images" + "/" + imageId;
                         
-            return $http(new Config(
+            return (apiRequest.send(
                 'DELETE',
                 url
             ))
@@ -356,7 +340,7 @@ services
         },
 
         initPhoneActivation: function(phoneNumber) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/phone_number/initialize_authentication',
                 {
@@ -389,7 +373,7 @@ services
                 withoutAccessToken = false;
             }
 
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/phone_number/confirm',
                 data,
@@ -413,7 +397,7 @@ services
         },
 
         attachPhoneNumber: function(phoneNumber) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/phone/activation/attach',
                 {
@@ -437,7 +421,7 @@ services
         },
 
         findNepotomUsers: function(phoneNumbersArr) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/users/phonebook_search',
                 {
@@ -462,7 +446,7 @@ services
         },
 
         getUserInfoByUuid: function(uuid) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/users',
                 {
@@ -519,7 +503,7 @@ services
 
         //method to upload url or random string which are used to generate avatar
         updateAvatarText: function(avatarData) {
-            $http(new Config(
+            (apiRequest.send(
                 'POST',
                 '/avatar',
                 avatarData
@@ -527,7 +511,7 @@ services
         },
 
         addVirtualAccount: function() {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/add_virtual_user'
             ))
@@ -549,7 +533,7 @@ services
         },
 
         blockUser: function(uuid) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/users/blacklist',
                 {
@@ -559,7 +543,7 @@ services
         },
 
         forbidImage: function(imageId) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/image/abuse',
                 {
@@ -589,7 +573,7 @@ services
             });
             // log('friendsArray', friendsArray);
             if (!_.isEmpty(friendsArray)) {
-                return $http(new Config(
+                return (apiRequest.send(
                     'PATCH',
                     '/set_friends',
                     {
@@ -601,7 +585,7 @@ services
         },
 
         getFriends: function() {
-            return $http(new Config(
+            return (apiRequest.send(
                 'GET',
                 '/get_friends'
             ))
@@ -621,7 +605,7 @@ services
         },
 
         removeFriend: function(uuids) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'PATCH',
                 '/delete_friends',
                 {
@@ -645,7 +629,7 @@ services
 
         socialSignin: function(provider, providerId, providerToken) {
             
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/providers',
                 {
@@ -673,7 +657,7 @@ services
         randomChatRequest: function(data) {
             log(data);
 
-            return $http(new Config(
+            return (apiRequest.send(
                 'POST',
                 '/random',
                 data
@@ -695,14 +679,11 @@ services
         },
 
         cancelRandomRequest: function() {
-            return $http(new Config(
-                'DELETE',
-                '/random'
-            ));
+            return (apiRequest.send('DELETE', '/random'));
         },
 
         deleteChat: function(channel) {
-            return $http(new Config(
+            return (apiRequest.send(
                 'DELETE',
                 '/chats/' + channel
             ))

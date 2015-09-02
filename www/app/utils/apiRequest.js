@@ -1,7 +1,7 @@
 (function(){
 
 services
-    .factory('apiFactory',
+    .factory('apiRequest',
     ['$http',
 function ($http) {
 
@@ -21,18 +21,11 @@ function ($http) {
         }
     }
 
-    var api = {
-
-        setAccessToken: function(accessToken) {
-            this.accessToken = accessToken;
-        },
-
-        clearAccessToken: function() {
-            this.accessToken = null;
+    return {
+        send: function(method, url, data, withoutAccessToken) {
+            return $http(new Config(method, url, data, withoutAccessToken));
         }
     };
-
-    return api;
     
 }]);
 }
