@@ -1,7 +1,7 @@
 (function(){
 factories.factory('ExternalProvider',
-    ['notification', 'SpamFilter', 'routing', 'api', 'TeacherBot', 'ActivityBot',
-function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
+    ['notification', 'SpamFilter', 'routing', 'api', 'TeacherBot', 'ActivityBot', 'defaultIntro', 'altIntro',
+function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot, defaultIntro, altIntro) {
 
     return function ExternalProvider(chat, session, preferences) {
         var provider = new Chat({
@@ -22,10 +22,35 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             teacher = new TeacherBot(provider, filter),
             activity = new ActivityBot(provider);
 
-        var intro = composeIntro(preferences),
+        var intro,
             intro_timestamp,
             user_found = false,
-            shadow;
+            shadow,
+            timeout, maxTimeout, timeoutAcceleration;
+            
+        if (category == 'ug') {
+          intro = altIntro.compose(preferences);
+          timeout = 3; maxTimeout = 40; timeoutAcceleration = 4;
+        } else {
+          intro = defaultIntro.compose(preferences);
+          timeout = 1; maxTimeout = 30; timeoutAcceleration = 2;
+        }
+
+        function reconnect() {
+            var randomizeTime = true,
+                t = timeout + (randomizeTime ? Math.random() * timeout : 0);
+            delayTask(connect, t * 1000);
+            if (timeout < maxTimeout) timeout = timeout * timeoutAcceleration;
+
+            function connect() {
+                provider.Connect();
+                // Handle stuck effect:
+                delayTask(function() {
+                    log('Escape from stuck!');
+                    provider.Disconnect();
+                }, 15 * 1000);
+            }
+        }
 
         function userFound() {
             cancelDelayedTask();
@@ -42,7 +67,7 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
         }
 
         function initWithIntro() {
-            var msg = 'Автофильтр: '+intro;
+            var msg = intro;
             intro_timestamp = Date.now();
             provider.Send(msg);
             log('INTRO: '+msg);
@@ -145,23 +170,6 @@ function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot) {
             } else {
                 log('calling display_partners_message');
                 chat.chatFinished();
-            }
-        }
-
-        var timeout = 1, maxTimeout = 30;
-        function reconnect() {
-            var randomizeTime = true,
-                t = timeout + (randomizeTime ? Math.random() * timeout : 0);
-            delayTask(connect, t * 1000);
-            if (timeout < maxTimeout) timeout = timeout * 2;
-
-            function connect() {
-                provider.Connect();
-                // Handle stuck effect:
-                delayTask(function() {
-                    log('Escape from stuck!');
-                    provider.Disconnect();
-                }, 15 * 1000);
             }
         }
 

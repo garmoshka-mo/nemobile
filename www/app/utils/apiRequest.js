@@ -1,7 +1,7 @@
 (function(){
 
 services
-    .factory('apiRequest',
+    .service('apiRequest',
     ['$http',
 function ($http) {
 

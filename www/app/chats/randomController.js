@@ -1,10 +1,16 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification',
-    function(user, $scope, externalChat, updates, $state, notification) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership',
+    function(user, $scope, externalChat, updates, $state, notification, membership) {
 
         $scope.updates = updates;
         updates.check();
+        
+        membership.getCategory(function(category) {
+          
+        }, function notActive() {
+          console.log('here redirect to payment page');
+        });
         
         $scope.showHelpText = false;
         $scope.waitingServer = false;
