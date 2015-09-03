@@ -6,8 +6,10 @@ services
 
         var self = this;
 
+        self.category = null;
+
         self.start = function(preferences) {
-            self.current_instance = new ExternalChat(preferences);
+            self.current_instance = new ExternalChat(preferences, self.category);
             self.current_instance.schedule_start();
         };
 
@@ -20,7 +22,7 @@ services
 
 
 
-        function ExternalChat(preferences) {
+        function ExternalChat(preferences, category) {
             var self = this;
             self.chat = null;
             self.title = "кто-то";
@@ -36,7 +38,7 @@ services
 
             self.startNewSession = function() {
                 initSession();
-                externalProvider = new ExternalProvider(self, session, preferences);
+                externalProvider = new ExternalProvider(self, session, preferences, category);
             };
 
             function initSession() {

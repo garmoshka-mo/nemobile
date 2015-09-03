@@ -3,7 +3,7 @@ factories.factory('ExternalProvider',
     ['notification', 'SpamFilter', 'routing', 'api', 'TeacherBot', 'ActivityBot', 'defaultIntro', 'altIntro',
 function(notification, SpamFilter, routing, api, TeacherBot, ActivityBot, defaultIntro, altIntro) {
 
-    return function ExternalProvider(chat, session, preferences) {
+    return function ExternalProvider(chat, session, preferences, category) {
         var provider = new Chat({
             onBegin: userFound,
             onDisconnect: terminated,

@@ -7,9 +7,9 @@ angular.module("angControllers")
         updates.check();
         
         membership.getCategory(function(category) {
-          
+            externalChat.category = category;
         }, function notActive() {
-          console.log('here redirect to payment page');
+            console.log('here redirect to payment page');
         });
         
         $scope.showHelpText = false;
