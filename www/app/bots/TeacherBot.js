@@ -9,7 +9,7 @@ function() {
 
         var explanations = {
             what_is_auto_filter: {
-                text: 'автофильтр - это функция из сайта dub.ink'
+                text: 'авто-фильтр - это функция из сайта dub.ink'
             },
             dont_be_rude: {
                 text: 'Для того, чтобы система начала соединять вас с популярными пользователями - ' +
@@ -20,9 +20,9 @@ function() {
         };
 
         this.listen = function(message) {
-            if (message.substring(0, 15) === 'Авто-пояснение:') return;
+            if (message.startsWith('Автоматическое пояснение:')) return;
 
-            if (/автофил|фильтр/i.exec(message))
+            if (/автофил|автоматич|фильтр/i.exec(message))
                 self.explain('what_is_auto_filter');
         };
 
@@ -30,7 +30,7 @@ function() {
             var e = explanations[key];
             if (!e.is_explained) {
                 e.is_explained = true;
-                var msg = 'Авто-пояснение: ' + e.text;
+                var msg = 'Автоматическое пояснение: ' + e.text;
                 provider.Send(msg);
                 filter.log({text: msg, isOwn: true});
             }

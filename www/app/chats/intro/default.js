@@ -5,7 +5,7 @@ services
     ['$resource',
 function ($resource) {
 
-  this.prefix = 'Автофильтр:';
+  this.prefix = 'Автоматический фильтр:';
 
   this.compose = function(p) {
       /*
@@ -54,7 +54,7 @@ function ($resource) {
   
       var result = '';
       if (you.length > 0) result += you.join(' ')+'? ';
-      if (req.length > 0) result += req.join(', ')+' ';
+      if (req.length > 0) result += req.join(', ')+'; ';
       if (me) result += me;
       
       if (result.length > 0) result = this.prefix + ' ' + result;

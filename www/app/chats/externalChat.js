@@ -1,15 +1,15 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification',
-    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
+    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'routing',
+    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, routing) {
 
         var self = this;
 
-        self.category = null;
+        self.level = null;
 
         self.start = function(preferences) {
-            self.current_instance = new ExternalChat(preferences, self.category);
+            self.current_instance = new ExternalChat(preferences, self.level);
             self.current_instance.schedule_start();
         };
 
@@ -22,7 +22,7 @@ services
 
 
 
-        function ExternalChat(preferences, category) {
+        function ExternalChat(preferences, level) {
             var self = this;
             self.chat = null;
             self.title = "кто-то";
@@ -38,7 +38,11 @@ services
 
             self.startNewSession = function() {
                 initSession();
-                externalProvider = new ExternalProvider(self, session, preferences, category);
+                externalProvider = new ExternalProvider(self, session, preferences, level);
+            };
+
+            self.gotoChat = function() {
+                routing.goto('chat', {chatType: 'external', fromState: 'random'});
             };
 
             function initSession() {
