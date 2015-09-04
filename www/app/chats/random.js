@@ -51,7 +51,7 @@ services
         };
         
         window.onuload = function() {
-            alert();
+            //here disconnect request will be sent
         };
 
 }]);
