@@ -302,6 +302,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.input_keypress = function(event) {
             if (event.keyCode === 13) {
+                event.preventDefault();
                 $scope.sendMessage();
             } else
                 $scope.chat.typing();
