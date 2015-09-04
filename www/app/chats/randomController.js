@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership',
-    function(user, $scope, externalChat, updates, $state, notification, membership) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random) {
 
         $scope.updates = updates;
         updates.check();
@@ -13,8 +13,8 @@ angular.module("angControllers")
         });
         
         $scope.showHelpText = false;
-        $scope.waitingServer = false;
-        $scope.lookupInProgress = false;
+        $scope.waitingServer = random.waitingServer;
+        $scope.lookupInProgress = random.lookupInProgress;
         $scope.notification = notification;
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
@@ -34,16 +34,6 @@ angular.module("angControllers")
             selectValue; 
         }
 
-        function onSuccessChatRequest() {
-            $scope.waitingServer = false;
-            $scope.lookupInProgress = true;
-        }
-
-        function onErrorChatRequest() {
-            $scope.waitingServer = false;
-            $scope.lookupInProgress = false;
-        }
-
         function saveFilterState() {
             localStorage.randomFilter = JSON.stringify($scope.filter);
         }
@@ -57,27 +47,11 @@ angular.module("angControllers")
         }
 
         $scope.lookForChat = function() {
-            
             var preferences = prepareDataForServer();
-            $scope.waitingServer = true;
             googleAnalytics.event('random', 'start');
             notification.asked = 0;
 
-            if (user.isLogged()) sendRequest();
-            else user.signinAsVirtualUser().then(sendRequest);
-            saveFilterState();
-
-            function sendRequest() {
-                api.randomChatRequest(preferences)
-                    .then(
-                    onSuccessChatRequest,
-                    onErrorChatRequest
-                );
-            }
-
-            if (config('externalChat'))
-                externalChat.start(preferences);
-
+            random.lookForChat();
         };
 
         $scope.setDefaultFilterParams = function() {
@@ -115,15 +89,7 @@ angular.module("angControllers")
         };
 
         $scope.cancelLookingFor = function() {
-            $scope.waitingServer = true;
-            externalChat.disconnect();
-            api.cancelRandomRequest()
-            .then(
-                function() {
-                    $scope.waitingServer = false;
-                    $scope.lookupInProgress = false;
-                }
-            );
+            random.cancelLookingFor();
         };
 
         var helpClickCounter = 0;
