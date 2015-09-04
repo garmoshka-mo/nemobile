@@ -51,7 +51,7 @@ angular.module("angControllers")
             googleAnalytics.event('random', 'start');
             notification.asked = 0;
 
-            random.lookForChat();
+            random.lookForChat(preferences);
         };
 
         $scope.setDefaultFilterParams = function() {
