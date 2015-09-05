@@ -29,27 +29,27 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             intro_timestamp,
             user_found = false,
             shadow, directConnect,
-            timeout, maxTimeout, timeoutAcceleration;
+            timeout, maxBaseTimeout, timeoutAcceleration;
 
         // Configure behavior depending on permitted level:
         if (level < 5) { // Veg level:
-            timeout = 10 + Math.random()*30;
-            maxTimeout = 40; timeoutAcceleration = 4;
+            timeout = 10 + Math.random()*20;
+            maxBaseTimeout = 10; timeoutAcceleration = 1;
             intro = '';
             directConnect = true;
         } else if (level < 10) {
             intro = altIntro.compose(preferences);
-            timeout = 3; maxTimeout = 40; timeoutAcceleration = 4;
+            timeout = 3; maxBaseTimeout = 40; timeoutAcceleration = 4;
         } else {
             intro = defaultIntro.compose(preferences);
-            timeout = 1; maxTimeout = 30; timeoutAcceleration = 2;
+            timeout = 1; maxBaseTimeout = 15; timeoutAcceleration = 2;
         }
 
         function reconnect() {
             var randomizeTime = true,
                 t = timeout + (randomizeTime ? Math.random() * timeout : 0);
             delayTask(connect, t * 1000);
-            if (timeout < maxTimeout) timeout = timeout * timeoutAcceleration;
+            if (timeout < maxBaseTimeout) timeout = timeout * timeoutAcceleration;
 
             function connect() {
                 provider.Connect();
@@ -71,14 +71,8 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
             notification.incrementAsked();
 
-            if (directConnect) makeDirectConnect();
-            else if (intro.length > 0) initWithIntro();
+            if (intro.length > 0) initWithIntro();
             else initWithoutIntro();
-        }
-
-        function makeDirectConnect() {
-            filter.log({text: '===directConnect===', isOwn: true});
-            begin_chat();
         }
 
         function initWithIntro() {
@@ -92,7 +86,8 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function initWithoutIntro() {
             intro_timestamp = Date.now();
             autoBeginTimer = setTimeout(function startChatWhenNoHisIntro() {
-                filter.log({text: '===начало===', isOwn: true});
+                var text = directConnect ? 'directConnect' : 'начало';
+                filter.log({text: '==='+text+'===', isOwn: true});
                 begin_chat();
             }, 2000);
         }
@@ -145,7 +140,9 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 }
             };
 
-            filter.log(payload).then(take_decision, filter_passed);
+            if (directConnect) directStart();
+            else
+                filter.log(payload).then(take_decision, filter_passed);
 
             function take_decision(response) {
                 if (response.risk_percent < 50)
@@ -165,6 +162,13 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 if (preferences.look_for.gender != '-' && slowpokesFriend.isSlowpoke(message))
                     return;
 
+                begin_chat();
+                chat.display_partners_message(message.sanitize());
+                teacher.listen(message);
+            }
+
+            function directStart() {
+                log('directStart()');
                 begin_chat();
                 chat.display_partners_message(message.sanitize());
                 teacher.listen(message);
