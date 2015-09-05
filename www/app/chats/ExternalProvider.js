@@ -28,7 +28,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         var intro,
             intro_timestamp,
             user_found = false,
-            shadow,
+            shadow, directConnect,
             timeout, maxTimeout, timeoutAcceleration;
 
         // Configure behavior depending on permitted level:
@@ -36,12 +36,13 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             timeout = 10 + Math.random()*30;
             maxTimeout = 40; timeoutAcceleration = 4;
             intro = '';
+            directConnect = true;
         } else if (level < 10) {
-          intro = altIntro.compose(preferences);
-          timeout = 3; maxTimeout = 40; timeoutAcceleration = 4;
+            intro = altIntro.compose(preferences);
+            timeout = 3; maxTimeout = 40; timeoutAcceleration = 4;
         } else {
-          intro = defaultIntro.compose(preferences);
-          timeout = 1; maxTimeout = 30; timeoutAcceleration = 2;
+            intro = defaultIntro.compose(preferences);
+            timeout = 1; maxTimeout = 30; timeoutAcceleration = 2;
         }
 
         function reconnect() {
@@ -70,10 +71,14 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
             notification.incrementAsked();
 
-            if (intro.length > 0)
-                initWithIntro();
-            else
-                initWithoutIntro();
+            if (directConnect) makeDirectConnect();
+            else if (intro.length > 0) initWithIntro();
+            else initWithoutIntro();
+        }
+
+        function makeDirectConnect() {
+            filter.log({text: '===directConnect===', isOwn: true});
+            begin_chat();
         }
 
         function initWithIntro() {
@@ -220,6 +225,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             shadow = true;
             cancelDelayedTask();
             activity.calmDown();
+            clearInterval(autoBeginTimer);
             if (provider) provider.Disconnect();
             if (talking) filter.log({text: '===мы закончили===', isOwn: true});
         };
