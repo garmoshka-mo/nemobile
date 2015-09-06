@@ -63,8 +63,8 @@ services
 
        
         
-        window.onuload = function() {
-            //here disconnect request will be sent
+        window.onunload = function() {
+            apiRequest.sendSync('DELETE', '/random');
         };
 
 }]);
