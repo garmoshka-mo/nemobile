@@ -93,7 +93,7 @@
 
             incomeMessage: function() {
                 if (!suppressingNotifications) {
-                    console.log('income message sound is played');
+                    log('income message sound is played');
                     $rootScope.notification.typing = false;
                     incomeMessageSound.play();
                     this.setTemporaryPageTitle('Новое сообщение');
@@ -167,7 +167,7 @@
             },
 
             onRandomChatBegin: function() {
-                console.log('new random chat sound is played');
+                log('new random chat sound is played');
                 newConversationSound.play();
                 this.setTemporaryPageTitle('Собеседник найден');
                 suppressTitleChange();

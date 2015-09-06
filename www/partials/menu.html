@@ -29,7 +29,7 @@
         <li ng-show="fullMode"><a class="menu-item" ng-click="goto('settings')"><i class="fa fa-gear"></i>Настройки</a></li>
         <li><a class="menu-item" ng-click="goto('about')"><i class="fa fa-info-circle"></i>О программе</a></li>
         <li><a class="menu-item pointer" ng-click="openExternalURL('https://vk.com/dub_ink')"><i class="fa fa-vk"></i>Группа ВК</a></li>
-        <li ng-show="fullMode"><a class="menu-item" ng-click="goto('exit')" class="lessen-word"><i class="fa fa-power-off"></i>Выход</a></li>
+        <li ng-show="fullMode || debug"><a class="menu-item" ng-click="goto('exit')" class="lessen-word"><i class="fa fa-power-off"></i>Выход</a></li>
         <li ng-hide="RAN_AS_APP || true" class="app-setup-item">
             <a class="menu-item" href="https://play.google.com/store/apps/details?id=com.phonegap.dubink" target="_blank">
                 <i class="fa fa-mobile"></i>

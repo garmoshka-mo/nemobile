@@ -2,24 +2,25 @@
 
 services
     .service('membership',
-    ['$q', '$resource',
-function ($q, $resource) {
+    ['$q', 'apiRequest',
+function ($q, apiRequest) {
 
-    var Membership = $resource('/users/:user_safe_id/membership');
+    this.getLevel = function() {
+        var deferred = $q.defer();
 
-    this.getCategory = function() {
-      var deferred = $q.defer();
+        // todo: replace to injection of user after refactoring:
+        if (!user_uuid) return $q.when(10);
 
-      // todo: replace user_uuid to use user injection after refactoring of user
-      Membership.get({user_safe_id: user_uuid}, function(data) {
-        if (data.active)
-          deferred.resolve(data.type);
-        else
-          deferred.reject();
-      });
+        apiRequest.send('GET', '/membership')
+            .then(function(r) {
+                if (r.data.active)
+                    deferred.resolve(r.data.score);
+                else
+                    deferred.reject();
+            });
 
         return deferred.promise;
-    }
+    };
     
 }]);
 }

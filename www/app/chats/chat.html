@@ -46,9 +46,10 @@
                 <i class="fa fa-image"></i>
             </div>
             <div class="chat-input-container">
-                <input data-snap-ignore="true" type="text" class="chat-input"
+                <input type="text" class="chat-input"
                        ng-focus="scrollToBottom()" ng-model="newMessage.text"
-                       ng-keypress="input_keypress($event)" ng-change="findAppropriateStiker()" data-snap-ignore="true">
+                       ng-keypress="input_keypress($event)" ng-change="findAppropriateStiker()"
+                       data-snap-ignore="true">
             </div>
         </div>
         <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="sendMessage()">

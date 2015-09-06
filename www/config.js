@@ -8,7 +8,7 @@ window.App.Settings = {
     spamFilterHost: false,
     systemUuid: "10b6599c-5b24-454a-8568-377742395724",
     phoneToSendSms: "+79021192234",
-    adorableUrl: "http://api.adorable.io/avatars",
+    adorableUrl: "http://freak.herokuapp.com/avatars",
     appUrl: "http://nemobile.herokuapp.com",
     gaTrackingCode: '',
     externalChat: false,

@@ -6,10 +6,10 @@ angular.module("angControllers")
         $scope.updates = updates;
         updates.check();
         
-        membership.getCategory(function(category) {
-            externalChat.category = category;
+        membership.getLevel().then(function(level) {
+            externalChat.level = level;
         }, function notActive() {
-            console.log('here redirect to payment page');
+            log('here redirect to payment page');
         });
         
         $scope.showHelpText = false;

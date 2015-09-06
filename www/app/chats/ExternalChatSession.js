@@ -9,7 +9,7 @@ function($q, ChatSessionAbstract, apiRequest) {
 
         var self = this;
 
-        var lastAuthor, rows = 0, swaps = 0, startTime, isClosed;
+        var lastAuthor, rows = 0, incentives = 0, startTime, isClosed;
 
         this.chat = chat;
         this.senderId = partner_id;
@@ -69,18 +69,21 @@ function($q, ChatSessionAbstract, apiRequest) {
 
         function swap(writer) {
             rows++;
-            if (lastAuthor != writer) swaps++;
+            if (lastAuthor == 'me' && writer == 'he') incentives++;
             if (!startTime) startTime = Date.now();
             lastAuthor = writer;
         }
 
         self.saveLog = function() {
-            if (rows < 1 || isClosed) return;
+            var duration = (Date.now() - startTime)/1000;
+
+            if (rows < 1 || duration < 10 || isClosed) return;
+
             var data = {
                 uuid: self.uuid,
                 rows: rows,
-                swaps: swaps,
-                duration: (Date.now() - startTime)/1000
+                incentives: incentives,
+                duration: duration
             };
             apiRequest.send('POST', '/chats/log', data);
             isClosed = true;
