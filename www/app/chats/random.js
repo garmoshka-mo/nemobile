@@ -18,6 +18,7 @@ services
             var d = $q.defer();
 
             self.waitingServer = true;
+            self.lookupInProgress = true;
 
             function onSendRequestSuccess () {
                 self.waitingServer = false;
@@ -41,6 +42,7 @@ services
             if (config('externalChat'))
                 externalChat.start(preferences);
 
+            log(self);
             return d.promise;
         };
 
