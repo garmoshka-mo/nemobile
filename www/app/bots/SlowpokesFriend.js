@@ -5,8 +5,9 @@ function() {
 
     return function SlowpokesFriend(provider, filter) {
 
-        var slowpokePhrases = ['привет', 'привеи', 'рпивет',
-            'привет.', 'привет!', 'ghbdtn', 'пр', 'прив', 'привт'];
+        var slowpokePhrases = ['привет', 'привеи', 'рпивет', 'privet',
+            'привет.', 'привет!', 'ghbdtn', 'пр', 'прив', 'привт',
+            'привет..', 'привет...'];
 
         this.isSlowpoke = function(message) {
             if (slowpokePhrases.indexOf(message.toLocaleLowerCase().trim()) >= 0) {

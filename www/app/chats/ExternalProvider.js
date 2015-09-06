@@ -231,7 +231,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             activity.calmDown();
             clearInterval(autoBeginTimer);
             if (provider) provider.Disconnect();
-            if (talking) filter.log({text: '===мы закончили===', isOwn: true});
+            if (talking) filter.log({text: '===кончина===', isOwn: true});
         };
 
         reconnect();
