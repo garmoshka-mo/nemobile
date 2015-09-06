@@ -1,10 +1,10 @@
 <div class="hide-x">
-    <div ng-hide="lookupInProgress || updates.reloading" class="row">
+    <div ng-hide="random.lookupInProgress || updates.reloading" class="row">
         <div class="columns small-12 pt1rem ta-center">
-            <button ng-hide="waitingServer" ng-click="lookForChat()">
+            <button ng-hide="random.waitingServer" ng-click="lookForChat()">
                 <span>Начать чат <i class="fa fa-weixin"></i></span>
             </button>
-            <div  ng-show="waitingServer" spinner spinner-color="green"></div>
+            <div  ng-show="random.waitingServer" spinner spinner-color="green"></div>
         </div>
     </div>
     <div ng-show="updates.reloading" class="row">
@@ -15,7 +15,7 @@
             <br/>
             <br/>
     </div>
-    <div ng-show="lookupInProgress">
+    <div ng-show="random.lookupInProgress">
         <div class="row" >
             <br/>
             <div ng-hide="notification.asked > 0" class="small-12 columns ta-center">
@@ -30,8 +30,8 @@
         <div class="row">
             <div class="columns small-12 ta-center">
                 <button class="bg-red" ng-click="cancelLookingFor()">
-                    <span ng-hide="waitingServer" >отмена</span>
-                    <div  ng-show="waitingServer" spinner spinner-color="white"></div>
+                    <span ng-hide="random.waitingServer" >отмена</span>
+                    <div  ng-show="random.waitingServer" spinner spinner-color="white"></div>
                 </button>
             </div>
         </div>

@@ -1,6 +1,6 @@
 services
-.service('random', ['user', '$q', 'externalChat', 'apiRequest',
-    function(user, $q, externalChat, apiRequest) {
+.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope',
+    function(user, $q, externalChat, apiRequest, $rootScope) {
 
         this.waitingServer = false;
         this.lookupInProgress = false;
@@ -14,6 +14,12 @@ services
             );
         }
 
+        function onRandomChatOpen() {
+            self.lookupInProgress = false;
+        }
+
+        $rootScope.$on('new random chat', onRandomChatOpen);
+
         this.lookForChat = function(preferences) {
             var d = $q.defer();
 
@@ -22,7 +28,6 @@ services
 
             function onSendRequestSuccess () {
                 self.waitingServer = false;
-                self.lookupInProgress = false;
                 d.resolve();
             }
 
@@ -47,10 +52,16 @@ services
         };
 
         this.cancelLookingFor = function() {
-            this.waitingServer = true;
+            self.waitingServer = true;
             externalChat.disconnect();
-            return apiRequest.send('DELETE', '/random');
+            return apiRequest.send('DELETE', '/random')
+            .then(function() {
+                self.waitingServer = false;
+                self.lookupInProgress = false;
+            });
         };
+
+       
         
         window.onuload = function() {
             //here disconnect request will be sent

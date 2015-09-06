@@ -13,8 +13,7 @@ angular.module("angControllers")
         });
         
         $scope.showHelpText = false;
-        $scope.waitingServer = random.waitingServer;
-        $scope.lookupInProgress = random.lookupInProgress;
+        $scope.random = random;
         $scope.notification = notification;
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
