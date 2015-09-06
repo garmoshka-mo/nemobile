@@ -4,7 +4,10 @@
         ['$rootScope', '$timeout', Service]);
     function Service($rootScope, $timeout) {
         log("notification service is enabled");
-        $rootScope.notification = { typing_label: "печатает..." };
+        $rootScope.notification = {
+            typing_label: "печатает...",
+            time: null
+        };
 
         var initialText;
         var initialHandler;
@@ -17,7 +20,7 @@
         var suppressingNotifications = false;
         var favicon = new Favico({
             animation : 'popFade',
-            bgColor: '#4D6EA3',
+            bgColor: '#4D6EA3'
         });
 
 
@@ -70,7 +73,8 @@
             }, TIME_TITLE_SUPPRESSED_MSEC);
         }
 
-        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
+        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3'),
+            timer;
 
         return {
             set: function(title, ava_url, handler) {
@@ -81,6 +85,23 @@
                 };
                 initialText = title;
                 initialHandler = $rootScope.notification.handler;
+            },
+
+            startTimer: function() {
+                var start = Date.now();
+                timer = setInterval(function() {
+                    var duration = (Date.now() - start) / 1000;
+                    $rootScope.$apply(function(){
+                        $rootScope.notification.time = duration.toHHMMSS();
+                    });
+                }, 1000);
+            },
+            stopTimer: function() {
+                clearInterval(timer);
+            },
+            resetTimer: function() {
+                clearInterval(timer);
+                $rootScope.notification.time = "";
             },
 
             typing: function() {
@@ -167,6 +188,7 @@
             },
 
             onRandomChatBegin: function() {
+                this.startTimer();
                 log('new random chat sound is played');
                 newConversationSound.play();
                 this.setTemporaryPageTitle('Собеседник найден');

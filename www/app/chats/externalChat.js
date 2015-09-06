@@ -41,7 +41,8 @@ services
                 externalProvider = new ExternalProvider(self, session, preferences, level);
             };
 
-            self.gotoChat = function() {
+            self.gotoChat =
+                function() {
                 routing.goto('chat', {chatType: 'external', fromState: 'random'});
             };
 

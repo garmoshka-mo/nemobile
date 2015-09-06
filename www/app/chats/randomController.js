@@ -5,6 +5,8 @@ angular.module("angControllers")
 
         $scope.updates = updates;
         updates.check();
+
+        notification.resetTimer();
         
         membership.getLevel().then(function(level) {
             externalChat.level = level;

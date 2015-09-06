@@ -33,6 +33,10 @@
                 this.addMessage(msg);
             };
 
+            this.sessionFinished = function() {
+                notification.stopTimer();
+            };
+
             this.addMessage = function(msg) {
                 var skipSpamFilter;
                 skipSpamFilter = msg.type == 'chat_empty';

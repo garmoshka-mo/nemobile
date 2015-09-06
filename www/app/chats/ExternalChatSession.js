@@ -1,8 +1,8 @@
 (function(){
     services
         .factory('ExternalChatSession',
-        ['$q', 'ChatSessionAbstract', 'apiRequest',
-function($q, ChatSessionAbstract, apiRequest) {
+        ['$q', 'ChatSessionAbstract', 'apiRequest', 'notification',
+function($q, ChatSessionAbstract, apiRequest, notification) {
 
     return Session;
     function Session(chat, partner_id) {
@@ -87,6 +87,7 @@ function($q, ChatSessionAbstract, apiRequest) {
             };
             apiRequest.send('POST', '/chats/log', data);
             isClosed = true;
+            self.sessionFinished();
         };
 
         angular.extend(this, new ChatSessionAbstract());
