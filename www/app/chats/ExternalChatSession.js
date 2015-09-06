@@ -75,9 +75,13 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
         }
 
         self.saveLog = function() {
-            var duration = (Date.now() - startTime)/1000;
+            if (isClosed) return;
 
-            if (rows < 1 || duration < 10 || isClosed) return;
+            isClosed = true;
+            self.sessionFinished();
+
+            var duration = (Date.now() - startTime)/1000;
+            if (rows < 1 || duration < 10) return;
 
             var data = {
                 uuid: self.uuid,
@@ -86,8 +90,6 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
                 duration: duration
             };
             apiRequest.send('POST', '/chats/log', data);
-            isClosed = true;
-            self.sessionFinished();
         };
 
         angular.extend(this, new ChatSessionAbstract());

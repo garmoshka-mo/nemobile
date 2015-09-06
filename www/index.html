@@ -200,7 +200,7 @@
                         </h1>
                     </section>
                     <section ng-show="notification.time" class="right-small time_zone">
-                        <i class="fa fa-clock-o"></i><span>{{notification.time}}</span>
+                        <i class="fa fa-clock-o"></i><span ng-bind="notification.time"></span>
                         <div class="dubink">DUB.iNK</div>
                     </section>
                     <section ng-show="user.scores && isUserScoresShown" class="right-small ta-center">
