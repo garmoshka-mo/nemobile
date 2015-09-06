@@ -64,7 +64,9 @@ services
        
         
         window.onunload = function() {
-            apiRequest.sendSync('DELETE', '/random');
+            if (self.lookupInProgress) {
+                apiRequest.sendSync('DELETE', '/random');
+            }
         };
 
 }]);
