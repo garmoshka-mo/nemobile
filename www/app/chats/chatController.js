@@ -76,6 +76,12 @@ angular.module("angControllers").controller("chatController",
             $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         };
 
+        $chatInput.focus(function() {
+            if (RAN_AS_APP) {
+                window.cordova.plugins.Keyboard.show();
+            }
+        });
+
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
                 $chatInput.focus();
