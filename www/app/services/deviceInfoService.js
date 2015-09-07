@@ -17,7 +17,7 @@ services
             self.isAndroid = device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos";
             self.isIos = device.platform == 'iOS';
             if (self.isAndroid) {
-                self.isOldAndroid = +window.device.version < 4.4;
+                self.isOldAndroid = window.device.version < "4.4";
             }
             else {
                 self.isOldAndroid = false;
