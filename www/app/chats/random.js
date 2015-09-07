@@ -60,8 +60,6 @@ services
                 self.lookupInProgress = false;
             });
         };
-
-       
         
         window.onunload = function() {
             if (self.lookupInProgress) {
