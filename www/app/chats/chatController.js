@@ -82,10 +82,13 @@ angular.module("angControllers").controller("chatController",
             }
         });
 
+        $chatInput.click(function(){$(this).focus()});
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
                 $chatInput.focus();
             }, 0);
+
+            $chatInput.trigger('click');
         };
 
         $scope.$watch('newMessage.ttl', function() {
