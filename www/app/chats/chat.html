@@ -52,7 +52,7 @@
                        data-snap-ignore="true">
             </div>
         </div>
-        <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="sendMessage()">
+        <button class="chat-send ng-animate-disabled" ng-focus="setFocusOnTextField()" ng-click="sendMessage()" ng-show="!deviceInfo.isOldAndroid">
             <i ng-show="!isMessageSending" class="fa fa-paper-plane"></i>
             <span ng-show="isMessageSending" spinner spinner-color="white"></span>
         </button>

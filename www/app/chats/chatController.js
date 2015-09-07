@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
-    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
+    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
+    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
         
         log("chat controller is invoked");
 
@@ -9,6 +9,7 @@ angular.module("angControllers").controller("chatController",
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
         $scope.fromRandom = $stateParams.fromState === 'random';
+        $scope.deviceInfo = deviceInfo;
 
         var $chatInput = $('.chat-input');
 
@@ -82,13 +83,10 @@ angular.module("angControllers").controller("chatController",
             }
         });
 
-        $chatInput.click(function(){$(this).focus(); setTimeout(function(){$chatInput.focus()},0)});
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
                 $chatInput.focus();
             }, 0);
-
-            $chatInput.trigger('click');
         };
 
         $scope.$watch('newMessage.ttl', function() {
