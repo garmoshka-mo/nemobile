@@ -1147,3 +1147,19 @@ md-fab-speed-dial md-fab-actions {
    position: relative;
    line-height: 20px;
  }
+
+.time_zone {
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  text-align: right;
+  line-height: 0;
+ }
+
+.time_zone i {
+ padding-right: 3px;
+}
+
+.time_zone .dubink {
+  margin: 10px 0;
+  line-height: 0;
+}

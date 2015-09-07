@@ -11,7 +11,7 @@
     <head>
         <title>Чат наугад - DUB.iNK</title>
         <meta name="description" content="Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги">
-        <meta property="og:image" content="/assets/img/screen.jpg?2" />
+        <meta property="og:image" content="http://dub.ink/assets/img/screen.jpg" />
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -47,7 +47,6 @@
         <meta name="theme-color" content="#ffffff">
 
         <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
-        <script src="//server.anchat.ru/Scripts/api.js"></script>
 
         <script type="text/javascript" src="cordova.js"></script>
 
@@ -68,6 +67,7 @@
         <script type="text/javascript" src="jslibs/angular-aria.min.js"></script>
         <script type="text/javascript" src="jslibs/angular-resource.min.js"></script>
 
+        <script type="text/javascript" src="jslibs/api_anchat.js"></script>
         <script type="text/javascript" src="jslibs/mm-foundation-tpls-0.5.0.js"></script>
         <script type="text/javascript" src="jslibs/fileTypeDeterminer.js"></script>
         <script type="text/javascript" src="jslibs/angular-social.src.js"></script>
@@ -199,6 +199,10 @@
                                 </span>
                             </div>
                         </h1>
+                    </section>
+                    <section ng-show="notification.time" class="right-small time_zone">
+                        <i class="fa fa-clock-o"></i><span ng-bind="notification.time"></span>
+                        <div class="dubink">DUB.iNK</div>
                     </section>
                     <section ng-show="user.scores && isUserScoresShown" class="right-small ta-center">
                         <i class="fa fa-star"></i> <span ng-bind="user.scores"></span>

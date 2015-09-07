@@ -230,6 +230,8 @@ factories.factory("Chat",
 
         disconnect: function() {
             this.currentUser.removeDeviceFromChannel(this.channelName);
+            if (this.lastUnexpiredChatSession)
+                this.lastUnexpiredChatSession.sessionFinished();
             return api.deleteChat(this.channelName);
         }
     };
