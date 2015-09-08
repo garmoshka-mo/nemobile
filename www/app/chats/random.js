@@ -14,11 +14,17 @@ services
             );
         }
 
-        function onRandomChatOpen() {
+        function onRandomChatOpen(type) {
+            log(type);
+            if (type == 'external') {
+                self.cancelLookingFor();
+            }
             self.lookupInProgress = false;
         }
 
-        $rootScope.$on('new random chat', onRandomChatOpen);
+        $rootScope.$on('new random chat', function(event, args) {
+            onRandomChatOpen(args.type);
+        });
 
         this.lookForChat = function(preferences) {
             var d = $q.defer();

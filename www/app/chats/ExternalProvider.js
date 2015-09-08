@@ -1,9 +1,9 @@
 (function(){
 factories.factory('ExternalProvider',
     ['notification', 'SpamFilter', 'api', 'TeacherBot', 'ActivityBot',
-        'SlowpokesFriend', 'defaultIntro', 'altIntro',
+        'SlowpokesFriend', 'defaultIntro', 'altIntro', '$rootScope',
 function(notification, SpamFilter, api, TeacherBot, ActivityBot,
-         SlowpokesFriend, defaultIntro, altIntro) {
+         SlowpokesFriend, defaultIntro, altIntro, $rootScope) {
 
     return function ExternalProvider(chat, session, preferences, level) {
         var provider = new Chat({
@@ -179,8 +179,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function begin_chat() {
             talking = true;
             chat.gotoChat();
-            notification.onRandomChatBegin();
-            api.cancelRandomRequest();
+            $rootScope.$broadcast('new random chat', {type: 'external'});
         }
 
         function terminated() {
