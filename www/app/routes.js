@@ -336,10 +336,23 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "activationController",
-                        templateUrl: "user/activation.html"
+                        templateUrl: "app/user/activation.html"
+                    }
+                }
+            })
+            .state("signupRandom", {
+                url: "/signupRandom",
+                views: {
+                    "title": {
+                        template: "Регистрация"
+                    },
+                    "content": {
+                        controller: "signupRandomController",
+                        templateUrl: "app/user/signupRandom.html"
                     }
                 }
             });
+
         // .state("updateProfile", {
         //   url: "/updateProfile",
         //   views: {
