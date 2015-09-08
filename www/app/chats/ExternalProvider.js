@@ -234,7 +234,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         };
 
         reconnect();
-    }
+    };
 
 }]);
 

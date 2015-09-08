@@ -222,10 +222,9 @@ window.onload = function onLoad() {
             a.src = g;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        googleAnalytics.init();
-        googleAnalytics.pageview();
     }
+    googleAnalytics.init();
+    googleAnalytics.pageview();
 };
 
 $(window).bind('beforeunload', function() {
