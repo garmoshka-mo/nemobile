@@ -71,10 +71,18 @@ services
         },
 
         saveChatSession: function(chatSessionObj, primaryKeyValue) {
-            var notToSave = ['timer', 'currentChat'];
+            var notToSave = ['timer', 'currentChat', 'filter'];
             var _chatSession = filterObject(chatSessionObj, notToSave);
             // log('!!!!!!!!!!!!!!!!!!primaryKeyValue', primaryKeyValue);
             $localForage.setItem('chatSession_' + primaryKeyValue + "_" + chatSessionObj.id, _chatSession);
+            // .then(
+            //     function(res) {
+            //         console.log(res);
+            //     },
+            //     function(res) {
+            //         console.log(res);
+            //     }
+            // )
         },
 
         saveLastMessageTimestamp: function(timestamp) {
