@@ -1,8 +1,15 @@
 angular.module("angControllers")
 .controller("activationController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random) {
+        '$scope', 'membership',
+    function($scope, membership) {
         
-        
+        membership.getOffers()
+        .then(function(offers) {
+            $scope.offers = offers;
+        });
+
+        $scope.order = function(offer) {
+            membership.order(offer.id);    
+        }; 
     }
 ]);

@@ -1,7 +1,16 @@
 (function() {
         services
-        .service('membership', ['$q', 'apiRequest',
-            function($q, apiRequest) {
+        .service('membership', ['$q', 'apiRequest', 'deviceInfo',
+            function($q, apiRequest, deviceInfo) {
+
+                function getPlatform() {
+                    if (RAN_AS_APP) {
+                        return deviceInfo.isIos ? 'ios' : 'android';
+                    }
+                    else {
+                        return 'web';
+                    }
+                }
 
                 this.getLevel = function() {
                     var deferred = $q.defer();
@@ -18,6 +27,28 @@
                     });
 
                     return deferred.promise;
+                };
+
+                this.getOffers = function() {
+                    return apiRequest.send('GET', '/payment/offers/' + getPlatform())
+                    .then(
+                        function(res) {
+                            if (res.data.success) {
+                                return res.data;
+                            }
+                            else {
+                                return $q.reject();
+                            }
+                        },
+                        function() {
+                            return $q.reject();
+                        }
+
+                    );
+                };
+
+                this.order = function (offerId) {
+                    return apiRequest.send('POST', '/payment/orders', {offer_id: offerId});    
                 };
 
             }

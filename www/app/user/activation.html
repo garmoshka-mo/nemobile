@@ -3,8 +3,11 @@
         Вы исчерпали лимит запросов в бесплатной версии чата.
         Для продолжения общения вы можете приобрести доступ:
         <br><br>
-        <button>Купить доступ на неделю за 35 руб</button>
-        <button>Купить доступ на месяц за 125 руб</button>
+        <button ng-repeat="offer in offers">
+            <span ng-bind="offer.name" ng-click="order(offer)"></span>
+        </button>
+        <!-- <button>Купить доступ на неделю за 35 руб</button>
+        <button>Купить доступ на месяц за 125 руб</button> -->
         <br>
         Или воспользуйтесь бесплатными аналогами:
         <ul class="none-list-style-type">
