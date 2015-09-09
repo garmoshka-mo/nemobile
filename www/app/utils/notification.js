@@ -73,10 +73,12 @@
             }, TIME_TITLE_SUPPRESSED_MSEC);
         }
 
+       
+
         var newConversationSound = new Audio('assets/sounds/new_conversation.mp3'),
             timer;
 
-        return {
+        var notification = {
             set: function(title, ava_url, handler) {
                 $rootScope.notification.text = title;
                 $rootScope.notification.ava_url = ava_url;
@@ -185,18 +187,20 @@
                     initialPageTitle = document.title;
                     startPageTitleInterval(text);
                 }
-            },
-
-            onRandomChatBegin: function() {
-                this.startTimer();
-                log('new random chat sound is played');
-                newConversationSound.play();
-                this.setTemporaryPageTitle('Собеседник найден');
-                suppressTitleChange();
             }
-
-
         };
+
+        function onRandomChatBegin() {
+            notification.startTimer();
+            log('new random chat sound is played');
+            newConversationSound.play();
+            notification.setTemporaryPageTitle('Собеседник найден');
+            suppressTitleChange();
+        }
+
+        $rootScope.$on('new random chat', onRandomChatBegin);
+
+        return notification;
     }
 
 })();

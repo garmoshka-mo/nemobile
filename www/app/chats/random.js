@@ -14,11 +14,17 @@ services
             );
         }
 
-        function onRandomChatOpen() {
+        function onRandomChatOpen(type) {
+            log(type);
+            if (type == 'external') {
+                self.cancelLookingFor(true);
+            }
             self.lookupInProgress = false;
         }
 
-        $rootScope.$on('new random chat', onRandomChatOpen);
+        $rootScope.$on('new random chat', function(event, args) {
+            onRandomChatOpen(args.type);
+        });
 
         this.lookForChat = function(preferences) {
             var d = $q.defer();
@@ -51,9 +57,11 @@ services
             return d.promise;
         };
 
-        this.cancelLookingFor = function() {
+        this.cancelLookingFor = function(onlyInternal) {
             self.waitingServer = true;
-            externalChat.disconnect();
+            if (!onlyInternal) {
+                externalChat.disconnect();
+            }
             return apiRequest.send('DELETE', '/random')
             .then(function() {
                 self.waitingServer = false;

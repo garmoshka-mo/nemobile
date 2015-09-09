@@ -185,8 +185,7 @@ services
             routing.goto('chat', {channelName: channelName, fromState: 'random'})
             .then(function() {
                 // log('собеседник найден');
-                $rootScope.$broadcast('new random chat');
-                notification.onRandomChatBegin();
+                $rootScope.$broadcast('new random chat', {type: 'internal'});
             });
             return;
         }

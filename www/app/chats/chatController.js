@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary',
-    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary) {
+    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
+    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
         
         log("chat controller is invoked");
 
@@ -9,6 +9,7 @@ angular.module("angControllers").controller("chatController",
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
         $scope.fromRandom = $stateParams.fromState === 'random';
+        $scope.deviceInfo = deviceInfo;
 
         var $chatInput = $('.chat-input');
 
@@ -75,6 +76,12 @@ angular.module("angControllers").controller("chatController",
             var $chatContainer = $(".main-section");
             $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         };
+
+        $chatInput.focus(function() {
+            if (RAN_AS_APP) {
+                window.cordova.plugins.Keyboard.show();
+            }
+        });
 
         $scope.setFocusOnTextField = function() {
             $timeout(function() {
