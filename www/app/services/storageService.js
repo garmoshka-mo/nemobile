@@ -49,6 +49,14 @@ services
             return $localForage.getItem('lastMessageTimestamp');
         },
 
+        getOrderCreated: function() {
+            return $localForage.getItem('orderCreated');
+        },
+
+        getSkipRegistration: function() {
+            return $localForage.getItem('skipRegistration');
+        },
+
         //save methods
         saveUser: function(currentUser) {
             var notToSave = ['chats', 'friends', 'friendsList'];
@@ -79,6 +87,14 @@ services
 
         saveLastMessageTimestamp: function(timestamp) {
             $localForage.setItem('lastMessageTimestamp', timestamp);
+        },
+
+        saveOrderCreated: function() {
+            return $localForage.setItem('orderCreated', true);
+        },
+
+        saveSkipRegistration: function() {
+            return $localForage.setItem('skipRegistration', true);
         },
 
         //clear methods

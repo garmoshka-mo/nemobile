@@ -1,17 +1,25 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'storage',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, storage) {
 
         $scope.updates = updates;
         updates.check();
 
         notification.resetTimer();
         
-        membership.getMembership().then(function(level) {
+        membership.getLevel().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
             $state.go('activation');
+        });
+
+        membership.getMembership().then(function(membership) {
+            var orderCreated = storage.getOrderCreated();
+            var skipRegistration = storage.getSkipRegistration();
+            if(membership.active && user.isVirtual && orderCreated && !skipRegistration) {
+                $state.go('afterPurchase');
+            }
         });
         
         $scope.showHelpText = false;

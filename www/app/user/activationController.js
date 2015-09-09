@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("activationController", [
-        '$scope', 'membership',
-    function($scope, membership) {
+        '$scope', 'membership', 'storage',
+    function($scope, membership, storage) {
         
         membership.getOffers()
         .then(function(offers) {
@@ -9,6 +9,7 @@ angular.module("angControllers")
         });
 
         $scope.order = function(offer) {
+            storage.saveOrderCreated();
             membership.order(offer.id);    
         }; 
     }
