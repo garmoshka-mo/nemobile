@@ -51,6 +51,22 @@
                     return apiRequest.send('POST', '/payment/orders', {offer_id: offerId});    
                 };
 
+                this.getMembership = function () {
+                    return apiRequest.send('GET', '/membership')
+                        .then(function (res) {
+                            if (res.data.success) {
+                                return res.data;
+                            }
+                            else {
+                                return $q.reject();
+                            }
+                        },
+                        function () {
+                            return $q.reject();
+                        }
+                    );
+                };
+
             }
         ]);
     }

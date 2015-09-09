@@ -8,7 +8,7 @@ angular.module("angControllers")
 
         notification.resetTimer();
         
-        membership.getLevel().then(function(level) {
+        membership.getMembership().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
             $state.go('activation');

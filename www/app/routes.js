@@ -340,15 +340,15 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
-            .state("signupRandom", {
-                url: "/signupRandom",
+            .state("afterPurchase", {
+                url: "/afterPurchase",
                 views: {
                     "title": {
                         template: "Регистрация"
                     },
                     "content": {
-                        controller: "signupRandomController",
-                        templateUrl: "app/user/signupRandom.html"
+                        controller: "afterPurchaseController",
+                        templateUrl: "app/user/afterPurchase.html"
                     }
                 }
             });
