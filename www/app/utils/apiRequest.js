@@ -2,8 +2,8 @@
 
 services
     .service('apiRequest',
-    ['$http',
-function ($http) {
+    ['$http', '$q',
+function ($http, $q) {
 
     function Config(method, url, data, withoutAccessToken, sync) {
         this.method = method;
@@ -27,7 +27,15 @@ function ($http) {
 
     return {
         send: function(method, url, data) {
-            return $http(new Config(method, url, data));
+            return $http(new Config(method, url, data))
+            .then(
+                function(res) {
+                    
+                },
+                function(res) {
+
+                }
+            );
         },
 
         guestSend: function(method, url, data) {
