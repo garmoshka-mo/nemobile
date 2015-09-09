@@ -16,7 +16,7 @@
         <p ng-show="isActiveMembership" class="pt1rem ta-center text-red">
             Сейчас учетная запись привязана к вашему устройству через кэш браузера и может быть утеряна в случае очистки кэша
         </p>
-        <div ng-show="!isActiveMembership" ng-switch="membershipState">
+        <div ng-hide="isActiveMembership" ng-switch="membershipState">
             <p ng-switch-when="cash_wait" class="pt1rem ta-center text-red">
                 Платеж в обработке
             </p>
