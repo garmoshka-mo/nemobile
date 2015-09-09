@@ -1,18 +1,17 @@
-## Deploy dev-environment
-
-1. Setup vagrant: https://www.vagrantup.com/downloads
-2. Setup virtualbox: https://www.virtualbox.org/wiki/Downloads
-3. Then run: `vagrant_initialize.sh`
-
-## Development
-
-1. Enter to virtual machine: `start_vagrant.sh`
-2. Run http server:
-````
-cd n<Tab>, <Enter>
+```
+npm install
 npm start
 ````
 Goto http://localhost:8080/
+
+# Advanced
+
+## Deploy isolated dev-environment with Vagrant
+
+1. Setup vagrant: https://www.vagrantup.com/downloads
+1. Setup virtualbox: https://www.virtualbox.org/wiki/Downloads
+1. Then run: `vagrant_initialize.sh`
+1. Enter to virtual machine: `start_vagrant.sh`
 
 ## Build for PROD
 
