@@ -17,7 +17,7 @@ services
         function onRandomChatOpen(type) {
             log(type);
             if (type == 'external') {
-                self.cancelLookingFor();
+                self.cancelLookingFor(true);
             }
             self.lookupInProgress = false;
         }
@@ -57,9 +57,11 @@ services
             return d.promise;
         };
 
-        this.cancelLookingFor = function() {
+        this.cancelLookingFor = function(onlyInternal) {
             self.waitingServer = true;
-            externalChat.disconnect();
+            if (!onlyInternal) {
+                externalChat.disconnect();
+            }
             return apiRequest.send('DELETE', '/random')
             .then(function() {
                 self.waitingServer = false;
