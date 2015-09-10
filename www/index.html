@@ -182,7 +182,7 @@
                     <section class="left-small pointer ta-center">
                         <a ng-hide="isBackArrownShown || customSmallIconInner" class="menu-icon" ng-click="toggleMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown && !customSmallIconInner" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
-                        <span class="chat-close-button" ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" ng-bind-html="customSmallIconInner"></span>
+                        <span ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" class="customSmallIcon chat-close-button" ng-bind-html="customSmallIconInner"></span>
                     </section>
                     <section class="middle tab-bar-section p0">
                         <h1 class="title">
