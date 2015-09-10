@@ -8,6 +8,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
 
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
+    $scope.IS_MOBILE = IS_MOBILE;
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoresShown = true;
     $scope.version = version;
