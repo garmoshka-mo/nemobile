@@ -200,11 +200,11 @@
                             </div>
                         </h1>
                     </section>
-                    <section ng-show="notification.time" class="right-small time_zone">
+                    <section ng-cloak ng-show="notification.time" class="right-small time_zone">
                         <i class="fa fa-clock-o"></i><span ng-bind="notification.time"></span>
                         <div class="dubink">DUB.iNK</div>
                     </section>
-                    <section ng-show="user.scores && isUserScoresShown" class="right-small ta-center">
+                    <section ng-cloak ng-show="user.scores && isUserScoresShown" class="right-small ta-center">
                         <i class="fa fa-star"></i> <span ng-bind="user.scores"></span>
                     </section>
                 </nav>
