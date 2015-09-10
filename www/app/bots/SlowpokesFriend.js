@@ -7,7 +7,8 @@ function() {
 
         var slowpokePhrases = ['привет', 'привеи', 'рпивет', 'privet',
             'привет.', 'привет!', 'ghbdtn', 'пр', 'прив', 'привт',
-            'привет..', 'привет...'];
+            'привет..', 'привет...', 'привте', 'приветь', 'приветствую',
+            'добрый вечер', 'добрый вечер)'];
 
         this.isSlowpoke = function(message) {
             if (slowpokePhrases.indexOf(message.toLocaleLowerCase().trim()) >= 0) {
