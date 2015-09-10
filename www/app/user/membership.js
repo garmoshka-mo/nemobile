@@ -19,9 +19,9 @@
                     if (!user_uuid) return $q.when(10);
 
                     apiRequest.send('GET', '/membership')
-                    .then(function(r) {
-                        if (r.data.active)
-                            deferred.resolve(r.data.score);
+                    .then(function(res) {
+                        if (res.active)
+                            deferred.resolve(res.score);
                         else
                             deferred.reject();
                     });
@@ -30,21 +30,7 @@
                 };
 
                 this.getOffers = function() {
-                    return apiRequest.send('GET', '/payment/offers/' + getPlatform())
-                    .then(
-                        function(res) {
-                            if (res.data.success) {
-                                return res.data;
-                            }
-                            else {
-                                return $q.reject();
-                            }
-                        },
-                        function() {
-                            return $q.reject();
-                        }
-
-                    );
+                    return apiRequest.send('GET', '/payment/offers/' + getPlatform());
                 };
 
                 this.order = function (offerId) {

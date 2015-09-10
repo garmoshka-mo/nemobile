@@ -30,10 +30,10 @@ function ($http, $q) {
             return $http(new Config(method, url, data))
             .then(
                 function(res) {
-                    
+                    return res.data.success ? res.data : $q.reject(res.data.error);    
                 },
                 function(res) {
-
+                    return $q.reject();
                 }
             );
         },
