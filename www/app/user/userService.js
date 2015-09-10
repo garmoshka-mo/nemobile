@@ -181,8 +181,8 @@ services
 
 
         if (message.event == "chat_ready") {
-            routing.goto('chat', {channelName: channelName, fromState: 'random'});
             $rootScope.$broadcast('new random chat', {type: 'internal'});
+            routing.goto('chat', {channelName: channelName, fromState: 'random'});
             return;
         }
 
