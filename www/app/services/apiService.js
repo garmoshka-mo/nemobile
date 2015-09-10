@@ -319,7 +319,7 @@ services
 
         //method to upload url or random string which are used to generate avatar
         updateAvatarText: function(avatarData) {
-            (apiRequest.send(
+            return (apiRequest.send(
                 'POST',
                 '/avatar',
                 avatarData
