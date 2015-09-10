@@ -181,7 +181,6 @@ services
 
 
         if (message.event == "chat_ready") {
-            externalChat.disconnect();
             routing.goto('chat', {channelName: channelName, fromState: 'random'})
             .then(function() {
                 // log('собеседник найден');
