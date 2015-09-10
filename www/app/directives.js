@@ -75,6 +75,14 @@ app.directive('overscrollableFriends', ['$timeout', function($timeout) {
     };
 }]);
 
+app.directive('scrollTop', ['$timeout', function($timeout) {
+    return {
+        link: function(scope, elem, attr) {
+            $timeout(function(){$('.main-section').scrollTop(0);}, 0);
+        }
+    };
+}]);
+
 app.directive('stickersGalleryHeight', function() {
     return {
         link: function(scope, elem, attr) {

@@ -181,12 +181,8 @@ services
 
 
         if (message.event == "chat_ready") {
-            externalChat.disconnect();
-            routing.goto('chat', {channelName: channelName, fromState: 'random'})
-            .then(function() {
-                // log('собеседник найден');
-                $rootScope.$broadcast('new random chat', {type: 'internal'});
-            });
+            $rootScope.$broadcast('new random chat', {type: 'internal'});
+            routing.goto('chat', {channelName: channelName, fromState: 'random'});
             return;
         }
 
