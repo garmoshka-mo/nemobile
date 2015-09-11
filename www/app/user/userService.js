@@ -188,8 +188,10 @@ services
 
         if (message.event == "chat_empty") {
             var chat = self.getChat(channelName);
-            chat.disconnect();
-            handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
+            if (chat) {
+                chat.disconnect();
+                handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
+            }
             return;
         }
 

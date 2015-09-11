@@ -124,7 +124,8 @@ angular.module("angControllers").controller("chatController",
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
             googleAnalytics.event('random', 'finish');
-            
+
+            notification.stopTimer();
             $state.go('random');
         };
 
