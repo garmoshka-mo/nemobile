@@ -308,7 +308,8 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.input_keypress = function(event) {
-            if (event.keyCode === 13) {
+            //if ctrl+enter or enter is pressed
+            if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey || event.keyCode == 13) {
                 event.preventDefault();
                 $scope.sendMessage();
             } else

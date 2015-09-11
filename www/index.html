@@ -127,6 +127,7 @@
 
         <script type="text/javascript" src="app/services/stickersGalleryService.js"></script>
         <script type="text/javascript" src="app/utils/notification.js"></script>
+        <script type="text/javascript" src="app/utils/sound.js"></script>
         <script type="text/javascript" src="app/services/apiService.js"></script>
         <script type="text/javascript" src="app/services/storageService.js"></script>
         <script type="text/javascript" src="app/services/routingService.js"></script>
@@ -182,7 +183,7 @@
                     <section class="left-small pointer ta-center">
                         <a ng-hide="isBackArrownShown || customSmallIconInner" class="menu-icon" ng-click="toggleMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown && !customSmallIconInner" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
-                        <span ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" class="customSmallIcon" ng-bind-html="customSmallIconInner"></span>
+                        <span ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" class="customSmallIcon chat-close-button" ng-bind-html="customSmallIconInner"></span>
                     </section>
                     <section class="middle tab-bar-section p0">
                         <h1 class="title">
