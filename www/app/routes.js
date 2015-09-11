@@ -336,7 +336,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "activationController",
-                        templateUrl: "app/user/activation.html"
+                        templateUrl: "app/purchase/activation.html"
                     }
                 }
             })
@@ -348,7 +348,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "afterPurchaseController",
-                        templateUrl: "app/user/afterPurchase.html"
+                        templateUrl: "app/purchase/afterPurchase.html"
                     }
                 }
             });

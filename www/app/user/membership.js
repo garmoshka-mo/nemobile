@@ -1,7 +1,7 @@
 (function() {
         services
-        .service('membership', ['$q', 'apiRequest', 'deviceInfo',
-            function($q, apiRequest, deviceInfo) {
+        .service('membership', ['$q', 'apiRequest', 'deviceInfo','user','routing',
+            function($q, apiRequest, deviceInfo, user, routing) {
 
                 function getPlatform() {
                     if (RAN_AS_APP) {
@@ -19,12 +19,15 @@
                     if (!user_uuid) return $q.when(10);
 
                     apiRequest.send('GET', '/membership')
-                    .then(function(r) {
-                        if (r.data.active)
-                            deferred.resolve(r.data.score);
-                        else
-                            deferred.reject();
-                    });
+                    .then(function(response) {
+                            ensureUserNeedsRegister(response.data)
+                            if (response.data.active) {
+                                deferred.resolve(response.data.score);
+                            }
+                            else {
+                                deferred.reject();
+                            }
+                        });
 
                     return deferred.promise;
                 };
@@ -47,8 +50,18 @@
                     );
                 };
 
+                function ensureUserNeedsRegister(membership) {
+                    var orderCreated = localStorage['orderCreated'] === 'true';
+                    var registrationSkipped = localStorage['skipRegistration'] === 'true';
+                    if (membership.active && user.isVirtual && orderCreated && !registrationSkipped) {
+                        routing.goto('afterPurchase');
+                    }
+                };
+
                 this.order = function (offerId) {
-                    return apiRequest.send('POST', '/payment/orders', {offer_id: offerId});    
+                    return apiRequest.send('POST', '/payment/orders', {offer_id: offerId}).then(function(){
+                        localStorage.setItem('orderCreated', true);
+                    });
                 };
 
                 this.getMembership = function () {
@@ -67,6 +80,10 @@
                     );
                 };
 
+                this.skipRegistration = function() {
+                    localStorage.setItem('skipRegistration', true);
+                    routing.goto('random');
+                }
             }
         ]);
     }

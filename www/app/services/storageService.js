@@ -22,7 +22,14 @@ services
     }
 
     var storage = {
-        
+
+        get: function(key){
+            return $localForage.getItem(key);
+        },
+        save: function(key, value){
+             $localForage.setItem(key, value);
+        },
+
         //get methods
         getUser: function() {   
             return $localForage.getItem('user');
@@ -47,14 +54,6 @@ services
 
         getLastMessageTimestamp: function() {
             return $localForage.getItem('lastMessageTimestamp');
-        },
-
-        getOrderCreated: function() {
-            return $localForage.getItem('orderCreated');
-        },
-
-        getSkipRegistration: function() {
-            return $localForage.getItem('skipRegistration');
         },
 
         //save methods
@@ -95,14 +94,6 @@ services
 
         saveLastMessageTimestamp: function(timestamp) {
             $localForage.setItem('lastMessageTimestamp', timestamp);
-        },
-
-        saveOrderCreated: function() {
-            return $localForage.setItem('orderCreated', true);
-        },
-
-        saveSkipRegistration: function() {
-            return $localForage.setItem('skipRegistration', true);
         },
 
         //clear methods
