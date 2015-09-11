@@ -1,8 +1,8 @@
 (function(){
     services
         .service('notification',
-        ['$rootScope', '$timeout', Service]);
-    function Service($rootScope, $timeout) {
+        ['$rootScope', '$timeout', 'sound', Service]);
+    function Service($rootScope, $timeout, sound) {
         log("notification service is enabled");
         $rootScope.notification = {
             typing_label: "печатает...",
@@ -11,7 +11,6 @@
 
         var initialText;
         var initialHandler;
-        var incomeMessageSound = new Audio('assets/sounds/alert.mp3');
         var typing_timeout;
 
         var initialPageTitle = null;
@@ -73,10 +72,7 @@
             }, TIME_TITLE_SUPPRESSED_MSEC);
         }
 
-       
-
-        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3'),
-            timer;
+        var timer;
 
         var notification = {
             set: function(title, ava_url, handler) {
@@ -118,7 +114,7 @@
                 if (!suppressingNotifications) {
                     log('income message sound is played');
                     $rootScope.notification.typing = false;
-                    incomeMessageSound.play();
+                    sound.play('incomeMessage');
                     this.setTemporaryPageTitle('Новое сообщение');
                 }
             },
@@ -192,8 +188,7 @@
 
         function onRandomChatBegin() {
             notification.startTimer();
-            log('new random chat sound is played');
-            newConversationSound.play();
+            sound.play('newConversation');
             notification.setTemporaryPageTitle('Собеседник найден');
             suppressTitleChange();
         }

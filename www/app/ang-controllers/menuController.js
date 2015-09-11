@@ -1,5 +1,5 @@
-angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', '$state', '$timeout', '$http',  
-    function($scope, $stateParams, $state, $timeout, $http) {
+angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', '$state', '$timeout', '$http', 'sound',
+    function($scope, $stateParams, $state, $timeout, $http, sound) {
 
         $scope.showChangeAvatarMenu = false;
         $scope.isAvaLoading = false;
@@ -21,7 +21,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
         };
 
         $scope.showChangeAvatarMenu = function() {
-            $scope.initialAvatarUrl = user.avatarUrlMini; 
+            $scope.initialAvatarUrl = user.avatarUrlMini;
             $scope.isChangeAvaMenuShown = true;
             $scope.generateNewAvatar();
         };
@@ -45,7 +45,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
 
         $scope.countUnreadChats = function () {
             $scope.unreadChatsAmount = 0;
-            
+
         };
 
         function objectToString(object) {
@@ -74,6 +74,15 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
                 prompt('Слепок №' + data + ' создан', 'http://dubink-logger.herokuapp.com/log' + data + ".txt");
             });
         };
-        
+
+        $scope.soundEnabled = sound.isEnabled();
+
+        $scope.toggleSound = function() {
+            sound.toggle();
+            sound.play('incomeMessage');
+            //update flag state after toggle
+            $scope.soundEnabled = sound.isEnabled();
+        }
+
 }]);
     
