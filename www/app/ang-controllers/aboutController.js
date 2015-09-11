@@ -65,8 +65,8 @@ angular.module("angControllers").controller("aboutController",
                     React.createElement(Tabs.Panel, {title: "terms"}, 
                         React.createElement(Tabs, null, 
                             React.createElement(Tabs.Panel, {title: "English"},
-                                React.createElement("div", {className: "ta-justify width-92 block-center"}, 
-                                    "You further agree that you will not:", React.createElement("br", null), 
+                                React.createElement("div", {className: "ta-justify width-92 block-center"},
+                                    React.createElement("h4", null, "You further agree that you will not:"),
                                     "(i) submit material that is copyrighted, protected by trade secret or otherwise subject to third party proprietary rights, including privacy and publicity rights, unless you are the owner of such rights or have permission from their rightful owner to post the material and to grant dub.ink all of the license rights granted herein;", React.createElement("br", null), 
                                     "(ii) publish falsehoods or misrepresentations that could damage dub.ink or any third party;", React.createElement("br", null), 
                                     "(iii) submit material that is unlawful, obscene, defamatory, libelous, threatening, harassing, hateful, racially or ethnically offensive, or encourages conduct that would be considered a criminal offense, give rise to civil liability, violate any law, or is otherwise inappropriate;", React.createElement("br", null), 
@@ -207,7 +207,7 @@ angular.module("angControllers").controller("aboutController",
                     )),
                     React.createElement(Tabs.Panel, {title: "support"}, 
                         React.createElement("div", {className: "width-92 block-center ta-center pt1rem"}, 
-                            "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "dub.ink")
+                            "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "support")
                         )
                     )
                   )
