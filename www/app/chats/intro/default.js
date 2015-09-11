@@ -17,10 +17,12 @@ function ($resource) {
        * общение на своб.темы+, интимн.темы+, видео+
        * Я - M
        * */
-      var req = [];
+      var req = [], mandatory = 'только';
+      if (p.subjects.free_talk > 0 && p.subjects.sexual > 0) mandatory = 'обязательно';
+
       if (p.subjects.free_talk == -1) req.push('без общения на разные темы');
       if (p.subjects.free_talk == 1) req.push('за общение на разные темы');
-      if (p.subjects.free_talk == 2) req.push('только общение');
+      if (p.subjects.free_talk == 2) req.push(mandatory+' общение');
   
       /*
        if (p.subjects.real == -1) req.push('без общения на св.темы');
@@ -30,11 +32,11 @@ function ($resource) {
   
       if (p.subjects.sexual == -1) req.push('без интимных тем');
       if (p.subjects.sexual == 1) req.push('за интимые темы');
-      if (p.subjects.sexual == 2) req.push('только интимные темы');
+      if (p.subjects.sexual == 2) req.push(mandatory+' интимные темы');
   
       if (p.subjects.video == -1) req.push('без видео');
       if (p.subjects.video == 1) req.push('если с видео - я за');
-      if (p.subjects.video == 2) req.push('только с видео');
+      if (p.subjects.video == 2) req.push(mandatory+' с видео');
   
       var you = [];
       if (p.look_for.gender == 'm') you.push('м');

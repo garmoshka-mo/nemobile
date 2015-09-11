@@ -8,7 +8,7 @@ function($resource, $q) {
 
     return function SpamFilter(session) {
 
-        this.log = function(payload) {
+        this.log = function(payload, talk_params) {
 
             if (_.isUndefined(rest)) {
                 var deferred = $q.defer();
@@ -24,6 +24,7 @@ function($resource, $q) {
                 payload: // Your data to analyze. Can have arbitrary format.
                     payload
             };
+            if (talk_params) data.talk_params = talk_params;
 
             return rest.save(data).$promise;
 

@@ -39,7 +39,7 @@
 
             this.addMessage = function(msg) {
                 var skipSpamFilter;
-                skipSpamFilter = msg.type == 'chat_empty';
+                skipSpamFilter = msg.type == 'chat_empty' || this.type != 'external';
                 if (!skipSpamFilter) this.filter.log(msg);
 
                 this.messages.push(msg);

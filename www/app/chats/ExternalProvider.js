@@ -131,18 +131,25 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
         function decide_to_chat(message) {
             var payload = {
-                text: message,
-                isOwn: false,
-                preferences: preferences,
-                intro: {
-                    text: intro ? intro : '===начало===',
-                    timestamp_ms: intro_timestamp
+                    text: message,
+                    isOwn: false,
+                    preferences: preferences,
+                    intro: {
+                        text: intro ? intro : '===начало===',
+                        timestamp_ms: intro_timestamp
+                    }
+            }, talk_params= {
+                a: {
+                    client_id: user_uuid,
+                        level: level,
+                        request_created_ms: chat.created_at,
+                        preferences: preferences
                 }
             };
 
             if (directConnect) directStart();
             else
-                filter.log(payload).then(take_decision, filter_passed);
+                filter.log(payload, talk_params).then(take_decision, filter_passed);
 
             function take_decision(response) {
                 if (response.risk_percent < 50)

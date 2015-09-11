@@ -11,6 +11,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
 
         var lastAuthor, rows = 0, incentives = 0, startTime, isClosed;
 
+        this.type = 'external';
         this.chat = chat;
         this.senderId = partner_id;
         this.isExpired = false;
