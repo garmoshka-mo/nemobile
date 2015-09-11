@@ -28,7 +28,12 @@ div, li, button, a, span, img, i {
 .typing.visible {
   visibility: visible;
 }
-
+.link {
+  text-decoration: underline;
+}
+.link:hover {
+  cursor: pointer;
+}
 button {
   -webkit-user-select: none;
   user-select: none;
@@ -51,6 +56,9 @@ input[type="password"] {
   transition: none;
 }
 
+.none-list-style-type {
+  list-style-type: none;
+}
 
 .no-border {
   border: none !important;
@@ -227,6 +235,7 @@ ul.off-canvas-list li a {
 
  .main-section{
    overflow: scroll;
+   
  }
  #wrapper{
    width: 100%;
@@ -584,6 +593,9 @@ input.category-name-change-input {
 }
 .message-link {
   text-decoration: underline;
+}
+.message-link:hover {
+  cursor: pointer;
 }
 .message-own {
   background-color: rgba(104, 194, 110, .3);

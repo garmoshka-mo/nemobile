@@ -327,7 +327,32 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                         templateUrl: "partials/createFastChat/content.html?"+version
                     }
                 }
+            })
+            .state("activation", {
+                url: "/activation",
+                views: {
+                    "title": {
+                        template: "Активация"
+                    },
+                    "content": {
+                        controller: "activationController",
+                        templateUrl: "app/user/activation.html"
+                    }
+                }
+            })
+            .state("signupRandom", {
+                url: "/signupRandom",
+                views: {
+                    "title": {
+                        template: "Регистрация"
+                    },
+                    "content": {
+                        controller: "signupRandomController",
+                        templateUrl: "app/user/signupRandom.html"
+                    }
+                }
             });
+
         // .state("updateProfile", {
         //   url: "/updateProfile",
         //   views: {

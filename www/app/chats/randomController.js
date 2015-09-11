@@ -11,7 +11,7 @@ angular.module("angControllers")
         membership.getLevel().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
-            log('here redirect to payment page');
+            $state.go('activation');
         });
         
         $scope.showHelpText = false;

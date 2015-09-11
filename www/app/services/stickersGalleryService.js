@@ -31,7 +31,7 @@ services
         .then(
             function(res) {
                 self.isUpdating = false;
-                self.categories = res;
+                self.categories = res.categories;
                 if (res) {
                     makeDictionary();
                 }
