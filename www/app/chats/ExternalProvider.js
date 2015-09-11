@@ -177,9 +177,9 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         }
 
         function begin_chat() {
+            $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
             chat.gotoChat();
-            $rootScope.$broadcast('new random chat', {type: 'external'});
         }
 
         function terminated() {

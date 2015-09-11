@@ -60,6 +60,7 @@ angular.module("angControllers")
             googleAnalytics.event('random', 'start');
             notification.asked = 0;
 
+            saveFilterState();
             random.lookForChat(preferences);
         };
 

@@ -10,7 +10,7 @@ var app = express();
 
 var basicAuth = require('basic-auth-connect');
 if (process.env.HTTP_AUTH)
-    app.use(basicAuth('nepotom', 'p5qw5BE5yeHYkseepbwt'));
+    app.use(basicAuth('', 'tixoShaPripevBudet!8'));
 
 app.use(compression());
 // uncomment after placing your favicon in /public

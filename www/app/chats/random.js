@@ -17,9 +17,20 @@ services
         function onRandomChatOpen(type) {
             log(type);
             if (type == 'external') {
-                self.cancelLookingFor(true);
+                cancelInternalLookingFor();
+            }
+            else {
+                cancelExternalLookingFor();
             }
             self.lookupInProgress = false;
+        }
+
+        function cancelExternalLookingFor() {
+            externalChat.disconnect();
+        }
+
+        function cancelInternalLookingFor() {
+            return apiRequest.send('DELETE', '/random');
         }
 
         $rootScope.$on('new random chat', function(event, args) {
@@ -57,16 +68,15 @@ services
             return d.promise;
         };
 
-        this.cancelLookingFor = function(onlyInternal) {
+        this.cancelLookingFor = function() {
             self.waitingServer = true;
-            if (!onlyInternal) {
-                externalChat.disconnect();
-            }
-            return apiRequest.send('DELETE', '/random')
+            cancelExternalLookingFor();
+            return cancelInternalLookingFor()
             .then(function() {
                 self.waitingServer = false;
                 self.lookupInProgress = false;
             });
+            
         };
         
         window.onunload = function() {
