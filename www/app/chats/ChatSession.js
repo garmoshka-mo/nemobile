@@ -166,7 +166,7 @@ factories.factory('ChatSession',
                 function(res) {
                     // log("message is sent", res);
                     
-                    if (res.data.success && !res.data.type) {
+                    if (res.success && !res.type) {
                        
                         if (!self.messages.length) {
                             self.creatorId = self.currentChat.currentUser.uuid;
@@ -183,13 +183,13 @@ factories.factory('ChatSession',
                         });
 
                         // todo: fix logic bugs and uncomment
-                        // self.setTimer(res.data.expires);
+                        // self.setTimer(res.expires);
                         self.save();
                         log("chat session is saved");
                         return true;
                     }
                     else {
-                        return $q.reject(res.data.error);
+                        return $q.reject(res.error);
                     }
 
                 },
