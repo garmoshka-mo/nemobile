@@ -7,7 +7,9 @@
     font-size: 0.9em;
     font-weight: bold;
 }
-
+.share_it i {
+    margin-left: 13px;
+}
 
 .share_block {
     text-align: left;

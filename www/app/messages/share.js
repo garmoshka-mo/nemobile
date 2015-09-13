@@ -6,8 +6,10 @@
         'Делиться-молиться:',
         'Делиться-улыбаться:',
         'Поделиться:',
-        'Понравился чат? Друзьям тоже понравится:',
-        'Нравится чат? Расскажите друзьям! ;)'
+        'Приколись, поделись:',
+        'Делить-колотить:',
+        'Понравился чат? Друзьям тоже понравится!',
+        'Нравится чат? Расскажи друзьям! ;)'
 
     ];
 
@@ -15,9 +17,12 @@
         return {
             link: function(scope, elem, attr) {
                 VK.Widgets.Like("vk_like", {type: "full"});
-                pluso.start();
+
                 var i = Math.round(Math.random() * (shareTitles.length - 1));
                 scope.shareTitle = shareTitles[i];
+                scope.shareColor = randomColor({luminosity: 'dark', hue: 'green'});
+                //scope.track = 'sh'+i;
+                scope.track = 'test'+i;
             },
             templateUrl: "app/messages/share.html"
         };
