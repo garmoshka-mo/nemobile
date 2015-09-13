@@ -3,11 +3,11 @@
         return {
             scope: {source: '='},
             templateUrl: "app/messages/messages.html",
-            controller: ['$scope', '$element', controller]
+            controller: ['$scope', '$element', '$sce', controller]
         };
     });
 
-    function controller($scope, $element) {
+    function controller($scope, $element, $sce) {
         $scope.formatMessage = function(message) {
             var messageText = message.text, html;
 

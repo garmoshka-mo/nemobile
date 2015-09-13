@@ -2,12 +2,12 @@
 
     var shareTitles = [
         'Поделиться ссылкой:',
-        'Sharing is caring:',
+        'Sharing is caring 💚:',
         'Делиться-молиться:',
         'Делиться-улыбаться:',
         'Поделиться:',
         'Приколись, поделись:',
-        'Делить-колотить:',
+        'Делить-колотить 🎊:',
         'Понравился чат? Друзьям тоже понравится!',
         'Нравится чат? Расскажи друзьям! ;)'
 
@@ -21,8 +21,8 @@
                 var i = Math.round(Math.random() * (shareTitles.length - 1));
                 scope.shareTitle = shareTitles[i];
                 scope.shareColor = randomColor({luminosity: 'dark', hue: 'green'});
-                //scope.track = 'sh'+i;
-                scope.track = 'test'+i;
+                scope.track = 'sh'+i;
+                //scope.track = 'test'+i;
             },
             templateUrl: "app/messages/share.html"
         };
