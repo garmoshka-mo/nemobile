@@ -1,0 +1,18 @@
+.system_message{
+    padding-top: 7px;
+}
+
+.share_it {
+    padding-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+
+.share_block {
+    text-align: left;
+    margin: 15px 35px 0;
+}
+#vk_like {
+    margin-bottom: 13px;
+}
