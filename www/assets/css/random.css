@@ -1,3 +1,150 @@
 .fab-buttons-container>div {
     text-align: center;
 }
+
+
+.md-button.md-raised:not([disabled]), .md-button.md-fab {
+    box-shadow: none;
+    border: 1px solid #EAEAEA;
+}
+
+/*fab icons*/
+
+a.md-button.md-fab, .md-button.md-fab {
+    background: #FFF;
+}
+.md-button.md-fab img {
+    top: -2px;
+    position: relative;
+}
+
+a.md-button.md-fab:not([disabled]):hover,
+.md-button.md-fab:not([disabled]):hover {
+    background: #FFF;
+}
+
+.md-button.md-fab:not([disabled]):hover
+.not-hover {
+    display: none;
+}
+
+.md-button.md-fab:not([disabled]):hover
+.img-hover {
+    display: inline;
+}
+
+.img-hover {
+    display: none;
+}
+
+.fab-buttons-container {
+    position: absolute;
+    width: 100% !important;
+}
+/*md-fab-actions {
+  height: 0 !important;
+}
+*/
+
+.md-fab.md-raised.md-mini {
+    overflow: auto;
+}
+.md-fab.md-raised.md-mini img {
+    top: -1px;
+    position: relative;
+}
+.fab-title {
+    margin-left: -5px;
+    display: inline-block;
+    position: relative;
+    color: #A5A0A0;
+    text-align: left;
+    background: #FFFFFF;
+    padding: 0 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    text-transform: none;
+    border: 1px solid #EAEAEA;;
+}
+.fab-title-right {
+    left: 10px;
+}
+.fab-title-left {
+    right: 36px;
+    float: right;
+}
+
+.fab-empty-div {
+    display: inline-block;
+    width: 100%;
+}
+
+md-fab-speed-dial md-fab-actions {
+    height: auto;
+}
+
+.forbid-fab {
+    background: #e59494 !important;
+}
+/*fab icons end*/
+
+.age-select {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.age-select:hover {
+    cursor: pointer;
+}
+.age-select li {
+    transition: color 0.2s ease;
+}
+
+.sex-select {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+.sex-select-li {
+    width: 29px;
+    height: 45px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    margin: 5px 5px;
+    transition: background 0.2s ease;
+}
+.sex-select-li:hover {
+    cursor: pointer;
+}
+.sex-select-li.man {
+    background-image: url('../img/man.png')
+}
+.sex-select-li.man.selected {
+    background-image: url('../img/man-selected.png')
+}
+.sex-select-li.woman {
+    background-image: url('../img/woman.png')
+}
+.sex-select-li.woman.selected {
+    background-image: url('../img/woman-selected.png')
+}
+.sex-select-li.no-gender div {
+    width: 20px;
+    height: 7px;
+    margin-top: 20px;
+    margin-left: 4px;
+    background: #C2C1C1;
+}
+.sex-select-li.no-gender.selected div {
+    background: #40d47e;
+}
+
+.md-button.md-fab.md-mini {
+    line-height: 33px;
+}

@@ -235,6 +235,7 @@ window.onload = function onLoad() {
     }
     googleAnalytics.init();
     googleAnalytics.pageview();
+    VK.init({apiId: 5067621, onlyWidgets: true});
 };
 
 $(window).bind('beforeunload', function() {
