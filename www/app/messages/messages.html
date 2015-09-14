@@ -1,4 +1,4 @@
-<div ng-repeat="message in source track by $index"
+<div ng-repeat="message in session.messages track by $index"
      class="message-container" ng-class="{'ta-right': message.isOwn}"
      ng-switch="message.type">
     <div ng-switch-when="chat_empty">
@@ -6,14 +6,14 @@
             Этот чат завершен
             <a href="#/random">Начать новый диалог</a>
         </div>
-        <share></share>
+        <share ng-show="showSharing"></share>
     </div>
     <div ng-switch-when="chat_finished">
         <div class="system_message">
             Собеседник покинул чат
             <a href="#/random">Начать новый диалог</a>
         </div>
-        <share></share>
+        <share ng-show="showSharing"></share>
     </div>
     <div ng-switch-default class="message"
          ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
