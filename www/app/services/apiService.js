@@ -21,16 +21,7 @@ services
                 'POST',
                 '/login',
                 {name: name, password: password}
-            ))
-            .then(function(res) {
-                if (res.data.success) {
-                    log('api.signin', res);
-                    return {accessToken: res.data.access_token};
-                }
-                else {
-                    return $q.reject({errorDescription: res.data.error[1]});
-                }
-            });
+            ));
         },
 
         signup: function(name, password) {
@@ -38,32 +29,14 @@ services
                 'POST',
                 '/register',
                 {name: name, password: password}
-            ))
-            .then(function(res) {
-                // log('api.signup', res);
-                if (res.data.success) {
-                    return true;
-                }
-                else {
-                    return $q.reject({errorDescription: res.data.error});
-                }
-            });
+            ));
         },
 
         getUserInfo: function(access_token) {
             return (apiRequest.send(
                 'POST',
                 '/profile'
-            ))
-            .then(function(res) {
-                log('api.getUserInfo', res);
-                if (res.data.success) {
-                    return res.data.user;
-                }
-                else {
-                    return $q.reject();
-                }
-            });
+            ));
         },
 
         updateProfile: function(name, password) {
@@ -81,41 +54,20 @@ services
                 'PUT',
                 '/profile',
                 data
-            ))
-            .then(
-                function(res) {
-                    log('update profile', res);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    console.error(res);
-                }
-            );
+            ));
         },
 
         getServerTime: function() {
             return (apiRequest.send(
                 'GET',
                 '/time'
-            ))
-            .then(
-                function(res) {
-                    return res.data.origin_time;
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         getTimeDifference: function() {
             return api.getServerTime()
-            .then(function(time) {
+            .then(function(res) {
+                var time = res.origin_time;
                 var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
                 log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
                 return deviceServerTimeDifference_msec;
@@ -160,36 +112,14 @@ services
                 {
                     "search_params": searchParams
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject();
-                    }
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         getCategories: function() {
             return (apiRequest.send(
                 'GET',
                 '/categories'
-            ))
-            .then(
-                function(res) {
-                    return res.data.categories;
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         addNewCategory: function(name) {
@@ -206,16 +136,7 @@ services
             return (apiRequest.send(
                 'DELETE',
                 '/categories/' + categoryId
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    return res.data.categories;
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         updateCategory: function(categoryId, name, associatedWords) {
@@ -234,15 +155,8 @@ services
                 {
                     "category": categoryData
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
+            
         },
 
         addStickerURL: function(categoryId, imageURL) {
@@ -253,16 +167,7 @@ services
                     "id": categoryId,
                     "image": {"image_url": imageURL}
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    return res.data.categories;
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         addStickerFile: function(categoryId, file) {
@@ -310,15 +215,7 @@ services
                     "image_id": imageId,
                     "new_category_id": newCategoryId
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         removeSticker: function(categoryId, imageId) {
@@ -327,16 +224,7 @@ services
             return (apiRequest.send(
                 'DELETE',
                 url
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    return res.data.categories;
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         initPhoneActivation: function(phoneNumber) {
@@ -347,19 +235,7 @@ services
                 {
                     "phone_number": phoneNumber
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    if (!res.data.success) {
-                        return $q.reject();
-                    }
-                },
-                function(res) {
-                    log(res);
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         confirmPhoneNumber: function(phoneNumber, activationCode, sendAccessToken) {
@@ -378,22 +254,7 @@ services
                 'POST',
                 '/phone_number/confirm',
                 data
-            ))
-            .then(
-                function(res) {
-                    log(res.data);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject();
-                    }
-                },
-                function(res) {
-                    log(res);
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         attachPhoneNumber: function(phoneNumber) {
@@ -403,21 +264,8 @@ services
                 {
                     "phone_number": phoneNumber
                 }
-            ))
-            .then(
-                function(res) {
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    log(res);
-                    return $q.reject();
-                }
-            );
+            ));
+            
         },
 
         findNepotomUsers: function(phoneNumbersArr) {
@@ -427,22 +275,7 @@ services
                 {
                     "phonebook": phoneNumbersArr
                 }
-            ))
-            .then(
-                function(res) {
-                    // log('find nepotom users res', res.data);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    // log(res);
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         getUserInfoByUuid: function(uuid) {
@@ -452,22 +285,7 @@ services
                 {
                     "user_uuid": uuid
                 }
-            ))
-            .then(
-                function(res) {
-                    // log('got user info by uuid', res);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    log(res);
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         //method to upload image as avatar
@@ -503,7 +321,7 @@ services
 
         //method to upload url or random string which are used to generate avatar
         updateAvatarText: function(avatarData) {
-            (apiRequest.send(
+            return (apiRequest.send(
                 'POST',
                 '/avatar',
                 avatarData
@@ -514,22 +332,7 @@ services
             return (apiRequest.send(
                 'POST',
                 '/add_virtual_user'
-            ))
-            .then(
-                function(res) {
-                    log("addVirtualAccount", res);
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        console.error("add virtual account failed");
-                        return $q.reject();
-                    }
-                },
-                function(res) {
-                    console.error("add virtual account failed");
-                }
-            );
+            ));
         },
 
         blockUser: function(uuid) {
@@ -549,15 +352,7 @@ services
                 {
                     "image_id": imageId,
                 }
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                },
-                function(res) {
-                    log(res);
-                }
-            );        
+            ));
         },
 
         setFriends: function(friendsArray) {
@@ -588,20 +383,7 @@ services
             return (apiRequest.send(
                 'GET',
                 '/get_friends'
-            ))
-            .then(
-                function(res) {
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         removeFriend: function(uuids) {
@@ -611,20 +393,7 @@ services
                 {
                     "uuids": uuids
                 }           
-            ))
-            .then(
-                function(res) {
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject(res.data.error);
-                    }
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         socialSignin: function(provider, providerId, providerToken) {
@@ -637,21 +406,8 @@ services
                     "provider_user_id": providerId,
                     "provider_token": providerToken
                 }
-            ))
-            .then(
-                function(res) {
-                    if (res.data.success) {
-                        return res.data;
-                    }
-                    else {
-                        return $q.reject();
-                    }
-                },
-                function(res) {
-                    log(res);
-                    return $q.reject();
-                }
-            );
+            ));
+            
         },
 
         randomChatRequest: function(data) {
@@ -661,21 +417,7 @@ services
                 'POST',
                 '/random',
                 data
-            ))
-            .then(
-                function(res) {
-                    log(res);
-                    if (res.data.success) {
-
-                    }
-                    else {
-                        return $q.reject();
-                    }
-                },
-                function() {
-                    return $q.reject();
-                }
-            );
+            ));
         },
 
         cancelRandomRequest: function() {

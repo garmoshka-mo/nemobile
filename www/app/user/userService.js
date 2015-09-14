@@ -188,8 +188,10 @@ services
 
         if (message.event == "chat_empty") {
             var chat = self.getChat(channelName);
-            chat.disconnect();
-            handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
+            if (chat) {
+                chat.disconnect();
+                handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
+            }
             return;
         }
 
@@ -513,10 +515,10 @@ services
         function getUserInfo(accessToken) {
             return api.getUserInfo(accessToken)
             .then(
-                function(userInfo) {
+                function(res) {
                     // log('userInfo', userInfo);
                     user.isVirtual = isVirtual ? true : false;
-                    handleSuccessSignIn(userInfo);
+                    handleSuccessSignIn(res.user);
                     log("user is logged", user);
                 },
                 function(res) {
@@ -534,10 +536,10 @@ services
             return api.signin(name, password)
             .then(
                 function setAccesssToken(res) {
-                    setAccessToken(res.accessToken);
+                    setAccessToken(res.access_token);
                 },
                 function showError(res) {
-                    return $q.reject(res.errorDescription); 
+                    return $q.reject(res.error); 
                 }
             )
             .then(
@@ -558,7 +560,7 @@ services
                 return res;
             },
             function(res) {
-                return $q.reject(res.errorDescription);
+                return $q.reject(res.error);
             }
         );
     };

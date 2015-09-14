@@ -5,7 +5,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
         $scope.isAvaLoading = false;
         $scope.isMenuOpened = false;
         $scope.fullMode = config('fullMode');
-        $scope.debug = config('environment') == "development";
+        $scope.debug = config('debug');
 
         $scope.generateNewAvatar = function() {
             var newGuid = Math.round(Math.random() * 10000);

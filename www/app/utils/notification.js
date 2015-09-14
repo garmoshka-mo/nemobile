@@ -86,6 +86,7 @@
             },
 
             startTimer: function() {
+                notification.resetTimer();
                 var start = Date.now();
                 timer = setInterval(function() {
                     var duration = (Date.now() - start) / 1000;

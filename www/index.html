@@ -10,8 +10,8 @@
 <html>
     <head>
         <title>Чат наугад - DUB.iNK</title>
-        <meta name="description" content="Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги">
-        <meta property="og:image" content="http://dub.ink/assets/img/screen.jpg" />
+        <meta name="description" content="Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий">
+        <meta property="og:image" content="http://dub.ink/assets/img/screen1.jpg" />
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -26,6 +26,9 @@
         <link rel="stylesheet" type="text/css" href="assets/css/angular-material-reduced.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/random.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/chat.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/pluso.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/angular-tooltips.min.css" />
         <!-- endinject -->
 
         <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
@@ -46,8 +49,6 @@
         <meta name="msapplication-TileImage" content="img/favicons/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
-        <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
-
         <script type="text/javascript" src="cordova.js"></script>
 
         <!-- inject:js -->
@@ -67,6 +68,8 @@
         <script type="text/javascript" src="jslibs/angular-aria.min.js"></script>
         <script type="text/javascript" src="jslibs/angular-resource.min.js"></script>
 
+        <script type="text/javascript" src="jslibs/randomColor.js"></script>
+        <script type="text/javascript" src="jslibs/angular-tooltips.min.js"></script>
         <script type="text/javascript" src="jslibs/api_anchat.js"></script>
         <script type="text/javascript" src="jslibs/mm-foundation-tpls-0.5.0.js"></script>
         <script type="text/javascript" src="jslibs/fileTypeDeterminer.js"></script>
@@ -121,6 +124,9 @@
         <script type="text/javascript" src="app/utils/localForageController.js"></script>
         <script type="text/javascript" src="app/utils/apiRequest.js"></script>
         <script type="text/javascript" src="app/utils/helpers.js"></script>
+
+        <script type="text/javascript" src="app/messages/messages.js"></script>
+        <script type="text/javascript" src="app/messages/share.js"></script>
 
         <script type="text/javascript" src="app/user/userService.js"></script>
         <script type="text/javascript" src="app/user/membership.js"></script>

@@ -11,6 +11,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
 
         var lastAuthor, rows = 0, incentives = 0, startTime, isClosed;
 
+        this.type = 'external';
         this.chat = chat;
         this.senderId = partner_id;
         this.isExpired = false;
@@ -81,7 +82,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
             self.sessionFinished();
 
             var duration = (Date.now() - startTime)/1000;
-            if (rows < 1 || duration < 10) return;
+            if (duration < 10) return;
 
             var data = {
                 uuid: self.uuid,

@@ -21,33 +21,17 @@
                     apiRequest.send('GET', '/membership')
                     .then(function(response) {
                             ensureUserNeedsToRegister(response.data);
-                            if (response.data.active) {
-                                deferred.resolve(response.data.score);
-                            }
-                            else {
+                            if (response.active)
+                                deferred.resolve(response.score);
+                            else
                                 deferred.reject();
-                            }
-                        });
+                    });
 
                     return deferred.promise;
                 };
 
                 this.getOffers = function() {
-                    return apiRequest.send('GET', '/payment/offers/' + getPlatform())
-                    .then(
-                        function(res) {
-                            if (res.data.success) {
-                                return res.data;
-                            }
-                            else {
-                                return $q.reject();
-                            }
-                        },
-                        function() {
-                            return $q.reject();
-                        }
-
-                    );
+                    return apiRequest.send('GET', '/payment/offers/' + getPlatform());
                 };
 
                 function ensureUserNeedsToRegister(membership) {

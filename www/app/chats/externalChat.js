@@ -26,6 +26,7 @@ services
             var self = this;
             self.chat = null;
             self.title = "кто-то";
+            self.created_at = Date.now();
 
             notification.asked = 0;
 
