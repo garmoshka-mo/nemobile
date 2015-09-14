@@ -1,8 +1,8 @@
 (function () {
     services
         .value('sounds', {
-            incomeMessage: new Audio('/android_assets/www/assets/sounds/alert.mp3'),
-            newConversation: new Audio('/android_assets/www/assets/sounds/new_conversation.mp3'),
+            // incomeMessage: new Audio('/android_assets/www/assets/sounds/alert.mp3'),
+            // newConversation: new Audio('/android_assets/www/assets/sounds/new_conversation.mp3'),
             incomeMessage_android: new Media('/android_assets/www/assets/sounds/alert.mp3')
         })
         .service('sound',
