@@ -107,6 +107,15 @@ angular.module("angControllers")
             helpClickCounter++;
         };
 
+        $scope.suggestUserGender = function(){
+            var anotherSex = $scope.filter.another.sex;
+            //If the user did not select his gender but selected a gender of a preferred chat partner instead
+            if($scope.filter.iam.sex === "-" && anotherSex !== "-") {
+                //Choose the opposite to preferred chat partner's gender
+                $scope.filter.iam.sex = anotherSex === "w"? "m" : "w";
+            }
+        };
+
         function prepareDataForServer() {
             return {
                 subjects: {
