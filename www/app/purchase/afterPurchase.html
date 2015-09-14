@@ -3,12 +3,20 @@
         <p class="ta-center">
             Рекомендуем зарегистрировать логин и пароль для вашей учетной записи
         </p>
-        <input type="text" placeholder="логин">
-        <input type="password" placeholder="пароль">
+        <div>
+            <input type="text" ng-model="profile.name" placeholder="логин">
+            <input type="password" ng-model="profile.password" placeholder="пароль">
+            <div class="ta-center">
+                <button ng-click="updateProfile()" ng-disabled="showSpinner">
+                    <div ng-hide="showSpinner">
+                        <span>Зарегистрировать</span>
+                    </div>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </div>
+
         <div class="ta-center">
-            <button>
-                Зарегистрировать
-            </button>
             <div class="text-silver pointer" ng-click="skipRegistration()">
                 Пропустить
             </div>
@@ -34,5 +42,6 @@
                 Платеж в обработке
             </p>
         </div>
+        <div alert-box class="width-92 block-center" ng-model="serverResponse"></div>
     </div>
 </div>

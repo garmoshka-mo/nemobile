@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'storage', 'routing',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random, storage, routing) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'routing',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, routing) {
 
         $scope.updates = updates;
         updates.check();

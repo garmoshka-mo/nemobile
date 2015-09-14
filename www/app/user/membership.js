@@ -20,7 +20,7 @@
 
                     apiRequest.send('GET', '/membership')
                     .then(function(response) {
-                            ensureUserNeedsRegister(response.data)
+                            ensureUserNeedsToRegister(response.data);
                             if (response.data.active) {
                                 deferred.resolve(response.data.score);
                             }
@@ -50,12 +50,18 @@
                     );
                 };
 
-                function ensureUserNeedsRegister(membership) {
+                function ensureUserNeedsToRegister(membership) {
                     var orderCreated = localStorage['orderCreated'] === 'true';
                     var registrationSkipped = localStorage['skipRegistration'] === 'true';
                     if (membership.active && user.isVirtual && orderCreated && !registrationSkipped) {
                         routing.goto('afterPurchase');
                     }
+                }
+
+                this.ensureUserNeedsToRegister = function() {
+                    this.getMembership().then(function(membership) {
+                        ensureUserNeedsToRegister(membership)
+                    })
                 };
 
                 this.order = function (offerId) {
@@ -82,7 +88,6 @@
 
                 this.skipRegistration = function() {
                     localStorage.setItem('skipRegistration', true);
-                    routing.goto('random');
                 }
             }
         ]);

@@ -67,6 +67,8 @@ services
         },
 
         updateProfile: function(name, password) {
+            var data = {};
+
             if (name) {
                 data.name = name;
             }

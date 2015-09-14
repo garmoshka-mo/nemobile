@@ -17,6 +17,7 @@
         </div>
     </div>
     <ul class="off-canvas-list">
+        <li ng-show="user.isVirtual"><a ng-click="goto('updateProfile')">Зарегистрироваться</a></li>
         <li ng-show="fullMode">
             <a class="menu-item" ng-click="goto('chats')">
                 <i class="fa fa-envelope"></i>Чаты
@@ -46,9 +47,7 @@
 <div class="no-select" ng-hide="user.name">
     <ul class="off-canvas-list">
         <li><label>Меню</label></li>
-        <!--<li><a ng-click="goto('homepage', {inOrUp: 'in'})">Главная</a></li>-->
-        <!--<li><a ng-click="goto('signin', {inOrUp: 'in'})">Войти</a></li>-->
-        <!-- <li><a ng-click="$state.go('signinup/in')">Войти</a></li> -->
+        <li><a ng-click="goto('signin', {inOrUp: 'in'})">Войти</a></li>
         <!--<li><a ng-click="goto('phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>-->
         <li><a class="lessen-word" ng-click="goto('random')">Чат наугад</a></li>
         <li><a ng-click="goto('about')" class="lessen-word">О программе</a></li>
