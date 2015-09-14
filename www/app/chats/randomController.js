@@ -11,7 +11,13 @@ angular.module("angControllers")
         membership.getLevel().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
-            routing.goto('activation');
+            if (RAN_AS_APP) {
+                //skip in-site payments for iOS/Android app
+                externalChat.level = 0;
+            }
+            else {
+                routing.goto('activation');
+            }
         });
         
         $scope.showHelpText = false;

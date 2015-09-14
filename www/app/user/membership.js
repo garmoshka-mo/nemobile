@@ -20,7 +20,7 @@
 
                     apiRequest.send('GET', '/membership')
                     .then(function(response) {
-                            ensureUserNeedsToRegister(response.data);
+                            ensureUserNeedsToRegister(response);
                             if (response.active)
                                 deferred.resolve(response.score);
                             else
