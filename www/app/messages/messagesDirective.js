@@ -9,7 +9,7 @@
 
     function controller($scope, $element, $sce) {
 
-        $scope.showSharing = chatSession;
+        $scope.showSharing = false;
 
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
