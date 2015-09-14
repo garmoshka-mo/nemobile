@@ -274,9 +274,6 @@ services
             self.registerDeviceToChannel(channelName);
         }
 
-        //Ignoring these fields
-        //self.score = message.my_score;
-        //chat.senderScore = message.his_score;
         chat.lastMessageTimestamp = messageTimestamp;
         
         //todo: check the correct work of self.lastMessageTimestamp
