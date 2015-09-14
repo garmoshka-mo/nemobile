@@ -1,7 +1,7 @@
 (function() {
         services
-        .service('membership', ['$q', 'apiRequest', 'deviceInfo',
-            function($q, apiRequest, deviceInfo) {
+        .service('membership', ['$q', 'apiRequest', 'deviceInfo', 'user',
+            function($q, apiRequest, deviceInfo, user) {
 
                 function getPlatform() {
                     if (RAN_AS_APP) {
@@ -12,18 +12,23 @@
                     }
                 }
 
-                this.getLevel = function() {
+                this.getScore = function() {
                     var deferred = $q.defer();
 
-                    // todo: replace to injection of user after refactoring:
-                    if (!user_uuid) return $q.when(10);
+                    if (!user.uuid) {
+                        user.score = 10;
+                        return $q.when(10);
+                    }
 
                     apiRequest.send('GET', '/membership')
-                    .then(function(res) {
-                        if (res.active)
-                            deferred.resolve(res.score);
-                        else
+                    .then(function(result) {
+                        if (result.active) {
+                            user.score = result.score;
+                            deferred.resolve(result.score);
+                        }
+                        else {
                             deferred.reject();
+                        }
                     });
 
                     return deferred.promise;

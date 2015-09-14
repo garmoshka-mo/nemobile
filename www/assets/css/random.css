@@ -134,15 +134,9 @@ md-fab-speed-dial md-fab-actions {
 .sex-select-li.woman.selected {
     background-image: url('../img/woman-selected.png')
 }
-.sex-select-li.no-gender div {
-    width: 20px;
-    height: 7px;
-    margin-top: 20px;
-    margin-left: 4px;
-    background: #C2C1C1;
-}
-.sex-select-li.no-gender.selected div {
-    background: #40d47e;
+sex-select:focus {
+    /* Angular directive brings back a blue outline on element focus */
+    outline: none;
 }
 
 .md-button.md-fab.md-mini {

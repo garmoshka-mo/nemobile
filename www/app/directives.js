@@ -334,20 +334,24 @@ app.directive('sexSelect', function() {
     return {
         restrict: 'AE',
         scope: {
-            ngModel: '=',
-            
+            ngModel: '='
         },
 
         link: function(scope, elem, attr) {
             scope.handleItemClick = function(value) {
-                scope.ngModel = value;
+                var previousChoice = scope.ngModel;
+                if(previousChoice !== "-") {
+                    //Selecting none or both counts as "-" (i.e. gender is not specified)
+                    scope.ngModel = "-";
+                }
+                else {
+                    scope.ngModel = value;
+                }
             };
         },
 
         template: "<ul class='sex-select'>" +
-            "<li class='sex-select-li no-gender' ng-class='{\"selected\": ngModel == \"-\"}'" + 
-            "ng-click='handleItemClick(\"-\")'><div></div></li>" +
-            "<li class='sex-select-li man' " + 
+            "<li class='sex-select-li man' " +
             "ng-class='{\"selected\": ngModel == \"m\"}' ng-click='handleItemClick(\"m\")'></li>" + 
             "<li ng-click='handleItemClick(\"w\")' class='sex-select-li woman' " + 
             "ng-class='{\"selected\": ngModel == \"w\"}'></li></ul>"

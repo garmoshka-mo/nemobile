@@ -10,7 +10,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     $scope.RAN_AS_APP = RAN_AS_APP;
     $scope.IS_MOBILE = IS_MOBILE;
     $scope.isOnline = deviceInfo.isOnline; 
-    $scope.isUserScoresShown = true;
+    $scope.isUserScoreShown = true;
     $scope.version = version;
 
     var statesWhereShowBackArrow = [
@@ -33,7 +33,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
         'exit'
     ];
 
-    var statesNotShowScores = [
+    var statesNotShowScore = [
         'chat',
         'chatInfo',
         'showImage'
@@ -123,7 +123,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
             routing.is_preload = true;
         }   
          
-        $scope.isUserScoresShown = !_.includes(statesNotShowScores, toState.name);
+        $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
         
         // if (user.isVirtual) {
         //     if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
