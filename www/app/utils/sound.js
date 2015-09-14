@@ -3,11 +3,15 @@
         .value('sounds', {
             incomeMessage: new Audio('file:///android_asset/www/assets/sounds/alert.mp3'),
             newConversation: new Audio('file:///android_asset/www/assets/sounds/new_conversation.mp3'),
-            // incomeMessage_android: new Media('/android_assets/www/assets/sounds/alert.mp3')
         })
         .service('sound',
         ['sounds', 'deviceInfo',
             function (sounds, deviceInfo) {
+
+                if (deviceInfo.isAndroid) {
+                    sounds.incomeMessage = new Media('file:///android_asset/www/assets/sounds/alert.mp3');
+                    newConversation =  new Media('file:///android_asset/www/assets/sounds/new_conversation.mp3');
+                }
 
                 return {
                     isEnabled: function () {
