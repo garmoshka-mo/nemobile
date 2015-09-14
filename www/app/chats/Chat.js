@@ -12,7 +12,7 @@ factories.factory("Chat",
         this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
             chatData.lastUnexpiredChatSession : null;
         this.currentUser = chatData.currentUser;
-        this.senderScores = chatData.senderScores ? chatData.senderScores : null;
+        this.senderScore = chatData.senderScore ? chatData.senderScore : null;
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
         this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
