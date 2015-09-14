@@ -1,16 +1,17 @@
 (function () {
     services
-        .value('sounds', {
-            incomeMessage: new Audio('file:///android_asset/www/assets/sounds/alert.mp3'),
-            newConversation: new Audio('file:///android_asset/www/assets/sounds/new_conversation.mp3'),
-        })
         .service('sound',
-        ['sounds', 'deviceInfo',
-            function (sounds, deviceInfo) {
+        ['deviceInfo',
+            function (deviceInfo) {
 
+                var sounds = {};
                 if (deviceInfo.isAndroid) {
                     sounds.incomeMessage = new Media('file:///android_asset/www/assets/sounds/alert.mp3');
-                    newConversation =  new Media('file:///android_asset/www/assets/sounds/new_conversation.mp3');
+                    sounds.newConversation =  new Media('file:///android_asset/www/assets/sounds/new_conversation.mp3');
+                }
+                else {
+                    sounds.incomeMessage = new Audio('assets/sounds/alert.mp3');
+                    sounds.newConversation =  new Audio('assets/sounds/new_conversation.mp3');
                 }
 
                 return {
