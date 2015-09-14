@@ -1,8 +1,8 @@
 var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
-    function($timeout, storage, Chat, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing) {
+    '$timeout', 'storage', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'chats', 
+    function($timeout, storage, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing, chats) {
     
     this.name = null;
     this.uuid = null;
@@ -17,7 +17,6 @@ services
     this.isVirtual = false;
     this.unreadChatsAmount = 0;
 
-
     var user = this;
     var differencePubnubDeviceTime;
     var isLogged = null;
@@ -26,30 +25,6 @@ services
     function handleOsNotificationClick (params) {
         location.href = params.href;
     }
-
-    function showNotification(user, messageText, channelName, senderUuid) {
-        var notificationText;
-        
-        if (user.friendsList.nepotomFriends[senderUuid]) {
-            var friend = user.friendsList.nepotomFriends[senderUuid];
-            var imgSrc = friend.photos[0].valueMini ? friend.photos[0].valueMini : 
-                friend.photos[0].value;
-            var image = "<img src='" + imgSrc + 
-                "' class='chat-toolbar-image pointer'>";
-            notificationText = image + friend.displayName;    
-        }
-        else {
-            notificationText = "Новое сообщение";
-        }
-
-        
-        notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
-            routing.goto('chat', {channelName: channelName});
-        });
-       
-    }
-
-    
 
     function handleSuccessSignIn(userInfo) {
         user.name = userInfo.name;
@@ -65,7 +40,6 @@ services
         user.avatarUrl = avatarParseResult.fullSize;
         user.avatarUrlMini = avatarParseResult.mini;
 
-        user.subscribe(user.channel);
         isLogged = true;
         user.parsedFromStorage = true;
         localStorage.setItem('isLogged', true);
@@ -82,6 +56,7 @@ services
         user.save();
         stickersGallery.getCurrentUserCategories();
         // registerDeviceToChannel();
+        $rootScope.$broadcast('user logged in');
     }
 
     function setAccessToken(accessToken) {
@@ -104,12 +79,6 @@ services
         user.lastMessageTimestamp = null;
         user.isVirtual = null;
         friendsList.clear();
-    }
-
-    function unsubscribe() {
-        pubnub.unsubscribe({
-            channel_group: user.channel
-        });
     }
 
     function getUserFriendsFromServer() {
@@ -136,176 +105,20 @@ services
         });
     }
 
-    function pushMessageToSession(lastSession, messageText, expires) {
-        lastSession.incomeMessage(messageText);
-
-        if (!lastSession.isReplied) {
-            if (lastSession.creatorId === self.uuid) {
-                lastSession.setReplied();
-            }
-        }
-
-        // todo: fix logic bugs and uncomment
-        //lastSession.setTimer(expires);
-
-        lastSession.save();
-    }
-
-    function handleChatSessionAsync(chat, messageText, expires) {
-        log('handle chat session async');
-        chat.getLastUnexpiredChatSession()
-        .then(
-            function(lastSession) {
-                pushMessageToSession(lastSession, messageText, expires);
-            }
-        );
-    }
+    
 
 
-    function handleIncomeMessage(message, envelope) {
-        log(message);
-        var self = user;
-        var channelName = envelope[3];
+    
 
-        if (message.event == "contacts_updated") {
-            log('friends list will be updated');
-            getUserFriendsFromServer();
-            return;        
-        }
-        
-        if (message.event == "profile_updated") {
-            log('user info will be updated');
-            updateUserInfo(user.accessToken);
-            return;        
-        }
-
-
-        if (message.event == "chat_ready") {
-            $rootScope.$broadcast('new random chat', {type: 'internal'});
-            routing.goto('chat', {channelName: channelName, fromState: 'random'});
-            return;
-        }
-
-        if (message.event == "chat_empty") {
-            var chat = self.getChat(channelName);
-            if (chat) {
-                chat.disconnect();
-                handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
-            }
-            return;
-        }
-
-        if (!message.pn_apns) {
-            console.warn('Unknown message format');
-            return;
-        }
-
-        //if previous ifs didn't work
-        //therefore message is user_message
-        var senderUuid = message.sender_uuid;
-        var messageText = message.pn_apns.message.sanitize();
-
-        var messageTimestamp = parseInt((+envelope[1]/10000).toFixed(0));
-
-        if (senderUuid == user.uuid) {
-            return;
-        }
-
-        //getting the last unexpired chat session
-        var lastSession;
-        
-        //checking if chat exist 
-        var chat = self.getChat(channelName, senderUuid);
-        if (chat) {
-            // log("added to existing chat");
-            
-            //if chat session exists 
-            if (!chat.isExpired) {
-                if (chat.lastMessageTimestamp >= messageTimestamp) {
-                    return;
-                }
-                
-                if (!chat.lastUnexpiredChatSession) {
-                    //it is necessary because some chat session is stored in 
-                    //local memory and it takes time to get them from there
-                    //that's why there is async handling 
-                    handleChatSessionAsync(chat, messageText, message.expires);
-                }
-                else {
-                    lastSession = chat.lastUnexpiredChatSession;
-                }
-            }
-            //if chat session exists but expired
-            else {
-                chat.addChatSession(senderUuid, channelName, senderUuid);
-                chat.getLastUnexpiredChatSession(); 
-                lastSession = chat.lastUnexpiredChatSession;
-            } 
-        }
-        else {
-            // log("created new chat");
-            chat = self.addChat({channelName: channelName, senderId: senderUuid});
-            chat.addChatSession(senderUuid, channelName, senderUuid);
-            chat.getLastUnexpiredChatSession(); 
-            lastSession = chat.lastUnexpiredChatSession;
-        }
-
-        if (messageText === "$===real===") {
-            self.chats[senderUuid].isVirtual = false;
-            messageText = "<span class='text-bold'>пользователь зарегистрировался</span>";
-            // messageText = $sce.trustAsHtml(messageText);
-        }
-
-        if (lastSession) {
-            pushMessageToSession(lastSession, messageText, message.expires);
-        }
-
-        //filling sender uuid if it is undefined
-        if (senderUuid) {
-            if (!chat.senderId) {
-                chat.senderId = senderUuid;
-                chat.updateInfo(true);
-            } 
-        }
-
-        //filling channel name if it is undefined
-        if (!chat.channelName && channelName) {
-            chat.channelName = channelName;
-            self.registerDeviceToChannel(channelName);
-        }
-
-        //Ignoring these fields
-        //self.score = message.my_score;
-        //chat.senderScore = message.his_score;
-        chat.lastMessageTimestamp = messageTimestamp;
-        
-        //todo: check the correct work of self.lastMessageTimestamp
-        self.lastMessageTimestamp = new Date().getTime();
-        self.saveLastMessageTimestamp();
-
-        if (!($state.params.channelName == channelName || $state.params.senderId == senderUuid)) {
-            showNotification(self, messageText, channelName, senderUuid);
-            chat.isRead = false;
-            self.countUnreadChats();
-        }
-        
-        user.saveChats();
-        
-        // log("When chatSession expires: ", lastSession.whenExipires);
-        // log("income message", m);
-        // log(self);
-        $rootScope.$apply();
-    }
-
-    function getPubnubTimeDifference() {
-        var d = $q.defer();
-        pubnub.time(function(time) {
-            differencePubnubDeviceTime = time / 10000 - new Date().getTime();
-            log("difference between pubnub and device time: ", differencePubnubDeviceTime);
-            d.resolve(differencePubnubDeviceTime);
-        });
-        return d.promise;
-    }
+    // function getPubnubTimeDifference() {
+    //     var d = $q.defer();
+    //     pubnub.time(function(time) {
+    //         differencePubnubDeviceTime = time / 10000 - new Date().getTime();
+    //         log("difference between pubnub and device time: ", differencePubnubDeviceTime);
+    //         d.resolve(differencePubnubDeviceTime);
+    //     });
+    //     return d.promise;
+    // }
 
     function getGroupChannels() {
         var d = $q.defer();
@@ -448,8 +261,6 @@ services
         }
     }
 
-   
-
     //public methods
 
      this.registerDeviceToChannel = function(channel) {
@@ -567,14 +378,16 @@ services
     };
 
     this.logout = function() {
+        var _user = this;
         var d = $q.defer();
         $timeout(function() {
             isLogged = false;
             storage.clear();
-            unsubscribe();
+            // unsubscribe();
             clearCurrentUser();
             clearApiAccessToken();
             user.removeDeviceFromChannel();
+            $rootScope.$broadcast('user logged out', {user: _user});
             d.resolve();
             log('user is logged out', user);
         }, 0);
@@ -588,15 +401,15 @@ services
         else {
             var d = $q.defer();
 
-            getPubnubTimeDifference()
-            .then(function() {
-                getUnseenMessages()
-                .then(
-                    function() {
-                        d.resolve();
-                    }
-                );
-            });
+            // getPubnubTimeDifference()
+            // .then(function() {
+            //     getUnseenMessages()
+            //     .then(
+            //         function() {
+            //             d.resolve();
+            //         }
+            //     );
+            // });
 
             return d.promise;
         }        
@@ -620,42 +433,6 @@ services
         friendsList.addFriend(data, notSaveOnServer);
     };
 
-    this.addChat = function(chatData) {
-        chatData.currentUser = this;
-
-        if (chatData.channelName) {
-            chatData.primaryKey = 'channelName';
-            this.chats[chatData.channelName] = new Chat(chatData);
-            this.chats[chatData.channelName].updateInfo();
-            this.registerDeviceToChannel(chatData.channelName);
-            return this.chats[chatData.channelName];
-        }
-
-        if (chatData.senderId) {
-            chatData.primaryKey = 'senderId';
-            this.chats[chatData.senderId] = new Chat(chatData);
-            this.chats[chatData.senderId].updateInfo();
-            return this.chats[chatData.senderId];
-        }
-    };
-
-    this.getChat = function(channelName, senderId) {
-        if (!_.isUndefined(channelName) && user.chats[channelName]) {
-            return user.chats[channelName];
-        }
-
-        if (!_.isUndefined(senderId) && user.chats[senderId]) {
-            return user.chats[senderId];
-        }
-
-        return false;
-    };
-
-    this.removeChat = function(senderUuid) {
-        this.chats = _.omit(this.chats, senderUuid);
-        this.saveChats();    
-    }; 
-   
     this.parseFromStorage = function() {
         var self = this;
         self.isParsingFromStorageNow = true;
@@ -674,23 +451,11 @@ services
                 self.isVirtual = dataFromStorage.isVirtual;
 
                 setAccessToken(dataFromStorage.accessToken);
-                self.subscribe();
                 // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
                 log("user info is taken from storage", self);
             }),
-
-            storage.getChats().then(function(dataFromStorage) {
-                var _chats = {};
-                for (var key in dataFromStorage) { 
-                    _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
-                }
-                self.chats = _chats;
-                
-                self.countUnreadChats();
-                log("user chats are taken from storage", user.chats);
-            }),
-
+            chats.parseFromStorage(),
             storage.getLastMessageTimestamp().then(function(timestamp) {
                 self.lastMessageTimestamp = timestamp;
                 self.getUnseenMessages();
@@ -706,6 +471,7 @@ services
             function() {
                 self.isParsingFromStorageNow = false;
                 self.parsedFromStorage = true;
+                $rootScope.$broadcast('user data parsed');
                 log("all user info was parsed from storage");
             },
             function() {
@@ -721,10 +487,7 @@ services
         log("user info is saved");
     };
 
-    this.saveChats = function() {
-        storage.saveChats(this.chats);
-        log("user chats are saved");
-    };
+    
 
     this.saveLastMessageTimestamp = function() {
         storage.saveLastMessageTimestamp(this.lastMessageTimestamp); 
@@ -740,17 +503,17 @@ services
         }
     };
 
-    this.subscribe = function() {
-        var self = this;
-        pubnub.subscribe({
-            channel_group: self.channel,
-            message: function(message, envelope, channelName) {
-                // log(message, envelope);
-                handleIncomeMessage(message, envelope);
-            }
-        });
+    // this.subscribe = function() {
+    //     var self = this;
+    //     pubnub.subscribe({
+    //         channel_group: self.channel,
+    //         message: function(message, envelope, channelName) {
+    //             // log(message, envelope);
+    //             handleIncomeMessage(message, envelope);
+    //         }
+    //     });
         
-    };
+    // };
 
     this.initRegistrationWithPhone = function(phoneNumber) {
         return  api.initPhoneActivation(phoneNumber);
@@ -888,18 +651,6 @@ services
         );
     };
 
-    var pubnub = PUBNUB.init({
-        subscribe_key: config('pubnubSubscribeKey'),
-        publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
-    });
-
-
-
-    // if (this.isLogged()) {
-    //     this.parseFromStorage();
-    //     log("user data is taken from storage");
-    // }
-
     //function for testing purposes
     this.pubnubPublish = function() {
         pubnub.publish({
@@ -916,15 +667,7 @@ services
         });
     };
 
-    this.countUnreadChats = function() {
-        this.unreadChatsAmount = 0;
-        for (var chat in this.chats) {
-            if (!this.chats[chat].isRead && !this.chats[chat].isExpired) {
-                this.unreadChatsAmount++;
-            }
-        }
-        log('unread chats is counted', this.unreadChatsAmount);
-    };
+   
 
     //for debugging
     window.user = this;

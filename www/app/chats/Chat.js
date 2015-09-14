@@ -1,6 +1,6 @@
 factories.factory("Chat",
-    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification',
-    function(storage, avatars, ChatSession, api, $q, notification) {
+    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification', '$rootScope', 'friendsList',
+    function(storage, avatars, ChatSession, api, $q, notification, $rootScope, friendsList) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -11,7 +11,6 @@ factories.factory("Chat",
             chatData.lastChatSessionIndex : null;
         this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
             chatData.lastUnexpiredChatSession : null;
-        this.currentUser = chatData.currentUser;
         this.senderScore = chatData.senderScore ? chatData.senderScore : null;
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
@@ -29,8 +28,7 @@ factories.factory("Chat",
             null;
     }
 
-    Chat.parseFromStorage = function(dataFromStorage, currentUser) {
-        dataFromStorage.currentUser = currentUser;
+    Chat.parseFromStorage = function(dataFromStorage) {
         var chat = new Chat(dataFromStorage);
         return chat;
     };
@@ -59,7 +57,7 @@ factories.factory("Chat",
             this.lastUnexpiredChatSession = chatSession;
 
             chatSession.save();
-            this.currentUser.saveChats();
+            $rootScope.$broadcast('chat was updated');
         },
         
         getChatSessionFromStorage: function(chatSessionId) {
@@ -130,8 +128,8 @@ factories.factory("Chat",
             var d = $q.defer();
 
             if (self.senderId) {
-                if (self.currentUser.friendsList.nepotomFriends[self.senderId] && !force) {
-                    var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
+                if (friendsList.nepotomFriends[self.senderId] && !force) {
+                    var friend = friendsList.nepotomFriends[self.senderId];
                     self.title = friend.displayName;
 
                     if (friend.photos)
@@ -175,7 +173,7 @@ factories.factory("Chat",
                     )
                     .then(
                         function() {
-                            self.currentUser.saveChats();
+                            $rootScope.$broadcast('chat was updated');
                             d.resolve();
                         }
                     );
@@ -188,22 +186,8 @@ factories.factory("Chat",
                 d.resolve();
             }
 
-            this.currentUser.saveChats();
+            $rootScope.$broadcast('chat was updated');
             return  d.promise;
-        },
-
-        remove: function() {
-            var chats = this.currentUser.chats;
-            var _chats = {};
-            for (var senderId in chats) {
-                if (this.senderId == senderId) continue;
-                else {
-                    _chats[senderId] = chats[senderId];
-                }
-            }
-            this.currentUser.chats = _chats;
-            log("chat is removed");
-            this.currentUser.saveChats();
         },
 
         handleExpiredChatSession: function() {
@@ -229,7 +213,7 @@ factories.factory("Chat",
         },
 
         disconnect: function() {
-            this.currentUser.removeDeviceFromChannel(this.channelName);
+            // this.currentUser.removeDeviceFromChannel(this.channelName);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
             return api.deleteChat(this.channelName);

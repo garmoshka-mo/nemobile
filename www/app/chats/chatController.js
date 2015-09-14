@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
+    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo', 'chats',
+    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo, chats) {
         
         log("chat controller is invoked");
 
@@ -119,15 +119,13 @@ angular.module("angControllers").controller("chatController",
             $scope.chat.reportStatusIfInactive();
         } else {
             //getting chat object, if chat does not exist create new one
-            $scope.chat = user.getChat($stateParams.channelName, $stateParams.senderId);
+            $scope.chat = chats.getChat($stateParams.channelName, $stateParams.senderId);
             if (!$scope.chat) {
                 if ($stateParams.channelName) {
-                    user.addChat({channelName: $stateParams.channelName});
-                    $scope.chat = user.chats[$stateParams.channelName];
+                    $scope.chat = chats.addChat({channelName: $stateParams.channelName});
                 }
                 else if ($stateParams.senderId) {
-                    user.addChat({senderId: $stateParams.senderId});
-                    $scope.chat = user.chats[$stateParams.senderId];
+                    $scope.chat = chats.addChat({senderId: $stateParams.senderId});
                 }
             }
         }
@@ -336,5 +334,5 @@ angular.module("angControllers").controller("chatController",
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
-        user.countUnreadChats();
+        chats.countUnreadChats();
 }]);   
