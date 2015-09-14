@@ -29,11 +29,18 @@ gulp.task('default', function() {
 
 
 gulp.task('build_index', function() {
-    var sources = gulp.src([output_js, output_css], {read: false});
+    var jsFile = gulp.src(output_js, {read: false});
+    var cssFile = gulp.src(output_css, {read: false});
+
+    //Reloads the page if the script could not be found
+    var transform = function (filepath, file, i, length) {
+        return '<script src="' + filepath + '" onerror="location.reload()"></script>';
+    };
 
     return gulp.src(source_www+'index.html')
         .pipe(gulp.dest(output_www))
-        .pipe(inject(sources, {relative: true}))
+        .pipe(inject(jsFile, {transform: transform, relative: true}))
+        .pipe(inject(cssFile, {relative: true}))
         .pipe(gulp.dest(output_www));
 });
 
