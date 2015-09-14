@@ -1,8 +1,8 @@
 (function () {
     services
         .value('sounds', {
-            incomeMessage: new Audio('assets/www/assets/sounds/alert.mp3'),
-            newConversation: new Audio('assets/www/assets/sounds/new_conversation.mp3')
+            incomeMessage: new Audio('/assets/www/assets/sounds/alert.mp3'),
+            newConversation: new Audio('/assets/www/assets/sounds/new_conversation.mp3')
         })
         .service('sound',
         ['sounds',
