@@ -18,9 +18,6 @@
                         return !(localStorage['soundEnabled'] === 'false');
                     },
                     play: function (soundName) {
-                        if (deviceInfo.isAndroid) {
-                            sounds[soundName + '_android'].play();
-                        }
                         if (this.isEnabled()) {
                             sounds[soundName].play();
                         }
