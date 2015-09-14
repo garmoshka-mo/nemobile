@@ -2,17 +2,21 @@
     services
         .value('sounds', {
             incomeMessage: new Audio('/android_assets/www/assets/sounds/alert.mp3'),
-            newConversation: new Audio('/android_assets/www/assets/sounds/new_conversation.mp3')
+            newConversation: new Audio('/android_assets/www/assets/sounds/new_conversation.mp3'),
+            incomeMessage_android: new Media('/android_assets/www/assets/sounds/alert.mp3')
         })
         .service('sound',
-        ['sounds',
-            function (sounds) {
+        ['sounds', 'deviceInfo',
+            function (sounds, deviceInfo) {
 
                 return {
                     isEnabled: function () {
                         return !(localStorage['soundEnabled'] === 'false');
                     },
                     play: function (soundName) {
+                        if (deviceInfo.isAndroid) {
+                            sounds[soundName + '_android'].play();
+                        }
                         if (this.isEnabled()) {
                             sounds[soundName].play();
                         }
