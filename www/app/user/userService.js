@@ -8,7 +8,7 @@ services
     this.uuid = null;
     this.accessToken = null;
     this.channel = null;
-    this.scores = null;
+    this.score = null;
     this.chats = {};
     this.lastMessageTimestamp = null;
     this.friendsList = friendsList;
@@ -57,7 +57,7 @@ services
         user.uuid = userInfo.uuid;
         user_uuid = user.uuid; // todo: remove after refactoring of user
 
-        user.scores = userInfo.score;
+        user.score = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
         
         var avatarParseResult = user.parseAvatarDataFromServer(userInfo);
@@ -98,7 +98,7 @@ services
         user.uuid = null;
         user.accessToken = null;
         user.channel = null;
-        user.scores = null;
+        user.score = null;
         user.friends = {};
         user.chats = {};
         user.lastMessageTimestamp = null;
@@ -274,8 +274,9 @@ services
             self.registerDeviceToChannel(channelName);
         }
 
-        self.scores = message.my_score;
-        chat.senderScores = message.his_score;
+        //Ignoring these fields
+        //self.score = message.my_score;
+        //chat.senderScore = message.his_score;
         chat.lastMessageTimestamp = messageTimestamp;
         
         //todo: check the correct work of self.lastMessageTimestamp
@@ -665,7 +666,7 @@ services
                 user_uuid = user.uuid; // todo: remove after refactoring of user
 
                 self.channel = dataFromStorage.channel;
-                self.scores = dataFromStorage.scores;
+                self.score = dataFromStorage.score;
                 self.phoneNumber = dataFromStorage.phoneNumber;
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
                 self.avatarUrl = dataFromStorage.avatarUrl;

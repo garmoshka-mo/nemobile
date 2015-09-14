@@ -196,7 +196,7 @@
                 Собеседник:
             </div>
             <div>
-                <sex-select ng-model="filter.another.sex"></sex-select>
+                <sex-select ng-model="filter.another.sex" ng-click="suggestUserGender()"></sex-select>
                 <p class="text-silver ta-center fz13rem">Возраст: </p>
                 <age-select multiple="true" ng-model="filter.another.age" values="[0, 1, 2, 3, 4, 5]" 
                 titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']">

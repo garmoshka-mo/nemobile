@@ -12,9 +12,9 @@
             <span class="chat-title title" ng-bind="getChatTitle(chat)"></span>
             <span class="small-gray-text chat-last-message-text" ng-bind="chat.lastUnexpiredChatSession.getLastMessage()"></span>
         </div>
-        <div class="small-3 column" ng-show="chat.senderScores">
+        <div class="small-3 column" ng-show="chat.senderScore">
           <i class="fa fa-star"></i>
-          <span ng-bind="chat.senderScores"></span>
+          <span ng-bind="chat.senderScore"></span>
         </div>
       </div>
     </div>

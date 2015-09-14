@@ -8,7 +8,7 @@ angular.module("angControllers")
 
         notification.resetTimer();
         
-        membership.getLevel().then(function(level) {
+        membership.getScore().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
             if (RAN_AS_APP) {
@@ -111,6 +111,15 @@ angular.module("angControllers")
                 $state.go('localForage');
             }
             helpClickCounter++;
+        };
+
+        $scope.suggestUserGender = function(){
+            var anotherSex = $scope.filter.another.sex;
+            //If the user did not select his gender but selected a gender of a preferred chat partner instead
+            if($scope.filter.iam.sex === "-" && anotherSex !== "-") {
+                //Choose the opposite to preferred chat partner's gender
+                $scope.filter.iam.sex = anotherSex === "w"? "m" : "w";
+            }
         };
 
         function prepareDataForServer() {
