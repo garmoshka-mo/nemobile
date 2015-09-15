@@ -1,8 +1,8 @@
 (function(){
     services
         .service('notification',
-        ['$rootScope', '$timeout', Service]);
-    function Service($rootScope, $timeout) {
+        ['$rootScope', '$timeout', 'timer', Service]);
+    function Service($rootScope, $timeout, timer) {
         log("notification service is enabled");
         $rootScope.notification = {
             typing_label: "печатает...",
@@ -75,8 +75,7 @@
 
        
 
-        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3'),
-            timer;
+        var newConversationSound = new Audio('assets/sounds/new_conversation.mp3');
 
         var notification = {
             set: function(title, ava_url, handler) {
@@ -87,24 +86,6 @@
                 };
                 initialText = title;
                 initialHandler = $rootScope.notification.handler;
-            },
-
-            startTimer: function() {
-                notification.resetTimer();
-                var start = Date.now();
-                timer = setInterval(function() {
-                    var duration = (Date.now() - start) / 1000;
-                    $rootScope.$apply(function(){
-                        $rootScope.notification.time = duration.toHHMMSS();
-                    });
-                }, 1000);
-            },
-            stopTimer: function() {
-                clearInterval(timer);
-            },
-            resetTimer: function() {
-                clearInterval(timer);
-                $rootScope.notification.time = "";
             },
 
             typing: function() {
@@ -192,7 +173,7 @@
         };
 
         function onRandomChatBegin() {
-            notification.startTimer();
+            timer.start();
             log('new random chat sound is played');
             newConversationSound.play();
             notification.setTemporaryPageTitle('Собеседник найден');

@@ -9,7 +9,8 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
 
         var self = this;
 
-        var lastAuthor, rows = 0, incentives = 0, startTime, isClosed;
+        var lastAuthor, rows = 0, startTime, isClosed;
+        this.incentives = 0;
 
         this.type = 'external';
         this.chat = chat;
@@ -70,7 +71,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
 
         function swap(writer) {
             rows++;
-            if (lastAuthor == 'me' && writer == 'he') incentives++;
+            if (lastAuthor == 'me' && writer == 'he') self.incentives++;
             if (!startTime) startTime = Date.now();
             lastAuthor = writer;
         }
@@ -87,7 +88,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
             var data = {
                 uuid: self.uuid,
                 rows: rows,
-                incentives: incentives,
+                incentives: self.incentives,
                 duration: duration
             };
             apiRequest.send('POST', '/chats/log', data);
