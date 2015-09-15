@@ -69,7 +69,7 @@ angular.module("angControllers").controller("chatController",
                 //$state.go('chatInfo',{ senderId: chat.senderId });
                 // location.replace("#/showImage?link=" + chat.photoUrl);
             };
-            notification.set(title, chat.photoUrlMini, notificationCallback);
+            notification.set(title, chat.avatar.urlMini, notificationCallback);
         }
 
         $scope.scrollToBottom = function() {

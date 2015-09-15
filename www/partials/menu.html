@@ -1,6 +1,6 @@
 <div class="no-select" ng-show="user.name">
     <div class="menu-ava-container" ng-click="isChangeAvaMenuShown ? false : showChangeAvatarMenu()">
-        <img class="rounded-ava pointer" ng-src="{{user.avatarUrlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
+        <img class="rounded-ava pointer" ng-src="{{user.avatar.urlMini}}" alt="ava" imageonload="imageLoadedHandler()" ng-click="isChangeAvaMenuShown ? generateNewAvatar() : false">
         <span class="text-bold" ng-bind="user.name" ng-hide="true"></span>
         <span class="text-bold">Ваша аватарка</span>
         <div class="inline-block" ng-show="isChangeAvaMenuShown" ng-class="{'animated fadeIn': isChangeAvaMenuShown}" stop-event>

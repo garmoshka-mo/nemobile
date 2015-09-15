@@ -1,6 +1,6 @@
 services
-.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'api', 
-    function($rootScope, $q, Friend, storage, api) {
+.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'apiRequest', 
+    function($rootScope, $q, Friend, storage, apiRequest) {
     
         var isNepotomFriendsInfoUpdated = false;
 
@@ -93,6 +93,33 @@ services
             api.setFriends(_.values(friendsObj));
         }
 
+        function getUserFriendsFromServer() {
+            var NOT_SENT_CHANGES_TO_SERVER = true;
+            return apiRequest.send(
+                'GET',
+                '/get_friends'
+            )
+            .then(function(res) {
+                // deleting deleted friends
+                var serverUuids = _.map(res.friends, 'uuid');
+                var userFriendsUuids = _.map(user.friendsList.nepotomFriends, 'uuid');
+                var deletedUuids = _.difference(userFriendsUuids, serverUuids);
+                deletedUuids.forEach(function(uuid) {
+                    user.friendsList.removeFriend(user.friendsList.nepotomFriends[uuid], 
+                        NOT_SENT_CHANGES_TO_SERVER);
+                });
+                //adding new one
+                res.friends.forEach(function(friendData) {
+                    user.addFriend({
+                        uuid: friendData.uuid,
+                        name: friendData.display_name,
+                        created: friendData.created_at,
+                        avatarObj: user.parseAvatarDataFromServer(friendData)
+                    }, NOT_SENT_CHANGES_TO_SERVER);
+                });
+            });
+        }
+
         //public 
         var friendsList = {
 
@@ -118,7 +145,22 @@ services
                 log("friends list is saved");
             },
             
-            addFriend: function(friendData, notSaveOnServer) {
+            addFriend: function(rawData, notSaveOnServer) {
+                var photos = rawData.avatarObj ? 
+                    [{value: rawData.avatarObj.fullSize, valueMini: rawData.avatarObj.mini}] : null;
+                var emails = rawData.email ? 
+                    [{value: rawData.email}] : null;
+                var phoneNumbers = rawData.phoneNumber ? 
+                    [{value: phoneNumber}] : null;
+                var friendData = {
+                    displayName: rawData.name,
+                    uuid: rawData.uuid,
+                    photos: photos,
+                    created: rawData.created ? rawData.created : null,
+                    emails: emails,
+                    phoneNumbers: phoneNumbers
+                };    
+
                 if (!this.nepotomFriends[friendData.uuid]) {
                     var friend = new Friend(friendData);
                     this.friends.push(friend);

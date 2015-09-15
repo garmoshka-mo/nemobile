@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo', '$state', 'messages', 'pubnubSuscription',
-function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state, message, pubnubSuscription) {
+    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo', '$state', 'messages', 'pubnubSubscription',
+function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state, message, pubnubSubscription) {
 
     $scope.user = user;
 

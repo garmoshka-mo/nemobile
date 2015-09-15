@@ -378,13 +378,6 @@ services
             }
         },
 
-        getFriends: function() {
-            return (apiRequest.send(
-                'GET',
-                '/get_friends'
-            ));
-        },
-
         removeFriend: function(uuids) {
             return (apiRequest.send(
                 'PATCH',

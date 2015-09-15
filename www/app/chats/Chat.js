@@ -1,6 +1,6 @@
 factories.factory("Chat",
-    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification', '$rootScope', 'friendsList',
-    function(storage, avatars, ChatSession, api, $q, notification, $rootScope, friendsList) {
+    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList', 'Avatar',
+    function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList, Avatar) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -13,8 +13,7 @@ factories.factory("Chat",
             chatData.lastUnexpiredChatSession : null;
         this.senderScore = chatData.senderScore ? chatData.senderScore : null;
         this.title = chatData.title ? chatData.title : chatData.senderId;
-        this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
-        this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
+        this.avatar = Avatar.fromId(chatData.channelName);
         this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
@@ -30,6 +29,7 @@ factories.factory("Chat",
 
     Chat.parseFromStorage = function(dataFromStorage) {
         var chat = new Chat(dataFromStorage);
+        chat.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
         return chat;
     };
 
@@ -133,37 +133,35 @@ factories.factory("Chat",
                     self.title = friend.displayName;
 
                     if (friend.photos)
-                        self.ava = avatars.from_photos(friend.photos);
+                        self.avatar = Avatar.fromPhotos(friend.photos);
                     else
-                        self.ava = avatars.from_id(self.senderId);
-                    // todo: заменить код на использование объекта self.ava = ava
-                    self.photoUrl = self.ava.url;
-                    self.photoUrlMini = self.ava.url_mini;
+                        self.avatar = Avatar.fromId(self.channelName);
 
                     d.resolve();
                 }
                 else {
-                    api.getUserInfoByUuid(self.senderId)
+                    apiRequest.send(
+                        'POST',
+                        '/users',
+                        {
+                            "user_uuid": self.senderId
+                        }
+                    )
                     .then(
                         function(res) {
                             log("api.getUserInfoByUuid", res);
-                            if (res.success) {
-                                if (res.user.name) {
-                                    self.title = res.user.name;
-                                }
-                                else {
-                                    self.title = res.user.phone_number;
-                                }
+                            if (res.user.name) {
+                                self.title = res.user.name;
+                            }
+                            else {
+                                self.title = res.user.phone_number;
+                            }
 
-                                if (res.user.avatar_guid || res.user.avatar_url) {
-                                    self.photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
-                                    self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
-                                }
-                                else {
-                                    self.ava = avatars.from_id(self.senderId);
-                                    self.photoUrl = self.ava.url;
-                                    self.photoUrlMini = self.ava.url_mini;
-                                }
+                            if (res.user.avatar_guid || res.user.avatar_url) {
+                                self.avatar = new Avatar(res.user);
+                            }
+                            else {
+                                self.avatar = Avatar.fromId(self.channelName);
                             }
                         },
                         function() {
@@ -216,7 +214,10 @@ factories.factory("Chat",
             // this.currentUser.removeDeviceFromChannel(this.channelName);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
-            return api.deleteChat(this.channelName);
+            return apiRequest.send(
+                'DELETE',
+                '/chats/' + this.channelName
+            );
         }
     };
 

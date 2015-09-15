@@ -168,9 +168,9 @@ factories.factory('ChatSession',
                     
                     if (res.success && !res.type) {
                        
-                        if (!self.messages.length) {
-                            self.creatorId = self.currentChat.currentUser.uuid;
-                        }
+                        // if (!self.messages.length) {
+                        //     self.creatorId = self.currentChat.currentUser.uuid;
+                        // }
 
                         if (message === "$===real===") {
                             message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";

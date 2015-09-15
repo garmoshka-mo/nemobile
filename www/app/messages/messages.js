@@ -1,7 +1,7 @@
 (function() {
         services
-        .service('messages', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', 'chats', 'routing', 'friendsList', '$state',
-            function($rootScope, apiRequest, deviceInfo, user, chats, routing, friendsList, $state) {
+        .service('messages', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', 'chats', 'routing', 'friendsList', '$state', 'notification',
+            function($rootScope, apiRequest, deviceInfo, user, chats, routing, friendsList, $state, notification) {
 
                 function pushMessageToSession(lastSession, messageText, expires) {
                     lastSession.incomeMessage(messageText);
@@ -160,7 +160,7 @@
                     //filling channel name if it is undefined
                     if (!chat.channelName && channelName) {
                         chat.channelName = channelName;
-                        self.registerDeviceToChannel(channelName);
+                        $rootScope.$broadcast('got new channel name', {channelName: channelName});
                     }
 
                     //Ignoring these fields
