@@ -10,7 +10,7 @@ services
                 this.url = parsed.url;
                 this.urlMini = parsed.urlMini;
             }
-
+ 
             //if no data is provided, random avatar will be set
             function parseDataFromServer(dataFromServer) {
                 var output = {
