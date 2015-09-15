@@ -11,7 +11,8 @@
             <a href="#/updateProfile"><button>зарегистрироваться</button></a>
         </div>
     </div> -->
-    <div class="ta-center width-92 block-center pt1rem" ng-show="fromRandom">
+    <div class="ta-center width-92 block-center pt1rem" style="transition-duration: 0.3s"
+         ng-style="{opacity: showDisconnect ? '1' : '0'}">
         <button class="bg-red" ng-click="disconnectRandomChat()">
             <span>отключиться</span>
             <i class="fa fa-times"></i>

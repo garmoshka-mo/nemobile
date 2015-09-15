@@ -6,14 +6,14 @@
             Этот чат завершен
             <a href="#/random">Начать новый диалог</a>
         </div>
-        <share ng-show="showSharing"></share>
+        <share ng-if="askShowSharing()"></share>
     </div>
     <div ng-switch-when="chat_finished">
         <div class="system_message">
             Собеседник покинул чат
             <a href="#/random">Начать новый диалог</a>
         </div>
-        <share ng-show="showSharing"></share>
+        <share ng-if="askShowSharing()"></share>
     </div>
     <div ng-switch-default class="message"
          ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"

@@ -1,12 +1,12 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer) {
 
         $scope.updates = updates;
         updates.check();
 
-        notification.resetTimer();
+        timer.reset();
         
         membership.getScore().then(function(level) {
             externalChat.level = level;

@@ -3,16 +3,26 @@
         return {
             scope: {session: '='},
             templateUrl: "app/messages/messages.html",
-            controller: ['$scope', '$element', '$sce', controller]
+            controller: ['$scope', 'timer', '$sce', controller]
         };
     });
 
-    function controller($scope, $element, $sce) {
+    function controller($scope, timer, $sce) {
 
-        $scope.showSharing = false;
+
+
 
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
+        };
+
+        $scope.askShowSharing = function() {
+            var showSharing;
+            if(typeof $scope.session.incentives !== 'undefined')
+                showSharing = $scope.session.incentives > 5;
+            else
+                showSharing = timer.lastDuration > 300;
+            return showSharing;
         };
 
         function parseUrls(messageText) {
