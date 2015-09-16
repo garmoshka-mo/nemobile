@@ -881,7 +881,7 @@ services
         }
         return apiRequest.send(
             'POST',
-            '/add_virtual_user',
+            '/users/guest',
             data
         )
         .then(
