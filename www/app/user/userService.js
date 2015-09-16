@@ -76,8 +76,6 @@ services
     //     return d.promise;
     // }
 
-    
-
     function updateUserInfo(accessToken) {
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
@@ -304,22 +302,6 @@ services
                 );
             }
         );
-    };
-
-    //function for testing purposes
-    this.pubnubPublish = function() {
-        pubnub.publish({
-            channel: user.channel,
-            message: {
-                text: "ale!",
-                pn_gcm: {
-                    data: {
-                        uuid: user.uuid,
-                        message: "ale"
-                    }
-                }
-            }
-        });
     };
 
     //for debugging
