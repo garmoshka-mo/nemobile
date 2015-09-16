@@ -879,7 +879,7 @@ services
         if (location.search) {
             data.track = location.search.substr(1);
         }
-        return apiRequest.send(
+        return apiRequest.guestSend(
             'POST',
             '/users/guest',
             data
