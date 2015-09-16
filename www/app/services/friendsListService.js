@@ -120,6 +120,20 @@ services
             });
         }
 
+        function parseFromStorage(dataFromStorage) {
+            if (dataFromStorage) {
+                var self = this;
+                dataFromStorage.friends.forEach(function(friendData) {
+                    var friend = new Friend(friendData);
+                    self.friends.push(friend);
+                    if (friend.uuid) {
+                        self.nepotomFriends[friend.uuid] = friend;
+                    }
+                });
+                self.lastContactId = dataFromStorage.lastContactId;
+            }
+        }
+
         //public 
         var friendsList = {
 
@@ -233,17 +247,10 @@ services
             },
 
             parseFromStorage: function(dataFromStorage) {
-                if (dataFromStorage) {
-                    var self = this;
-                    dataFromStorage.friends.forEach(function(friendData) {
-                        var friend = new Friend(friendData);
-                        self.friends.push(friend);
-                        if (friend.uuid) {
-                            self.nepotomFriends[friend.uuid] = friend;
-                        }
-                    });
-                    self.lastContactId = dataFromStorage.lastContactId;
-                }
+                return storage.getFriendsList().then(function(dataFromStorage){
+                    parseFromStorage(dataFromStorage);
+                    log("user's friends list is taken from storage");
+                });
             },
 
             transferToNepotomFriends: function(friendIndex, uuid) {

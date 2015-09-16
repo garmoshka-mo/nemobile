@@ -1,21 +1,13 @@
 var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
-    '$timeout', 'storage', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'chats', 'Avatar', 
-    function($timeout, storage, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing, chats, Avatar) {
+    '$timeout', 'storage', 'externalChat', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'chats', 'Avatar', 
+    function($timeout, storage, externalChat, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, chats, Avatar) {
     
-    this.name = null;
-    this.uuid = null;
-    this.accessToken = null;
-    this.channel = null;
-    this.score = null;
-    this.chats = {};
-    this.lastMessageTimestamp = null;
-    this.friendsList = friendsList;
+    
+    clearCurrentUser();
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
-    this.isVirtual = false;
-    this.unreadChatsAmount = 0;
 
     var user = this;
     var differencePubnubDeviceTime;
@@ -59,39 +51,16 @@ services
         user.accessToken = null;
         user.channel = null;
         user.score = null;
-        user.friends = {};
         user.chats = {};
         user.lastMessageTimestamp = null;
         user.isVirtual = null;
         friendsList.clear();
     }
 
-    // function getPubnubTimeDifference() {
-    //     var d = $q.defer();
-    //     pubnub.time(function(time) {
-    //         differencePubnubDeviceTime = time / 10000 - new Date().getTime();
-    //         log("difference between pubnub and device time: ", differencePubnubDeviceTime);
-    //         d.resolve(differencePubnubDeviceTime);
-    //     });
-    //     return d.promise;
-    // }
-
     function updateUserInfo(accessToken) {
         var at = accessToken ? accessToken : user.accessToken;
         user.signin(null, null, at);
         log('user info is updated');
-    }
-
-    function notifyThatBecomeReal() {
-        var realMessage = "$===real===";
-        var ONE_DAY_MSEC = 24 * 3600 * 1000;
-        for (senderId in user.chats) {
-            if (!user.chats[senderId].isExpired) {
-                var chat = user.chats[senderId];
-                chat.getLastUnexpiredChatSession();
-                chat.lastUnexpiredChatSession.sendMessage(realMessage, senderId, ONE_DAY_MSEC);
-            }
-        }
     }
 
     //public methods
@@ -189,16 +158,11 @@ services
                 stickersGallery.getCurrentUserCategories();
                 log("user info is taken from storage", self);
             }),
-            chats.parseFromStorage(),
             storage.getLastMessageTimestamp().then(function(timestamp) {
                 self.lastMessageTimestamp = timestamp;
             }),
-
-            storage.getFriendsList().then(function(dataFromStorage){
-                friendsList.parseFromStorage(dataFromStorage);
-                self.friendsList = friendsList;
-                log("user's friends list is taken from storage");
-            })
+            chats.parseFromStorage(),
+            friendsList.parseFromStorage()
         ])
         .then(
             function() {
@@ -255,14 +219,6 @@ services
         );
     };
 
-    this.blockUser = function(uuid) {
-        api.blockUser(uuid);
-    };
-
-    this.forbidImage = function(imageUrl) {
-        api.forbidImage(imageUrl);
-    };
-
     this.updateProfile = function(name, password) {
         return api.updateProfile(name, password)
         .then(
@@ -302,6 +258,15 @@ services
                 );
             }
         );
+    };
+
+    //todo: move to another services
+    this.blockUser = function(uuid) {
+        api.blockUser(uuid);
+    };
+
+    this.forbidImage = function(imageUrl) {
+        api.forbidImage(imageUrl);
     };
 
     //for debugging
