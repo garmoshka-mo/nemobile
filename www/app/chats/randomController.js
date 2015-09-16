@@ -49,7 +49,6 @@ angular.module("angControllers")
 
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
-            googleAnalytics.event('random', 'start');
             notification.asked = 0;
 
             saveFilterState();
