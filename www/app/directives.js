@@ -291,50 +291,41 @@ app.directive('ageSelect', function() {
 
             scope.handleItemClick = function(value) {
                 if (allowMultiple) {
-                    var indexOfValue = scope.selected.indexOf(value);
+                    var indexOfValue = scope.ngModel.indexOf(value);
                     if (indexOfValue == -1) {
-                        scope.selected.push(value);
+                        scope.ngModel.push(value);
                     }
                     else {
-                        scope.selected = scope.selected.slice(0, indexOfValue);
+                        scope.ngModel = scope.ngModel.slice(0, indexOfValue);
                     }
 
-                    //'не важно' can not be selected with other values
+                    //'не важно' can not be ngModel with other values
                     //code below makes it possible
                     if (value != 0) {
-                        _.remove(scope.selected, function(e) {return e == 0;});
+                        _.remove(scope.ngModel, function(e) {return e == 0;});
                     }
                     else {
-                        scope.selected = [0];
+                        scope.ngModel = [0];
                     }
                     
-                    var min = _.min(scope.selected);
-                    var max = _.max(scope.selected);
-                    scope.selected = _.filter(scope.values, function(e) {
+                    var min = _.min(scope.ngModel);
+                    var max = _.max(scope.ngModel);
+                    scope.ngModel = _.filter(scope.values, function(e) {
                         return e >= min && e <= max;
                     });
 
-                    if (_.isEmpty(scope.selected)) {
-                        scope.selected = [0];
+                    if (_.isEmpty(scope.ngModel)) {
+                        scope.ngModel = [0];
                     }
                 }
                 else {
-                    scope.selected = [value];
+                    scope.ngModel = [value];
                 }
-                scope.ngModel = scope.selected;
             };
-
-            if (_.isArray(scope.ngModel)) {
-                scope.selected = scope.ngModel;
-            }
-            else {
-                console.warn('ngModel in age-select should be an array');
-                scope.selected = [];
-            }
         },
 
         template: "<ul class='age-select'><li ng-repeat='value in values' " +
-            " ng-class='{\"text-bold\": selected.indexOf(value) != -1, \"text-silver\": selected.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
+            " ng-class='{\"text-bold\": ngModel.indexOf(value) != -1, \"text-silver\": ngModel.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
             "<span>{{::titles[$index]}}</span></li></ul>"
     };
 });

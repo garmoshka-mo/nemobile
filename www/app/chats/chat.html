@@ -11,7 +11,8 @@
             <a href="#/updateProfile"><button>зарегистрироваться</button></a>
         </div>
     </div> -->
-    <div class="ta-center width-92 block-center pt1rem" ng-show="fromRandom">
+    <div class="ta-center width-92 block-center pt1rem" style="transition-duration: 0.3s"
+         ng-style="{opacity: showDisconnect ? '1' : '0'}">
         <button class="bg-red" ng-click="disconnectRandomChat()">
             <span>отключиться</span>
             <i class="fa fa-times"></i>
@@ -30,7 +31,7 @@
     <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
         <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  allow-textselect></span>
     </div>
-    <messages source="chatSession.messages"></messages>
+    <messages session="chatSession"></messages>
     <div class="ta-right message-container" ng-show="isMessageSending && deviceInfo.isOldAndroid">
         <span class="message message-own" allow-textselect >
             <span spinner spinner-color="white"></span>

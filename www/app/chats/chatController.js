@@ -1,6 +1,8 @@
 angular.module("angControllers").controller("chatController", 
-    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-    function(user, $scope, $stateParams, $state, externalChat, api, notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
+    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
+        'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
+    function(user, $scope, $stateParams, $state, externalChat, api, timer,
+             notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
         
         log("chat controller is invoked");
 
@@ -10,6 +12,7 @@ angular.module("angControllers").controller("chatController",
         $scope.isMessageSending = false;
         $scope.fromRandom = $stateParams.fromState === 'random';
         $scope.deviceInfo = deviceInfo;
+        $scope.showDisconnect = $scope.fromRandom;
 
         var $chatInput = $('.chat-input');
 
@@ -107,7 +110,7 @@ angular.module("angControllers").controller("chatController",
             $scope.chat.disconnect();
             googleAnalytics.event('random', 'finish');
 
-            notification.stopTimer();
+            timer.stop();
             $state.go('random');
         };
 
@@ -291,6 +294,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.input_keypress = function(event) {
+            $scope.showDisconnect = false;
             //if ctrl+enter or enter is pressed
             if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey || event.keyCode == 13) {
                 event.preventDefault();
