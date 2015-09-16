@@ -1,8 +1,8 @@
 var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
-    '$timeout', 'storage', 'Chat', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing',
-    function($timeout, storage, Chat, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing) {
+    '$timeout', 'storage', 'Chat', 'externalChat', 'notification', 'api','$q', '$rootScope', '$http', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'apiRequest',
+    function($timeout, storage, Chat, externalChat, notification, api, $q, $rootScope, $http, stickersGallery, friendsList, $sce, $state, routing, apiRequest) {
     
     this.name = null;
     this.uuid = null;
@@ -872,7 +872,18 @@ services
     };
 
     this.signinAsVirtualUser = function () {
-        return api.addVirtualAccount()
+        var data = {};
+        if (document.referrer) {
+            data.referrer = document.referrer;
+        }
+        if (location.search) {
+            data.track = location.search.substr(1);
+        }
+        return apiRequest.send(
+            'POST',
+            '/add_virtual_user',
+            data
+        )
         .then(
             function(res) {
                 user.signin(null, null, res.access_token, true)
