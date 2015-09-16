@@ -5,11 +5,11 @@ services
     function($timeout, storage, externalChat, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, chats, Avatar) {
     
     
-    clearCurrentUser();
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
 
     var user = this;
+    clearCurrentUser();
     var differencePubnubDeviceTime;
     var isLogged = null;
 
