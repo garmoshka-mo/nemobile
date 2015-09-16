@@ -1,7 +1,7 @@
 (function(){
     factories.factory('ChatSessionAbstract',
-        ['notification', 'SpamFilter',
-    function(notification, SpamFilter) {
+        ['notification', 'SpamFilter', 'timer',
+    function(notification, SpamFilter, timer) {
 
         return function AbstractSession() {
             this.uuid = generateUuid();
@@ -36,7 +36,7 @@
             };
 
             this.sessionFinished = function() {
-                notification.stopTimer();
+                timer.stop();
             };
 
             this.addMessage = function(msg) {

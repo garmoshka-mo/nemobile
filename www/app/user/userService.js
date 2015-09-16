@@ -534,7 +534,7 @@ services
             return api.signin(name, password)
             .then(
                 function setAccesssToken(res) {
-                    setAccessToken(res.access_token);
+                    setAccessToken(res.data.access_token);
                 },
                 function showError(res) {
                     return $q.reject(res.error); 

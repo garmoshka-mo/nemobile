@@ -22,7 +22,14 @@ services
     }
 
     var storage = {
-        
+
+        get: function(key){
+            return $localForage.getItem(key);
+        },
+        save: function(key, value){
+             $localForage.setItem(key, value);
+        },
+
         //get methods
         getUser: function() {   
             return $localForage.getItem('user');
