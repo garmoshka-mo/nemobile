@@ -336,19 +336,19 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "activationController",
-                        templateUrl: "app/user/activation.html"
+                        templateUrl: "app/purchase/activation.html"
                     }
                 }
             })
-            .state("signupRandom", {
-                url: "/signupRandom",
+            .state("afterPurchase", {
+                url: "/afterPurchase",
                 views: {
                     "title": {
                         template: "Регистрация"
                     },
                     "content": {
-                        controller: "signupRandomController",
-                        templateUrl: "app/user/signupRandom.html"
+                        controller: "afterPurchaseController",
+                        templateUrl: "app/purchase/afterPurchase.html"
                     }
                 }
             });

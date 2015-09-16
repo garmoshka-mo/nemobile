@@ -3,11 +3,9 @@
         Вы исчерпали лимит запросов в бесплатной версии чата.
         Для продолжения общения вы можете приобрести доступ:
         <br><br>
-        <button ng-repeat="offer in offers">
-            <span ng-bind="offer.name" ng-click="order(offer)"></span>
-        </button>
-        <!-- <button>Купить доступ на неделю за 35 руб</button>
-        <button>Купить доступ на месяц за 125 руб</button> -->
+        <div ng-repeat="offer in offers track by offer.id">
+            <button ng-click="order(offer)">{{ offer.name }}</button>
+        </div>
         <br>
         Или воспользуйтесь бесплатными аналогами:
         <ul class="none-list-style-type">
