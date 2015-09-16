@@ -232,6 +232,10 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
         $state.go('random');
     }
 
+    $scope.isChatState = function(){
+        return $state.current.name === 'chat';
+    };
+
     $scope.routing = routing;
     $scope.goto = routing.goto;
 
