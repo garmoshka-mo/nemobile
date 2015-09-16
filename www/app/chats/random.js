@@ -1,6 +1,6 @@
 services
-.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope',
-    function(user, $q, externalChat, apiRequest, $rootScope) {
+.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope', 'googleAnalytics',
+    function(user, $q, externalChat, apiRequest, $rootScope, googleAnalytics) {
 
         this.waitingServer = false;
         this.lookupInProgress = false;

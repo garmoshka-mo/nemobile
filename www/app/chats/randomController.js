@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'routing',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, routing) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'routing', 'googleAnalytics',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, routing, googleAnalytics) {
 
         $scope.updates = updates;
         updates.check();
@@ -55,6 +55,7 @@ angular.module("angControllers")
 
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
+            googleAnalytics.event('random', 'start');
             notification.asked = 0;
 
             saveFilterState();
