@@ -131,8 +131,8 @@
 
         <script type="text/javascript" src="app/user/userService.js"></script>
         <script type="text/javascript" src="app/user/membership.js"></script>
-        <script type="text/javascript" src="app/user/activationController.js"></script>
-        <script type="text/javascript" src="app/user/signupRandomController.js"></script>
+        <script type="text/javascript" src="app/purchase/activationController.js"></script>
+        <script type="text/javascript" src="app/purchase/afterPurchaseController.js"></script>
 
         <script type="text/javascript" src="app/services/stickersGalleryService.js"></script>
         <script type="text/javascript" src="app/utils/notification.js"></script>
@@ -218,7 +218,7 @@
                         <i class="fa fa-star"></i> <span ng-bind="user.score"></span>
                     </section>
                 </nav>
-                <section class="main-section brand_bg"> <!-- content goes here -->
+                <section class="main-section" ng-class="{'brand_bg': isChatState()}"> <!-- content goes here -->
                     <!-- MAIN CONTENT -->
                     <div id="wrapper" ng-hide="routing.is_preload">
                         <div ui-view="content" class="content"></div>
