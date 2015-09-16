@@ -331,7 +331,7 @@ services
         addVirtualAccount: function() {
             return (apiRequest.send(
                 'POST',
-                '/add_virtual_user'
+                '/users/guest'
             ));
         },
 
