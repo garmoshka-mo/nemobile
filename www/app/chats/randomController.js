@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'routing',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, routing) {
 
         $scope.updates = updates;
         updates.check();
@@ -11,7 +11,13 @@ angular.module("angControllers")
         membership.getScore().then(function(level) {
             externalChat.level = level;
         }, function notActive() {
-            $state.go('activation');
+            if (RAN_AS_APP) {
+                //skip in-site payments for iOS/Android app
+                externalChat.level = 0;
+            }
+            else {
+                routing.goto('activation');
+            }
         });
         
         $scope.showHelpText = false;
