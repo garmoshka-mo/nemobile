@@ -4,7 +4,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         // $animate.enabled(false);
         $stateProvider
             .state("start", {
-                url: "",
+                url: "/",
                 views: {
                     "title": {
                         template: "dub.ink"
