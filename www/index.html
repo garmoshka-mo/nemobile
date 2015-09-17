@@ -116,9 +116,12 @@
         <script type="text/javascript" src="app/chats/intro/default.js"></script>
         <script type="text/javascript" src="app/chats/intro/alt.js"></script>
         <script type="text/javascript" src="app/chats/random.js"></script>
+        <script type="text/javascript" src="app/chats/chats.js"></script>
+        <script type="text/javascript" src="app/chats/Partner.js"></script>
 
 
-        <script type="text/javascript" src="app/media/avatar.js"></script>
+        <script type="text/javascript" src="app/media/Avatar.js"></script>
+        <script type="text/javascript" src="app/media/Photo.js"></script>
         <script type="text/javascript" src="app/utils/updates.js"></script>
         <script type="text/javascript" src="app/utils/config.js"></script>
         <script type="text/javascript" src="app/utils/localForageController.js"></script>
@@ -128,8 +131,10 @@
 
         <script type="text/javascript" src="app/messages/messagesDirective.js"></script>
         <script type="text/javascript" src="app/messages/share.js"></script>
+        <script type="text/javascript" src="app/messages/messages.js"></script>
+        <script type="text/javascript" src="app/messages/pubnubSubscription.js"></script>
 
-        <script type="text/javascript" src="app/user/userService.js"></script>
+        <script type="text/javascript" src="app/user/user.js"></script>
         <script type="text/javascript" src="app/user/membership.js"></script>
         <script type="text/javascript" src="app/purchase/activationController.js"></script>
         <script type="text/javascript" src="app/purchase/afterPurchaseController.js"></script>
@@ -189,7 +194,7 @@
             <div class="iphone-hack iphone-status-bar-margin"></div>
             <div class="inner-wrap">
                 <nav class="tab-bar no-select">
-                    <section class="left-small pointer ta-center">
+                    <section ng-cloak class="left-small pointer ta-center">
                         <a ng-hide="isBackArrownShown || customSmallIconInner" class="menu-icon" ng-click="toggleMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown && !customSmallIconInner" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
                         <span ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" class="customSmallIcon" ng-bind-html="customSmallIconInner"></span>

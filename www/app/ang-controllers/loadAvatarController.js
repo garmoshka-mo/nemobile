@@ -29,7 +29,7 @@ angular.module("angControllers").controller("loadAvatarController",
 
         $scope.updateAvatarUrl = function() {
             doBeforeUploading();
-            user.updateAvatarURL($scope.newImage.url)
+            user.avatar.updateURL($scope.newImage.url)
             .then(
                 function () {
                     handleSuccessUploading();
@@ -43,7 +43,7 @@ angular.module("angControllers").controller("loadAvatarController",
         $scope.uploadPhoto = function() {
             doBeforeUploading();
             $scope.isServerResponseShown = false;
-            user.updateAvatarFile($scope.newImage.file[0])
+            user.avatar.updateFile($scope.newImage.file[0])
             .then(
                 function() {
                     handleSuccessUploading();

@@ -9,25 +9,25 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
 
         $scope.generateNewAvatar = function() {
             var newGuid = Math.round(Math.random() * 10000);
-            user.avatarUrlMini = config('adorableUrl') + "/40/" + newGuid;
+            user.avatar.urlMini = config('adorableUrl') + "/40/" + newGuid;
             $scope.isChangeAvaMenuShown = true;
             $scope.isAvaLoading = true;
 
             $scope.applyCurrentAvatar = function() {
                 $scope.isChangeAvaMenuShown = false;
-                user.updateAvatarGuid(newGuid);
+                user.avatar.updateGuid(newGuid);
                 user.save();
             };
         };
 
         $scope.showChangeAvatarMenu = function() {
-            $scope.initialAvatarUrl = user.avatarUrlMini;
+            $scope.initialAvatarUrl = user.avatar.urlMini;
             $scope.isChangeAvaMenuShown = true;
             $scope.generateNewAvatar();
         };
 
         $scope.restoreDefaultAvatar = function() {
-            user.avatarUrlMini = $scope.initialAvatarUrl;
+            user.avatar.urlMini = $scope.initialAvatarUrl;
             $scope.isChangeAvaMenuShown = false;
             $scope.isAvaLoading = true;
         };
@@ -40,7 +40,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             location.href = "#/loadAvatar";
             $scope.toggleMenu();
             $scope.isChangeAvaMenuShown = false;
-            user.avatarUrlMini = $scope.initialAvatarUrl;
+            user.avatar.urlMini = $scope.initialAvatarUrl;
         };
 
         $scope.countUnreadChats = function () {
@@ -82,7 +82,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             sound.play('incomeMessage');
             //update flag state after toggle
             $scope.soundEnabled = sound.isEnabled();
-        }
+        };
 
 }]);
     

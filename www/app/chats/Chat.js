@@ -1,6 +1,6 @@
 factories.factory("Chat",
-    ['storage', 'avatars', 'ChatSession', 'api', '$q', 'notification',
-    function(storage, avatars, ChatSession, api, $q, notification) {
+    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList', 'Avatar',
+    function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList, Avatar) {
     
     function Chat(chatData) {
         this.senderId = chatData.senderId;
@@ -11,11 +11,9 @@ factories.factory("Chat",
             chatData.lastChatSessionIndex : null;
         this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
             chatData.lastUnexpiredChatSession : null;
-        this.currentUser = chatData.currentUser;
         this.senderScore = chatData.senderScore ? chatData.senderScore : null;
         this.title = chatData.title ? chatData.title : chatData.senderId;
-        this.photoUrl = chatData.photoUrl ? chatData.photoUrl : null;
-        this.photoUrlMini = chatData.photoUrlMini ? chatData.photoUrlMini : null;
+        this.avatar = Avatar.fromId(chatData.channelName);
         this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
@@ -29,9 +27,9 @@ factories.factory("Chat",
             null;
     }
 
-    Chat.parseFromStorage = function(dataFromStorage, currentUser) {
-        dataFromStorage.currentUser = currentUser;
+    Chat.parseFromStorage = function(dataFromStorage) {
         var chat = new Chat(dataFromStorage);
+        chat.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
         return chat;
     };
 
@@ -59,7 +57,7 @@ factories.factory("Chat",
             this.lastUnexpiredChatSession = chatSession;
 
             chatSession.save();
-            this.currentUser.saveChats();
+            $rootScope.$broadcast('chat was updated');
         },
         
         getChatSessionFromStorage: function(chatSessionId) {
@@ -130,42 +128,40 @@ factories.factory("Chat",
             var d = $q.defer();
 
             if (self.senderId) {
-                if (self.currentUser.friendsList.nepotomFriends[self.senderId] && !force) {
-                    var friend = self.currentUser.friendsList.nepotomFriends[self.senderId];
+                if (friendsList.nepotomFriends[self.senderId] && !force) {
+                    var friend = friendsList.nepotomFriends[self.senderId];
                     self.title = friend.displayName;
 
                     if (friend.photos)
-                        self.ava = avatars.from_photos(friend.photos);
+                        self.avatar = Avatar.fromPhotos(friend.photos);
                     else
-                        self.ava = avatars.from_id(self.senderId);
-                    // todo: заменить код на использование объекта self.ava = ava
-                    self.photoUrl = self.ava.url;
-                    self.photoUrlMini = self.ava.url_mini;
+                        self.avatar = Avatar.fromId(self.channelName);
 
                     d.resolve();
                 }
                 else {
-                    api.getUserInfoByUuid(self.senderId)
+                    apiRequest.send(
+                        'POST',
+                        '/users',
+                        {
+                            "user_uuid": self.senderId
+                        }
+                    )
                     .then(
                         function(res) {
                             log("api.getUserInfoByUuid", res);
-                            if (res.success) {
-                                if (res.user.name) {
-                                    self.title = res.user.name;
-                                }
-                                else {
-                                    self.title = res.user.phone_number;
-                                }
+                            if (res.user.name) {
+                                self.title = res.user.name;
+                            }
+                            else {
+                                self.title = res.user.phone_number;
+                            }
 
-                                if (res.user.avatar_guid || res.user.avatar_url) {
-                                    self.photoUrl = user.parseAvatarDataFromServer(res.user).fullSize;
-                                    self.photoUrlMini = user.parseAvatarDataFromServer(res.user).mini;
-                                }
-                                else {
-                                    self.ava = avatars.from_id(self.senderId);
-                                    self.photoUrl = self.ava.url;
-                                    self.photoUrlMini = self.ava.url_mini;
-                                }
+                            if (res.user.avatar_guid || res.user.avatar_url) {
+                                self.avatar = new Avatar(res.user);
+                            }
+                            else {
+                                self.avatar = Avatar.fromId(self.channelName);
                             }
                         },
                         function() {
@@ -175,7 +171,7 @@ factories.factory("Chat",
                     )
                     .then(
                         function() {
-                            self.currentUser.saveChats();
+                            $rootScope.$broadcast('chat was updated');
                             d.resolve();
                         }
                     );
@@ -188,22 +184,8 @@ factories.factory("Chat",
                 d.resolve();
             }
 
-            this.currentUser.saveChats();
+            $rootScope.$broadcast('chat was updated');
             return  d.promise;
-        },
-
-        remove: function() {
-            var chats = this.currentUser.chats;
-            var _chats = {};
-            for (var senderId in chats) {
-                if (this.senderId == senderId) continue;
-                else {
-                    _chats[senderId] = chats[senderId];
-                }
-            }
-            this.currentUser.chats = _chats;
-            log("chat is removed");
-            this.currentUser.saveChats();
         },
 
         handleExpiredChatSession: function() {
@@ -229,10 +211,13 @@ factories.factory("Chat",
         },
 
         disconnect: function() {
-            this.currentUser.removeDeviceFromChannel(this.channelName);
+            // this.currentUser.removeDeviceFromChannel(this.channelName);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
-            return api.deleteChat(this.channelName);
+            return apiRequest.send(
+                'DELETE',
+                '/chats/' + this.channelName
+            );
         }
     };
 

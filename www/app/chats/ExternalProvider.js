@@ -1,9 +1,9 @@
 (function(){
 factories.factory('ExternalProvider',
     ['notification', 'SpamFilter', 'api', 'TeacherBot', 'ActivityBot',
-        'SlowpokesFriend', 'defaultIntro', 'altIntro', '$rootScope',
+        'SlowpokesFriend', 'defaultIntro', 'altIntro', '$rootScope', 'user',
 function(notification, SpamFilter, api, TeacherBot, ActivityBot,
-         SlowpokesFriend, defaultIntro, altIntro, $rootScope) {
+         SlowpokesFriend, defaultIntro, altIntro, $rootScope, user) {
 
     return function ExternalProvider(chat, session, preferences, level) {
         var provider = new Chat({
@@ -140,7 +140,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                     }
             }, talk_params= {
                 a: {
-                    client_id: user_uuid,
+                    client_id: user.uuid,
                         level: level,
                         request_created_ms: chat.created_at,
                         preferences: preferences

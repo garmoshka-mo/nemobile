@@ -14,89 +14,6 @@ services
             this.accessToken = null;
         },
 
-
-
-        signin: function(name, password) {
-            return (apiRequest.guestSend(
-                'POST',
-                '/login',
-                {name: name, password: password}
-            ));
-        },
-
-        signup: function(name, password) {
-            return (apiRequest.guestSend(
-                'POST',
-                '/register',
-                {name: name, password: password}
-            ));
-        },
-
-        getUserInfo: function(access_token) {
-            return (apiRequest.send(
-                'POST',
-                '/profile'
-            ));
-        },
-
-        updateProfile: function(name, password) {
-            var data = {};
-
-            if (name) {
-                data.name = name;
-            }
-
-            if (password) {
-                data.password = password;
-            }
-
-            return (apiRequest.send(
-                'PUT',
-                '/profile',
-                data
-            ));
-        },
-
-        getServerTime: function() {
-            return (apiRequest.send(
-                'GET',
-                '/time'
-            ));
-        },
-
-        getTimeDifference: function() {
-            return api.getServerTime()
-            .then(function(res) {
-                var time = res.origin_time;
-                var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
-                log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
-                return deviceServerTimeDifference_msec;
-            });
-        },
-
-        sendMessage: function(messageText, address, ttl) {
-            var data = {
-                "message_text": messageText,
-                "ttl": ttl
-            };
-
-            if (address.channel) {
-                data.channel = address.channel;
-            }
-            else if (address.uuid) {
-                data.recipient_uuid = address.uuid;
-            }
-            else {
-                console.error("there's no recipient address");
-                return;
-            }
-            return (apiRequest.send(
-                'POST',
-                '/messages',
-                data
-            ));
-        },
-
         searchUser: function(userName, userPhone) {
             var searchParams;
             if (userPhone) {
@@ -288,70 +205,10 @@ services
             ));
         },
 
-        //method to upload image as avatar
-        updateAvatarFile: function(file) {
-            var d = $q.defer();
-            fileTypeDeterminer.detect(file, 
-                function(type) {
-                    $upload.upload({
-                        method: 'POST',
-                        url: config('apiUrl') + "/avatar",
-                        headers: {
-                            "Authorization": "Token token=" + api.accessToken
-                        },
-                        file: file,
-                        fileName: "image." + type,
-                        fileFormDataName: "avatar[data]"
-                    })
-                    .then(
-                        function(res) {
-                            d.resolve();
-                        },
-                        function(res) {
-                            d.reject();
-                        }
-                    );
-                },
-                function() {
-                    alert("wrong file type");
-                }
-            );
-            return d.promise;  
-        },
-
-        //method to upload url or random string which are used to generate avatar
-        updateAvatarText: function(avatarData) {
-            return (apiRequest.send(
-                'POST',
-                '/avatar',
-                avatarData
-            ));
-        },
-
         addVirtualAccount: function() {
             return (apiRequest.send(
                 'POST',
                 '/users/guest'
-            ));
-        },
-
-        blockUser: function(uuid) {
-            return (apiRequest.send(
-                'POST',
-                '/users/blacklist',
-                {
-                    "user_uuid": uuid
-                }
-            ));
-        },
-
-        forbidImage: function(imageId) {
-            return (apiRequest.send(
-                'POST',
-                '/image/abuse',
-                {
-                    "image_id": imageId,
-                }
             ));
         },
 
@@ -377,13 +234,6 @@ services
 
                 ));
             }
-        },
-
-        getFriends: function() {
-            return (apiRequest.send(
-                'GET',
-                '/get_friends'
-            ));
         },
 
         removeFriend: function(uuids) {

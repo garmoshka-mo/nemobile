@@ -1,8 +1,8 @@
 (function(){
 services
     .service('externalChat',
-    ['avatars', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'routing',
-    function(avatars, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, routing) {
+    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'routing',
+    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, routing) {
 
         var self = this;
 
@@ -53,7 +53,7 @@ services
 
                 self.lastUnexpiredChatSession = session; // todo: remove after refactoring
                 self.chatSessionsIndexes = [session.id];
-                self.ava = avatars.from_id(partner_id);
+                self.ava = Avatar.fromId(partner_id);
                 self.photoUrl = self.ava.url;
                 self.photoUrlMini = self.ava.url_mini;
             }

@@ -1,7 +1,8 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', '$http', 'notification', 'api', 'storage', 'user', 'ChatSession','$timeout', 'routing','deviceInfo', '$state',
-function($rootScope, $scope, $http, notification, api, storage, user, ChatSession, $timeout, routing, deviceInfo, $state) {
-
+    '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout', 'routing','deviceInfo', '$state', '$q', 'friendsList', 'messages', 'pubnubSubscription',
+function($rootScope, $scope, notification,  storage, user, chats, $timeout, routing, deviceInfo, $state, $q, friendsList, messages, pubnubSubscription) {
+    //messages and pubnubsubscription are not used in this controller
+    //but they have to be injected in order to be invoked
     $scope.user = user;
 
     log('main controller is invoked');
@@ -12,6 +13,28 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoreShown = true;
     $scope.version = version;
+
+    function parseUserFromStorage() {
+        user.isParsingFromStorageNow = true;
+        user.parsedFromStoragePromise = $q.all([
+            user.parseFromStorage(),
+            chats.parseFromStorage(),
+            friendsList.parseFromStorage()
+        ])
+        .then(
+            function() {
+                user.isParsingFromStorageNow = false;
+                user.parsedFromStorage = true;
+                $rootScope.$broadcast('user data parsed');
+                log("all user info was parsed from storage");
+            },
+            function() {
+                console.warn("there was error while parsing");
+            }
+        );
+
+        return user.parsedFromStoragePromise;
+    }
 
     var statesWhereShowBackArrow = [
         'chat',
@@ -51,7 +74,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
 
     document.addEventListener("pause", function() {
         $rootScope.isAppInBackground = true;
-        user.saveChats();
+        chats.save();
     });
 
     document.addEventListener("resume", function() {
@@ -200,7 +223,7 @@ function($rootScope, $scope, $http, notification, api, storage, user, ChatSessio
     }
 
     if (user.isLogged()) {
-        user.parseFromStorage()
+        parseUserFromStorage()
         .then(function() {
             if (RAN_AS_APP) {
                 if (_.isEmpty(user.chats)) {
