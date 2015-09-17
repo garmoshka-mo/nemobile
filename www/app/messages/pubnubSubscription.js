@@ -2,7 +2,7 @@
         services
         .service('pubnubSubscription', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', '$q',
             function($rootScope, apiRequest, deviceInfo, user, $q) {
-
+                log('pubnubSubscription is ran');
                 var pubnub = PUBNUB.init({
                     subscribe_key: config('pubnubSubscribeKey'),
                     publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
