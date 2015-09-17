@@ -1,7 +1,7 @@
 (function(){
     factories.factory('SpamFilter',
-        ['$resource', '$q',
-function($resource, $q) {
+        ['$resource', '$q', 'user',
+function($resource, $q, user) { 
 
     var spamFilterHost = config('spamFilterHost');
     if (spamFilterHost) var rest = $resource(spamFilterHost);
@@ -17,7 +17,7 @@ function($resource, $q) {
             }
 
             var data = {
-                client_id: user_uuid, // todo: replace to user.safe_id after refactoring of user (right now creates circular dep)
+                client_id: user.uuid, // todo: replace to user.safe_id after refactoring of user (right now creates circular dep)
                 talk_id: session.uuid, // identification of session, can be used by async callback
                 // to inform about malicious session
                 timestamp_ms: Date.now(),

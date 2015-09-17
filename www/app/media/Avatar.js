@@ -58,7 +58,11 @@ services
 
             Avatar.prototype = {
                 updateURL: function(url) {
-                    return api.updateAvatarText({url: url})
+                    return apiRequest.send(
+                        'POST',
+                        '/avatar',
+                        {url: url}
+                    )
                     .then(
                         function() {
                             updateUserInfo();
@@ -71,7 +75,11 @@ services
                 },
 
                 updateGuid: function(guid) {
-                    return api.updateAvatarText({guid: guid})
+                    return apiRequest.send(
+                        'POST',
+                        '/avatar',
+                        {guid: guid}
+                    )
                     .then(
                         function() {
                             updateUserInfo();
@@ -84,16 +92,33 @@ services
                 },
 
                 updateFile: function(file) {
-                    return api.updateAvatarFile(file)
-                    .then(
-                        function () {
-                            updateUserInfo();
+                    var d = $q.defer();
+                    fileTypeDeterminer.detect(file, 
+                        function(type) {
+                            $upload.upload({
+                                method: 'POST',
+                                url: config('apiUrl') + "/avatar",
+                                headers: {
+                                    "Authorization": "Token token=" + api.accessToken
+                                },
+                                file: file,
+                                fileName: "image." + type,
+                                fileFormDataName: "avatar[data]"
+                            })
+                            .then(
+                                function(res) {
+                                    d.resolve();
+                                },
+                                function(res) {
+                                    d.reject();
+                                }
+                            );
                         },
-                        function () {
-                            console.error("image upload error");
-                            return $q.reject();
+                        function() {
+                            alert("wrong file type");
                         }
                     );
+                    return d.promise;  
                 },
             };
 

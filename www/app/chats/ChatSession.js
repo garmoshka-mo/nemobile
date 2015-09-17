@@ -114,7 +114,16 @@ factories.factory('ChatSession',
                 chatSession.whenExipires = new Date().getTime() + ttl;                  
             }
             else {
-                api.getTimeDifference()
+                apiRequest.send(
+                    'GET',
+                    '/time'
+                )
+                .then(function(res) {
+                    var time = res.origin_time;
+                    var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
+                    log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
+                    return deviceServerTimeDifference_msec;
+                })
                 .then(function(timeDifference) {
                     deviceServerTimeDifference_msec = timeDifference;
                     ttl = calculateMessageTtl(expires);
@@ -161,37 +170,52 @@ factories.factory('ChatSession',
 
         sendMessage: function(message, address, ttl) {
             var self = this;
-            return api.sendMessage(message, address, ttl)
+
+            var data = {
+                "message_text": message,
+                "ttl": ttl
+            };
+
+            if (address.channel) {
+                data.channel = address.channel;
+            }
+            else if (address.uuid) {
+                data.recipient_uuid = address.uuid;
+            }
+            else {
+                console.error("there's no recipient address");
+                return;
+            }
+            
+            return apiRequest.send(
+                'POST',
+                '/messages',
+                data
+            )
             .then(
                 function(res) {
                     // log("message is sent", res);
-                    
-                    if (res.success && !res.type) {
                        
-                        // if (!self.messages.length) {
-                        //     self.creatorId = self.currentChat.currentUser.uuid;
-                        // }
+                    // if (!self.messages.length) {
+                    //     self.creatorId = self.currentChat.currentUser.uuid;
+                    // }
 
-                        if (message === "$===real===") {
-                            message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";
-                            // message = $sce.trustAsHtml(message);
-                        }
-
-                        self.addMessage({
-                            text: message.sanitize(),
-                            isOwn: true
-                        });
-
-                        // todo: fix logic bugs and uncomment
-                        // self.setTimer(res.expires);
-                        self.save();
-                        log("chat session is saved");
-                        return true;
-                    }
-                    else {
-                        return $q.reject(res.error);
+                    if (message === "$===real===") {
+                        message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";
+                        // message = $sce.trustAsHtml(message);
                     }
 
+                    self.addMessage({
+                        text: message.sanitize(),
+                        isOwn: true
+                    });
+
+                    // todo: fix logic bugs and uncomment
+                    // self.setTimer(res.expires);
+                    self.save();
+                    log("chat session is saved");
+                    return true;
+                    
                 },
                 function(res) {
                     console.error(res);

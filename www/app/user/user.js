@@ -1,9 +1,7 @@
-var user_uuid; // todo: remove after refactoring of user
 services
 .service('user', [
-    '$timeout', 'storage', 'externalChat', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'chats', 'Avatar', 
-    function($timeout, storage, externalChat, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, chats, Avatar) {
-    
+    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'Avatar', 'apiRequest',
+    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, Avatar, apiRequest) {
     
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
@@ -22,7 +20,6 @@ services
         user.name = userInfo.name;
         user.channel = userInfo.channel_group_name;
         user.uuid = userInfo.uuid;
-        user_uuid = user.uuid; // todo: remove after refactoring of user
 
         user.score = userInfo.score;
         user.phoneNumber = userInfo.phone_number;
@@ -51,66 +48,82 @@ services
         user.accessToken = null;
         user.channel = null;
         user.score = null;
-        user.chats = {};
         user.lastMessageTimestamp = null;
         user.isVirtual = null;
         friendsList.clear();
     }
 
-    function updateUserInfo(accessToken) {
-        var at = accessToken ? accessToken : user.accessToken;
-        user.signin(null, null, at);
-        log('user info is updated');
+    function getCurrentUserInfo(isVirtual) {
+        if (!user.accessToken) {
+            console.warn('access token is undefined');
+            return;
+        }
+
+        return apiRequest.send(
+            'POST',
+            '/profile'
+        )
+        .then(
+            function(res) {
+                // log('userInfo', userInfo);
+                user.isVirtual = isVirtual ? true : false;
+                handleSuccessSignIn(res.user);
+                log("user is logged", user);
+            },
+            function(res) {
+                console.error("sign in fail");
+                return $q.reject(res);
+            }
+        );
     }
 
     //public methods
 
-    this.signin = function(name, password, accessToken, isVirtual) {
-        var self = this;
+    ////sign in up, logout functions
+    this.signin = function(name, password, isVirtual) {
+        return apiRequest.guestSend(
+            'POST',
+            '/login',
+            {name: name, password: password}
+        )
+        .then(
+            function(res) {
+                setAccessToken(res.access_token);
+                getCurrentUserInfo();
+            },
+            function(res) {
+                return $q.reject(res.error); 
+            }
+        );
+    };
 
-        function getUserInfo(accessToken) {
-            return api.getUserInfo(accessToken)
-            .then(
-                function(res) {
-                    // log('userInfo', userInfo);
-                    user.isVirtual = isVirtual ? true : false;
-                    handleSuccessSignIn(res.user);
-                    log("user is logged", user);
-                },
-                function(res) {
-                    console.error("sign in fail");
-                    return $q.reject(res);
-                }
-            );
+    this.signinAsVirtualUser = function () {
+        var data = {};
+        if (document.referrer) {
+            data.referrer = document.referrer;
         }
-
-        if (accessToken) {
-            setAccessToken(accessToken);
-            return getUserInfo(self.accessToken);
+        if (location.search) {
+            data.track = location.search.substr(1);
         }
-        else {
-            return api.signin(name, password)
-            .then(
-                function setAccesssToken(res) {
-                    setAccessToken(res.access_token);
-                },
-                function showError(res) {
-                    return $q.reject(res.error); 
-                }
-            )
-            .then(
-                function() {
-                    getUserInfo(self.accessToken);    
-                },
-                function(res) {
-                    return $q.reject(res);
-                }
-            );
-        }
+        return apiRequest.guestSend(
+            'POST',
+            '/users/guest',
+            data
+        )
+        .then(
+            function(res) {
+                setAccessToken(res.access_token);
+                getCurrentUserInfo();
+            }
+        );
     };
 
     this.signup = function(name, password) {
-        return api.signup(name, password)
+        return apiRequest.guestSend(
+            'POST',
+            '/register',
+            {name: name, password: password}
+        )
         .then(
             function(res) {
                 return res;
@@ -137,55 +150,13 @@ services
         return d.promise;
     };
 
-    this.parseFromStorage = function() {
-        var self = this;
-        self.isParsingFromStorageNow = true;
-        this.parsedFromStoragePromise = $q.all([
-            storage.getUser().then(function(dataFromStorage) {
-                self.name = dataFromStorage.name;
-                self.uuid = dataFromStorage.uuid;
-                user_uuid = user.uuid; // todo: remove after refactoring of user
-
-                self.channel = dataFromStorage.channel;
-                self.score = dataFromStorage.score;
-                self.phoneNumber = dataFromStorage.phoneNumber;
-                self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
-                self.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
-                self.isVirtual = dataFromStorage.isVirtual;
-
-                setAccessToken(dataFromStorage.accessToken);
-                // registerDeviceToChannel();
-                stickersGallery.getCurrentUserCategories();
-                log("user info is taken from storage", self);
-            }),
-            storage.getLastMessageTimestamp().then(function(timestamp) {
-                self.lastMessageTimestamp = timestamp;
-            }),
-            chats.parseFromStorage(),
-            friendsList.parseFromStorage()
-        ])
-        .then(
-            function() {
-                self.isParsingFromStorageNow = false;
-                self.parsedFromStorage = true;
-                $rootScope.$broadcast('user data parsed');
-                log("all user info was parsed from storage");
-            },
-            function() {
-                console.warn("there was error while parsing");
-            }
-        );
-
-        return this.parsedFromStoragePromise;
-    };
-
     this.save = function() {
-        storage.saveUser(this);
+        storage.saveUser(user);
         log("user info is saved");
     };
 
     this.saveLastMessageTimestamp = function() {
-        storage.saveLastMessageTimestamp(this.lastMessageTimestamp); 
+        storage.saveLastMessageTimestamp(user.lastMessageTimestamp); 
     };
 
     this.isLogged = function() {
@@ -211,7 +182,7 @@ services
         return api.confirmPhoneNumber(phoneNumber, activationCode, sendAccessToken)
         .then(
             function(res) {
-                updateUserInfo(res.access_token);    
+                getCurrentUserInfo(res.access_token);    
             },
             function(res) {
                 return $q.reject(res);
@@ -220,13 +191,25 @@ services
     };
 
     this.updateProfile = function(name, password) {
-        return api.updateProfile(name, password)
+        var data = {};
+        if (name) {
+            data.name = name;
+        }
+
+        if (password) {
+            data.password = password;
+        }
+
+        return (apiRequest.send(
+            'PUT',
+            '/profile',
+            data
+        ))
         .then(
             function(res) {
-                updateUserInfo();
+                getCurrentUserInfo();
                 if (user.isVirtual) {
                     user.isVirtual = false;
-                    notifyThatBecomeReal();
                 }
                 log('updateProfile', res);
             },
@@ -236,37 +219,35 @@ services
         );
     };
 
+    this.parseFromStorage = function(dataFromStorage) {
+        return $q.all([
+            storage.getUser().then(function(dataFromStorage) {
+                user.name = dataFromStorage.name;
+                user.uuid = dataFromStorage.uuid;
+
+                user.channel = dataFromStorage.channel;
+                user.score = dataFromStorage.score;
+                user.phoneNumber = dataFromStorage.phoneNumber;
+                user.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
+                user.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
+                user.isVirtual = dataFromStorage.isVirtual;
+
+                setAccessToken(dataFromStorage.accessToken);
+                // registerDeviceToChannel();
+                stickersGallery.getCurrentUserCategories();
+                log("user info is taken from storage", user);    
+            }),
+            storage.getLastMessageTimestamp().then(function(timestamp) {
+                user.lastMessageTimestamp = timestamp;
+            })
+        ]);
+    };
+
     this.socialSignin = function(provider, providerId, providerToken) {
         return api.socialSignin.apply(this, arguments)
         .then(function(res) {
-            updateUserInfo(res.access_token);
+            getCurrentUserInfo(res.access_token);
         });
-    };
-
-    this.signinAsVirtualUser = function () {
-        return api.addVirtualAccount()
-        .then(
-            function(res) {
-                user.signin(null, null, res.access_token, true)
-                .then(
-                    function() {
-                        user.save();
-                    },
-                    function() {
-                        return $q.reject();
-                    }
-                );
-            }
-        );
-    };
-
-    //todo: move to another services
-    this.blockUser = function(uuid) {
-        api.blockUser(uuid);
-    };
-
-    this.forbidImage = function(imageUrl) {
-        api.forbidImage(imageUrl);
     };
 
     //for debugging

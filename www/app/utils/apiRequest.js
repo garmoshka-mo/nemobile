@@ -39,7 +39,15 @@ function ($http, $q) {
         },
 
         guestSend: function(method, url, data) {
-            return $http(new Config(method, url, data, true));
+            return $http(new Config(method, url, data, true))
+            .then(
+                function(res) {
+                    return res.data.success ? res.data : $q.reject(res.data.error);    
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            );
         },
 
         sendSync: function(method, url, data) {
