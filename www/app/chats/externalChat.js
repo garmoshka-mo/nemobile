@@ -53,9 +53,7 @@ services
 
                 self.lastUnexpiredChatSession = session; // todo: remove after refactoring
                 self.chatSessionsIndexes = [session.id];
-                self.ava = Avatar.fromId(partner_id);
-                self.photoUrl = self.ava.url;
-                self.photoUrlMini = self.ava.url_mini;
+                self.avatar = Avatar.fromId(partner_id);
             }
             self.createEmptySession = initSession;
 
