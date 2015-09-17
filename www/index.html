@@ -193,7 +193,7 @@
             <div class="iphone-hack iphone-status-bar-margin"></div>
             <div class="inner-wrap">
                 <nav class="tab-bar no-select">
-                    <section class="left-small pointer ta-center">
+                    <section ng-cloak class="left-small pointer ta-center">
                         <a ng-hide="isBackArrownShown || customSmallIconInner" class="menu-icon" ng-click="toggleMenu()"><span></span></a>
                         <i ng-show="isBackArrownShown && !customSmallIconInner" ng-click="backArrowHandler()" class="fa fa-chevron-left ml10 pointer"></i>
                         <span ng-show="customSmallIconInner" ng-click="customSmallIconHandler()" class="customSmallIcon" ng-bind-html="customSmallIconInner"></span>

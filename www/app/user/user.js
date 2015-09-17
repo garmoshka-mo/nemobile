@@ -77,6 +77,9 @@ services
         );
     }
 
+    //necessary in order to update update data about avatar
+    $rootScope.$on('user avatar was updated', getCurrentUserInfo);
+
     //public methods
 
     ////sign in up, logout functions

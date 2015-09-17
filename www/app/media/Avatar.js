@@ -1,7 +1,8 @@
 (function(){
 services
     .factory('Avatar',
-    ['apiRequest', function(apiRequest) {
+    ['apiRequest', '$q', '$upload', 'api', '$rootScope', 
+    function(apiRequest, $q, $upload, api, $rootScope) {
 
             function Avatar(dataFromServer, dataFromStorage) {
                 var parsed =  dataFromStorage ?
@@ -65,7 +66,7 @@ services
                     )
                     .then(
                         function() {
-                            updateUserInfo();
+                            $rootScope.$broadcast('user avatar was updated');
                         },
                         function() {
                             log("updating avatar is failed");
@@ -82,7 +83,7 @@ services
                     )
                     .then(
                         function() {
-                            updateUserInfo();
+                            $rootScope.$broadcast('user avatar was updated');
                         },
                         function() {
                             log("updating avatar is failed");
@@ -107,6 +108,7 @@ services
                             })
                             .then(
                                 function(res) {
+                                    $rootScope.$broadcast('user avatar was updated');
                                     d.resolve();
                                 },
                                 function(res) {
@@ -115,7 +117,8 @@ services
                             );
                         },
                         function() {
-                            alert("wrong file type");
+                            alert("пожалуйста, выберете изображение");
+                            d.reject();
                         }
                     );
                     return d.promise;  

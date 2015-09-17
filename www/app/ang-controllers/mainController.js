@@ -73,7 +73,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
 
     document.addEventListener("pause", function() {
         $rootScope.isAppInBackground = true;
-        user.saveChats();
+        chats.save();
     });
 
     document.addEventListener("resume", function() {
