@@ -1,7 +1,7 @@
 (function(){
 factories.factory('ChatSession',
-    ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract',
-    function($timeout, storage, api, $q, notification, ChatSessionAbstract) {
+    ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract', 'apiRequest',
+    function($timeout, storage, api, $q, notification, ChatSessionAbstract, apiRequest) {
     
     function ChatSession(creatorId, channelName, senderId, id, currentChat) {
         this.isExpired = false;
