@@ -1049,7 +1049,7 @@ input[type="radio"]:checked + .radioLabel {
 
 .time_zone {
   font-size: 0.8rem;
-  padding: 7px 12px;
+  padding: 7px 12px 7px 4px;
   text-align: right;
   line-height: 0;
  }
@@ -1057,6 +1057,7 @@ input[type="radio"]:checked + .radioLabel {
 .time_zone i {
  padding-right: 3px;
 }
+
 
 .time_zone .dubink {
   margin: 10px 0;
@@ -1086,4 +1087,19 @@ input[type="radio"]:checked + .radioLabel {
   padding: 10px;
   top: 1px;
   position: relative;
+}
+
+.icon_button {
+  color: white;
+  padding: 0 14px;
+  display: block;
+}
+.publish {
+  width: 43px;
+}
+.chat-right-tool {
+  width:auto;
+}
+.chat-right-tool>div {
+  float:left;
 }
