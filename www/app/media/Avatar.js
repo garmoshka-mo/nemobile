@@ -11,7 +11,15 @@ services
                 this.url = parsed.url;
                 this.urlMini = parsed.urlMini;
             }
- 
+            
+            function makeUrl(data) {
+                return  config('adorableUrl') + '/' + data;
+            }
+
+            function makeUrlMini(data) {
+                return config('adorableUrl') + '/40/' + data; 
+            }
+
             //if no data is provided, random avatar will be set
             function parseDataFromServer(dataFromServer) {
                 var output = {
@@ -25,17 +33,17 @@ services
                         output.urlMini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80/$2' + '$3');
                     }
                     else if (dataFromServer.avatar_guid) {
-                        output.url = config('adorableUrl') + '/' + dataFromServer.avatar_guid;
-                        output.urlMini = config('adorableUrl') + '/40/' + dataFromServer.avatar_guid;
+                        output.url = makeUrl(dataFromServer.avatar_guid);
+                        output.urlMini = makeUrlMini(dataFromServer.avatar_guid);
                     }
                     else if (dataFromServer.uuid) {
-                        output.url = config('adorableUrl') + '/' + dataFromServer.uuid;
-                        output.urlMini = config('adorableUrl') + '/40/' + dataFromServer.uuid;
+                        output.url = makeUrl(dataFromServer.uuid);
+                        output.urlMini = makeUrlMini(dataFromServer.uuid);
                     }
                 }
                 else {
-                    output.url = config('adorableUrl') + '/' + Math.round(Math.random() * 1000);
-                    output.urlMini = config('adorableUrl') + '/40/' + Math.round(Math.random() * 1000);
+                    output.url = makeUrl(Math.round(Math.random() * 1000));
+                    output.urlMini = makeUrlMini(Math.round(Math.random() * 1000));
                 }
 
                 return output;

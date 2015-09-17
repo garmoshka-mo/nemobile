@@ -9,11 +9,13 @@ var gulp = require('gulp'),
     replace = require('gulp-regex-replace'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
-    merge2 = require('merge2');
+    merge2 = require('merge2'),
+    jade = require('gulp-jade');
 
 var dateFormat = require('dateformat');
 var now = new Date();
 var version = dateFormat(now, "mm-dd_h-MM-ss");
+    webserver = 'web-server/',
     source_www = "www/",
     output_root = "build/",
     output_www = output_root+"www/",
@@ -23,7 +25,7 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
     output_css = output_www + output_css_file;
 
 gulp.task('default', function() {
-    runSequence('cleanBuildFolder', 'build_css','build_js',
+    runSequence('jade_to_html', 'cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server');
 });
 
@@ -67,6 +69,12 @@ gulp.task('build_js', function () {
     )
         .pipe(concat(output_js_file))
         .pipe(gulp.dest(output_www));
+});
+
+gulp.task('jade_to_html', function() {
+    return gulp.src(webserver + 'views/index.jade')
+        .pipe(jade())
+        .pipe(gulp.dest(source_www));   
 });
 
 gulp.task('copy_static', function(){
