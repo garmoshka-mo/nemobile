@@ -2,8 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
+            'chats',
     function(user, $scope, $stateParams, $state, externalChat, api, timer,
-             notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo) {
+             notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
+                chats) {
 
         
         log("chat controller is invoked");
