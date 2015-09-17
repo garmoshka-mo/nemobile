@@ -106,8 +106,10 @@ html
     script(type='text/javascript', src='app/chats/intro/alt.js')
     script(type='text/javascript', src='app/chats/random.js')
     script(type='text/javascript', src='app/chats/chats.js')
+    script(type='text/javascript', src='app/chats/complaintController.js')
     script(type='text/javascript', src='app/media/Avatar.js')
     script(type='text/javascript', src='app/media/Photo.js')
+    script(type='text/javascript', src='app/media/avatar.js')
     script(type='text/javascript', src='app/utils/updates.js')
     script(type='text/javascript', src='app/utils/config.js')
     script(type='text/javascript', src='app/utils/localForageController.js')
@@ -188,8 +190,7 @@ html
                   img.chat-toolbar-image.pointer(ng-show='notification.ava_url', ng-src='{{notification.ava_url}}')
                   span(ng-bind='notification.text')
                   span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
-                a.options
-                  i.fa.fa-ellipsis-v
+                span(ng-include="'partials/complaintMenu.html?'+version", ng-controller='complaintController')
           section.right-small.chat-right-tool(ng-cloak='', ng-show='true')
             .publish
               a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')

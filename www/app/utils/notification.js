@@ -1,8 +1,8 @@
 (function(){
     services
         .service('notification',
-        ['$rootScope', '$timeout', 'sound', 'timer', Service]);
-    function Service($rootScope, $timeout, sound, timer) {
+        ['$rootScope', '$timeout', 'sound', 'timer', '$mdToast', Service]);
+    function Service($rootScope, $timeout, sound, timer, $mdToast) {
         log("notification service is enabled");
         $rootScope.notification = {
             typing_label: "печатает...",
@@ -12,6 +12,7 @@
         var initialText;
         var initialHandler;
         var typing_timeout;
+        var chatDisconnectHandler;
 
         var initialPageTitle = null;
         var initialPageFavicon = null;
@@ -140,6 +141,22 @@
                     $rootScope.customSmallIconInner =
                         $rootScope.customSmallIconHandler = null;
                 });
+            },
+
+            setChatDisconnectHandler: function(handler){
+                chatDisconnectHandler = handler;
+            },
+
+            chatDisconnect: function(){
+                chatDisconnectHandler();
+            },
+
+            showToast: function(message, hideDelay) {
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content(message)
+                        .hideDelay(hideDelay || 3000)
+                );
             },
 
             clear: function() {

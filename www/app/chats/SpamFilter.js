@@ -30,6 +30,10 @@ function($resource, $q, user) {
 
         }
 
+        this.complain = function(reason) {
+            //TODO: implement
+            log('>> User have complained about his chat mate. Reason: ' + reason);
+        }
     };
 
 }]);

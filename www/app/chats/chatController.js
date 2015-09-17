@@ -119,6 +119,7 @@ angular.module("angControllers").controller("chatController",
         };
 
         notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
+        notification.setChatDisconnectHandler($scope.disconnectRandomChat);
 
 
         if ($stateParams.chatType == 'external') {
@@ -339,6 +340,14 @@ angular.module("angControllers").controller("chatController",
                 );
             }
         }
+
+        $scope.uploadPhoto = function() {
+            //TODO: api.uploadPhoto(photo);
+            //log("n");
+            //api.addStickerFile(1, $scope.image.file[0]).then(function(res){
+            //        $scope.sendMessage("lol");
+            //});
+        };
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
