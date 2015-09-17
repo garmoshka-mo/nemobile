@@ -2,12 +2,12 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats',
+            'chats', 'googleAnalytics',
     function(user, $scope, $stateParams, $state, externalChat, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats) {
+                chats, googleAnalytics) {
 
-        
+
         log("chat controller is invoked");
 
         $scope.user = user;
@@ -112,7 +112,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.disconnectRandomChat = function() {
             $scope.chat.disconnect();
-            googleAnalytics.event('random', 'finish');
+            googleAnalytics.dialogComplete();
 
             timer.stop();
             $state.go('random');

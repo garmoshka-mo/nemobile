@@ -11,7 +11,9 @@ factories.factory("Chat",
             chatData.lastChatSessionIndex : null;
         this.lastUnexpiredChatSession = chatData.lastUnexpiredChatSession ? 
             chatData.lastUnexpiredChatSession : null;
+
         this.senderScore = chatData.senderScore ? chatData.senderScore : null;
+
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.avatar = Avatar.fromId(chatData.channelName);
         this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;

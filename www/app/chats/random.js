@@ -1,6 +1,6 @@
 services
-.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope',
-    function(user, $q, externalChat, apiRequest, $rootScope) {
+.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope', 'googleAnalytics',
+    function(user, $q, externalChat, apiRequest, $rootScope, googleAnalytics) {
 
         this.waitingServer = false;
         this.lookupInProgress = false;
@@ -34,11 +34,16 @@ services
         }
 
         $rootScope.$on('new random chat', function(event, args) {
+            googleAnalytics.setLookForChat(false);
+            googleAnalytics.dialogStart();
             onRandomChatOpen(args.type);
         });
 
         this.lookForChat = function(preferences) {
             var d = $q.defer();
+
+            googleAnalytics.setUserPreferences(preferences);
+            googleAnalytics.setLookForChat(true);
 
             self.waitingServer = true;
             self.lookupInProgress = true;
@@ -69,6 +74,7 @@ services
         };
 
         this.cancelLookingFor = function() {
+            googleAnalytics.boredToWait();
             self.waitingServer = true;
             cancelExternalLookingFor();
             return cancelInternalLookingFor()

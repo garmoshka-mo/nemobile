@@ -5,6 +5,9 @@ app.config(['$animateProvider', '$compileProvider', function($animateProvider, $
     //  chrome-extension: will be added to the end of the expression
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
+app.config(['$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+}]);
 
 window.mobilecheck = function() {
   var check = false;
@@ -175,69 +178,9 @@ function bootstrapAngularApp() {
     }
 }
 
-
-var googleAnalytics = {
-    init: function() {
-        if (RAN_AS_APP){ 
-            this.executeMobile(function() {
-                window.analytics.startTrackerWithId(config('gaTrackingCodeMobile'));
-            });
-        }
-        else
-        ga('create', config('gaTrackingCodeWeb'), 'auto');
-    },
-    event: function(label, value) {
-        if (RAN_AS_APP){ 
-            this.executeMobile(function(){
-                window.analytics.trackEvent('send', 'event', label, value);
-            });
-        }
-        else
-        ga('send', 'event', label, value);
-    },
-    pageview: function() {
-        if (RAN_AS_APP){ 
-            this.executeMobile(function(){
-                window.analytics.trackView('pageview');
-            });
-        }
-        else
-        ga('send', 'pageview');
-    },
-    executeMobile: function(toExecute) {
-        if (window.device) {
-            toExecute();
-        }
-        else {
-            document.addEventListener('deviceready', function() {
-                toExecute();
-            });
-        }
-    }
-};
-
 var config;
 window.onload = function onLoad() {
     config = new Config(App.Settings);
     bootstrapAngularApp();
-    if (!RAN_AS_APP) {
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    }
-    googleAnalytics.init();
-    googleAnalytics.pageview();
     VK.init({apiId: 5067621, onlyWidgets: true});
 };
-
-$(window).bind('beforeunload', function() {
-    googleAnalytics.event('page', 'close');
-});
