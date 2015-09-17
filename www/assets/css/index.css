@@ -1080,3 +1080,10 @@ input[type="radio"]:checked + .radioLabel {
   background: url("/assets/img/bg.png");
   background-size: 187px 150px;
 }
+
+.notification .options {
+  color: white;
+  padding: 10px;
+  top: 1px;
+  position: relative;
+}

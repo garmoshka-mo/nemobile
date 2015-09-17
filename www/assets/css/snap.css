@@ -10,7 +10,7 @@ html, body {
 .snap-content {
   position: absolute; 
   z-index: 2;
-  background: #F1F3F6;
+  background: #EAF0F1;
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
