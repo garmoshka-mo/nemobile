@@ -1,6 +1,10 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+doctype html
+html
+  head
+    title= title
+  body
+    h2= message
+    h3= error.status
+    pre= details
+    pre #{error.stack}
+    a(href='/') Перейти на домашнюю страницу

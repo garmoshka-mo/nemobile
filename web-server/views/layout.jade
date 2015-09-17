@@ -1,7 +1,206 @@
 doctype html
+//
+  Copyright (C) 2015 DUB.iNK - All Rights Reserved
+  This file is part of dub.ink
+  dub.ink can not be copied and/or distributed without the express
+  permission of DUB.INK
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    title Чат наугад - DUB.iNK
+    meta(name='description', content='Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий')
+    meta(property='og:image', content='http://dub.ink/assets/img/screen1.jpg')
+    meta(charset='utf-8')
+    meta(name='format-detection', content='telephone=no')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+    base(href="/")
+    // inject:css
+    link(rel='stylesheet', type='text/css', href='assets/css/foundation.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/animate.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/font-awesome.min.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/flags.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/intlTelInput.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/snap.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/angular-material-reduced.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/index.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/random.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/chat.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/pluso.css')
+    link(rel='stylesheet', type='text/css', href='assets/css/angular-tooltips.min.css')
+    // endinject
+    link(rel='apple-touch-icon', sizes='57x57', href='assets/img/favicons/apple-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='assets/img/favicons/apple-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='assets/img/favicons/apple-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='assets/img/favicons/apple-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='assets/img/favicons/apple-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='assets/img/favicons/apple-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='assets/img/favicons/apple-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='assets/img/favicons/apple-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='assets/img/favicons/apple-icon-180x180.png')
+    link(rel='icon', type='image/png', sizes='192x192', href='assets/img/favicons/android-icon-192x192.png')
+    link(rel='icon', type='image/png', sizes='32x32', href='assets/img/favicons/favicon-32x32.png')
+    link(rel='icon', type='image/png', sizes='96x96', href='assets/img/favicons/favicon-96x96.png')
+    link(rel='icon', type='image/png', sizes='16x16', href='assets/img/favicons/favicon-16x16.png')
+    link(rel='manifest', href='assets/img/favicons/manifest.json')
+    meta(name='msapplication-TileColor', content='#ffffff')
+    meta(name='msapplication-TileImage', content='img/favicons/ms-icon-144x144.png')
+    meta(name='theme-color', content='#ffffff')
+    script(type='text/javascript', src='cordova.js')
+    // inject:js
+    script(type='text/javascript', src='jslibs/2jquery.js')
+    script(type='text/javascript', src='jslibs/vkopenapi.js')
+    script(type='text/javascript', src='jslibs/1angular.js')
+    script(type='text/javascript', src='jslibs/hammer.js')
+    script(type='text/javascript', src='jslibs/3promises.js')
+    script(type='text/javascript', src='jslibs/5localforage.js')
+    script(type='text/javascript', src='jslibs/angular-localForage.js')
+    script(type='text/javascript', src='jslibs/angular-ui-router.js')
+    script(type='text/javascript', src='jslibs/angular-sanitize.js')
+    script(type='text/javascript', src='jslibs/angular-touch.js')
+    script(type='text/javascript', src='jslibs/angular-file-upload.js')
+    script(type='text/javascript', src='jslibs/angular-animate.js')
+    script(type='text/javascript', src='jslibs/angular-material.js')
+    script(type='text/javascript', src='jslibs/angular-aria.min.js')
+    script(type='text/javascript', src='jslibs/angular-resource.min.js')
+    script(type='text/javascript', src='jslibs/randomColor.js')
+    script(type='text/javascript', src='jslibs/angular-tooltips.min.js')
+    script(type='text/javascript', src='jslibs/api_anchat.js')
+    script(type='text/javascript', src='jslibs/mm-foundation-tpls-0.5.0.js')
+    script(type='text/javascript', src='jslibs/fileTypeDeterminer.js')
+    script(type='text/javascript', src='jslibs/angular-social.src.js')
+    script(type='text/javascript', src='jslibs/gestures.min.js')
+    script(type='text/javascript', src='jslibs/foundation.min.js')
+    script(type='text/javascript', src='jslibs/pubnub.js')
+    script(type='text/javascript', src='jslibs/PushNotification.js')
+    script(type='text/javascript', src='jslibs/lodash.js')
+    script(type='text/javascript', src='jslibs/snap.js')
+    script(type='text/javascript', src='jslibs/ng-infinite-scroll.js')
+    script(type='text/javascript', src='jslibs/4react.js')
+    script(type='text/javascript', src='jslibs/react-simpletabs.js')
+    script(type='text/javascript', src='jslibs/favico.js')
+    // files for internation phone number prefix plugin
+    script(type='text/javascript', src='jslibs/intlTelInput.js')
+    script(type='text/javascript', src='jslibs/data.js')
+    script(type='text/javascript', src='jslibs/utils.js')
+    script(type='text/javascript', src='jslibs/international-phone-number.js')
+    // end of files for internation phone number prefix plugin
+    // This should be first (declaration of modules)
+    script(type='text/javascript', src='angular_init.js')
+    script(type='text/javascript', src='app/testDataset.js')
+    script(type='text/javascript', src='app/routes.js')
+    script(type='text/javascript', src='app/angular-app.js')
+    script(type='text/javascript', src='app/factories/Friend.js')
+    script(type='text/javascript', src='app/bots/ActivityBot.js')
+    script(type='text/javascript', src='app/bots/TeacherBot.js')
+    script(type='text/javascript', src='app/bots/SlowpokesFriend.js')
+    script(type='text/javascript', src='app/chats/Chat.js')
+    script(type='text/javascript', src='app/chats/ChatSession.js')
+    script(type='text/javascript', src='app/chats/ChatSessionAbstract.js')
+    script(type='text/javascript', src='app/chats/chatsController.js')
+    script(type='text/javascript', src='app/chats/chatController.js')
+    script(type='text/javascript', src='app/chats/externalChat.js')
+    script(type='text/javascript', src='app/chats/ExternalChatSession.js')
+    script(type='text/javascript', src='app/chats/randomController.js')
+    script(type='text/javascript', src='app/chats/ExternalProvider.js')
+    script(type='text/javascript', src='app/chats/SpamFilter.js')
+    script(type='text/javascript', src='app/chats/intro/default.js')
+    script(type='text/javascript', src='app/chats/intro/alt.js')
+    script(type='text/javascript', src='app/chats/random.js')
+    script(type='text/javascript', src='app/media/avatar.js')
+    script(type='text/javascript', src='app/utils/updates.js')
+    script(type='text/javascript', src='app/utils/config.js')
+    script(type='text/javascript', src='app/utils/localForageController.js')
+    script(type='text/javascript', src='app/utils/apiRequest.js')
+    script(type='text/javascript', src='app/utils/helpers.js')
+    script(type='text/javascript', src='app/utils/timer.js')
+    script(type='text/javascript', src='app/messages/messagesDirective.js')
+    script(type='text/javascript', src='app/messages/share.js')
+    script(type='text/javascript', src='app/user/userService.js')
+    script(type='text/javascript', src='app/user/membership.js')
+    script(type='text/javascript', src='app/purchase/activationController.js')
+    script(type='text/javascript', src='app/purchase/afterPurchaseController.js')
+    script(type='text/javascript', src='app/services/stickersGalleryService.js')
+    script(type='text/javascript', src='app/utils/notification.js')
+    script(type='text/javascript', src='app/utils/googleAnalytics.js')
+    script(type='text/javascript', src='app/utils/sound.js')
+    script(type='text/javascript', src='app/services/apiService.js')
+    script(type='text/javascript', src='app/services/storageService.js')
+    script(type='text/javascript', src='app/services/routingService.js')
+    script(type='text/javascript', src='app/services/vkService.js')
+    script(type='text/javascript', src='app/services/dictionaryService.js')
+    script(type='text/javascript', src='app/services/friendsListService.js')
+    script(type='text/javascript', src='app/services/deviceInfoService.js')
+    script(type='text/javascript', src='app/services/temporaryDataService.js')
+    script(type='text/javascript', src='app/ang-controllers/mainController.js')
+    script(type='text/javascript', src='app/ang-controllers/startController.js')
+    script(type='text/javascript', src='app/ang-controllers/aboutController.js')
+    script(type='text/javascript', src='app/ang-controllers/chatInfoController.js')
+    script(type='text/javascript', src='app/ang-controllers/signinupController.js')
+    script(type='text/javascript', src='app/ang-controllers/showImageController.js')
+    script(type='text/javascript', src='app/ang-controllers/createFastChatController.js')
+    script(type='text/javascript', src='app/ang-controllers/addVirtualChatController.js')
+    script(type='text/javascript', src='app/ang-controllers/settingsController.js')
+    script(type='text/javascript', src='app/ang-controllers/virtualChatController.js')
+    script(type='text/javascript', src='app/ang-controllers/menuController.js')
+    script(type='text/javascript', src='app/ang-controllers/friendSearchController.js')
+    script(type='text/javascript', src='app/ang-controllers/invitationController.js')
+    script(type='text/javascript', src='app/ang-controllers/updateProfileController.js')
+    script(type='text/javascript', src='app/ang-controllers/exitController.js')
+    script(type='text/javascript', src='app/ang-controllers/homepageController.js')
+    script(type='text/javascript', src='app/ang-controllers/vkLoginController.js')
+    script(type='text/javascript', src='app/ang-controllers/stickersGalleryController.js')
+    script(type='text/javascript', src='app/ang-controllers/addImageController.js')
+    script(type='text/javascript', src='app/ang-controllers/loadAvatarController.js')
+    script(type='text/javascript', src='app/ang-controllers/friendsController.js')
+    script(type='text/javascript', src='app/ang-controllers/phoneRegistrationController.js')
+    script(type='text/javascript', src='app/ang-controllers/phoneRegistrationUserController.js')
+    script(type='text/javascript', src='app/ang-controllers/preloaderController.js')
+    script(type='text/javascript', src='app/directives.js')
+    script(type='text/javascript', src='config.js')
+    script(type='text/javascript', src='app/filters.js')
+    // endinject
+  body(ng-controller='mainController')
+    .snap-drawers
+      .snap-drawer.snap-drawer-left
+        aside.left-off-canvas-menu
+          .iphone-hack.iphone-menu-margin
+          div(ng-include="'partials/menu.html?'+version", ng-controller='menuController')
+    .off-canvas-wrap.snap-content(slide-menu='', data-offcanvas='')
+      .prevent-click
+      .iphone-hack.iphone-status-bar-margin
+      .inner-wrap
+        nav.tab-bar.no-select
+          section.left-small.pointer.ta-center
+            a.menu-icon(ng-hide='isBackArrownShown || customSmallIconInner', ng-click='toggleMenu()')
+              span
+            i.fa.fa-chevron-left.ml10.pointer(ng-show='isBackArrownShown && !customSmallIconInner', ng-click='backArrowHandler()')
+            span.customSmallIcon(ng-show='customSmallIconInner', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
+          section.middle.tab-bar-section.p0
+            h1.title
+              div(ng-show='routing.is_preload')
+                span(spinner='', spinner-color='white')
+              div(ng-hide='notification.text || routing.is_preload', ui-view='title')
+              .notification(ng-show='notification.text && !routing.is_preload', ng-click='notification.handler()', ng-class="{'animated fadeIn': notification.animated}")
+                span.pointer
+                  img.chat-toolbar-image.pointer(ng-show='notification.ava_url', ng-src='{{notification.ava_url}}')
+                  span(ng-bind='notification.text')
+                  span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
+                a.options
+                  i.fa.fa-ellipsis-v
+          section.right-small.chat-right-tool(ng-cloak='', ng-show='true')
+            .publish
+              a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
+                i.fa.fa-share-alt
+            .time_zone(ng-show='notification.time')
+              i.fa.fa-clock-o
+              span(ng-bind='notification.time')
+              .dubink DUB.iNK
+          section.right-small.ta-center(ng-cloak='', ng-show='user.score && isUserScoreShown')
+            i.fa.fa-star
+            span(ng-bind='user.score')
+        section.main-section(ng-class="{'brand_bg': isChatState()}")
+          // content goes here
+          // MAIN CONTENT
+          #wrapper(ng-hide='routing.is_preload')
+            .content(ui-view='content')
+              block content
+        a.exit-off-canvas

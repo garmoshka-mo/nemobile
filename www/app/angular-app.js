@@ -5,6 +5,9 @@ app.config(['$animateProvider', '$compileProvider', function($animateProvider, $
     //  chrome-extension: will be added to the end of the expression
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
 }]);
+app.config(['$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+}]);
 
 window.mobilecheck = function() {
   var check = false;
