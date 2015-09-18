@@ -1,16 +1,13 @@
 (function(){
     app.directive('messages', function() {
         return {
-            scope: {session: '='},
+            scope: {session: '=', messageInput: '='},
             templateUrl: "app/messages/messages.html",
             controller: ['$scope', 'timer', '$sce', controller]
         };
     });
 
     function controller($scope, timer, $sce) {
-
-
-
 
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
@@ -23,6 +20,10 @@
             else
                 showSharing = timer.lastDuration > 300;
             return showSharing;
+        };
+
+        $scope.quoteIt = function(message) {
+            $scope.messageInput = $scope.messageInput + ' ">' + message.text + '"';
         };
 
         function parseUrls(messageText) {

@@ -15,8 +15,21 @@
         </div>
         <share ng-if="askShowSharing()"></share>
     </div>
-    <div ng-switch-default class="message"
-         ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
-         ng-bind-html="::formatMessage(message)"  
-         allow-textselect></div>
+    <md-menu md-position-mode="target-right target" >
+        <md-button class="chatMessageMenu" aria-label="Open some menu">
+            <div ng-switch-default class="message"
+                 ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
+                 ng-bind-html="::formatMessage(message)"  
+                 ng-click="$mdOpenMenu($event)"
+                 >
+             </div>
+        </md-button>
+        <md-menu-content>
+            <md-menu-item>
+                <md-button ng-click="quoteIt(message)">
+                    Цитировать
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
 </div>
