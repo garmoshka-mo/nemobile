@@ -17,5 +17,6 @@
     </div>
     <div ng-switch-default class="message"
          ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
-         ng-bind-html="::formatMessage(message)"  allow-textselect></div>
+         ng-bind-html="::formatMessage(message)"  
+         allow-textselect></div>
 </div>
