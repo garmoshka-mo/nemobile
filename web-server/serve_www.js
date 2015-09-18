@@ -46,7 +46,7 @@ app.get('/version', function (req, res) {
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('404 Поломанная ссылка');
-    err.details = 'Возможно, эту страницу нельзя было перезагружать.';
+    err.details = 'Возможно, эту страницу не следовало перезагружать.';
     err.status = 404;
     next(err);
 });
