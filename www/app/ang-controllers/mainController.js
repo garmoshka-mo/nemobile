@@ -170,7 +170,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         if (user.isLogged()) {
             if (_.includes(statesFromRedirectLoggedUser, toState.name)) {
                 evt.preventDefault();
-                $state.go('random');
+                $state.go('pub');
 /*                if (_.isEmpty(user.chats)) {
                     $state.go('friends');
                 }
@@ -181,8 +181,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         }
         else if (toState.name === 'start') {
             evt.preventDefault();
-            //$state.go('homepage');
-            $state.go('random');
+            $state.go('pub');
         }
 
         if (_.includes(statesWhereShowBackArrow, toState.name) && 
@@ -227,7 +226,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         .then(function() {
             if (RAN_AS_APP) {
                 if (_.isEmpty(user.chats)) {
-                    $state.go('random')
+                    $state.go('pub')
                     .then(
                         hideSplashScreen
                     );
@@ -242,7 +241,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
             else {
                 if (_.includes(statesFromRedirectLoggedUser, $state.current.name)) {
                     if (_.isEmpty(user.chats)) {
-                        $state.go('random');
+                        $state.go('pub');
                     }
                     else {
                         $state.go('random');
@@ -252,7 +251,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         });
     }
     else {
-        $state.go('random');
+        $state.go('pub');
     }
 
     $scope.isChatState = function(){
