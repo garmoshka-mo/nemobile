@@ -23,7 +23,7 @@
         };
 
         $scope.quoteIt = function(message) {
-            $scope.messageInput = $scope.messageInput + ' ">' + message.text + '"';
+            $scope.messageInput = $scope.messageInput + ' > ' + message.text + ' < = ';
         };
 
         function parseUrls(messageText) {
