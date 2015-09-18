@@ -48,21 +48,16 @@ services
             self.waitingServer = true;
             self.lookupInProgress = true;
 
-            function onSendRequestSuccess () {
-                self.waitingServer = false;
-                d.resolve();
-            }
 
-            var sendRequestPromise;
-            if (user.isLogged()) {
-                sendRequest(preferences)
-                .then(onSendRequestSuccess);
-            } 
-            else {
-                user.signinAsVirtualUser()
-                .then(function() {
-                    sendRequest(preferences)
-                    .then(onSendRequestSuccess);
+            if (user.isLogged())
+                requestInternalRandomChat();
+            else
+                user.signinAsVirtualUser().then(requestInternalRandomChat);
+
+            function requestInternalRandomChat() {
+                sendRequest(preferences).then(function onSendRequestSuccess() {
+                    self.waitingServer = false;
+                    d.resolve();
                 });
             }
 

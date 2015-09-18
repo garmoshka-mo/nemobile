@@ -24,6 +24,7 @@ div, li, button, a, span, img, i {
 
 .typing {
  font-size: 0.7em;
+  margin-left: 5px;
 }
 .typing.visible {
   visibility: visible;
@@ -1084,9 +1085,17 @@ input[type="radio"]:checked + .radioLabel {
 
 .notification .options {
   color: white;
-  padding: 10px;
+  padding: 5px;
   top: 1px;
   position: relative;
+}
+
+md-menu-item > .md-button p {
+ white-space: normal;
+  margin-right: 15px;
+}
+md-menu-item > .md-button {
+ color: black;
 }
 
 .icon_button {
