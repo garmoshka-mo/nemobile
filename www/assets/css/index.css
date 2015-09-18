@@ -1103,3 +1103,11 @@ input[type="radio"]:checked + .radioLabel {
 .chat-right-tool>div {
   float:left;
 }
+
+.partners-list {
+  list-style-type: hangul-consonant;
+  font-size: 1em;
+  margin: 2em auto;
+  text-align: left;
+  width: 80px;
+}

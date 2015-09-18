@@ -1,22 +1,22 @@
 <div class="row">
     <div class="small-12 ta-center pt1rem">
-        Вы исчерпали лимит запросов в бесплатной версии чата.
+        Вы исчерпали лимит диалогов в бесплатной версии чата.<br/>
         Для продолжения общения вы можете приобрести доступ:
         <br><br>
         <div ng-repeat="offer in offers track by offer.id">
             <button ng-click="order(offer)">{{ offer.name }}</button>
         </div>
         <br>
-        Или воспользуйтесь бесплатными аналогами:
-        <ul class="none-list-style-type">
-            <li>
-                <span class="link" ng-click="openExternalURL('https://nekto.me/chat/')">nekto.me</span>
-            </li>
+        Либо воспользуйтесь бесплатными аналогами:
+        <ul class="partners-list">
             <li>
                 <span class="link" ng-click="openExternalURL('https://chatvdvoem.ru/')">chatvdvoem.ru</span>
             </li>
             <li>
-                <span class="link" ng-click="openExternalURL('http://priznavashki.com/')">priznavashki.com</span>
+                <span class="link" ng-click="openExternalURL('http://priznavashki.com/general')">priznavashki.com</span>
+            </li>
+            <li>
+                <span class="link" ng-click="openExternalURL('https://nekto.me/chat/')">nekto.me</span>
             </li>
         </ul>
     </div>

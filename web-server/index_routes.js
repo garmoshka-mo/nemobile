@@ -2,6 +2,6 @@ module.exports = [
     '/',
     '/random',
     '/chat',
-    '/pub',
+    '/pub', '/activation',
     '/updateProfile'
 ];
