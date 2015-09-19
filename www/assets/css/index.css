@@ -402,6 +402,16 @@ a.button:hover{
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
 }
+button.messageMenu {
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  min-height: none;
+  min-width: none;
+  white-space: normal;
+  text-align: inherit;
+  text-transform: none;
+}
 .chat-last-message-text {
   display: block;
   width: 100%;
@@ -589,6 +599,7 @@ input.category-name-change-input {
   margin-top: 10px;
 }
 .message {
+  text-align: left;
   border-radius: 5px;
   position: relative;
   display: inline-block;

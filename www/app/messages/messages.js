@@ -175,7 +175,7 @@
                     if (!($state.params.channelName == channelName || $state.params.senderId == senderUuid)) {
                         showNotification(user, messageText, channelName, senderUuid);
                         chat.isRead = false;
-                        user.countUnreadChats();
+                        chats.countUnreadChats();
                     }
                     
                     chats.save();
