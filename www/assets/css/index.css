@@ -238,7 +238,6 @@ ul.off-canvas-list li a {
    overflow: auto;
  }
  .main-section.chat{
-   padding-bottom: 56px;
    background: #EAF0F1 url("/assets/img/bg.png");
    background-size: 187px 150px;
  }
@@ -248,7 +247,6 @@ ul.off-canvas-list li a {
    width: 100%;
    max-width: 550px;
    margin: 0 auto;
-   padding-bottom: 100px;
  }
 
 #footer{

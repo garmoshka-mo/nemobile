@@ -222,8 +222,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }
     );
 
-//    $scope.$on('stateChangeSuccess', view.fitNewView);
-
     if (user.isLogged()) {
         parseUserFromStorage()
         .then(function() {
