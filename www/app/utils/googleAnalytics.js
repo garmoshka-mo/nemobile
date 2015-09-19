@@ -200,16 +200,12 @@ services
 
             //On page close
             $(window).bind('beforeunload', function() {
-                if(lookupInProgress) {
+                if(lookupInProgress)
                     self.boredToWait();
-                }
-                else if(chatInProgress) {
+                else if(chatInProgress)
                     self.dialogComplete();
-                }
-                else {
-                    if(!didTry)
-                        self.event('chatting', 'didn\'t try');
-                }
+                else if(!didTry)
+                    self.event('chatting', 'didn\'t try');
                 self.event('page', 'close');
             });
         });

@@ -69,7 +69,7 @@
 
 
                     if (message.event == "chat_ready") {
-                        $rootScope.$broadcast('new random chat', {type: 'internal'});
+                        $rootScope.$broadcast('new random chat', {type: 'internal', channel: channelName});
                         routing.goto('chat', {channelName: channelName, fromState: 'random'});
                         return;
                     }

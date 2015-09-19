@@ -4,14 +4,14 @@
     <div ng-switch-when="chat_empty">
         <div class="system_message">
             Этот чат завершен
-            <a href="#/random">Начать новый диалог</a>
+            <a ng-click="close()">Начать новый диалог</a>
         </div>
         <share ng-if="askShowSharing()"></share>
     </div>
     <div ng-switch-when="chat_finished">
         <div class="system_message">
             Собеседник покинул чат
-            <a href="#/random">Начать новый диалог</a>
+            <a ng-click="close()">Начать новый диалог</a>
         </div>
         <share ng-if="askShowSharing()"></share>
     </div>

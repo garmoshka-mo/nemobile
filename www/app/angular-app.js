@@ -101,7 +101,8 @@ document.addEventListener("deviceready", function() {
         }
 
         function notificationClickHandler(uuid, channelName) {
-            location.href = "#/chat?senderId=" + uuid + "&fromState=random&" +
+            // todo: dont use redirection via .href, only router
+            // location.href = "#/chat?senderId=" + uuid + "&fromState=random&" +
                 "channelName=" + channelName;
         }
 
