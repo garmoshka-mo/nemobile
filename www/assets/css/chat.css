@@ -24,3 +24,12 @@
     text-align: left;
     text-indent: 30px;
 }
+
+.personal-data-alert {
+    padding: 14px;
+    text-indent: 7px;
+    font-size: 0.9em;
+}
+.personal-data-alert .fa {
+    padding-right: 8px;
+}

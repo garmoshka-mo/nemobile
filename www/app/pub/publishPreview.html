@@ -1,8 +1,13 @@
 <div class="chat" overscrollable-with-footer>
-    Проверьте диалог перед публикацией. Если собеседник отправлял вам личные данные (телефон, полное имя, фотографии,
-    профиль в соц-сети и так далее) - пожалуйста, <i tooltips
-                                                     title="Скрыть текст можно через меню, которое открывается при клике на сообщение."
-                                                     class="dashed">скройте их</i> - соблюдайте этикет.
+    <div class="personal-data-alert">
+        <i class="fa fa-info"></i>
+        Проверьте диалог перед публикацией. Если собеседник отправлял вам личные данные (телефон, полное имя, фотографии,
+        профиль в соц-сети и так далее) - пожалуйста,
+        <i tooltips
+         title="Скрыть текст можно через меню, которое открывается при клике на сообщение."
+         class="dashed">скройте их</i>
+        - соблюдайте этикет.
+    </div>
     <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
         <!--<button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>-->
     <!--</div>-->
@@ -18,7 +23,8 @@
             <!--<span spinner spinner-color="white"></span>-->
         <!--</span>-->
     <!--</div>-->
-    <div class="h13"></div>
+
+    <div class="bottom-placeholder"></div>
 </div>
 <div id="footer" class="ta-center">
     <div ng-model="errorDescription" alert-box></div>
