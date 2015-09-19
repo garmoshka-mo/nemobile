@@ -1,6 +1,8 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout', 'routing','deviceInfo', '$state', '$q', 'friendsList', 'messages', 'pubnubSubscription',
-function($rootScope, $scope, notification,  storage, user, chats, $timeout, routing, deviceInfo, $state, $q, friendsList, messages, pubnubSubscription) {
+    '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
+    'routing','deviceInfo', '$state', '$q', 'friendsList', 'view', 'pubnubSubscription',
+function($rootScope, $scope, notification,  storage, user, chats, $timeout,
+         routing, deviceInfo, $state, $q, friendsList, view, pubnubSubscription) {
     //messages and pubnubsubscription are not used in this controller
     //but they have to be injected in order to be invoked
     $scope.user = user;
@@ -136,7 +138,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
 
     $scope.backArrowHandler = function() {
         window.history.back();
-        scrollToTop();
+        view.scrollToTop();
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
@@ -215,11 +217,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         }
     );
 
-    $scope.$on('stateChangeSuccess', scrollToTop);
-    var $scrollContainer = $(".main-section");
-    function scrollToTop() {
-        $scrollContainer.scrollTop(0);
-    }
+//    $scope.$on('stateChangeSuccess', view.fitNewView);
 
     if (user.isLogged()) {
         parseUserFromStorage()
@@ -255,7 +253,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
     }
 
     $scope.isChatState = function(){
-        return $state.current.name === 'chat';
+        return $state.current.hasChatView;
     };
 
     $scope.routing = routing;

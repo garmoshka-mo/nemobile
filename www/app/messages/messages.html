@@ -15,21 +15,22 @@
         </div>
         <share ng-if="askShowSharing()"></share>
     </div>
-    <md-menu md-position-mode="target-right target" >
-        <md-button class="messageMenu" aria-label="Open some menu">
-            <div ng-switch-default class="message"
-                 ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
-                 ng-bind-html="::formatMessage(message)"  
-                 ng-click="::$mdOpenMenu($event)"
-                 >
-             </div>
-        </md-button>
-        <md-menu-content>
-            <md-menu-item>
-                <md-button ng-click="::quoteIt(message)">
-                    Цитировать
-                </md-button>
-            </md-menu-item>
-        </md-menu-content>
-    </md-menu>
+    <div ng-switch-default class="message"
+         ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
+         ng-bind-html="::formatMessage(message)"
+         ng-click="::$mdOpenMenu($event)"
+         >
+     </div>
 </div>
+<md-menu md-position-mode="target-right target" >
+    <md-button class="messageMenu" aria-label="Open some menu">
+        TEST
+    </md-button>
+    <md-menu-content>
+        <md-menu-item>
+            <md-button ng-click="::quoteIt(message)">
+                Цитировать
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
