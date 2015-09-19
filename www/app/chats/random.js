@@ -4,7 +4,8 @@ services
 
         this.waitingServer = false;
         this.lookupInProgress = false;
-        var self = this;
+        var self = this,
+            lastInternalChannel;
 
         function sendRequest(data) {
             return apiRequest.send(
@@ -37,6 +38,11 @@ services
             googleAnalytics.setLookForChat(false);
             googleAnalytics.dialogStart();
             onRandomChatOpen(args.type);
+
+            if (args.type == 'internal')
+                lastInternalChannel = args.channel;
+            else
+                lastInternalChannel = null;
         });
 
         this.lookForChat = function(preferences) {
@@ -79,11 +85,13 @@ services
             });
             
         };
-        
-        window.onunload = function() {
-            if (self.lookupInProgress) {
+
+        $(window).bind('beforeunload', function() {
+            if (self.lookupInProgress)
                 apiRequest.sendSync('DELETE', '/random');
-            }
-        };
+            else if(lastInternalChannel)
+                // todo: replace to signal 'partner_has_closed_app'
+                apiRequest.sendSync('DELETE', '/chats/' + lastInternalChannel);
+        });
 
 }]);
