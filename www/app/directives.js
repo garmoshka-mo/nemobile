@@ -21,67 +21,10 @@ app.directive('stopEventPrevent', function () {
     };
  });
 
-app.directive('overscrollableWithFooter', function() {
-    return {
-        link: function(scope, elem, attr) {
-            $(elem).css({
-                    "height": "100%",
-                    "width": "100%",
-                    "padding-right": "15px",
-                    "box-sizing": "content-box",
-                    "overflow": "auto",
-                    "position": "relative"
-            });
-        }
-    };
-});
-
 $(function() {
     window.BODY_HEIGHT = $('body').height();
     window.TAB_BAR_HEIGHT = $('.tab-bar').height();
 });
-
-app.directive('overscrollableWithoutFooter', function() {
-    return {
-        link: function(scope, elem, attr) {
-            var bodyHeight = $('body').height();
-            $(elem).height(bodyHeight - $('.tab-bar').height());
-            $(elem).css({
-                "width": "100%",
-                "padding-right": "15px",
-                "box-sizing": "content-box",
-                "overflow": "auto",
-                "position": "relative"
-            });
-        }
-    };
-});
-
-app.directive('overscrollableFriends', ['$timeout', function($timeout) {
-    return {
-        link: function(scope, elem, attr) {
-            scope.$watch('user.friendsList.friends.length', function() {
-                $timeout(function() {
-                    $(elem).height(BODY_HEIGHT - $(".friendListHeader ").outerHeight() - TAB_BAR_HEIGHT);
-                    $(elem).css({
-                          "width": "100%",
-                          "padding-right": "15px",
-                          "box-sizing": "content-box",
-                          "overflow": "auto"
-                    });
-                }, 0);
-            });
-        }
-    };
-}]);
-
-app.directive('scrollTop', ['$timeout', function($timeout) {
-    return {
-        link: function(scope, elem, attr) {
-            $timeout(function(){$('.main-section').scrollTop(0);}, 0);
-        }
-    };
-}]);
 
 app.directive('stickersGalleryHeight', function() {
     return {

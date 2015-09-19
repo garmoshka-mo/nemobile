@@ -235,9 +235,15 @@ ul.off-canvas-list li a {
 }
 
  .main-section{
-   overflow: scroll;
-   
+   overflow: auto;
  }
+ .main-section.chat{
+   padding-bottom: 56px;
+   background: #EAF0F1 url("/assets/img/bg.png");
+   background-size: 187px 150px;
+ }
+
+
  #wrapper{
    width: 100%;
    max-width: 550px;
@@ -253,7 +259,7 @@ ul.off-canvas-list li a {
   z-index: 100;
 }
 
-.off-canvas-wrap, .inner-wrap, .main-section, #friends, #friendsList, #friendsList ul{
+.off-canvas-wrap, .inner-wrap, #friends, #friendsList, #friendsList ul{
   height: 100%;
 }
 
@@ -452,25 +458,6 @@ button.messageMenu {
 
 .content {
   height: 100%;
-}
-.chat {
-/*  background-image: url(../img/chat_bg.jpg);*/
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.overscrollable {
-  height: 100%;
-  width: 100%;
-  padding-right: 15px;
-  box-sizing: content-box;
-  overflow: auto;
-}
-.overscrollable-fullscreen {
-  height: 38rem;
-  width: 100%;
-  padding-right: 15px;
-  box-sizing: content-box;
-  overflow: auto;
 }
 .chat-input-container {
   padding-left: 7px;
@@ -1100,11 +1087,6 @@ input[type="radio"]:checked + .radioLabel {
   font-size: 0.8em;
 }
 
-
-.brand_bg {
-  background: #EAF0F1 url("/assets/img/bg.png");
-  background-size: 187px 150px;
-}
 
 .notification .options {
   color: white;

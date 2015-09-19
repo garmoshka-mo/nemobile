@@ -29,6 +29,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("publishPreview", {
                 url: "/publishPreview?channelName",
+                hasChatView: true,
                 views: {
                     "title": {
                         template: "Публикация - DUB.iNK"
@@ -89,6 +90,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("chat", {
                 url: "/chat?channelName&messageText&senderId&fromState&chatType",
+                hasChatView: true,
                 views: {
                     "title": {
                         template: "Чат"

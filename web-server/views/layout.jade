@@ -129,6 +129,7 @@ html
     script(type='text/javascript', src='app/utils/notification.js')
     script(type='text/javascript', src='app/utils/googleAnalytics.js')
     script(type='text/javascript', src='app/utils/sound.js')
+    script(type='text/javascript', src='app/utils/view.js')
     script(type='text/javascript', src='app/services/apiService.js')
     script(type='text/javascript', src='app/services/storageService.js')
     script(type='text/javascript', src='app/services/routingService.js')
@@ -206,7 +207,7 @@ html
           section.right-small.ta-center(ng-cloak='', ng-show='user.score && isUserScoreShown')
             i.fa.fa-star
             span(ng-bind='user.score')
-        section.main-section(ng-class="{'brand_bg': isChatState()}")
+        section.main-section(ng-class="{'chat': isChatState()}")
           // content goes here
           // MAIN CONTENT
           #wrapper(ng-hide='routing.is_preload')

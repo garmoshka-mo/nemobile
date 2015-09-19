@@ -350,4 +350,4 @@ angular.module("angControllers").controller("chatController",
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
         chats.countUnreadChats();
-}]);   
+}]);
