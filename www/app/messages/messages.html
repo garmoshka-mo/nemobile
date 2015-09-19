@@ -1,5 +1,5 @@
 <div ng-repeat="message in session.messages track by $index"
-     class="message-container" ng-class="::{'ta-right': message.isOwn}"
+     class="message-container" ng-class="{'ta-right': message.isOwn}"
      ng-switch="message.type">
     <div ng-switch-when="chat_empty">
         <div class="system_message">
@@ -15,7 +15,7 @@
         </div>
         <share ng-if="askShowSharing()"></share>
     </div>
-    <md-menu md-position-mode="target-right target" >
+    <md-menu md-position-mode="target-right target" ng-hide="::preview">
         <md-button class="messageMenu" aria-label="Open some menu">
             <div ng-switch-default class="message"
                  ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
@@ -24,7 +24,7 @@
                  >
              </div>
         </md-button>
-        <md-menu-content>
+        <md-menu-content >
             <md-menu-item>
                 <md-button ng-click="::quoteIt(message)">
                     Цитировать
@@ -32,4 +32,42 @@
             </md-menu-item>
         </md-menu-content>
     </md-menu>
+    <md-menu md-position-mode="target-right target" ng-show="::preview">
+        <md-button class="messageMenu" aria-label="Open some menu">
+            <div ng-switch-default class="message"
+                 ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
+                 ng-bind-html="formatMessage(message)"  
+                 ng-click="$mdOpenMenu($event)"
+                 >
+             </div>
+        </md-button>
+        <md-menu-content >
+            <md-menu-item>
+                <md-button ng-click="::quoteIt(message)">
+                    Редактировать 
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="::quoteIt(message)">
+                    Скрыть текст/картинку
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="::removeCurrentMessage($index)">
+                    Удалить это сообщение 
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="::removeMessagesAbove($index)">
+                    Удалить все сообщения <span class="text-bold">выше</span>  
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="::removeMessagesBelow($index)">
+                    Удалить все сообщения <span class="text-bold">ниже</span>  
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
 </div>
+{{session.messages}}

@@ -1,14 +1,14 @@
 (function(){
     app.directive('messages', function() {
         return {
-            scope: {session: '=', messageInput: '=', close: '&'},
+            scope: {session: '=', messageInput: '=', close: '&', preview: '@'},
             templateUrl: "app/messages/messages.html",
             controller: ['$scope', 'timer', '$sce', controller]
         };
     });
 
     function controller($scope, timer, $sce) {
-
+        log($scope.preview);
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -24,6 +24,10 @@
 
         $scope.quoteIt = function(message) {
             $scope.messageInput = $scope.messageInput + ' > ' + message.text + ' < = ';
+        };
+
+        $scope.removeCurrentMessage = function(messageIndex) {
+            console.log($scope.session.messages.splice(messageIndex, 1));
         };
 
         function parseUrls(messageText) {

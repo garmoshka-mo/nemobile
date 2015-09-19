@@ -28,7 +28,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("publishPreview", {
-                url: "/publishPreview",
+                url: "/publishPreview?channelName",
                 views: {
                     "title": {
                         template: "Публикация - DUB.iNK"

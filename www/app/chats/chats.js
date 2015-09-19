@@ -50,7 +50,7 @@ services
                 }
                 chats.list = _chats;
                 
-                log("user chats are taken from storage", user.chats);
+                log("user chats are taken from storage", chats.list);
             });
         };
 

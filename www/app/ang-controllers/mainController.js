@@ -40,7 +40,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         'chat',
         'showImage',
         'chatInfo',
-        'invitation'
+        'invitation',
+        'publishPreview'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',
@@ -137,6 +138,10 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
     $scope.backArrowHandler = function() {
         window.history.back();
         scrollToTop();
+    };
+
+    $scope.publish = function() {
+        routing.goto('publishPreview', {channelName: $state.params.channelName});
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
