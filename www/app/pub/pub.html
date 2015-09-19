@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="small-12 pt1rem">
+        <div class="ta-center">
+            <button ng-click="goto('random')">Перейти к чату</button>
+            <div ng-show="postsList.length">Опубликованные чаты:</div>
+            <div ng-hide="postsList.length">Нету опубликованных чатов. Пока</div>
+        </div>
+
+        <!-- TODO: test infinite scroll on a great amount of posts -->
+        <md-list layout-padding infinite-scroll="getNextLimit()" infinite-scroll-distance="50">
+            <md-list-item class="md-3-line pub-post" ng-repeat="post in postsList">
+                <div class="pub-post-score"><i class="fa fa-star"></i>{{ post.score || 0 }}</div>
+                <span class="md-list-item-text"><a ng-href="/posts/{{post.id}}">{{ post.title }}</a></span>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>

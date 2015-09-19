@@ -122,6 +122,38 @@ services
             
         },
 
+        uploadImage: function(file) {
+            var d = $q.defer();
+            fileTypeDeterminer.detect(file,
+                function(type) {
+
+                    $upload.upload({
+                        method: 'POST',
+                        url: config('apiUrl') + "/images/load_image",
+                        headers: {
+                            "Authorization": "Token token=" + api.accessToken
+                        },
+                        file: file,
+                        fileName: "image." + type,
+                        fileFormDataName: "image[image_data]"
+                    })
+                        .then(
+                        function(res) {
+                            d.resolve(res.data);
+                        },
+                        function(res) {
+                            d.reject();
+                        }
+                    );
+                },
+                function() {
+                    alert("wrong file type");
+                }
+            );
+            return d.promise;
+
+        },
+
         moveSticker: function(categoryId, imageId, newCategoryId) {
             var url = config('apiUrl') + "/categories/" + categoryId + "/images/" + imageId;
             return (apiRequest.send(

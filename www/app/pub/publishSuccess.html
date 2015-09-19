@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="small-12 pt1rem ta-center">
+        Ссылка на опубликованный чат:
+        <input type="text" ng-model="postUrl"/>
+        <button ng-click="openExternalURL(postUrl)">Открыть публикацию</button>
+        <br>
+        <!--TODO: Как вернутся в чат-->
+        <button ng-click="goto('chat')">Вернуться в чат</button>
+        <button ng-click="goto('random')">Начать новый чат</button>
+    </div>
+</div>

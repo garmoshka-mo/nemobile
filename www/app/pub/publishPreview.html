@@ -1,0 +1,34 @@
+<div class="chat" overscrollable-with-footer>
+    Проверьте диалог перед публикацией. Если собеседник отправлял вам личные данные (телефон, полное имя, фотографии,
+    профиль в соц-сети и так далее) - пожалуйста, <i tooltips
+                                                     title="Скрыть текст можно через меню, которое открывается при клике на сообщение."
+                                                     class="dashed">скройте их</i> - соблюдайте этикет.
+    <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
+        <!--<button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>-->
+    <!--</div>-->
+    <!--<div class="old-messages-background" ng-show="chatHistory.previousMessages.length"-->
+         <!--ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container"-->
+         <!--ng-class="{'ta-right': message.isOwn}">-->
+            <!--<span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"-->
+                  <!--ng-bind-html="::formatMessage(message.text)" allow-textselect></span>-->
+    <!--</div>-->
+    <!--<messages session="chatSession"></messages>-->
+    <!--<div class="ta-right message-container" ng-show="isMessageSending && deviceInfo.isOldAndroid">-->
+        <!--<span class="message message-own" allow-textselect>-->
+            <!--<span spinner spinner-color="white"></span>-->
+        <!--</span>-->
+    <!--</div>-->
+    <div class="h13"></div>
+</div>
+<div id="footer" class="ta-center">
+    <div ng-model="errorDescription" alert-box></div>
+    <div class="chat-buttons-container">
+        <button class="publish-button grey" ng-click="reset()">
+            Сбросить
+        </button>
+        <button class="publish-button" ng-click="publishPost()">
+            <span ng-show="!isPublishing">Опубликовать</span>
+            <span ng-show="isPublishing" spinner spinner-color="white"></span>
+        </button>
+    </div>
+</div>

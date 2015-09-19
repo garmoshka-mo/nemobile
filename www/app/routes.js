@@ -15,6 +15,42 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("pub", {
+                url: "/pub",
+                views: {
+                    "title": {
+                        template: "Паблик - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pub.html?" + version,
+                        controller: "pubController"
+                    }
+                }
+            })
+            .state("publishPreview", {
+                url: "/publishPreview",
+                views: {
+                    "title": {
+                        template: "Публикация - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/publishPreview.html?" + version,
+                        controller: "publishPreviewController"
+                    }
+                }
+            })
+            .state("publishSuccess", {
+                url: "/publishSuccess",
+                views: {
+                    "title": {
+                        template: "Успешно опубликовано"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/publishSuccess.html?" + version,
+                        controller: "publishPreviewController"
+                    }
+                }
+            })
             .state("signin", {
                 url: "/signinup/:inOrUp",
                 views: {
