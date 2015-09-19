@@ -598,6 +598,7 @@ input.category-name-change-input {
   margin-top: 10px;
 }
 .message {
+  text-align: left;
   border-radius: 5px;
   position: relative;
   display: inline-block;
