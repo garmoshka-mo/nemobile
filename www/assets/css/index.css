@@ -111,8 +111,8 @@ input[type="password"] {
 .pointer:hover {
   cursor: pointer;
 }
-.h13 {
-  height: 13px;
+.chat .bottom-placeholder {
+  height: 18px;
 }
 .h41 {
   height: 41px;
