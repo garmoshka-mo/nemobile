@@ -1,5 +1,5 @@
 <div ng-repeat="message in session.messages track by $index"
-     class="message-container" ng-class="{'ta-right': message.isOwn}"
+     class="message-container" ng-class="::{'ta-right': message.isOwn}"
      ng-switch="message.type">
     <div ng-switch-when="chat_empty">
         <div class="system_message">
@@ -16,17 +16,17 @@
         <share ng-if="askShowSharing()"></share>
     </div>
     <md-menu md-position-mode="target-right target" >
-        <md-button class="chatMessageMenu" aria-label="Open some menu">
+        <md-button class="messageMenu" aria-label="Open some menu">
             <div ng-switch-default class="message"
                  ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"
                  ng-bind-html="::formatMessage(message)"  
-                 ng-click="$mdOpenMenu($event)"
+                 ng-click="::$mdOpenMenu($event)"
                  >
              </div>
         </md-button>
         <md-menu-content>
             <md-menu-item>
-                <md-button ng-click="quoteIt(message)">
+                <md-button ng-click="::quoteIt(message)">
                     Цитировать
                 </md-button>
             </md-menu-item>
