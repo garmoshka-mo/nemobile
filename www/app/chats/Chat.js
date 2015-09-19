@@ -1,8 +1,10 @@
 factories.factory("Chat",
-    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList', 'Avatar',
-    function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList, Avatar) {
+    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList',
+    function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList) {
     
     function Chat(chatData) {
+        var self = this;
+
         this.senderId = chatData.senderId;
         this.channelName = chatData.channelName;
         this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
@@ -216,10 +218,7 @@ factories.factory("Chat",
             // this.currentUser.removeDeviceFromChannel(this.channelName);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
-            return apiRequest.send(
-                'DELETE',
-                '/chats/' + this.channelName
-            );
+            return apiRequest.send('DELETE', '/chats/' + this.channelName);
         }
     };
 

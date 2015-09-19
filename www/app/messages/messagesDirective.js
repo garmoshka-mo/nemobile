@@ -1,7 +1,7 @@
 (function(){
     app.directive('messages', function() {
         return {
-            scope: {session: '='},
+            scope: {session: '=', close: '&'},
             templateUrl: "app/messages/messages.html",
             controller: ['$scope', 'timer', '$sce', controller]
         };
