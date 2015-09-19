@@ -4,24 +4,20 @@ angular.module("angControllers")
         function($scope, posts) {
 
             $scope.page = 1;
-            var isLastPage = false;
+            $scope.posts = [];
 
-            $scope.getPostsList = function(page) {
-                posts.getPostsList(page).then(function(data){
-                    $scope.postsList = data.list;
-                    isLastPage = data.is_last_page;
-                });
+            $scope.loadMore = function() {
+                $scope.disableAutoload = true;
+                $scope.loading = true;
+                load($scope.page++);
             };
 
-            $scope.getPostsList(1);
-
-            $scope.getNextLimit = function() {
-                if(!isLastPage) {
-                    posts.getPostsList(page).then(function(data){
-                        $scope.postsList.push.apply(data.list);
-                        isLastPage = data.is_last_page;
-                    });
-                }
+            function load(page) {
+                posts.getPostsList(page).then(function(data){
+                    Array.prototype.push.apply($scope.posts, data.list);
+                    $scope.disableAutoload = data.is_last_page;
+                    $scope.loading = false;
+                });
             }
         }
     ]);
