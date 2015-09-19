@@ -406,8 +406,8 @@ button.messageMenu {
   padding: 0;
   margin: 0;
   line-height: inherit;
-  min-height: none;
-  min-width: none;
+  min-height: auto;
+  min-width: auto;
   white-space: normal;
   text-align: inherit;
   text-transform: none;
@@ -617,6 +617,8 @@ input.category-name-change-input {
   background-color: rgba(104, 194, 110, .3);
   margin-right: 10px;
 }
+
+
 .message-own:after {
   content: '';
   top: 7px;
@@ -625,6 +627,7 @@ input.category-name-change-input {
   border: 10px solid transparent;
   border-left: 10px solid rgba(104, 194, 110, .3)
 }
+
 .old-messages-background {
   padding: 10px 0;
   background: rgba(52, 152, 219, .1)
@@ -641,6 +644,15 @@ input.category-name-change-input {
   border: 10px solid transparent;
   border: 10px solid transparent;
   border-right: 10px solid rgba(89, 131, 158, .3);
+}
+.message-hidden {
+  background-color: rgba(149, 165, 166, 0.3);
+}
+.message-own.message-hidden:after { 
+  border-left-color: rgba(149, 165, 166, 0.3);
+}
+.message-hidden.message-not-own:after {
+  border-right-color: rgba(149, 165, 166, 0.3);
 }
 .chat-buttons-container {
   background-color: #363645;
