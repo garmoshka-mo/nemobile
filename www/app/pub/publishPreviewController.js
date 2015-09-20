@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller("publishPreviewController", [
-        '$scope', 'posts', 'routing', '$stateParams', 'chats',
-        function($scope, posts, routing, $stateParams, chats) {
+        '$scope', 'posts', 'router', '$stateParams', 'chats',
+        function($scope, posts, router, $stateParams, chats) {
 
             var chat;
             $scope.session = {};
@@ -37,7 +37,7 @@ angular.module("angControllers")
 
             $scope.publishPost = function() {
                 posts.publishPost($scope.chat).then(function(data){
-                    routing.goto('publishSuccess');
+                    router.goto('publishSuccess');
                 });
             };
 

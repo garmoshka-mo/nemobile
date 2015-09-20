@@ -1,21 +1,12 @@
 <div class="chat">
-    Post: {{postId}}
-    <messages session="session" preview="true"></messages>
-    <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
-    <!--<button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>-->
-    <!--</div>-->
-    <!--<div class="old-messages-background" ng-show="chatHistory.previousMessages.length"-->
-    <!--ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container"-->
-    <!--ng-class="{'ta-right': message.isOwn}">-->
-    <!--<span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"-->
-    <!--ng-bind-html="::formatMessage(message.text)" allow-textselect></span>-->
-    <!--</div>-->
-    <!--<messages session="chatSession"></messages>-->
-    <!--<div class="ta-right message-container" ng-show="isMessageSending && deviceInfo.isOldAndroid">-->
-    <!--<span class="message message-own" allow-textselect>-->
-    <!--<span spinner spinner-color="white"></span>-->
-    <!--</span>-->
-    <!--</div>-->
+    <h5>{{post.title}}</h5>
+    <messages session="post.chat" preview="true"></messages>
+
+    <div class="pub-bottom-break">
+        <img src="assets/img/page-break.png">
+    </div>
+
+    <div id="disqus_thread"></div>
 
     <div class="bottom-placeholder"></div>
 </div>

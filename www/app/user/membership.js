@@ -1,7 +1,7 @@
 (function() {
         angular.module("angServices")
-        .service('membership', ['$q', 'apiRequest', 'deviceInfo', 'user', 'routing',
-            function($q, apiRequest, deviceInfo, user, routing) {
+        .service('membership', ['$q', 'apiRequest', 'deviceInfo', 'user', 'router',
+            function($q, apiRequest, deviceInfo, user, router) {
 
                 function getPlatform() {
                     if (RAN_AS_APP) {
@@ -46,7 +46,7 @@
                     var orderCreated = localStorage['orderCreated'] === 'true';
                     var registrationSkipped = localStorage['skipRegistration'] === 'true';
                     if (membership.active && user.isVirtual && orderCreated && !registrationSkipped) {
-                        routing.goto('afterPurchase');
+                        router.goto('afterPurchase');
                     }
                 }
 

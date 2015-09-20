@@ -10,10 +10,11 @@
 
 .posts-list {
     list-style-type: none;
+    font-size: 1rem;
 }
 .posts-list .score {
     color: #A2A2A2;
-    font-size: 0.7em;
+    font-size: 0.9em;
     font-weight: bold;
     margin-right: 10px;
     width: 50px;
@@ -33,4 +34,16 @@
 .pubs-title img {
     width: 183px;
     margin-top: 12px;
+}
+
+.pub-bottom-break {
+    text-align: center;
+    margin: 19px 0 17px 0;
+}
+.pub-bottom-break img {
+    width: 183px;
+}
+
+#disqus_thread {
+    margin: 18px;
 }

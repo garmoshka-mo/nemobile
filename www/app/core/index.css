@@ -111,9 +111,7 @@ input[type="password"] {
 .pointer:hover {
   cursor: pointer;
 }
-.chat .bottom-placeholder {
-  height: 18px;
-}
+
 .h41 {
   height: 41px;
 }
@@ -237,10 +235,7 @@ ul.off-canvas-list li a {
  .main-section{
    overflow: auto;
  }
- .main-section.chat{
-   background: #EAF0F1 url("/assets/img/bg.png");
-   background-size: 187px 150px;
- }
+
 
 
  #wrapper{
@@ -316,11 +311,6 @@ label {
 }
 
 .off-canvas-list{
-  font-size: 1.3rem;
-}
-ul,
-ol,
-dl {
   font-size: 1.3rem;
 }
 
@@ -423,15 +413,7 @@ button.messageMenu {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.chat-title {
-  height: 31px;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 1.3rem;
-}
+
 .chats-chat:active {
   background-color: #ecf0f1;
 }
@@ -1109,12 +1091,7 @@ md-menu-item > .md-button {
 .publish {
   width: 43px;
 }
-.chat-right-tool {
-  width:auto;
-}
-.chat-right-tool>div {
-  float:left;
-}
+
 
 .partners-list {
   list-style-type: hangul-consonant;

@@ -1,9 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'routing','deviceInfo', '$state', '$q', 'friendsList', 'view', 
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'view',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         routing, deviceInfo, $state, $q, friendsList, view) {
-    
+         router, deviceInfo, $state, $q, friendsList, view) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -14,6 +13,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoreShown = true;
     $scope.version = version;
+    $scope.debug = config('debug');
 
     function parseUserFromStorage() {
         user.isParsingFromStorageNow = true;
@@ -142,14 +142,14 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.publish = function() {
-        routing.goto('publishPreview', {channelName: $state.params.channelName});
+        router.goto('publishPreview', {channelName: $state.params.channelName});
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
         notification.clear();
 
         if (RAN_AS_APP) {
-            routing.is_preload = true;
+            router.is_preload = true;
         }   
          
         $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
@@ -169,7 +169,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         //             $state.go('updateProfile');
         //         }
         //     }
-        //     routing.is_preload = false;
+        //     router.is_preload = false;
         //     return;
         // }
 
@@ -206,7 +206,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
                     onStateChangeStart.apply(this, arguments);
                 }
                 else {
-                    routing.is_preload = true;
+                    router.is_preload = true;
                     evt.preventDefault();
                     user.parsedFromStoragePromise.then(
                         function() {
@@ -254,11 +254,9 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         $state.go('pubsList');
     }
 
-    $scope.isChatState = function(){
-        return $state.current.hasChatView;
-    };
+    $scope.isBranded = function() { return $state.current.branded; };
 
-    $scope.routing = routing;
-    $scope.goto = routing.goto;
+    $scope.router = router;
+    $scope.goto = router.goto;
 
 }]);

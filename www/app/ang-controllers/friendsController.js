@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("friendsController", 
-    ['user','$scope', '$stateParams', '$timeout', '$state', '$http', 'routing',
-    function(user, $scope, $stateParams, $timeout, $state, $http, routing) {
+    ['user','$scope', '$stateParams', '$timeout', '$state', '$http', 'router',
+    function(user, $scope, $stateParams, $timeout, $state, $http, router) {
     log('friends controller is enabled');
     $scope.user = user;
     $scope.isEditMode = false;
@@ -44,10 +44,10 @@ angular.module("angControllers").controller("friendsController",
     $scope.handleFriendClick = function(friend) {
 
         if (friend.uuid) {
-            routing.goto('chat', {senderId: friend.uuid});
+            router.goto('chat', {senderId: friend.uuid});
         }
         else {
-            routing.goto('addVirtualChat', {friendIndex: user.friendsList.friends.indexOf(friend)});
+            router.goto('addVirtualChat', {friendIndex: user.friendsList.friends.indexOf(friend)});
         }
     };
 
