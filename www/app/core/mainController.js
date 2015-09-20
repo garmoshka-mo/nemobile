@@ -61,7 +61,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     var statesNotShowScore = [
         'chat',
         'chatInfo',
-        'showImage'
+        'showImage',
+        'publishPreview'
     ];
 
     var statesFromRedirectLoggedUser = [
