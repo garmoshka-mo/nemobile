@@ -2,7 +2,10 @@
     <div class="small-12 pt1rem">
         <div class="ta-center">
             <button ng-click="goto('random')">Перейти к чату</button>
-            <div ng-show="postsList.length > 0">Опубликованные диалоги:</div>
+            <div ng-show="posts.length > 0" class="pubs-title">
+                <div>Опубликованные истории:</div>
+                <img src="assets/img/page-break.png">
+            </div>
         </div>
 
         <ul class="posts-list"

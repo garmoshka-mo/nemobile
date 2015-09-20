@@ -49,7 +49,7 @@ html
       .snap-drawer.snap-drawer-left
         aside.left-off-canvas-menu
           .iphone-hack.iphone-menu-margin
-          div(ng-include="'partials/menu.html?'+version", ng-controller='menuController')
+          div(ng-include="'app/core/menu.html?'+version", ng-controller='menuController')
     .off-canvas-wrap.snap-content(slide-menu='', data-offcanvas='')
       .prevent-click
       .iphone-hack.iphone-status-bar-margin
@@ -70,7 +70,7 @@ html
                   img.chat-toolbar-image.pointer(ng-show='notification.ava_url', ng-src='{{notification.ava_url}}')
                   span(ng-bind='notification.text')
                   span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
-                span(ng-include="'partials/complaintMenu.html?'+version", ng-controller='complaintController')
+                span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
           section.right-small.chat-right-tool(ng-cloak='', ng-show='true')
             .publish
               a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')

@@ -15,8 +15,20 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
-            .state("pub", {
+            .state("pubsList", {
                 url: "/pub",
+                views: {
+                    "title": {
+                        template: "Паблик - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pubsList.html?" + version,
+                        controller: "pubsListController"
+                    }
+                }
+            })
+            .state("pubItem", {
+                url: "/pub/:postId/:slug",
                 views: {
                     "title": {
                         template: "Паблик - DUB.iNK"
