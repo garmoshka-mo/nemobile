@@ -555,65 +555,6 @@ input.category-name-change-input {
   border-radius: 15px !important;
 }
 
-.message-container {
-  margin-top: 10px;
-}
-.message {
-  text-align: left;
-  border-radius: 5px;
-  position: relative;
-  display: inline-block;
-  max-width: 90%;
-  word-break: break-word;
-  padding: 5px 15px;
-}
-.message-link {
-  text-decoration: underline;
-}
-.message-link:hover {
-  cursor: pointer;
-}
-.message-own {
-  background-color: rgba(104, 194, 110, .3);
-  margin-right: 10px;
-}
-
-
-.message-own:after {
-  content: '';
-  top: 7px;
-  position: absolute;
-  right: -20px;
-  border: 10px solid transparent;
-  border-left: 10px solid rgba(104, 194, 110, .3)
-}
-
-.old-messages-background {
-  padding: 10px 0;
-  background: rgba(52, 152, 219, .1)
-}
-.message-not-own {
-  background-color: rgba(89, 131, 158, .3);
-  margin-left: 20px;
-}
-.message-not-own:after {
-  content: '';
-  top: 7px;
-  position: absolute;
-  left: -20px;
-  border: 10px solid transparent;
-  border: 10px solid transparent;
-  border-right: 10px solid rgba(89, 131, 158, .3);
-}
-.message-hidden {
-  background-color: rgba(149, 165, 166, 0.3);
-}
-.message-own.message-hidden:after { 
-  border-left-color: rgba(149, 165, 166, 0.3);
-}
-.message-hidden.message-not-own:after {
-  border-right-color: rgba(149, 165, 166, 0.3);
-}
 .chat-buttons-container {
   background-color: #363645;
   padding-top: 10px;
