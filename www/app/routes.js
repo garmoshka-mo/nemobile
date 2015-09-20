@@ -34,7 +34,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                         template: "Паблик - DUB.iNK"
                     },
                     "content": {
-                        templateUrl: "app/pub/pub.html?" + version,
+                        templateUrl: "app/pub/pubItem.html?" + version,
                         controller: "pubController"
                     }
                 }

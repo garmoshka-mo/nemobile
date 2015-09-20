@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'routing','deviceInfo', '$state', '$q', 'friendsList', 'view', 'pubnubSubscription',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'view', 'pubnubSubscription',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         routing, deviceInfo, $state, $q, friendsList, view, pubnubSubscription) {
+         router, deviceInfo, $state, $q, friendsList, view, pubnubSubscription) {
     //messages and pubnubsubscription are not used in this controller
     //but they have to be injected in order to be invoked
     $scope.user = user;
@@ -143,14 +143,14 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.publish = function() {
-        routing.goto('publishPreview', {channelName: $state.params.channelName});
+        router.goto('publishPreview', {channelName: $state.params.channelName});
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
         notification.clear();
 
         if (RAN_AS_APP) {
-            routing.is_preload = true;
+            router.is_preload = true;
         }   
          
         $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
@@ -170,7 +170,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         //             $state.go('updateProfile');
         //         }
         //     }
-        //     routing.is_preload = false;
+        //     router.is_preload = false;
         //     return;
         // }
 
@@ -207,7 +207,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
                     onStateChangeStart.apply(this, arguments);
                 }
                 else {
-                    routing.is_preload = true;
+                    router.is_preload = true;
                     evt.preventDefault();
                     user.parsedFromStoragePromise.then(
                         function() {
@@ -259,7 +259,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         return $state.current.hasChatView;
     };
 
-    $scope.routing = routing;
-    $scope.goto = routing.goto;
+    $scope.router = router;
+    $scope.goto = router.goto;
 
 }]);

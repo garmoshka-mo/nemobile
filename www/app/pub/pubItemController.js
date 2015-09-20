@@ -3,7 +3,7 @@ angular.module("angControllers")
     '$scope', 'posts', '$stateParams',
 function($scope, posts, $stateParams) {
 
-    // $stateParams.postId;
+    $scope.postId = $stateParams.postId;
 
 }
 ]);

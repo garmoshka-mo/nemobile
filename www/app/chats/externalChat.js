@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .service('externalChat',
-    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'routing',
-    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, routing) {
+    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'router',
+    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, router) {
 
         var self = this;
 
@@ -44,7 +44,7 @@ angular.module("angServices")
 
             self.gotoChat =
                 function() {
-                routing.goto('chat', {chatType: 'external', fromState: 'random'});
+                router.goto('chat', {chatType: 'external', fromState: 'random'});
             };
 
             function initSession() {
