@@ -1,4 +1,5 @@
 var express = require('express');
+var _ = require('underscore');
 var version = require('./version');
 var index_routes = require('./index_routes');
 var path = require('path');
@@ -35,14 +36,13 @@ app.use(express.static(path.join(__dirname, www_root), {maxAge: cache_expiration
 
 app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
     // todo: здесь вытянуть данные с ruby сервера
-    res.render('post', {post_id: req.params.id});
+    var p = _.clone(assets);
+    p.post_id = req.params.id;
+    res.render('post', p);
 });
 
 app.get(index_routes, function (req, res) {
-    res.render('index', {
-        js_files: js_files,
-        prod_js_file: prod_js_file,
-        css_files: css_files });
+    res.render('index', assets);
 });
 
 app.get('/version', function (req, res) {
@@ -76,15 +76,16 @@ if (process.env.DEBUG) {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        details: err.details,
-        error: {}
-    });
+    res.render('error',
+        _.extend({}, assets, {
+            message: err.message,
+            details: err.details,
+            error: {}
+        }));
 });
 
 var server,
-    js_files, css_files, prod_js_file,
+    js_files, css_files, prod_js_file, assets,
     paths, collectors;
 
 paths = ["assets/css/*.css", "app/**/*.css",
@@ -103,6 +104,11 @@ async.parallel(
     function (er, files) {
         css_files = [].concat.apply([], files.splice(0,2));
         js_files = [].concat.apply([], files);
+        assets = {
+            js_files: js_files,
+            prod_js_file: prod_js_file,
+            css_files: css_files
+        };
 
         server = app.listen(process.env.PORT || 8080, function () {
             var host = server.address().address;

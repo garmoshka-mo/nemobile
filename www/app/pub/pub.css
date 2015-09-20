@@ -9,9 +9,28 @@
 }
 
 .posts-list {
-
+    list-style-type: none;
+}
+.posts-list .score {
+    color: #A2A2A2;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 50px;
+    display: inline-block;
+    text-align: right;
+    font-family: verdana,arial,helvetica,sans-serif;
 }
 .pub-post-score {
     width: 80px;
     padding-top: 16px;
+}
+
+.pubs-title {
+    padding-bottom: 10px;
+    font-size: 1.2em;
+}
+.pubs-title img {
+    width: 183px;
+    margin-top: 12px;
 }
