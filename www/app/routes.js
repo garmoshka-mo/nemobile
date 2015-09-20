@@ -29,6 +29,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("pubItem", {
                 url: "/pub/:postId/:slug",
+                branded: true,
                 views: {
                     "title": {
                         template: "Паблик - DUB.iNK"
@@ -41,7 +42,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("publishPreview", {
                 url: "/publishPreview?channelName",
-                hasChatView: true,
+                branded: true, hasControlPanel: true,
                 views: {
                     "title": {
                         template: "Публикация - DUB.iNK"
@@ -102,7 +103,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("chat", {
                 url: "/chat?channelName&messageText&senderId&fromState&chatType",
-                hasChatView: true,
+                branded: true, hasControlPanel: true,
                 views: {
                     "title": {
                         template: "Чат"

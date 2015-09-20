@@ -82,7 +82,7 @@ html
           section.right-small.ta-center(ng-cloak='', ng-show='user.score && isUserScoreShown')
             i.fa.fa-star
             span(ng-bind='user.score')
-        section.main-section(ng-class="{'chat': isChatState()}")
+        section.main-section(ng-class="{branded: isBranded() }")
           // content goes here
           // MAIN CONTENT
           #wrapper(ng-hide='routing.is_preload')

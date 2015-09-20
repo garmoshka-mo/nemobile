@@ -254,9 +254,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         $state.go('pubsList');
     }
 
-    $scope.isChatState = function(){
-        return $state.current.hasChatView;
-    };
+    $scope.isBranded = function() { return $state.current.branded; };
 
     $scope.router = router;
     $scope.goto = router.goto;

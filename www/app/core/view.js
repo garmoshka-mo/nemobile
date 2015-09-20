@@ -12,7 +12,7 @@ function Service($state, $rootScope) {
     $rootScope.$on('$viewContentLoaded', fitNewView);
 
     function resizeMainSection() {
-        var offset = $state.current.hasChatView? 110 : 47;
+        var offset = $state.current.hasControlPanel? 110 : 47;
         setTimeout(function() {
             $mainSection.height($window.height() - offset + 'px');
         },1);
