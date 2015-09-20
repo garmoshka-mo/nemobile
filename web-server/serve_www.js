@@ -39,7 +39,10 @@ app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
 });
 
 app.get(index_routes, function (req, res) {
-    res.render('index', { js_files: js_files, css_files: css_files });
+    res.render('index', {
+        js_files: js_files,
+        prod_js_file: prod_js_file,
+        css_files: css_files });
 });
 
 app.get('/version', function (req, res) {
@@ -80,7 +83,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
-var server, js_files, css_files,
+var server,
+    js_files, css_files, prod_js_file,
     paths, collectors;
 
 paths = ["assets/css/*.css", "app/**/*.css",
@@ -91,6 +95,8 @@ collectors = paths.map(function(p) {
         {cwd: path.join(__dirname, www_root)}
     );
 });
+
+if (version.version!='dev') prod_js_file = version.version+".js";
 
 async.parallel(
     collectors,

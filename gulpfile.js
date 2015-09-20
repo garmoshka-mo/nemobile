@@ -31,19 +31,13 @@ gulp.task('default', function() {
 
 
 gulp.task('build_index', function() {
-    var jsFile = gulp.src(output_js, {read: false});
-    var cssFile = gulp.src(output_css, {read: false});
-
-    //Reloads the page if the script could not be found
-    var transform = function (filepath, file, i, length) {
-        return '<script src="' + filepath + '" onerror="location.reload()"></script>';
-    };
-
     return gulp.src(webserver + 'views/index.jade')
-        .pipe(jade())
-        .pipe(gulp.dest(output_www))
-        .pipe(inject(jsFile, {transform: transform, relative: true}))
-        .pipe(inject(cssFile, {relative: true}))
+        .pipe(jade(
+            {locals: {
+                prod_js_file: output_js_file,
+                css_files: [output_css_file]
+              }
+            }))
         .pipe(gulp.dest(output_www));
 });
 
