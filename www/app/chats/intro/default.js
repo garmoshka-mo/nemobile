@@ -1,6 +1,6 @@
 (function(){
 
-services
+angular.module("angServices")
     .service('defaultIntro',
     ['$resource',
 function ($resource) {

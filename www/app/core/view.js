@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .service('view',
     ['$state', '$rootScope', Service]);
 function Service($state, $rootScope) {

@@ -1,5 +1,5 @@
 (function(){
-    factories.factory('SlowpokesFriend',
+    angular.module("angFactories").factory('SlowpokesFriend',
         [
 function() {
 

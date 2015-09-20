@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('vk', ['api', '$rootScope', '$q', '$http', function(api, $rootScope, $q, $http) {
     var vkUserId = null;
     var vkToken = null;

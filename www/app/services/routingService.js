@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
     .service('routing', [
         'notification', '$state', '$rootScope', '$q',
 function(notification, $state, $rootScope, $q) {

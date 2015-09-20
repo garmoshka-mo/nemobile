@@ -1,4 +1,6 @@
-app.filter('orderObjectBy', function() {
+angular.module("angApp")
+
+.filter('orderObjectBy', function() {
   return function(items, field, reverse) {
     var filtered = [];
     angular.forEach(items, function(item) {
@@ -18,9 +20,9 @@ app.filter('orderObjectBy', function() {
     if(reverse) filtered.reverse();
     return filtered;
   };
-});
+})
 
-app.filter('orderObjectByTimestamp', function() {
+.filter('orderObjectByTimestamp', function() {
   return function(items, field, reverse) {
     var filtered = [];
     
@@ -34,9 +36,9 @@ app.filter('orderObjectByTimestamp', function() {
     
     return filtered;
   };
-});
+})
 
-app.filter('orderByName', function() {
+.filter('orderByName', function() {
   return function(items, field, reverse) {
     var filtered = [];
     angular.forEach(items, function(item) {
@@ -53,9 +55,9 @@ app.filter('orderByName', function() {
     if(reverse) filtered.reverse();
     return filtered;
   };
-});
+})
 
-app.filter('filterNewFriends', function() {
+.filter('filterNewFriends', function() {
   return function(items, field, reverse) {
     var MAX_DIFFERENCE_MSEC = 120000; //two minutes
     var filtered = [];
@@ -72,10 +74,10 @@ app.filter('filterNewFriends', function() {
     if(reverse) filtered.reverse();
     return filtered;
   };
-});
+})
 
 
-app.filter('htmlToPlaintext', function() {
+.filter('htmlToPlaintext', function() {
     return function(text) {
       return String(text).replace(/<[^>]+>/gm, '');
     };

@@ -25,7 +25,7 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
     output_css = output_www + output_css_file;
 
 gulp.task('default', function() {
-    runSequence('jade_to_html', 'cleanBuildFolder', 'build_css','build_js',
+    runSequence('cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server');
 });
 
@@ -39,7 +39,8 @@ gulp.task('build_index', function() {
         return '<script src="' + filepath + '" onerror="location.reload()"></script>';
     };
 
-    return gulp.src(source_www+'index.html')
+    return gulp.src(webserver + 'views/index.jade')
+        .pipe(jade())
         .pipe(gulp.dest(output_www))
         .pipe(inject(jsFile, {transform: transform, relative: true}))
         .pipe(inject(cssFile, {relative: true}))
@@ -47,7 +48,8 @@ gulp.task('build_index', function() {
 });
 
 gulp.task('build_css', function () {
-    return gulp.src(source_www + 'assets/css/*.css')
+    return gulp.src([source_www + 'assets/css/*.css',
+            source_www + 'app/**/*.css'])
         .pipe(concat(output_css_file))
         .pipe(cssmin())
         .pipe(gulp.dest(output_www));
@@ -69,12 +71,6 @@ gulp.task('build_js', function () {
     )
         .pipe(concat(output_js_file))
         .pipe(gulp.dest(output_www));
-});
-
-gulp.task('jade_to_html', function() {
-    return gulp.src(webserver + 'views/index.jade')
-        .pipe(jade())
-        .pipe(gulp.dest(source_www));   
 });
 
 gulp.task('copy_static', function(){

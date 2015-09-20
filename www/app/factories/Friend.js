@@ -1,4 +1,4 @@
-factories.factory("Friend", ['storage', '$q', function(storage, $q) {
+angular.module("angFactories").factory("Friend", ['storage', '$q', function(storage, $q) {
     
     String.prototype.hashCode = function(){
         var hash = 0;

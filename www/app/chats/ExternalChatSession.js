@@ -1,5 +1,5 @@
 (function(){
-    services
+    angular.module("angServices")
         .factory('ExternalChatSession',
         ['$q', 'ChatSessionAbstract', 'apiRequest', 'notification',
 function($q, ChatSessionAbstract, apiRequest, notification) {

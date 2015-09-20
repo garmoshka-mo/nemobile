@@ -1,5 +1,5 @@
 (function(){
-    app.directive('messages', function() {
+    angular.module("angApp").directive('messages', function() {
         return {
             scope: {session: '=', messageInput: '=', close: '&', preview: '@'},
             templateUrl: "app/messages/messages.html",

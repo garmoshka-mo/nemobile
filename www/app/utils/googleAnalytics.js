@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
     .service('googleAnalytics',
         function () {
 

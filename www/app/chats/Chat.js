@@ -1,4 +1,4 @@
-factories.factory("Chat",
+angular.module("angFactories").factory("Chat",
     ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList',
     function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList) {
     

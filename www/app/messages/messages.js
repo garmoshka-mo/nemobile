@@ -1,5 +1,5 @@
 (function() {
-        services
+        angular.module("angServices")
         .service('messages', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', 'chats', 'routing', 'friendsList', '$state', 'notification',
             function($rootScope, apiRequest, deviceInfo, user, chats, routing, friendsList, $state, notification) {
 

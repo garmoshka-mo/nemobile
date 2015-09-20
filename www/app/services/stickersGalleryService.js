@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('stickersGallery', ['api', '$rootScope', '$q', function(api, $rootScope, $q) {
 
     log("stickersGalleryService is enabled");

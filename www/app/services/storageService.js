@@ -3,7 +3,7 @@ window.clearAll =  function() {
     localStorage.clear();
     localforage.clear();
 };
-services
+angular.module("angServices")
 .factory('storage', ['$localForage', '$timeout', function($localForage, $timeout) {
     
     function filterObject(object, forbiddenFieldsArray) {

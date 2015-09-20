@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .factory('Avatar',
     ['apiRequest', '$q', '$upload', 'api', '$rootScope', 
     function(apiRequest, $q, $upload, api, $rootScope) {

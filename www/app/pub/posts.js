@@ -1,5 +1,5 @@
 (function() {
-    services
+    angular.module("angServices")
         .service('posts',
         ['apiRequest',
 function(apiRequest) {

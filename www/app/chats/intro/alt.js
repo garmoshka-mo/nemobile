@@ -1,6 +1,6 @@
 (function(){
 
-services
+angular.module("angServices")
     .service('altIntro',
     ['$resource',
 function ($resource) {

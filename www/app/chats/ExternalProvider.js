@@ -1,5 +1,5 @@
 (function(){
-factories.factory('ExternalProvider',
+angular.module("angFactories").factory('ExternalProvider',
     ['notification', 'SpamFilter', 'api', 'TeacherBot', 'ActivityBot',
         'SlowpokesFriend', 'defaultIntro', 'altIntro', '$rootScope', 'user',
 function(notification, SpamFilter, api, TeacherBot, ActivityBot,

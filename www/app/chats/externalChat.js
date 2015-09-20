@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .service('externalChat',
     ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'routing',
     function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, routing) {

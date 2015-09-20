@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat', 'storage', 
     function($rootScope, apiRequest, deviceInfo,  Chat, storage) {
         

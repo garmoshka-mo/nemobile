@@ -1,6 +1,6 @@
 (function(){
 
-services
+angular.module("angServices")
     .service('apiRequest',
     ['$http', '$q',
 function ($http, $q) {

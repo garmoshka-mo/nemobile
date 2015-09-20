@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .factory('api', ['$http', '$q', '$upload', 'apiRequest',
     function ($http, $q, $upload, apiRequest) {
     

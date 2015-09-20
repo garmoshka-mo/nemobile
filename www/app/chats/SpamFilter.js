@@ -1,5 +1,5 @@
 (function(){
-    factories.factory('SpamFilter',
+    angular.module("angFactories").factory('SpamFilter',
         ['$resource', '$q', 'user',
 function($resource, $q, user) { 
 

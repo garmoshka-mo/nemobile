@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('temporaryData', [
     'storage',
     function(storage) {

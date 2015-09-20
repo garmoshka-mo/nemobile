@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('user', [
     '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'Avatar', 'apiRequest',
     function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, Avatar, apiRequest) {

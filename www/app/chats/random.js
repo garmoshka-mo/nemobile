@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope', 'googleAnalytics',
     function(user, $q, externalChat, apiRequest, $rootScope, googleAnalytics) {
 

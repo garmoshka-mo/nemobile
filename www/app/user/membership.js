@@ -1,5 +1,5 @@
 (function() {
-        services
+        angular.module("angServices")
         .service('membership', ['$q', 'apiRequest', 'deviceInfo', 'user', 'routing',
             function($q, apiRequest, deviceInfo, user, routing) {
 

@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .service('updates',
     ['$resource', Service]);
 function Service($resource) {

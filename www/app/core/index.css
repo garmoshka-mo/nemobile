@@ -1,10 +1,10 @@
  @font-face {
   font-family: "Open Sans Normal";
-  src: url("../fonts/OpenSans-Regular.ttf");
+  src: url("../../assets/fonts/OpenSans-Regular.ttf");
  }
 @font-face {
   font-family: "Open Sans Bold";
-  src: url("../fonts/OpenSans-Bold.ttf");
+  src: url("../../assets/fonts/OpenSans-Bold.ttf");
  }
 html{
   height: 100%;

@@ -1,11 +1,13 @@
-var app = angular.module("angApp");
-app.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
+angular.module("angApp")
+
+.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
     //  chrome-extension: will be added to the end of the expression
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
-}]);
-app.config(['$locationProvider', function($locationProvider) {
+}])
+
+.config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
 
@@ -146,12 +148,6 @@ document.addEventListener("deviceready", function() {
         };
     }
 });
-
-
-
-angular.module("angControllers", []);
-var services = angular.module("angServices", []);
-var factories = angular.module("angFactories", []);
 
 String.prototype.sanitize = function() {
     return this.replace(/[\\"<>]/gim, function(i) {
