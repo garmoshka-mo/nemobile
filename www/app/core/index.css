@@ -396,15 +396,8 @@ a.button:hover{
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
 }
-button.messageMenu {
-  padding: 0;
-  margin: 0;
-  line-height: inherit;
-  min-height: auto;
-  min-width: auto;
-  white-space: normal;
-  text-align: inherit;
-  text-transform: none;
+.messageMenuButton {
+  width: 100%;
 }
 .chat-last-message-text {
   display: block;

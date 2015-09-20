@@ -8,8 +8,8 @@
                  template:
                    '<md-dialog aria-label="List dialog">' +
                    '  <md-dialog-content class="ta-center">'+
-                   '    <button ng-repeat="button in buttons" ng-click="onButtonClick(button)"> ' +
-                   '  <span ng-bind="button.name"></span></button>' + 
+                   '    <div ng-repeat="button in buttons"><button class="messageMenuButton" ng-click="onButtonClick(button)"> ' +
+                   '  <span ng-bind="button.name"></span></button></div>' + 
                    '  </md-dialog-content>' +
                    '  <div class="md-actions">' +
                    '    <md-button ng-click="closeDialog()" class="md-primary">' +

@@ -22,9 +22,11 @@
             return showSharing;
         };
 
-        $scope.quoteIt = function(message) {
-            $scope.messageInput = $scope.messageInput + ' > ' + message.text + ' < = ';
-        };
+        function quoteIt(message) {
+            return function() {
+                $scope.messageInput = $scope.messageInput + ' > ' + message.text + ' < = ';
+            };
+        }
 
         function removeCurrentMessage(messageIndex) {
             return function() {
@@ -41,6 +43,13 @@
         function removeMessagesBelow(messageIndex) {
             return function() {
                 $scope.session.messages = $scope.session.messages.slice(0, messageIndex + 1);
+            };
+        }
+
+        function hideMessage(message) {
+            return function() {
+                message.type = 'hidden';
+                message.text = 'сообщение скрыто';
             };
         }
 
@@ -76,15 +85,12 @@
 
         $scope.showMenu = function(message, index) {
             messageMenu.show([
+                {name: 'цитировать', handler: quoteIt(message)},
+                {name: 'скрыть сообщение', handler: hideMessage(message)},
                 {name: 'удалить сообщение', handler: removeCurrentMessage(index)},
                 {name: 'удалить сообщения выше', handler: removeMessagesAbove(index)},
                 {name: 'удалить сообщения ниже', handler: removeMessagesBelow(index)}
             ]);
-        };
-
-        $scope.hideMessage = function(message) {
-            message.type = 'hidden';
-            message.text = 'сообщение скрыто';
         };
 
         function parseUrls(messageText) {
