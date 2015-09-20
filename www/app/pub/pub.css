@@ -47,3 +47,12 @@
 #disqus_thread {
     margin: 18px;
 }
+
+.personal-data-alert {
+    padding: 14px 14px 0;
+    text-indent: 1px;
+    font-size: 0.9em;
+}
+.personal-data-alert .fa {
+    padding-right: 8px;
+}

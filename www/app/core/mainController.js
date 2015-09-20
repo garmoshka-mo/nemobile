@@ -249,6 +249,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     }
 
     $scope.isBranded = function() { return $state.current.branded; };
+    $scope.isChat = function() { return $state.current.name == 'chat'; };
+    $scope.isRandomHome = function() { return $state.current.name == 'random'; };
 
     $scope.router = router;
     $scope.goto = router.goto;

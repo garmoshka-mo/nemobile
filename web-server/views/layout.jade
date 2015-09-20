@@ -71,7 +71,7 @@ html
                   span(ng-bind='notification.text')
                   span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-          section.right-small.chat-right-tool(ng-cloak='', ng-show='debug')
+          section.right-small.chat-right-tool(ng-cloak='', ng-show='isChat()')
             .publish
               a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
                 i.fa.fa-share-alt
@@ -79,8 +79,9 @@ html
               i.fa.fa-clock-o
               span(ng-bind='notification.time')
               .dubink DUB.iNK
-          section.right-small.ta-center(ng-cloak='', ng-show='user.score && isUserScoreShown')
+          section.right-small.ta-center(ng-cloak='', ng-show='isRandomHome() && user.score && isUserScoreShown')
             i.fa.fa-star
+            |&nbsp;
             span(ng-bind='user.score')
         section.main-section(ng-class="{branded: isBranded() }")
           // content goes here

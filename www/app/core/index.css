@@ -821,7 +821,14 @@ img.imageShow {
   background: #4D6EA3;
 }
 
+.note {
+ font-size: 0.8rem;
+  color: #888;
+}
 
+ .center {
+   text-align: center;
+ }
 
 /*radio buttons styles*/
 input[type="radio"] {

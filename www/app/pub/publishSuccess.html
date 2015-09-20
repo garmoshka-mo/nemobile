@@ -2,9 +2,16 @@
     <div class="small-12 pt1rem ta-center">
         Ссылка на опубликованный чат:
         <input type="text" ng-model="postUrl"/>
-        <button ng-click="router.openExternalURL(postUrl)">Открыть публикацию</button>
+        <p class="note">В общем списке публикация появится после проверки модератором.</p>
+        <button ng-click="router.openExternalURL(postUrl)">
+            <i class="fa fa-external-link"></i>&nbsp;&nbsp;Открыть публикацию
+        </button>
         <br>
-        <button ng-click="chats.openCurrentChat()">Вернуться в чат</button>
-        <button ng-click="router.goto('random')">Начать новый чат</button>
+        <button ng-click="chats.openCurrentChat()" ng-show="chats.currentChatRoute">
+            <i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Вернуться в чат
+        </button>
+        <button ng-click="router.goto('random')">
+            <i class="fa fa-refresh"></i>&nbsp;&nbsp;Начать новый чат
+        </button>
     </div>
 </div>

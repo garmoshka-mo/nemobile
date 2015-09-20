@@ -4,5 +4,5 @@ module.exports = [
     '/chat',
     '/pub', '/activation',
     '/updateProfile', '/about',
-    '/publishPreview', '/publishSuccess'
+    '/publishPreview', '/publishSuccess/:id'
 ];
