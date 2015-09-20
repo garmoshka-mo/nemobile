@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'routing','deviceInfo', '$state', '$q', 'friendsList', 'view', 'pubnubSubscription',
+    'routing','deviceInfo', '$state', '$q', 'friendsList', 'view', 'pubnubSubscription', 'messages',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         routing, deviceInfo, $state, $q, friendsList, view, pubnubSubscription) {
+         routing, deviceInfo, $state, $q, friendsList, view, pubnubSubscription, messages) {
     //messages and pubnubsubscription are not used in this controller
     //but they have to be injected in order to be invoked
     $scope.user = user;
