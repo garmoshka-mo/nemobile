@@ -61,7 +61,7 @@ gulp.task('build_js', function () {
             .pipe(addsrc.append(source_www + 'app/**/*.js'))
             .pipe(addsrc.append(source_www + 'config.prod.js'))
             .pipe(concat(output_js_file))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(insert.append('version="'+version+'";'))
             .pipe(addsrc.prepend(source_www + 'license.js'))
     )
