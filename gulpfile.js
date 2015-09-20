@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     replace = require('gulp-regex-replace'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
+    rename = require("gulp-rename"),
     merge2 = require('merge2'),
     jade = require('gulp-jade');
 
@@ -38,7 +39,8 @@ gulp.task('build_index', function() {
                 css_files: [output_css_file]
               }
             }))
-        .pipe(gulp.dest(output_www));
+        .pipe(rename('phonegap.html'))
+        .pipe(gulp.dest(output_www ));
 });
 
 gulp.task('build_css', function () {
@@ -59,7 +61,7 @@ gulp.task('build_js', function () {
             .pipe(addsrc.append(source_www + 'app/**/*.js'))
             .pipe(addsrc.append(source_www + 'config.prod.js'))
             .pipe(concat(output_js_file))
-            .pipe(uglify())
+            //.pipe(uglify())
             .pipe(insert.append('version="'+version+'";'))
             .pipe(addsrc.prepend(source_www + 'license.js'))
     )
