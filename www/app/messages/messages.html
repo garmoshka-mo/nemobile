@@ -1,4 +1,4 @@
-<div ng-repeat="message in session.messages track by $index"
+<!-- <div ng-repeat="message in session.messages track by $index"
      class="message-container" ng-class="{'ta-right': message.isOwn}"
      ng-switch="message.type" ng-show="::preview">
     <div ng-switch-when="chat_empty">
@@ -70,32 +70,35 @@
         </md-menu-content>
     </md-menu>
 </div>
-
-<div ng-repeat="message in session.messages track by $index"
-     class="message-container" ng-class="::{'ta-right': message.isOwn}"
-     ng-switch="message.type"  ng-hide="::preview">
-    <div ng-switch-when="chat_empty">
-        <div class="system_message">
-            Этот чат завершен
-            <a ng-click="close()">Начать новый диалог</a>
-        </div>
-        <share ng-if="askShowSharing()"></share>
-    </div>
-    <div ng-switch-when="chat_finished">
-        <div class="system_message">
-            Собеседник покинул чат
-            <a ng-click="close()">Начать новый диалог</a>
-        </div>
-        <share ng-if="askShowSharing()"></share>
-    </div>
-    <md-menu md-position-mode="target-right target">
+ -->
+ <md-menu md-position-mode="target-right target">
         <md-button class="messageMenu" aria-label="Open some menu">
+            <div ng-repeat="message in session.messages track by $index"
+                 class="message-container" ng-class="::{'ta-right': message.isOwn}"
+                 ng-switch="message.type"  ng-hide="::preview">
+                <div ng-switch-when="chat_empty">
+                    <div class="system_message">
+                        Этот чат завершен
+                        <a ng-click="close()">Начать новый диалог</a>
+                    </div>
+                    <share ng-if="askShowSharing()"></share>
+                </div>
+                <div ng-switch-when="chat_finished">
+                    <div class="system_message">
+                        Собеседник покинул чат
+                        <a ng-click="close()">Начать новый диалог</a>
+                    </div>
+                    <share ng-if="askShowSharing()"></share>
+                </div>
+                
+            
             <div ng-switch-default class="message"
                  ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
                  ng-bind-html="::formatMessage(message)"  
                  ng-click="::$mdOpenMenu($event)"
                  >
              </div>
+            </div>
         </md-button>
         <md-menu-content >
             <md-menu-item>
@@ -105,5 +108,5 @@
             </md-menu-item>
         </md-menu-content>
     </md-menu>
-</div>
+
 
