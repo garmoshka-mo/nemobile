@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat', 'storage', 
     function($rootScope, apiRequest, deviceInfo,  Chat, storage) {
         
@@ -50,7 +50,7 @@ services
                 }
                 chats.list = _chats;
                 
-                log("user chats are taken from storage", user.chats);
+                log("user chats are taken from storage", chats.list);
             });
         };
 

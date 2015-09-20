@@ -1,5 +1,5 @@
-services
-    .service('routing', [
+angular.module("angServices")
+    .service('router', [
         'notification', '$state', '$rootScope', '$q',
 function(notification, $state, $rootScope, $q) {
 

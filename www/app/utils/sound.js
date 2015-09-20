@@ -1,5 +1,5 @@
 (function () {
-    services
+    angular.module("angServices")
         .value('sounds', {
             incomeMessage: new Audio('assets/sounds/alert.mp3'),
             newConversation: new Audio('assets/sounds/new_conversation.mp3')

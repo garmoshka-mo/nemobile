@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("virtualChatController", [
-    'user', '$scope', '$stateParams', 'routing', 
-    function(user, $scope, $stateParams, routing) {
+    'user', '$scope', '$stateParams', 'router',
+    function(user, $scope, $stateParams, router) {
         $scope.showSpinner = true;
         
         function handleSuccessSignin() {
@@ -12,7 +12,7 @@ angular.module("angControllers").controller("virtualChatController", [
                 log("Q!!!!!!!!!!!!!!", user.chats);
                 if (!_.isEmpty(user.chats)) {
                     var senderId = Object.keys(user.chats)[0];
-                    routing.goto('chat', {senderId: senderId});
+                    router.goto('chat', {senderId: senderId});
                 }
             });
         }

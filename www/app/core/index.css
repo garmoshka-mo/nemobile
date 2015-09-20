@@ -1,10 +1,10 @@
  @font-face {
   font-family: "Open Sans Normal";
-  src: url("../fonts/OpenSans-Regular.ttf");
+  src: url("../../assets/fonts/OpenSans-Regular.ttf");
  }
 @font-face {
   font-family: "Open Sans Bold";
-  src: url("../fonts/OpenSans-Bold.ttf");
+  src: url("../../assets/fonts/OpenSans-Bold.ttf");
  }
 html{
   height: 100%;
@@ -111,9 +111,7 @@ input[type="password"] {
 .pointer:hover {
   cursor: pointer;
 }
-.chat .bottom-placeholder {
-  height: 18px;
-}
+
 .h41 {
   height: 41px;
 }
@@ -235,14 +233,15 @@ ul.off-canvas-list li a {
 }
 
  .main-section{
-   overflow: scroll;
-   
+   overflow: auto;
  }
+
+
+
  #wrapper{
    width: 100%;
    max-width: 550px;
    margin: 0 auto;
-   padding-bottom: 100px;
  }
 
 #footer{
@@ -253,7 +252,7 @@ ul.off-canvas-list li a {
   z-index: 100;
 }
 
-.off-canvas-wrap, .inner-wrap, .main-section, #friends, #friendsList, #friendsList ul{
+.off-canvas-wrap, .inner-wrap, #friends, #friendsList, #friendsList ul{
   height: 100%;
 }
 
@@ -312,11 +311,6 @@ label {
 }
 
 .off-canvas-list{
-  font-size: 1.3rem;
-}
-ul,
-ol,
-dl {
   font-size: 1.3rem;
 }
 
@@ -402,6 +396,9 @@ a.button:hover{
 .chats-chat.unread {
   background: rgba(52, 152, 219, .2);
 }
+.messageMenuButton {
+  width: 100%;
+}
 .chat-last-message-text {
   display: block;
   width: 100%;
@@ -409,15 +406,7 @@ a.button:hover{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.chat-title {
-  height: 31px;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 1.3rem;
-}
+
 .chats-chat:active {
   background-color: #ecf0f1;
 }
@@ -442,25 +431,6 @@ a.button:hover{
 
 .content {
   height: 100%;
-}
-.chat {
-/*  background-image: url(../img/chat_bg.jpg);*/
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.overscrollable {
-  height: 100%;
-  width: 100%;
-  padding-right: 15px;
-  box-sizing: content-box;
-  overflow: auto;
-}
-.overscrollable-fullscreen {
-  height: 38rem;
-  width: 100%;
-  padding-right: 15px;
-  box-sizing: content-box;
-  overflow: auto;
 }
 .chat-input-container {
   padding-left: 7px;
@@ -589,6 +559,7 @@ input.category-name-change-input {
   margin-top: 10px;
 }
 .message {
+  text-align: left;
   border-radius: 5px;
   position: relative;
   display: inline-block;
@@ -606,6 +577,8 @@ input.category-name-change-input {
   background-color: rgba(104, 194, 110, .3);
   margin-right: 10px;
 }
+
+
 .message-own:after {
   content: '';
   top: 7px;
@@ -614,6 +587,7 @@ input.category-name-change-input {
   border: 10px solid transparent;
   border-left: 10px solid rgba(104, 194, 110, .3)
 }
+
 .old-messages-background {
   padding: 10px 0;
   background: rgba(52, 152, 219, .1)
@@ -630,6 +604,15 @@ input.category-name-change-input {
   border: 10px solid transparent;
   border: 10px solid transparent;
   border-right: 10px solid rgba(89, 131, 158, .3);
+}
+.message-hidden {
+  background-color: rgba(149, 165, 166, 0.3);
+}
+.message-own.message-hidden:after { 
+  border-left-color: rgba(149, 165, 166, 0.3);
+}
+.message-hidden.message-not-own:after {
+  border-right-color: rgba(149, 165, 166, 0.3);
 }
 .chat-buttons-container {
   background-color: #363645;
@@ -1078,11 +1061,6 @@ input[type="radio"]:checked + .radioLabel {
 }
 
 
-.brand_bg {
-  background: #EAF0F1 url("/assets/img/bg.png");
-  background-size: 187px 150px;
-}
-
 .notification .options {
   color: white;
   padding: 5px;
@@ -1106,12 +1084,7 @@ md-menu-item > .md-button {
 .publish {
   width: 43px;
 }
-.chat-right-tool {
-  width:auto;
-}
-.chat-right-tool>div {
-  float:left;
-}
+
 
 .partners-list {
   list-style-type: hangul-consonant;

@@ -1,0 +1,49 @@
+.publish-button {
+    vertical-align: top;
+    width: 40%;
+    padding: 0;
+    height: 36px;
+    border-radius: 5px;
+    margin-right: 2px;
+    margin-left: -2px;
+}
+
+.posts-list {
+    list-style-type: none;
+    font-size: 1rem;
+}
+.posts-list .score {
+    color: #A2A2A2;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 50px;
+    display: inline-block;
+    text-align: right;
+    font-family: verdana,arial,helvetica,sans-serif;
+}
+.pub-post-score {
+    width: 80px;
+    padding-top: 16px;
+}
+
+.pubs-title {
+    padding-bottom: 10px;
+    font-size: 1.2em;
+}
+.pubs-title img {
+    width: 183px;
+    margin-top: 12px;
+}
+
+.pub-bottom-break {
+    text-align: center;
+    margin: 19px 0 17px 0;
+}
+.pub-bottom-break img {
+    width: 183px;
+}
+
+#disqus_thread {
+    margin: 18px;
+}

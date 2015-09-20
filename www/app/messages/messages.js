@@ -1,7 +1,7 @@
 (function() {
-        services
-        .service('messages', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', 'chats', 'routing', 'friendsList', '$state', 'notification',
-            function($rootScope, apiRequest, deviceInfo, user, chats, routing, friendsList, $state, notification) {
+        angular.module("angServices")
+        .service('messages', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', 'chats', 'router', 'friendsList', '$state', 'notification',
+            function($rootScope, apiRequest, deviceInfo, user, chats, router, friendsList, $state, notification) {
 
                 function pushMessageToSession(lastSession, messageText, expires) {
                     lastSession.incomeMessage(messageText);
@@ -45,7 +45,7 @@
 
                     
                     notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
-                        routing.goto('chat', {channelName: channelName});
+                        router.goto('chat', {channelName: channelName});
                     });
                    
                 }
@@ -70,7 +70,7 @@
 
                     if (message.event == "chat_ready") {
                         $rootScope.$broadcast('new random chat', {type: 'internal', channel: channelName});
-                        routing.goto('chat', {channelName: channelName, fromState: 'random'});
+                        router.goto('chat', {channelName: channelName, fromState: 'random'});
                         return;
                     }
 

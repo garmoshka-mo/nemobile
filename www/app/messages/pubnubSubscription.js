@@ -1,5 +1,5 @@
 (function() {
-        services
+        angular.module("angServices")
         .service('pubnubSubscription', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', '$q',
             function($rootScope, apiRequest, deviceInfo, user, $q) {
                 log('pubnubSubscription is ran');

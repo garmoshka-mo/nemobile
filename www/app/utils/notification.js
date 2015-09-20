@@ -1,5 +1,5 @@
 (function(){
-    services
+    angular.module("angServices")
         .service('notification',
         ['$rootScope', '$timeout', 'sound', 'timer', '$mdToast', Service]);
     function Service($rootScope, $timeout, sound, timer, $mdToast) {

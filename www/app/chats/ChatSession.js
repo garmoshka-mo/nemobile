@@ -1,5 +1,5 @@
 (function(){
-factories.factory('ChatSession',
+angular.module("angFactories").factory('ChatSession',
     ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract', 'apiRequest',
     function($timeout, storage, api, $q, notification, ChatSessionAbstract, apiRequest) {
     

@@ -1,0 +1,71 @@
+.chat h5 {
+    margin: 15px 20px;
+}
+
+.chat .bottom-placeholder {
+    height: 18px;
+}
+
+.main-section.branded{
+    background: #EAF0F1 url("/assets/img/bg.png");
+    background-size: 187px 150px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chat-title {
+    height: 31px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.3rem;
+}
+
+.chat-right-tool {
+    width:auto;
+}
+.chat-right-tool>div {
+    float:left;
+}
+
+.system_message{
+    padding: 10px 15px;
+}
+
+.share_it {
+    padding-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+.share_it i {
+    margin-left: 13px;
+}
+
+.share_block {
+    text-align: left;
+    margin: 15px 35px 0;
+}
+#vk_like {
+    margin-bottom: 13px;
+}
+
+.help {
+    margin-top: 19px;
+    text-align: left;
+    text-indent: 30px;
+}
+
+.personal-data-alert {
+    padding: 14px;
+    text-indent: 7px;
+    font-size: 0.9em;
+}
+.personal-data-alert .fa {
+    padding-right: 8px;
+}

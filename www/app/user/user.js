@@ -1,20 +1,14 @@
-services
+angular.module("angServices")
 .service('user', [
-    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'routing', 'Avatar', 'apiRequest',
-    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, routing, Avatar, apiRequest) {
+    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'router', 'Avatar', 'apiRequest',
+    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, router, Avatar, apiRequest) {
     
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
 
     var user = this;
     clearCurrentUser();
-    var differencePubnubDeviceTime;
     var isLogged = null;
-
-    //private methods
-    function handleOsNotificationClick (params) {
-        location.href = params.href;
-    }
 
     function handleSuccessSignIn(userInfo) {
         user.name = userInfo.name;

@@ -1,4 +1,6 @@
-app.directive('stopEvent', function () {
+angular.module("angApp")
+
+.directive('stopEvent', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {
@@ -7,9 +9,9 @@ app.directive('stopEvent', function () {
             });
         }
     };
- });
+ })
 
-app.directive('stopEventPrevent', function () {
+.directive('stopEventPrevent', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {
@@ -19,71 +21,15 @@ app.directive('stopEventPrevent', function () {
             });
         }
     };
- });
+ })
 
-app.directive('overscrollableWithFooter', function() {
-    return {
-        link: function(scope, elem, attr) {
-            $(elem).css({
-                    "height": "100%",
-                    "width": "100%",
-                    "padding-right": "15px",
-                    "box-sizing": "content-box",
-                    "overflow": "auto",
-                    "position": "relative"
-            });
-        }
-    };
-});
+.directive('stickersGalleryHeight', function() {
 
-$(function() {
-    window.BODY_HEIGHT = $('body').height();
-    window.TAB_BAR_HEIGHT = $('.tab-bar').height();
-});
+    $(function() {
+        window.BODY_HEIGHT = $('body').height();
+        window.TAB_BAR_HEIGHT = $('.tab-bar').height();
+    });
 
-app.directive('overscrollableWithoutFooter', function() {
-    return {
-        link: function(scope, elem, attr) {
-            var bodyHeight = $('body').height();
-            $(elem).height(bodyHeight - $('.tab-bar').height());
-            $(elem).css({
-                "width": "100%",
-                "padding-right": "15px",
-                "box-sizing": "content-box",
-                "overflow": "auto",
-                "position": "relative"
-            });
-        }
-    };
-});
-
-app.directive('overscrollableFriends', ['$timeout', function($timeout) {
-    return {
-        link: function(scope, elem, attr) {
-            scope.$watch('user.friendsList.friends.length', function() {
-                $timeout(function() {
-                    $(elem).height(BODY_HEIGHT - $(".friendListHeader ").outerHeight() - TAB_BAR_HEIGHT);
-                    $(elem).css({
-                          "width": "100%",
-                          "padding-right": "15px",
-                          "box-sizing": "content-box",
-                          "overflow": "auto"
-                    });
-                }, 0);
-            });
-        }
-    };
-}]);
-
-app.directive('scrollTop', ['$timeout', function($timeout) {
-    return {
-        link: function(scope, elem, attr) {
-            $timeout(function(){$('.main-section').scrollTop(0);}, 0);
-        }
-    };
-}]);
-
-app.directive('stickersGalleryHeight', function() {
     return {
         link: function(scope, elem, attr) {
 
@@ -105,9 +51,9 @@ app.directive('stickersGalleryHeight', function() {
             $(elem).height(stickersGalleryHeight);
         }
     };
-});
+})
 
-app.directive('imageonload', function() {
+.directive('imageonload', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -122,9 +68,9 @@ app.directive('imageonload', function() {
             });
         }
     };
-});
+})
 
-app.directive('npTouchstart', function() {
+.directive('npTouchstart', function() {
     return {
         link: function(scope, elem, attr) {
             $(elem).on("click touchstart", function() {
@@ -132,9 +78,9 @@ app.directive('npTouchstart', function() {
             });
         }
     };
-});
+})
 
-app.directive('spinner', function() {
+.directive('spinner', function() {
     return {
         template: '<div class="spinner"><div class="dot bounce1"></div><div class="dot bounce2"></div><div class="dot bounce3"></div></div>',
         link: function(scope, elem, attr) {
@@ -142,9 +88,9 @@ app.directive('spinner', function() {
             dots.addClass(attr.spinnerColor || "black");
         }
     };
-});
+})
 
-app.directive('clearAllButton', function() {
+.directive('clearAllButton', function() {
     return {
         scope: {
             ngModel: "="
@@ -172,9 +118,9 @@ app.directive('clearAllButton', function() {
             // });
         }
     };
-});
+})
 
-app.directive('clearAllButtonInline', function() {
+.directive('clearAllButtonInline', function() {
     return {
         scope: {
             ngModel: "="
@@ -190,9 +136,9 @@ app.directive('clearAllButtonInline', function() {
             });
         }
     };
-});
+})
 
-app.directive('alertBox', function() {
+.directive('alertBox', function() {
     return {
         template: '<div ng-show="ngModel" data-alert class="alert-box warning no-transition"><span ng-bind="ngModel"></span><span ng-click="close()" class="close pointer">&times;</span></div>',
         scope: {
@@ -205,9 +151,9 @@ app.directive('alertBox', function() {
             };       
         }
     };
-});
+})
 
-app.directive('slideMenu', function() {
+.directive('slideMenu', function() {
     return {
         link: function(scope, elem, attr) {
             window.snapper = new Snap({
@@ -252,9 +198,9 @@ app.directive('slideMenu', function() {
             
         }
     };
-});
+})
 
-app.directive('radioButtons', function() {
+.directive('radioButtons', function() {
     return {
         restrict: 'AE',
         scope: {
@@ -273,9 +219,9 @@ app.directive('radioButtons', function() {
             " ng-class='{\"is-active\": ngModel == value}' ng-click='::handleItemClick(value)'>" + 
             "<span>{{::titles[$index]}}</span></li></ul>"
     };
-});
+})
 
-app.directive('ageSelect', function() {
+.directive('ageSelect', function() {
     return {
         restrict: 'AE',
         scope: {
@@ -328,9 +274,9 @@ app.directive('ageSelect', function() {
             " ng-class='{\"text-bold\": ngModel.indexOf(value) != -1, \"text-silver\": ngModel.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
             "<span>{{::titles[$index]}}</span></li></ul>"
     };
-});
+})
 
-app.directive('sexSelect', function() {
+.directive('sexSelect', function() {
     return {
         restrict: 'AE',
         scope: {
@@ -356,9 +302,9 @@ app.directive('sexSelect', function() {
             "<li ng-click='handleItemClick(\"w\")' class='sex-select-li woman' " + 
             "ng-class='{\"selected\": ngModel == \"w\"}'></li></ul>"
     };
-});
+})
 
-app.directive('allowTextselect', function() {
+.directive('allowTextselect', function() {
     return {
         restrict: 'A',
         link: function(scope, elem, attr) {
@@ -368,3 +314,6 @@ app.directive('allowTextselect', function() {
         },
     };
 });
+
+
+

@@ -1,5 +1,5 @@
 (function(){
-    services
+    angular.module("angServices")
         .service('timer',
         ['$rootScope', Timer]);
     function Timer($rootScope) {

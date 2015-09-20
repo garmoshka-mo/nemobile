@@ -1,5 +1,5 @@
 (function(){
-    factories.factory('ChatSessionAbstract',
+    angular.module("angFactories").factory('ChatSessionAbstract',
         ['notification', 'SpamFilter', 'timer',
     function(notification, SpamFilter, timer) {
 

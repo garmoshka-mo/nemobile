@@ -127,16 +127,16 @@ md-fab-speed-dial md-fab-actions {
     cursor: pointer;
 }
 .sex-select-li.man {
-    background-image: url('../img/man.png')
+    background-image: url('../../assets/img/man.png')
 }
 .sex-select-li.man.selected {
-    background-image: url('../img/man-selected.png')
+    background-image: url('../../assets/img/man-selected.png')
 }
 .sex-select-li.woman {
-    background-image: url('../img/woman.png')
+    background-image: url('../../assets/img/woman.png')
 }
 .sex-select-li.woman.selected {
-    background-image: url('../img/woman-selected.png')
+    background-image: url('../../assets/img/woman-selected.png')
 }
 sex-select:focus {
     /* Angular directive brings back a blue outline on element focus */

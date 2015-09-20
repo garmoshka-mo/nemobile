@@ -15,6 +15,56 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("pubsList", {
+                url: "/pub",
+                views: {
+                    "title": {
+                        template: "Паблик - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pubsList.html?" + version,
+                        controller: "pubsListController"
+                    }
+                }
+            })
+            .state("pubItem", {
+                url: "/pub/:postId/:slug",
+                branded: true,
+                views: {
+                    "title": {
+                        template: "Паблик - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pubItem.html?" + version,
+                        controller: "pubController"
+                    }
+                }
+            })
+            .state("publishPreview", {
+                url: "/publishPreview?channelName",
+                branded: true, hasControlPanel: true,
+                views: {
+                    "title": {
+                        template: "Публикация - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/publishPreview.html?" + version,
+                        controller: "publishPreviewController"
+                    }
+                }
+            })
+            .state("publishSuccess", {
+                url: "/publishSuccess",
+                views: {
+                    "title": {
+                        template: "Успешно опубликовано"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/publishSuccess.html?" + version,
+                        controller: "publishPreviewController"
+                    }
+                }
+            })
             .state("signin", {
                 url: "/signinup/:inOrUp",
                 views: {
@@ -53,6 +103,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("chat", {
                 url: "/chat?channelName&messageText&senderId&fromState&chatType",
+                branded: true, hasControlPanel: true,
                 views: {
                     "title": {
                         template: "Чат"

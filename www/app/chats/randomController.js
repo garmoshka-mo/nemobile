@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'routing', 'googleAnalytics',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, routing, googleAnalytics) {
+         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'router', 'googleAnalytics',
+    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, router, googleAnalytics) {
 
         $scope.updates = updates;
         updates.check();
@@ -16,7 +16,7 @@ angular.module("angControllers")
                 externalChat.level = 0;
             }
             else {
-                routing.goto('activation');
+                router.goto('activation');
             }
         });
         

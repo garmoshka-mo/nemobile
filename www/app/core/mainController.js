@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
-    '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout', 'routing','deviceInfo', '$state', '$q', 'friendsList', 'messages', 'pubnubSubscription',
-function($rootScope, $scope, notification,  storage, user, chats, $timeout, routing, deviceInfo, $state, $q, friendsList, messages, pubnubSubscription) {
-    //messages and pubnubsubscription are not used in this controller
-    //but they have to be injected in order to be invoked
+    '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'view',
+function($rootScope, $scope, notification,  storage, user, chats, $timeout,
+         router, deviceInfo, $state, $q, friendsList, view) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -13,6 +13,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoreShown = true;
     $scope.version = version;
+    $scope.debug = config('debug');
 
     function parseUserFromStorage() {
         user.isParsingFromStorageNow = true;
@@ -40,7 +41,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         'chat',
         'showImage',
         'chatInfo',
-        'invitation'
+        'invitation',
+        'publishPreview'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',
@@ -59,7 +61,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
     var statesNotShowScore = [
         'chat',
         'chatInfo',
-        'showImage'
+        'showImage',
+        'publishPreview'
     ];
 
     var statesFromRedirectLoggedUser = [
@@ -136,14 +139,18 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
 
     $scope.backArrowHandler = function() {
         window.history.back();
-        scrollToTop();
+        view.scrollToTop();
+    };
+
+    $scope.publish = function() {
+        router.goto('publishPreview', {channelName: $state.params.channelName});
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
         notification.clear();
 
         if (RAN_AS_APP) {
-            routing.is_preload = true;
+            router.is_preload = true;
         }   
          
         $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
@@ -163,14 +170,14 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         //             $state.go('updateProfile');
         //         }
         //     }
-        //     routing.is_preload = false;
+        //     router.is_preload = false;
         //     return;
         // }
 
         if (user.isLogged()) {
             if (_.includes(statesFromRedirectLoggedUser, toState.name)) {
                 evt.preventDefault();
-                $state.go('random');
+                $state.go('pubsList');
 /*                if (_.isEmpty(user.chats)) {
                     $state.go('friends');
                 }
@@ -181,8 +188,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         }
         else if (toState.name === 'start') {
             evt.preventDefault();
-            //$state.go('homepage');
-            $state.go('random');
+            $state.go('pubsList');
         }
 
         if (_.includes(statesWhereShowBackArrow, toState.name) && 
@@ -201,7 +207,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
                     onStateChangeStart.apply(this, arguments);
                 }
                 else {
-                    routing.is_preload = true;
+                    router.is_preload = true;
                     evt.preventDefault();
                     user.parsedFromStoragePromise.then(
                         function() {
@@ -216,18 +222,12 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         }
     );
 
-    $scope.$on('stateChangeSuccess', scrollToTop);
-    var $scrollContainer = $(".main-section");
-    function scrollToTop() {
-        $scrollContainer.scrollTop(0);
-    }
-
     if (user.isLogged()) {
         parseUserFromStorage()
         .then(function() {
             if (RAN_AS_APP) {
                 if (_.isEmpty(user.chats)) {
-                    $state.go('random')
+                    $state.go('pubsList')
                     .then(
                         hideSplashScreen
                     );
@@ -242,7 +242,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
             else {
                 if (_.includes(statesFromRedirectLoggedUser, $state.current.name)) {
                     if (_.isEmpty(user.chats)) {
-                        $state.go('random');
+                        $state.go('pubsList');
                     }
                     else {
                         $state.go('random');
@@ -252,14 +252,12 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout, rout
         });
     }
     else {
-        $state.go('random');
+        $state.go('pubsList');
     }
 
-    $scope.isChatState = function(){
-        return $state.current.name === 'chat';
-    };
+    $scope.isBranded = function() { return $state.current.branded; };
 
-    $scope.routing = routing;
-    $scope.goto = routing.goto;
+    $scope.router = router;
+    $scope.goto = router.goto;
 
 }]);

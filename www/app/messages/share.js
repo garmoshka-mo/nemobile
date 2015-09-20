@@ -13,7 +13,7 @@
 
     ];
 
-    app.directive('share', function() {
+    angular.module("angApp").directive('share', function() {
         return {
             link: function(scope, elem, attr) {
                 VK.Widgets.Like("vk_like", {type: "full"});

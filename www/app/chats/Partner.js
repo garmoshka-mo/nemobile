@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .factory('Partner',
     ['apiRequest', function(apiRequest) {
             

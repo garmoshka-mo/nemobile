@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("afterPurchaseController", [
-        'user', '$scope', 'membership', 'routing',
-    function(user, $scope, membership, routing) {
+        'user', '$scope', 'membership', 'router',
+    function(user, $scope, membership, router) {
 
         $scope.user = user;
         $scope.showSpinner = false;
@@ -13,12 +13,12 @@ angular.module("angControllers")
         });
 
         $scope.tryAgain = function() {
-            routing.goto('activation');
+            router.goto('activation');
         };
 
         $scope.skipRegistration = function() {
             membership.skipRegistration();
-            routing.goto('random');
+            router.goto('random');
         };
 
         $scope.updateProfile = function () {
@@ -27,7 +27,7 @@ angular.module("angControllers")
             user.updateProfile($scope.profile.password, $scope.profile.password)
                 .then(
                 function () {
-                    routing.goto('random');
+                    router.goto('random');
                 },
                 function (res) {
                     $scope.serverResponse = dictionary.get(res);

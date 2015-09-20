@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     replace = require('gulp-regex-replace'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
+    rename = require("gulp-rename"),
     merge2 = require('merge2'),
     jade = require('gulp-jade');
 
@@ -25,29 +26,26 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
     output_css = output_www + output_css_file;
 
 gulp.task('default', function() {
-    runSequence('jade_to_html', 'cleanBuildFolder', 'build_css','build_js',
+    runSequence('cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server');
 });
 
 
 gulp.task('build_index', function() {
-    var jsFile = gulp.src(output_js, {read: false});
-    var cssFile = gulp.src(output_css, {read: false});
-
-    //Reloads the page if the script could not be found
-    var transform = function (filepath, file, i, length) {
-        return '<script src="' + filepath + '" onerror="location.reload()"></script>';
-    };
-
-    return gulp.src(source_www+'index.html')
-        .pipe(gulp.dest(output_www))
-        .pipe(inject(jsFile, {transform: transform, relative: true}))
-        .pipe(inject(cssFile, {relative: true}))
-        .pipe(gulp.dest(output_www));
+    return gulp.src(webserver + 'views/index.jade')
+        .pipe(jade(
+            {locals: {
+                prod_js_file: output_js_file,
+                css_files: [output_css_file]
+              }
+            }))
+        .pipe(rename('phonegap.html'))
+        .pipe(gulp.dest(output_www ));
 });
 
 gulp.task('build_css', function () {
-    return gulp.src(source_www + 'assets/css/*.css')
+    return gulp.src([source_www + 'assets/css/*.css',
+            source_www + 'app/**/*.css'])
         .pipe(concat(output_css_file))
         .pipe(cssmin())
         .pipe(gulp.dest(output_www));
@@ -69,12 +67,6 @@ gulp.task('build_js', function () {
     )
         .pipe(concat(output_js_file))
         .pipe(gulp.dest(output_www));
-});
-
-gulp.task('jade_to_html', function() {
-    return gulp.src(webserver + 'views/index.jade')
-        .pipe(jade())
-        .pipe(gulp.dest(source_www));   
 });
 
 gulp.task('copy_static', function(){

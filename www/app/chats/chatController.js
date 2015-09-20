@@ -341,15 +341,13 @@ angular.module("angControllers").controller("chatController",
             }
         }
 
-        $scope.uploadPhoto = function() {
-            //TODO: api.uploadPhoto(photo);
-            //log("n");
-            //api.addStickerFile(1, $scope.image.file[0]).then(function(res){
-            //        $scope.sendMessage("lol");
-            //});
+        $scope.uploadImage = function() {
+            api.uploadImage($scope.image.file[0]).then(function(res){
+                $scope.sendMessage(res.url);
+            });
         };
 
         $scope.setFocusOnTextField();
         $scope.scrollToBottom();
         chats.countUnreadChats();
-}]);   
+}]);

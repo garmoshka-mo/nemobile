@@ -1,5 +1,5 @@
 (function(){
-    factories.factory('TeacherBot',
+    angular.module("angFactories").factory('TeacherBot',
         [
 function() {
 

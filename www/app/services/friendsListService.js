@@ -1,4 +1,4 @@
-services
+angular.module("angServices")
 .factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'apiRequest', 
     function($rootScope, $q, Friend, storage, apiRequest) {
     

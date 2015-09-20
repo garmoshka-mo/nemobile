@@ -1,5 +1,5 @@
 (function(){
-services
+angular.module("angServices")
     .factory('Photo',
     ['apiRequest', function(apiRequest) {
             

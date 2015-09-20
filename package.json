@@ -12,10 +12,15 @@
     "test": "node build/web-server/serve_www.js"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "basic-auth-connect": "^1.0.0",
     "compression": "^1.5.2",
     "express": "^4.13.3",
-    "jade": "^1.11.0"
+    "glob": "^5.0.14",
+    "gulp-jade": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "jade": "^1.11.0",
+    "underscore": "^1.8.3"
   },
   "engines": {
     "node": "0.10.21",

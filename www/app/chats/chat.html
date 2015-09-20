@@ -1,4 +1,4 @@
-<div class="chat" overscrollable-with-footer>
+<div class="chat">
     <!-- temporary hid temp message feature -->
     <div class="firstMessage ta-center chat-notification width-92 block-center" ng-show="isFirstMessage && !fromRandom && false">
         <div>ваше первое сообщение</div>
@@ -31,7 +31,7 @@
     <div class="old-messages-background" ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container" ng-class="{'ta-right': message.isOwn}">
         <span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)"  allow-textselect></span>
     </div>
-    <messages session="chatSession" close="disconnectRandomChat()"></messages>
+    <messages session="chatSession" message-input="newMessage.text" close="disconnectRandomChat()"></messages>
     <div class="ta-right message-container" ng-show="isMessageSending && deviceInfo.isOldAndroid">
         <span class="message message-own" allow-textselect >
             <span spinner spinner-color="white"></span>
@@ -46,7 +46,7 @@
     <div ng-model="errorDescription" alert-box></div>
     <div class="chat-buttons-container">
         <div class="chat-left-buttons" ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid}">
-            <div class="chat-image-button pointer" ng-file-select ng-model="image.file" ng-file-change="uploadPhoto()" name="data">
+            <div class="chat-image-button pointer" ng-file-select ng-model="image.file" ng-file-change="uploadImage()" name="data">
                 <i class="fa fa-image"></i>
             </div>
             <div class="chat-input-container">
