@@ -58,7 +58,8 @@ html
           section.left-small.pointer.ta-center
             a.menu-icon(ng-hide='isBackArrownShown || customSmallIconInner', ng-click='toggleMenu()')
               span
-            i.fa.fa-chevron-left.ml10.pointer(ng-show='isBackArrownShown && !customSmallIconInner', ng-click='backArrowHandler()')
+            a.icon_button(ng-show='isBackArrownShown && !customSmallIconInner', ng-click='backArrowHandler()')
+              i.fa.fa-chevron-left.ml10
             span.customSmallIcon(ng-show='customSmallIconInner', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
           section.middle.tab-bar-section.p0
             h1.title
