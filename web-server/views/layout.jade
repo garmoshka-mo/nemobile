@@ -71,7 +71,7 @@ html
                   span(ng-bind='notification.text')
                   span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-          section.right-small.chat-right-tool(ng-cloak='', ng-show='true')
+          section.right-small.chat-right-tool(ng-cloak='', ng-show='debug')
             .publish
               a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
                 i.fa.fa-share-alt

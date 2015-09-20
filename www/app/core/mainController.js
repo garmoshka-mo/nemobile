@@ -13,6 +13,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.isOnline = deviceInfo.isOnline; 
     $scope.isUserScoreShown = true;
     $scope.version = version;
+    $scope.debug = config('debug');
 
     function parseUserFromStorage() {
         user.isParsingFromStorageNow = true;

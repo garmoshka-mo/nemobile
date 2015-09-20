@@ -1,3 +1,33 @@
+.chat h5 {
+    margin: 15px 20px;
+}
+
+.chat .bottom-placeholder {
+    height: 18px;
+}
+
+.main-section.chat{
+    background: #EAF0F1 url("/assets/img/bg.png");
+    background-size: 187px 150px;
+}
+
+.chat-title {
+    height: 31px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.3rem;
+}
+
+.chat-right-tool {
+    width:auto;
+}
+.chat-right-tool>div {
+    float:left;
+}
+
 .system_message{
     padding: 10px 15px;
 }
