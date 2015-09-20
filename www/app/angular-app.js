@@ -9,6 +9,11 @@ angular.module("angApp")
 
 .config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
+}])
+
+.run(['messages', 'pubnubSubscription', function(messages, pubnubSubscription) {
+    //messages and pubnubsubscription are not used 
+    //but they have to be injected in order to be invoked
 }]);
 
 window.mobilecheck = function() {
