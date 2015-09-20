@@ -3,7 +3,7 @@
         [
 function() {
 
-    return function ActivityBot(provider) {
+    return function ActivityBot(provider, disconnect) {
 
         var boredomTimer;
 
@@ -24,7 +24,7 @@ function() {
 
         function becomeTooBored() {
             log('Im too bored now.');
-            provider.Disconnect();
+            disconnect();
         }
 
     }

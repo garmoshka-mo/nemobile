@@ -22,13 +22,13 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             delayTimer, autoBeginTimer,
             filter = new SpamFilter(session),
             teacher = new TeacherBot(provider, filter),
-            activity = new ActivityBot(provider),
+            activity = new ActivityBot(provider, shadowing),
             slowpokesFriend = new SlowpokesFriend(provider, filter);
 
         var intro,
             intro_timestamp,
             user_found = false,
-            shadow, directConnect,
+            shadow, fellIntoPit,
             timeout, maxBaseTimeout, timeoutAcceleration;
 
         // Configure behavior depending on permitted level:
@@ -36,7 +36,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             timeout = 10 + Math.random()*20;
             maxBaseTimeout = 10; timeoutAcceleration = 1;
             intro = '';
-            directConnect = true;
+            fellIntoPit = true;
         } else if (level < 10) {
             intro = altIntro.compose(preferences);
             timeout = 3; maxBaseTimeout = 40; timeoutAcceleration = 4;
@@ -71,25 +71,53 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
             notification.incrementAsked();
 
-            if (intro.length > 0) initWithIntro();
+            intro_timestamp = Date.now();
+
+            if (fellIntoPit) logTagAndBegin('🔥WELCOME TO HELL🔥');
+            else if (intro.length > 0) initWithIntro();
             else initWithoutIntro();
         }
 
         function initWithIntro() {
-            var msg = intro;
-            intro_timestamp = Date.now();
-            provider.Send(msg);
-            log('INTRO: '+msg);
+            provider.Send(intro);
+            log('INTRO: '+intro);
             activity.wakeUp();
         }
 
         function initWithoutIntro() {
-            intro_timestamp = Date.now();
-            autoBeginTimer = setTimeout(function startChatWhenNoHisIntro() {
-                var text = directConnect ? 'directConnect' : 'начало';
-                filter.log({text: '==='+text+'===', isOwn: true});
-                begin_chat();
-            }, 2000);
+            function startChatWhenNoHisIntro() {
+                logTagAndBegin('открылся чат, вступления нет');
+            }
+            autoBeginTimer = setTimeout(startChatWhenNoHisIntro, 2000);
+        }
+
+        function logTagAndBegin(tag) {
+            firstMessageToFilter('==='+tag+'===', true, false);
+            beginСhat();
+        }
+
+        function firstMessageToFilter(message, isOwn, skip_log) {
+            var payload, talk_params;
+
+            payload = {
+                text: message,
+                isOwn: isOwn,
+                skip_log: skip_log,
+                preferences: preferences
+            };
+
+            if (intro) payload.intro = { text: intro, timestamp_ms: intro_timestamp };
+
+            talk_params = {
+                a: {
+                    client_id: user.uuid,
+                    level: level,
+                    request_created_ms: chat.created_at,
+                    preferences: preferences
+                }
+            };
+
+            return filter.log(payload, talk_params);
         }
 
         function gotHisMessage(message) {
@@ -129,35 +157,21 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 session.myMessageSent(m);
         }
 
-        function decide_to_chat(message) {
-            var payload = {
-                    text: message,
-                    isOwn: false,
-                    preferences: preferences,
-                    intro: {
-                        text: intro ? intro : '===начало===',
-                        timestamp_ms: intro_timestamp
-                    }
-            }, talk_params= {
-                a: {
-                    client_id: user.uuid,
-                        level: level,
-                        request_created_ms: chat.created_at,
-                        preferences: preferences
-                }
-            };
+        function shadowing() {
+            log('Shadowing');
+            shadow = true;
+            chat.startNewSession();
+        }
 
-            if (directConnect) directStart();
-            else
-                filter.log(payload, talk_params).then(take_decision, filter_passed);
+        function decide_to_chat(message) {
+
+            firstMessageToFilter(message, false, true).then(take_decision, filter_passed);
 
             function take_decision(response) {
                 if (response.risk_percent < 50)
                     filter_passed();
                 else {
-                    log('Shadowing');
-                    shadow = true;
-                    chat.startNewSession();
+                    shadowing();
                     if (response.is_rude)
                         teacher.explain('dont_be_rude');
                 }
@@ -169,21 +183,13 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 if (preferences.look_for.gender != '-' && slowpokesFriend.isSlowpoke(message))
                     return;
 
-                begin_chat();
+                beginСhat();
                 chat.display_partners_message(message.sanitize());
                 teacher.listen(message);
             }
-
-            function directStart() {
-                log('directStart()');
-                begin_chat();
-                chat.display_partners_message(message.sanitize());
-                teacher.listen(message);
-            }
-
         }
 
-        function begin_chat() {
+        function beginСhat() {
             $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
             chat.gotoChat();
@@ -248,4 +254,3 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
 
 })();
-
