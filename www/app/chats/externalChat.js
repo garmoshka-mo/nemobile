@@ -42,11 +42,6 @@ angular.module("angServices")
                 externalProvider = new ExternalProvider(self, session, preferences, level);
             };
 
-            self.gotoChat =
-                function() {
-                router.goto('chat', {chatType: 'external', fromState: 'random'});
-            };
-
             function initSession() {
                 partner_id = Math.random();
                 session = new ExternalChatSession(self, partner_id);

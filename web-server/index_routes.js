@@ -3,5 +3,6 @@ module.exports = [
     '/random',
     '/chat',
     '/pub', '/activation',
-    '/updateProfile', '/about'
+    '/updateProfile', '/about',
+    '/publishPreview', '/publishSuccess'
 ];

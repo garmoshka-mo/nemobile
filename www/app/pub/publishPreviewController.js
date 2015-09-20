@@ -21,29 +21,23 @@ angular.module("angControllers")
                 console.warn('channel name is required');
             }
 
-            //Mock
-            // $scope.chat = {
-            //     chat_uuid: 'Njk3NzUwMzI=',
-            //     title: 'Once upn a time chat',
-            //     chat: {
-            //         duration_s: 500,
-            //         messages: [{"text":"Прив, как дел?","isOwn":true},{"text":"Норм чо","isOwn":false},{"text":"а у тя?","isOwn":false},{"text":"тож ничё","isOwn":true}]
-            //     }
-            // };
-
             $scope.reset = function() {
                 //TODO:
             };
 
             $scope.publishPost = function() {
-                posts.publishPost($scope.chat).then(function(data){
-                    router.goto('publishSuccess');
+                var data = {
+                        chat_uuid: chat.channelName,
+                        title: Date.now().toDateTime(),
+                        chat: {
+                            // duration_s: 324, -- todo: get from timer
+                            messages: chat.lastUnexpiredChatSession.messages
+                        }
+                    };
+                posts.publishPost(data).then(function (data) {
+                    router.goto('publishSuccess', {postId: data.safe_id});
                 });
             };
 
-            var post = posts.getLastPublishedPost();
-            if(post){
-                $scope.postUrl = 'http://dub.ink/pub/' + post.safe_id;
-            }
         }
     ]);

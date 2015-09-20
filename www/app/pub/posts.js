@@ -14,14 +14,9 @@ function(apiRequest) {
         return apiRequest.send('GET', '/posts/' + postId);
     };
 
-    this.publishPost = function(chat) {
-        return apiRequest.send('POST', '/posts', chat).then(function (data) {
-            self.lastPublishedPost = data;
-        });
+    this.publishPost = function(data) {
+        return apiRequest.send('POST', '/posts', data);
     };
 
-    this.getLastPublishedPost = function() {
-        return self.lastPublishedPost;
-    }
 }]);
 })();

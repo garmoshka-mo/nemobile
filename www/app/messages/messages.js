@@ -69,8 +69,10 @@
 
 
                     if (message.event == "chat_ready") {
-                        $rootScope.$broadcast('new random chat', {type: 'internal', channel: channelName});
-                        router.goto('chat', {channelName: channelName, fromState: 'random'});
+                        $rootScope.$broadcast(
+                            'new random chat',
+                            {type: 'internal',
+                            channel: channelName});
                         return;
                     }
 

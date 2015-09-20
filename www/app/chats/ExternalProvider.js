@@ -192,7 +192,6 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function beginСhat() {
             $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
-            chat.gotoChat();
         }
 
         function terminated() {

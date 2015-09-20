@@ -7,6 +7,15 @@ function(notification, $state, $rootScope, $q) {
 
     self.is_preload = false;
 
+    self.openExternalURL = function(url) {
+        if (RAN_AS_APP) {
+            navigator.app.loadUrl(url, {openExternal: true});
+        }
+        else {
+            window.open(url, '_blank');
+        }
+    };
+
     self.goto = function(state, params) {
         window.snapper.close();
         var d = $q.defer();

@@ -1,80 +1,101 @@
 angular.module("angServices")
-.service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat', 'storage', 
-    function($rootScope, apiRequest, deviceInfo,  Chat, storage) {
+.service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat',
+        'storage', 'router',
+    function($rootScope, apiRequest, deviceInfo,  Chat,
+             storage, router) {
         
-        var chats = this;
-        chats.list = {};
-        console.log('chats',chats);
+        var self = this;
 
-        chats.getChat = function(channelName, senderId) {
-            if (!_.isUndefined(channelName) && chats.list[channelName]) {
-                return chats.list[channelName];
+        self.list = {};
+        self.currentChatRoute = null;
+
+        console.log('chats', self);
+
+        self.getChat = function(channelName, senderId) {
+            if (!_.isUndefined(channelName) && self.list[channelName]) {
+                return self.list[channelName];
             }
 
-            if (!_.isUndefined(senderId) && chats.list[senderId]) {
-                return chats.list[senderId];
+            if (!_.isUndefined(senderId) && self.list[senderId]) {
+                return self.list[senderId];
             }
 
             return false;
         };
 
-        chats.addChat = function(chatData) {
+        self.addChat = function(chatData) {
             if (chatData.channelName) {
                 chatData.primaryKey = 'channelName';
-                chats.list[chatData.channelName] = new Chat(chatData);
-                chats.list[chatData.channelName].updateInfo();
+                self.list[chatData.channelName] = new Chat(chatData);
+                self.list[chatData.channelName].updateInfo();
                 $rootScope.$broadcast('got new channel name', {channelName: chatData.channelName});
-                chats.save();
-                return chats.list[chatData.channelName];
+                self.save();
+                return self.list[chatData.channelName];
             }
 
             if (chatData.senderId) {
                 chatData.primaryKey = 'senderId';
-                chats.list[chatData.senderId] = new Chat(chatData);
-                chats.list[chatData.senderId].updateInfo();
-                chats.save();
-                return chats.list[chatData.senderId];
+                self.list[chatData.senderId] = new Chat(chatData);
+                self.list[chatData.senderId].updateInfo();
+                self.save();
+                return self.list[chatData.senderId];
             }
         };
 
-        chats.save = function() {
-            storage.saveChats(chats.list);
+        self.save = function() {
+            storage.saveChats(self.list);
             log("user chats are saved");
         };
 
-        chats.parseFromStorage = function() {
+        self.parseFromStorage = function() {
             return storage.getChats().then(function(dataFromStorage) {
                 var _chats = {};
                 for (var key in dataFromStorage) { 
                     _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
                 }
-                chats.list = _chats;
+                self.list = _chats;
                 
-                log("user chats are taken from storage", chats.list);
+                log("user chats are taken from storage", self.list);
             });
         };
 
-        chats.removeChat = function(channelName, senderUuid) {
+        self.removeChat = function(channelName, senderUuid) {
             if (channelName) {
                 pubnubSubscription.removeDeviceFromChannel(channelName);
             }
-            var _chat = chats.getChat(channelName, senderUuid);
-            chats.list = _.omit(chats.list, _chat);
+            var _chat = self.getChat(channelName, senderUuid);
+            self.list = _.omit(self.list, _chat);
             $rootScope.$broadcast('chat removed', {chat: _chat});
-            chats.save(); 
+            self.save();
         };
 
-        chats.countUnreadChats = function() {
-            chats.unreadChatsAmount = 0;
-            for (var chat in chats.list) {
-                if (!chats.list[chat].isRead && !chats.list[chat].isExpired) {
-                    chats.unreadChatsAmount++;
+        self.countUnreadChats = function() {
+            self.unreadChatsAmount = 0;
+            for (var c in self.list) {
+                if (!self.list[c].isRead && !self.list[c].isExpired) {
+                    self.unreadChatsAmount++;
                 }
             }
-            log('unread chats is counted', chats.unreadChatsAmount);
+            log('unread chats is counted', self.unreadChatsAmount);
         }; 
 
-        $rootScope.$on('chat was updated', chats.save);
+        $rootScope.$on('chat was updated', self.save);
+
+        $rootScope.$on('new random chat', function(event, args) {
+            var route = {fromState: 'random'};
+
+            if (args.type == 'internal')
+                route.channelName = args.channel;
+            else
+                route.chatType = 'external';
+
+            router.goto('chat', route);
+        });
+
+        self.openCurrentChat = function() {
+            if (!self.currentChatRoute) return;
+            router.goto('chat', self.currentChatRoute);
+        }
 
     }
 ]);

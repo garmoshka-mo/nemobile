@@ -98,14 +98,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }
     }
 
-    $scope.openExternalURL = function(url) {
-        if (RAN_AS_APP) {
-            navigator.app.loadUrl(url, {openExternal: true});
-        }
-        else {
-            window.open(url, '_blank');
-        }
-    };
+    $scope.openExternalURL = router.openExternalURL;
 
     $scope.toggleMenu = function() {
         //async call is necessary for correct work on android 4.1.1

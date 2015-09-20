@@ -10,6 +10,8 @@ angular.module("angControllers").controller("chatController",
 
         log("chat controller is invoked");
 
+        chats.currentChatRoute = $stateParams;
+
         $scope.user = user;
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;

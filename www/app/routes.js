@@ -54,14 +54,14 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("publishSuccess", {
-                url: "/publishSuccess",
+                url: "/publishSuccess/:postId",
                 views: {
                     "title": {
                         template: "Успешно опубликовано"
                     },
                     "content": {
                         templateUrl: "app/pub/publishSuccess.html?" + version,
-                        controller: "publishPreviewController"
+                        controller: "publishSuccessController"
                     }
                 }
             })
