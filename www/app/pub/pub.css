@@ -22,6 +22,19 @@
     text-align: right;
     font-family: verdana,arial,helvetica,sans-serif;
 }
+.posts-list .title {
+    max-width: 70%;
+    margin-bottom: -7px;
+}
+.visited {
+    color: #6B00BA;
+}
+.truncate {
+    display:inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .pub-post-score {
     width: 80px;
     padding-top: 16px;

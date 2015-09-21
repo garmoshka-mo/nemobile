@@ -42,7 +42,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         'showImage',
         'chatInfo',
         'invitation',
-        'publishPreview'
+        'publishPreview',
+        'pubItem'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',

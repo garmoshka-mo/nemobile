@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubsListController", [
-    '$scope', 'posts', 'router',
-function($scope, posts, router) {
+    '$scope', 'posts', 'router', '$anchorScroll', '$location',
+function($scope, posts, router, $anchorScroll, $location) {
 
     $scope.page = 1;
     $scope.posts = [];
@@ -31,5 +31,36 @@ function($scope, posts, router) {
         });
     }
 
+    $scope.saveState = function(post){
+        post.visited = true;
+        router.saveState({
+            posts: $scope.posts,
+            page: $scope.page,
+            disableAutoload: $scope.disableAutoload,
+            lastVisitedPost: post.id
+        });
+    };
+
+    $scope.loadSaved = function(){
+        var state = router.loadState();
+        if(state) {
+            $scope.page = state.page;
+            $scope.posts = state.posts;
+            $scope.disableAutoload = state.disableAutoload;
+
+            var newHash = 'post-' + state.lastVisitedPost;
+            if ($location.hash() !== newHash) {
+                // set the $location.hash to `newHash` and
+                // $anchorScroll will automatically scroll to it
+                $location.hash(newHash);
+            } else {
+                // call $anchorScroll() explicitly,
+                // since $location.hash hasn't changed
+                $anchorScroll();
+            }
+            return true;
+        }
+        return false;
+    }
 }
 ]);
