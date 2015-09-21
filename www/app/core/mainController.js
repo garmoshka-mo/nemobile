@@ -136,7 +136,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.publish = function() {
-        router.goto('publishPreview', {channelName: $state.params.channelName});
+        router.goto('publishPreview', $state.params);
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {

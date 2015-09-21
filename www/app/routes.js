@@ -41,7 +41,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("publishPreview", {
-                url: "/publishPreview?channelName",
+                url: "/publishPreview/:type/:channel",
                 branded: true, hasControlPanel: true,
                 views: {
                     "title": {
@@ -102,7 +102,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("chat", {
-                url: "/chat?channelName&messageText&senderId&fromState&chatType",
+                url: "/chat?channel&messageText&senderId&fromState&type",
                 branded: true, hasControlPanel: true,
                 views: {
                     "title": {

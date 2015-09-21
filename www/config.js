@@ -14,3 +14,5 @@ window.App.Settings = {
     externalChat: false,
     fullMode: false
 };
+// For prod build testing - add at localForage:
+// pubnubSubscribeKey=sub-c-7171992a-395c-11e5-876e-02ee2ddab7fe

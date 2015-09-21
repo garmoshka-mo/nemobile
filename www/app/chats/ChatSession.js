@@ -3,11 +3,11 @@ angular.module("angFactories").factory('ChatSession',
     ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract', 'apiRequest',
     function($timeout, storage, api, $q, notification, ChatSessionAbstract, apiRequest) {
     
-    function ChatSession(creatorId, channelName, senderId, id, currentChat) {
+    function ChatSession(creatorId, channel, senderId, id, currentChat) {
         this.isExpired = false;
         this.isReplied = false;
         this.id = id;
-        this.channelName = channelName;
+        this.channel = channel;
         this.senderId = senderId;
         this.messages = [];
         this.timer = null;
@@ -34,7 +34,7 @@ angular.module("angFactories").factory('ChatSession',
     ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
         var chatSession = new ChatSession(
             dataFromStorage.creatorId,
-            dataFromStorage.channelName,
+            dataFromStorage.channel,
             dataFromStorage.senderId,
             dataFromStorage.id
         );

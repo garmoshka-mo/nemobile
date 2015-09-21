@@ -12,11 +12,11 @@
                     log('subscribed');
                     pubnub.subscribe({
                         channel_group: user.channel,
-                        message: function(message, envelope, channelName) {
+                        message: function(message, envelope, channel) {
                             $rootScope.$broadcast('new message', {
                                 message: message,
                                 envelope: envelope,
-                                channelName: channelName
+                                channel: channel
                             });
                         }
                     });
@@ -172,7 +172,7 @@
                 }
 
                 $rootScope.$on('got new channel name', function(event, args) {
-                    registerDeviceToChannel(args.channelName);
+                    registerDeviceToChannel(args.channel);
                 });
 
                 function removeDeviceFromChannel(channel) {
@@ -211,8 +211,8 @@
                 }
 
                 $rootScope.$on('chat removed', function(event, args) {
-                    if (args.chat.channelName) {
-                        removeDeviceFromChannel(args.chat.channelName);
+                    if (args.chat.channel) {
+                        removeDeviceFromChannel(args.chat.channel);
                     }
                 });
 
