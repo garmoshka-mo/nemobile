@@ -217,8 +217,8 @@ angular.module("angFactories").factory('ChatSession',
                     return true;
                     
                 },
-                function(res) {
-                    console.error(res);
+                function(error) {
+                    return $q.reject(error);
                 }
             );
         }
