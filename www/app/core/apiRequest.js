@@ -25,29 +25,28 @@ function ($http, $q) {
         }
     }
 
+    function handle200Response(res) {
+        if (res.data.success)
+            return res.data;
+        else {
+            if (res.data.error == 'invalid_token') user.logoutAndGoHome();
+            return $q.reject(res.data.error);
+        }
+    }
+
+    function handleFailure() {
+        return $q.reject();
+    }
+
     return {
         send: function(method, url, data) {
             return $http(new Config(method, url, data))
-            .then(
-                function(res) {
-                    return res.data.success ? res.data : $q.reject(res.data.error);    
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            .then(handle200Response, handleFailure);
         },
 
         guestSend: function(method, url, data) {
             return $http(new Config(method, url, data, true))
-            .then(
-                function(res) {
-                    return res.data.success ? res.data : $q.reject(res.data.error);    
-                },
-                function(res) {
-                    return $q.reject();
-                }
-            );
+            .then(handle200Response, handleFailure);
         },
 
         sendSync: function(method, url, data) {
