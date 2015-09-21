@@ -2,7 +2,7 @@
     angular.module("angApp").directive('messages', function() {
         return {
             scope: {session: '=', messageInput: '=', close: '&', preview: '@'},
-            templateUrl: "app/messages/messages.html",
+            templateUrl: "app/messages/messages.html?"+version,
             controller: ['$scope', 'timer', '$sce', '$mdDialog', 'messageMenu', controller]
         };
     });

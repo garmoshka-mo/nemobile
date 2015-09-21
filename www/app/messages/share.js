@@ -24,7 +24,7 @@
                 scope.track = 'sh'+i;
                 //scope.track = 'test'+i;
             },
-            templateUrl: "app/messages/share.html"
+            templateUrl: "app/messages/share.html?"+version
         };
     });
 
