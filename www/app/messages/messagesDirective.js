@@ -42,7 +42,6 @@
             message.text = '';
         }
 
-
         function editMessage(message) {
             var parentEl = angular.element(document.body);
             $mdDialog.show({
