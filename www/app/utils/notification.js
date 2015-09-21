@@ -192,6 +192,7 @@
         }
 
         $rootScope.$on('new random chat', onRandomChatBegin);
+        $rootScope.$on('partner started typing', notification.typing);
 
         return notification;
     }

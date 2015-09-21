@@ -12,6 +12,10 @@
                     log('subscribed');
                     pubnub.subscribe({
                         channel_group: user.channel,
+                        presence: function(m) {
+                            log(m);
+                            onPresence(m);
+                        },
                         message: function(message, envelope, channelName) {
                             $rootScope.$broadcast('new message', {
                                 message: message,
@@ -20,6 +24,19 @@
                             });
                         }
                     });
+                }
+
+                function onPresence(m) {
+                    if (m.action == 'state-change') {
+                        if (m.data.uuid != user.uuid) {
+                            if (m.data.typing) {
+                                $rootScope.$broadcast('partner started typing');
+                            }
+                            else {
+                                $rootScope.$broadcast('partner stopped typing');
+                            }
+                        }
+                    } 
                 }
 
                 function onParseUserInfo() {
@@ -215,6 +232,19 @@
                         removeDeviceFromChannel(args.chat.channelName);
                     }
                 });
+
+                //public methods
+                this.setTyping = function(value, channelName, uuid) {
+                    pubnub.state({
+                        channel: channelName,
+                        // uuid: uuid,
+                        state: {
+                            "typing": value,
+                            "uuid": uuid
+                        },
+                       callback: function(m){console.log(JSON.stringify(m));}
+                    });
+                };
 
             }
         ]);
