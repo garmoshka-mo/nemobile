@@ -3,6 +3,8 @@
         <i class="fa fa-info"></i>
         Проверьте диалог перед публикацией.
         <br/>
+
+<!--
         Пожалуйста,
         <b tooltips
          title="Скрыть текст можно через меню,
@@ -10,6 +12,8 @@
          class="dashed">скройте личные данные</b> собеседника, если они встречаются в сообщениях.
         К личным данным относятся: номер телефона, полное имя, фотографии,
         адрес профиля в соц-сети и так далее. Уважайте доверие, проявленное к вам.
+        -->
+
     </div>
     <messages session="session" preview="true"></messages>    
     <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
@@ -33,7 +37,7 @@
 <div id="footer" class="ta-center">
     <div ng-model="errorDescription" alert-box></div>
     <div class="chat-buttons-container">
-        <button class="publish-button grey" ng-click="reset()">
+        <button class="publish-button grey" ng-click="reset()" style="visibility: hidden;">
             Сбросить
         </button>
         <button class="publish-button" ng-click="publishPost()">
