@@ -26,6 +26,8 @@ angular.module("angServices")
 
     //public methods
     this.getCurrentUserCategories = function() {
+        return;
+        // todo: make conditional fetch, if user authenticated
         self.isUpdating = true;
         api.getCategories()
         .then(
