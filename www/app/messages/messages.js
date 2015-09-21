@@ -28,7 +28,7 @@
                     );
                 }
 
-                function showNotification(user, messageText, channelName, senderUuid) {
+                function showNotification(user, messageText, channel, senderUuid) {
                     var notificationText;
                     
                     if (friendsList.nepotomFriends[senderUuid]) {
@@ -45,7 +45,7 @@
 
                     
                     notification.setTemporary(notificationText + ": " + messageText, 4000, function() {
-                        router.goto('chat', {channelName: channelName});
+                        router.goto('chat', {channel: channel});
                     });
                    
                 }
@@ -53,7 +53,7 @@
                 function handleIncomeMessage(message, envelope) {
                     log(message);
                     var self = user;
-                    var channelName = envelope[3];
+                    var channel = envelope[3];
 
                     if (message.event == "contacts_updated") {
                         log('friends list will be updated');
@@ -72,13 +72,13 @@
                         $rootScope.$broadcast(
                             'new random chat',
                             {type: 'internal',
-                            channel: channelName});
+                            channel: channel});
                         return;
                     }
 
                     var chat;
                     if (message.event == "chat_empty") {
-                        chat = chats.getChat(channelName);
+                        chat = chats.getChat(channel);
                         if (chat) {
                             chat.disconnect();
                             handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
@@ -106,7 +106,7 @@
                     var lastSession;
                     
                     //checking if chat exist 
-                    chat = chats.getChat(channelName, senderUuid);
+                    chat = chats.getChat(channel, senderUuid);
                     if (chat) {
                         // log("added to existing chat");
                         
@@ -128,15 +128,15 @@
                         }
                         //if chat session exists but expired
                         else {
-                            chat.addChatSession(senderUuid, channelName, senderUuid);
+                            chat.addChatSession(senderUuid, channel, senderUuid);
                             chat.getLastUnexpiredChatSession(); 
                             lastSession = chat.lastUnexpiredChatSession;
                         } 
                     }
                     else {
                         // log("created new chat");
-                        chat = chats.addChat({channelName: channelName, senderId: senderUuid});
-                        chat.addChatSession(senderUuid, channelName, senderUuid);
+                        chat = chats.addChat({channel: channel, senderId: senderUuid});
+                        chat.addChatSession(senderUuid, channel, senderUuid);
                         chat.getLastUnexpiredChatSession(); 
                         lastSession = chat.lastUnexpiredChatSession;
                     }
@@ -160,9 +160,9 @@
                     }
 
                     //filling channel name if it is undefined
-                    if (!chat.channelName && channelName) {
-                        chat.channelName = channelName;
-                        $rootScope.$broadcast('got new channel name', {channelName: channelName});
+                    if (!chat.channel && channel) {
+                        chat.channel = channel;
+                        $rootScope.$broadcast('got new channel name', {channel: channel});
                     }
 
                     //Ignoring these fields
@@ -174,8 +174,8 @@
                     user.lastMessageTimestamp = new Date().getTime();
                     user.saveLastMessageTimestamp();
 
-                    if (!($state.params.channelName == channelName || $state.params.senderId == senderUuid)) {
-                        showNotification(user, messageText, channelName, senderUuid);
+                    if (!($state.params.channel == channel || $state.params.senderId == senderUuid)) {
+                        showNotification(user, messageText, channel, senderUuid);
                         chat.isRead = false;
                         chats.countUnreadChats();
                     }

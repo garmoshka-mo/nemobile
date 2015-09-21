@@ -11,9 +11,9 @@ angular.module("angServices")
 
         console.log('chats', self);
 
-        self.getChat = function(channelName, senderId) {
-            if (!_.isUndefined(channelName) && self.list[channelName]) {
-                return self.list[channelName];
+        self.getChat = function(channel, senderId) {
+            if (!_.isUndefined(channel) && self.list[channel]) {
+                return self.list[channel];
             }
 
             if (!_.isUndefined(senderId) && self.list[senderId]) {
@@ -24,13 +24,13 @@ angular.module("angServices")
         };
 
         self.addChat = function(chatData) {
-            if (chatData.channelName) {
-                chatData.primaryKey = 'channelName';
-                self.list[chatData.channelName] = new Chat(chatData);
-                self.list[chatData.channelName].updateInfo();
-                $rootScope.$broadcast('got new channel name', {channelName: chatData.channelName});
+            if (chatData.channel) {
+                chatData.primaryKey = 'channel';
+                self.list[chatData.channel] = new Chat(chatData);
+                self.list[chatData.channel].updateInfo();
+                $rootScope.$broadcast('got new channel name', {channel: chatData.channel});
                 self.save();
-                return self.list[chatData.channelName];
+                return self.list[chatData.channel];
             }
 
             if (chatData.senderId) {
@@ -59,11 +59,11 @@ angular.module("angServices")
             });
         };
 
-        self.removeChat = function(channelName, senderUuid) {
-            if (channelName) {
-                pubnubSubscription.removeDeviceFromChannel(channelName);
+        self.removeChat = function(channel, senderUuid) {
+            if (channel) {
+                pubnubSubscription.removeDeviceFromChannel(channel);
             }
-            var _chat = self.getChat(channelName, senderUuid);
+            var _chat = self.getChat(channel, senderUuid);
             self.list = _.omit(self.list, _chat);
             $rootScope.$broadcast('chat removed', {chat: _chat});
             self.save();
@@ -84,10 +84,8 @@ angular.module("angServices")
         $rootScope.$on('new random chat', function(event, args) {
             var route = {fromState: 'random'};
 
-            if (args.type == 'internal')
-                route.channelName = args.channel;
-            else
-                route.chatType = 'external';
+            route.type = args.type;
+            if (args.type == 'internal') route.channel = args.channel;
 
             router.goto('chat', route);
         });
