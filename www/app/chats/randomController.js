@@ -137,7 +137,7 @@ angular.module("angControllers")
                     age_range: prepareAgeRange($scope.filter.iam.age)
                 },
                 look_for: {
-                    gender: $scope.filter.another.sex,
+                    gender: $scope.filter.another.sex === 'mw'? '-' : $scope.filter.another.sex,
                     age_range: prepareAgeRange($scope.filter.another.age)
                 }
             };

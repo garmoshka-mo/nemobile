@@ -286,9 +286,14 @@ angular.module("angApp")
         link: function(scope, elem, attr) {
             scope.handleItemClick = function(value) {
                 var previousChoice = scope.ngModel;
-                if(previousChoice !== "-") {
-                    //Selecting none or both counts as "-" (i.e. gender is not specified)
+                if(previousChoice === value)  {
                     scope.ngModel = "-";
+                }
+                else if (previousChoice === 'mw') {
+                    scope.ngModel = value == 'm'? 'w' : 'm';
+                }
+                else if('multiSelect' in attr && previousChoice !== '-') {
+                    scope.ngModel = 'mw';
                 }
                 else {
                     scope.ngModel = value;
@@ -298,9 +303,9 @@ angular.module("angApp")
 
         template: "<ul class='sex-select'>" +
             "<li class='sex-select-li man' " +
-            "ng-class='{\"selected\": ngModel == \"m\"}' ng-click='handleItemClick(\"m\")'></li>" + 
+            "ng-class='{\"selected\": ngModel == \"m\" || ngModel == \"mw\"}' ng-click='handleItemClick(\"m\")'></li>" +
             "<li ng-click='handleItemClick(\"w\")' class='sex-select-li woman' " + 
-            "ng-class='{\"selected\": ngModel == \"w\"}'></li></ul>"
+            "ng-class='{\"selected\": ngModel == \"w\" || ngModel == \"mw\"}'></li></ul>"
     };
 })
 
