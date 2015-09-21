@@ -105,6 +105,9 @@ md-fab-speed-dial md-fab-actions {
 .age-select li {
     transition: color 0.2s ease;
 }
+.human-config p, .human-config ul {
+    font-size: 1.2rem;
+}
 
 .sex-select {
     list-style-type: none;

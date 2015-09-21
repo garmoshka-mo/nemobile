@@ -183,9 +183,9 @@
             <div class="text-bold ta-center">
                 Я:
             </div>
-            <div>
+            <div class="human-config">
                 <sex-select ng-model="filter.iam.sex"></sex-select>
-                <p class="text-silver ta-center fz13rem">Возраст: </p>
+                <p class="text-silver ta-center">Возраст: </p>
                 <age-select multiple="false" ng-model="filter.iam.age" values="[0, 1, 2, 3, 4, 5]" 
                 titles="['не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']">
                 </age-select> 
@@ -195,9 +195,9 @@
             <div class="text-bold">
                 Собеседник:
             </div>
-            <div>
+            <div class="human-config">
                 <sex-select ng-model="filter.another.sex" ng-click="suggestUserGender()"></sex-select>
-                <p class="text-silver ta-center fz13rem">Возраст: </p>
+                <p class="text-silver ta-center">Возраст: </p>
                 <age-select multiple="true" ng-model="filter.another.age" values="[0, 1, 2, 3, 4, 5]" 
                 titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']">
                 </age-select>
