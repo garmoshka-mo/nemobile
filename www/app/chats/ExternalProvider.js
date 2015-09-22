@@ -216,7 +216,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             if (shadow) return;
 
             activity.calmDown();
-            notification.typing();
+            notification.typingExternal();
         }
 
         function delayTask(callback, timeout) {

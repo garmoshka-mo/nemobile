@@ -84,12 +84,20 @@
                 initialHandler = $rootScope.notification.handler;
             },
 
-            typing: function() {
+            typingExternal: function() {
                 $rootScope.$apply(function() { $rootScope.notification.typing = true; });
                 clearInterval(typing_timeout);
                 typing_timeout = setTimeout(function() {
                     $rootScope.$apply(function() { $rootScope.notification.typing = false; });
                 }, 2500);
+            },
+
+            typingStartInternal: function() {
+                $rootScope.$apply(function() { $rootScope.notification.typing = true; });
+            },
+
+            typingStopInternal: function() {
+                $rootScope.$apply(function() { $rootScope.notification.typing = false; });
             },
 
             incomeMessage: function() {
@@ -192,6 +200,8 @@
         }
 
         $rootScope.$on('new random chat', onRandomChatBegin);
+        $rootScope.$on('partner started typing', notification.typingStartInternal);
+        $rootScope.$on('partner stopped typing', notification.typingStopInternal);
 
         return notification;
     }

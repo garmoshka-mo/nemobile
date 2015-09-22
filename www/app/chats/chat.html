@@ -51,7 +51,7 @@
             </div>
             <div class="chat-input-container">
                 <input type="text" class="chat-input"
-                       ng-focus="scrollToBottom()" ng-model="newMessage.text"
+                       ng-focus="onInputFieldFocus()" ng-model="newMessage.text"
                        ng-keypress="input_keypress($event)" ng-change="findAppropriateStiker()"
                        data-snap-ignore="true">
             </div>

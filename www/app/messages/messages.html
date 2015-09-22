@@ -1,24 +1,75 @@
-<div ng-repeat="message in session.messages track by $index"
-     class="message-container" ng-class="{'ta-right': message.isOwn}"
-     ng-switch="message.type">
-    <div ng-switch-when="chat_empty">
-        <div class="system_message">
-            Этот чат завершен
-            <a ng-click="close()">Начать новый диалог</a>
+<message-menu api="messageMenuApi" items="messageMenuItems"></message-menu>
+<div ng-switch="preview">
+    <!-- We need to keep two versions due to performance. 
+         We use one-way data-binding in chat to reduce watchers number 
+         (new message adds one new watcher).
+         We use two-way data-binding in preview because messages array 
+         can be edited by user and changes should be in view immediately 
+         (new message adds four new watchers) 
+     -->
+    <div ng-switch-when="true">
+        <div ng-repeat="message in session.messages track by $index"
+             class="message-container" ng-class="{'ta-right': message.isOwn}"
+             ng-switch="message.type">
+            <div ng-switch-when="chat_empty">
+                <div class="system_message">
+                    Этот чат завершен
+                    <a ng-click="close()">Начать новый диалог</a>
+                </div>
+                <share ng-if="askShowSharing()"></share>
+            </div>
+            <div ng-switch-when="chat_finished">
+                <div class="system_message">
+                    Собеседник покинул чат
+                    <a ng-click="close()">Начать новый диалог</a>
+                </div>
+                <share ng-if="askShowSharing()"></share>
+            </div>
+            <div ng-switch-when="hidden">
+                <div ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" 
+                    class="message message-hidden">
+                    Сообщение скрыто
+                </div>
+            </div>
+            <div ng-switch-default class="message pointer"
+                 ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+                 ng-bind-html="formatMessage(message)"
+                 ng-click="showMenu($event, message, $index)"
+                 >
+             </div>
         </div>
-        <share ng-if="askShowSharing()"></share>
     </div>
-    <div ng-switch-when="chat_finished">
-        <div class="system_message">
-            Собеседник покинул чат
-            <a ng-click="close()">Начать новый диалог</a>
+
+    <div ng-switch-default>
+        <div ng-repeat="message in session.messages track by $index"
+             class="message-container" ng-class="::{'ta-right': message.isOwn}"
+             ng-switch="::message.type">
+            <div ng-switch-when="chat_empty">
+                <div class="system_message">
+                    Этот чат завершен
+                    <a ng-click="close()">Начать новый диалог</a>
+                </div>
+                <share ng-if="askShowSharing()"></share>
+            </div>
+            <div ng-switch-when="chat_finished">
+                <div class="system_message">
+                    Собеседник покинул чат
+                    <a ng-click="close()">Начать новый диалог</a>
+                </div>
+                <share ng-if="askShowSharing()"></share>
+            </div>
+            <div ng-switch-when="hidden">
+                <div ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" 
+                    class="message message-hidden">
+                    Сообщение скрыто
+                </div>
+            </div>
+            <div ng-switch-default class="message pointer"
+                 ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+                 ng-bind-html="::formatMessage(message)"
+                 ng-click="::showMenu($event, message, $index)"
+                 >
+             </div>
         </div>
-        <share ng-if="askShowSharing()"></share>
     </div>
-    <div ng-switch-default class="message pointer"
-         ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
-         ng-bind-html="formatMessage(message)"
-         ng-click="showMenu(message, $index)"
-         >
-     </div>
 </div>

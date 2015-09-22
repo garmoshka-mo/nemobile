@@ -84,10 +84,13 @@ angular.module("angServices")
         $rootScope.$on('new random chat', function(event, args) {
             var route = {fromState: 'random'};
 
-            if (args.type == 'internal')
+            if (args.type == 'internal') {
                 route.channelName = args.channel;
-            else
+                route.chatType = 'internal';
+            }
+            else {
                 route.chatType = 'external';
+            }
 
             router.goto('chat', route);
         });
@@ -95,7 +98,7 @@ angular.module("angServices")
         self.openCurrentChat = function() {
             if (!self.currentChatRoute) return;
             router.goto('chat', self.currentChatRoute);
-        }
+        };
 
     }
 ]);

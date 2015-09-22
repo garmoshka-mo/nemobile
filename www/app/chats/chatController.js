@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics',
+            'chats', 'googleAnalytics', 'pubnubSubscription',
     function(user, $scope, $stateParams, $state, externalChat, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics) {
+                chats, googleAnalytics, pubnubSubscription) {
 
 
         log("chat controller is invoked");
@@ -80,11 +80,46 @@ angular.module("angControllers").controller("chatController",
             };
             notification.set(title, chat.avatar.urlMini, notificationCallback);
         }
-
-        $scope.scrollToBottom = function() {
+        
+        function scrollToBottom()  {
             var $chatContainer = $(".main-section");
             $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
+        }
+
+        function setTyping(value) {
+            pubnubSubscription.setTyping(value, chat.channelName, user.uuid);
+        }
+
+        var typingTimeout;
+        var userTyping = false;
+        function detectUserTyping() {
+            if (userTyping) {
+                prolongTyping();
+            }
+            else {
+                log('current user started typing');
+                userTyping = true;
+                setTyping(true);
+                prolongTyping();
+            }
+        }
+
+        function prolongTyping() {
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+            typingTimeout = setTimeout(function() {
+                log('current user stopped typing');
+                userTyping = false;
+                typingTimeout = null;
+                setTyping(false);
+            }, 1000);
+        }
+
+        $scope.onInputFieldFocus = function() {
+            scrollToBottom();
         };
+        
 
         $chatInput.focus(function() {
             if (RAN_AS_APP) {
@@ -181,7 +216,7 @@ angular.module("angControllers").controller("chatController",
         
 
         $scope.$watch("chatSession.messages.length", function() {
-            $scope.scrollToBottom();
+            scrollToBottom();
             chat.isRead = true;
         });
 
@@ -300,6 +335,9 @@ angular.module("angControllers").controller("chatController",
 
         $scope.input_keypress = function(event) {
             $scope.showDisconnect = false;
+            if ($stateParams.chatType == 'internal') {
+                detectUserTyping();
+            }
             //if ctrl+enter or enter is pressed
             if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey || event.keyCode == 13) {
                 event.preventDefault();
@@ -350,6 +388,6 @@ angular.module("angControllers").controller("chatController",
         };
 
         $scope.setFocusOnTextField();
-        $scope.scrollToBottom();
+        scrollToBottom();
         chats.countUnreadChats();
 }]);
