@@ -1,9 +1,10 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user',
-function($scope, posts, $stateParams, user) {
+    '$scope', 'posts', '$stateParams', 'user', 'router',
+function($scope, posts, $stateParams, user, router) {
 
     var id = $stateParams.postId;
+    $scope.router = router;
 
     if (user.isLogged()) getPost();
     else user.signinAsVirtualUser().then(getPost);

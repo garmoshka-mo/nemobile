@@ -2,6 +2,12 @@
     <h5>{{post.title}}</h5>
     <messages session="post.chat" preview="true"></messages>
 
+    <div class="center" style="padding-top: 27px">
+        <button ng-click="router.goto('pubsList')" class="">
+            <i class="fa fa-th-list"></i> Смотреть другие истории
+        </button>
+    </div>
+
     <div class="pub-bottom-break">
         <img src="assets/img/page-break.png">
     </div>
