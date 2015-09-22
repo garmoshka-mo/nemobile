@@ -69,3 +69,25 @@
 .personal-data-alert .fa {
     padding-right: 8px;
 }
+.post-header {
+    margin-top: 13px;
+}
+.post-title {
+    display: inline-block;
+    vertical-align: top;
+}
+.vote-control {
+    display: inline-block;
+    width: 30px;
+    margin: -8px 10px;
+    text-align: center;
+}
+.vote-button {
+    cursor: pointer;
+}
+.liked {
+    color: #ffb045;
+}
+.disliked {
+    color: #ff5845;
+}
