@@ -22,6 +22,9 @@
     text-align: right;
     font-family: verdana,arial,helvetica,sans-serif;
 }
+.score.negative {
+    color: #D67F7F;
+}
 .posts-list .title {
     max-width: 70%;
     margin-bottom: -7px;
