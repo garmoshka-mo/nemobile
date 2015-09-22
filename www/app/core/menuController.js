@@ -45,7 +45,6 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
 
         $scope.countUnreadChats = function () {
             $scope.unreadChatsAmount = 0;
-
         };
 
         function objectToString(object) {
@@ -84,6 +83,10 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             sound.play('incomeMessage');
             //update flag state after toggle
             $scope.soundEnabled = sound.isEnabled();
+        };
+
+        window.onbeforeunload = function(e) {
+          return 'Dialog text here.';
         };
 
 }]);

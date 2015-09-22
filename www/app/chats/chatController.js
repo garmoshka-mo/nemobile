@@ -387,6 +387,10 @@ angular.module("angControllers").controller("chatController",
             });
         };
 
+        window.onbeforeunload = function() {
+            return 'При уходе со страницы чат будет завершен. Покинуть страницу?';
+        };
+
         $scope.setFocusOnTextField();
         scrollToBottom();
         chats.countUnreadChats();

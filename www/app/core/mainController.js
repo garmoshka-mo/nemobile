@@ -212,6 +212,10 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
             else {
                 onStateChangeStart.apply(this, arguments);
             }
+            //reset onbeforeunload handler 
+            //which may be set in some controller
+            //for example in chatController
+            window.onbeforeunload = null;
         }
     );
 

@@ -22,6 +22,7 @@ angular.module("angFactories").factory("Chat",
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
         this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;
+        this.isActive = !_.isUndefined(chatData.isActive) ? chatData.isActive : true;
         this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channelName'; 
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
@@ -218,6 +219,8 @@ angular.module("angFactories").factory("Chat",
             // this.currentUser.removeDeviceFromChannel(this.channelName);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
+            this.isActive = false;
+            window.onbeforeunload = null;
             return apiRequest.send('DELETE', '/chats/' + this.channelName);
         }
     };

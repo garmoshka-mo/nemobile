@@ -86,7 +86,7 @@ angular.module("angServices")
             
         };
 
-        $(window).bind('beforeunload', function() {
+        $(window).bind('unload', function() {
             if (self.lookupInProgress)
                 apiRequest.sendSync('DELETE', '/random');
             else if(lastInternalChannel)
