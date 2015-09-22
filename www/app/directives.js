@@ -304,16 +304,22 @@ angular.module("angApp")
     };
 })
 
-.directive('allowTextselect', function() {
+.directive('allowTextSelect', function() {
     return {
         restrict: 'A',
         link: function(scope, elem, attr) {
             if (!RAN_AS_APP) {
                 angular.element(elem).attr('data-snap-ignore', true);
             }
-        },
+        }
+    };
+})
+
+.directive('selectOnClick', function () {
+    // Linker function
+    return function (scope, element) {
+        element.bind('click', function () {
+            this.select();
+        });
     };
 });
-
-
-
