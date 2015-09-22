@@ -84,10 +84,10 @@ angular.module("angServices")
             $localForage.setItem('chatSession_' + primaryKeyValue + "_" + chatSessionObj.id, _chatSession);
             // .then(
             //     function(res) {
-            //         console.log(res);
+            //         log(res);
             //     },
             //     function(res) {
-            //         console.log(res);
+            //         log(res);
             //     }
             // )
         },

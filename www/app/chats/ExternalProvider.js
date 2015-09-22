@@ -73,8 +73,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
             intro_timestamp = Date.now();
 
-            if (fellIntoPit) logTagAndBegin('🔥WELCOME TO HELL🔥');
-            else if (intro.length > 0) initWithIntro();
+            if (intro.length > 0) initWithIntro();
             else initWithoutIntro();
         }
 
@@ -86,7 +85,10 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
         function initWithoutIntro() {
             function startChatWhenNoHisIntro() {
-                logTagAndBegin('открылся чат, вступления нет');
+                if (fellIntoPit)
+                    logTagAndBegin('🔥WELCOME TO HELL🔥');
+                else
+                    logTagAndBegin('открылся чат, вступления нет');
             }
             autoBeginTimer = setTimeout(startChatWhenNoHisIntro, 2000);
         }
@@ -165,11 +167,14 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
         function decide_to_chat(message) {
 
-            firstMessageToFilter(message, false, true).then(take_decision, filter_passed);
+            if (fellIntoPit)
+                allowConversation();
+            else
+                firstMessageToFilter(message, false, true).then(take_decision, filterPassed);
 
             function take_decision(response) {
                 if (response.risk_percent < 50)
-                    filter_passed();
+                    filterPassed();
                 else {
                     shadowing();
                     if (response.is_rude)
@@ -177,12 +182,16 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 }
             }
 
-            function filter_passed() {
+            function filterPassed() {
                 log('Filter passed');
 
                 if (preferences.look_for.gender != '-' && slowpokesFriend.isSlowpoke(message))
                     return;
 
+                allowConversation();
+            }
+
+            function allowConversation() {
                 beginСhat();
                 chat.display_partners_message(message.sanitize());
                 teacher.listen(message);
