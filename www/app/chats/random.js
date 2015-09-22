@@ -12,7 +12,9 @@ angular.module("angServices")
                 'POST',
                 '/random',
                 data
-            );
+            ).then(function(data) {
+                    externalChat.level = data.score;
+                });
         }
 
         function onRandomChatOpen(type) {
