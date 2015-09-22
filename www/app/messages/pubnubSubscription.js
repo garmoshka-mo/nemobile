@@ -5,17 +5,13 @@
                 log('pubnubSubscription is ran');
                 var pubnub = PUBNUB.init({
                     subscribe_key: config('pubnubSubscribeKey'),
-                    publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
+                    publish_key: config('pubnubPublishKey')
                 });
 
                 function subscribeToChannelGroup() {
                     log('subscribed');
                     pubnub.subscribe({
                         channel_group: user.channel,
-                        presence: function(m) {
-                            log(m);
-                            onPresence(m);
-                        },
                         message: function(message, envelope, channelName) {
                             $rootScope.$broadcast('new message', {
                                 message: message,
@@ -26,18 +22,7 @@
                     });
                 }
 
-                function onPresence(m) {
-                    if (m.action == 'state-change') {
-                        if (m.data.uuid != user.uuid) {
-                            if (m.data.typing) {
-                                $rootScope.$broadcast('partner started typing');
-                            }
-                            else {
-                                $rootScope.$broadcast('partner stopped typing');
-                            }
-                        }
-                    } 
-                }
+                
 
                 function onParseUserInfo() {
                     getUnseenMessages();
@@ -235,14 +220,13 @@
 
                 //public methods
                 this.setTyping = function(value, channelName, uuid) {
-                    pubnub.state({
+                    pubnub.publish({
                         channel: channelName,
-                        // uuid: uuid,
-                        state: {
-                            "typing": value,
-                            "uuid": uuid
+                        message: {
+                            event: "typing",
+                            uuid: uuid,
+                            value: value
                         },
-                       callback: function(m){console.log(JSON.stringify(m));}
                     });
                 };
 

@@ -113,12 +113,8 @@ angular.module("angControllers").controller("chatController",
                 userTyping = false;
                 typingTimeout = null;
                 setTyping(false);
-            }, 2500);
+            }, 1000);
         }
-
-        $scope.onInputFieldBlur = function() {
-            setTyping(false);
-        };
 
         $scope.onInputFieldFocus = function() {
             scrollToBottom();
@@ -339,7 +335,9 @@ angular.module("angControllers").controller("chatController",
 
         $scope.input_keypress = function(event) {
             $scope.showDisconnect = false;
-            detectUserTyping();
+            if ($stateParams.chatType == 'internal') {
+                detectUserTyping();
+            }
             //if ctrl+enter or enter is pressed
             if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey || event.keyCode == 13) {
                 event.preventDefault();

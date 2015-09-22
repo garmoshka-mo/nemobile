@@ -50,11 +50,27 @@
                    
                 }
 
+                function onTyping(m) {
+                    if (m.uuid != user.uuid) {
+                        if (m.value) {
+                            $rootScope.$broadcast('partner started typing');
+                        }
+                        else {
+                            $rootScope.$broadcast('partner stopped typing');
+                        }
+                    }
+                }
+
                 function handleIncomeMessage(message, envelope) {
                     log(message);
                     var self = user;
                     var channelName = envelope[3];
 
+                    if (message.event === "typing") {
+                        onTyping(message);
+                        return;
+                    }
+                    
                     if (message.event == "contacts_updated") {
                         log('friends list will be updated');
                         // getUserFriendsFromServer();
