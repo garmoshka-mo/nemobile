@@ -344,8 +344,11 @@ angular.module("angControllers").controller("chatController",
         }
 
         $scope.uploadImage = function() {
+            $scope.isMessageSending = true;
             api.uploadImage($scope.image.file[0]).then(function(res){
                 $scope.sendMessage(res.url);
+            }).then(function(){
+                $scope.isMessageSending = false;
             });
         };
 
