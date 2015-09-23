@@ -7,5 +7,12 @@ function($scope, router, chats, posts, $stateParams) {
     $scope.chats = chats;
 
     $scope.postUrl = 'http://dub.ink/pub/' + $stateParams.postId + '/view';
+
+    $scope.startNewChat = function() {
+        if ($stateParams.channel) {
+            chats.getChat($stateParams.channel).disconnect();
+        }
+        router.goto('random');
+    }
 }
 ]);

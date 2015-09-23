@@ -41,7 +41,7 @@ angular.module("angControllers")
                         }
                     };
                 posts.publishPost(data).then(function (data) {
-                    router.goto('publishSuccess', {postId: data.safe_id});
+                    router.goto('publishSuccess', {postId: data.safe_id, channel: $stateParams.channel});
                 });
             };
 
