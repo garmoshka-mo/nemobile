@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubsListController", [
-    '$scope', 'posts', 'router', 'googleAnalytics',
-function($scope, posts, router, googleAnalytics) {
+    '$scope', 'posts', 'router',
+function($scope, posts, router) {
 
     $scope.page = 1;
     $scope.posts = [];
@@ -30,7 +30,5 @@ function($scope, posts, router, googleAnalytics) {
             );
         });
     }
-
-    googleAnalytics.pageview();
 }
 ]);

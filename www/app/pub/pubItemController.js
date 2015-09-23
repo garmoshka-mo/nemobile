@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user', 'router', 'googleAnalytics', 'disqus',
-function($scope, posts, $stateParams, user, router, googleAnalytics, disqus) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus',
+function($scope, posts, $stateParams, user, router, disqus) {
 
     var id = $stateParams.postId;
     $scope.router = router;
@@ -15,7 +15,5 @@ function($scope, posts, $stateParams, user, router, googleAnalytics, disqus) {
             disqus.load(id, data.post.title);
         });
     }
-
-    googleAnalytics.pageview();
 }
 ]);
