@@ -5,6 +5,7 @@ www/npm-debug.log
 npm-debug.log
 .idea/
 build/
+test_mobile_build/
 .vagrant/
 cookbooks/
 Cheffile.lock
