@@ -139,11 +139,11 @@ angular.module("angServices")
             this.pageview = function () {
                 if (RAN_AS_APP) {
                     executeMobile(function () {
-                        window.analytics.trackView('pageview');
+                        window.analytics.trackView(window.location.pathname + window.location.search);
                     });
                 }
                 else
-                    ga('send', 'pageview');
+                    ga('send', 'pageview', window.location.pathname + window.location.search);
             };
             this.boredToWait = function () {
                 lookupInProgress = false;
