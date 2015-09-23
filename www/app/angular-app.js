@@ -107,10 +107,10 @@ document.addEventListener("deviceready", function() {
             alert(error);
         }
 
-        function notificationClickHandler(uuid, channelName) {
+        function notificationClickHandler(uuid, channel) {
             // todo: dont use redirection via .href, only router
             // location.href = "#/chat?senderId=" + uuid + "&fromState=random&" +
-                "channelName=" + channelName;
+                "channel=" + channel;
         }
 
         window.onNotificationAPN = function(e) {
@@ -125,7 +125,7 @@ document.addEventListener("deviceready", function() {
 
             //if app was in background
             if (e.foreground === "0") {
-                notificationClickHandler(e.uuid, e.channelName);
+                notificationClickHandler(e.uuid, e.channel);
             }
         };
     }

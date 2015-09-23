@@ -18,5 +18,16 @@ function(apiRequest) {
         return apiRequest.send('POST', '/posts', data);
     };
 
+    function ratePost(postId, score) {
+        return apiRequest.send('POST', '/posts/' + postId + '/rate', { score: score });
+    }
+
+    this.likePost = function(postId) {
+        return ratePost(postId, +1);
+    };
+
+    this.dislikePost = function(postId) {
+        return ratePost(postId, -1);
+    };
 }]);
 })();

@@ -6,7 +6,7 @@ angular.module("angFactories").factory("Chat",
         var self = this;
 
         this.senderId = chatData.senderId;
-        this.channelName = chatData.channelName;
+        this.channel = chatData.channel ? chatData.channel : chatData.channelName;
         this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
         this.chatSessionsIndexes = chatData.chatSessionsIndexes ? chatData.chatSessionsIndexes : [];
         this.lastChatSessionIndex = !_.isUndefined(chatData.lastChatSessionIndex) ? 
@@ -17,13 +17,13 @@ angular.module("angFactories").factory("Chat",
         this.senderScore = chatData.senderScore ? chatData.senderScore : null;
 
         this.title = chatData.title ? chatData.title : chatData.senderId;
-        this.avatar = Avatar.fromId(chatData.channelName);
+        this.avatar = Avatar.fromId(chatData.channel);
         this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
         this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;
         this.isActive = !_.isUndefined(chatData.isActive) ? chatData.isActive : true;
-        this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channelName'; 
+        this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channel'; 
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
@@ -44,7 +44,7 @@ angular.module("angFactories").factory("Chat",
             // implement
         },
 
-        addChatSession: function(creatorId, channelName, senderId) {
+        addChatSession: function(creatorId, channel, senderId) {
             var nextIndex;
 
             if (this.lastChatSessionIndex === null) {
@@ -55,7 +55,7 @@ angular.module("angFactories").factory("Chat",
             }
 
             this.lastChatSessionIndex = nextIndex;
-            var chatSession = new ChatSession(creatorId, channelName, senderId, nextIndex, this);
+            var chatSession = new ChatSession(creatorId, channel, senderId, nextIndex, this);
             this.isExpired = false;
             this.chatSessionsIndexes.push(nextIndex);
             this.chatSessions[nextIndex] = chatSession;
@@ -140,7 +140,7 @@ angular.module("angFactories").factory("Chat",
                     if (friend.photos)
                         self.avatar = Avatar.fromPhotos(friend.photos);
                     else
-                        self.avatar = Avatar.fromId(self.channelName);
+                        self.avatar = Avatar.fromId(self.channel);
 
                     d.resolve();
                 }
@@ -166,7 +166,7 @@ angular.module("angFactories").factory("Chat",
                                 self.avatar = new Avatar(res.user);
                             }
                             else {
-                                self.avatar = Avatar.fromId(self.channelName);
+                                self.avatar = Avatar.fromId(self.channel);
                             }
                         },
                         function() {
@@ -184,8 +184,8 @@ angular.module("angFactories").factory("Chat",
             }
             else {
                 self.title = "кто-то";
-                self.photoUrl = config('adorableUrl') + '/' + self.channelName;
-                self.photoUrlMini = config('adorableUrl') + '/40/' + self.channelName;
+                self.photoUrl = config('adorableUrl') + '/' + self.channel;
+                self.photoUrlMini = config('adorableUrl') + '/40/' + self.channel;
                 d.resolve();
             }
 
@@ -216,12 +216,12 @@ angular.module("angFactories").factory("Chat",
         },
 
         disconnect: function() {
-            // this.currentUser.removeDeviceFromChannel(this.channelName);
+            // this.currentUser.removeDeviceFromChannel(this.channel);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
             this.isActive = false;
             window.onbeforeunload = null;
-            return apiRequest.send('DELETE', '/chats/' + this.channelName);
+            return apiRequest.send('DELETE', '/chats/' + this.channel);
         }
     };
 

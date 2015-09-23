@@ -1,7 +1,9 @@
 <div class="row">
     <div class="small-12 pt1rem ta-center">
         Ссылка на опубликованный чат:
-        <input type="text" ng-model="postUrl"/>
+        <div allow-text-select>
+            <input type="text" ng-model="postUrl" select-on-click/>
+        </div>
         <p class="note">В общем списке публикация появится после проверки модератором.</p>
         <button ng-click="router.openExternalURL(postUrl)">
             <i class="fa fa-external-link"></i>&nbsp;&nbsp;Открыть публикацию

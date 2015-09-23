@@ -49,6 +49,7 @@ angular.module("angServices")
                 self.lastUnexpiredChatSession = session; // todo: remove after refactoring
                 self.chatSessionsIndexes = [session.id];
                 self.avatar = Avatar.fromId(partner_id);
+                self.channel = session.uuid;
             }
             self.createEmptySession = initSession;
 
@@ -90,7 +91,7 @@ angular.module("angServices")
 
             // todo: remove this after refactoring
             self.getLastUnexpiredChatSession = function() {
-                return $q.when(true);
+                return $q.when(session);
             };
 
             self.updateInfo = function() {
