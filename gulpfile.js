@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     clean = require('gulp-clean'),
     runSequence = require('run-sequence'),
-    replace = require('gulp-regex-replace'),
+    replace = require('gulp-replace'),
     addsrc = require('gulp-add-src'),
     btoa = require('btoa'),
     rename = require("gulp-rename"),
@@ -17,6 +17,7 @@ var dateFormat = require('dateformat');
 var now = new Date();
 var version = dateFormat(now, "mm-dd_h-MM-ss");
     webserver = 'web-server/',
+    test_mobile_dir = 'test_mobile_build/',
     source_www = "www/",
     output_root = "build/",
     output_www = output_root+"www/",
@@ -94,7 +95,7 @@ gulp.task('copy_root', function(){
 
 gulp.task('copy_web_server', function(){
     gulp.src('web-server/**/*', { "base" : "." })
-        .pipe(replace({regex: 'version: "dev"', replace: 'version: "'+version+'"'}))
+        .pipe(replace('version: "dev"',  'version: "'+version+'"'))
         .pipe(gulp.dest(output_root));
 });
 
@@ -105,16 +106,36 @@ gulp.task('cleanBuildFolder', function() {
 
 gulp.task('config.xml', function() {
     return gulp.src(source_www + 'config.xml')
-        .pipe(replace({regex:'dubink-dev', replace:'dubink'})) // package
-        .pipe(replace({regex:'dub-dev', replace:'Dub.ink'})) // App name
+        .pipe(replace('dubink-dev','dubink')) // package
+        .pipe(replace('dub-dev', 'Dub.ink')) // App name
         .pipe(gulp.dest(output_www));
 });
 
+gulp.task('disable_html5_test_mobile', function() {
+    return gulp.src(test_mobile_dir + 'app/angular-app.js')
+        .pipe(replace('html5Mode(true)', 'html5Mode(false)')) // package
+        .pipe(gulp.dest(test_mobile_dir + 'app/'));
+});
 
+gulp.task('make_phonegap_html', function() {
+    return gulp.src(webserver + 'views/index.jade')
+        .pipe(jade({
+           pretty: true
+            })) // package
+        .pipe(rename('phonegap.html'))
+        .pipe(gulp.dest(test_mobile_dir));
+});
 
+gulp.task('remove_base_tag', function() {
+    return gulp.src(test_mobile_dir + 'phonegap.html')
+         // package
+        .pipe(replace('<base href="/">', '')) // package
+        .pipe(gulp.dest(test_mobile_dir));
+});
 
-
-
+gulp.task('make_mobile_test_build', function() {
+    return runSequence('make_phonegap_html', 'remove_base_tag', 'disable_html5_test_mobile');
+});
 
 // OLD:
 
