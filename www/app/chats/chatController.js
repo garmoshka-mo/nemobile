@@ -87,7 +87,7 @@ angular.module("angControllers").controller("chatController",
         }
 
         function setTyping(value) {
-            pubnubSubscription.setTyping(value, chat.channelName, user.uuid);
+            pubnubSubscription.setTyping(value, chat.channel, user.uuid);
         }
 
         var typingTimeout;
@@ -335,7 +335,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.input_keypress = function(event) {
             $scope.showDisconnect = false;
-            if ($stateParams.chatType == 'internal') {
+            if ($stateParams.type == 'internal') {
                 detectUserTyping();
             }
             //if ctrl+enter or enter is pressed
