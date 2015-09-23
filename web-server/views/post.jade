@@ -1,5 +1,26 @@
 extends layout
 
 block content
-    // Тут все вывести в HTML для поста
-    | #{post_id}
+    .chat
+      .post-header
+        .vote-control
+          .vote-button
+            i.fa.fa-arrow-up
+          .score= post.score
+          .vote-button
+            i.fa.fa-arrow-down
+        .post-title
+          h5= post.title
+      messages
+        div
+          div
+            each message in post.chat.messages
+              if message.isOwn
+                .message-container.ta-right
+                  .message.pointer.message-own= message.text
+              else
+                .message-container
+                  .message.pointer.message-not-own= message.text
+      .pub-bottom-break
+        img(src='assets/img/page-break.png')
+      .bottom-placeholder

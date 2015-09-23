@@ -5,6 +5,7 @@ var index_routes = require('./index_routes');
 var path = require('path');
 var glob = require("glob");
 var async = require("async");
+var request = require("request");
 //var favicon = require('serve-favicon');
 //var logger = require('morgan');
 //var cookieParser = require('cookie-parser');
@@ -26,6 +27,7 @@ app.use(compression());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 var www_root = '../' + (process.env.WWW_ROOT ||'www');
+var api_url = process.env.API_URL || 'http://nepotom.herokuapp.com';
 console.log('www_root at %s', www_root);
 
 var cache_expiration = process.env.NODE_ENV == 'production' ? 2629746000 : 0; // cache: 1 month
@@ -35,10 +37,14 @@ app.use(express.static(path.join(__dirname, www_root), {maxAge: cache_expiration
 
 
 app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
-    // todo: здесь вытянуть данные с ruby сервера
-    var p = _.clone(assets);
-    p.post_id = req.params.id;
-    res.render('post', p);
+    request(api_url + '/posts/' + req.params.id, function (error, response, body) {
+        var p = _.clone(assets);
+        if (!error && response.statusCode == 200) {
+            p.post = JSON.parse(body).post;
+            console.log(p.post);
+        }
+        res.render('post', p);
+    });
 });
 
 app.get(index_routes, function (req, res) {
