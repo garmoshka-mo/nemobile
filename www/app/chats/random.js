@@ -12,7 +12,9 @@ angular.module("angServices")
                 'POST',
                 '/random',
                 data
-            );
+            ).then(function(data) {
+                    externalChat.level = data.score;
+                });
         }
 
         function onRandomChatOpen(type) {
@@ -86,7 +88,7 @@ angular.module("angServices")
             
         };
 
-        $(window).bind('beforeunload', function() {
+        $(window).bind('unload', function() {
             if (self.lookupInProgress)
                 apiRequest.sendSync('DELETE', '/random');
             else if(lastInternalChannel)

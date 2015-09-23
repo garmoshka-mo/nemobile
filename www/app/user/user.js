@@ -1,34 +1,36 @@
 angular.module("angServices")
 .service('user', [
-    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'friendsList', '$sce', '$state', 'router', 'Avatar', 'apiRequest',
-    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, friendsList, $sce, $state, router, Avatar, apiRequest) {
+    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery',
+        'friendsList', '$sce', '$state', 'router', 'Avatar', 'apiRequest',
+    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery,
+             friendsList, $sce, $state, router, Avatar, apiRequest) {
     
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
 
-    var user = this;
+    var self = this;
     clearCurrentUser();
     var isLogged = null;
 
     function handleSuccessSignIn(userInfo) {
-        user.name = userInfo.name;
-        user.channel = userInfo.channel_group_name;
-        user.uuid = userInfo.uuid;
+        self.name = userInfo.name;
+        self.channel = userInfo.channel_group_name;
+        self.uuid = userInfo.uuid;
 
-        user.score = userInfo.score;
-        user.phoneNumber = userInfo.phone_number;
-        user.avatar = new Avatar(userInfo);
+        self.score = userInfo.score;
+        self.phoneNumber = userInfo.phone_number;
+        self.avatar = new Avatar(userInfo);
 
         isLogged = true;
-        user.parsedFromStorage = true;
+        self.parsedFromStorage = true;
         localStorage.setItem('isLogged', true);
         stickersGallery.getCurrentUserCategories();
-        user.save();
+        self.save();
         $rootScope.$broadcast('user logged in');
     }
 
     function setAccessToken(accessToken) {
-        user.accessToken = accessToken;
+        self.accessToken = accessToken;
         api.setAccessToken(accessToken);
     }
 
@@ -37,18 +39,18 @@ angular.module("angServices")
     }
 
     function clearCurrentUser() {
-        user.name = null;
-        user.uuid = null;
-        user.accessToken = null;
-        user.channel = null;
-        user.score = null;
-        user.lastMessageTimestamp = null;
-        user.isVirtual = null;
+        self.name = null;
+        self.uuid = null;
+        self.accessToken = null;
+        self.channel = null;
+        self.score = null;
+        self.lastMessageTimestamp = null;
+        self.isVirtual = null;
         friendsList.clear();
     }
 
     function getCurrentUserInfo(isVirtual) {
-        if (!user.accessToken) {
+        if (!self.accessToken) {
             console.warn('access token is undefined');
             return;
         }
@@ -60,9 +62,9 @@ angular.module("angServices")
         .then(
             function(res) {
                 // log('userInfo', userInfo);
-                user.isVirtual = isVirtual ? true : false;
+                self.isVirtual = isVirtual ? true : false;
                 handleSuccessSignIn(res.user);
-                log("user is logged", user);
+                log("user is logged", self);
             },
             function(res) {
                 console.error("sign in fail");
@@ -142,18 +144,25 @@ angular.module("angServices")
             clearApiAccessToken();
             $rootScope.$broadcast('user logged out', {user: _user});
             d.resolve();
-            log('user logged out', user);
+            log('user logged out', self);
         }, 0);
         return d.promise;
     };
 
+    this.logoutAndGoHome = function() {
+        self.logout()
+            .then(function() {
+                router.goto('pubsList');
+            });
+    };
+
     this.save = function() {
-        storage.saveUser(user);
+        storage.saveUser(self);
         log("user info is saved");
     };
 
     this.saveLastMessageTimestamp = function() {
-        storage.saveLastMessageTimestamp(user.lastMessageTimestamp); 
+        storage.saveLastMessageTimestamp(self.lastMessageTimestamp);
     };
 
     this.isLogged = function() {
@@ -205,8 +214,8 @@ angular.module("angServices")
         .then(
             function(res) {
                 getCurrentUserInfo();
-                if (user.isVirtual) {
-                    user.isVirtual = false;
+                if (self.isVirtual) {
+                    self.isVirtual = false;
                 }
                 log('updateProfile', res);
             },
@@ -219,23 +228,23 @@ angular.module("angServices")
     this.parseFromStorage = function(dataFromStorage) {
         return $q.all([
             storage.getUser().then(function(dataFromStorage) {
-                user.name = dataFromStorage.name;
-                user.uuid = dataFromStorage.uuid;
+                self.name = dataFromStorage.name;
+                self.uuid = dataFromStorage.uuid;
 
-                user.channel = dataFromStorage.channel;
-                user.score = dataFromStorage.score;
-                user.phoneNumber = dataFromStorage.phoneNumber;
-                user.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
-                user.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
-                user.isVirtual = dataFromStorage.isVirtual;
+                self.channel = dataFromStorage.channel;
+                self.score = dataFromStorage.score;
+                self.phoneNumber = dataFromStorage.phoneNumber;
+                self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
+                self.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
+                self.isVirtual = dataFromStorage.isVirtual;
 
                 setAccessToken(dataFromStorage.accessToken);
                 // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
-                log("user info is taken from storage", user);    
+                log("user info is taken from storage", self);
             }),
             storage.getLastMessageTimestamp().then(function(timestamp) {
-                user.lastMessageTimestamp = timestamp;
+                self.lastMessageTimestamp = timestamp;
             })
         ]);
     };

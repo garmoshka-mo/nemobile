@@ -1,24 +1,14 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'externalChat', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'router', 'googleAnalytics',
-    function(user, $scope, externalChat, updates, $state, notification, membership, random, timer, router, googleAnalytics) {
+         'user', '$scope', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'router', 'googleAnalytics',
+    function(user, $scope, updates, $state, notification, membership, random, timer, router, googleAnalytics) {
 
         $scope.updates = updates;
         updates.check();
 
         timer.reset();
         
-        membership.getScore().then(function(level) {
-            externalChat.level = level;
-        }, function notActive() {
-            if (RAN_AS_APP) {
-                //skip in-site payments for iOS/Android app
-                externalChat.level = 0;
-            }
-            else {
-                router.goto('activation');
-            }
-        });
+        //ensure has membership / needs activation / etc
         
         $scope.showHelpText = false;
         $scope.random = random;
@@ -137,7 +127,7 @@ angular.module("angControllers")
                     age_range: prepareAgeRange($scope.filter.iam.age)
                 },
                 look_for: {
-                    gender: $scope.filter.another.sex,
+                    gender: $scope.filter.another.sex === 'mw'? '-' : $scope.filter.another.sex,
                     age_range: prepareAgeRange($scope.filter.another.age)
                 }
             };

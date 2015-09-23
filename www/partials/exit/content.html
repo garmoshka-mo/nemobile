@@ -5,7 +5,7 @@
         </div>
         <div ng-hide="showSpinner" class="ta-center exitButtons">
             <button class="btn" ng-click="exit()">Да</button>
-            <a href="#/chats"><button class="btn">Нет</button></a>
+            <button ng-click="router.goto('pubsList')" class="btn">Нет</button>
         </div>
         <span ng-show="showSpinner" spinner></span>
     </div>

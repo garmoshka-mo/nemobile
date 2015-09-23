@@ -85,15 +85,20 @@ angular.module("angServices")
             var route = {fromState: 'random'};
 
             route.type = args.type;
-            if (args.type == 'internal') route.channel = args.channel;
-
+            if (args.type == 'internal') {
+                route.channelName = args.channel;
+                route.chatType = 'internal';
+            }
+            else {
+                route.chatType = 'external';
+            }
             router.goto('chat', route);
         });
 
         self.openCurrentChat = function() {
             if (!self.currentChatRoute) return;
             router.goto('chat', self.currentChatRoute);
-        }
+        };
 
     }
 ]);

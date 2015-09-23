@@ -1,21 +1,27 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams',
-function($scope, posts, $stateParams) {
+    '$scope', 'posts', '$stateParams', 'user',
+function($scope, posts, $stateParams, user) {
 
     var id = $stateParams.postId;
 
-    posts.getPost(id).then(function (data) {
-        $scope.post = data.post;
-        //score without user's vote
-        $scope.post.score -= data.my_rate;
+    if (user.isLogged()) getPost();
+    else user.signinAsVirtualUser().then(getPost)
 
-        $scope.liked = data.my_rate ===  1;
-        $scope.disliked = data.my_rate === -1;
+    function getPost() {
+        posts.getPost(id).then(function (data) {
+            $scope.post = data.post;
+            //score without user's vote
+            $scope.post.score -= data.my_rate;
 
-        $scope.duration = $scope.post.chat.duration_s.toHHMMSS();
-    });
+            $scope.liked = data.my_rate ===  1;
+            $scope.disliked = data.my_rate === -1;
 
+            $scope.duration = $scope.post.chat.duration_s.toHHMMSS();
+        });
+    }
+
+    // Disqus:
     var disqus_shortname = 'dubink';
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

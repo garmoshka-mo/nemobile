@@ -9,7 +9,7 @@ angular.module("angServices")
             "chat_expired": "Чат закрыт",
             "no_access_to_chat": "Чат закрыт",
             "password can't be blank": "Введите пароль",
-            "chat_empty": "Собеседник покинул чат"
+            "chat_empty": "Чат закрыт"
         };
 
         this.get = function(phrase) {

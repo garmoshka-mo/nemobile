@@ -45,7 +45,6 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
 
         $scope.countUnreadChats = function () {
             $scope.unreadChatsAmount = 0;
-
         };
 
         function objectToString(object) {
@@ -64,14 +63,16 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             });
         }
 
+        // var LOGGER_URL = "http://localhost:5000/dump/";
+        var LOGGER_URL = "http://dubink-logger.herokuapp.com/dump/";
         $scope.sendDebugInfo = function () {
             var currentScope = angular.element(document.getElementsByClassName('content')[0]).scope();
             $scope.showDebugPreloader = true;
             // $http.post('http://localhost:5000', {msg: objectToString(currentScope)})
-            $http.post('http://dubink-logger.herokuapp.com/', {msg: objectToString(currentScope)})
+            $http.post(LOGGER_URL, {text: objectToString(currentScope)})
             .success(function(data) {
                 $scope.showDebugPreloader = false;
-                prompt('Слепок №' + data + ' создан', 'http://dubink-logger.herokuapp.com/log' + data + ".txt");
+                prompt('Слепок №' + data.results[0].id + ' создан', LOGGER_URL + data.results[0].id);
             });
         };
 
@@ -82,6 +83,10 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             sound.play('incomeMessage');
             //update flag state after toggle
             $scope.soundEnabled = sound.isEnabled();
+        };
+
+        window.onbeforeunload = function(e) {
+          return 'Dialog text here.';
         };
 
 }]);

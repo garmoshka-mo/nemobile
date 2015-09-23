@@ -5,7 +5,7 @@
                 log('pubnubSubscription is ran');
                 var pubnub = PUBNUB.init({
                     subscribe_key: config('pubnubSubscribeKey'),
-                    publish_key: "pub-c-d0b8d15b-ee39-4421-b5c9-cf6e4c8b3226"
+                    publish_key: config('pubnubPublishKey')
                 });
 
                 function subscribeToChannelGroup() {
@@ -21,6 +21,8 @@
                         }
                     });
                 }
+
+                
 
                 function onParseUserInfo() {
                     getUnseenMessages();
@@ -215,6 +217,18 @@
                         removeDeviceFromChannel(args.chat.channel);
                     }
                 });
+
+                //public methods
+                this.setTyping = function(value, channelName, uuid) {
+                    pubnub.publish({
+                        channel: channelName,
+                        message: {
+                            event: "typing",
+                            uuid: uuid,
+                            value: value
+                        },
+                    });
+                };
 
             }
         ]);

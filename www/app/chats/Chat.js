@@ -22,7 +22,8 @@ angular.module("angFactories").factory("Chat",
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
         this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;
-        this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channel';
+        this.isActive = !_.isUndefined(chatData.isActive) ? chatData.isActive : true;
+        this.primaryKey = !_.isUndefined(chatData.primaryKey) ? chatData.primaryKey : 'channel'; 
         if (chatData.isVirtual) {
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
@@ -218,6 +219,8 @@ angular.module("angFactories").factory("Chat",
             // this.currentUser.removeDeviceFromChannel(this.channel);
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
+            this.isActive = false;
+            window.onbeforeunload = null;
             return apiRequest.send('DELETE', '/chats/' + this.channel);
         }
     };
