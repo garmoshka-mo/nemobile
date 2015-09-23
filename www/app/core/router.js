@@ -52,4 +52,17 @@ function(notification, $state, $rootScope, $q) {
         self.is_preload = false;
     }
 
+    var savedStates = [];
+
+    self.saveState = function(save){
+        savedStates[$state.current.name] = save;
+    };
+
+    self.loadState = function(){
+        var savedState = savedStates[$state.current.name];
+        //once loaded, gets removed
+        savedStates[$state.current.name] = null;
+        return savedState;
+    }
+
 }]);

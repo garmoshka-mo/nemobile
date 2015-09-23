@@ -17,7 +17,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
         this.senderId = partner_id;
         this.isExpired = false;
         this.isReplied = false;
-        this.channelName = null;
+        this.channel = null;
         this.messages = [];
         this.timer = null;
         this.creatorId = null;

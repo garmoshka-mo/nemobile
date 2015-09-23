@@ -159,15 +159,15 @@ angular.module("angControllers").controller("chatController",
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
 
 
-        if ($stateParams.chatType == 'external') {
+        if ($stateParams.type == 'external') {
             $scope.chat = externalChat.current_instance;
             $scope.chat.reportStatusIfInactive();
         } else {
             //getting chat object, if chat does not exist create new one
-            $scope.chat = chats.getChat($stateParams.channelName, $stateParams.senderId);
+            $scope.chat = chats.getChat($stateParams.channel, $stateParams.senderId);
             if (!$scope.chat) {
-                if ($stateParams.channelName) {
-                    $scope.chat = chats.addChat({channelName: $stateParams.channelName});
+                if ($stateParams.channel) {
+                    $scope.chat = chats.addChat({channel: $stateParams.channel});
                 }
                 else if ($stateParams.senderId) {
                     $scope.chat = chats.addChat({senderId: $stateParams.senderId});
@@ -200,7 +200,7 @@ angular.module("angControllers").controller("chatController",
                 log("got chat session");
             },
             function() {
-                chat.addChatSession(user.uuid, $stateParams.channelName, chat.senderId);
+                chat.addChatSession(user.uuid, $stateParams.channel, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0;
@@ -246,9 +246,9 @@ angular.module("angControllers").controller("chatController",
         };
 
         function getAddress() {
-            if (chat.channelName) {
+            if (chat.channel) {
                 return {
-                    channel: chat.channelName
+                    channel: chat.channel
                 };
             }
 

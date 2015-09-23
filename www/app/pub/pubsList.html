@@ -10,12 +10,13 @@
 
         <ul class="posts-list"
             infinite-scroll-disabled="disableAutoload"
-            infinite-scroll="loadMore()"
-            infinite-scroll-distance="1">
+            infinite-scroll="loadSaved() || loadMore()"
+            infinite-scroll-distance="1"
+            infinite-scroll-container='".main-section"'>
             <li ng-repeat="post in posts">
-                <span class="score">{{ post.score || 0 }}</span>
-                <span class="title">
-                    <a ng-href="/pub/{{post.id}}/{{post.slug}}">{{ post.title }}</a>
+                <span class="score" ng-class="{negative: post.score < 0}">{{ post.score }}</span>
+                <span>
+                    <a class="title truncate" ng-class="{visited: post.visited}" ng-attr-id="{{ 'post-' + post.id }}" ng-click="saveState(post)" ng-href="/pub/{{post.id}}/{{post.slug}}">{{ post.title }}</a>
                 </span>
             </li>
         </ul>
