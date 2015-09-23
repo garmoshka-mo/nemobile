@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user', 'router',
-function($scope, posts, $stateParams, user, router) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'googleAnalytics', 'disqus',
+function($scope, posts, $stateParams, user, router, googleAnalytics, disqus) {
 
     var id = $stateParams.postId;
     $scope.router = router;
@@ -12,16 +12,10 @@ function($scope, posts, $stateParams, user, router) {
     function getPost() {
         posts.getPost(id).then(function (data) {
             $scope.post = data.post;
+            disqus.load(id, data.post.title);
         });
     }
 
-
-    // Disqus:
-    var disqus_shortname = 'dubink';
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+    googleAnalytics.pageview();
 }
 ]);
