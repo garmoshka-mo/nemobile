@@ -86,7 +86,7 @@ angular.module("angServices")
 
             route.type = args.type;
             if (args.type == 'internal') {
-                route.channelName = args.channel;
+                route.channel = args.channel;
                 route.chatType = 'internal';
             }
             else {
