@@ -9,7 +9,7 @@ angular.module("angServices")
         self.list = {};
         self.currentChatRoute = null;
 
-        console.log('chats', self);
+        log('chats', self);
 
         self.getChat = function(channel, senderId) {
             if (!_.isUndefined(channel) && self.list[channel]) {

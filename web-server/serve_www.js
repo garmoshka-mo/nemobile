@@ -41,7 +41,6 @@ app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
         var p = _.clone(assets);
         if (!error && response.statusCode == 200) {
             p.post = JSON.parse(body).post;
-            console.log(p.post);
         }
         res.render('post', p);
     });
