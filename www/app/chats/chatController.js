@@ -391,7 +391,9 @@ angular.module("angControllers").controller("chatController",
         };
 
         window.onbeforeunload = function() {
-            return 'При уходе со страницы чат будет завершен. Покинуть страницу?';
+            return $scope.chat.isActive ? 
+                'При уходе со страницы чат будет завершен. Покинуть страницу?' : 
+                null;
         };
 
         $scope.setFocusOnTextField();

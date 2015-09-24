@@ -85,9 +85,5 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
             $scope.soundEnabled = sound.isEnabled();
         };
 
-        window.onbeforeunload = function(e) {
-          return 'Dialog text here.';
-        };
-
 }]);
     

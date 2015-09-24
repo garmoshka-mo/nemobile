@@ -220,7 +220,6 @@ angular.module("angFactories").factory("Chat",
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
             this.isActive = false;
-            window.onbeforeunload = null;
             return apiRequest.send('DELETE', '/chats/' + this.channel);
         }
     };
