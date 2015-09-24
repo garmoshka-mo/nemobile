@@ -1,7 +1,7 @@
 (function(){
     angular.module("angApp").directive('messages', function() {
         return {
-            scope: {session: '=', messageInput: '=', close: '&', preview: '='},
+            scope: {session: '=', messageInput: '=', close: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
             controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', controller]
         };
@@ -75,11 +75,12 @@
             {name: 'цитировать', handler: quoteIt},
         ];
 
-        if ($scope.preview === true) {
-            $scope.messageMenuItems = previewMessageMenu;
+        if ($scope.chat === true) {
+            $scope.messageMenuItems = chatMessageMenu;
         }
         else {
-            $scope.messageMenuItems = chatMessageMenu;
+            $scope.messageMenuItems = previewMessageMenu;
+            
         }
 
         $scope.showMenu = function(event, message, messageIndex) {
