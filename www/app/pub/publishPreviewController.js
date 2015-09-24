@@ -5,6 +5,7 @@ angular.module("angControllers")
 
             var chat_uuid;
             $scope.session = {};
+
             initChat();
 
             function initChat() {

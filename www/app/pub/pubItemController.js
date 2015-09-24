@@ -1,12 +1,13 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user',
-function($scope, posts, $stateParams, user) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus',
+function($scope, posts, $stateParams, user, router, disqus) {
 
     var id = $stateParams.postId;
+    $scope.router = router;
 
     if (user.isLogged()) getPost();
-    else user.signinAsVirtualUser().then(getPost)
+    else user.signinAsVirtualUser().then(getPost);
 
     function getPost() {
         posts.getPost(id).then(function (data) {
@@ -17,17 +18,12 @@ function($scope, posts, $stateParams, user) {
             $scope.liked = data.my_rate ===  1;
             $scope.disliked = data.my_rate === -1;
 
-            $scope.duration = $scope.post.chat.duration_s.toHHMMSS();
+            $scope.duration = $scope.post.chat.duration_s ?
+                    $scope.post.chat.duration_s.toHHMMSS() : 0;
+
+            disqus.load(id, data.post.title);
         });
     }
-
-    // Disqus:
-    var disqus_shortname = 'dubink';
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
 
     $scope.like = function() {
         if(!$scope.post.liked){

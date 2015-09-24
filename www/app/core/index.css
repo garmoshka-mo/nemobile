@@ -131,9 +131,6 @@ input[type="password"] {
   overflow-x: hidden !important;
 }
 
-.fz13rem {
-  font-size: 1.3rem;
-}
 .mt20 {
   margin-top: 20px;
 }
@@ -334,7 +331,9 @@ button.friend, .button.friend {
 a.button:hover{
   color: white;
 }
-
+.green-text{
+color: rgba(91, 171, 96, 1) !important;
+}
 .modal{
   top: 20% !important;
   left: 7%;

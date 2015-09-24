@@ -1,7 +1,7 @@
 angular.module("angServices")
     .service('router', [
-        'notification', '$state', '$rootScope', '$q',
-function(notification, $state, $rootScope, $q) {
+        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location',
+function(notification, $state, $rootScope, $q, googleAnalytics, $location) {
 
     var self = this;
 
@@ -50,6 +50,12 @@ function(notification, $state, $rootScope, $q) {
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
         self.is_preload = false;
+        logPageview(toState.url);
+    }
+
+    function logPageview(url) {
+        if (url.startsWith('/pub'))
+            googleAnalytics.pageview($location.path());
     }
 
     var savedStates = [];

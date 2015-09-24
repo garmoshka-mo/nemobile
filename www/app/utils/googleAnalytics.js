@@ -136,14 +136,14 @@ angular.module("angServices")
             };
 
             //events
-            this.pageview = function () {
+            this.pageview = function (url) {
                 if (RAN_AS_APP) {
                     executeMobile(function () {
-                        window.analytics.trackView('pageview');
+                        window.analytics.trackView(url);
                     });
                 }
                 else
-                    ga('send', 'pageview');
+                    ga('send', 'pageview', url);
             };
             this.boredToWait = function () {
                 lookupInProgress = false;
@@ -196,7 +196,6 @@ angular.module("angServices")
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             }
             init();
-            self.pageview();
 
             //On page close
             $(window).bind('beforeunload', function() {

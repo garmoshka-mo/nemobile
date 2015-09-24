@@ -85,13 +85,8 @@ angular.module("angServices")
             var route = {fromState: 'random'};
 
             route.type = args.type;
-            if (args.type == 'internal') {
-                route.channel = args.channel;
-                route.chatType = 'internal';
-            }
-            else {
-                route.chatType = 'external';
-            }
+            if (args.type == 'internal') route.channel = args.channel;
+
             router.goto('chat', route);
         });
 
