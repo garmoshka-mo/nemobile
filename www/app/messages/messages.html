@@ -22,21 +22,19 @@
             Сообщение скрыто
         </div>
     </div>
-    <div ng-switch-default >
-        <div ng-switch="chat">
-            <div ng-switch-when="true" class="message pointer"
-             ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
-             ng-bind-html="::formatMessage(message)"
-             ng-click="::showMenu($event, message, $index)"
+    <div ng-switch-default ng-switch="chat">
+        <div ng-switch-when="true" class="message pointer"
+         ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+         ng-bind-html="::formatMessage(message)"
+         ng-click="::showMenu($event, message, $index)"
+         >
+        </div>
+        <div ng-switch-default class="message pointer"
+             ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+             ng-bind-html="formatMessage(message)"
+             ng-click="showMenu($event, message, $index)"
              >
-            </div>
-            <div ng-switch-default class="message pointer"
-                 ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
-                 ng-bind-html="formatMessage(message)"
-                 ng-click="showMenu($event, message, $index)"
-                 >
-            </div>
-        </div>        
+        </div>
     </div>
 </div>
 
