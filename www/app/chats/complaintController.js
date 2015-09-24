@@ -1,10 +1,12 @@
-angular.module('angControllers').controller('complaintController', ['$scope', '$mdDialog', 'SpamFilter', 'notification',
-    function($scope, $mdDialog, SpamFilter, notification) {
+angular.module('angControllers').controller('complaintController', ['$scope', 'SpamFilter', 'notification', 'chats',
+    function($scope, SpamFilter, notification, chats) {
 
-        var originatorEv;
-        $scope.openMenu = function($mdOpenMenu, ev) {
-            originatorEv = ev;
-            $mdOpenMenu(ev);
+        $scope.passOpenMenuHandler = function(openMenuHandler) {
+            notification.setClickHandler(function() {
+                if (!$scope.isComplaining) {
+                    openMenuHandler();
+                }
+            });
         };
 
         $scope.complaints = [
@@ -22,12 +24,17 @@ angular.module('angControllers').controller('complaintController', ['$scope', '$
             }
         ];
 
-        var filter = new SpamFilter();
-
         $scope.reportComplaint = function(complaintName) {
-            filter.complain(complaintName);
-            notification.chatDisconnect();
-            notification.showToast('Модератор проверит чат и проучит негодяев, спасибо за уведомление!')
+            var chat = chats.getCurrentChat();
+            var session = chat.getChatSessionFromStorage().then(function(){
+                $scope.isComplaining = true;
+                var filter = new SpamFilter(chat.lastUnexpiredChatSession);
+                filter.complain(complaintName, function() {
+                    notification.chatDisconnect();
+                    notification.showToast('Модератор проверит чат и проучит негодяев, спасибо за уведомление!');
+                    $scope.isComplaining = false;
+                });
+            })
         };
 
     }]);

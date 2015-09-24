@@ -9,10 +9,10 @@ angular.module("angControllers").controller("signinupController",
     $scope.isIn = $stateParams.inOrUp == "in" ? true : false;
 
     if ($scope.isIn) {
-        notification.set("Авторизация");
+        notification.setTitleAttributes("Авторизация");
     }
     else {
-        notification.set("Регистрация");
+        notification.setTitleAttributes("Регистрация");
     }
 
     $scope.signin = function() {

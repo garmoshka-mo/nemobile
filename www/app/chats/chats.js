@@ -1,8 +1,8 @@
 angular.module("angServices")
 .service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat',
-        'storage', 'router',
+        'storage', 'router', '$stateParams', 'externalChat',
     function($rootScope, apiRequest, deviceInfo,  Chat,
-             storage, router) {
+             storage, router, $stateParams, externalChat) {
         
         var self = this;
 
@@ -94,6 +94,13 @@ angular.module("angServices")
             if (!self.currentChatRoute) return;
             router.goto('chat', self.currentChatRoute);
         };
+
+        self.getCurrentChat = function() {
+            if ($stateParams.type == 'internal')
+                return self.getChat($stateParams.channel);
+            else if ($stateParams.type == 'external')
+                return externalChat.current_instance;
+        }
 
     }
 ]);

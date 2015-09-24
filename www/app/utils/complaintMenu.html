@@ -1,5 +1,5 @@
 <md-menu md-position-mode="target-right target" >
-    <a class="options" ng-click="$mdOpenMenu($event)">
+    <a class="options" ng-click="$mdOpenMenu($event)" ng-init="passOpenMenuHandler($mdOpenMenu)">
         <i class="fa fa-ellipsis-v"></i>
     </a>
     <md-menu-content width="4" >

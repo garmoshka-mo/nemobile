@@ -1,10 +1,13 @@
 (function(){
     angular.module("angFactories").factory('SpamFilter',
         ['$resource', '$q', 'user',
-function($resource, $q, user) { 
+function($resource, $q, user) {
 
     var spamFilterHost = config('spamFilterHost');
-    if (spamFilterHost) var rest = $resource(spamFilterHost);
+    if (spamFilterHost) {
+        var rest = $resource(spamFilterHost);
+        var complaints = $resource(spamFilterHost + "complaints");
+    }
 
     return function SpamFilter(session) {
 
@@ -30,9 +33,14 @@ function($resource, $q, user) {
 
         };
 
-        this.complain = function(reason) {
-            //TODO: implement
-            log('>> User have complained about his chat mate. Reason: ' + reason);
+        this.complain = function(reason, callback) {
+            if (complaints) {
+                complaints.save({talk_id: session.uuid, reason: reason, from_client_id: user.uuid}, callback);
+            } else {
+                log('>> There is no spam filter in configuration');
+                log('>> User have complained about his chat mate. Reason: ' + reason);
+                callback();
+            }
         };
     };
 

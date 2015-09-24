@@ -10,10 +10,8 @@ angular.module("angControllers")
             initChat();
 
             function initChat() {
-                if ($stateParams.type == 'internal')
-                    init(chats.getChat($stateParams.channel));
-                else if ($stateParams.type == 'external')
-                    init(externalChat.current_instance);
+                var chat = chats.getCurrentChat();
+                if (chat) init(chat);
                 else router.goto('pubsList');
 
                 function init(chat) {

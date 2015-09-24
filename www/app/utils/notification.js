@@ -74,13 +74,15 @@
         }
 
         var notification = {
-            set: function(title, ava_url, handler) {
+            setTitleAttributes: function(title, ava_url) {
                 $rootScope.notification.text = title;
                 $rootScope.notification.ava_url = ava_url;
+                initialText = title;
+            },
+            setClickHandler: function(handler) {
                 $rootScope.notification.handler = function() {
                     if (handler) handler();
                 };
-                initialText = title;
                 initialHandler = $rootScope.notification.handler;
             },
 
@@ -128,10 +130,11 @@
                     function() {
                         if (initialText) {
                             if (initialHandler) {
-                                self.set(initialText, initialHandler);
+                                self.setTitleAttributes(initialText);
+                                self.setClickHandler(initialHandler);
                             }
                             else {
-                                self.set(initialText);
+                                self.setTitleAttributes(initialText);
                             }
                         }
                         else {
