@@ -5,13 +5,15 @@ function() {
 
     return function SlowpokesFriend(provider, filter) {
 
+        var test = ['привет...', 'привет ))', 'Привет!'];
+
         var slowpokePhrases = ['привет', 'привеи', 'рпивет', 'privet',
-            'привет.', 'привет!', 'ghbdtn', 'пр', 'прив', 'привт',
-            'привет..', 'привет...', 'привте', 'приветь', 'приветствую',
-            'добрый вечер', 'добрый вечер)', 'Здрасте', 'привет)', 'приветик)'];
+            'ghbdtn', 'пр', 'прив', 'привт', 'привте', 'приветь', 'приветствую',
+            'добрый вечер', 'здрасте', 'приветик', 'приветос', 'прива'];
 
         this.isSlowpoke = function(message) {
-            if (slowpokePhrases.indexOf(message.toLocaleLowerCase().trim()) >= 0) {
+            var m = message.replace(/[ \.)!]/g, '').toLocaleLowerCase().trim();
+            if (slowpokePhrases.indexOf(m) >= 0) {
                 reAsk();
                 return true;
             }

@@ -13,10 +13,3 @@ Goto http://localhost:8080/
 1. Then run: `vagrant_initialize.sh`
 1. Enter to virtual machine: `start_vagrant.sh`
 
-## Build for PROD
-
-1. Run `gulp`.
-This will build project to sub-folder `build/`
-which should be committed to production repo
-2. `npm test` to launch resulting **production** web-server locally
-
