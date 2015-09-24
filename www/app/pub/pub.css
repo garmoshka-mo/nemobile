@@ -94,3 +94,6 @@
 .disliked {
     color: #ff5845;
 }
+.post-preview-title {
+    padding: 14px 14px 0;
+}

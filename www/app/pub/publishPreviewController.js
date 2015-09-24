@@ -4,6 +4,7 @@ angular.module("angControllers")
         function($scope, posts, router, $stateParams, chats, externalChat, timer) {
 
             var chat_uuid;
+            $scope.title = "";
             $scope.session = {};
 
             initChat();
@@ -35,7 +36,7 @@ angular.module("angControllers")
             $scope.publishPost = function() {
                 var data = {
                         chat_uuid: chat_uuid,
-                        title: Date.now().toDateTime(),
+                        title: $scope.title || Date.now().toDateTime(),
                         chat: {
                             duration_s: Math.round(timer.lastDuration),
                             messages: $scope.session.messages
@@ -46,5 +47,11 @@ angular.module("angControllers")
                 });
             };
 
+            //Limit title to 140 characters.
+            $scope.$watch('title', function(newVal, oldVal) {
+                if(newVal.length > 140) {
+                    $scope.title = oldVal;
+                }
+            });
         }
     ]);

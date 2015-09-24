@@ -6,7 +6,7 @@ function($scope, router, chats, posts, $stateParams) {
     $scope.router = router;
     $scope.chats = chats;
 
-    $scope.postUrl = 'http://dub.ink/pub/' + $stateParams.postId + '/view';
+    $scope.postUrl = config('appUrl') + '/pub/' + $stateParams.postId + '/view';
 
     $scope.startNewChat = function() {
         if ($stateParams.channel) {
