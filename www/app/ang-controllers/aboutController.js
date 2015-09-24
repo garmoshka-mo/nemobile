@@ -205,9 +205,14 @@ angular.module("angControllers").controller("aboutController",
                               React.createElement("br", null), "                Changes and updates to this Privacy Notice", 
                               React.createElement("br", null), "                This Privacy Policy may be revised periodically and this will be reflected by the \"effective date\" below. Please revisit this page to stay aware of any changes. Your continued use of the dub.ink Site and dub.ink Service constitutes your agreement to this Privacy Policy and any amendments."
                     )),
-                    React.createElement(Tabs.Panel, {title: "support"}, 
-                        React.createElement("div", {className: "width-92 block-center ta-center pt1rem"}, 
-                            "email: ", React.createElement("a", {className: "text-underline", href: "mailto:support@dub.ink"}, "support")
+                    React.createElement(Tabs.Panel, {title: "support"},
+                        React.createElement("div", {className: "block-center ta-center pt1rem"},
+                            React.createElement("a",
+                                {className: "text-underline", target: "_blank", href: "https://vk.com/dub_ink"}, "Группа ВКонтакте")
+                        ),
+                        React.createElement("div", {className: "width-92 block-center ta-center pt1rem"},
+                            "email: ", React.createElement("a",
+                                {className: "text-underline", target: "_blank", href: "mailto:support@dub.ink"}, "support")
                         )
                     )
                   )
