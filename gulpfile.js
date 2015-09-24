@@ -11,7 +11,9 @@ var gulp = require('gulp'),
     btoa = require('btoa'),
     rename = require("gulp-rename"),
     merge2 = require('merge2'),
-    jade = require('gulp-jade');
+    jade = require('gulp-jade'),
+    q = require('q'),
+    assetsGraber = require('./web-server/assetsGraber');
 
 var dateFormat = require('dateformat');
 var now = new Date();
@@ -118,16 +120,34 @@ gulp.task('disable_html5_test_mobile', function() {
 });
 
 gulp.task('make_phonegap_html', function() {
-    return gulp.src(webserver + 'views/index.jade')
-        .pipe(jade({
-           pretty: true
-            })) // package
-        .pipe(rename('phonegap.html'))
-        .pipe(gulp.dest(test_mobile_dir));
+    var d = q.defer();
+    var assets;
+    assetsGraber
+    .then(
+        function(res) {
+            assets = res;
+            gulp.src(webserver + 'views/index.jade')
+                .pipe(jade({
+                   locals: {
+                    js_files: assets.js_files,
+                    css_files: assets.css_files,
+                    prod_js_file: assets.prod_js_file
+                   },
+                   pretty: true
+                })) // package
+                // .pipe(rename('phonegap.html'))
+                .pipe(gulp.dest(test_mobile_dir))
+                .on('end', function() {
+                    d.resolve();
+                });
+        }
+    );
+    
+    return d.promise;
 });
 
 gulp.task('remove_base_tag', function() {
-    return gulp.src(test_mobile_dir + 'phonegap.html')
+    return gulp.src(test_mobile_dir + 'index.html')
          // package
         .pipe(replace('<base href="/">', '')) // package
         .pipe(gulp.dest(test_mobile_dir));

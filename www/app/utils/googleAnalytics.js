@@ -19,7 +19,7 @@ angular.module("angServices")
             //private methods
             function init() {
                 if (RAN_AS_APP) {
-                    self.executeMobile(function () {
+                    executeMobile(function () {
                         window.analytics.startTrackerWithId(config('gaTrackingCodeMobile'));
                     });
                 }

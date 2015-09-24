@@ -5,3 +5,4 @@ git add .
 git commit -m "new version"
 git push origin master:mobile --force
 cd ..
+rd /s /q test_mobile_build

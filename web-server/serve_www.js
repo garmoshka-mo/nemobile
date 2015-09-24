@@ -6,6 +6,7 @@ var path = require('path');
 var glob = require("glob");
 var async = require("async");
 var request = require("request");
+var assetsGraber =  require('./assetsGraber');
 //var favicon = require('serve-favicon');
 //var logger = require('morgan');
 //var cookieParser = require('cookie-parser');
@@ -33,8 +34,6 @@ console.log('www_root at %s', www_root);
 var cache_expiration = process.env.NODE_ENV == 'production' ? 2629746000 : 0; // cache: 1 month
 
 app.use(express.static(path.join(__dirname, www_root), {maxAge: cache_expiration}));
-
-
 
 app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
     request(api_url + '/posts/' + req.params.id, function (error, response, body) {
@@ -89,38 +88,18 @@ app.use(function(err, req, res, next) {
         }));
 });
 
-var server,
-    js_files, css_files, prod_js_file, assets,
-    paths, collectors;
+var assets;
 
-paths = ["assets/css/*.css", "app/**/*.css",
-    "jslibs/*.js", 'angular_init.js', 'app/**/*.js', 'config.js'];
-collectors = paths.map(function(p) {
-    return glob.bind(
-        null, p,
-        {cwd: path.join(__dirname, www_root)}
-    );
+assetsGraber
+.then(function(result) {
+        assets = result;
+        server = app.listen(process.env.PORT || 8080, function () {
+        var host = server.address().address;
+        var port = server.address().port;
+        console.log('listening at http://%s:%s', host, port);
+    });
 });
 
-if (version.version!='dev') prod_js_file = version.version+".js";
 
-async.parallel(
-    collectors,
-    function (er, files) {
-        css_files = [].concat.apply([], files.splice(0,2));
-        js_files = [].concat.apply([], files);
-        assets = {
-            js_files: js_files,
-            prod_js_file: prod_js_file,
-            css_files: css_files
-        };
-
-        server = app.listen(process.env.PORT || 8080, function () {
-            var host = server.address().address;
-            var port = server.address().port;
-            console.log('listening at http://%s:%s', host, port);
-        });
-    }
-);
 
 
