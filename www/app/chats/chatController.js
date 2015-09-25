@@ -106,13 +106,11 @@ angular.module("angControllers").controller("chatController",
         }
 
         function prolongTyping() {
-            if (typingTimeout) {
-                clearTimeout(typingTimeout);
-            }
+            clearTimeout(typingTimeout);
+
             typingTimeout = setTimeout(function() {
                 log('current user stopped typing');
                 userTyping = false;
-                typingTimeout = null;
                 setTyping(false);
             }, 1000);
         }

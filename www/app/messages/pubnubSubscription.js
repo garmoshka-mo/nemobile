@@ -226,7 +226,7 @@
                             event: "typing",
                             uuid: uuid,
                             value: value
-                        },
+                        }
                     });
                 };
 

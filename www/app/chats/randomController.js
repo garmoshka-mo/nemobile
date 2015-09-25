@@ -53,6 +53,8 @@ angular.module("angControllers")
         };
 
         $scope.setDefaultFilterParams = function() {
+            debugPanel();
+
             $scope.filter.iam = {
                 sex: '-',
                 age: [0],
@@ -90,18 +92,21 @@ angular.module("angControllers")
             random.cancelLookingFor();
         };
 
-        var helpClickCounter = 0;
         $scope.helpClick = function() {
             $scope.showHelpText = !$scope.showHelpText;
-            if (helpClickCounter == 0) {
+        };
+
+        var debugClickCounter = 0;
+        function debugPanel() {
+            if (debugClickCounter == 0) {
                 setTimeout(function() {
-                    helpClickCounter = 0;
+                    debugClickCounter = 0;
                 }, 2500)
-            } else if (helpClickCounter == 10) {
+            } else if (debugClickCounter == 10) {
                 $state.go('localForage');
             }
-            helpClickCounter++;
-        };
+            debugClickCounter++;
+        }
 
         $scope.suggestUserGender = function(){
             var anotherSex = $scope.filter.another.sex;

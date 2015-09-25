@@ -17,7 +17,7 @@ function($scope, posts, router, $anchorScroll, $location) {
         posts.getPostsList(page).then(function(data){
             transform(data.list);
             Array.prototype.push.apply($scope.posts, data.list);
-            $scope.disableAutoload = data.is_last_page;
+            $scope.disableAutoload = data.is_last_page || data.list.length == 0;
             $scope.loading = false;
         });
     }
