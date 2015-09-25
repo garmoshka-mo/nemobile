@@ -40,21 +40,19 @@ function($rootScope, apiRequest, deviceInfo, socket,
             // log("added to existing chat");
 
             //if chat session exists
-            //if (!chat.isExpired) {
-            if (false) {
-                /*if (chat.lastMessageTimestamp >= messageTimestamp) {
-                    return;
-                }
+            if (!chat.isExpired) {
+                //if (chat.lastMessageTimestamp >= messageTimestamp)
+                //    return;
 
                 if (!chat.lastUnexpiredChatSession) {
                     //it is necessary because some chat session is stored in
                     //local memory and it takes time to get them from there
                     //that's why there is async handling
-                    handleChatSessionAsync(chat, messageText, message.expires);
+                    handleChatSessionAsync(chat, messageText, envelope.payload.expires);
                 }
                 else {
                     lastSession = chat.lastUnexpiredChatSession;
-                }*/
+                }
             }
             //if chat session exists but expired
             else {
