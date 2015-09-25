@@ -35,8 +35,8 @@
                     registerDeviceToChannel();
                 }
 
-                $rootScope.$on('user data parsed', onParseUserInfo);        
-                $rootScope.$on('user logged in', onUserLogIn);
+                //$rootScope.$on('user data parsed', onParseUserInfo);
+                //$rootScope.$on('user logged in', onUserLogIn);
 
                 function unsubscribe(channelGroup) {
                     pubnub.unsubscribe({
@@ -44,10 +44,10 @@
                     });
                 }
 
-                $rootScope.$on('user logged out', function(event, args) {
-                    unsubscribe(args.user);
-                    removeDeviceFromChannel();
-                });
+                //$rootScope.$on('user logged out', function(event, args) {
+                //    unsubscribe(args.user);
+                //    removeDeviceFromChannel();
+                //});
 
                 function getChannelHistory(channel) {
                     var d = $q.defer();
@@ -173,9 +173,9 @@
                     }     
                 }
 
-                $rootScope.$on('got new channel name', function(event, args) {
-                    registerDeviceToChannel(args.channel);
-                });
+                //$rootScope.$on('got new channel name', function(event, args) {
+                //    registerDeviceToChannel(args.channel);
+                //});
 
                 function removeDeviceFromChannel(channel) {
                     if (window.deviceId) {
@@ -212,24 +212,11 @@
                     }
                 }
 
-                $rootScope.$on('chat removed', function(event, args) {
-                    if (args.chat.channel) {
-                        removeDeviceFromChannel(args.chat.channel);
-                    }
-                });
-
-                //public methods
-                this.setTyping = function(value, channelName, uuid) {
-                    pubnub.publish({
-                        channel: channelName,
-                        message: {
-                            event: "typing",
-                            uuid: uuid,
-                            value: value
-                        }
-                    });
-                };
-
+                //$rootScope.$on('chat removed', function(event, args) {
+                //    if (args.chat.channel) {
+                //        removeDeviceFromChannel(args.chat.channel);
+                //    }
+                //});
             }
         ]);
     }

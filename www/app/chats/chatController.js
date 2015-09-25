@@ -87,10 +87,6 @@ angular.module("angControllers").controller("chatController",
             $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         }
 
-        function setTyping(value) {
-            pubnubSubscription.setTyping(value, chat.channel, user.uuid);
-        }
-
         var typingTimeout;
         var userTyping = false;
         function detectUserTyping() {
@@ -100,7 +96,7 @@ angular.module("angControllers").controller("chatController",
             else {
                 log('current user started typing');
                 userTyping = true;
-                setTyping(true);
+                chats.setTypingStatus(true, chat.channel, user.uuid);
                 prolongTyping();
             }
         }
@@ -111,7 +107,7 @@ angular.module("angControllers").controller("chatController",
             typingTimeout = setTimeout(function() {
                 log('current user stopped typing');
                 userTyping = false;
-                setTyping(false);
+                chats.setTypingStatus(false, chat.channel, user.uuid);
             }, 1000);
         }
 

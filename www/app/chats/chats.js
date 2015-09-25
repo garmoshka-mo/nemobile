@@ -1,7 +1,7 @@
 angular.module("angServices")
-.service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat',
+.service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat', 'socket',
         'storage', 'router', '$stateParams', 'externalChat',
-    function($rootScope, apiRequest, deviceInfo,  Chat,
+    function($rootScope, apiRequest, deviceInfo,  Chat, socket,
              storage, router, $stateParams, externalChat) {
         
         var self = this;
@@ -100,6 +100,18 @@ angular.module("angServices")
                 return self.getChat($stateParams.channel);
             else if ($stateParams.type == 'external')
                 return externalChat.current_instance;
+        };
+
+        socket.on('typing', function(e) {
+            if (e.channel == self.currentChatRoute.channel)
+                $rootScope.$apply(function() {
+                    $rootScope.notification.typing = e.value;
+                });
+        });
+
+        self.setTypingStatus = function(value, channel, uuid) {
+            socket.emit("typing",
+                {channel: channel, uuid: uuid, value: value});
         }
 
     }
