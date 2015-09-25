@@ -92,8 +92,8 @@ var assets;
 
 assetsGraber
 .then(function(result) {
-        assets = result;
-        server = app.listen(process.env.PORT || 8080, function () {
+    assets = result;
+    server = app.listen(process.env.PORT || 8080, function () {
         var host = server.address().address;
         var port = server.address().port;
         console.log('listening at http://%s:%s', host, port);
