@@ -11,6 +11,9 @@
     word-break: break-word;
     padding: 5px 15px;
 }
+.message img{
+    max-height: 350px;
+}
 .message-link {
     text-decoration: underline;
 }
