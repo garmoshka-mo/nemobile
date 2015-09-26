@@ -5,7 +5,7 @@ function($scope, $resource){
 
     $scope.config =  localStorage['config'];
     $scope.apiUrl = config('apiUrl');
-    $scope.debug = config('debug');
+    $scope.debug = config('debugMode');
     $scope.externalChat =  config('externalChat');
 
     $scope.$watch('apiUrl', function() {
@@ -15,7 +15,7 @@ function($scope, $resource){
         localStorage['externalChat'] = $scope.externalChat;
     });
     $scope.$watch('debug', function() {
-        localStorage['debug'] = $scope.debug;
+        localStorage['debugMode'] = $scope.debug;
     });
 
 

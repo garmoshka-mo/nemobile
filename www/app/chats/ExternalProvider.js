@@ -22,7 +22,10 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             delayTimer, autoBeginTimer,
             filter = new SpamFilter(session),
             teacher = new TeacherBot(provider, filter),
-            activity = new ActivityBot(provider, shadowing),
+            activity = new ActivityBot(provider, function() {
+                teacher.partnerLeft = true;
+                shadowing();
+            }),
             slowpokesFriend = new SlowpokesFriend(provider, filter);
 
         var intro,

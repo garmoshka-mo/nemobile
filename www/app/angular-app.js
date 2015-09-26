@@ -166,7 +166,7 @@ String.prototype.escape = function() {
 };
 
 function log() {
-  if (config('debug'))
+  if (config('debugMode'))
     console.log.apply(console, arguments);
 }
 

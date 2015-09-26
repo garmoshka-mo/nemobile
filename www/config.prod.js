@@ -1,7 +1,7 @@
 window.App = {};
 
 window.App.Settings = {
-    debug: false,
+    debugMode: false,
     apiUrl: "https://nepotom-prod.herokuapp.com",
     msgServer: "https://multi1.herokuapp.com",
     environment: "production",
