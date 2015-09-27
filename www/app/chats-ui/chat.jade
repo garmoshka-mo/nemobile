@@ -12,7 +12,7 @@ div(ng-controller='chatController')
           <a href="#/updateProfile"><button>зарегистрироваться</button></a>
           </div>
           </div>
-        .disconnect-button(ng-style="{opacity: showDisconnect ? '1' : '0'}")
+        .disconnect-button(ng-style="{opacity: isRandom && !chat.iStartedInput ? '1' : '0'}")
             button.bg-red(ng-click='disconnectRandomChat()')
                 span отключиться&nbsp;
                 i.fa.fa-times

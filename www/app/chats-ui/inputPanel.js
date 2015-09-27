@@ -93,7 +93,7 @@ function($scope, separator, view, chats) {
     }
 
     $scope.input_keypress = function(event) {
-        $scope.showDisconnect = false;
+        chat.iStartedInput = true;
         if (type == 'internal') {
             detectUserTyping();
         }

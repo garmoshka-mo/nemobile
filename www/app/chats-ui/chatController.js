@@ -13,12 +13,10 @@ angular.module("angControllers").controller("chatController",
         $scope.isMessageSending = false;
         $scope.isRandom = true;
         $scope.deviceInfo = deviceInfo;
-        $scope.showDisconnect = $scope.isRandom;
 
         var params = chats.ensureParams();
         if (!params) return router.goto('pubsList');
-        var type = params.type,
-            channel = params.channel;
+        var type = params.type;
 
         var chat = chats.ensureCurrentChat();
         $scope.chat = chat;
