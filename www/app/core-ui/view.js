@@ -4,7 +4,8 @@ angular.module("angServices")
     ['$state', '$rootScope', 'separator',
 function ($state, $rootScope, separator) {
 
-    var $mainSection = $(".main-section"),
+    var $topSection = $("#top-section"),
+        $mainSection = $(".main-section"),
         $dragger = $('#drag-line'),
         $window = $(window);
 
@@ -24,6 +25,10 @@ function ($state, $rootScope, separator) {
         resizeMainSection();
         scrollToTop();
     }
+
+    this.scrollDownTopSection = function()  {
+        $topSection.animate({scrollTop: $topSection[0].scrollHeight}, 500);
+    };
 
     this.scrollToTop = scrollToTop;
 

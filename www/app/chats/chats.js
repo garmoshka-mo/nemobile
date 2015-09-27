@@ -21,12 +21,13 @@ angular.module("angServices")
             //    $location.search({chat: args.type + ':' + args.channel});
         });
 
-        self.getReadStateParams = function() {
+        self.ensureParams = function() {
             if ($stateParams.chat)
                 current = {
                     type: $stateParams.chat.getChatType(),
                     channel: $stateParams.chat.getChatChannel()
                 };
+            return current;
         };
 
         self.currentParams = function() {
@@ -113,6 +114,16 @@ angular.module("angServices")
                 return self.getChat(current.channel);
             else if (current.type == 'external')
                 return externalChat.current_instance;
+        };
+
+        self.ensureCurrentChat = function() {
+            var chat = self.getCurrentChat();
+
+            if (!chat && current.type == 'internal')
+                //getting chat object, if chat does not exist create new one
+                chat = self.addChat({channel: current.channel});
+
+            return chat;
         };
 
         socket.on('typing', function(e) {

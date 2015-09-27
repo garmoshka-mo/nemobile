@@ -288,7 +288,7 @@ ul.off-canvas-list li a {
  }
 
 #footer{
-  position: fixed;
+  position: absolute;
   left: 0rem;
   width: 100%;
   z-index: 100;

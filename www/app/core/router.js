@@ -31,8 +31,8 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
         if (!state) return console.error('unknown state');
 
         self.top  = state;
-        $rootScope.topSectionController = state.views.content.controller;
         $rootScope.topSectionTemplate = state.views.content.templateUrl;
+        $rootScope.topFooterTemplate = state.views.content.footerTemplateUrl;
         separator.updateView(self);
     };
 

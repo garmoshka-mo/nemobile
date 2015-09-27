@@ -1,6 +1,8 @@
 angular.module("angFactories").factory("Chat",
-    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q', 'notification', '$rootScope', 'friendsList',
-    function(storage, Avatar, ChatSession, apiRequest, $q, notification, $rootScope, friendsList) {
+    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q',
+        'notification', '$rootScope', 'friendsList', 'user',
+    function(storage, Avatar, ChatSession, apiRequest, $q,
+             notification, $rootScope, friendsList, user) {
     
     function Chat(chatData) {
         var self = this;
@@ -124,6 +126,20 @@ angular.module("angFactories").factory("Chat",
 
             }
             return d.promise;
+        },
+
+        ensureSession: function(callback) {
+            var self = this;
+            this.getLastUnexpiredChatSession()
+            .then(
+                function() {
+                    callback(self.lastUnexpiredChatSession);
+                },
+                function() {
+                    self.addChatSession(user.uuid, self.channel, self.senderId);
+                    callback(self.lastUnexpiredChatSession);
+                }
+            )
         },
 
         //updates chat's photo and title

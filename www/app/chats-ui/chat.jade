@@ -31,31 +31,3 @@ div(ng-controller='chatController')
             span.message.message-own(allow-text-select='')
                 span(spinner='', spinner-color='white')
         .bottom-placeholder
-    #footer
-        .appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")
-            img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')
-        #alert(ng-model='errorDescription', alert-box='')
-        .chat-buttons-container
-            .chat-left-buttons(ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid}")
-                .chat-image-button.pointer(ng-file-select='', ng-model='image.file', ng-file-change='uploadImage()', name='data')
-                    i.fa.fa-image
-                .chat-input-container
-                    input.chat-input(type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keypress='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
-            button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!deviceInfo.isOldAndroid')
-                i.fa.fa-paper-plane(ng-show='!isMessageSending')
-                span(ng-show='isMessageSending', spinner='', spinner-color='white')
-            // <button class="chat-send" ng-click="chatSession.close()">close</button>
-            .stickersGallery-container(ng-show='isStickersGalleryVisiable')
-                .stickersGallery(ng-class="{'animated bounceInUp': isStickersGalleryVisiable}", stickers-gallery-height='')
-                    .stickersGallery-spinner(ng-show='!stickersGallery.categories', spinner='')
-                    .ta-right(ng-show='stickersGallery.categories')
-                        a(ng-href='#/stickersGallery?fromChat={{chatSession.senderId}}')
-                            | настройки
-                            i.fa.fa-gear
-                    .category(ng-repeat='category in stickersGallery.categories')
-                        .category-name(ng-click='::toggleCategory(category)', ng-bind='::category.name', ng-class="::{'category-name-rounded': category.name != stickersGallery.currentCategory }")
-                        .category-content(ng-show='category.name == stickersGallery.currentCategory')
-                            .ta-center(ng-show='!category.images.length')
-                                | В этой категории нету стикеров
-                            .stickers-gallery-image-wrapper(ng-repeat='image in category.images')
-                                img.category-img(alt='gif', ng-src='{{image.url}}', ng-click='::sendSticker(image.url)')

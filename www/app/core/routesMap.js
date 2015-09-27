@@ -110,7 +110,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "chatController",
-                        templateUrl: "app/chats-ui/chat.html?"+version
+                        templateUrl: "app/chats-ui/chat.html?"+version,
+                        footerTemplateUrl: "app/chats-ui/inputPanel.html?"+version
                     }
                 }
             })
