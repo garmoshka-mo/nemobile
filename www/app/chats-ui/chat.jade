@@ -1,0 +1,61 @@
+div(ng-controller='chatController')
+    .chat.top-margin
+        // temporary hid temp message feature
+        .firstMessage.ta-center.chat-notification.width-92.block-center(ng-show='isFirstMessage && !isRandom && false')
+            div ваше первое сообщение
+            radio-buttons(values='[10, 600, 3600]', titles="['10 сек', '10 мин', '1 час']", ng-model='newMessage.ttl')
+        //
+          <div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
+          Чтобы разблокировать все функции приложения. Необходима регистрация.
+          <br>
+          <div class="top-margin">
+          <a href="#/updateProfile"><button>зарегистрироваться</button></a>
+          </div>
+          </div>
+        .disconnect-button(ng-style="{opacity: showDisconnect ? '1' : '0'}")
+            button.bg-red(ng-click='disconnectRandomChat()')
+                span отключиться&nbsp;
+                i.fa.fa-times
+        //
+            .ta-center.width-92.block-center.chat-notification(ng-show='chat.isVirtual ')
+                | Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
+                .top-margin
+                    a(href='#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}')
+                        button Пригласить
+            .ta-center.chatHistoryButton.width-92.block-center(ng-show='!chatHistory.isAllChatSessionsVisbile')
+                button(ng-click='chatHistory.getOneMoreChatSession()') Показать предыдущие сообщения
+        .old-messages-background(ng-show='chatHistory.previousMessages.length', ng-repeat='message in chatHistory.previousMessages track by $index', ng-class="{'ta-right': message.isOwn}")
+            span.message(ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }", ng-bind-html='::formatMessage(message.text)', allow-text-select='')
+        messages(session='chatSession', message-input='newMessage.text', close='disconnectRandomChat()', chat='true')
+        .ta-right.message-container(ng-show='isMessageSending && deviceInfo.isOldAndroid')
+            span.message.message-own(allow-text-select='')
+                span(spinner='', spinner-color='white')
+        .bottom-placeholder
+    #footer
+        .appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")
+            img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')
+        #alert(ng-model='errorDescription', alert-box='')
+        .chat-buttons-container
+            .chat-left-buttons(ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid}")
+                .chat-image-button.pointer(ng-file-select='', ng-model='image.file', ng-file-change='uploadImage()', name='data')
+                    i.fa.fa-image
+                .chat-input-container
+                    input.chat-input(type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keypress='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
+            button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!deviceInfo.isOldAndroid')
+                i.fa.fa-paper-plane(ng-show='!isMessageSending')
+                span(ng-show='isMessageSending', spinner='', spinner-color='white')
+            // <button class="chat-send" ng-click="chatSession.close()">close</button>
+            .stickersGallery-container(ng-show='isStickersGalleryVisiable')
+                .stickersGallery(ng-class="{'animated bounceInUp': isStickersGalleryVisiable}", stickers-gallery-height='')
+                    .stickersGallery-spinner(ng-show='!stickersGallery.categories', spinner='')
+                    .ta-right(ng-show='stickersGallery.categories')
+                        a(ng-href='#/stickersGallery?fromChat={{chatSession.senderId}}')
+                            | настройки
+                            i.fa.fa-gear
+                    .category(ng-repeat='category in stickersGallery.categories')
+                        .category-name(ng-click='::toggleCategory(category)', ng-bind='::category.name', ng-class="::{'category-name-rounded': category.name != stickersGallery.currentCategory }")
+                        .category-content(ng-show='category.name == stickersGallery.currentCategory')
+                            .ta-center(ng-show='!category.images.length')
+                                | В этой категории нету стикеров
+                            .stickers-gallery-image-wrapper(ng-repeat='image in category.images')
+                                img.category-img(alt='gif', ng-src='{{image.url}}', ng-click='::sendSticker(image.url)')

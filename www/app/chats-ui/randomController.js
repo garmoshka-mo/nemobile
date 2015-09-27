@@ -1,7 +1,9 @@
 angular.module("angControllers")
 .controller("randomController", [
-         'user', '$scope', 'updates', '$state', 'notification', 'membership', 'random', 'timer', 'router', 'googleAnalytics',
-    function(user, $scope, updates, $state, notification, membership, random, timer, router, googleAnalytics) {
+         'user', '$scope', 'updates', '$state', 'notification', 'separator',
+        'membership', 'random', 'timer', 'router', 'googleAnalytics',
+    function(user, $scope, updates, $state, notification, separator,
+             membership, random, timer, router, googleAnalytics) {
 
         $scope.updates = updates;
         updates.check();
@@ -13,6 +15,7 @@ angular.module("angControllers")
         $scope.showHelpText = false;
         $scope.random = random;
         $scope.notification = notification;
+        $scope.isRestart = router.top.name == 'randomRestart';
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
@@ -43,14 +46,28 @@ angular.module("angControllers")
             return [_.min(resultArray), _.max(resultArray)];
         }
 
+        $scope.filterSettings = function() {
+            $scope.isRestart = false;
+            router.openOnTop("random");
+        };
+
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
             notification.asked = 0;
+            separator.resize(140);
 
             saveFilterState();
             random.lookForChat(preferences);
         };
+
+        $scope.$on('new random chat', function() {
+            setTimeout(function() {
+                $scope.$apply(function() {
+                    $scope.leaving = true;
+                });
+            },1);
+        });
 
         $scope.setDefaultFilterParams = function() {
             debugPanel();

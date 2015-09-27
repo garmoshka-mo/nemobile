@@ -1,7 +1,30 @@
+function log() {
+    if (config('debugMode'))
+        console.log.apply(console, arguments);
+}
+
+// String helpers:
 String.prototype.startsWith = function (str){
     return this.indexOf(str) === 0;
 };
+String.prototype.getChatChannel = function (){
+    return this.split(':')[1];
+};
+String.prototype.getChatType = function (){
+    return this.split(':')[0];
+};
+String.prototype.sanitize = function() {
+    return this.replace(/[\\"<>]/gim, function(i) {
+        return '&#' + i.charCodeAt(0) + ';';
+    });
+};
+String.prototype.escape = function() {
+    return this.replace(/[\\\/]/gim, function(i) {
+        return '\\' + i;
+    });
+};
 
+// Number helpers:
 Number.prototype.toHHMMSS = function () {
     var sec_num = this;
     var hours   = Math.floor(sec_num / 3600);

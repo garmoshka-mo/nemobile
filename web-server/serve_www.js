@@ -27,13 +27,16 @@ app.use(compression());
 //app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-var www_root = '../' + (process.env.WWW_ROOT ||'www');
+var www_root = path.join(__dirname, '../' + (process.env.WWW_ROOT ||'www'));
 var api_url = process.env.API_URL || 'http://nepotom.herokuapp.com';
 console.log('www_root at %s', www_root);
 
 var cache_expiration = process.env.NODE_ENV == 'production' ? 2629746000 : 0; // cache: 1 month
 
-app.use(express.static(path.join(__dirname, www_root), {maxAge: cache_expiration}));
+app.use(express.static(www_root, {maxAge: cache_expiration}));
+
+var jadeStatic = require('connect-jade-static');
+app.use(jadeStatic({baseDir: www_root, baseUrl: '/', jade: { pretty: true }}));
 
 app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
     request(api_url + '/posts/' + req.params.id, function (error, response, body) {

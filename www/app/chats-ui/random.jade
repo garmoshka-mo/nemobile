@@ -1,0 +1,167 @@
+.hide-x(ng-controller='randomController')
+    .row.top-margin(ng-hide='random.lookupInProgress || updates.reloading || leaving')
+        .columns.small-12.ta-center(ng-class="{'condensed-buttons': isRestart}")
+            button(ng-hide='random.waitingServer', ng-click='lookForChat()')
+                span
+                    | Начать чат&nbsp;
+                    i.fa.fa-weixin
+            button(ng-show='isRestart', ng-click='filterSettings()')
+                span
+                    | Настройки&nbsp;
+                    i.fa.fa-sliders
+    .row(ng-show='updates.reloading')
+        br
+        .small-12.columns.ta-center Подождите, идет обновление...
+        br
+        br
+    div(ng-show='random.lookupInProgress && !leaving')
+        .row.search-status
+            .small-12.columns.ta-center(ng-hide='notification.asked > 0') Ищем подходящего собеседника...
+            .small-12.columns.ta-center(ng-show='notification.asked > 0') Опрошено {{notification.asked}}...
+        .row
+            .columns.small-12.ta-center
+                button.bg-red(ng-click='cancelLookingFor()')
+                    span(ng-hide='random.waitingServer') отмена
+                    div(ng-show='random.waitingServer', spinner='', spinner-color='white')
+    #searchParameters(ng-hide='isRestart || leaving')
+        .row
+            .columns.small-12
+                .row.fab-buttons-container
+                    .small-3.columns
+                        | Беседы
+                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.theme.isOpened')
+                            md-fab-trigger
+                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.theme.value === -1}")
+                                    img(ng-show='filter.theme.value === -1', ng-src='assets/img/theme-forbid.png')
+                                    img(ng-show='filter.theme.value === 0', ng-src='assets/img/theme-unselected.png')
+                                    img(ng-show='filter.theme.value === 1', ng-src='assets/img/theme-prefer.png')
+                                    img(ng-show='filter.theme.value === 2', ng-src='assets/img/theme-require.png')
+                            md-fab-actions
+                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.theme.selectValue(0)')
+                                    .fab-empty-div
+                                    .fab-title.fab-title-right не указывать
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .fab-title.fab-title-right желательно
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .fab-title.fab-title-right обязательно
+                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.theme.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .fab-title.fab-title-right запретить
+                    .small-3.columns
+                        | Реал
+                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.geo.isOpened')
+                            md-fab-trigger
+                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.geo.value === -1}")
+                                    img(ng-show='filter.geo.value === 0', ng-src='assets/img/geo-unselected.png')
+                                    img(ng-show='filter.geo.value === -1', ng-src='assets/img/geo-forbid.png')
+                                    img(ng-show='filter.geo.value === 1', ng-src='assets/img/geo-prefer.png')
+                                    img(ng-show='filter.geo.value === 2', ng-src='assets/img/geo-require.png')
+                            md-fab-actions
+                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.geo.selectValue(0)')
+                                    .fab-empty-div
+                                    .fab-title.fab-title-right не указывать
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .fab-title.fab-title-right желательно
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .fab-title.fab-title-right обязательно
+                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.geo.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .fab-title.fab-title-right запретить
+                    .small-3.columns
+                        | Интимн.
+                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.sex.isOpened')
+                            md-fab-trigger
+                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.sex.value === -1}")
+                                    img(ng-show='filter.sex.value === 0', ng-src='assets/img/sex-unselected.png')
+                                    img(ng-show='filter.sex.value === -1', ng-src='assets/img/sex-forbid.png')
+                                    img(ng-show='filter.sex.value === 1', ng-src='assets/img/sex-prefer.png')
+                                    img(ng-show='filter.sex.value === 2', ng-src='assets/img/sex-require.png')
+                            md-fab-actions
+                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.sex.selectValue(0)')
+                                    .fab-title.fab-title-left не указывать
+                                    .fab-empty-div
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(1)')
+                                    .fab-title.fab-title-left желательно
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(2)')
+                                    .fab-title.fab-title-left обязательно
+                                    img(src='assets/img/require.png', alt='require')
+                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.sex.selectValue(-1)')
+                                    .fab-title.fab-title-left запретить
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                    .small-3.columns
+                        | Камера
+                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.video.isOpened')
+                            md-fab-trigger
+                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.video.value === -1}")
+                                    img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')
+                                    img(ng-show='filter.video.value === -1', ng-src='assets/img/video-forbid.png')
+                                    img(ng-show='filter.video.value === 1', ng-src='assets/img/video-prefer.png')
+                                    img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
+                            md-fab-actions
+                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.video.selectValue(0)')
+                                    .fab-title.fab-title-left не указывать
+                                    .fab-empty-div
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(1)')
+                                    .fab-title.fab-title-left желательно
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(2)')
+                                    .fab-title.fab-title-left обязательно
+                                    img(src='assets/img/require.png', alt='require')
+                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.video.selectValue(-1)')
+                                    .fab-title.fab-title-left запретить
+                                    img(src='assets/img/forbid.png', alt='forbid')
+        .placeholder_for_fab_buttons
+        .row.pt1rem(ng-show='false')
+            .small-12.columns
+                input(type='text', ng-model='filter.iam.intro', placeholder='Вступление (необязательно)')
+        .row(ng-show='false')
+            .small-12.columns
+                input(type='text', ng-model='filter.iam.location', placeholder='Местоположение (необязательно)')
+        .row
+            .small-6.columns
+                .text-bold.ta-center Я:
+                .human-config
+                    sex-select(ng-model='filter.iam.sex')
+                    p.text-silver.ta-center Возраст:
+                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+            .small-6.columns.ta-center
+                .text-bold Собеседник:
+                .human-config
+                    sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
+                    p.text-silver.ta-center Возраст:
+                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+        .row.pt1rem
+            .small-12.ta-center
+                span.text-silver.pointer(ng-click='setDefaultFilterParams()') сбросить фильтр
+        .row.pt1rem
+            .small-12.ta-center.columns
+                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') Помощь
+                .help(ng-show='showHelpText', scroll-bottom='showHelpText')
+                    // Вступление - это текст, который будет видеть вначале ваш собеседник. <br>
+                    p
+                        | С помощью иконок вы можете указать предпочтения по тематике общения.
+                        | Если вы, например, запрещаете "Камеру",
+                        | то вас не будет соединять с теми, кто ищет общения с камерой.
+                    p
+                        | Настройки поиска можно не задавать - тогда вам будет предложен случайный собеседник,
+                        | который так же не задавал конкретных критериев.
+                    p
+                        | Если вы хотите фильтровать по полу, то должен быть указан и ваш пол.
+                        | При выборе возраста собеседника - можно указать несколько групп.
+        .row(ng-show='!RAN_AS_APP && IS_MOBILE', style='padding: 19px 0 6px;')
+            .small-6.columns(style='text-align: right; padding-top: 4px;')
+                // Чтобы не пропустить диалог,<br/> установите приложение:
+                | Также доступно
+                br
+                |  на мобильном:
+            .small-6.columns
+                a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
+                    img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
+        br
+    .center.top-margin(ng-show='leaving')
+        div(spinner='', spinner-color='green')

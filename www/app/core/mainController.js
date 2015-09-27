@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'router','deviceInfo', '$state', '$q', 'friendsList', 'view',
+    'router','deviceInfo', '$state', '$q', 'friendsList',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList, view) {
+         router, deviceInfo, $state, $q, friendsList) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -132,8 +132,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.backArrowHandler = function() {
-        window.history.back();
-        view.scrollToTop();
+        router.closeCurrent();
     };
 
     $scope.publish = function() {
@@ -248,10 +247,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     else {
         $state.go('pubsList');
     }
-
-    $scope.isBranded = function() { return $state.current.branded; };
-    $scope.isChat = function() { return $state.current.name == 'chat'; };
-    $scope.isRandomHome = function() { return $state.current.name == 'random'; };
 
     $scope.router = router;
     $scope.goto = router.goto;

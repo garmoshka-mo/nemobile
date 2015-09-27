@@ -8,6 +8,11 @@
     margin-left: -2px;
 }
 
+.small-description {
+    font-size: 0.5em;
+    color: #888;
+}
+
 .posts-list {
     list-style-type: none;
     font-size: 1rem;
@@ -44,12 +49,13 @@
 }
 
 .pubs-title {
-    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 11px;
     font-size: 1.2em;
 }
 .pubs-title img {
     width: 183px;
-    margin-top: 12px;
+    margin-top: 5px;
 }
 
 .pub-bottom-break {

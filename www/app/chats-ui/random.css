@@ -149,3 +149,15 @@ sex-select:focus {
 .md-button.md-fab.md-mini {
     line-height: 33px;
 }
+
+.disconnect-button {
+    transition-duration: 0.3s;
+    position: absolute;
+    right: 18px;
+    display: inline-block;
+    top: 54px;
+}
+
+.search-status {
+    padding: 18px 10px;
+}

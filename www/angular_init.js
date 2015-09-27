@@ -1,5 +1,5 @@
 angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFactories",
-    "LocalForageModule", "ngTouch", "ngSanitize", "angular-gestures", "angularFileUpload", /*"ngAnimate",*/
+    "LocalForageModule", "ngTouch", "ngSanitize", "angularFileUpload", /*"ngAnimate",*/
     "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial", 'ngResource',
     '720kb.tooltips']);
 angular.module("angControllers", []);

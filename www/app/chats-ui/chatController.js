@@ -2,24 +2,40 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'pubnubSubscription',
+            'chats', 'googleAnalytics', 'router', 'separator',
     function(user, $scope, $stateParams, $state, externalChat, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, pubnubSubscription) {
+                chats, googleAnalytics, router, separator) {
 
 
         log("chat controller is invoked");
-
-        chats.currentChatRoute = $stateParams;
 
         $scope.user = user;
         $scope.isStickersGalleryVisiable = false;
         $scope.stickersGallery = stickersGallery;
         $scope.isMessageSending = false;
-        $scope.fromRandom = $stateParams.fromState === 'random';
+        $scope.isRandom = true;
         $scope.deviceInfo = deviceInfo;
-        $scope.showDisconnect = $scope.fromRandom;
+        $scope.showDisconnect = $scope.isRandom;
 
+        chats.getReadStateParams();
+        var params = chats.currentParams();
+        if (!params) return router.goto('pubsList');
+
+        var type = params.type,
+            channel = params.channel;
+
+        if (type == 'external') {
+            $scope.chat = externalChat.current_instance;
+            $scope.chat.reportStatusIfInactive();
+        } else {
+            //getting chat object, if chat does not exist create new one
+            $scope.chat = chats.getChat(channel) ||
+                chats.addChat({channel: channel});
+        }
+
+
+        separator.setTopFooter($('#footer'));
         var $chatInput = $('.chat-input');
 
         function retrieveWords(inputString) {
@@ -81,9 +97,9 @@ angular.module("angControllers").controller("chatController",
             notification.setTitleAttributes(title, chat.avatar.urlMini);
             //notification.setClickHandler(notificationCallback);
         }
-        
+
+        var $chatContainer = $("#top-section");
         function scrollToBottom()  {
-            var $chatContainer = $(".main-section");
             $chatContainer.animate({scrollTop: $chatContainer[0].scrollHeight}, 500);
         }
 
@@ -147,28 +163,11 @@ angular.module("angControllers").controller("chatController",
             googleAnalytics.dialogComplete();
 
             timer.stop();
-            $state.go('random');
+            router.openOnTop('randomRestart');
         };
 
         notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
-
-
-        if ($stateParams.type == 'external') {
-            $scope.chat = externalChat.current_instance;
-            $scope.chat.reportStatusIfInactive();
-        } else {
-            //getting chat object, if chat does not exist create new one
-            $scope.chat = chats.getChat($stateParams.channel, $stateParams.senderId);
-            if (!$scope.chat) {
-                if ($stateParams.channel) {
-                    $scope.chat = chats.addChat({channel: $stateParams.channel});
-                }
-                else if ($stateParams.senderId) {
-                    $scope.chat = chats.addChat({senderId: $stateParams.senderId});
-                }
-            }
-        }
 
         var chat = $scope.chat;
         log("chat", chat);
@@ -195,7 +194,7 @@ angular.module("angControllers").controller("chatController",
                 log("got chat session");
             },
             function() {
-                chat.addChatSession(user.uuid, $stateParams.channel, chat.senderId);
+                chat.addChatSession(user.uuid, channel, chat.senderId);
                 chat.getLastUnexpiredChatSession();
                 lastSession = chat.lastUnexpiredChatSession;
                 $scope.isFirstMessage = lastSession.messages.length === 0;
@@ -218,7 +217,7 @@ angular.module("angControllers").controller("chatController",
         $scope.newMessage = {
             text: '',
             // ttl: 2592000,//30 days
-            ttl: $scope.fromRandom ? 0 : 3600,
+            ttl: $scope.isRandom ? 0 : 3600,
             clearText: function() {
                 this.text = '';
             }
@@ -330,7 +329,7 @@ angular.module("angControllers").controller("chatController",
 
         $scope.input_keypress = function(event) {
             $scope.showDisconnect = false;
-            if ($stateParams.type == 'internal') {
+            if (type == 'internal') {
                 detectUserTyping();
             }
             //if ctrl+enter or enter is pressed

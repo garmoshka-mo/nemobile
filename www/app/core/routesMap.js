@@ -16,7 +16,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("pubsList", {
-                url: "/pub",
+                url: "/pub?chat",
                 views: {
                     "title": {
                         template: "Паблик - DUB.iNK"
@@ -28,7 +28,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("pubItem", {
-                url: "/pub/:postId/:slug",
+                url: "/pub/:postId/:slug?chat",
                 branded: true,
                 views: {
                     "title": {
@@ -102,7 +102,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("chat", {
-                url: "/chat?channel&messageText&senderId&fromState&type",
+                url: "/chat?chat&messageText&senderId&fromState",
                 branded: true, hasControlPanel: true,
                 views: {
                     "title": {
@@ -110,11 +110,37 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "chatController",
-                        templateUrl: "app/chats/chat.html?"+version
+                        templateUrl: "app/chats-ui/chat.html?"+version
+                    }
+                }
+            })
+            .state("randomLaunch", {
+                views: {
+                    "top": {
+                        resize: 100
+                    },
+                    "content": {
+                        controller: "standardNavigationController",
+                        templateUrl: "app/chats-ui/randomLaunch.html?"+version
                     }
                 }
             })
             .state("random", {
+                url: "/random",
+                views: {
+                    "top": {
+                        resize: 'full'
+                    },
+                    "title": {
+                        template: "Чат наугад - DUB.iNK"
+                    },
+                    "content": {
+                        controller: "randomController",
+                        templateUrl: "app/chats-ui/random.html?"+version
+                    }
+                }
+            })
+            .state("randomRestart", {
                 url: "/random",
                 views: {
                     "title": {
@@ -122,7 +148,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "randomController",
-                        templateUrl: "app/chats/random.html?"+version
+                        templateUrl: "app/chats-ui/random.html?"+version
                     }
                 }
             })

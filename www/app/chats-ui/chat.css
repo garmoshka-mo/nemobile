@@ -3,10 +3,10 @@
 }
 
 .chat .bottom-placeholder {
-    height: 18px;
+    height: 8px;
 }
 
-.main-section.branded{
+.branded{
     background: #EAF0F1 url("/assets/img/bg.png");
     background-size: 187px 150px;
     -webkit-touch-callout: none;
@@ -34,6 +34,11 @@
     float:left;
 }
 
+#alert {
+    position: absolute;
+    top: -59px;
+    left: 10px;
+}
 
 .share_it {
     padding-bottom: 8px;

@@ -3,10 +3,7 @@
         .service('pubnubSubscription', ['$rootScope', 'apiRequest', 'deviceInfo', 'user', '$q',
             function($rootScope, apiRequest, deviceInfo, user, $q) {
                 log('pubnubSubscription is ran');
-                var pubnub = PUBNUB.init({
-                    subscribe_key: config('pubnubSubscribeKey'),
-                    publish_key: config('pubnubPublishKey')
-                });
+                var pubnub = {};
 
                 function subscribeToChannelGroup() {
                     log('subscribed');

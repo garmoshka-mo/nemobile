@@ -1,11 +1,13 @@
 angular.module("angServices")
     .service('router', [
-        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location',
-function(notification, $state, $rootScope, $q, googleAnalytics, $location) {
+        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location', 'separator',
+function(notification, $state, $rootScope, $q, googleAnalytics, $location, separator) {
 
     var self = this;
 
     self.is_preload = false;
+    self.main = {};
+    self.top = {};
 
     self.openExternalURL = function(url) {
         if (RAN_AS_APP) {
@@ -14,6 +16,24 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location) {
         else {
             window.open(url, '_blank');
         }
+    };
+
+    self.closeCurrent = function() {
+        if (self.isChatActive())
+            self.openOnTop('random');
+    };
+
+    self.openOnTop = function(stateName) {
+        var state = null;
+        $state.get().some(function(s) {
+            if (s.name == stateName) return state = s;
+        });
+        if (!state) return console.error('unknown state');
+
+        self.top  = state;
+        $rootScope.topSectionController = state.views.content.controller;
+        $rootScope.topSectionTemplate = state.views.content.templateUrl;
+        separator.updateView(self);
     };
 
     self.goto = function(state, params) {
@@ -38,6 +58,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location) {
         setTimeout(function() {
                 $state.go(state, params)
                 .then(function(){
+                    self.main = $state.current;
                     d.resolve();
                 });
                 $rootScope.$apply();
@@ -69,6 +90,9 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location) {
         //once loaded, gets removed
         savedStates[$state.current.name] = null;
         return savedState;
-    }
+    };
+
+    self.isChatActive = function() { return self.top.name == 'chat'; };
+    self.isRandomActive = function() { return self.top.name == 'random'; };
 
 }]);

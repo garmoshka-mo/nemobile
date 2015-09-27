@@ -7,9 +7,31 @@ angular.module("angServices")
         var self = this;
 
         self.list = {};
-        self.currentChatRoute = null;
+        var current = null;
 
         log('chats', self);
+
+        $rootScope.$on('new random chat', function(event, args) {
+            current = args;
+            setTimeout(function() {
+                router.openOnTop('chat');
+            },1);
+
+            //if (config('debugMode'))
+            //    $location.search({chat: args.type + ':' + args.channel});
+        });
+
+        self.getReadStateParams = function() {
+            if ($stateParams.chat)
+                current = {
+                    type: $stateParams.chat.getChatType(),
+                    channel: $stateParams.chat.getChatChannel()
+                };
+        };
+
+        self.currentParams = function() {
+            return current;
+        };
 
         self.getChat = function(channel, senderId) {
             if (!_.isUndefined(channel) && self.list[channel]) {
@@ -81,29 +103,20 @@ angular.module("angServices")
 
         $rootScope.$on('chat was updated', self.save);
 
-        $rootScope.$on('new random chat', function(event, args) {
-            var route = {fromState: 'random'};
-
-            route.type = args.type;
-            if (args.type == 'internal') route.channel = args.channel;
-
-            router.goto('chat', route);
-        });
-
         self.openCurrentChat = function() {
-            if (!self.currentChatRoute) return;
-            router.goto('chat', self.currentChatRoute);
+            if (current)
+                router.goto('chat');
         };
 
         self.getCurrentChat = function() {
-            if ($stateParams.type == 'internal')
-                return self.getChat($stateParams.channel);
-            else if ($stateParams.type == 'external')
+            if (current.type == 'internal')
+                return self.getChat(current.channel);
+            else if (current.type == 'external')
                 return externalChat.current_instance;
         };
 
         socket.on('typing', function(e) {
-            if (e.channel == self.currentChatRoute.channel)
+            if (e.channel == current.channel)
                 $rootScope.$apply(function() {
                     $rootScope.notification.typing = e.value;
                 });

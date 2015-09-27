@@ -1,5 +1,5 @@
 <div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
-    <div class="width-92 block-center settings pt1rem">
+    <div class="width-92 block-center settings top-margin">
         <div class="row">
             <div class="medium-6 columns ">
                 <div class="w22 inline-block">
@@ -33,10 +33,10 @@
                 <span class="settings-property-value" ng-bind="user.phoneNumber"></span>
             </div>
         </div>
-        <div class="ta-center pt1rem">
+        <div class="ta-center top-margin">
             <a href="#/updateProfile" class="text-silver">изменить пароль/ник</a>
         </div>
-        <div ng-hide="isOnline" class="ta-center pt1rem">
+        <div ng-hide="isOnline" class="ta-center top-margin">
             <span class="text-silver">соединение с интернетом отсутствует</span>
         </div>
         <div class="ta-center mt20" ng-hide="user.phoneNumber">

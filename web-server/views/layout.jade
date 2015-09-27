@@ -46,16 +46,17 @@ html
       script(type='text/javascript', src=prod_js_file, onerror="location.reload()")
 
   body(ng-controller='mainController')
+    #dummy(style="display:none;")
     .snap-drawers
       .snap-drawer.snap-drawer-left
         aside.left-off-canvas-menu
           .iphone-hack.iphone-menu-margin
-          div(ng-include="'app/core/menu.html?'+version", ng-controller='menuController')
+          div(ng-include="'app/core-ui/menu.html?'+version", ng-controller='menuController')
     .off-canvas-wrap.snap-content(slide-menu='', data-offcanvas='')
       .prevent-click
       .iphone-hack.iphone-status-bar-margin
       .inner-wrap
-        nav.tab-bar.no-select
+        nav#top-bar.tab-bar.no-select
           section.left-small.pointer.ta-center
             a.menu-icon(ng-hide='isBackArrownShown || customSmallIconInner', ng-click='toggleMenu()')
               span
@@ -73,7 +74,7 @@ html
                   span(ng-bind='notification.text')
                   span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-          section.right-small.chat-right-tool(ng-cloak='', ng-show='isChat()')
+          section.right-small.chat-right-tool(ng-cloak='', ng-show='router.isChatActive()')
             .publish
               a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
                 i.fa.fa-share-alt
@@ -81,11 +82,17 @@ html
               i.fa.fa-clock-o
               span(ng-bind='notification.time')
               .dubink DUB.iNK
-          section.right-small.ta-center(ng-cloak='', ng-show='isRandomHome() && user.score && isUserScoreShown')
+          section.right-small.ta-center(ng-cloak='', ng-show='router.isRandomActive() && user.score && isUserScoreShown')
             i.fa.fa-star
             |&nbsp;
             span(ng-bind='user.score')
-        section.main-section(ng-class="{branded: isBranded() }")
+        section#top-section(ng-class="{branded: router.top.branded }")
+          div(ng-include='topSectionTemplate')
+        #drag-line
+          #drag-line-separator
+          #drag-button.circle
+            i.fa.fa-bars
+        section#main-section.main-section(ng-class="{branded: router.main.branded }")
           // content goes here
           // MAIN CONTENT
           #wrapper(ng-hide='routing.is_preload')

@@ -1,5 +1,5 @@
 <div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
-    <div class="pt1rem ta-center width-92 block-center ta-center" ng-switch="screenToShow">
+    <div class="top-margin ta-center width-92 block-center ta-center" ng-switch="screenToShow">
         <div ng-switch-when="phoneEnter">
            <form name="reg">
                <div class="width-92 inline-block mb1rem">
@@ -44,7 +44,7 @@
            <div class="text-silver">
             <a href="#/signinup/in">войти</a>  
            </div>
-           <div ng-model="serverResponse" alert-box class="width-92 block-center pt1rem"></div>
+           <div ng-model="serverResponse" alert-box class="width-92 block-center top-margin"></div>
        </div>
        
        <div ng-switch-when="phoneConfirm">
@@ -65,7 +65,7 @@
                    <span>ввести другой номер</span>
                </div>
            </div>
-           <div ng-model="serverResponse" class="width-92 block-center pt1rem" alert-box></div>
+           <div ng-model="serverResponse" class="width-92 block-center top-margin" alert-box></div>
        </div>
        
        <div ng-switch-when="afterSmsSending">

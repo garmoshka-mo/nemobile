@@ -149,8 +149,12 @@ input[type="password"] {
 .max-width {
   max-width: 100%;
 }
-.pt1rem {
-  padding-top: 1rem;
+.top-margin {
+  margin-top: 1rem;
+}
+.condensed-buttons button {
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 .w22 {
   width: 22px;
@@ -193,9 +197,10 @@ h1.title {
   white-space: nowrap;
 }
 
-.tab-bar {
+#top-bar {
   background-color: #68C168;
   border-bottom: 2px solid #3F853F;
+  z-index: 101;
 }
 .left-off-canvas-menu {
   background-color: #363645;
@@ -230,10 +235,51 @@ ul.off-canvas-list li a {
 }
 
  .main-section{
+   height: 80%;
    overflow: auto;
  }
 
+ .circle {
+   background: #5BAB60;
+   width: 32px;
+   height: 32px;
+   -webkit-border-radius: 25px;
+   -moz-border-radius: 25px;
+   border-radius: 25px;
+ }
 
+ #drag-line {
+   height: 40px;
+/*   background: rgba(1,1,1,.1);*/
+   position: absolute;
+   width: 100%;
+   z-index: 100;
+   margin-top: -16px;
+ }
+ #drag-line-separator {
+   position: absolute;
+   background-color: #5BAB60;
+   height: 2px;
+   width: 100%;
+   top: 15px;
+ }
+ #drag-button {
+   position: relative;
+   left: 50%;
+   margin-left: -20px;
+ }
+ #drag-button i {
+   padding-top: 8px;
+   padding-left: 9px;
+   color: rgba(255,255,255,.7);
+ }
+
+ #top-section {
+   overflow: auto;
+ }
+ #top-section.with-footer {
+   margin-bottom: 65px;
+ }
 
  #wrapper{
    width: 100%;
@@ -243,7 +289,6 @@ ul.off-canvas-list li a {
 
 #footer{
   position: fixed;
-  bottom: 0rem;
   left: 0rem;
   width: 100%;
   z-index: 100;

@@ -1,21 +1,23 @@
 (function(){
 angular.module("angServices")
     .service('view',
-    ['$state', '$rootScope', Service]);
-function Service($state, $rootScope) {
+    ['$state', '$rootScope', 'separator',
+function ($state, $rootScope, separator) {
 
     var $mainSection = $(".main-section"),
+        $dragger = $('#drag-line'),
         $window = $(window);
 
-    $(window).resize(resizeMainSection);
+    window.onresize = resizeMainSection;
 
     $rootScope.$on('$viewContentLoaded', fitNewView);
 
     function resizeMainSection() {
-        var offset = $state.current.hasControlPanel? 110 : 47;
+        //var offset = $state.current.hasControlPanel? 110 : 47;
         setTimeout(function() {
-            $mainSection.height($window.height() - offset + 'px');
+            $mainSection.height($window.height() - $dragger.position().top);
         },1);
+        separator.updateRestrictions();
     }
 
     function fitNewView() {
@@ -28,6 +30,5 @@ function Service($state, $rootScope) {
     function scrollToTop() {
         $mainSection.scrollTop(0);
     }
-}
-
+}])
 })();

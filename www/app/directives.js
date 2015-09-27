@@ -27,7 +27,7 @@ angular.module("angApp")
 
     $(function() {
         window.BODY_HEIGHT = $('body').height();
-        window.TAB_BAR_HEIGHT = $('.tab-bar').height();
+        window.TAB_BAR_HEIGHT = $('#tob-bar').height();
     });
 
     return {

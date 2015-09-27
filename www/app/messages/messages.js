@@ -2,9 +2,9 @@
 angular.module("angServices")
 .service('messages',
     ['$rootScope', 'apiRequest', 'deviceInfo', 'socket',
-        'user', 'chats', 'router', 'friendsList', '$state', 'notification',
+        'user', 'chats', 'router', 'friendsList', 'notification',
 function($rootScope, apiRequest, deviceInfo, socket,
-         user, chats, router, friendsList, $state, notification) {
+         user, chats, router, friendsList, notification) {
 
     socket.on('chat_ready', function(envelope) {
         $rootScope.$broadcast('new random chat',
@@ -99,7 +99,7 @@ function($rootScope, apiRequest, deviceInfo, socket,
         user.lastMessageTimestamp = new Date().getTime();
         user.saveLastMessageTimestamp();
 
-        if (!($state.params.channel == channel || $state.params.senderId == senderUuid)) {
+        if (!(chats.currentParams().channel == channel)) {
             showNotification(user, messageText, channel, senderUuid);
             chat.isRead = false;
             chats.countUnreadChats();

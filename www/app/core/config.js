@@ -1,6 +1,7 @@
 function Config(defaults) {
 
     return function(key) {
+        if (key == 'debug') console.error('config(debug) is replaced to config(debugMode)');
         var def = defaults[key];
         var stored = localStorage[key];
         if (_.isUndefined(def) || def === true || def === false) {

@@ -1,0 +1,14 @@
+.row
+    .ta-center.top-margin
+        // button(ng-click="goto('random')") Перейти к чату
+        .pubs-title(ng-show='posts.length > 0')
+            div Интересное:
+            div.small-description Ссылки на интересные темы, которые можно обсудить
+            div
+                img(src='assets/img/page-break.png')
+    ul.posts-list(infinite-scroll-disabled='disableAutoload', infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1', infinite-scroll-container='".main-section"')
+        li(ng-repeat='post in posts')
+            span.score(ng-class='{negative: post.score < 0}') {{ post.score }}
+            span
+                a.title.truncate(ng-class='{visited: post.visited}', ng-attr-id="{{ 'post-' + post.id }}", ng-click='saveState(post)', ng-href='/pub/{{post.id}}/{{post.slug}}') {{ post.title }}
+    spinner(ng-show='loading', spinner-color='green')
