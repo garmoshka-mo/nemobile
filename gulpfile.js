@@ -114,9 +114,9 @@ gulp.task('config.xml', function() {
 });
 
 gulp.task('disable_html5_test_mobile', function() {
-    return gulp.src(test_mobile_dir + 'app/angular-app.js')
-        .pipe(replace('html5Mode(true)', 'html5Mode(false)')) // package
-        .pipe(gulp.dest(test_mobile_dir + 'app/'));
+    return gulp.src(test_mobile_dir + 'app/core/bootstrap.js')
+        .pipe(replace('html5Mode(true)', 'html5Mode(false)')) 
+        .pipe(gulp.dest(test_mobile_dir + 'app/core'));
 });
 
 gulp.task('make_phonegap_html', function() {
@@ -140,6 +140,11 @@ gulp.task('make_phonegap_html', function() {
                 .on('end', function() {
                     d.resolve();
                 });
+
+            gulp.src(test_mobile_dir + 'app/**/*.jade')
+                .pipe(jade())
+                .pipe(gulp.dest(test_mobile_dir + 'app/'));
+                
         }
     );
     
