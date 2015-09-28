@@ -5,6 +5,7 @@ angular.module("angServices")
 function ($q) {
 
     var TOP_BAR_HEIGHT = 65;
+    var COMFORT_CHAT = 140;
 
     var self = this,
         y = -TOP_BAR_HEIGHT,
@@ -49,6 +50,8 @@ function ($q) {
     self.resize = function(height) {
         if (height == 'full')
             height = fullHeight();
+        else if (height == 'comfortChat')
+            height = COMFORT_CHAT;
         else
             height -= TOP_BAR_HEIGHT;
 

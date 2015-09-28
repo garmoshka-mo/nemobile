@@ -104,11 +104,6 @@ angular.module("angServices")
 
         $rootScope.$on('chat was updated', self.save);
 
-        self.openCurrentChat = function() {
-            if (current)
-                router.goto('chat');
-        };
-
         self.getCurrentChat = function() {
             if (current.type == 'internal')
                 return self.getChat(current.channel);

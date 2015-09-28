@@ -1,18 +1,25 @@
 angular.module("angControllers")
 .controller("publishSuccessController", [
-    '$scope', 'router', 'chats', 'posts', '$stateParams',
-function($scope, router, chats, posts, $stateParams) {
+    '$scope', 'router', 'posts', '$stateParams', 'separator',
+function($scope, router, posts, $stateParams, separator) {
 
     $scope.router = router;
-    $scope.chats = chats;
+    $scope.separator = separator;
 
     $scope.postUrl = config('appUrl') + '/pub/' + $stateParams.postId + '/view';
 
     $scope.startNewChat = function() {
-        if ($stateParams.channel) {
-            chats.getChat($stateParams.channel).disconnect();
-        }
-        router.goto('random');
+        router.openOnTop('random');
+        //notification.chatDisconnect();
+        router.goto('pubsList');
+    };
+
+    if(!router.isChatActive() && !router.isRandomLaunchActive()) {
+        router.openOnTop('randomLaunch');
     }
+
+    router.backHandler = function() {
+        router.goto('pubsList');
+    };
 }
 ]);

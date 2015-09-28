@@ -7,6 +7,10 @@ angular.module("angControllers")
             $scope.title = "";
             $scope.session = {};
 
+            router.backHandler = function() {
+                router.goto('pubsList');
+            };
+
             initChat();
 
             function initChat() {

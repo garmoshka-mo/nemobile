@@ -81,10 +81,12 @@ angular.module("angControllers").controller("chatController",
         }
 
         $scope.disconnectRandomChat = function() {
-            chat.disconnect();
-            googleAnalytics.dialogComplete();
-
-            timer.stop();
+            if(chat.isActive) {
+                chat.disconnect();
+                googleAnalytics.dialogComplete();
+                timer.stop();
+            }
+            notification.setSmallIcon(null);
             router.openOnTop('randomRestart');
         };
 

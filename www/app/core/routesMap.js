@@ -105,6 +105,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/chat?chat&messageText&senderId&fromState",
                 branded: true, hasControlPanel: true,
                 views: {
+                    "top": {
+                        resize: 'comfortChat'
+                    },
                     "title": {
                         template: "Чат"
                     },

@@ -140,10 +140,10 @@
             setSmallIcon: function(html, handler) {
                 $rootScope.customSmallIconInner = html;
                 $rootScope.customSmallIconHandler = handler;
-                $rootScope.$on('$stateChangeStart', function() {
-                    $rootScope.customSmallIconInner =
-                        $rootScope.customSmallIconHandler = null;
-                });
+                //$rootScope.$on('$stateChangeStart', function() {
+                //    $rootScope.customSmallIconInner =
+                //        $rootScope.customSmallIconHandler = null;
+                //});
             },
 
             setChatDisconnectHandler: function(handler){

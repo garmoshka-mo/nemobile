@@ -6,6 +6,10 @@ function($scope, posts, $stateParams, user, router, disqus) {
     var id = $stateParams.postId;
     $scope.router = router;
 
+    router.backHandler = function() {
+        router.goto('pubsList');
+    };
+
     if (user.isLogged()) getPost();
     else user.signinAsVirtualUser().then(getPost);
 
@@ -41,7 +45,7 @@ function($scope, posts, $stateParams, user, router, disqus) {
                 $scope.disliked = true;
                 //short delay in order to bring the feel of actual downvoting
                 setTimeout(function() {
-                    window.history.back();
+                    router.backHandler();
                 }, 500);
             });
         }

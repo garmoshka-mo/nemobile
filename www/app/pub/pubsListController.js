@@ -7,7 +7,9 @@ function($scope, posts, router, $anchorScroll, $location) {
     $scope.posts = [];
     $scope.goto = router.goto;
 
-    router.openOnTop('randomLaunch');
+    if(!router.isChatActive() && !router.isRandomLaunchActive() && !router.isRandomActive()) {
+        router.openOnTop('randomLaunch');
+    }
 
     $scope.loadMore = function() {
         $scope.disableAutoload = true;
