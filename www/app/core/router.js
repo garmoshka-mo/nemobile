@@ -18,11 +18,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
         }
     };
 
-    self.closeCurrent = function() {
-        if (self.isChatActive())
-            self.openOnTop('random');
-    };
-
     self.openOnTop = function(stateName) {
         var state = null;
         $state.get().some(function(s) {
@@ -94,5 +89,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
 
     self.isChatActive = function() { return self.top.name == 'chat'; };
     self.isRandomActive = function() { return self.top.name == 'random'; };
+    self.isRandomLaunchActive = function() { return self.top.name == 'randomLaunch'; };
+    self.isRandomRestartActive = function() { return self.top.name == 'randomRestart'; };
 
 }]);

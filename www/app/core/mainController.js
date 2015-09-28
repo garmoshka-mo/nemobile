@@ -43,6 +43,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         'chatInfo',
         'invitation',
         'publishPreview',
+        'publishSuccess',
         'pubItem'
     ];
     var forbidToGoBackStates = [
@@ -132,7 +133,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.backArrowHandler = function() {
-        router.closeCurrent();
+        router.backHandler();
     };
 
     $scope.publish = function() {

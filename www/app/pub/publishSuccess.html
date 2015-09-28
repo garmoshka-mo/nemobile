@@ -9,7 +9,7 @@
             <i class="fa fa-external-link"></i>&nbsp;&nbsp;Открыть публикацию
         </button>
         <br>
-        <button ng-click="chats.openCurrentChat()" ng-show="chats.currentChatRoute">
+        <button ng-click="separator.resize('full'); router.goto('pubsList');" ng-show="router.isChatActive()">
             <i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Вернуться в чат
         </button>
         <button ng-click="startNewChat()">
