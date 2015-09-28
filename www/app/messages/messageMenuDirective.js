@@ -11,11 +11,11 @@
                     };
                 };
             },
-            controller: ['$scope', '$timeout', controller]
+            controller: ['$scope', '$timeout', 'deviceInfo', controller]
         };
     });
 
-    function controller($scope, $timeout) {
+    function controller($scope, $timeout, deviceInfo) {
         $scope.api = {
             open: function(event, message, messageIndex) {
                 calculateMenuPosition(event);
@@ -36,9 +36,19 @@
         };
 
         function calculateMenuPosition(event) {
+            var x, y;
+
+            if (deviceInfo.isTouch) {
+                x = event.changedTouches[0].pageX;       
+                y = event.changedTouches[0].pageY;       
+            }
+            else {
+                x = event.x;
+                y = event.y;
+            }
             var psedoMenuCoords = $scope.getElementPosition();
-            $scope.menuX = event.x - psedoMenuCoords.x;
-            $scope.menuY = event.y - psedoMenuCoords.y;
+            $scope.menuX = x - psedoMenuCoords.x;
+            $scope.menuY = y - psedoMenuCoords.y;
         }
 
 
