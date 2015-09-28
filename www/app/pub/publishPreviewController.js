@@ -11,6 +11,7 @@ angular.module("angControllers")
                 router.goto('pubsList');
             };
 
+            separator.setBottomFooter($('#bottom-footer'));
             separator.resize('smallChat');
 
             initChat();
