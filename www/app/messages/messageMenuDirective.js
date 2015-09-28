@@ -18,16 +18,19 @@
     function controller($scope, $timeout, deviceInfo) {
         $scope.api = {
             open: function(event, message, messageIndex) {
-                calculateMenuPosition(event);
-                $scope.openMenuParams = {
-                    message: message,
-                    messageIndex: messageIndex
-                };
-                //$mdOpenMenu is injected from md-menu scope
-                //in message menu template
-                $timeout(function() {
-                    $scope.$mdOpenMenu(event);
-                }, 0);
+                if (shouldShowMenu(event.srcElement)) {
+                    calculateMenuPosition(event);
+                    $scope.openMenuParams = {
+                        message: message,
+                        messageIndex: messageIndex
+                    };
+                    //$mdOpenMenu is injected from md-menu scope
+                    //in message menu template
+                    $timeout(function() {
+                        $scope.$mdOpenMenu(event);
+                    }, 0);
+                }
+                
             }
         };
 
@@ -51,6 +54,12 @@
             $scope.menuY = y - psedoMenuCoords.y;
         }
 
-
+        function shouldShowMenu(element) {
+            if ($(element).hasClass('message-link') ||
+                $(element).hasClass('message-image')) {
+                return false;
+            }
+            return true;
+        }
     }
 })();
