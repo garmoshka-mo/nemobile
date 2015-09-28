@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats',
-function($scope, separator, view, chats) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary',
+function($scope, separator, view, chats, dictionary) {
 
     var $chatInput = $('.chat-input');
 
