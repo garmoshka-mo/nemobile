@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller("publishPreviewController", [
-        '$scope', 'posts', 'router', '$stateParams', 'chats', 'externalChat', 'timer',
-        function($scope, posts, router, $stateParams, chats, externalChat, timer) {
+        '$scope', 'posts', 'router', '$stateParams', 'chats', 'externalChat', 'timer', 'separator',
+        function($scope, posts, router, $stateParams, chats, externalChat, timer, separator) {
 
             var chat_uuid;
             $scope.title = "";
@@ -10,6 +10,8 @@ angular.module("angControllers")
             router.backHandler = function() {
                 router.goto('pubsList');
             };
+
+            separator.resize('smallChat');
 
             initChat();
 

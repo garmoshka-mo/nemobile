@@ -6,6 +6,8 @@ function ($q) {
 
     var TOP_BAR_HEIGHT = 65;
     var COMFORT_CHAT = 140;
+    var SMALL_CHAT = 100;
+    var LOOK_FOR_CHAT = 135;
 
     var self = this,
         y = -TOP_BAR_HEIGHT,
@@ -48,12 +50,22 @@ function ($q) {
     };
 
     self.resize = function(height) {
-        if (height == 'full')
-            height = fullHeight();
-        else if (height == 'comfortChat')
-            height = COMFORT_CHAT;
-        else
-            height -= TOP_BAR_HEIGHT;
+        switch (height) {
+            case 'full':
+                height = fullHeight();
+                break;
+            case 'comfortChat':
+                height = COMFORT_CHAT - TOP_BAR_HEIGHT;
+                break;
+            case 'smallChat':
+                height = SMALL_CHAT - TOP_BAR_HEIGHT;
+                break;
+            case 'lookForChat':
+                height = LOOK_FOR_CHAT - TOP_BAR_HEIGHT;
+                break;
+            default:
+                height -= TOP_BAR_HEIGHT;
+        }
 
         if (animateResize)
             resizeAnimated(height);

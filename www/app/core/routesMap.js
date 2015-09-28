@@ -121,7 +121,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("randomLaunch", {
                 views: {
                     "top": {
-                        resize: 100
+                        resize: 'smallChat'
                     },
                     "content": {
                         controller: "standardNavigationController",
