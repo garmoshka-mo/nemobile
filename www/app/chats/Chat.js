@@ -40,6 +40,7 @@ angular.module("angFactories").factory("Chat",
         return chat;
     };
 
+    var getLastUnexpiredChatSessionPromise;
     Chat.prototype = {
 
         typing: function() {
@@ -128,18 +129,29 @@ angular.module("angFactories").factory("Chat",
             return d.promise;
         },
 
-        ensureSession: function(callback) {
+        ensureSession: function() {
             var self = this;
-            this.getLastUnexpiredChatSession()
+            
+            if (getLastUnexpiredChatSessionPromise) {
+                return getLastUnexpiredChatSessionPromise;
+            }
+
+            getLastUnexpiredChatSessionPromise = self.getLastUnexpiredChatSession()
             .then(
                 function() {
-                    callback(self.lastUnexpiredChatSession);
+                    return self.lastUnexpiredChatSession;
                 },
                 function() {
                     self.addChatSession(user.uuid, self.channel, self.senderId);
-                    callback(self.lastUnexpiredChatSession);
                 }
             )
+            .then(
+                function() {
+                    getLastUnexpiredChatSessionPromise = null;
+                    return self.lastUnexpiredChatSession;
+            });
+
+            return getLastUnexpiredChatSessionPromise;
         },
 
         //updates chat's photo and title

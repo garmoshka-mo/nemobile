@@ -106,7 +106,8 @@ angular.module("angControllers").controller("chatController",
         }
 
         var lastSession;
-        chat.ensureSession(function(session) {
+        chat.ensureSession()
+        .then(function(session) {
             $scope.chatSession = lastSession = session;
             $scope.isFirstMessage = lastSession.messages.length === 0;
             initChatHistory();

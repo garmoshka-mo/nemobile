@@ -14,7 +14,8 @@ function($scope, separator, view, chats) {
     var chat = chats.ensureCurrentChat();
 
     var lastSession;
-    chat.ensureSession(function(session) {
+    chat.ensureSession()
+    .then(function(session) {
         lastSession = session;
     });
 
