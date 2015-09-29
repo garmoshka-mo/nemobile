@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .service('externalChat',
-    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'router',
-    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, router) {
+    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'router', '$q',
+    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, router, $q) {
 
         var self = this;
 
@@ -96,6 +96,10 @@ angular.module("angServices")
 
             self.updateInfo = function() {
                 return $q.when(true);
+            };
+
+            self.ensureSession = function() {
+                return $q.when(session);
             };
         }
     }]);
