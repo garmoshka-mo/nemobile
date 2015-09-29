@@ -19,6 +19,7 @@ function ($q) {
         $topSection = $('#top-section'),
         $mainSection = $(".main-section"),
         $topFooter = null,
+        $bottomFooter = null,
         $window = $(window),
         $dragger = $('#drag-line'),
         edges = {
@@ -29,6 +30,11 @@ function ($q) {
 
     self.setTopFooter = function($e) {
         $topFooter = $e;
+        moveElements();
+    };
+
+    self.setBottomFooter = function($e) {
+        $bottomFooter = $e;
         moveElements();
     };
 
@@ -109,7 +115,9 @@ function ($q) {
         $topSection.height(h);
         if (chatIsActive)
             $topSection.scrollTop($topSection[0].scrollHeight);
-        $mainSection.height($window.height() - $dragger.position().top);
+
+        var bottomFooterHeight = $bottomFooter?  $bottomFooter.height() : 0;
+        $mainSection.height($window.height() - $dragger.position().top - bottomFooterHeight);
 
         if ($topFooter) {
             if (showFooter) {
