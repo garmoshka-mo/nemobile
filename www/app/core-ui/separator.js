@@ -7,7 +7,6 @@ function ($q) {
     var TOP_BAR_HEIGHT = 65;
     var COMFORT_CHAT = 140;
     var SMALL_CHAT = 100;
-    var LOOK_FOR_CHAT = 135;
 
     var self = this,
         y = -TOP_BAR_HEIGHT,
@@ -19,7 +18,7 @@ function ($q) {
         $topSection = $('#top-section'),
         $mainSection = $(".main-section"),
         $topFooter = null,
-        $bottomFooter = null,
+        $mainFooter = null,
         $window = $(window),
         $dragger = $('#drag-line'),
         edges = {
@@ -33,8 +32,12 @@ function ($q) {
         moveElements();
     };
 
-    self.setBottomFooter = function($e) {
-        $bottomFooter = $e;
+    self.getMainFooter = function() {
+        return $mainFooter;
+    };
+
+    self.setMainFooter = function($e) {
+        $mainFooter = $e;
         moveElements();
     };
 
@@ -65,9 +68,6 @@ function ($q) {
                 break;
             case 'smallChat':
                 height = SMALL_CHAT - TOP_BAR_HEIGHT;
-                break;
-            case 'lookForChat':
-                height = LOOK_FOR_CHAT - TOP_BAR_HEIGHT;
                 break;
             default:
                 height -= TOP_BAR_HEIGHT;
@@ -116,17 +116,20 @@ function ($q) {
         if (chatIsActive)
             $topSection.scrollTop($topSection[0].scrollHeight);
 
-        var bottomFooterHeight = $bottomFooter?  $bottomFooter.height() : 0;
-        $mainSection.height($window.height() - $dragger.position().top - bottomFooterHeight);
+        var mainFooterHeight = $mainFooter?  $mainFooter.height() : 0;
+        $mainSection.height($window.height() - $dragger.position().top - mainFooterHeight);
 
         if ($topFooter) {
             if (showFooter) {
                 $topFooter.show();
-                $topFooter.css({top: y + 44});
+                $topFooter.css({top: y + 46});
             } else {
                 $topFooter.hide();
                 $('.disconnect-button').hide();
             }
+        }
+        if ($mainFooter) {
+            $mainFooter.css({top: $window.height() - 64});
         }
     }
 

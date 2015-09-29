@@ -49,7 +49,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         templateUrl: "app/pub/publishPreview.html?" + version,
-                        controller: "publishPreviewController"
+                        controller: "publishPreviewController",
+                        footerTemplateUrl: "app/pub/publishPreviewPanel.html?"+version
                     }
                 }
             })

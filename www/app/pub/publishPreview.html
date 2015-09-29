@@ -14,9 +14,9 @@
 
     </div>
     <div class="post-preview-title">
-        <input type="text" ng-model="title" placeholder="Заголовок (необязательно)" autocomplete="off" allow-text-select>
+        <input type="text" ng-model="preview.title" placeholder="Заголовок (необязательно)" autocomplete="off" allow-text-select>
     </div>  
-    <messages session="session"></messages>    
+    <messages session="preview.session"></messages>
     <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
         <!--<button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>-->
     <!--</div>-->
@@ -34,16 +34,4 @@
     <!--</div>-->
 
     <div class="bottom-placeholder"></div>
-</div>
-<div id="bottom-footer" class="ta-center">
-    <div ng-model="errorDescription" alert-box></div>
-    <div class="chat-buttons-container">
-        <button class="publish-button grey" ng-click="reset()">
-            Сбросить
-        </button>
-        <button class="publish-button" ng-click="publishPost()">
-            <span ng-show="!isPublishing">Опубликовать</span>
-            <span ng-show="isPublishing" spinner spinner-color="white"></span>
-        </button>
-    </div>
 </div>

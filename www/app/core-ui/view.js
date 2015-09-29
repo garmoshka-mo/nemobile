@@ -16,7 +16,13 @@ function ($state, $rootScope, separator) {
     function resizeMainSection() {
         //var offset = $state.current.hasControlPanel? 110 : 47;
         setTimeout(function() {
-            $mainSection.height($window.height() - $dragger.position().top);
+            var $mainFooter = separator.getMainFooter();
+            var mainFooterHeight = 0;
+            if ($mainFooter) {
+                mainFooterHeight = $mainFooter.height();
+                $mainFooter.css({top: $window.height() - 64});
+            }
+            $mainSection.height($window.height() - $dragger.position().top - mainFooterHeight);
         },1);
         separator.updateRestrictions();
     }

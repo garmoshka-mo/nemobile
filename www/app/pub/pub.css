@@ -103,10 +103,13 @@
 .post-preview-title {
     padding: 14px 14px 0;
 }
-#bottom-footer {
+#main-footer {
     position: absolute;
     left: 0;
     width: 100%;
-    bottom: 0;
     z-index: 1;
+}
+.publish-back-button {
+    width: 10%;
+    margin-bottom: 0;
 }

@@ -55,7 +55,6 @@ angular.module("angControllers")
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
             notification.asked = 0;
-            separator.resize('lookForChat');
 
             saveFilterState();
             random.lookForChat(preferences);
@@ -106,7 +105,6 @@ angular.module("angControllers")
         };
 
         $scope.cancelLookingFor = function() {
-            separator.resize('full');
             random.cancelLookingFor();
         };
 

@@ -17,9 +17,5 @@ function($scope, router, posts, $stateParams, separator) {
     if(!router.isChatActive() && !router.isRandomLaunchActive()) {
         router.openOnTop('randomLaunch');
     }
-
-    router.backHandler = function() {
-        router.goto('pubsList');
-    };
 }
 ]);

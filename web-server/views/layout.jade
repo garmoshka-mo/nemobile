@@ -57,11 +57,9 @@ html
       .inner-wrap
         nav#top-bar.tab-bar.no-select
           section.left-small.pointer.ta-center
-            a.menu-icon(ng-hide='isBackArrownShown || customSmallIconInner', ng-click='toggleMenu()')
+            a.menu-icon(ng-hide='customSmallIconInner', ng-click='toggleMenu()')
               span
-            a.icon_button(ng-show='isBackArrownShown', ng-click='backArrowHandler()')
-              i.fa.fa-chevron-left.ml10
-            span.customSmallIcon(ng-show='customSmallIconInner && !isBackArrownShown', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
+            span.customSmallIcon(ng-show='customSmallIconInner', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
           section.middle.tab-bar-section.p0
             h1.title
               div(ng-show='routing.is_preload')
@@ -98,4 +96,5 @@ html
           #wrapper(ng-hide='routing.is_preload')
             .content(ui-view='content')
               block content
+        div(ng-include='mainFooterTemplate')
         a.exit-off-canvas
