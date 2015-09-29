@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary',
-function($scope, separator, view, chats, dictionary) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope',
+function($scope, separator, view, chats, dictionary, $rootScope) {
 
     var $chatInput = $('.chat-input');
 
@@ -155,6 +155,15 @@ function($scope, separator, view, chats, dictionary) {
         if (RAN_AS_APP) {
             window.cordova.plugins.Keyboard.show();
         }
+    });
+
+    function quoteMessage(message) {
+        $scope.newMessage.text = $scope.newMessage.text +
+            ' > ' + message.text + ' < = ';
+    }
+
+    $rootScope.$on('quote message', function(event, args) {
+        quoteMessage(args.message);
     });
 
     $scope.setFocusOnTextField();

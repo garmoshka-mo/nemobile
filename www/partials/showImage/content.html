@@ -1,6 +1,7 @@
 <div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    {{linkToShow}}
     <div class="ta-center top-margin width-92 block-center">
-        <img class="imageShow"ng-show="linkToShow" ng-src="{{linkToShow}}" alt="image">
+        <img class="imageShow" ng-show="linkToShow" src="{{linkToShow}}" alt="image">
         <div ng-hide="linkToShow" ng-bind="error"></div>
     </div>
     <div class="width-92 ta-center block-center top-margin" ng-hide="isOffensive">

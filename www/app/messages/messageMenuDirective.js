@@ -11,11 +11,11 @@
                     };
                 };
             },
-            controller: ['$scope', '$timeout', 'deviceInfo', controller]
+            controller: ['$scope', '$timeout', 'deviceInfo', 'router', controller]
         };
     });
 
-    function controller($scope, $timeout, deviceInfo) {
+    function controller($scope, $timeout, deviceInfo, router) {
         $scope.api = {
             open: function(event, message, messageIndex) {
                 if (shouldShowMenu(event.srcElement)) {
@@ -55,8 +55,11 @@
         }
 
         function shouldShowMenu(element) {
-            if ($(element).hasClass('message-link') ||
-                $(element).hasClass('message-image')) {
+            if ($(element).hasClass('message-image')) {
+                router.goto('showImage', {link: element.src});
+                return false;
+            }
+            if ($(element).hasClass('message-link')) {
                 return false;
             }
             return true;

@@ -1,13 +1,13 @@
 (function(){
     angular.module("angApp").directive('messages', function() {
         return {
-            scope: {session: '=', messageInput: '=', close: '&', chat: '='},
+            scope: {session: '=', close: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', controller]
+            controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
         };
     });
 
-    function controller($scope, timer, $sce, $mdDialog, $timeout) {
+    function controller($scope, timer, $sce, $mdDialog, $timeout, $rootScope) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -22,7 +22,7 @@
         };
 
         function quoteIt(message) {
-            $scope.messageInput = $scope.messageInput + ' > ' + message.text + ' < = ';
+            $rootScope.$broadcast('quote message', {message: message});
         }
 
         function removeCurrentMessage(message, messageIndex) {
@@ -92,7 +92,7 @@
         function parseUrls(messageText) {
             if (messageText.match(/(http|https):/)) {
 
-                messageText = messageText.replace(/(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png))/g, '<div><img class="message-image" src="$&"></div>');
+                messageText = messageText.replace(/(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png))/g, '<div><img ng-click="showImage()" class="message-image" src="$&"></div>');
 
                 if (RAN_AS_APP) {
                     messageText = messageText.replace(/https?:\/\/(?![^" ]*(?:jpg|png|gif))[^" ]+/g, "<span class='message-link' onclick='navigator.app.loadUrl(\"$&\",{openExternal: true});'>$&</span>");

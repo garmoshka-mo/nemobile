@@ -2,7 +2,7 @@ angular.module("angControllers").controller("showImageController", [
     'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce',
     function(user, $scope, $http, $state, api, $stateParams, $sce){
         $scope.isOffensive = false;
-        // log($stateParams);
+        log(decodeURI($stateParams.link));
 
         if ($stateParams.link) {
             $scope.linkToShow = $stateParams.link;
