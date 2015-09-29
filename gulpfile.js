@@ -30,7 +30,7 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
 
 gulp.task('default', function() {
     runSequence('cleanBuildFolder', 'build_css','build_js',
-        'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server');
+        'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
 });
 
 
@@ -42,7 +42,6 @@ gulp.task('build_index', function() {
                 css_files: [output_css_file]
               }
             }))
-        .pipe(rename('phonegap.html'))
         .pipe(gulp.dest(output_www ));
 });
 
@@ -81,8 +80,15 @@ gulp.task('copy_static', function(){
         source_www + 'assets/img/**/*',
         source_www + 'assets/sounds/*'
     ];
-    gulp.src(filesToCopy, { base: source_www })
+    return gulp.src(filesToCopy, { base: source_www })
         .pipe(gulp.dest(output_www));
+   
+});
+
+gulp.task('convert_jade', function(){
+    return gulp.src(source_www + 'app/**/*.jade', { base: source_www })
+        .pipe(jade())
+        .pipe(gulp.dest(output_www));    
 });
 
 gulp.task('copy_root', function(){
@@ -112,6 +118,10 @@ gulp.task('config.xml', function() {
         .pipe(replace('dub-dev', 'Dub.ink')) // App name
         .pipe(gulp.dest(output_www));
 });
+
+//
+// tasks for making development mobile app
+//
 
 gulp.task('disable_html5_test_mobile', function() {
     return gulp.src(test_mobile_dir + 'app/core/bootstrap.js')
@@ -158,9 +168,15 @@ gulp.task('remove_base_tag', function() {
         .pipe(gulp.dest(test_mobile_dir));
 });
 
-gulp.task('make_mobile_test_build', function() {
-    return runSequence('make_phonegap_html', 'remove_base_tag', 'disable_html5_test_mobile');
+gulp.task('copy_res_folder', function() {
+    return gulp.src('res/**/*')
+        .pipe(gulp.dest(test_mobile_dir + '/res'));
 });
+
+gulp.task('make_mobile_test_build', function() {
+    return runSequence('make_phonegap_html', 'remove_base_tag', 'disable_html5_test_mobile', 'copy_res_folder');
+});
+
 
 // OLD:
 
