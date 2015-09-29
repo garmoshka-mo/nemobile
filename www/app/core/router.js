@@ -52,10 +52,11 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
 
         setTimeout(function() {
                 $state.go(state, params)
-                .then(function(){
-                    self.main = $state.current;
-                    d.resolve();
-                });
+                    .then(function(){
+                        self.main = $state.current;
+                        $rootScope.mainFooterTemplate = $state.current.views.content.footerTemplateUrl;
+                        d.resolve();
+                    });
                 $rootScope.$apply();
             },
         100);

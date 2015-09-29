@@ -6,6 +6,8 @@ function(apiRequest) {
 
     var self = this;
 
+    self.preview = {};
+
     this.getPostsList = function(page) {
         return apiRequest.send('GET', '/posts/list/' + page);
     };

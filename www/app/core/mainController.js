@@ -37,15 +37,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         return user.parsedFromStoragePromise;
     }
 
-    var statesWhereShowBackArrow = [
-        'chat',
-        'showImage',
-        'chatInfo',
-        'invitation',
-        'publishPreview',
-        'publishSuccess',
-        'pubItem'
-    ];
     var forbidToGoBackStates = [
         'addVirtualChat',
         'createFastChat',
@@ -124,23 +115,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }, 0);
     };
 
-    $scope.showBackArrow = function() {
-        $scope.isBackArrownShown = true;
-    };
-
-    $scope.hideBackArrow = function () {
-        $scope.isBackArrownShown = false;
-    };
-
-    $scope.backArrowHandler = function() {
-        if (router.backHandler) {
-            router.backHandler();
-        }
-        else { 
-            window.history.back();
-        }
-    };
-
     $scope.publish = function() {
         router.goto('publishPreview', $state.params);
     };
@@ -189,14 +163,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
             evt.preventDefault();
             $state.go('pubsList');
         }
-
-        if (_.includes(statesWhereShowBackArrow, toState.name) && 
-            !_.includes(forbidToGoBackStates, fromState.name)) {
-            $scope.showBackArrow();
-        }
-        else {
-            $scope.hideBackArrow();
-        }    
     }
 
     $scope.$on('$stateChangeStart',
