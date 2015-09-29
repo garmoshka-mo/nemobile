@@ -133,7 +133,12 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     $scope.backArrowHandler = function() {
-        router.backHandler();
+        if (router.backHandler) {
+            router.backHandler();
+        }
+        else { 
+            window.history.back();
+        }
     };
 
     $scope.publish = function() {

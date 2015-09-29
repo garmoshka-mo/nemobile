@@ -56,7 +56,7 @@
 
         function shouldShowMenu(element) {
             if ($(element).hasClass('message-image')) {
-                router.goto('showImage', {link: element.src});
+                router.goto('showImage', {link: element.src, two: 'two', one: 'one'});
                 return false;
             }
             if ($(element).hasClass('message-link')) {

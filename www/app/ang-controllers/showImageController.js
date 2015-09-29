@@ -1,6 +1,7 @@
 angular.module("angControllers").controller("showImageController", [
     'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce',
     function(user, $scope, $http, $state, api, $stateParams, $sce){
+        console.log('show image controller!!!');
         $scope.isOffensive = false;
         log(decodeURI($stateParams.link));
 
