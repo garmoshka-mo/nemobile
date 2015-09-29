@@ -65,6 +65,11 @@ input[type="password"] {
   border: none !important;
 }
 
+.block-center {
+  display: block;
+  margin: 0 auto;
+}
+
 .ta-center {
   text-align: center;
 }
@@ -388,10 +393,7 @@ color: rgba(91, 171, 96, 1) !important;
   min-height: 0px !important;
 }
 
-.block-center {
-  display: block;
-  margin: 0 auto;
-}
+
 
 .modal-button{
   padding: 1rem;

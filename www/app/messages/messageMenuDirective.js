@@ -17,19 +17,18 @@
 
     function controller($scope, $timeout, deviceInfo, router) {
         $scope.api = {
-            open: function(event, message, messageIndex) {
-                if (shouldShowMenu(event.srcElement)) {
-                    calculateMenuPosition(event);
-                    $scope.openMenuParams = {
-                        message: message,
-                        messageIndex: messageIndex
-                    };
-                    //$mdOpenMenu is injected from md-menu scope
-                    //in message menu template
-                    $timeout(function() {
-                        $scope.$mdOpenMenu(event);
-                    }, 0);
+            handleClick: function(event, message, messageIndex) {
+                
+                if ($(event.srcElement).hasClass('message-image')) {
+                    router.goto('showImage', {link: btoa(event.srcElement.src)});
+                    return;
                 }
+                
+                if ($(event.srcElement).hasClass('message-link')) {
+                    return;
+                }
+                
+                openMenu(event, message, messageIndex);
                 
             }
         };
@@ -54,15 +53,17 @@
             $scope.menuY = y - psedoMenuCoords.y;
         }
 
-        function shouldShowMenu(element) {
-            if ($(element).hasClass('message-image')) {
-                router.goto('showImage', {link: element.src, two: 'two', one: 'one'});
-                return false;
-            }
-            if ($(element).hasClass('message-link')) {
-                return false;
-            }
-            return true;
+        function openMenu(event, message, messageIndex) {
+            calculateMenuPosition(event);
+            $scope.openMenuParams = {
+                message: message,
+                messageIndex: messageIndex
+            };
+            //$mdOpenMenu is injected from md-menu scope
+            //in message menu template
+            $timeout(function() {
+                $scope.$mdOpenMenu(event);
+            }, 0);
         }
     }
 })();

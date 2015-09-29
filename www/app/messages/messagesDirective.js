@@ -85,7 +85,7 @@
 
         $scope.showMenu = function(event, message, messageIndex) {
             // calculateMenuPosition(ev);
-            $timeout(function(){$scope.messageMenuApi.open(event, message, messageIndex);},0);
+            $timeout(function(){$scope.messageMenuApi.handleClick(event, message, messageIndex);},0);
             
         };
 

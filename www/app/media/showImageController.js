@@ -1,12 +1,13 @@
 angular.module("angControllers").controller("showImageController", [
-    'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce',
-    function(user, $scope, $http, $state, api, $stateParams, $sce){
+    'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce', 'separator',
+    function(user, $scope, $http, $state, api, $stateParams, $sce, separator){
         console.log('show image controller!!!');
         $scope.isOffensive = false;
-        log(decodeURI($stateParams.link));
+        separator.resize('comfortChat');
 
         if ($stateParams.link) {
-            $scope.linkToShow = $stateParams.link;
+            //we call atob, because link is base64-encoded
+            $scope.linkToShow = atob($stateParams.link);
         }
         else {
             $scope.error = "отсутствует ссылка на изображение";

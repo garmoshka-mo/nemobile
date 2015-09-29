@@ -296,7 +296,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "showImageController",
-                        templateUrl: "partials/showImage/content.html?"+version
+                        templateUrl: "app/media/showImage.html?"+version
                     }
                 }
             })
