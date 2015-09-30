@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller("localForageController",
-    ['$scope', '$resource',
-function($scope, $resource){
+    ['$scope', '$timeout',
+function($scope, $timeout){
 
     $scope.config =  localStorage['config'];
     $scope.apiUrl = config('apiUrl');
@@ -39,6 +39,5 @@ function($scope, $resource){
             }
         }
     }
-
 
 }]);
