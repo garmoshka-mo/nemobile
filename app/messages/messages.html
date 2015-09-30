@@ -1,0 +1,39 @@
+<div ng-repeat="message in session.messages track by $index"
+     class="message-container" ng-class="{'ta-right': message.isOwn}"
+     ng-switch="message.type">
+    <div ng-switch-when="chat_empty">
+        <div class="system_message">
+            Этот чат завершен
+            <a ng-click="close()">Начать новый диалог</a>
+        </div>
+        <share ng-if="askShowSharing()"></share>
+    </div>
+    <div ng-switch-when="chat_finished">
+        <div class="system_message">
+            Собеседник покинул чат
+            <a ng-click="close()">Начать новый диалог</a>
+        </div>
+        <share ng-if="askShowSharing()"></share>
+    </div>
+    <div ng-switch-when="hidden">
+        <div ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" 
+            class="message message-hidden">
+            Сообщение скрыто
+        </div>
+    </div>
+    <div ng-switch-default ng-switch="chat">
+        <div ng-switch-when="true" class="message pointer"
+         ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+         ng-bind-html="::formatMessage(message)"
+         ng-click="::showMenu($event, message, $index)"
+         >
+        </div>
+        <div ng-switch-default class="message pointer"
+             ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+             ng-bind-html="formatMessage(message)"
+             ng-click="showMenu($event, message, $index)"
+             >
+        </div>
+    </div>
+</div>
+<message-menu style="display: none" api="messageMenuApi" items="messageMenuItems"></message-menu>

@@ -1,0 +1,151 @@
+<div class="friendListHeader no-select">
+    <div class="ta-right friendListHeader-edit-block" >
+        <div class="row max-width">
+            <div class="small-4 columns small-offset-4 ta-center">
+                <div spinner spinner-color="white" ng-show="showSpinner"></div>
+            </div>
+            <div class="small-4 columns">
+                <div ng-show="user.friendsList.friends.length !== 0">
+                    <div ng-show="!isEditMode" class="pointer">
+                        <span ng-click="isEditMode = true"><i class="fa fa-gear"></i></span>
+                    </div>
+                    <div ng-show="isEditMode" class="pointer">
+                        <span ng-click="isEditMode = false"><i class="fa fa-check"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ta-center mb1rem">
+        <radio-buttons values='["новые","dub.ink","все", "+"]' titles='["новые","dub.ink","все", "+"]' ng-model="listToShow"></radio-buttons>
+    </div>
+    <div class="ta-center block-center width-92" ng-hide="user.friendsList.friends.length === 0" stop-event>
+        <input type="text" ng-model="search" placeholder="введите имя для поиска" clear-all-button>
+    </div>
+</div>
+<div class="friend-list" ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" np-touchstart="hideKeyboard" ng-hide="showSpinner">
+    <div class="friendList" infinite-scroll="getNextLimit()" infinite-scroll-parent='someText'  infinite-scroll-distance="50">
+        <div class="ta-center mt20 width-92 block-center inline-input-button-block top-margin" ng-show="user.friendsList.friends.length === 0">
+            У вас пока нету друзей <br>    
+            Введите логин или номер телефона для поиска
+            <form class="relative">
+                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
+                <a ng-href="#/friendSearch?stringToSearch={{stringToSearch}}">
+                    <button>
+                        <i class="fa fa-search"></i>
+                    </button>
+                </a>
+            </form>
+        </div>
+        
+        <div class="row" ng-show="shownList === 'все'">
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.friends | orderByName | filter:search | limitTo: limitTo as results1 ">
+                    <div class="card">
+                        <span ng-click="::handleFriendClick(friend)">
+                            <div class="columns small-4 ava-container p0">
+                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
+                            </div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
+                           
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
+                <div class="card ta-center" ng-repeat="friend in results1">
+                    <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="!isEditMode">
+                <div class="card p0" ng-repeat="friend in results1">
+                    <span ng-click="::handleFriendClick(friend)"></span>
+                </div>
+            </div>
+            <div class="ta-center width-92 block-center" ng-show="results1.length === 0 && !!search">
+                Такого пользователя нет в ваших контактах<br>
+                <a ng-href="#/friendSearch?stringToSearch={{search}}">
+                    <button class="mt20">
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="row" ng-show="shownList === 'dub.ink'">
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | orderByName |  filter:search  | limitTo: limitTo as results0" >
+                    <div class="card">
+                        <span ng-click="::handleFriendClick(friend)">
+                            <div class="columns small-4 ava-container p0">
+                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava" imageonload>
+                            </div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
+                           
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
+                <div class="card ta-center" ng-repeat="friend in results0">
+                    <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="!isEditMode">
+                <div class="card p0" ng-repeat="friend in results0">
+                    <span ng-click="::handleFriendClick(friend)"></span>
+                </div>
+            </div>
+            <div class="ta-center width-92 block-center" ng-show="results0.length === 0 && !!search">
+                Такого пользователя нет в ваших контактах<br>
+                <a ng-href="#/friendSearch?stringToSearch={{search}}">
+                    <button class="mt20">
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="row" ng-show="shownList === 'новые'">
+            <div class="columns small-9 p0">
+                <div class="row friend" ng-repeat="friend in user.friendsList.nepotomFriends | filterNewFriends | filter:search | limitTo: limitTo as results2" >
+                    <div class="card">
+                        <span ng-click="::handleFriendClick(friend)">
+                            <div class="columns small-4 ava-container p0">
+                                <img ng-src="{{::getFriendImage(friend, $index)}}" alt="ava" class="rounded-ava">
+                            </div>
+                            <div class="columns hide-overflow-text h100p title p0 small-8" ng-bind="::friend.displayName"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="isEditMode" ng-class="{'animated fadeIn': isEditMode}">
+                <div class="card ta-center" ng-repeat="friend in results2">
+                    <span class="category-button category-button-red"  ng-click="removeFriend($event, friend)" stop-event>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="columns small-3 p0" ng-show="!isEditMode">
+                <div class="card p0" ng-repeat="friend in results2">
+                    <span ng-click="::handleFriendClick(friend)"></span>
+                </div>
+            </div>
+            <div class="ta-center width-92 block-center" ng-show="results2.length === 0 && !!search">
+                Такого пользователя нет в ваших контактах<br>
+                <a ng-href="#/friendSearch?stringToSearch={{search}}">
+                    <button class="mt20">
+                        искать пользователя "<span class="text-bold" ng-bind="search"></span>"
+                        в сети
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

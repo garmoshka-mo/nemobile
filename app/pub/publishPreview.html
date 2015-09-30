@@ -1,0 +1,37 @@
+<div class="chat">
+    <div class="personal-data-alert">
+        <i class="fa fa-info"></i>
+        Проверьте диалог перед публикацией.
+        <br/>
+
+        Пожалуйста,
+        <b tooltips
+         title="Скрыть текст можно через меню,
+которое открывается при клике на сообщение."
+         class="dashed">скройте личные данные</b> собеседника, если они встречаются в сообщениях.
+        К личным данным относятся: номер телефона, фамилия, фотографии,
+        адрес профиля в соц-сети и так далее. Уважайте доверие, проявленное к вам.
+
+    </div>
+    <div class="post-preview-title">
+        <input type="text" ng-model="preview.title" placeholder="Заголовок (необязательно)" autocomplete="off" allow-text-select>
+    </div>  
+    <messages session="preview.session"></messages>
+    <!--<div class="ta-center chatHistoryButton width-92 block-center" ng-show="!chatHistory.isAllChatSessionsVisbile">-->
+        <!--<button ng-click="chatHistory.getOneMoreChatSession()">Показать предыдущие сообщения</button>-->
+    <!--</div>-->
+    <!--<div class="old-messages-background" ng-show="chatHistory.previousMessages.length"-->
+         <!--ng-repeat="message in chatHistory.previousMessages track by $index" class="message-container"-->
+         <!--ng-class="{'ta-right': message.isOwn}">-->
+            <!--<span class="message" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }"-->
+                  <!--ng-bind-html="::formatMessage(message.text)" allow-text-select></span>-->
+    <!--</div>-->
+    <!--<messages session="chatSession"></messages>-->
+    <!--<div class="ta-right message-container" ng-show="isMessageSending && deviceInfo.isOldAndroid">-->
+        <!--<span class="message message-own" allow-text-select>-->
+            <!--<span spinner spinner-color="white"></span>-->
+        <!--</span>-->
+    <!--</div>-->
+
+    <div class="bottom-placeholder"></div>
+</div>

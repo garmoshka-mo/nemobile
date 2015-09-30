@@ -1,0 +1,113 @@
+<div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+    <div class="stickersGallery">
+        <div class="ta-center" ng-show="stickersGallery.isUpdating" spinner spinner-color="black">
+        </div>
+        <div ng-show="!stickersGallery.isUpdating">
+            <div ng-repeat="category in stickersGallery.categories" class="category">
+                <div class="category-name row" ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
+                    <div class="small-5 columns pointer" ng-click="toggleCategory(category)"  ng-class="{'category-name-rounded': category.name != stickersGallery.currentCategory }">
+                        <span ng-show="!category.isCategoryNameChanging" ng-bind="category.name"></span>
+                        <div stop-event ng-show="category.isCategoryNameChanging">
+                                <input class="category-name-change-input {{category.name + '-input'}}" ng-model="category.newName" type="text"  >
+                        </div>
+                    </div>
+                    <!-- buttons -->
+                    <div class="small-7 columns ta-right">
+                        <div ng-show="!category.isCategoryNameChanging">
+                            <span class="category-button">
+                                <a ng-href="{{'#/addImage?imageURL=null&categoryId=' + category.id}}"><i class="fa fa-plus"></i></a>
+                            </span>
+                            <span class="category-button">
+                                <i class="fa fa-pencil-square-o" ng-click="changeCategoryName(category, $event)"></i>
+                            </span>
+                            <span class="category-button category-button-red">
+                                <i class="fa fa-trash" ng-click="removeCategory(category)"></i>
+                            </span>
+                        </div>
+                        <div ng-show="category.isCategoryNameChanging">
+                            <span class="category-button">
+                                <i class="fa fa-check" ng-click="applyNewName(category)"></i>
+                            </span>
+                            <span class="category-button">
+                                <i class="fa fa-close" ng-click="cancelNewName(category)"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- buttons end -->
+                </div>
+                <div ng-show="category.name == stickersGallery.currentCategory" class="category-content" ng-class="{activeCategory: category.name == stickersGallery.currentCategory}">
+                    <div class="tags-container">
+                        <h3 class="ta-center">Теги</h3>
+                        <span class="tag" ng-repeat="word in category.associated_words">
+                            <span ng-bind="::word"></span>
+                            <span class="pointer" ng-click="::removeAssociatedWord(category, $index)"><i class="fa fa-close "></i></span>
+                        </span>
+                        <div class="tag-add-block block-center w250">
+                            <input type="text" placeholder="введите новый тег" ng-model="category.tagToAdd">
+                            <span class="category-button category-button-green" ng-click="::addAssociatedWord(category)"><i class="fa fa-plus"></i></span>
+                        </div>
+                        <div ng-show="category.isTagsChanged" class="ta-center">
+                            <button ng-click="saveAssociatedWords(category)">сохранить изменения</button>
+                        </div>
+                    </div>
+                    <div class="stickers-gallery-image-wrapper" ng-repeat="image in category.images">
+                        <div class="ta-center">
+                            <a ng-href="#/chat?senderId={{fromChat}}&messageText={{image.url}}">
+                                <img alt="gif" class="category-img"  ng-src="{{image.url}}">
+                            </a>
+                        </div>
+                        <div ng-show="!image.isCategoryChanging">
+                            <span class="image-button">
+                                <i class="fa fa-trash" ng-click="removeSticker(category, image)"></i>
+                            </span>
+                            <span class="image-button">
+                                <i class="fa fa-arrow-circle-o-right" ng-click="changeImageCategory(image, category)"></i>
+                            </span>
+                        </div>
+                        <div ng-show="image.isCategoryChanging">
+                            <span class="image-button">
+                                <i class="fa fa-check" ng-click="applyNewImageCategory(image)"></i>
+                            </span>
+                            <span class="image-button">
+                                <i class="fa fa-close" ng-click="cancelNewImageCategory(image)"></i>
+                            </span>
+                        </div>
+                        <div ng-show="image.isCategoryChanging">
+                            <select ng-model="image.newCategoryId">
+                                <option ng-repeat="category in stickersGallery.categories" value="{{category.id}}" ng-bind="category.name"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ta-center" ng-show="!category.images.length">
+                        В этой категории нет стикеров <br>
+                        <span class="category-button">
+                            <a ng-href="{{'#/addImage?imageURL=null&categoryId=' + category.id}}"><i class="fa fa-plus"></i>
+                            Добавить
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="category" ng-show="!stickersGallery.isUpdating">
+                <div class="category-name row category-name-rounded button-add-category">
+                    <div class="small-12 columns" ng-click="showNewCategoryBlock()">
+                        <span class="category-button" ng-show="!isNewCategoryBlockVisible">
+                           <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text-white" ng-show="isNewCategoryBlockVisible">
+                            Введите название новой категории
+                        </span>
+                    </div>
+                    <div ng-show="isNewCategoryBlockVisible" class="category-content ">
+                        <br>
+                        <input type="text" placeholder="название новой категории" ng-model="newCategoryName">
+                        <button ng-click="addNewCategory()" ng-disabled="isAddingNewCategory">
+                            <span ng-show="!isAddingNewCategory">Добавить</span>
+                            <span ng-show="isAddingNewCategory" spinner spinner-color="white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

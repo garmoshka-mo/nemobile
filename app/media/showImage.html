@@ -1,0 +1,12 @@
+<div>
+    <div class="ta-center top-margin width-92 block-center">
+        <img class="imageShow" ng-show="linkToShow" src="{{linkToShow}}" alt="image">
+        <div ng-hide="linkToShow" ng-bind="error"></div>
+    </div>
+    <div class="width-92 ta-center block-center top-margin" ng-hide="isOffensive">
+        <button ng-click="makeItOffensive()">пожаловаться</button>
+    </div>
+    <div class="ta-center top-margin width-92 block-center" ng-show="isOffensive">
+        Спасибо за уведомление. Мы удалим это изображение, если оно нарушает правила нашего сервиса
+    </div>
+</div>

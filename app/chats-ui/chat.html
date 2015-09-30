@@ -1,0 +1,13 @@
+<div ng-controller="chatController"><div class="chat top-margin"><!-- temporary hid temp message feature--><div ng-show="isFirstMessage &amp;&amp; !isRandom &amp;&amp; false" class="firstMessage ta-center chat-notification width-92 block-center"><div>ваше первое сообщение</div><radio-buttons values="[10, 600, 3600]" titles="['10 сек', '10 мин', '1 час']" ng-model="newMessage.ttl"></radio-buttons></div><!--<div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
+Чтобы разблокировать все функции приложения. Необходима регистрация.
+<br>
+<div class="top-margin">
+<a href="#/updateProfile"><button>зарегистрироваться</button></a>
+</div>
+</div>--><div ng-style="{opacity: isRandom &amp;&amp; !chat.iStartedInput ? '1' : '0'}" class="disconnect-button"><button ng-click="disconnectRandomChat()" class="bg-red"><span>отключиться&nbsp;</span><i class="fa fa-times"></i></button></div><!--.ta-center.width-92.block-center.chat-notification(ng-show='chat.isVirtual ')
+    | Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
+    .top-margin
+        a(href='#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}')
+            button Пригласить
+.ta-center.chatHistoryButton.width-92.block-center(ng-show='!chatHistory.isAllChatSessionsVisbile')
+    button(ng-click='chatHistory.getOneMoreChatSession()') Показать предыдущие сообщения--><div ng-show="chatHistory.previousMessages.length" ng-repeat="message in chatHistory.previousMessages track by $index" ng-class="{'ta-right': message.isOwn}" class="old-messages-background"><span ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }" ng-bind-html="::formatMessage(message.text)" allow-text-select="" class="message"></span></div><messages session="chatSession" close="disconnectRandomChat()" chat="true"></messages><div ng-show="isMessageSending &amp;&amp; deviceInfo.isOldAndroid" class="ta-right message-container"><span allow-text-select="" class="message message-own"><span spinner="" spinner-color="white"></span></span></div><div class="bottom-placeholder"></div></div></div>

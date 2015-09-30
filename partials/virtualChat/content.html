@@ -1,0 +1,12 @@
+<div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    <div class="ta-center top-margin" ng-show="showSpinner">
+        Подождите, пожалуйста. Чат открывается
+        <span spinner></span>
+    </div>
+    <div class="ta-center top-margin" ng-show="isEmpty">
+        К сожалению, это сообщение истекло. Установите мобильное приложение или <span class="text-underline"><a href="#/updateProfile">зарегистрируйтесь</a></span>, чтобы не пропустить в следующий раз
+        <div class="ta-center">
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.phonegap.dubink"><img src="img/getongoogleplay.png" alt="googleplay"></a>
+        </div>
+    </div>
+</div>

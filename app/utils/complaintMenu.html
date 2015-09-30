@@ -1,0 +1,15 @@
+<md-menu md-position-mode="target-right target" >
+    <a class="options" ng-click="$mdOpenMenu($event)" ng-init="passOpenMenuHandler($mdOpenMenu)">
+        <i class="fa fa-ellipsis-v"></i>
+    </a>
+    <md-menu-content width="4" >
+        <md-subheader>Пожаловаться:</md-subheader>
+        <md-menu-item ng-repeat="complaint in complaints">
+            <md-button ng-click="reportComplaint(complaint.name)">
+                <div layout="row">
+                    <p flex>{{ complaint.title }}</p>
+                </div>
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
