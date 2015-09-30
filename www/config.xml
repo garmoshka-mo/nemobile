@@ -8,7 +8,7 @@
         David Stepanov
     </author>
     <preference name="permissions" value="none" />
-    <preference name="phonegap-version" value="3.7.0" />
+    <preference name="phonegap-version" value="cli-5.1.1" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="webviewbounce" value="true" />
@@ -33,12 +33,12 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="fade-splash-screen-duration" value="5" />
-    <gap:plugin name="org.apache.cordova.contacts" version="0.2.13" />
-    <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
+    <gap:plugin name="cordova-plugin-contacts" source="npm" version="1.1.0" />
+    <gap:plugin name="cordova-plugin-device" source="npm" version="1.0.1" />
     <gap:plugin name="com.ququplay.websocket.websocket" version="0.1.0" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
-    <gap:plugin name="org.apache.cordova.media" version="0.2.13" />
-    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+    <gap:plugin name="cordova-plugin-inappbrowser" source="npm" version="1.0.1" />
+    <gap:plugin name="cordova-plugin-media" source="npm" version="1.0.1" />
+    <gap:plugin name="cordova-plugin-splashscreen" source="npm" version="2.1.0"  />
     <gap:plugin name="cc.fovea.cordova.purchase" source="npm" version="4.0.0">
         <param name="BILLING_KEY" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBJtRgDMonlqRRnvGwYl2gUwXsCIcjOL8n3u4awRcfYQmwXgogdTaR0Yh9Ly0fnApkwzIr9P03Z/9aVF1YXTNJHY/5nAGjED94kYvXRULWw5zK3ro55lGtLowYVfy6SHdULKfOTu9XqtriRl8kPMuSca/hEKLLfZItF+xnttP5b5VJxf4OzDBLxGRZRfM1YKmY9Ab+1XkcUc3GgsNBwTl5FmLg1GJP0grQhsD1XsZODoshGys/2doZeTWPKitIienSSYn/G8Uu0QOedWKYnmYuqfWnE1yFufVz5QsEQGDNFDJgV26F1G9Mhm8njBzf7PUdHiw/QytIzCzourXpSmuQIDAQAB"/>
     </gap:plugin>
