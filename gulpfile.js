@@ -29,21 +29,11 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
     output_css = output_www + output_css_file;
 
 gulp.task('default', function() {
-    runSequence('cleanBuildFolder', 'build_css','build_js',
-        'copy_static', 'build_index', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
+    return runSequence('cleanBuildFolder', 'build_css','build_js',
+        'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
 });
 
 
-gulp.task('build_index', function() {
-    return gulp.src(webserver + 'views/index.jade')
-        .pipe(jade(
-            {locals: {
-                prod_js_file: output_js_file,
-                css_files: [output_css_file]
-              }
-            }))
-        .pipe(gulp.dest(output_www ));
-});
 
 gulp.task('build_css', function () {
     return gulp.src([source_www + 'assets/css/*.css',
@@ -117,6 +107,53 @@ gulp.task('config.xml', function() {
         .pipe(replace('dubink-dev','dubink')) // package
         .pipe(replace('dub-dev', 'Dub.ink')) // App name
         .pipe(gulp.dest(output_www));
+});
+
+//
+// tasks for making production mobile app
+//
+
+gulp.task('build_js_mobile', function () {
+    return merge2(
+        gulp.src(source_www + 'jslibs/*.js')
+            .pipe(uglify())
+            .pipe(addsrc.prepend(source_www + 'jslibs/angular_license.js'))
+        ,
+        gulp.src(source_www + 'angular_init.js')
+            .pipe(addsrc.append(source_www + 'app/**/*.js'))
+            .pipe(addsrc.append(source_www + 'config.prod.js'))
+            .pipe(concat(output_js_file))
+            .pipe(uglify())
+            .pipe(insert.append('version="'+version+'";'))
+            .pipe(addsrc.prepend(source_www + 'license.js'))
+    )
+        .pipe(concat(output_js_file))
+        .pipe(replace('html5Mode(!0)', 'html5Mode(0)')) 
+        .pipe(gulp.dest(output_www));
+});
+
+gulp.task('build_index', function() {
+    return gulp.src(webserver + 'views/index.jade')
+        .pipe(jade(
+            {locals: {
+                prod_js_file: output_js_file,
+                css_files: [output_css_file]
+              }
+            }))
+        .pipe(replace('<base href="/">', '')) // package
+        .pipe(gulp.dest(output_www ));
+});
+
+gulp.task('copy_res_folder_production', function() {
+    return gulp.src('res/**/*')
+        .pipe(gulp.dest(output_www + '/res'));
+});
+
+
+gulp.task('make_production_mobile_build', function() {
+    return runSequence('cleanBuildFolder', 'build_css','build_js_mobile',
+        'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade', 
+            'build_index', 'copy_res_folder_production');
 });
 
 //
