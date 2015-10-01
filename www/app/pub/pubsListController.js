@@ -7,7 +7,7 @@ function($scope, posts, router, $anchorScroll, $location) {
     $scope.posts = [];
     $scope.goto = router.goto;
 
-    if(!router.isChatActive() && !router.isRandomLaunchActive() && !router.isRandomActive()) {
+    if(!router.isTopSectionActive()) {
         router.openOnTop('randomLaunch');
     }
 

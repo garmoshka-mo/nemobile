@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("publishSuccessController", [
-    '$scope', 'router', 'posts', '$stateParams', 'separator',
-function($scope, router, posts, $stateParams, separator) {
+    '$scope', 'router', 'posts', '$stateParams', 'separator', 'notification',
+function($scope, router, posts, $stateParams, separator, notification) {
 
     $scope.router = router;
     $scope.separator = separator;
@@ -9,12 +9,11 @@ function($scope, router, posts, $stateParams, separator) {
     $scope.postUrl = config('appUrl') + '/pub/' + $stateParams.postId + '/view';
 
     $scope.startNewChat = function() {
-        router.openOnTop('random');
-        //notification.chatDisconnect();
+        notification.chatDisconnect();
         router.goto('pubsList');
     };
 
-    if(!router.isChatActive() && !router.isRandomLaunchActive()) {
+    if(!router.isTopSectionActive()) {
         router.openOnTop('randomLaunch');
     }
 }

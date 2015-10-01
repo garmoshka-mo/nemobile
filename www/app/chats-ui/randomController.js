@@ -54,6 +54,7 @@ angular.module("angControllers")
         $scope.lookForChat = function() {
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
+            separator.resize('comfortChat');
             notification.asked = 0;
 
             saveFilterState();
