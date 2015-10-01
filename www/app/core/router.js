@@ -19,6 +19,8 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
     };
 
     self.openOnTop = function(stateName) {
+        notification.clear();
+
         var state = null;
         $state.get().some(function(s) {
             if (s.name == stateName) return state = s;
@@ -48,7 +50,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
         }
 
         self.is_preload = true;
-        notification.clear();
 
         setTimeout(function() {
                 $state.go(state, params)

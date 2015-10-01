@@ -14,6 +14,7 @@ angular.module("angServices")
         function onDeviceReady() {
             document.addEventListener("online", onOnline, false);
             document.addEventListener("offline", onOffline, false);
+            navigator.splashscreen.hide();
             self.isInfoTaken = true;
             self.isAndroid = device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos";
             self.isIos = device.platform == 'iOS';

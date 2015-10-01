@@ -120,7 +120,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     };
 
     function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
-        notification.clear();
 
         if (RAN_AS_APP) {
             router.is_preload = true;
