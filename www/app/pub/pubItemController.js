@@ -36,7 +36,7 @@ function($scope, posts, $stateParams, user, router, disqus) {
 
     $scope.dislike = function() {
         if(!$scope.post.disliked) {
-            posts.dislikePost(id).then(function () {
+            posts.deletePost(id).then(function () {
                 $scope.liked = false;
                 $scope.disliked = true;
                 //short delay in order to bring the feel of actual downvoting

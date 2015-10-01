@@ -4,6 +4,7 @@ var IS_MOBILE = isMobile();
 
 window.onload = function onLoad() {
     config = new Config(App.Settings);
+    window.debugMode = config('debugMode');
     bootstrapAngularApp();
     VK.init({apiId: 5067621, onlyWidgets: true});
 };

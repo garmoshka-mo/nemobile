@@ -1,7 +1,7 @@
 (function(){
 angular.module("angFactories").factory('ChatSession',
-    ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract', 'apiRequest',
-    function($timeout, storage, api, $q, notification, ChatSessionAbstract, apiRequest) {
+    ['$timeout', 'storage', 'api', '$q', 'notification', 'ChatSessionAbstract', 'userRequest',
+    function($timeout, storage, api, $q, notification, ChatSessionAbstract, userRequest) {
     
     function ChatSession(creatorId, channel, senderId, id, currentChat) {
         this.isExpired = false;
@@ -114,7 +114,7 @@ angular.module("angFactories").factory('ChatSession',
                 chatSession.whenExipires = new Date().getTime() + ttl;                  
             }
             else {
-                apiRequest.send(
+                userRequest.send(
                     'GET',
                     '/time'
                 )
@@ -187,7 +187,7 @@ angular.module("angFactories").factory('ChatSession',
                 return;
             }
             
-            return apiRequest.send(
+            return userRequest.send(
                 'POST',
                 '/messages',
                 data

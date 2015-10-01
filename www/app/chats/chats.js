@@ -1,7 +1,7 @@
 angular.module("angServices")
-.service('chats', ['$rootScope', 'apiRequest', 'deviceInfo', 'Chat', 'socket',
+.service('chats', ['$rootScope', 'deviceInfo', 'Chat', 'socket',
         'storage', 'router', '$stateParams', 'externalChat',
-    function($rootScope, apiRequest, deviceInfo,  Chat, socket,
+    function($rootScope, deviceInfo,  Chat, socket,
              storage, router, $stateParams, externalChat) {
         
         var self = this;

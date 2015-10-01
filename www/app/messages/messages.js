@@ -1,9 +1,9 @@
 (function() {
 angular.module("angServices")
 .service('messages',
-    ['$rootScope', 'apiRequest', 'deviceInfo', 'socket',
+    ['$rootScope', 'deviceInfo', 'socket',
         'user', 'chats', 'router', 'friendsList', 'notification',
-function($rootScope, apiRequest, deviceInfo, socket,
+function($rootScope, deviceInfo, socket,
          user, chats, router, friendsList, notification) {
 
     socket.on('chat_ready', function(envelope) {

@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .factory('Avatar',
-    ['apiRequest', '$q', '$upload', 'api', '$rootScope', 
-    function(apiRequest, $q, $upload, api, $rootScope) {
+    ['userRequest', '$q', '$upload', 'api', '$rootScope',
+    function(userRequest, $q, $upload, api, $rootScope) {
 
             function Avatar(dataFromServer, dataFromStorage) {
                 var parsed =  dataFromStorage ?
@@ -67,7 +67,7 @@ angular.module("angServices")
 
             Avatar.prototype = {
                 updateURL: function(url) {
-                    return apiRequest.send(
+                    return userRequest.send(
                         'POST',
                         '/avatar',
                         {url: url}
@@ -84,7 +84,7 @@ angular.module("angServices")
                 },
 
                 updateGuid: function(guid) {
-                    return apiRequest.send(
+                    return userRequest.send(
                         'POST',
                         '/avatar',
                         {guid: guid}

@@ -1,5 +1,5 @@
 function log() {
-    if (config('debugMode'))
+    if (window.debugMode)
         console.log.apply(console, arguments);
 }
 

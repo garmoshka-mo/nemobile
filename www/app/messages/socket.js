@@ -5,41 +5,67 @@ angular.module("angApp")
 function($rootScope, user) {
 
     var socket = io(config('msgServer')),
-        accessToken, connected, authenticated;
+        accessToken, connected, authenticated, ready = false;
 
     socket.on('connect', function(){
         connected = true;
-        authenticate();
+        tryToStart();
     });
 
     socket.on('disconnect', function(){
         authenticated = false;
         connected = false;
-        authenticate();
+        ready = false;
     });
 
-    $rootScope.$on('user data parsed', accessTokenReady);
-    $rootScope.$on('user logged in', accessTokenReady);
+    $rootScope.$on('user data loaded', takeAccessToken);
+    $rootScope.$on('user logged in', takeAccessToken);
 
-    function accessTokenReady() {
+    function takeAccessToken() {
         accessToken = user.accessToken;
-        authenticate();
+        tryToStart();
     }
 
-    function authenticate() {
+    function tryToStart() {
         if (connected && accessToken)
             socket.emit('auth', { access_token: accessToken });
+        else if (connected && !user.isLogged())
+            onReady();
     }
 
     socket.on('auth', function(envelope) {
         if (envelope.success) {
             log('authenticated to socket', envelope);
             authenticated = true;
+            onReady();
         } else
             console.error('socket auth failed', envelope);
     });
 
-    return socket;
+    function onReady() {
+        log('Socket onReady', postponedTasks);
+        ready = true;
+        postponedTasks.map(function(args){
+            socket.emit.apply(socket, args);
+        });
+    }
+
+    var postponedTasks = [];
+
+    return {
+
+        on: function on() {
+            socket.on.apply(socket, arguments);
+        },
+
+        emit: function emit() {
+            if (ready)
+                socket.emit.apply(socket, arguments);
+            else
+                postponedTasks.push(arguments);
+        }
+
+    };
 }]);
 
 })();

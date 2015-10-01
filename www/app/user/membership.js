@@ -1,7 +1,7 @@
 (function() {
         angular.module("angServices")
-        .service('membership', ['$q', 'apiRequest', 'deviceInfo', 'user', 'router',
-            function($q, apiRequest, deviceInfo, user, router) {
+        .service('membership', ['$q', 'userRequest', 'deviceInfo', 'user', 'router',
+            function($q, userRequest, deviceInfo, user, router) {
 
                 function getPlatform() {
                     if (RAN_AS_APP) {
@@ -20,7 +20,7 @@
                         return $q.when(10);
                     }
 
-                    apiRequest.send('GET', '/membership')
+                    userRequest.send('GET', '/membership')
                     .then(function(res) {
                             ensureUserNeedsToRegister(res);
                             if (res.active) {
@@ -37,7 +37,7 @@
 
                 this.getOffers = function() {
                     //platform dependent offers ('GET', '/payment/offers/' + getPlatform());
-                    return apiRequest.send('GET', '/payment/offers/').then(function (data) {
+                    return userRequest.send('GET', '/payment/offers/').then(function (data) {
                         return data.offers;
                     });
                 };
@@ -57,7 +57,7 @@
                 };
 
                 this.order = function (offerId) {
-                    return apiRequest.send('POST', '/payment/orders', {offer_id: offerId}).then(function(data){
+                    return userRequest.send('POST', '/payment/orders', {offer_id: offerId}).then(function(data){
                         localStorage.setItem('orderCreated', true);
                         if (RAN_AS_APP) {
                             navigator.app.loadUrl(data.url, {openExternal: true});
@@ -69,7 +69,7 @@
                 };
 
                 this.getMembership = function () {
-                    return apiRequest.send('GET', '/membership')
+                    return userRequest.send('GET', '/membership')
                         .then(function (res) {
                             if (res.success) {
                                 return res;

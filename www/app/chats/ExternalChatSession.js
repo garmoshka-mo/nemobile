@@ -1,8 +1,8 @@
 (function(){
     angular.module("angServices")
         .factory('ExternalChatSession',
-        ['$q', 'ChatSessionAbstract', 'apiRequest', 'notification',
-function($q, ChatSessionAbstract, apiRequest, notification) {
+        ['$q', 'ChatSessionAbstract', 'userRequest',
+function($q, ChatSessionAbstract, userRequest) {
 
     return Session;
     function Session(chat, partner_id) {
@@ -91,7 +91,7 @@ function($q, ChatSessionAbstract, apiRequest, notification) {
                 incentives: self.incentives,
                 duration: duration
             };
-            apiRequest.send('POST', '/chats/log', data);
+            userRequest.send('POST', '/chats/log', data);
         };
 
         angular.extend(this, new ChatSessionAbstract());

@@ -1,7 +1,7 @@
 (function(){
 angular.module("angServices")
     .factory('Photo',
-    ['apiRequest', function(apiRequest) {
+    ['$q', function($q) {
             
             function Photo(url) {
                 this.url = url;
@@ -12,7 +12,7 @@ angular.module("angServices")
                     //todo: write request to server
 
                     // forbidImage: function(imageId) {
-                    //     return (apiRequest.send(
+                    //     return (userRequest.send(
                     //         'POST',
                     //         '/image/abuse',
                     //         {

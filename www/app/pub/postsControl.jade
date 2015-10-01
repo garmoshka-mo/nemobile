@@ -1,14 +1,14 @@
 div#posts-control(ng-controller='postsControl')
-    md-button.md-fab.tiny(aria-label="Dislike" ng-disabled='!activePost' ng-click='dislike()')
+    md-button.md-fab.tiny(aria-label="Dislike" ng-disabled='!posts.activePost' ng-click='dislike()')
         i.fa.fa-trash-o
-    //md-button.md-fab.tiny(aria-label="Comments" ng-disabled='!activePost' style='padding-left: 2px;')
+    //md-button.md-fab.tiny(aria-label="Comments" ng-disabled='!posts.activePost' style='padding-left: 2px;')
         i.fa.fa-commenting-o
-    md-button.md-fab(aria-label="Like" ng-disabled='!activePost' ng-click='like()')
-        i.fa.fa-heart-o
-    md-button.md-fab.tiny(aria-label="External" ng-disabled='!activePost' style='padding-left: 0px;'
-        ng-click='externalURL')
+    md-button.md-fab(aria-label="Like" ng-disabled='!posts.activePost' ng-click='like()')
+        i.fa(ng-class="{'fa-heart-o': !posts.activePost.my_score, 'fa-heart': posts.activePost.my_score}")
+    md-button.md-fab.tiny(aria-label="External" ng-disabled='!posts.activePost' style='padding-left: 0px;'
+        ng-click='externalURL()')
         i.fa.fa-external-link
-    //md-button.md-fab.tiny(aria-label="More" ng-disabled='!activePost' )
+    //md-button.md-fab.tiny(aria-label="More" ng-disabled='!posts.activePost' )
         i.fa.fa-ellipsis-v
 
 

@@ -9,18 +9,17 @@
 
     div#add-link
         input(ng-model='url' placeholder='https://сайт.com/ссылка_на_интересное')
+        span(ng-bind='postUrlNotice')
         button(ng-click='postUrl()' ng-disabled='publishing') Добавить запись
 
     ul.posts-list(infinite-scroll-disabled='disableAutoload',
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts' ng-switch="post.category"
-            in-view="postVisibility($inview, post)" in-view-options="{ offsetTop: 350, offsetBottom: -300 }")
+            in-view="postVisibility($inview, post)" in-view-options="{ offsetTop: 250, offsetBottom: -250 }")
             // span.score(ng-class='{negative: post.score < 0}') {{ post.score }}
-            span
-                a.title.truncate(ng-class='{visited: post.visited}',
-                ng-attr-id="{{ 'post-' + post.id }}", ng-click='saveState(post)',
-                ng-href='/pub/{{post.id}}/{{post.slug}}') {{ post.title }}
+            div.header
+                div.title.truncate {{ post.title }}
             div.image-container(ng-class='{"cut-image": post.cutImage}')
                 img(ng-switch-when='link' ng-src='{{post.data.link.image_url}}' cut-image='cutImage(post)')
             div.cut(ng-show='post.cutImage')
@@ -29,6 +28,4 @@
                      i.fa.fa-angle-double-down
                      |  &nbsp;Показать&nbsp;полностью
             div(ng-switch-when='link')
-             a(ng-href='{{post.data.link.url}}' target='_blank')
-                i.fa.fa-external-link &nbsp;источник
     spinner(ng-show='loading', spinner-color='green')

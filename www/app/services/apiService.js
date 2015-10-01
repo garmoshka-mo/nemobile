@@ -1,19 +1,11 @@
 angular.module("angServices")
-.factory('api', ['$http', '$q', '$upload', 'apiRequest',
-    function ($http, $q, $upload, apiRequest) {
+.factory('api', ['$http', '$q', '$upload', 'userRequest', 'guestRequest',
+    function ($http, $q, $upload, userRequest, guestRequest) {
     
     log("api service is enabled");
         
     var api = {
         
-        setAccessToken: function(accessToken) {
-            this.accessToken = accessToken;
-        },
-
-        clearAccessToken: function() {
-            this.accessToken = null;
-        },
-
         searchUser: function(userName, userPhone) {
             var searchParams;
             if (userPhone) {
@@ -23,7 +15,7 @@ angular.module("angServices")
                 searchParams = [{"name": userName}];
             }
 
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/users/search',
                 {
@@ -33,14 +25,14 @@ angular.module("angServices")
         },
 
         getCategories: function() {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'GET',
                 '/categories'
             ));
         },
 
         addNewCategory: function(name) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/categories',
                 {
@@ -50,7 +42,7 @@ angular.module("angServices")
         },
 
         removeCategory: function(categoryId) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'DELETE',
                 '/categories/' + categoryId
             ));
@@ -66,7 +58,7 @@ angular.module("angServices")
                 categoryData.associated_words = associatedWords;
             }
 
-            return (apiRequest.send(
+            return (userRequest.send(
                 'PUT',
                 '/categories/' + categoryId,
                 {
@@ -77,7 +69,7 @@ angular.module("angServices")
         },
 
         addStickerURL: function(categoryId, imageURL) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/categories/' + categoryId + '/images',
                 {
@@ -99,7 +91,7 @@ angular.module("angServices")
                             "id": categoryId,
                         },
                         headers: {
-                            "Authorization": "Token token=" + api.accessToken
+                            "Authorization": "Token token=" + user.accessToken
                         },
                         file: file,
                         fileName: "image." + type,
@@ -131,7 +123,7 @@ angular.module("angServices")
                         method: 'POST',
                         url: config('apiUrl') + "/images/load_image",
                         headers: {
-                            "Authorization": "Token token=" + api.accessToken
+                            "Authorization": "Token token=" + user.accessToken
                         },
                         file: file,
                         fileName: "image." + type,
@@ -156,7 +148,7 @@ angular.module("angServices")
 
         moveSticker: function(categoryId, imageId, newCategoryId) {
             var url = config('apiUrl') + "/categories/" + categoryId + "/images/" + imageId;
-            return (apiRequest.send(
+            return (userRequest.send(
                 'PUT',
                 url,
                 {
@@ -170,7 +162,7 @@ angular.module("angServices")
         removeSticker: function(categoryId, imageId) {
             var url = config('apiUrl') + "/categories/" + categoryId + "/images" + "/" + imageId;
                         
-            return (apiRequest.send(
+            return (userRequest.send(
                 'DELETE',
                 url
             ));
@@ -178,7 +170,7 @@ angular.module("angServices")
 
         initPhoneActivation: function(phoneNumber) {
             // todo: redo to send with token
-            return (apiRequest.guestSend(
+            return (guestRequest.send(
                 'POST',
                 '/phone_number/initialize_authentication',
                 {
@@ -199,7 +191,7 @@ angular.module("angServices")
                 withoutAccessToken = false;
             }
 
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/phone_number/confirm',
                 data
@@ -207,7 +199,7 @@ angular.module("angServices")
         },
 
         attachPhoneNumber: function(phoneNumber) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/phone/activation/attach',
                 {
@@ -218,7 +210,7 @@ angular.module("angServices")
         },
 
         findNepotomUsers: function(phoneNumbersArr) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/users/phonebook_search',
                 {
@@ -228,7 +220,7 @@ angular.module("angServices")
         },
 
         getUserInfoByUuid: function(uuid) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/users',
                 {
@@ -238,7 +230,7 @@ angular.module("angServices")
         },
 
         addVirtualAccount: function() {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/users/guest'
             ));
@@ -257,7 +249,7 @@ angular.module("angServices")
             });
             // log('friendsArray', friendsArray);
             if (!_.isEmpty(friendsArray)) {
-                return (apiRequest.send(
+                return (userRequest.send(
                     'PATCH',
                     '/set_friends',
                     {
@@ -269,7 +261,7 @@ angular.module("angServices")
         },
 
         removeFriend: function(uuids) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'PATCH',
                 '/delete_friends',
                 {
@@ -280,7 +272,7 @@ angular.module("angServices")
 
         socialSignin: function(provider, providerId, providerToken) {
             
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/providers',
                 {
@@ -295,7 +287,7 @@ angular.module("angServices")
         randomChatRequest: function(data) {
             log(data);
 
-            return (apiRequest.send(
+            return (userRequest.send(
                 'POST',
                 '/random',
                 data
@@ -303,11 +295,11 @@ angular.module("angServices")
         },
 
         cancelRandomRequest: function() {
-            return (apiRequest.send('DELETE', '/random'));
+            return (userRequest.send('DELETE', '/random'));
         },
 
         deleteChat: function(channel) {
-            return (apiRequest.send(
+            return (userRequest.send(
                 'DELETE',
                 '/chats/' + channel
             ))
@@ -316,10 +308,6 @@ angular.module("angServices")
             });
         }
     };
-
-
-    //for testing
-    window.api = api;
 
     return api;
 }]);
