@@ -96,6 +96,14 @@ angular.module("angServices")
         );
     };
 
+
+    this.ensure = function() {
+        if (this.isLogged())
+            return $q.when(true);
+        else
+            return user.signinAsVirtualUser();
+    };
+
     this.signinAsVirtualUser = function () {
         var data = {};
         if (document.referrer) {

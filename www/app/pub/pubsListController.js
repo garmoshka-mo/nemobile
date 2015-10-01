@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubsListController", [
-    '$scope', 'posts', 'router', '$anchorScroll', '$location', '$timeout', 'socket',
-function($scope, posts, router, $anchorScroll, $location, $timeout, socket) {
+    '$scope', 'posts', 'router', '$anchorScroll', '$location', '$timeout', 'socket', '$rootScope',
+function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $rootScope) {
 
     $scope.page = 1;
     $scope.posts = [];
@@ -11,20 +11,41 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket) {
         router.openOnTop('randomLaunch');
     }
 
+    $rootScope.mainFooterTemplate = 'app/pub/postsControl.html';
+
     $scope.loadMore = function() {
         $scope.disableAutoload = true;
         $scope.loading = true;
         load($scope.page++);
     };
 
+    var activePost;
+    $scope.postVisibility = function(inview, post) {
+        if (inview)
+            activePost = post;
+        else if (activePost == post)
+            activePost = null;
+
+        if (activePost != post)
+            $rootScope.$broadcast('active post', activePost);
+        log(inview, post);
+    };
+
     function load(page) {
-        posts.getPostsList(page).then(function(data){
-            transform(data.list);
-            Array.prototype.push.apply($scope.posts, data.list);
-            $scope.disableAutoload = data.is_last_page || data.list.length == 0;
+        socket.emit('posts', {get: 'random items', page: page});
+    }
+
+    socket.on('posts', function(envelope) {
+        var posts = envelope.posts;
+        log(envelope.page, posts);
+        transform(posts);
+
+        $scope.$apply(function() {
+            Array.prototype.push.apply($scope.posts, posts);
+            $scope.disableAutoload = posts.length == 0;
             $scope.loading = false;
         });
-    }
+    });
 
     function transform(arr) {
         arr.map(function(p) {
@@ -67,9 +88,6 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket) {
         return false;
     };
 
-
-
-
     $scope.postUrl = function() {
         $scope.publishing = true;
         var data = {
@@ -82,48 +100,29 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket) {
             $scope.publishing = false;
             //router.goto('publishSuccess', {postId: data.safe_id, channel: $stateParams.channel});
         });
-
     };
 
-
-    var DynamicItems = function() {
-        var self = this;
-        this.loadedPages = {};
-        this.numItems = 12;
-        this.PAGE_SIZE = 3;
-
-        socket.on('posts', function(envelope) {
-            var pageNumber = envelope.page;
-            console.log(pageNumber, envelope.posts);
-            $scope.$apply(function() {
-                self.loadedPages[pageNumber] = envelope.posts;
-            });
-        });
-    };
-    // Required.
-    DynamicItems.prototype.getItemAtIndex = function(index) {
-        var pageNumber = Math.floor(index / this.PAGE_SIZE);
-        var page = this.loadedPages[pageNumber];
-        if (page) {
-            return page[index % this.PAGE_SIZE];
-        } else if (page !== null) {
-            this.fetchPage_(pageNumber);
-            return null;
-        }
-    };
-    // Required.
-    DynamicItems.prototype.getLength = function() {
-        return this.numItems;
-    };
-    DynamicItems.prototype.fetchPage_ = function(pageNumber) {
-        // Set the page to null so we know it is already being fetched.
-        this.loadedPages[pageNumber] = null;
-        socket.emit('posts', {get: 'random items', page: pageNumber});
-
-        if ((pageNumber + 3) * this.PAGE_SIZE > this.numItems)
-            this.numItems += this.PAGE_SIZE;
-    };
-    $scope.dynamicItems = new DynamicItems();
+    $scope.cutImage = function(post) {
+        post.cutImage = true;
+    }
 
 }
 ]);
+
+app.directive('cutImage', function() {
+    var $window  = $(window);
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                var height = $(this).height();
+                if (height > $window.height() * 1.3) {
+                    //log(height, $window.height());
+                    //scope.$apply(attrs.cutImage = true);
+                    scope.$apply(attrs.cutImage);
+                }
+                // scope.$apply(attrs.imageonload);
+            });
+        }
+    };
+});

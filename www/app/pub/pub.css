@@ -16,6 +16,8 @@
 .posts-list {
     list-style-type: none;
     font-size: 1rem;
+    margin: 0 0.5rem;
+    clear: both;
 }
 .posts-list .score {
     color: #A2A2A2;
@@ -31,8 +33,7 @@
     color: #D67F7F;
 }
 .posts-list .title {
-    max-width: 70%;
-    margin-bottom: -7px;
+    max-width: 100%;
 }
 .visited {
     color: #6B00BA;
@@ -112,4 +113,74 @@
 .publish-back-button {
     width: 10%;
     margin-bottom: 0;
+}
+
+#add-link {
+    margin: 0 10px;
+    width: auto;
+}
+#add-link input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+#add-link button {
+    float: right;
+}
+
+.cut {
+    position: relative;
+    text-align: center;
+}
+.cut .torn {
+    height: 27px;
+    width: 100%;
+    background: url('/assets/img/torn.png');
+    background-size: 95px;
+    position: absolute;
+    top: -25px;
+}
+.cut button {
+    margin: 9px;
+    padding: 3px 60px;
+    white-space: nowrap;
+}
+
+.cut-image {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+#posts-control {
+    position: absolute;
+    bottom: 75px;
+    width: 100%;
+    text-align: center;
+    height: 0px;
+    overflow: visible;
+}
+
+#posts-control button.md-fab {
+    opacity: 0.92;
+    margin: 0px 18px;
+}
+
+#posts-control button i {
+    color: #68C168;
+    transition: 0.3s;
+}
+
+#posts-control button[disabled] i {
+    color: #DCDCDC;
+}
+
+#posts-control button[disabled] {
+    background: #FFF;
+}
+
+#posts-control button.tiny {
+    width: 37px;
+    height: 37px;
+    line-height: 0;
+    padding: 0;
 }
