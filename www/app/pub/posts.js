@@ -9,6 +9,10 @@ function(userRequest) {
     self.items = [];
     self.preview = {};
 
+    self.currentPage = 1;
+    self.disableAutoload = true;
+    self.lastVisitedPost = null;
+
     this.getPostsList = function(page) {
         return userRequest.send('GET', '/posts/list/' + page);
     };
