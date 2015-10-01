@@ -21,14 +21,13 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
 
     var activePost;
     $scope.postVisibility = function(inview, post) {
-        if (inview)
-            activePost = post;
-        else if (activePost == post)
-            activePost = null;
+        if (!inview && activePost == post)
+            post = null;
 
-        if (activePost != post)
+        if (activePost != post) {
+            activePost = post;
             $rootScope.$broadcast('active post', activePost);
-        log(inview, post);
+        }
     };
 
     function load(page) {

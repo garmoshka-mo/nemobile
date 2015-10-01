@@ -7,6 +7,7 @@ function($scope, posts, $stateParams, user, router) {
 
     $scope.$on('active post', function(event, activePost) {
         $scope.activePost = activePost;
+        log(activePost);
     });
 
     $scope.externalURL = function() {
