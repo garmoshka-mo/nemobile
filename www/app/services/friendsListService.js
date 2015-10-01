@@ -1,6 +1,6 @@
 angular.module("angServices")
-.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'apiRequest', 
-    function($rootScope, $q, Friend, storage, apiRequest) {
+.factory('friendsList', ['$rootScope', '$q', 'Friend', 'storage', 'userRequest',
+    function($rootScope, $q, Friend, storage, userRequest) {
     
         var isNepotomFriendsInfoUpdated = false;
 
@@ -95,7 +95,7 @@ angular.module("angServices")
 
         function getUserFriendsFromServer() {
             var NOT_SENT_CHANGES_TO_SERVER = true;
-            return apiRequest.send(
+            return userRequest.send(
                 'GET',
                 '/get_friends'
             )

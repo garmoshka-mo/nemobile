@@ -16,8 +16,14 @@
 .posts-list {
     list-style-type: none;
     font-size: 1rem;
-    margin: 0 0.5rem;
+    margin: 0;
     clear: both;
+}
+.posts-list li {
+    margin-bottom: 1.5rem;
+}
+.posts-list li .header {
+    margin: 0 0.5rem 0.5rem 0.5rem;
 }
 .posts-list .score {
     color: #A2A2A2;
@@ -141,7 +147,7 @@
     top: -25px;
 }
 .cut button {
-    margin: 9px;
+    margin: 14px;
     padding: 3px 60px;
     white-space: nowrap;
 }
@@ -149,6 +155,10 @@
 .cut-image {
     max-height: 500px;
     overflow: hidden;
+}
+
+.image-container {
+    margin: 0 3rem;
 }
 
 #posts-control {
@@ -183,4 +193,8 @@
     height: 37px;
     line-height: 0;
     padding: 0;
+}
+
+a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled]).md-focused {
+    background-color: white !important;
 }

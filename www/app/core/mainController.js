@@ -26,7 +26,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
             function() {
                 user.isParsingFromStorageNow = false;
                 user.parsedFromStorage = true;
-                $rootScope.$broadcast('user data parsed');
                 log("all user info was parsed from storage");
             },
             function() {

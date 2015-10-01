@@ -2,7 +2,7 @@
     .menu-ava-container(ng-click='isChangeAvaMenuShown ? false : showChangeAvatarMenu()')
         img.rounded-ava.pointer(ng-src='{{user.avatar.urlMini}}', alt='ava', imageonload='imageLoadedHandler()', ng-click='isChangeAvaMenuShown ? generateNewAvatar() : false')
         span.text-bold(ng-bind='user.name', ng-hide='true')
-        span.text-bold Ваша аватарка
+        span.text-bold &nbsp;Ваша аватарка
         .inline-block(ng-show='isChangeAvaMenuShown', ng-class="{'animated fadeIn': isChangeAvaMenuShown}", stop-event='')
             .change-ava-button(ng-click='applyCurrentAvatar()')
                 i.fa.fa-check
@@ -32,7 +32,7 @@
                 i.fa.fa-plus
                 | Добавить контакт
         li
-            a.menu-item(ng-click="goto('random')")
+            a.menu-item(ng-click="goto('pubsList')")
                 i.fa.fa-refresh
                 | Чат наугад
         li(ng-show='fullMode')
@@ -70,11 +70,9 @@
     ul.off-canvas-list
         li
             label Меню
-        li
-            a(ng-click="goto('signin', {inOrUp: 'in'})") Войти
         // <li><a ng-click="goto('phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>
         li
-            a.lessen-word(ng-click="goto('random')") Чат наугад
+            a.lessen-word(ng-click="goto('pubsList')") Паблик
         li
             a.lessen-word(ng-click="goto('about')") О программе
         // <li><a ng-click="goto('/localForage')" class="lessen-word">Test local forage</a></li>

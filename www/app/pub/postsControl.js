@@ -3,49 +3,28 @@ angular.module("angControllers")
     '$scope', 'posts', '$stateParams', 'user', 'router',
 function($scope, posts, $stateParams, user, router) {
 
-    $scope.activePost = null;
-
-    $scope.$on('active post', function(event, activePost) {
-        $scope.activePost = activePost;
-    });
+    $scope.posts = posts;
 
     $scope.externalURL = function() {
-        if (!activePost) return;
+        if (!posts.activePost) return;
 
-        router.openExternalURL(activePost.data.link.url)
+        router.openExternalURL(posts.activePost.data.link.url)
     };
 
     $scope.like = function() {
-        if (!activePost) return;
-        if($scope.post.liked) return;
+        if (!posts.activePost) return;
+        if(posts.activePost.my_score) return;
 
-        user.ensure()
-        .then(function() {
-            return posts.likePost(id)
-        })
+        posts.likePost(posts.activePost.id)
         .then(function(){
-            $scope.liked = true;
-            $scope.disliked = false;
+            posts.activePost.my_score = 1;
         });
     };
 
     $scope.dislike = function() {
-        if (!activePost) return;
-        if ($scope.post.disliked) return;
+        if (!posts.activePost) return;
 
-        user.ensure()
-        .then(function() {
-            return posts.dislikePost(id)
-        })
-        .then(function () {
-            $scope.liked = false;
-            $scope.disliked = true;
-            //short delay in order to bring the feel of actual downvoting
-            setTimeout(function() {
-                //remove post
-                //router.goto('pubsList');
-            }, 500);
-        });
+        posts.deletePost(posts.activePost.id)
     }
 }
 ]);

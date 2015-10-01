@@ -1,7 +1,7 @@
 (function(){
 angular.module("angServices")
     .factory('Partner',
-    ['apiRequest', function(apiRequest) {
+    ['userRequest', function(userRequest) {
             
             function Partner(url) {
                 this.uuid = url;
@@ -9,7 +9,7 @@ angular.module("angServices")
 
             Partner.prototype = {
                 complain: function() {
-                    return apiRequest.send(
+                    return userRequest.send(
                         'POST',
                         '/users/blacklist',
                         {

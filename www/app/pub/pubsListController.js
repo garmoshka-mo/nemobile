@@ -4,7 +4,7 @@ angular.module("angControllers")
 function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $rootScope) {
 
     $scope.page = 1;
-    $scope.posts = [];
+    $scope.posts = posts.items;
     $scope.goto = router.goto;
 
     if(!router.isTopSectionActive()) {
@@ -21,14 +21,13 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
 
     var activePost;
     $scope.postVisibility = function(inview, post) {
-        if (inview)
-            activePost = post;
-        else if (activePost == post)
-            activePost = null;
+        if (!inview && activePost == post)
+            post = null;
 
-        if (activePost != post)
-            $rootScope.$broadcast('active post', activePost);
-        log(inview, post);
+        if (activePost != post) {
+            activePost = post;
+            posts.activePost = post;
+        }
     };
 
     function load(page) {
@@ -36,13 +35,12 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
     }
 
     socket.on('posts', function(envelope) {
-        var posts = envelope.posts;
-        log(envelope.page, posts);
-        transform(posts);
+        log(envelope.page, envelope.posts);
+        transform(envelope.posts);
 
         $scope.$apply(function() {
-            Array.prototype.push.apply($scope.posts, posts);
-            $scope.disableAutoload = posts.length == 0;
+            Array.prototype.push.apply(posts.items, envelope.posts);
+            $scope.disableAutoload = envelope.posts.length == 0;
             $scope.loading = false;
         });
     });
@@ -59,7 +57,6 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
     $scope.saveState = function(post){
         post.visited = true;
         router.saveState({
-            posts: $scope.posts,
             page: $scope.page,
             disableAutoload: $scope.disableAutoload,
             lastVisitedPost: post.id
@@ -70,7 +67,6 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         var state = router.loadState();
         if(state) {
             $scope.page = state.page;
-            $scope.posts = state.posts;
             $scope.disableAutoload = state.disableAutoload;
 
             var newHash = 'post-' + state.lastVisitedPost;
@@ -89,6 +85,11 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
     };
 
     $scope.postUrl = function() {
+        if (!$scope.url || $scope.url.length < 10) {
+            $scope.postUrlNotice = 'Сначала нужно ставить ссылку';
+            return;
+        }
+
         $scope.publishing = true;
         var data = {
             title: $scope.title || Date.now().toDateTime(),
@@ -98,7 +99,8 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         };
         posts.publishPost(data).then(function (data) {
             $scope.publishing = false;
-            //router.goto('publishSuccess', {postId: data.safe_id, channel: $stateParams.channel});
+            $scope.url = '';
+            $scope.postUrlNotice = 'Ссылка скоро появится в списке';
         });
     };
 

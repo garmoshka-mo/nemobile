@@ -1,7 +1,7 @@
 angular.module("angFactories").factory("Chat",
-    ['storage', 'Avatar', 'ChatSession', 'apiRequest', '$q',
+    ['storage', 'Avatar', 'ChatSession', 'userRequest', '$q',
         'notification', '$rootScope', 'friendsList', 'user',
-    function(storage, Avatar, ChatSession, apiRequest, $q,
+    function(storage, Avatar, ChatSession, userRequest, $q,
              notification, $rootScope, friendsList, user) {
     
     function Chat(chatData) {
@@ -173,7 +173,7 @@ angular.module("angFactories").factory("Chat",
                     d.resolve();
                 }
                 else {
-                    apiRequest.send(
+                    userRequest.send(
                         'POST',
                         '/users',
                         {
@@ -248,7 +248,7 @@ angular.module("angFactories").factory("Chat",
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished();
             this.isActive = false;
-            return apiRequest.send('DELETE', '/chats/' + this.channel);
+            return userRequest.send('DELETE', '/chats/' + this.channel);
         }
     };
 

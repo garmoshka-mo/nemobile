@@ -1,6 +1,6 @@
 angular.module("angServices")
-.service('random', ['user', '$q', 'externalChat', 'apiRequest', '$rootScope', 'googleAnalytics',
-    function(user, $q, externalChat, apiRequest, $rootScope, googleAnalytics) {
+.service('random', ['user', '$q', 'externalChat', 'userRequest', '$rootScope', 'googleAnalytics',
+    function(user, $q, externalChat, userRequest, $rootScope, googleAnalytics) {
 
         this.waitingServer = false;
         this.lookupInProgress = false;
@@ -8,7 +8,7 @@ angular.module("angServices")
             lastInternalChannel;
 
         function sendRequest(data) {
-            return apiRequest.send(
+            return userRequest.send(
                 'POST',
                 '/random',
                 data
@@ -33,7 +33,7 @@ angular.module("angServices")
         }
 
         function cancelInternalLookingFor() {
-            return apiRequest.send('DELETE', '/random');
+            return userRequest.send('DELETE', '/random');
         }
 
         $rootScope.$on('new random chat', function(event, args) {
@@ -90,10 +90,10 @@ angular.module("angServices")
 
         $(window).bind('unload', function() {
             if (self.lookupInProgress)
-                apiRequest.sendSync('DELETE', '/random');
+                userRequest.sendSync('DELETE', '/random');
             else if(lastInternalChannel)
                 // todo: replace to signal 'partner_has_closed_app'
-                apiRequest.sendSync('DELETE', '/chats/' + lastInternalChannel);
+                userRequest.sendSync('DELETE', '/chats/' + lastInternalChannel);
         });
 
 }]);

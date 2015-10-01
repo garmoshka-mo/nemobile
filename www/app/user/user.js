@@ -1,9 +1,9 @@
 angular.module("angServices")
 .service('user', [
     '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery',
-        'friendsList', '$sce', '$state', 'router', 'Avatar', 'apiRequest',
+        'friendsList', '$sce', '$state', 'router', 'Avatar', 'userRequest', 'guestRequest',
     function($timeout, storage, notification, api, $q, $rootScope, stickersGallery,
-             friendsList, $sce, $state, router, Avatar, apiRequest) {
+             friendsList, $sce, $state, router, Avatar, userRequest, guestRequest) {
     
     this.isParsingFromStorageNow = false;
     this.parsedFromStorage = false;
@@ -31,11 +31,6 @@ angular.module("angServices")
 
     function setAccessToken(accessToken) {
         self.accessToken = accessToken;
-        api.setAccessToken(accessToken);
-    }
-
-    function clearApiAccessToken() {
-        api.clearAccessToken();
     }
 
     function clearCurrentUser() {
@@ -55,7 +50,7 @@ angular.module("angServices")
             return;
         }
 
-        return apiRequest.send(
+        return userRequest.send(
             'POST',
             '/profile'
         )
@@ -80,7 +75,7 @@ angular.module("angServices")
 
     ////sign in up, logout functions
     this.signin = function(name, password, isVirtual) {
-        return apiRequest.guestSend(
+        return guestRequest.send(
             'POST',
             '/login',
             {name: name, password: password}
@@ -112,7 +107,7 @@ angular.module("angServices")
         if (location.search) {
             data.track = location.search.substr(1);
         }
-        return apiRequest.guestSend(
+        return guestRequest.send(
             'POST',
             '/users/guest',
             data
@@ -126,7 +121,7 @@ angular.module("angServices")
     };
 
     this.signup = function(name, password) {
-        return apiRequest.guestSend(
+        return guestRequest.send(
             'POST',
             '/register',
             {name: name, password: password}
@@ -149,7 +144,6 @@ angular.module("angServices")
             storage.clear();
             // unsubscribe();
             clearCurrentUser();
-            clearApiAccessToken();
             $rootScope.$broadcast('user logged out', {user: _user});
             d.resolve();
             log('user logged out', self);
@@ -192,7 +186,6 @@ angular.module("angServices")
     };
  
     this.confirmPhoneNumber = function(phoneNumber, activationCode, sendAccessToken) {
-        var self = this;
         return api.confirmPhoneNumber(phoneNumber, activationCode, sendAccessToken)
         .then(
             function(res) {
@@ -214,7 +207,7 @@ angular.module("angServices")
             data.password = password;
         }
 
-        return (apiRequest.send(
+        return (userRequest.send(
             'PUT',
             '/profile',
             data
@@ -235,7 +228,8 @@ angular.module("angServices")
 
     this.parseFromStorage = function(dataFromStorage) {
         return $q.all([
-            storage.getUser().then(function(dataFromStorage) {
+            storage.getUser()
+            .then(function(dataFromStorage) {
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
 
@@ -250,6 +244,7 @@ angular.module("angServices")
                 // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
                 log("user info is taken from storage", self);
+                $rootScope.$broadcast('user data loaded');
             }),
             storage.getLastMessageTimestamp().then(function(timestamp) {
                 self.lastMessageTimestamp = timestamp;
@@ -264,7 +259,7 @@ angular.module("angServices")
         });
     };
 
-    //for debugging
+    // todo: remove global user after refactoring
     window.user = this;
 
 }]);
