@@ -91,7 +91,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
 
     self.isChatActive = function() { return self.top.name == 'chat'; };
     self.isRandomActive = function() { return self.top.name == 'random'; };
-    self.isRandomLaunchActive = function() { return self.top.name == 'randomLaunch'; };
-    self.isRandomRestartActive = function() { return self.top.name == 'randomRestart'; };
+    self.isTopSectionActive = function() { return !!self.top.name; };
+
 
 }]);

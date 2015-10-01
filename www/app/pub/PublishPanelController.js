@@ -9,7 +9,6 @@ angular.module("angControllers")
             $scope.preview.session = {};
 
             separator.setMainFooter($('#main-footer'));
-            separator.resize('smallChat');
 
             initChat();
 
