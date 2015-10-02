@@ -3,7 +3,7 @@ angular.module("angControllers")
     '$scope', 'posts', 'router', '$anchorScroll', '$location', '$timeout', 'socket', '$rootScope',
 function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $rootScope) {
 
-    $scope.page = 1;
+    posts.currentPage = 1;
     $scope.posts = posts.items;
     $scope.goto = router.goto;
 
@@ -14,9 +14,9 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html';
 
     $scope.loadMore = function() {
-        $scope.disableAutoload = true;
+        posts.disableAutoload = true;
         $scope.loading = true;
-        load($scope.page++);
+        load(posts.currentPage++);
     };
 
     var activePost;
@@ -40,7 +40,7 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
 
         $scope.$apply(function() {
             Array.prototype.push.apply(posts.items, envelope.posts);
-            $scope.disableAutoload = envelope.posts.length == 0;
+            posts.disableAutoload = envelope.posts.length == 0;
             $scope.loading = false;
         });
     });
@@ -54,22 +54,9 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         });
     }
 
-    $scope.saveState = function(post){
-        post.visited = true;
-        router.saveState({
-            page: $scope.page,
-            disableAutoload: $scope.disableAutoload,
-            lastVisitedPost: post.id
-        });
-    };
-
     $scope.loadSaved = function(){
-        var state = router.loadState();
-        if(state) {
-            $scope.page = state.page;
-            $scope.disableAutoload = state.disableAutoload;
-
-            var newHash = 'post-' + state.lastVisitedPost;
+        if(posts.lastVisitedPost) {
+            var newHash = 'post-' + posts.lastVisitedPost;
             if ($location.hash() !== newHash) {
                 // set the $location.hash to `newHash` and
                 // $anchorScroll will automatically scroll to it

@@ -158,6 +158,10 @@ sex-select:focus {
     top: 54px;
 }
 
+.disconnect-button.ng-hide-add {
+    animation: 0.5s fadeOut ease;
+}
+
 .search-status {
     padding: 18px 10px;
 }

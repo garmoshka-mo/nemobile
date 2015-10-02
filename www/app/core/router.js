@@ -76,19 +76,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
             googleAnalytics.pageview($location.path());
     }
 
-    var savedStates = [];
-
-    self.saveState = function(save){
-        savedStates[$state.current.name] = save;
-    };
-
-    self.loadState = function(){
-        var savedState = savedStates[$state.current.name];
-        //once loaded, gets removed
-        savedStates[$state.current.name] = null;
-        return savedState;
-    };
-
     self.isChatActive = function() { return self.top.name == 'chat'; };
     self.isRandomActive = function() { return self.top.name == 'random'; };
     self.isTopSectionActive = function() { return !!self.top.name; };
