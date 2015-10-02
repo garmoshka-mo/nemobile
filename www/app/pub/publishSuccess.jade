@@ -1,0 +1,16 @@
+.row
+    .small-12.top-margin.ta-center
+        | Ссылка на опубликованный чат:
+        div(allow-text-select='')
+            input(type='text', ng-model='postUrl', select-on-click='')
+        p.note В общем списке публикация появится после проверки модератором.
+        button(ng-click='router.openExternalURL(postUrl)')
+            i.fa.fa-external-link
+            |   Открыть публикацию
+        br
+        button(ng-click="separator.resize('comfortChat'); router.goto('pubsList');")
+            i.fa.fa-chevron-left
+            |   Венуться в паблик
+        button(ng-click='startNewChat()', ng-show='router.isChatActive()')
+            i.fa.fa-refresh
+            |   Начать новый чат
