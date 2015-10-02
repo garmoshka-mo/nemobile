@@ -142,8 +142,8 @@ angular.module("angFactories").factory('ChatSession',
         },
 
         save: function() {
-            storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
-            log("chat session is saved");
+            // storage.saveChatSession(this, this.currentChat[this.currentChat.primaryKey]);
+            // log("chat session is saved");
         },
 
         getLastMessage: function() {

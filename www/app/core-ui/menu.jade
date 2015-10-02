@@ -1,5 +1,5 @@
-.no-select(ng-show='user.name')
-    .menu-ava-container(ng-click='isChangeAvaMenuShown ? false : showChangeAvatarMenu()')
+.no-select
+    .menu-ava-container(ng-click='isChangeAvaMenuShown ? false : showChangeAvatarMenu()', ng-show='user.name' )
         img.rounded-ava.pointer(ng-src='{{user.avatar.urlMini}}', alt='ava', imageonload='imageLoadedHandler()', ng-click='isChangeAvaMenuShown ? generateNewAvatar() : false')
         span.text-bold(ng-bind='user.name', ng-hide='true')
         span.text-bold &nbsp;Ваша аватарка
@@ -66,14 +66,3 @@
             a.menu-item(ng-click='toggleSound()')
                 i.fa(ng-class="soundEnabled ? 'fa-volume-up' : 'fa-volume-off'")
                 | Звук
-.no-select(ng-hide='user.name')
-    ul.off-canvas-list
-        li
-            label Меню
-        // <li><a ng-click="goto('phoneRegistration')" class="lessen-word">Зарегистрироваться</a></li>
-        li
-            a.lessen-word(ng-click="goto('pubsList')") Паблик
-        li
-            a.lessen-word(ng-click="goto('about')") О программе
-        // <li><a ng-click="goto('/localForage')" class="lessen-word">Test local forage</a></li>
-                                    

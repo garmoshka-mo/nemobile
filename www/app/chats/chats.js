@@ -66,8 +66,8 @@ angular.module("angServices")
         };
 
         self.save = function() {
-            storage.saveChats(self.list);
-            log("user chats are saved");
+            // storage.saveChats(self.list);
+            // log("user chats are saved");
         };
 
         self.parseFromStorage = function() {
@@ -131,7 +131,7 @@ angular.module("angServices")
         self.setTypingStatus = function(value, channel, uuid) {
             socket.emit("typing",
                 {channel: channel, uuid: uuid, value: value});
-        }
+        };
 
     }
 ]);
