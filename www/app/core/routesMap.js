@@ -23,7 +23,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         templateUrl: "app/pub/pubsList.html?" + version,
-                        controller: "pubsListController"
+                        controller: "pubsListController",
+                        footerTemplateUrl: "app/pub/postsControl.html?"+version
                     }
                 }
             })

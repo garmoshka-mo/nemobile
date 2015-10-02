@@ -1,9 +1,11 @@
 angular.module("angControllers")
 .controller("postsControl", [
-    '$scope', 'posts', '$stateParams', 'user', 'router',
-function($scope, posts, $stateParams, user, router) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'separator',
+function($scope, posts, $stateParams, user, router, separator) {
 
     $scope.posts = posts;
+
+    separator.setMainFooter($('#posts-control'));
 
     $scope.externalURL = function() {
         if (!posts.activePost) return;

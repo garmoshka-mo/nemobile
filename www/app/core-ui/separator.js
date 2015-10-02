@@ -99,11 +99,24 @@ function ($q) {
         }, 500);
     }
 
+    function showFooter(footer, showWhen, positionTop) {
+        if (footer) {
+            if (showWhen) {
+                footer.show();
+                footer.css({top: positionTop});
+            } else {
+                footer.hide();
+                $('.disconnect-button').hide();
+            }
+        }
+    }
+
     function moveElements() {
-        var showFooter = y > 50 && chatIsActive,
+        var showTopFooter = y > 50 && chatIsActive,
+            showMainFooter = $window.height() - y > 250,
             h = y;
 
-        if (showFooter) {
+        if (showTopFooter) {
             $topSection.addClass('with-footer');
         } else {
             $topSection.removeClass('with-footer');
@@ -119,18 +132,8 @@ function ($q) {
         var mainFooterHeight = $mainFooter?  $mainFooter.height() : 0;
         $mainSection.height($window.height() - $dragger.position().top - mainFooterHeight);
 
-        if ($topFooter) {
-            if (showFooter) {
-                $topFooter.show();
-                $topFooter.css({top: y + 46});
-            } else {
-                $topFooter.hide();
-                $('.disconnect-button').hide();
-            }
-        }
-        if ($mainFooter) {
-            $mainFooter.css({top: $window.height() - 64});
-        }
+        showFooter($topFooter, showTopFooter, y + 46);
+        showFooter($mainFooter, showMainFooter, $window.height() - 64);
     }
 
     self.updateRestrictions();
