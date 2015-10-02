@@ -11,6 +11,8 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         router.openOnTop('randomLaunch');
     }
 
+    $rootScope.mainFooterTemplate = 'app/pub/postsControl.html';
+
     $scope.loadMore = function() {
         posts.disableAutoload = true;
         $scope.loading = true;
