@@ -113,7 +113,7 @@ function ($q) {
 
     function moveElements() {
         var showTopFooter = y > 50 && chatIsActive,
-            showMainFooter = $window.height() - y > 250,
+            showMainFooter = true;
             h = y;
 
         if (showTopFooter) {
@@ -129,8 +129,13 @@ function ($q) {
         if (chatIsActive)
             $topSection.scrollTop($topSection[0].scrollHeight);
 
-        var mainFooterHeight = $mainFooter?  $mainFooter.height() : 0;
-        $mainSection.height($window.height() - $dragger.position().top - mainFooterHeight);
+        var mainSectionHeight = $window.height() - $dragger.position().top;
+        if($mainFooter && mainSectionHeight >= 150) {
+            mainSectionHeight += $mainFooter.height();
+        } else {
+            showMainFooter = false;
+        }
+        $mainSection.height(mainSectionHeight);
 
         showFooter($topFooter, showTopFooter, y + 46);
         showFooter($mainFooter, showMainFooter, $window.height() - 64);

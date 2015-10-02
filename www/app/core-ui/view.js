@@ -14,15 +14,20 @@ function ($state, $rootScope, separator) {
     $rootScope.$on('$viewContentLoaded', fitNewView);
 
     function resizeMainSection() {
-        //var offset = $state.current.hasControlPanel? 110 : 47;
         setTimeout(function() {
             var $mainFooter = separator.getMainFooter();
-            var mainFooterHeight = 0;
+            var mainSectionHeight = $window.height() - $dragger.position().top;
             if ($mainFooter) {
-                mainFooterHeight = $mainFooter.height();
                 $mainFooter.css({top: $window.height() - 64});
+                if (mainSectionHeight < 150) {
+                    $mainFooter.hide();
+                } else {
+                    $mainFooter.show();
+                    mainSectionHeight += $mainFooter.height();
+                }
             }
-            $mainSection.height($window.height() - $dragger.position().top - mainFooterHeight);
+            $mainSection.height(mainSectionHeight);
+
         },1);
         separator.updateRestrictions();
     }
