@@ -19,9 +19,6 @@
     margin: 0;
     clear: both;
 }
-.posts-list li {
-    margin-bottom: 1.5rem;
-}
 .posts-list li .header {
     margin: 0 0.5rem 0.5rem 0.5rem;
 }
@@ -40,6 +37,11 @@
 }
 .posts-list .title {
     max-width: 100%;
+}
+.posts-list .separator {
+    border-bottom: 2px dotted #E0E0E0;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
 }
 .visited {
     color: #6B00BA;
@@ -78,7 +80,7 @@
 }
 
 .personal-data-alert {
-    padding: 14px 14px 0;
+    padding: 23px 14px 0;
     text-indent: 1px;
     font-size: 0.9em;
 }
@@ -147,7 +149,8 @@
     top: -25px;
 }
 .cut button {
-    margin: 14px;
+    margin-top: 19px;
+    margin-bottom: 0;
     padding: 3px 60px;
     white-space: nowrap;
 }

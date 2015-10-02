@@ -19,7 +19,7 @@
             in-view="postVisibility($inview, post)" in-view-options="{ offsetTop: 300, offsetBottom: -250 }")
             // span.score(ng-class='{negative: post.score < 0}') {{ post.score }}
             div.header
-                div.title.truncate {{ post.title }}
+                div.title {{ post.title }}
             div.image-container(ng-class='{"cut-image": post.cutImage}')
                 img(ng-switch-when='link' ng-src='{{post.data.link.image_url}}' cut-image='cutImage(post)')
             div.cut(ng-show='post.cutImage')
@@ -27,5 +27,5 @@
                 button(ng-click='post.cutImage = false')
                      i.fa.fa-angle-double-down
                      |  &nbsp;Показать&nbsp;полностью
-            div(ng-switch-when='link')
+            div.separator
     spinner(ng-show='loading', spinner-color='green')
