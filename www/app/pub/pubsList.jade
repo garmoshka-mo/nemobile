@@ -16,7 +16,7 @@
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts' ng-switch="post.category"
-            in-view="postVisibility($inview, post)" in-view-options="{ offsetTop: 250, offsetBottom: -250 }")
+            in-view="postVisibility($inview, post)" in-view-options="{ offsetTop: 300, offsetBottom: -250 }")
             // span.score(ng-class='{negative: post.score < 0}') {{ post.score }}
             div.header
                 div.title.truncate {{ post.title }}

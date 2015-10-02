@@ -86,7 +86,7 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
 
     $scope.postUrl = function() {
         if (!$scope.url || $scope.url.length < 10) {
-            $scope.postUrlNotice = 'Сначала нужно ставить ссылку';
+            $scope.postUrlNotice = 'Сначала нужно вставить ссылку';
             return;
         }
 
