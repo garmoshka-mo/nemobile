@@ -14,9 +14,11 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html';
 
     $scope.loadMore = function() {
+        if ($scope.loading) return;
         posts.disableAutoload = true;
         $scope.loading = true;
-        load(posts.currentPage++);
+        log('page of infinite scroll:', posts.currentPage++);
+        load();
     };
 
     var activePost;
@@ -30,12 +32,12 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         }
     };
 
-    function load(page) {
-        socket.emit('posts', {get: 'random items', page: page});
+    function load() {
+        socket.emit('posts', {get: 'random items'});
     }
 
     socket.on('posts', function(envelope) {
-        log(envelope.page, envelope.posts);
+        log('received posts:', envelope.posts);
         transform(envelope.posts);
 
         $scope.$apply(function() {

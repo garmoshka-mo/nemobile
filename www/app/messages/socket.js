@@ -1,11 +1,12 @@
 (function(){
 angular.module("angApp")
 .service('socket',
-        ['$rootScope', 'user',
-function($rootScope, user) {
+        ['$rootScope', 'user', 'auth',
+function($rootScope, user, auth) {
 
     var socket = io(config('msgServer')),
-        accessToken, connected, authenticated, ready = false;
+        accessToken, connected,
+        authType, ready = false;
 
     socket.on('connect', function(){
         connected = true;
@@ -13,7 +14,7 @@ function($rootScope, user) {
     });
 
     socket.on('disconnect', function(){
-        authenticated = false;
+        authType = null;
         connected = false;
         ready = false;
     });
@@ -30,13 +31,13 @@ function($rootScope, user) {
         if (connected && accessToken)
             socket.emit('auth', { access_token: accessToken });
         else if (connected && !user.isLogged())
-            onReady();
+            socket.emit('auth', { guest_token: auth.getGuestToken() });
     }
 
     socket.on('auth', function(envelope) {
         if (envelope.success) {
             log('authenticated to socket', envelope);
-            authenticated = true;
+            authType = envelope.type;
             onReady();
         } else
             console.error('socket auth failed', envelope);
