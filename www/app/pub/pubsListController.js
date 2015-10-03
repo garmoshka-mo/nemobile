@@ -49,6 +49,7 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
 
     function transform(arr) {
         arr.map(function(p) {
+            if (!p.title) p.title = '';
             p.slug = encodeURIComponent(
                 p.title.replace(/ /g, '-')
                     .replace(/[\.\/]/g, '')
