@@ -39,8 +39,10 @@ function($rootScope, user, auth) {
             log('authenticated to socket', envelope);
             authType = envelope.type;
             onReady();
-        } else
+        } else {
             console.error('socket auth failed', envelope);
+            user.logoutAndGoHome();
+        }
     });
 
     function onReady() {

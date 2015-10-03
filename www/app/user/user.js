@@ -154,7 +154,7 @@ angular.module("angServices")
     this.logoutAndGoHome = function() {
         self.logout()
             .then(function() {
-                router.goto('pubsList');
+                location.reload();
             });
     };
 
