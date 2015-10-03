@@ -77,7 +77,7 @@ gulp.task('copy_static', function(){
 
 gulp.task('convert_jade', function(){
     return gulp.src(source_www + 'app/**/*.jade', { base: source_www })
-        .pipe(jade())
+        .pipe(jade({ pretty: true }))
         .pipe(gulp.dest(output_www));    
 });
 

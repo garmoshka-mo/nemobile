@@ -90,7 +90,7 @@ html
           #drag-line-separator
           #drag-button.circle
             i.fa.fa-bars
-        section#main-section.main-section(ng-class="{branded: router.main.branded }" in-view-container='')
+        section#main-section.main-section(ng-class="{branded: isMainBranded() }" in-view-container='')
           // content goes here
           // MAIN CONTENT
           #wrapper(ng-hide='routing.is_preload')

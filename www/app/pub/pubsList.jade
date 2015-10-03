@@ -8,7 +8,7 @@
                 img(src='assets/img/page-break.png')
 
     div#add-link(ng-show='posts.length > 0')
-        input(type='text' ng-model='url' placeholder='https://сайт.com/ссылка_на_интересное')
+        input(type='text' ng-model='url' placeholder='http://сайт.com/ссылка_на_интересное')
         span(ng-bind='postUrlNotice')
         button(ng-click='postUrl()' ng-disabled='publishing') Добавить запись
 

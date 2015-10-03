@@ -353,16 +353,6 @@ label, input, button, .button{
   height: auto;
 }
 */
- /*
- После минификации html пропадают whitespac'ы между button'ами.
- чтобы проверить как фрагмент html'ля будет выглядить после
- минификации поставте fonts-size: 0 parent element'а
- или вручную удалите whitespace
- */
-button {
-  margin-left: 2px;
-  margin-right: 2px;
-}
 label {
   margin-bottom: 0.3rem;
 }

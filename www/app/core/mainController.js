@@ -163,6 +163,10 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }
     }
 
+    $scope.isMainBranded = function() {
+        return router.main.branded || $state.current.branded;
+    };
+
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
             if (user.isLogged()) {

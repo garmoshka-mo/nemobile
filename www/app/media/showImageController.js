@@ -1,7 +1,7 @@
 angular.module("angControllers").controller("showImageController", [
-    'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce', 'separator',
-    function(user, $scope, $http, $state, api, $stateParams, $sce, separator){
-        log('show image controller!!!');
+    'user', '$scope', '$http', '$state', 'api', '$stateParams', '$sce', 'separator', 'router',
+    function(user, $scope, $http, $state, api, $stateParams, $sce, separator, router){
+        $scope.router = router;
         $scope.isOffensive = false;
         separator.resize('comfortChat');
 

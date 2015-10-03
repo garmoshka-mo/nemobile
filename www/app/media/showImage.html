@@ -4,6 +4,8 @@
         <div ng-hide="linkToShow" ng-bind="error"></div>
     </div>
     <div class="width-92 ta-center block-center top-margin" ng-hide="isOffensive">
+        <button ng-click="router.goto('pubsList')">вернуться в паблик</button>
+        &nbsp;
         <button ng-click="makeItOffensive()">пожаловаться</button>
     </div>
     <div class="ta-center top-margin width-92 block-center" ng-show="isOffensive">

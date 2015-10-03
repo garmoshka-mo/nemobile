@@ -13,6 +13,7 @@
 }
 .message img{
     max-height: 350px;
+    max-width: 450px;
 }
 .message-link {
     text-decoration: underline;
