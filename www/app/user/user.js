@@ -1,8 +1,8 @@
 angular.module("angServices")
 .service('user', [
-    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery',
+    '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'tracker',
         'friendsList', '$sce', '$state', 'router', 'Avatar', 'userRequest', 'guestRequest',
-    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery,
+    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
              friendsList, $sce, $state, router, Avatar, userRequest, guestRequest) {
     
     this.isParsingFromStorageNow = false;
@@ -100,17 +100,10 @@ angular.module("angServices")
     };
 
     this.signinAsVirtualUser = function () {
-        var data = {};
-        if (document.referrer) {
-            data.referrer = document.referrer;
-        }
-        if (location.search) {
-            data.track = location.search.substr(1);
-        }
         return guestRequest.send(
             'POST',
             '/users/guest',
-            data
+            tracker.getTrackData()
         )
         .then(
             function(res) {

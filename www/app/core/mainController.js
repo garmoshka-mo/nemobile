@@ -126,35 +126,10 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
          
         $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
         
-        // if (user.isVirtual) {
-        //     if (!_.includes(statesAllowedForVirtualUser, toState.name)) {
-        //         evt.preventDefault();
-        //         var senderId = Object.keys(user.chats)[0];
-        //         if (senderId) {
-        //             $state.go('chat', 
-        //                 {
-        //                     senderId: senderId
-        //                 }
-        //             );
-        //         }
-        //         else {
-        //             $state.go('updateProfile');
-        //         }
-        //     }
-        //     router.is_preload = false;
-        //     return;
-        // }
-
         if (user.isLogged()) {
             if (_.includes(statesFromRedirectLoggedUser, toState.name)) {
                 evt.preventDefault();
                 $state.go('pubsList');
-/*                if (_.isEmpty(user.chats)) {
-                    $state.go('friends');
-                }
-                else {
-                    $state.go('chats');
-                }  */
             }
         }
         else if (toState.name === 'start') {

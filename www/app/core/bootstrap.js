@@ -22,8 +22,8 @@ angular.module("angApp")
     $locationProvider.html5Mode(true);
 }])
 
-.run(['messages', 'pubnubSubscription', 'separator', 'view', function() {
-    //messages and pubnubsubscription are not used 
+.run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', function() {
+    //messages and pubnubsubscription are not used
     //but they have to be injected in order to be invoked
 }]);
 
