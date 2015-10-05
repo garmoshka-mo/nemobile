@@ -15,12 +15,22 @@ function($scope, posts, $stateParams, user, router, separator) {
 
     $scope.like = function() {
         if (!posts.activePost) return;
-        if(posts.activePost.my_score) return;
 
-        posts.likePost(posts.activePost.id)
-        .then(function(){
-            posts.activePost.my_score = 1;
-        });
+        //If already liked
+        if(posts.activePost.my_score) {
+            posts.unlikePost(posts.activePost.id)
+                .then(function(){
+                    posts.activePost.my_score = 0;
+                });
+        }
+        else {
+            posts.likePost(posts.activePost.id)
+                .then(function(){
+                    posts.activePost.my_score = 1;
+                });
+        }
+
+
     };
 
     $scope.dislike = function() {

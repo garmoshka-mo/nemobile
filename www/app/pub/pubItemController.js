@@ -18,6 +18,9 @@ function($scope, posts, $stateParams, user, router, disqus) {
             $scope.liked = data.my_rate ===  1;
             $scope.disliked = data.my_rate === -1;
 
+            $scope.post.duration = $scope.post.chat.duration_s ?
+                    $scope.post.chat.duration_s.toHHMMSS() : 0;
+
             disqus.load(id, data.post.title);
         });
     }
