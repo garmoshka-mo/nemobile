@@ -23,7 +23,7 @@ function ($state, $rootScope, separator) {
                     $mainFooter.hide();
                 } else {
                     $mainFooter.show();
-                    mainSectionHeight += $mainFooter.height();
+                    mainSectionHeight -= $mainFooter.height();
                 }
             }
             $mainSection.height(mainSectionHeight);

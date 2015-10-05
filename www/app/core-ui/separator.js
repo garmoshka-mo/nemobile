@@ -131,7 +131,7 @@ function ($q) {
 
         var mainSectionHeight = $window.height() - $dragger.position().top;
         if($mainFooter && mainSectionHeight >= 150) {
-            mainSectionHeight += $mainFooter.height();
+            mainSectionHeight -= $mainFooter.height();
         } else {
             showMainFooter = false;
         }
