@@ -189,7 +189,7 @@ gulp.task('make_phonegap_html', function() {
                 });
 
             gulp.src(test_mobile_dir + 'app/**/*.jade')
-                .pipe(jade())
+                .pipe(jade({pretty: true}))
                 .pipe(gulp.dest(test_mobile_dir + 'app/'));
                 
         }
