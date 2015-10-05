@@ -63,6 +63,6 @@
                 | отправить слепок
             div(spinner='', spinner-color='white', ng-show='showDebugPreloader')
         li
-            a.menu-item(ng-click='toggleSound()')
+            a.menu-item.delay-close-menu(ng-click='toggleSound()')
                 i.fa(ng-class="soundEnabled ? 'fa-volume-up' : 'fa-volume-off'")
                 | Звук

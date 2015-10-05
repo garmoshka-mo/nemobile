@@ -166,8 +166,14 @@ angular.module("angApp")
             var $preventClickDiv = $('.prevent-click');
             // log('!!!!!!!!!!!!!!!!!!!!', $preventClickDiv);
 
+            $(document).on('click','.delay-close-menu', function(event) {
+                event.stopPropagation();
+                setTimeout(function(){
+                    snapper.close();
+                },500);
+            });
+
             $(document).on('click','.off-canvas-list', function() {
-                // log('clicked');
                 snapper.close();
             });
 
