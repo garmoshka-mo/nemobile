@@ -2,7 +2,7 @@
     angular.module("angApp").directive('messageMenu', function() {
         return {
             scope: {items: '=', api: '='},
-            templateUrl: "app/messages/messageMenu.html",
+            templateUrl: "app/messages/messageMenu.html?"+version,
             link: function($scope, element) {
                 $scope.getElementPosition = function() {
                     return {
