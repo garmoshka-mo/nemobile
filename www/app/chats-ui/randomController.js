@@ -48,7 +48,7 @@ angular.module("angControllers")
 
         $scope.filterSettings = function() {
             $scope.isRestart = false;
-            router.openOnTop("random");
+            router.openOnTop("randomFull");
         };
 
         $scope.lookForChat = function() {
