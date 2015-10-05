@@ -4,7 +4,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         // $animate.enabled(false);
         $stateProvider
             .state("start", {
-                url: "/",
+                url: "/start",
                 views: {
                     "title": {
                         template: "dub.ink"
@@ -12,19 +12,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     "content": {
                         templateUrl: "partials/start/content.html?"+version,
                         controller: "startController"
-                    }
-                }
-            })
-            .state("pubsList", {
-                url: "/pub?chat",
-                views: {
-                    "title": {
-                        template: "Паблик - DUB.iNK"
-                    },
-                    "content": {
-                        templateUrl: "app/pub/pubsList.html?" + version,
-                        controller: "pubsListController",
-                        footerTemplateUrl: "app/pub/postsControl.html?"+version
                     }
                 }
             })
@@ -131,18 +118,43 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
-            .state("random", {
-                url: "/random",
+            .state("randomFull", {
                 views: {
                     "top": {
-                        resize: 'full'
-                    },
-                    "title": {
-                        template: "Чат наугад - DUB.iNK"
+                        resize: 'full',
+                        animated: true
                     },
                     "content": {
                         controller: "randomController",
                         templateUrl: "app/chats-ui/random.html?"+version
+                    }
+                }
+            })
+            .state("random", {
+                url: "/",
+                views: {
+                    "top": {state: 'randomFull'},
+                    "title": {
+                        template: "Чат наугад - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pubsList.html?" + version,
+                        controller: "pubsListController",
+                        footerTemplateUrl: "app/pub/postsControl.html?"+version
+                    }
+                }
+            })
+            .state("pubsList", {
+                url: "/pub",
+                views: {
+                    "top": {state: 'randomLaunch'},
+                    "title": {
+                        template: "Паблик - DUB.iNK"
+                    },
+                    "content": {
+                        templateUrl: "app/pub/pubsList.html?" + version,
+                        controller: "pubsListController",
+                        footerTemplateUrl: "app/pub/postsControl.html?"+version
                     }
                 }
             })
@@ -329,6 +341,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("about", {
                 url: "/about/:page",
                 views: {
+                    "top" : {
+                        resize: 'hide'
+                    },
                     "title": {
                         template: "О проекте"
                     },

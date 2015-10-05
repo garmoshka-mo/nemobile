@@ -10,7 +10,7 @@ function($scope, router, posts, $stateParams, separator, notification) {
 
     $scope.startNewChat = function() {
         notification.chatDisconnect();
-        router.goto('pubsList');
+        router.goto('random');
     };
 
     if(!router.isTopSectionActive()) {

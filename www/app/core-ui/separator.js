@@ -52,9 +52,10 @@ function ($q) {
     self.updateView = function(router) {
         chatIsActive = router.isChatActive();
 
-        if (router.top.views.top && router.top.views.top.resize)
+        if (router.top.views.top && router.top.views.top.resize) {
+            if (router.top.views.top.animated) animateResize = true;
             self.resize(router.top.views.top.resize);
-        else
+        } else
             moveElements();
     };
 
@@ -64,35 +65,40 @@ function ($q) {
                 height = fullHeight();
                 break;
             case 'comfortChat':
-                height = COMFORT_CHAT - TOP_BAR_HEIGHT;
+                height = COMFORT_CHAT;
                 break;
             case 'smallChat':
-                height = SMALL_CHAT - TOP_BAR_HEIGHT;
+                height = SMALL_CHAT;
                 break;
-            default:
-                height -= TOP_BAR_HEIGHT;
+            case 'hide':
+                height = 0;
+                break;
         }
 
         if (animateResize)
             resizeAnimated(height);
         else {
             animateResize = true;
-            y = height;
-            moveElements();
+            resizeQuickly(height);
         }
     };
 
     function fullHeight() {
-        return y - ($dragger.position().top - $window.height()) - 1;
+        return y - ($dragger.position().top - $window.height()) + TOP_BAR_HEIGHT - 1;
+    }
+
+    function resizeQuickly(height) {
+        y = height - TOP_BAR_HEIGHT;
+        moveElements();
     }
 
     function resizeAnimated(height) {
-        $dummy.height(y);
+        $dummy.height(y + TOP_BAR_HEIGHT);
         setTimeout(function () {
             $dummy.animate({height: height}, {
                 duration: 500,
                 progress: function () {
-                    y = $dummy.height();
+                    y = $dummy.height() - TOP_BAR_HEIGHT;
                     moveElements();
                 }
             });
@@ -113,7 +119,7 @@ function ($q) {
 
     function moveElements() {
         var showTopFooter = y > 50 && chatIsActive,
-            showMainFooter = true;
+            showMainFooter = true,
             h = y;
 
         if (showTopFooter) {

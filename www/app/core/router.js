@@ -1,7 +1,9 @@
 angular.module("angServices")
     .service('router', [
-        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location', 'separator',
-function(notification, $state, $rootScope, $q, googleAnalytics, $location, separator) {
+        'notification', '$state', '$rootScope', '$q', 'googleAnalytics',
+        '$location', 'separator',
+function(notification, $state, $rootScope, $q, googleAnalytics,
+         $location, separator) {
 
     var self = this;
 
@@ -38,12 +40,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
         var d = $q.defer();
         params = params || {};
 
-        // For now show preloader always
-//        if (!RAN_AS_APP) {
-//            $state.go(state, params);
-//            return;
-//        }
-
         if ($state.current.name == state) {
             d.resolve();
             return d.promise;
@@ -52,15 +48,17 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
         self.is_preload = true;
 
         setTimeout(function() {
-                $state.go(state, params)
-                    .then(function(){
-                        self.main = $state.current;
-                        $rootScope.mainFooterTemplate = $state.current.views.content.footerTemplateUrl;
-                        d.resolve();
-                    });
+                $state.go(state, params).then(loadState);
                 $rootScope.$apply();
             },
         100);
+
+        function loadState(){
+            self.main = $state.current;
+            $rootScope.mainFooterTemplate = $state.current.views.content.footerTemplateUrl;
+
+            d.resolve();
+        }
 
         return d.promise;
     };
@@ -69,6 +67,13 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
         self.is_preload = false;
         logPageview(toState.url);
+
+        if (toState.views.top)
+            if(toState.views.top.state) {
+                if (!self.isChatActive())
+                    self.openOnTop(toState.views.top.state);
+            } else if(typeof toState.views.top.resize != 'undefined')
+                separator.resize(toState.views.top.resize);
     }
 
     function logPageview(url) {

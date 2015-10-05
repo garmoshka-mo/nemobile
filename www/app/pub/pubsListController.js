@@ -1,15 +1,13 @@
 angular.module("angControllers")
 .controller("pubsListController", [
-    '$scope', 'posts', 'router', '$anchorScroll', '$location', '$timeout', 'socket', '$rootScope',
-function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $rootScope) {
+    '$scope', 'posts', 'router', '$anchorScroll', '$location',
+        '$timeout', 'socket', '$rootScope',
+function($scope, posts, router, $anchorScroll, $location,
+         $timeout, socket, $rootScope) {
 
     posts.currentPage = 1;
     $scope.posts = posts.items;
     $scope.goto = router.goto;
-
-    if(!router.isTopSectionActive()) {
-        router.openOnTop('randomLaunch');
-    }
 
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 

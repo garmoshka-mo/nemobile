@@ -17,7 +17,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
 
     function parseUserFromStorage() {
         user.isParsingFromStorageNow = true;
-        user.parsedFromStoragePromise = $q.all([
+        return $q.all([
             user.parseFromStorage(),
             chats.parseFromStorage(),
             friendsList.parseFromStorage()
@@ -27,13 +27,13 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
                 user.isParsingFromStorageNow = false;
                 user.parsedFromStorage = true;
                 log("all user info was parsed from storage");
+                hideSplashScreen();
             },
             function() {
                 console.warn("there was error while parsing");
+                hideSplashScreen();
             }
         );
-
-        return user.parsedFromStoragePromise;
     }
 
     var forbidToGoBackStates = [
@@ -86,7 +86,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         if (RAN_AS_APP) {
             setTimeout(function() {
                 navigator.splashscreen.hide();
-            }, 1000);
+            }, 300);
         }
     }
 
@@ -118,84 +118,22 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         router.goto('publishPreview', $state.params);
     };
 
-    function onStateChangeStart(evt, toState, toParams, fromState, fromParams) {
-
-        if (RAN_AS_APP) {
-            router.is_preload = true;
-        }   
-         
-        $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
-        
-        if (user.isLogged()) {
-            if (_.includes(statesFromRedirectLoggedUser, toState.name)) {
-                evt.preventDefault();
-                $state.go('pubsList');
-            }
-        }
-        else if (toState.name === 'start') {
-            evt.preventDefault();
-            $state.go('pubsList');
-        }
-    }
-
     $scope.isMainBranded = function() {
         return router.main.branded || $state.current.branded;
     };
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            if (user.isLogged()) {
-                if (user.parsedFromStorage) {
-                    onStateChangeStart.apply(this, arguments);
-                }
-                else {
-                    router.is_preload = true;
-                    evt.preventDefault();
-                    user.parsedFromStoragePromise.then(
-                        function() {
-                            $state.go(toState.name, toParams);
-                        }
-                    );
-                }
-            }
-            else {
-                onStateChangeStart.apply(this, arguments);
-            }
+            if (RAN_AS_APP)
+                router.is_preload = true;
+            $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
+
+
         }
     );
 
-    if (user.isLogged()) {
-        parseUserFromStorage()
-        .then(function() {
-            if (RAN_AS_APP) {
-                if (_.isEmpty(user.chats)) {
-                    $state.go('pubsList')
-                    .then(
-                        hideSplashScreen
-                    );
-                }
-                else {
-                    $state.go('random')
-                    .then(
-                        hideSplashScreen
-                    );
-                }
-            }
-            else {
-                if (_.includes(statesFromRedirectLoggedUser, $state.current.name)) {
-                    if (_.isEmpty(user.chats)) {
-                        $state.go('pubsList');
-                    }
-                    else {
-                        $state.go('random');
-                    }    
-                }
-            }
-        });
-    }
-    else {
-        $state.go('pubsList');
-    }
+    if (user.isLogged())
+        parseUserFromStorage();
 
     $scope.router = router;
     $scope.goto = router.goto;
