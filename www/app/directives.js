@@ -153,53 +153,6 @@ angular.module("angApp")
     };
 })
 
-.directive('slideMenu', function() {
-    return {
-        link: function(scope, elem, attr) {
-            window.snapper = new Snap({
-                element: elem[0],
-                hyperextensible: false,
-                maxPosition: 250,
-                minPosition: 0
-            });
-
-            var $preventClickDiv = $('.prevent-click');
-            // log('!!!!!!!!!!!!!!!!!!!!', $preventClickDiv);
-
-            $(document).on('click','.off-canvas-list', function() {
-                // log('clicked');
-                snapper.close();
-            });
-
-            function onOpen() {
-                $preventClickDiv.show();     
-            }
-
-            function onAnimated() {
-                var state = snapper.state();
-                if (state.state == "left") {
-                    onOpen();
-                }
-                else {
-                    onClose();
-                }
-            }
-
-            function onClose() {
-                $preventClickDiv.hide();                    
-            }
-            
-            setTimeout(function() {
-                snapper.on('open', onOpen);
-                snapper.on('animated', onAnimated);
-                snapper.on('end', onAnimated);
-                snapper.on('close', onClose);
-            }, 0);
-            
-        }
-    };
-})
-
 .directive('radioButtons', function() {
     return {
         restrict: 'AE',

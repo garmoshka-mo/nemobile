@@ -1,7 +1,7 @@
 angular.module("angServices")
     .service('router', [
-        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location', 'separator',
-function(notification, $state, $rootScope, $q, googleAnalytics, $location, separator) {
+        'notification', '$state', '$rootScope', '$q', 'googleAnalytics', '$location', 'separator', 'menu',
+function(notification, $state, $rootScope, $q, googleAnalytics, $location, separator, menu) {
 
     var self = this;
 
@@ -34,7 +34,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics, $location, separ
     };
 
     self.goto = function(state, params) {
-        window.snapper.close();
+        menu.close();
         var d = $q.defer();
         params = params || {};
 

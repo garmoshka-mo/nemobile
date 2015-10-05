@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'router','deviceInfo', '$state', '$q', 'friendsList',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList) {
+         router, deviceInfo, $state, $q, friendsList, menu) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -95,22 +95,12 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.toggleMenu = function() {
         //async call is necessary for correct work on android 4.1.1
         $timeout(function() {
-            var state = snapper.state().state;
-            // log(state);
-            if (state === 'right') {
-                // log('openning menu!');
-                if (RAN_AS_APP) {
-                    if (window.device.platform === "iOS") {
-                        cordova.plugins.Keyboard.close();
-                    }
+            if (RAN_AS_APP) {
+                if (window.device.platform === "iOS") {
+                    cordova.plugins.Keyboard.close();
                 }
-                log("device's OS is not iOS");
-                
-                snapper.open('left');
             }
-            else {
-                snapper.close('left');
-            }
+            menu.toggle();
         }, 0);
     };
 
