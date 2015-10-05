@@ -1,6 +1,6 @@
 angular.module("angServices")
-    .service('googleAnalytics',
-        function () {
+    .service('googleAnalytics',['$location',
+        function ($location) {
 
             var self = this;
 
@@ -183,9 +183,9 @@ angular.module("angServices")
             };
 
             if (!RAN_AS_APP) {
-                (function(i, s, o, g, r, a, m) {
+                (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function() {
+                    i[r] = i[r] || function () {
                             (i[r].q = i[r].q || []).push(arguments)
                         }, i[r].l = 1 * new Date();
                     a = s.createElement(o),
@@ -196,6 +196,9 @@ angular.module("angServices")
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             }
             init();
+            //log any landing page that is different from '/pub'
+            if (!url.startsWith('/pub'))
+                this.pageview($location.path());
 
             //On page close
             $(window).bind('beforeunload', function() {
@@ -207,4 +210,4 @@ angular.module("angServices")
                     self.event('chatting', 'didn\'t try');
                 self.event('page', 'close');
             });
-        });
+        }]);
