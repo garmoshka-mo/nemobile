@@ -33,6 +33,10 @@ function(userRequest) {
         return ratePost(postId, +1);
     };
 
+    this.unlikePost = function(postId) {
+        return ratePost(postId, 0);
+    };
+
     this.deletePost = function(postId) {
         deletePostFromArray(postId);
         return ratePost(postId, -1);
