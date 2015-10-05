@@ -13,6 +13,10 @@
     //-         .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
     ul.off-canvas-list
         li
+            a.menu-item(ng-click="goto('random')")
+                i.fa.fa-refresh
+                | Чат наугад
+        li
             a.menu-item(ng-click="goto('pubsList')")
                 i.fa.fa-thumbs-o-up
                 | Паблик
@@ -29,10 +33,6 @@
             a.menu-item(ng-click="goto('friendSearch')")
                 i.fa.fa-plus
                 | Добавить контакт
-        li
-            a.menu-item(ng-click="goto('random')")
-                i.fa.fa-refresh
-                | Чат наугад
         li(ng-show='fullMode')
             a.menu-item(ng-click="goto('settings')")
                 i.fa.fa-gear

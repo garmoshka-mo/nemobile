@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .service('externalChat',
-    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification', 'router', '$q',
-    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification, router, $q) {
+    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification',
+    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
 
         var self = this;
 
@@ -34,7 +34,7 @@ angular.module("angServices")
 
 
             self.schedule_start = function() {
-                start_timer = setTimeout(self.startNewSession, 6000);
+                start_timer = setTimeout(self.startNewSession, 500);
             };
 
             self.startNewSession = function() {
