@@ -46,7 +46,7 @@
             var parentEl = angular.element(document.body);
             $mdDialog.show({
                 parent: parentEl,
-                templateUrl: 'app/messages/editMessageDialog.html',
+                templateUrl: 'app/messages/editMessageDialog.html?'+version,
                 locals: {
                    message: message
                  },
