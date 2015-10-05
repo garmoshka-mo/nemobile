@@ -11,7 +11,7 @@ function($scope, posts, router, $anchorScroll, $location, $timeout, socket, $roo
         router.openOnTop('randomLaunch');
     }
 
-    $rootScope.mainFooterTemplate = 'app/pub/postsControl.html';
+    $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
     $scope.loadMore = function() {
         if ($scope.loading) return;
