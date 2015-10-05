@@ -27,7 +27,7 @@ div(ng-controller='chatController')
         .old-messages-background(ng-show='chatHistory.previousMessages.length', ng-repeat='message in chatHistory.previousMessages track by $index', ng-class="{'ta-right': message.isOwn}")
             span.message(ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }", ng-bind-html='::formatMessage(message.text)', allow-text-select='')
         messages(session='chatSession', close='disconnectRandomChat()', chat='true')
-        .ta-right.message-container(ng-show='isMessageSending && deviceInfo.isOldAndroid')
+        .ta-right.message-container(ng-show='isMessageSending && (deviceInfo.isOldAndroid || deviceInfo.isIos)')
             span.message.message-own(allow-text-select='')
                 span(spinner='', spinner-color='white')
         .bottom-placeholder

@@ -18,6 +18,11 @@ angular.module("angServices")
             self.isInfoTaken = true;
             self.isAndroid = device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos";
             self.isIos = device.platform == 'iOS';
+            if (self.isIos) {
+                cordova.plugins.Keyboard.disableScroll(true);
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+
             if (self.isAndroid) {
                 self.isOldAndroid = window.device.version < "4.4";
             }

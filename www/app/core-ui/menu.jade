@@ -1,19 +1,17 @@
 .no-select
-    .menu-ava-container(ng-click='isChangeAvaMenuShown ? false : showChangeAvatarMenu()', ng-show='user.name' )
-        img.rounded-ava.pointer(ng-src='{{user.avatar.urlMini}}', alt='ava', imageonload='imageLoadedHandler()', ng-click='isChangeAvaMenuShown ? generateNewAvatar() : false')
-        span.text-bold(ng-bind='user.name', ng-hide='true')
-        span.text-bold &nbsp;Ваша аватарка
-        .inline-block(ng-show='isChangeAvaMenuShown', ng-class="{'animated fadeIn': isChangeAvaMenuShown}", stop-event='')
-            .change-ava-button(ng-click='applyCurrentAvatar()')
-                i.fa.fa-check
-            .change-ava-button(ng-click='restoreDefaultAvatar()')
-                i.fa.fa-close
-            .change-ava-button(ng-click='goToLoadAvatar()')
-                i.fa.fa-upload
-            .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
+    //- .menu-ava-container(ng-click='isChangeAvaMenuShown ? false : showChangeAvatarMenu()', ng-show='user.name' )
+    //-     img.rounded-ava.pointer(ng-src='{{user.avatar.urlMini}}', alt='ava', imageonload='imageLoadedHandler()', ng-click='isChangeAvaMenuShown ? generateNewAvatar() : false')
+    //-     span.text-bold(ng-bind='user.name', ng-hide='true')
+    //-     span.text-bold &nbsp;Ваша аватарка
+    //-     .inline-block(ng-show='isChangeAvaMenuShown', ng-class="{'animated fadeIn': isChangeAvaMenuShown}", stop-event='')
+    //-         .change-ava-button(ng-click='applyCurrentAvatar()')
+    //-             i.fa.fa-check
+    //-         .change-ava-button(ng-click='restoreDefaultAvatar()')
+    //-             i.fa.fa-close
+    //-         .change-ava-button(ng-click='goToLoadAvatar()')
+    //-             i.fa.fa-upload
+    //-         .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
     ul.off-canvas-list
-        li(ng-show='debug && user.isVirtual')
-            a(ng-click="goto('updateProfile')") Зарегистрироваться
         li
             a.menu-item(ng-click="goto('pubsList')")
                 i.fa.fa-thumbs-o-up
