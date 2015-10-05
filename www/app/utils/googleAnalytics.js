@@ -196,9 +196,11 @@ angular.module("angServices")
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             }
             init();
+
+            var url = $location.path();
             //log any landing page that is different from '/pub'
             if (!url.startsWith('/pub'))
-                this.pageview($location.path());
+                this.pageview(url);
 
             //On page close
             $(window).bind('beforeunload', function() {
