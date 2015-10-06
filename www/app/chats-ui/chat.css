@@ -70,3 +70,9 @@
 .chat-left-buttons-oldandroid {
     width: 99%;
 }
+.partner-title {
+    float: left;
+}
+.my-title {
+    float: right;
+}

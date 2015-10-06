@@ -1,17 +1,14 @@
 angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
-        'membership', 'random', 'timer', 'router', 'googleAnalytics', 'chatHeader',
+        'membership', 'random', 'timer', 'router', 'googleAnalytics',
     function(user, $scope, updates, $state, notification, separator,
-             membership, random, timer, router, googleAnalytics, chatHeader) {
+             membership, random, timer, router, googleAnalytics) {
 
         $scope.updates = updates;
         updates.check();
 
         timer.reset();
-
-        // For debug:
-        chatHeader.test();
 
         //ensure has membership / needs activation / etc
         

@@ -9,6 +9,7 @@
                 partnerScores = new ScoreManager('Partner scores');
 
             this.myScores = myScores;
+            this.partnerScores = partnerScores;
             this.uuid = generateUuid();
             this.filter = new SpamFilter(this);
 

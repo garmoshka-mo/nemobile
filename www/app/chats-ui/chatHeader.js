@@ -3,11 +3,34 @@ angular.module('angControllers')
     ['notification', 'Avatar',
 function(notification, Avatar) {
 
-    // Сервис, который управляется из чата
+    var self = this;
+    this.active = false;
 
-    this.test = function() {
-        // Todo: переделать это:
-        notification.setTitleAttributes("кто-то", Avatar.fromId('ada').urlMini);
+    this.partner = { title: "кто-то"};
+    this.me = { title: "я", ava_url: Avatar.fromId('ada').urlMini };
+
+    this.setChatHeader = function(chat) {
+        self.partner.ava_url = chat.avatar.urlMini;
+        chat.getLastUnexpiredChatSession()
+            .then(
+            function(chatSession) {
+                self.partner.scores = chatSession.partnerScores;
+                self.me.scores = chatSession.myScores;
+                self.active = true;
+            }
+        );
+    };
+
+    this.clear = function() {
+        self.active = false;
+    };
+
+    this.partnerTitleClickHandler = null;
+
+    this.setPartnerTitleClickHandler = function(handler) {
+        self.partnerTitleClickHandler = function() {
+            if (handler) handler();
+        };
     }
 
 }]);
@@ -17,11 +40,8 @@ angular.module('angControllers')
     .controller('chatHeaderController',
     ['$scope', 'chatHeader',
 function($scope, chatHeader) {
-
     $scope.service = chatHeader;
-
-    // Весь HTML должен быть в chatHeader.jade
-    // отсюда управление его элементами
-
+    $scope.me = chatHeader.me;
+    $scope.partner = chatHeader.partner;
 
 }]);

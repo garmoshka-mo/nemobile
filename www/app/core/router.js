@@ -1,9 +1,9 @@
 angular.module("angServices")
     .service('router', [
         'notification', '$state', '$rootScope', '$q', 'googleAnalytics',
-        '$location', 'separator',
+        '$location', 'separator', 'chatHeader',
 function(notification, $state, $rootScope, $q, googleAnalytics,
-         $location, separator) {
+         $location, separator, chatHeader) {
 
     var self = this;
 
@@ -21,7 +21,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
     };
 
     self.openOnTop = function(stateName) {
-        notification.clear();
+        chatHeader.clear();
 
         var state = null;
         $state.get().some(function(s) {

@@ -1,0 +1,17 @@
+.chat-header(ng-show='service.active')
+    span.partner-title.pointer(ng-click='service.partnerTitleClickHandler()')
+        img.chat-toolbar-image.pointer(ng-show='partner.ava_url', ng-src='{{partner.ava_url}}')
+        span(ng-bind='partner.title')
+        span
+            | {{ partner.score.score }}
+        span
+            | {{ partner.score.recentScore }}
+        span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
+    span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
+    span.me-title
+        img.chat-toolbar-image(ng-show='me.ava_url', ng-src='{{me.ava_url}}')
+        span(ng-bind='me.title')
+        span
+            | {{ my.score.score }}
+        span
+            | {{ my.score.recentScore }}

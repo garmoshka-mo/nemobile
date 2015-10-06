@@ -1,8 +1,8 @@
-angular.module('angControllers').controller('complaintController', ['$scope', 'SpamFilter', 'notification', 'chats',
-    function($scope, SpamFilter, notification, chats) {
+angular.module('angControllers').controller('complaintController', ['$scope', 'SpamFilter', 'notification', 'chats', 'chatHeader',
+    function($scope, SpamFilter, notification, chats, chatHeader) {
 
         $scope.passOpenMenuHandler = function(openMenuHandler) {
-            notification.setClickHandler(function() {
+            chatHeader.setPartnerTitleClickHandler(function() {
                 if (!$scope.isComplaining) {
                     openMenuHandler();
                 }

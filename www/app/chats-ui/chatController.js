@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'router', 'view',
+            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader',
     function(user, $scope, $stateParams, $state, externalChat, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, router, view) {
+                chats, googleAnalytics, router, view, chatHeader) {
 
         log("chat controller is invoked");
 
@@ -57,15 +57,7 @@ angular.module("angControllers").controller("chatController",
             };
         }
 
-        function setNotification() {
-            var title = "кто-то";
-            
-            // if (chat.isVirtual || !chat.senderId) {
-            //     title = "кто-то";
-            // }
-            // else {
-            //     title = chat.title;
-            // }
+        function setChatHeader() {
 
             var notificationCallback = function() {
                 // todo: правильно обрабатывать, когда внешний чат -
@@ -76,8 +68,8 @@ angular.module("angControllers").controller("chatController",
                 //$state.go('chatInfo',{ senderId: chat.senderId });
                 // location.replace("#/showImage?link=" + chat.photoUrl);
             };
-            notification.setTitleAttributes(title, chat.avatar.urlMini);
-            //notification.setClickHandler(notificationCallback);
+            chatHeader.setChatHeader(chat);
+            //chatHeader.setClickHandler(notificationCallback);
         }
 
         $scope.disconnectRandomChat = function() {
@@ -90,14 +82,12 @@ angular.module("angControllers").controller("chatController",
 
         notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
-
-        setNotification();
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {
             chat.updateInfo()
             .then(function() {
-                setNotification();
-            });
+                    setChatHeader();
+                });
         }
 
         if (!chat.isRead && chat.currentUser) {
@@ -107,11 +97,12 @@ angular.module("angControllers").controller("chatController",
 
         var lastSession;
         chat.ensureSession()
-        .then(function(session) {
-            $scope.chatSession = lastSession = session;
-            $scope.isFirstMessage = lastSession.messages.length === 0;
-            initChatHistory();
-        });
+            .then(function (session) {
+                setChatHeader();
+                $scope.chatSession = lastSession = session;
+                $scope.isFirstMessage = lastSession.messages.length === 0;
+                initChatHistory();
+            });
 
         $scope.$watch("chatSession.messages.length", function() {
             view.scrollDownTopSection();
