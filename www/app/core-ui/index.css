@@ -337,6 +337,9 @@ ul.off-canvas-list li a {
 .hidden{
   display: none;
 }
+.transparent {
+  opacity: 0;
+}
 .width-92{
   width: 92% !important;
 }

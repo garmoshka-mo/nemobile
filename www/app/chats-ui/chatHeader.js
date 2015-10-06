@@ -41,4 +41,41 @@ angular.module('angControllers')
     ['$scope', 'chatHeader', 'user',
 function($scope, chatHeader, user) {
     $scope.s = chatHeader;
+    $scope.myScores = {};
+    $scope.partnerScores = {};
+
+    $scope.$watch('s.session', function(ses) {
+        if (!ses) return;
+        ses.myScores.updateUI = updateUI.bind(null, $scope.myScores);
+        ses.partnerScores.updateUI = updateUI.bind(null, $scope.partnerScores);
+    });
+
+
+    function updateUI(local, score, recentScore){
+        local.score = score;
+        local.recentScore = recentScore;
+        if (recentScore > 0)
+            local.recentScoreFormatted = "+" + recentScore;
+        else
+            local.recentScoreFormatted = recentScore;
+
+        local.recentOpacity = 1;
+
+        local.class = {
+            negative: recentScore < 0,
+            'animated-fast': local.recentOpacity == 1,
+            'animated-slow': local.recentOpacity == 0
+        };
+
+        setTimeout(function() {
+            $scope.$apply(function() {
+                local.recentOpacity = 0;
+            });
+        }, 2000);
+
+    }
+
+    $scope.myAvaClick = function() {
+        log($scope.s);
+    };
 }]);

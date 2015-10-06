@@ -1,21 +1,17 @@
+'use strict';
 (function(){
     angular.module("angFactories")
     .factory('ScoreManager',
         ['$resource',
 function($resource) {
-
     return function(alias) {
-        var lastAuthor, startTime,
+        var self = this,
+            lastAuthor, startTime,
             rows = 0, hisRows = 0, myRows = 0,
             hisLastMessage,
             myIncentives = 0, myIncentiveValue = 0,
 
             score = 1, recentScore = 0;
-
-        // public score & recentScore aren't set immediately,
-        // there can be intentional delay for display
-        this.score = 0;
-        this.recentScore = 0;
 
         // External behavior events:
 
@@ -106,18 +102,18 @@ function($resource) {
         function applyToScore(value) {
             score += value;
             recentScore += value;
-            log(alias, self.score, self.recentScore);
+            log(alias, score, recentScore);
             updateUI();
         }
 
         function updateUI() {
-            self.score = Math.round(score);
-            self.recentScore = recentScore;
+            if (self.updateUI)
+                self.updateUI(Math.round(score), recentScore);
             recentScore = 0;
         }
 
         function loadScore() {
-            this.score = null;
+            score = null;
         }
 
         function getValueOfText(text) {

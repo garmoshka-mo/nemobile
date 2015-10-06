@@ -92,6 +92,26 @@
     font-size: 10px;
     color: chartreuse;
     margin: 2px;
+    font-weight: bold;
+}
+
+.animated-slow{
+    -webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -ms-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+    transition: opacity 3s ease-in-out;
+}
+.animated-fast{
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -ms-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+}
+
+.chat-header .recent-score.negative {
+    color: #D84343;
 }
 
 .chat-header .name {
