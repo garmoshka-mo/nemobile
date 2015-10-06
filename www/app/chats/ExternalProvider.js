@@ -219,7 +219,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             } else {
                 talking = false; shadow = true;
                 log('calling display_partners_message');
-                chat.chatFinished();
+                chat.partnerTerminated();
             }
         }
 

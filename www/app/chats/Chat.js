@@ -243,10 +243,10 @@ angular.module("angFactories").factory("Chat",
             log("chatSession is removed");
         },
 
-        disconnect: function() {
+        disconnect: function(byPartner) {
             // this.currentUser.removeDeviceFromChannel(this.channel);
             if (this.lastUnexpiredChatSession)
-                this.lastUnexpiredChatSession.sessionFinished();
+                this.lastUnexpiredChatSession.sessionFinished(byPartner);
             this.isActive = false;
             return userRequest.send('DELETE', '/chats/' + this.channel);
         }

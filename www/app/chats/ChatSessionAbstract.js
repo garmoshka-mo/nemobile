@@ -40,23 +40,24 @@
                 if (message.type) msg.type = message.type;
                 this.addMessage(msg);
 
-                partnerScores.incentive();
-                myScores.reaction();
+                partnerScores.myIncentive(text);
+                myScores.partnerReacted();
             };
 
-            this.myMessageSent = function(message) {
+            this.myMessageSent = function(text) {
                 this.addMessage({
-                    text: message.sanitize(),
+                    text: text.sanitize(),
                     isOwn: true
                 });
 
-                myScores.incentive();
-                partnerScores.reaction();
+                myScores.myIncentive(text);
+                partnerScores.partnerReacted();
 
                 if (this.afterMyMessageSent) this.afterMyMessageSent();
             };
 
-            this.sessionFinished = function() {
+            this.sessionFinished = function(byPartner) {
+                myScores.finished(byPartner);
                 timer.stop();
             };
 

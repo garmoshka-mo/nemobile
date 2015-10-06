@@ -14,7 +14,7 @@ function($rootScope, deviceInfo, socket,
     socket.on('chat_empty', function(envelope) {
         var chat = chats.getChat(envelope.channel);
         if (chat) {
-            chat.disconnect();
+            chat.disconnect(true);
             handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
         }
     });

@@ -61,8 +61,6 @@ function($q, ChatSessionAbstract, userRequest) {
             if (isClosed) return;
             isClosed = true;
 
-            self.sessionFinished();
-
             var log = self.myScores.getLog();
             if (log.duration > 10) {
                 log.uuid = self.uuid;
