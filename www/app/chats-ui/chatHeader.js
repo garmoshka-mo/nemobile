@@ -46,10 +46,11 @@ function($scope, chatHeader, user) {
     $scope.myScores = {};
     $scope.partnerScores = {};
 
+    user.myScores.updateUI = updateUI.bind(null, $scope.myScores);
+    user.myScores.ask();
+
     $scope.$watch('s.session', function(ses) {
-        if (!ses) {
-            updateUI($scope.myScores, 1, 1);
-        }else {
+        if (ses) {
             ses.myScores.updateUI = updateUI.bind(null, $scope.myScores);
             ses.partnerScores.updateUI = updateUI.bind(null, $scope.partnerScores);
             ses.partnerScores.ask();
@@ -68,7 +69,7 @@ function($scope, chatHeader, user) {
         local.recentOpacity = 1;
 
         local.class = {
-            negative: recentScore < 0,
+            negative: recentScore < 0
             //'animated-fast': local.recentOpacity == 1,
             //'animated-slow': local.recentOpacity == 0
         };

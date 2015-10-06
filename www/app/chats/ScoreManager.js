@@ -4,14 +4,14 @@
     .factory('ScoreManager',
         ['$resource',
 function($resource) {
-    return function(alias) {
+    return function(alias, init_score) {
         var self = this,
             lastAuthor, startTime,
             rows = 0, hisRows = 0, myRows = 0,
             hisLastMessage,
             myIncentives = 0, myIncentiveValue = 0,
 
-            score = 1, recentScore = 0;
+            score = init_score || 1, recentScore = 0;
 
         // External behavior events:
 
@@ -35,6 +35,10 @@ function($resource) {
             }
             lastAuthor = 'he';
             swap();
+        };
+
+        this.explicitlyAddScores = function(value) {
+            applyToScore(value);
         };
 
         this.finished = function(byPartner) {
@@ -130,6 +134,10 @@ function($resource) {
         }
 
         // Utils:
+
+        this.getScore = function() {
+            return score;
+        };
 
         this.ask = function() {
             updateUI();

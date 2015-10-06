@@ -60,6 +60,7 @@ angular.module("angServices")
         saveUser: function(currentUser) {
             var notToSave = ['chats', 'friends', 'friendsList'];
             var _user = filterObject(currentUser, notToSave);
+            _user.user_score = currentUser.myScores.getScore();
             $localForage.setItem('user', _user);
         },
 
