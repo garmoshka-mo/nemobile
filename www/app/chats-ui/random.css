@@ -28,6 +28,10 @@ a.md-button.md-fab:not([disabled]):hover,
     display: none;
 }
 
+.placeholder_for_fab_buttons {
+    height: 94px;
+}
+
 .md-button.md-fab:not([disabled]):hover
 .img-hover {
     display: inline;

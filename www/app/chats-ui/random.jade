@@ -116,7 +116,22 @@
                                     .fab-title.fab-title-left запретить
                                     img(src='assets/img/forbid.png', alt='forbid')
         .placeholder_for_fab_buttons
-        .row.pt1rem(ng-show='false')
+        #random-help.row(style='margin-bottom: 9px;')
+            .small-12.ta-center.columns
+                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') Помощь
+                .help(ng-show='showHelpText', scroll-bottom='showHelpText')
+                    // Вступление - это текст, который будет видеть вначале ваш собеседник. <br>
+                    p
+                        | С помощью иконок вы можете указать предпочтения по тематике общения.
+                        | Если вы, например, запрещаете "Камеру",
+                        | то вас не будет соединять с теми, кто ищет общения с камерой.
+                    p
+                        | Настройки поиска можно не задавать - тогда вам будет предложен случайный собеседник,
+                        | который так же не задавал конкретных критериев.
+                    p
+                        | Если вы хотите фильтровать по полу, то должен быть указан и ваш пол.
+                        | При выборе возраста собеседника - можно указать несколько групп.
+        .row.top-margin(ng-show='false')
             .small-12.columns
                 input(type='text', ng-model='filter.iam.intro', placeholder='Вступление (необязательно)')
         .row(ng-show='false')
@@ -135,24 +150,9 @@
                     sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
                     p.text-silver.ta-center Возраст:
                     age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
-        .row.pt1rem
+        .row.top-margin.bottom-margin
             .small-12.ta-center
                 span.text-silver.pointer(ng-click='setDefaultFilterParams()') сбросить фильтр
-        .row.pt1rem
-            .small-12.ta-center.columns
-                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') Помощь
-                .help(ng-show='showHelpText', scroll-bottom='showHelpText')
-                    // Вступление - это текст, который будет видеть вначале ваш собеседник. <br>
-                    p
-                        | С помощью иконок вы можете указать предпочтения по тематике общения.
-                        | Если вы, например, запрещаете "Камеру",
-                        | то вас не будет соединять с теми, кто ищет общения с камерой.
-                    p
-                        | Настройки поиска можно не задавать - тогда вам будет предложен случайный собеседник,
-                        | который так же не задавал конкретных критериев.
-                    p
-                        | Если вы хотите фильтровать по полу, то должен быть указан и ваш пол.
-                        | При выборе возраста собеседника - можно указать несколько групп.
         .row(ng-show='!RAN_AS_APP && IS_MOBILE', style='padding: 19px 0 6px;')
             .small-6.columns(style='text-align: right; padding-top: 4px;')
                 // Чтобы не пропустить диалог,<br/> установите приложение:

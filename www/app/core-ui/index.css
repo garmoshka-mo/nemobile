@@ -126,9 +126,6 @@ input[type="password"] {
  .h100 {
    height: 100px;
  }
- .placeholder_for_fab_buttons {
-   height: 120px;
- }
 .h100p {
   height: 100%;
 }
@@ -156,6 +153,9 @@ input[type="password"] {
 }
 .top-margin {
   margin-top: 1rem;
+}
+.bottom-margin {
+  margin-bottom: 1rem;
 }
 .condensed-buttons button {
   padding-right: 1rem;

@@ -73,8 +73,6 @@ angular.module("angControllers")
         });
 
         $scope.setDefaultFilterParams = function() {
-            debugPanel();
-
             $scope.filter.iam = {
                 sex: '-',
                 age: [0],
@@ -114,6 +112,7 @@ angular.module("angControllers")
 
         $scope.helpClick = function() {
             $scope.showHelpText = !$scope.showHelpText;
+            debugPanel();
         };
 
         var debugClickCounter = 0;
