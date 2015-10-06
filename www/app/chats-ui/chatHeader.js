@@ -86,13 +86,8 @@ function($scope, chatHeader, user) {
         log($scope.s);
     };
 
-
-    function setUserAvatar(){
-        if(user.isLogged() && !user.isParsingFromStorageNow) {
-            $scope.s.me.ava_url = user.avatar.urlMini;
-            clearInterval(self.interval)
-        }
-    }
-    self.interval = setInterval(setUserAvatar, 300);
+    user.ensureParsedFromStorage().then(function(){
+        $scope.s.me.ava_url = user.avatar.urlMini;
+    });
 
 }]);

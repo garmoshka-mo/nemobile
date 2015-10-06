@@ -87,9 +87,12 @@ angular.module("angControllers").controller("friendsController",
         }
     });
 
-    if (!user.isParsingFromStorageNow && !user.friendsList.gotUserContacts) {
-        user.friendsList.getUserContacts();
-    }
+    user.ensureParsedFromStorage().then(function() {
+        if (!user.friendsList.gotUserContacts) {
+            user.friendsList.getUserContacts();
+        }
+    });
+
 
     //for debbuging 
     $scope.debug = function(contact) {

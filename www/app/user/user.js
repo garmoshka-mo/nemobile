@@ -5,8 +5,10 @@ angular.module("angServices")
     function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
              friendsList, $sce, $state, router, Avatar, userRequest, guestRequest, ScoreManager) {
     
-    this.isParsingFromStorageNow = false;
-    this.parsedFromStorage = false;
+    this.parsingFromStorageNow = null;
+    this.ensureParsedFromStorage = function() {
+        return self.parsingFromStorageNow? self.parsingFromStorageNow.promise : $q.when(true);
+    };
 
     var self = this;
     clearCurrentUser();
@@ -22,7 +24,6 @@ angular.module("angServices")
         self.avatar = new Avatar(userInfo);
 
         isLogged = true;
-        self.parsedFromStorage = true;
         localStorage.setItem('isLogged', true);
         stickersGallery.getCurrentUserCategories();
         self.save();

@@ -58,10 +58,11 @@ angular.module("angServices")
 
         //save methods
         saveUser: function(currentUser) {
-            var notToSave = ['chats', 'friends', 'friendsList'];
+            var notToSave = ['parsingFromStorageNow'];
             var _user = filterObject(currentUser, notToSave);
             _user.user_score = currentUser.myScores.getScore();
             $localForage.setItem('user', _user);
+            // .then(function(res){console.log(res)},function(res){console.log(res)})
         },
 
         saveFriendsList: function(userFriendsList) {
