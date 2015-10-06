@@ -1,23 +1,27 @@
 div(ng-hide='service.active || routing.is_preload', ui-view='title')
-span.chat-header(ng-show='service.active')
+span.chat-header(ng-show='service.active && !routing.is_preload')
     span.partner-title.pointer(ng-click='service.partnerTitleClickHandler()')
         img.chat-toolbar-image.pointer(ng-show='partner.ava_url', ng-src='{{partner.ava_url}}')
-        span(ng-bind='partner.title')
         span
-            | {{ partner.score.score }}
+            | {{ partner.score.score? partner.score.score: "0" }}
         span
-            | {{ partner.score.recentScore }}
-        span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
-        span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
+            | {{ partner.score.recentScore? partner.score.recentScore: "0" }}
+        span
+            | {{ partner.title }}
+            span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
+            span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
     span.middle-title
-        a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
+        a.icon_button(ng-click='publish()', title='РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ РґР»СЏ РїСѓР±Р»РёРєР°С†РёРё С‡Р°С‚Р°')
             i.fa.fa-share-square-o
-        i.fa.fa-clock-o
-        span(ng-bind='notification.time')
+        span.time_zone
+            i.fa.fa-clock-o
+            span(ng-bind='notification.time')
     span.me-title
-        span(ng-bind='me.title')
         span
-            | {{ my.score.score }}
-        span
-            | {{ my.score.recentScore }}
+            span.score-title
+                span
+                    | {{ my.score.score? my.score.score: "0" }}
+                span
+                    | {{ my.score.recentScore? my.score.score: "0" }}
+            span.name-title(ng-bind='me.title')
         img.chat-toolbar-image(ng-show='me.ava_url', ng-src='{{me.ava_url}}')
