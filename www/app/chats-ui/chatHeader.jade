@@ -10,7 +10,8 @@
                 span(ng-bind='partnerScores.score')
                 span.recent-score(ng-bind='partnerScores.recentScoreFormatted'
                     ng-style='{opacity: partnerScores.recentOpacity}' ng-class='partnerScores.class')
-            .name(style='float: left;' ng-bind='s.partner.title')
+                | {{ s.partner.title }}
+                span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
             span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
             span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
@@ -25,6 +26,7 @@
 
     div(ng-show='s.active && !routing.is_preload')
         span.time_zone
+            i.fa.fa-clock-o
             span(ng-bind='notification.time')
         a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
             i.fa.fa-share-square-o

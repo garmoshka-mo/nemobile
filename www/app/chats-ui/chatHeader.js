@@ -40,6 +40,8 @@ angular.module('angControllers')
     .controller('chatHeaderController',
     ['$scope', 'chatHeader', 'user',
 function($scope, chatHeader, user) {
+    var self = this;
+
     $scope.s = chatHeader;
     $scope.myScores = {};
     $scope.partnerScores = {};
@@ -78,4 +80,14 @@ function($scope, chatHeader, user) {
     $scope.myAvaClick = function() {
         log($scope.s);
     };
+
+
+    function setUserAvatar(){
+        if(user.isLogged() && !user.isParsingFromStorageNow) {
+            $scope.s.me.ava_url = user.avatar.urlMini;
+            clearInterval(self.interval)
+        }
+    }
+    self.interval = setInterval(setUserAvatar, 300);
+
 }]);

@@ -10,7 +10,6 @@
         };
 
         var initialText;
-        var initialHandler;
         var typing_timeout;
         var chatDisconnectHandler;
 
@@ -74,16 +73,9 @@
         }
 
         var notification = {
-            setTitleAttributes: function(title, ava_url) {
+            setTitle: function(title, ava_url) {
                 $rootScope.notification.text = title;
-                $rootScope.notification.ava_url = ava_url;
                 initialText = title;
-            },
-            setClickHandler: function(handler) {
-                $rootScope.notification.handler = function() {
-                    if (handler) handler();
-                };
-                initialHandler = $rootScope.notification.handler;
             },
 
             typingExternal: function() {
@@ -108,26 +100,15 @@
                 $rootScope.$apply(function() { self.asked++; });
             },
 
-            setTemporary: function(text, time, handler) {
+            setTemporary: function(text, time) {
                 var self = this;
                 $rootScope.notification.text = text;
-                $rootScope.notification.handler = function() {
-                    if (handler) {
-                        handler();
-                    }
-                };
                 $rootScope.notification.animated = true;
                 time = time || 1000;
                 $timeout(
                     function() {
                         if (initialText) {
-                            if (initialHandler) {
-                                self.setTitleAttributes(initialText);
-                                self.setClickHandler(initialHandler);
-                            }
-                            else {
-                                self.setTitleAttributes(initialText);
-                            }
+                            self.setTitle(initialText);
                         }
                         else {
                             self.clear();
@@ -140,10 +121,6 @@
             setSmallIcon: function(html, handler) {
                 $rootScope.customSmallIconInner = html;
                 $rootScope.customSmallIconHandler = handler;
-                //$rootScope.$on('$stateChangeStart', function() {
-                //    $rootScope.customSmallIconInner =
-                //        $rootScope.customSmallIconHandler = null;
-                //});
             },
 
             setChatDisconnectHandler: function(handler){
@@ -166,7 +143,6 @@
                 $rootScope.notification.text = "";
                 $rootScope.notification.animated = false;
                 initialText = null;
-                initialHandler = null;
             },
 
             setTemporaryPageTitle: function(text) {

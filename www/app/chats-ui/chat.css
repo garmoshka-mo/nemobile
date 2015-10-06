@@ -118,14 +118,9 @@
     font-size: 18px;
     line-height: 18px;
 }
-
-
-
-
-.middle-title {
-    float: left;
-}
-
 .header-title {
     float: left;
+}
+a.options {
+    color: white;
 }
