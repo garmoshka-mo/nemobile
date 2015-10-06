@@ -1,6 +1,6 @@
-div(ng-hide='service.active || routing.is_preload', ui-view='title')
-span.chat-header(ng-show='service.active && !routing.is_preload')
-    span.partner-title.pointer(ng-click='service.partnerTitleClickHandler()')
+span.wrapper
+    span.header-title(ng-hide='service.active || routing.is_preload', ui-view='title')
+    span.partner-title.pointer(ng-click='service.partnerTitleClickHandler()', ng-show='service.active && !routing.is_preload')
         img.chat-toolbar-image.pointer(ng-show='partner.ava_url', ng-src='{{partner.ava_url}}')
         span
             | {{ partner.score.score? partner.score.score: "0" }}
@@ -10,7 +10,7 @@ span.chat-header(ng-show='service.active && !routing.is_preload')
             | {{ partner.title }}
             span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
             span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-    span.middle-title
+    span.middle-title(ng-show='service.active && !routing.is_preload')
         a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
             i.fa.fa-share-square-o
         span.time_zone

@@ -11,6 +11,7 @@ function(notification, Avatar) {
 
     this.setChatHeader = function(chat) {
         self.partner.ava_url = chat.avatar.urlMini;
+        self.me.ava_url = user.avatar.urlMini;
         chat.getLastUnexpiredChatSession()
             .then(
             function(chatSession) {
@@ -38,10 +39,9 @@ function(notification, Avatar) {
 
 angular.module('angControllers')
     .controller('chatHeaderController',
-    ['$scope', 'chatHeader',
-function($scope, chatHeader) {
+    ['$scope', 'chatHeader', 'user',
+function($scope, chatHeader, user) {
     $scope.service = chatHeader;
     $scope.me = chatHeader.me;
     $scope.partner = chatHeader.partner;
-
 }]);
