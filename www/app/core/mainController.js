@@ -16,7 +16,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.debug = config('debugMode');
 
     function parseUserFromStorage() {
-        user.isParsingFromStorageNow = true;
+        user.parsingFromStorageNow = $q.defer()
         return $q.all([
             user.parseFromStorage(),
             chats.parseFromStorage(),
@@ -24,8 +24,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         ])
         .then(
             function() {
-                user.isParsingFromStorageNow = false;
-                user.parsedFromStorage = true;
+                user.parsingFromStorageNow.resolve();
                 log("all user info was parsed from storage");
                 hideSplashScreen();
             },
