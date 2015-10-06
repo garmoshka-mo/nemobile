@@ -35,10 +35,16 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         separator.updateView(self);
     };
 
-    self.goto = function(state, params) {
+    self.goto = function(state, params, top) {
         window.snapper.close();
         var d = $q.defer();
         params = params || {};
+
+        if (top) {
+            if (top.hide) {
+                self.top = {};
+            }
+        }
 
         if ($state.current.name == state) {
             d.resolve();

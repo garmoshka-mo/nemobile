@@ -39,7 +39,7 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
         $scope.goToLoadAvatar = function() {
             $scope.toggleMenu();
             $scope.isChangeAvaMenuShown = false;
-            router.goto('loadAvatar');
+            router.goto('loadAvatar', null, {hide: true});
             user.avatar.urlMini = $scope.initialAvatarUrl;
         };
 
