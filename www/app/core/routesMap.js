@@ -1,6 +1,8 @@
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
-    function($stateProvider, $urlRouterProvider) {
-        //$urlRouterProvider.otherwise("signinup/in");
+    function($stateProvider, $urlRouterProvider, $state) {
+        $urlRouterProvider.otherwise(function() {
+            $state.go('random');
+        });
         // $animate.enabled(false);
         $stateProvider
             .state("start", {
