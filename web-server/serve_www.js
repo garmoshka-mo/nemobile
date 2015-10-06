@@ -52,6 +52,10 @@ app.get(index_routes, function (req, res) {
     res.render('index', assets);
 });
 
+app.get('/exit', function (req, res) {
+    res.redirect('/');
+});
+
 app.get('/version', function (req, res) {
     res.send('{"version":"'+version.version+'"}');
 });

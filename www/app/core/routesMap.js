@@ -173,6 +173,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("exit", {
                 url: "/exit",
                 views: {
+                    "top" : {
+                        resize: 'hide'
+                    },
                     "title": {
                         template: "Выход"
                     },

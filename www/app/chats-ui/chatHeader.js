@@ -60,7 +60,7 @@ function($rootScope, user) {
         };
     };
 
-    user.loadFromStorage().then(function(){
+    user.passivePromise.then(function(){
         if (user.myScores) {
             self.me.ava_url = user.avatar.urlMini;
             self.me.hidden = false;

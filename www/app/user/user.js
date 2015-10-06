@@ -8,7 +8,11 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
 
     var self = this;
     clearCurrentUser();
+
     var isLogged = null;
+    var passiveDeferred = $q.defer();
+
+    self.passivePromise = passiveDeferred.promise;
 
     function handleSuccessSignIn(userInfo) {
         self.name = userInfo.name;
@@ -16,14 +20,18 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         self.uuid = userInfo.uuid;
 
         self.score = userInfo.score;
+        // todo: заменить на новый score от апи, когда будет реализовано хранение на сервере
+        self.myScores = new ScoreMachine('user scores', 1);
         self.phoneNumber = userInfo.phone_number;
         self.avatar = new Avatar(userInfo);
 
         isLogged = true;
-        localStorage.setItem('isLogged', true);
         stickersGallery.getCurrentUserCategories();
         self.save();
         $rootScope.$broadcast('user logged in');
+        passiveDeferred.resolve();
+
+        localStorage.setItem('isLogged', true);
     }
 
     function setAccessToken(accessToken) {
@@ -244,6 +252,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
                 stickersGallery.getCurrentUserCategories();
                 log("user info is taken from storage", self);
                 $rootScope.$broadcast('user data loaded');
+                passiveDeferred.resolve();
             }),
 
             storage.getLastMessageTimestamp().then(function(timestamp) {
