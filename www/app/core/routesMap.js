@@ -298,7 +298,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "loadAvatarController",
-                        templateUrl: "partials/loadAvatar/content.html?"+version
+                        templateUrl: "app/media/loadAvatar.html?"+version
                     }
                 }
             })

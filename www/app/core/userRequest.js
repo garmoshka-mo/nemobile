@@ -2,8 +2,8 @@
 
 angular.module("angServices")
     .service('userRequest',
-    ['$http', '$q',
-function ($http, $q) {
+    ['$http', '$q', 'Upload', '$rootScope',
+function ($http, $q, Upload, $rootScope) {
 
     var host = config('apiUrl');
 
@@ -43,6 +43,25 @@ function ($http, $q) {
 
         sendSync: function(method, url, data) {
             return $.ajax(new Config(method, url, data, true));
+        },
+
+        sendFile: function(method, url, data) {
+            var config = new Config(method, url, data);
+            return Upload.upload(config)
+            .then(
+                function(res) {
+                    if (res.data.success) {
+                        $rootScope.$broadcast('user avatar was updated');
+                    }
+                    else {
+                        return $q.reject();
+                    }
+                },
+                function(res) {
+                    return $q.reject();
+                }
+            );
+               
         }
     };
     

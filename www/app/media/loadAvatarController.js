@@ -1,10 +1,11 @@
 angular.module("angControllers").controller("loadAvatarController",
-    ['$scope', '$stateParams', 'stickersGallery', 'user', '$timeout',
-    function($scope, $stateParams, stickersGallery, user, $timeout) {
+    ['$scope', '$stateParams', 'stickersGallery', 'user', '$timeout', 'separator', 'router',
+    function($scope, $stateParams, stickersGallery, user, $timeout, separator, router) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
         $scope.isServerResponseShown = false;
+        separator.resize('hide');
 
         function handleSuccessUploading() {
             $scope.isImageUploading = false;
@@ -12,6 +13,7 @@ angular.module("angControllers").controller("loadAvatarController",
             $scope.isServerResponseShown = true;
             $timeout(function() {
                 $scope.isServerResponseShown = false;
+                router.goto('pubsList');
             }, 3000);
             user.save();
         }
@@ -43,7 +45,7 @@ angular.module("angControllers").controller("loadAvatarController",
         $scope.uploadPhoto = function() {
             doBeforeUploading();
             $scope.isServerResponseShown = false;
-            user.avatar.updateFile($scope.newImage.file[0])
+            user.avatar.updateFile($scope.newImage.file)
             .then(
                 function() {
                     handleSuccessUploading();

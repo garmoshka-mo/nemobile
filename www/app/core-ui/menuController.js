@@ -1,5 +1,5 @@
-angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', '$state', '$timeout', '$http', 'sound',
-    function($scope, $stateParams, $state, $timeout, $http, sound) {
+angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', 'router', '$timeout', '$http', 'sound',
+    function($scope, $stateParams, router, $timeout, $http, sound) {
 
         $scope.showChangeAvatarMenu = false;
         $scope.isAvaLoading = false;
@@ -37,9 +37,9 @@ angular.module("angControllers").controller("menuController", ['$scope', '$state
         };
 
         $scope.goToLoadAvatar = function() {
-            location.href = "#/loadAvatar";
             $scope.toggleMenu();
             $scope.isChangeAvaMenuShown = false;
+            router.goto('loadAvatar');
             user.avatar.urlMini = $scope.initialAvatarUrl;
         };
 

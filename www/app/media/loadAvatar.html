@@ -2,7 +2,8 @@
     <div class="width-92 block-center top-margin">
         <div class="row">
             <label>Загрузите из ваших файлов</label>
-            <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="uploadPhoto()" name="data">
+            <input type="file" class="custom-file-input" ngf-pattern="'image/*'"
+                accept="image/*" ng-model="newImage.file" ngf-select="uploadPhoto()" name="data">
         </div>
         <div class="grey-line width-92"></div>
         <div class="row">

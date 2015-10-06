@@ -1,6 +1,6 @@
 angular.module("angServices")
-.factory('api', ['$http', '$q', '$upload', 'userRequest', 'guestRequest',
-    function ($http, $q, $upload, userRequest, guestRequest) {
+.factory('api', ['$http', '$q', 'userRequest', 'guestRequest',
+    function ($http, $q, userRequest, guestRequest) {
     
     log("api service is enabled");
         

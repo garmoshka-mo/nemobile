@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .factory('Avatar',
-    ['userRequest', '$q', '$upload', 'api', '$rootScope',
-    function(userRequest, $q, $upload, api, $rootScope) {
+    ['userRequest', '$q', 'Upload', 'api', '$rootScope',
+    function(userRequest, $q, Upload, api, $rootScope) {
 
             function Avatar(dataFromServer, dataFromStorage) {
                 var parsed =  dataFromStorage ?
@@ -101,35 +101,12 @@ angular.module("angServices")
                 },
 
                 updateFile: function(file) {
-                    var d = $q.defer();
-                    fileTypeDeterminer.detect(file, 
-                        function(type) {
-                            $upload.upload({
-                                method: 'POST',
-                                url: config('apiUrl') + "/avatar",
-                                headers: {
-                                    "Authorization": "Token token=" + api.accessToken
-                                },
-                                file: file,
-                                fileName: "image." + type,
-                                fileFormDataName: "avatar[data]"
-                            })
-                            .then(
-                                function(res) {
-                                    $rootScope.$broadcast('user avatar was updated');
-                                    d.resolve();
-                                },
-                                function(res) {
-                                    d.reject();
-                                }
-                            );
-                        },
-                        function() {
-                            alert("пожалуйста, выберете изображение");
-                            d.reject();
-                        }
+                    return userRequest.sendFile(
+                        'POST',
+                        '/avatar',
+                        {avatar: {data: file}}
                     );
-                    return d.promise;  
+                   
                 },
             };
 
