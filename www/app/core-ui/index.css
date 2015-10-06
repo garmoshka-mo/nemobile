@@ -1015,7 +1015,7 @@ input[type="radio"]:checked + .radioLabel {
 
 .time_zone {
   font-size: 0.8rem;
-  padding: 7px 12px 7px 4px;
+  padding: 7px 4px;
   text-align: right;
   line-height: 0;
  }

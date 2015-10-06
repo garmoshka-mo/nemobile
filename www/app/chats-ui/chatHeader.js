@@ -7,7 +7,7 @@ function(notification, Avatar) {
     this.active = false;
 
     this.partner = { title: "кто-то"};
-    this.me = { title: "я", ava_url: Avatar.fromId('ada').urlMini };
+    this.me = { title: "Я", ava_url: Avatar.fromId('ada').urlMini };
 
     this.setChatHeader = function(chat) {
         self.partner.ava_url = chat.avatar.urlMini;
@@ -15,8 +15,7 @@ function(notification, Avatar) {
         chat.getLastUnexpiredChatSession()
             .then(
             function(chatSession) {
-                self.partner.scores = chatSession.partnerScores;
-                self.me.scores = chatSession.myScores;
+                self.session = chatSession;
                 self.active = true;
             }
         );
@@ -41,7 +40,5 @@ angular.module('angControllers')
     .controller('chatHeaderController',
     ['$scope', 'chatHeader', 'user',
 function($scope, chatHeader, user) {
-    $scope.service = chatHeader;
-    $scope.me = chatHeader.me;
-    $scope.partner = chatHeader.partner;
+    $scope.s = chatHeader;
 }]);

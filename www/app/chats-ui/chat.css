@@ -70,24 +70,42 @@
 .chat-left-buttons-oldandroid {
     width: 99%;
 }
-.partner-title {
+
+
+.chat-header .title {
+    display: inline-block;
     float: left;
+    margin: 7px 5px;
 }
-.me-title {
-    float: right;
+.chat-header .ava {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 6px;
 }
+.chat-header .scores {
+    line-height: 10px;
+    font-size: 14px;
+}
+.chat-header .recent-score {
+    font-size: 10px;
+    color: chartreuse;
+    margin: 2px;
+}
+
+.chat-header .name {
+    font-size: 18px;
+    line-height: 18px;
+}
+
+
+
+
 .middle-title {
     float: left;
 }
-.tab-bar-section.middle {
-    right: 5px;
-}
-.score-title {
 
-}
-.name-title {
-
-}
 .header-title {
     float: left;
 }

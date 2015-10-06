@@ -1,27 +1,28 @@
-span.wrapper
-    span.header-title(ng-hide='service.active || routing.is_preload', ui-view='title')
-    span.partner-title.pointer(ng-click='service.partnerTitleClickHandler()', ng-show='service.active && !routing.is_preload')
-        img.chat-toolbar-image.pointer(ng-show='partner.ava_url', ng-src='{{partner.ava_url}}')
-        span
-            | {{ partner.score.score? partner.score.score: "0" }}
-        span
-            | {{ partner.score.recentScore? partner.score.recentScore: "0" }}
-        span
-            | {{ partner.title }}
+.wrapper.chat-header
+
+    .header-title(ng-hide='s.active || routing.is_preload', ui-view='title')
+
+    .pointer(style='float:left' ng-click='s.partnerTitleClickHandler()'
+        ng-show='s.active && !routing.is_preload')
+        img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
+        .title(style='text-align: left;')
+            .scores
+                span(ng-bind='s.session.partnerScores.score')
+                span.recent-score(ng-bind='s.session.partnerScores.recentScore')
+            .name(style='float: left;' ng-bind='s.partner.title')
             span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
             span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-    span.middle-title(ng-show='service.active && !routing.is_preload')
+
+    div(style='float:right' )
+        .title
+            .scores
+                span.recent-score(ng-bind='s.session.myScores.recentScore')
+                span(ng-bind='s.session.myScores.score')
+            .name(style='float: right;' ng-bind='s.me.title')
+        img.ava(style='float: right;' ng-show='s.me.ava_url', ng-src='{{s.me.ava_url}}')
+
+    div(ng-show='s.active && !routing.is_preload')
+        span.time_zone
+            span(ng-bind='notification.time')
         a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
             i.fa.fa-share-square-o
-        span.time_zone
-            i.fa.fa-clock-o
-            span(ng-bind='notification.time')
-    span.me-title
-        span
-            span.score-title
-                span
-                    | {{ my.score.score? my.score.score: "0" }}
-                span
-                    | {{ my.score.recentScore? my.score.score: "0" }}
-            span.name-title(ng-bind='me.title')
-        img.chat-toolbar-image(ng-show='me.ava_url', ng-src='{{me.ava_url}}')
