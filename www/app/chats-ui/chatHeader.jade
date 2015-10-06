@@ -10,11 +10,11 @@
                 span(ng-bind='partnerScores.score')
                 span.recent-score(ng-bind='partnerScores.recentScoreFormatted'
                     ng-style='{opacity: partnerScores.recentOpacity}' ng-class='partnerScores.class')
+            .name(style='float: left;')
                 | {{ s.partner.title }}
                 span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
-            span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
-            span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
-
+                span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
+    
     div(style='float:right' )
         .title
             .scores
