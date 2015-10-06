@@ -1,7 +1,7 @@
 'use strict';
 (function(){
     angular.module("angFactories")
-    .factory('ScoreManager',
+    .factory('ScoreMachine',
         ['$resource',
 function($resource) {
     return function(alias, init_score) {
@@ -91,12 +91,14 @@ function($resource) {
         function incrementMyScore() {
             if (myIncentiveValue < 1 && score < 10) myIncentiveValue = 1;
             applyToScore(myIncentiveValue);
+            updateUI();
             myIncentiveValue = 0;
         }
 
         function bestrafeMich(dieStrafe) {
             myIncentiveValue = 0;
             applyToScore(-dieStrafe);
+            updateUI();
         }
 
         function swap() {
@@ -107,7 +109,6 @@ function($resource) {
             score += value;
             recentScore += value;
             log(alias, score, recentScore);
-            updateUI();
         }
 
         function updateUI() {

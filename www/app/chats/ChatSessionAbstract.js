@@ -1,12 +1,12 @@
 (function(){
     angular.module("angFactories").factory('ChatSessionAbstract',
-        ['notification', 'SpamFilter', 'timer', 'ScoreManager',
-    function(notification, SpamFilter, timer, ScoreManager) {
+        ['notification', 'SpamFilter', 'timer', 'ScoreMachine', 'user',
+    function(notification, SpamFilter, timer, ScoreMachine, user) {
 
         return function AbstractSession() {
 
-            var myScores = new ScoreManager('My scores'),
-                partnerScores = new ScoreManager('Partner scores');
+            var myScores = new ScoreMachine('My scores'),
+                partnerScores = new ScoreMachine('Partner scores');
 
             this.myScores = myScores;
             this.partnerScores = partnerScores;

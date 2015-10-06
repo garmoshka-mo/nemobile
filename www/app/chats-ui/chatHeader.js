@@ -46,9 +46,6 @@ function($scope, chatHeader, user) {
     $scope.myScores = {};
     $scope.partnerScores = {};
 
-    user.myScores.updateUI = updateUI.bind(null, $scope.myScores);
-    user.myScores.ask();
-
     $scope.$watch('s.session', function(ses) {
         if (ses) {
             ses.myScores.updateUI = updateUI.bind(null, $scope.myScores);
@@ -87,6 +84,8 @@ function($scope, chatHeader, user) {
     };
 
     user.ensureParsedFromStorage().then(function(){
+        user.myScores.updateUI = updateUI.bind(null, $scope.myScores);
+        user.myScores.ask();
         $scope.s.me.ava_url = user.avatar.urlMini;
     });
 

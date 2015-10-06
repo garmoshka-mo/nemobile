@@ -1,9 +1,9 @@
 angular.module("angServices")
 .service('user', [
     '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'tracker',
-        'friendsList', '$sce', '$state', 'router', 'Avatar', 'userRequest', 'guestRequest', 'ScoreManager',
+        'friendsList', '$sce', '$state', 'router', 'Avatar', 'userRequest', 'guestRequest', 'ScoreMachine',
     function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
-             friendsList, $sce, $state, router, Avatar, userRequest, guestRequest, ScoreManager) {
+             friendsList, $sce, $state, router, Avatar, userRequest, guestRequest, ScoreMachine) {
     
     this.parsingFromStorageNow = null;
     this.ensureParsedFromStorage = function() {
@@ -234,7 +234,7 @@ angular.module("angServices")
                 self.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
                 self.isVirtual = dataFromStorage.isVirtual;
 
-                self.myScores = new ScoreManager('user scores', dataFromStorage.user_score);
+                self.myScores = new ScoreMachine('user scores', dataFromStorage.user_score);
 
                 setAccessToken(dataFromStorage.accessToken);
                 // registerDeviceToChannel();
