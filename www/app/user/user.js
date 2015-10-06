@@ -1,14 +1,10 @@
 angular.module("angServices")
 .service('user', [
     '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'tracker',
-        'friendsList', '$sce', '$state', 'router', 'Avatar', 'userRequest', 'guestRequest', 'ScoreMachine',
-    function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
-             friendsList, $sce, $state, router, Avatar, userRequest, guestRequest, ScoreMachine) {
-    
-    this.parsingFromStorageNow = null;
-    this.ensureParsedFromStorage = function() {
-        return self.parsingFromStorageNow? self.parsingFromStorageNow.promise : $q.when(true);
-    };
+        'friendsList', '$sce', '$state', 'Avatar', 'userRequest', 'guestRequest', 'ScoreMachine',
+function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
+         friendsList, $sce, $state, Avatar, userRequest, guestRequest, ScoreMachine) {
+
 
     var self = this;
     clearCurrentUser();
@@ -220,8 +216,15 @@ angular.module("angServices")
         );
     };
 
-    this.parseFromStorage = function(dataFromStorage) {
-        return $q.all([
+    var loadingFromStoragePromise = null;
+    this.loadFromStorage = function() {
+        if (loadingFromStoragePromise) return loadingFromStoragePromise;
+
+        if (!self.isLogged())
+            loadingFromStoragePromise = $q.when(true);
+        else
+            loadingFromStoragePromise = $q.all(
+        [
             storage.getUser()
             .then(function(dataFromStorage) {
                 self.name = dataFromStorage.name;
@@ -231,7 +234,7 @@ angular.module("angServices")
                 self.score = dataFromStorage.score;
                 self.phoneNumber = dataFromStorage.phoneNumber;
                 self.lastReadMessageTimestamp = dataFromStorage.lastReadMessageTimestamp;
-                self.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
+                self.avatar = Avatar.loadFromStorage(dataFromStorage.avatar);
                 self.isVirtual = dataFromStorage.isVirtual;
 
                 self.myScores = new ScoreMachine('user scores', dataFromStorage.user_score);
@@ -242,10 +245,13 @@ angular.module("angServices")
                 log("user info is taken from storage", self);
                 $rootScope.$broadcast('user data loaded');
             }),
+
             storage.getLastMessageTimestamp().then(function(timestamp) {
                 self.lastMessageTimestamp = timestamp;
             })
         ]);
+
+        return loadingFromStoragePromise;
     };
 
     this.socialSignin = function(provider, providerId, providerToken) {

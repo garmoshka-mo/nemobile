@@ -49,7 +49,7 @@ angular.module("angServices")
                 return output;
             }
 
-            Avatar.parseFromStorage = function(dataFromStorage) {
+            Avatar.loadFromStorage = function(dataFromStorage) {
                 return new Avatar(null, dataFromStorage);
             };
 

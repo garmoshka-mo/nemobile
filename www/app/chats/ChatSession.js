@@ -31,7 +31,7 @@ angular.module("angFactories").factory('ChatSession',
         return String(text).replace(/<[^>]+>/gm, '');
     }
 
-    ChatSession.parseFromStorage = function(dataFromStorage, currentChat) {
+    ChatSession.loadFromStorage = function(dataFromStorage, currentChat) {
         var chatSession = new ChatSession(
             dataFromStorage.creatorId,
             dataFromStorage.channel,

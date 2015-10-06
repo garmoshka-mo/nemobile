@@ -7,20 +7,20 @@
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
         .title(style='text-align: left;')
             .scores
-                span(ng-bind='partnerScores.score')
-                span.animated.recent-score(ng-bind='partnerScores.recentScoreFormatted'
-                    ng-style='{opacity: partnerScores.recentOpacity}' ng-class='partnerScores.class')
+                span(ng-bind='s.partner.score')
+                span.animated.recent-score(ng-bind='s.partner.recentScoreFormatted'
+                    ng-style='{opacity: s.partner.recentOpacity}' ng-class='s.partner.class')
             .name(style='float: left;')
                 | {{ s.partner.title }}
                 span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
-    div(style='float:right' )
+    div(style='float:right' ng-hide='s.me.hidden')
         .title
             .scores
-                span.animated.recent-score(ng-bind='myScores.recentScoreFormatted'
-                    ng-style='{opacity: myScores.recentOpacity}' ng-class='partnerScores.class')
-                span(ng-bind='myScores.score')
+                span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
+                    ng-style='{opacity: myScores.recentOpacity}' ng-class='s.me.class')
+                span(ng-bind='s.me.score')
             .name(style='float: right;' ng-bind='s.me.title')
         img.ava(style='float: right;' ng-show='s.me.ava_url', ng-src='{{s.me.ava_url}}' ng-click='myAvaClick()')
 

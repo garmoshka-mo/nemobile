@@ -15,26 +15,6 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.version = version;
     $scope.debug = config('debugMode');
 
-    function parseUserFromStorage() {
-        user.parsingFromStorageNow = $q.defer()
-        return $q.all([
-            user.parseFromStorage(),
-            chats.parseFromStorage(),
-            friendsList.parseFromStorage()
-        ])
-        .then(
-            function() {
-                user.parsingFromStorageNow.resolve();
-                log("all user info was parsed from storage");
-                hideSplashScreen();
-            },
-            function() {
-                console.warn("there was error while parsing");
-                hideSplashScreen();
-            }
-        );
-    }
-
     var forbidToGoBackStates = [
         'addVirtualChat',
         'createFastChat',
@@ -131,8 +111,20 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }
     );
 
-    if (user.isLogged())
-        parseUserFromStorage();
+    $q.all([
+        user.loadFromStorage(),
+        chats.loadFromStorage(),
+        friendsList.loadFromStorage()
+    ])
+    .then(
+        function() {
+            log("all user info was parsed from storage");
+        },
+        function() {
+            console.warn("there was error while parsing");
+        }
+    )
+    .then(hideSplashScreen);
 
     $scope.router = router;
     $scope.goto = router.goto;

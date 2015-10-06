@@ -70,11 +70,11 @@ angular.module("angServices")
             // log("user chats are saved");
         };
 
-        self.parseFromStorage = function() {
+        self.loadFromStorage = function() {
             return storage.getChats().then(function(dataFromStorage) {
                 var _chats = {};
                 for (var key in dataFromStorage) { 
-                    _chats[key] = Chat.parseFromStorage(dataFromStorage[key], self);
+                    _chats[key] = Chat.loadFromStorage(dataFromStorage[key], self);
                 }
                 self.list = _chats;
                 

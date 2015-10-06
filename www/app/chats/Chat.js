@@ -34,9 +34,9 @@ angular.module("angFactories").factory("Chat",
             null;
     }
 
-    Chat.parseFromStorage = function(dataFromStorage) {
+    Chat.loadFromStorage = function(dataFromStorage) {
         var chat = new Chat(dataFromStorage);
-        chat.avatar = Avatar.parseFromStorage(dataFromStorage.avatar);
+        chat.avatar = Avatar.loadFromStorage(dataFromStorage.avatar);
         return chat;
     };
 
@@ -75,7 +75,7 @@ angular.module("angFactories").factory("Chat",
             .then(
                 function(dataFromStorage) {
                     if (dataFromStorage) {
-                        return ChatSession.parseFromStorage(dataFromStorage, self);
+                        return ChatSession.loadFromStorage(dataFromStorage, self);
                     }
                     else {
                         console.warn("didn't find chatSession " + self[self.primaryKey] + "_" + chatSessionId);

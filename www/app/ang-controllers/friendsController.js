@@ -87,11 +87,12 @@ angular.module("angControllers").controller("friendsController",
         }
     });
 
-    user.ensureParsedFromStorage().then(function() {
-        if (!user.friendsList.gotUserContacts) {
-            user.friendsList.getUserContacts();
-        }
-    });
+    // todo: rely on friendsList promise, not on user's
+    //user.ensureLoadFromStorage().then(function() {
+    //    if (!user.friendsList.gotUserContacts) {
+    //        user.friendsList.getUserContacts();
+    //    }
+    //});
 
 
     //for debbuging 

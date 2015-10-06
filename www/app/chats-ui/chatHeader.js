@@ -1,59 +1,28 @@
 angular.module('angControllers')
     .service('chatHeader',
-    ['notification', 'Avatar',
-function(notification, Avatar) {
+    ['$rootScope', 'user',
+function($rootScope, user) {
 
     var self = this;
     this.active = false;
 
     this.partner = { title: "кто-то"};
-    this.me = { title: "Я", ava_url: Avatar.fromId('ada').urlMini };
+    this.me = { title: "Я", hidden: true };
+
 
     this.setChatHeader = function(chat) {
         self.partner.ava_url = chat.avatar.urlMini;
-        self.me.ava_url = user.avatar.urlMini;
         chat.getLastUnexpiredChatSession()
-            .then(
-            function(chatSession) {
-                self.session = chatSession;
-                self.active = true;
-            }
-        );
+            .then(sessionReceived);
     };
 
-    this.clear = function() {
-        self.active = false;
-    };
-
-    this.partnerTitleClickHandler = null;
-
-    this.setPartnerTitleClickHandler = function(handler) {
-        self.partnerTitleClickHandler = function() {
-            if (handler) handler();
-        };
+    function sessionReceived(chatSession) {
+        self.session = chatSession;
+        self.active = true;
+        chatSession.myScores.updateUI = updateUI.bind(null, self.me);
+        chatSession.partnerScores.updateUI = updateUI.bind(null, self.partner);
+        chatSession.partnerScores.ask();
     }
-
-}]);
-
-
-angular.module('angControllers')
-    .controller('chatHeaderController',
-    ['$scope', 'chatHeader', 'user',
-function($scope, chatHeader, user) {
-    var self = this;
-
-    $scope.s = chatHeader;
-    $scope.myScores = {};
-    $scope.partnerScores = {};
-
-    $scope.$watch('s.session', function(ses) {
-        if (ses) {
-            ses.myScores.updateUI = updateUI.bind(null, $scope.myScores);
-            ses.partnerScores.updateUI = updateUI.bind(null, $scope.partnerScores);
-            ses.partnerScores.ask();
-        }
-    });
-
 
     function updateUI(local, score, recentScore){
         local.score = score;
@@ -72,21 +41,44 @@ function($scope, chatHeader, user) {
         };
 
         setTimeout(function() {
-            $scope.$apply(function() {
+            $rootScope.$apply(function() {
                 local.recentOpacity = 0;
             });
         }, 2000);
 
     }
 
+    this.clear = function() {
+        self.active = false;
+    };
+
+    this.partnerTitleClickHandler = null;
+
+    this.setPartnerTitleClickHandler = function(handler) {
+        self.partnerTitleClickHandler = function() {
+            if (handler) handler();
+        };
+    };
+
+    user.loadFromStorage().then(function(){
+        if (user.myScores) {
+            self.me.ava_url = user.avatar.urlMini;
+            self.me.hidden = false;
+            user.myScores.updateUI = updateUI.bind(null, self.me);
+            user.myScores.ask();
+        }
+    });
+
+}]);
+
+
+angular.module('angControllers')
+    .controller('chatHeaderController',
+    ['$scope', 'chatHeader', 'user',
+function($scope, chatHeader, user) {
+    $scope.s = chatHeader;
+
     $scope.myAvaClick = function() {
         log($scope.s);
     };
-
-    user.ensureParsedFromStorage().then(function(){
-        user.myScores.updateUI = updateUI.bind(null, $scope.myScores);
-        user.myScores.ask();
-        $scope.s.me.ava_url = user.avatar.urlMini;
-    });
-
 }]);

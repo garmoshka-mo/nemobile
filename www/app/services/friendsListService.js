@@ -120,7 +120,7 @@ angular.module("angServices")
             });
         }
 
-        function parseFromStorage(dataFromStorage) {
+        function loadFromStorage(dataFromStorage) {
             if (dataFromStorage) {
                 var self = this;
                 dataFromStorage.friends.forEach(function(friendData) {
@@ -246,9 +246,9 @@ angular.module("angServices")
                 return q.promise;
             },
 
-            parseFromStorage: function(dataFromStorage) {
+            loadFromStorage: function(dataFromStorage) {
                 return storage.getFriendsList().then(function(dataFromStorage){
-                    parseFromStorage(dataFromStorage);
+                    loadFromStorage(dataFromStorage);
                     log("user's friends list is taken from storage");
                 });
             },
