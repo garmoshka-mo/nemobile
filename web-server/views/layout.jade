@@ -84,7 +84,7 @@ html
             |&nbsp;
             span(ng-bind='user.score')
         section#top-section(ng-class="{branded: router.top.branded }")
-          div(ng-include='topSectionTemplate')
+          .wrapper(ng-include='topSectionTemplate')
         div(ng-include='topFooterTemplate')
         #drag-line
           #drag-line-separator
@@ -93,7 +93,7 @@ html
         section#main-section.main-section(ng-class="{branded: isMainBranded() }" in-view-container='')
           // content goes here
           // MAIN CONTENT
-          #wrapper(ng-hide='routing.is_preload')
+          .wrapper(ng-hide='routing.is_preload')
             .content(ui-view='content')
               block content
         div(ng-include='mainFooterTemplate')

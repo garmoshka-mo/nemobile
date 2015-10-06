@@ -53,3 +53,20 @@
     text-indent: 30px;
 }
 
+.input-panel .background {
+    background-color: #EAF0F1;
+}
+
+.input-panel .wrapper {
+    padding: 8px 0px 2px 0px;
+    background-color: #253335;
+}
+
+.chat-left-buttons {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+}
+.chat-left-buttons-oldandroid {
+    width: 99%;
+}
