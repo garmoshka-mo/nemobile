@@ -69,7 +69,7 @@ html
             i.fa.fa-star
             |&nbsp;
             span(ng-bind='user.score')
-        section#top-section(ng-class="{branded: router.top.branded }")
+        section#top-section(ng-class="{branded: router.top.branded }" ng-hide="hidingTopSection")
           .wrapper(ng-include='topSectionTemplate')
         div(ng-include='topFooterTemplate')
         #drag-line

@@ -40,9 +40,10 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         var d = $q.defer();
         params = params || {};
 
+        $rootScope.hidingTopSection = false;
         if (top) {
             if (top.hide) {
-                self.top = {};
+                $rootScope.hidingTopSection = true;
             }
         }
 
