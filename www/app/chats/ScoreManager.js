@@ -108,7 +108,7 @@ function($resource) {
 
         function updateUI() {
             if (self.updateUI)
-                self.updateUI(Math.round(score), recentScore);
+                self.updateUI(Math.round(score), Math.round(recentScore));
             recentScore = 0;
         }
 
@@ -130,6 +130,10 @@ function($resource) {
         }
 
         // Utils:
+
+        this.ask = function() {
+            updateUI();
+        };
 
         this.getLog = function() {
             return {
