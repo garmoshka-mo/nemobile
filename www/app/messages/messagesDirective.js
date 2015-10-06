@@ -12,15 +12,6 @@
             return parseUrls(message.text);
         };
 
-        $scope.askShowSharing = function() {
-            var showSharing;
-            if(typeof $scope.session.incentives !== 'undefined')
-                showSharing = $scope.session.incentives > 5;
-            else
-                showSharing = timer.lastDuration > 300;
-            return showSharing;
-        };
-
         function quoteIt(message) {
             $rootScope.$broadcast('quote message', {message: message});
         }

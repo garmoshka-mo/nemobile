@@ -9,8 +9,7 @@ function($q, ChatSessionAbstract, userRequest) {
 
         var self = this;
 
-        var lastAuthor, rows = 0, startTime, isClosed;
-        this.incentives = 0;
+        var isClosed;
 
         this.type = 'external';
         this.chat = chat;
@@ -54,44 +53,21 @@ function($q, ChatSessionAbstract, userRequest) {
 
         };
 
-        // Оповещается из externalChat:
-        self.myMessageSent = function(message) {
-            // или же показывать queued_message ?
-            self.addMessage({
-                text: message.sanitize(),
-                isOwn: true
-            });
+        self.afterMyMessageSent = function() {
             deferred_send.resolve();
-            swap('me');
         };
-
-        self.messageFromPartner = function(message) {
-            swap('he');
-        };
-
-        function swap(writer) {
-            rows++;
-            if (lastAuthor == 'me' && writer == 'he') self.incentives++;
-            if (!startTime) startTime = Date.now();
-            lastAuthor = writer;
-        }
 
         self.saveLog = function() {
             if (isClosed) return;
-
             isClosed = true;
+
             self.sessionFinished();
 
-            var duration = (Date.now() - startTime)/1000;
-            if (duration < 10) return;
-
-            var data = {
-                uuid: self.uuid,
-                rows: rows,
-                incentives: self.incentives,
-                duration: duration
-            };
-            userRequest.send('POST', '/chats/log', data);
+            var log = self.myScores.getLog();
+            if (log.duration > 10) {
+                log.uuid = self.uuid;
+                userRequest.send('POST', '/chats/log', log);
+            }
         };
 
         angular.extend(this, new ChatSessionAbstract());

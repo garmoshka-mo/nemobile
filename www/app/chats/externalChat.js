@@ -69,7 +69,6 @@ angular.module("angServices")
                         session.incomeMessage(message);
                     });
                 }, 0);
-                session.messageFromPartner(message);
             };
 
             self.sendMyMessage = function(m) {
