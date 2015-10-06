@@ -73,6 +73,9 @@
 .partner-title {
     float: left;
 }
-.my-title {
+.me-title {
     float: right;
+}
+.middle-title {
+    float: left;
 }

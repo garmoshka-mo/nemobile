@@ -64,17 +64,7 @@ html
             h1.title
               div(ng-show='routing.is_preload')
                 span(spinner='', spinner-color='white')
-              div(ng-hide='notification.text || routing.is_preload', ui-view='title')
               div(ng-include="'app/chats-ui/chatHeader.html?'+version", ng-controller='chatHeaderController')
-              .notification2(ng-cloak='', ng-show='router.isChatActive()')
-                .publish
-                  a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
-                    i.fa.fa-share-square-o
-                .time_zone(ng-show='notification.time')
-                  i.fa.fa-clock-o
-                  span(ng-bind='notification.time')
-                  .dubink DUB.iNK
-
           section.right-small.ta-center(ng-cloak='', ng-show='router.isRandomActive() && user.score && isUserScoreShown')
             i.fa.fa-star
             |&nbsp;
