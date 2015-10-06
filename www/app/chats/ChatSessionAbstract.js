@@ -1,9 +1,14 @@
 (function(){
     angular.module("angFactories").factory('ChatSessionAbstract',
-        ['notification', 'SpamFilter', 'timer',
-    function(notification, SpamFilter, timer) {
+        ['notification', 'SpamFilter', 'timer', 'ScoreManager',
+    function(notification, SpamFilter, timer, ScoreManager) {
 
         return function AbstractSession() {
+
+            var myScores = new ScoreManager('My scores'),
+                partnerScores = new ScoreManager('Partner scores');
+
+            this.myScores = myScores;
             this.uuid = generateUuid();
             this.filter = new SpamFilter(this);
 
@@ -33,6 +38,21 @@
                 };
                 if (message.type) msg.type = message.type;
                 this.addMessage(msg);
+
+                partnerScores.incentive();
+                myScores.reaction();
+            };
+
+            this.myMessageSent = function(message) {
+                this.addMessage({
+                    text: message.sanitize(),
+                    isOwn: true
+                });
+
+                myScores.incentive();
+                partnerScores.reaction();
+
+                if (this.afterMyMessageSent) this.afterMyMessageSent();
             };
 
             this.sessionFinished = function() {

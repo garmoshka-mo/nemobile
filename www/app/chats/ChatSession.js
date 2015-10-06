@@ -200,15 +200,13 @@ angular.module("angFactories").factory('ChatSession',
                     //     self.creatorId = self.currentChat.currentUser.uuid;
                     // }
 
+                    // todo: переделать на ивенты
                     if (message === "$===real===") {
                         message = "<span class='text-bold'>пользователю отправлено уведомление о регистрации</span>";
                         // message = $sce.trustAsHtml(message);
                     }
 
-                    self.addMessage({
-                        text: message.sanitize(),
-                        isOwn: true
-                    });
+                    self.myMessageSent(message);
 
                     // todo: fix logic bugs and uncomment
                     // self.setTimer(res.expires);
