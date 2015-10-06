@@ -44,4 +44,15 @@ function($scope, chatHeader, user) {
     $scope.service = chatHeader;
     $scope.me = chatHeader.me;
     $scope.partner = chatHeader.partner;
+
+    var self = this;
+
+    function setUserAvatar(){
+        if(user.isLogged() && !user.isParsingFromStorageNow) {
+            $scope.me.ava_url = user.avatar.urlMini;
+            clearInterval(user.isParsingFromStorageNow)
+        }
+    }
+
+    self.interval = setInterval(setUserAvatar, 300)
 }]);

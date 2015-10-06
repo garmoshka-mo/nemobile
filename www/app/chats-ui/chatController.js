@@ -69,7 +69,6 @@ angular.module("angControllers").controller("chatController",
                 // location.replace("#/showImage?link=" + chat.photoUrl);
             };
             chatHeader.setChatHeader(chat);
-            //chatHeader.setClickHandler(notificationCallback);
         }
 
         $scope.disconnectRandomChat = function() {
