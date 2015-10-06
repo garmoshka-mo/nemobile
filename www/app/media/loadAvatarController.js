@@ -14,7 +14,7 @@ angular.module("angControllers").controller("loadAvatarController",
             $timeout(function() {
                 $scope.isServerResponseShown = false;
                 router.goto('pubsList');
-            }, 3000);
+            }, 2000);
             user.save();
         }
 
