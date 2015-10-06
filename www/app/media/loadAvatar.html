@@ -12,10 +12,6 @@
                 <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
             </form>
         </div>
-        <div class="row mb1rem">
-            <img ngf-src="newImage.file" alt="new avatar">
-            <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
-        </div>
         <div class="ta-center">
             <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="updateAvatarUrl()">
                 <span ng-show="!isImageUploading">Загрузить</span>
@@ -24,6 +20,10 @@
         </div>
         <div class="h41">
             <div class="ta-center" ng-show="isServerResponseShown" ng-bind="serverResponse"></div>
+        </div>
+        <div class="row mb1rem">
+            <img ngf-src="newImage.file" alt="new avatar">
+            <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
         </div>
     </div>
 </div>
