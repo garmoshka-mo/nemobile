@@ -65,6 +65,7 @@ angular.module("angServices")
                 return new Avatar(null, data);
             };
 
+            Upload.setDefaults({androidFixMinorVersion: 5});
             Avatar.prototype = {
                 updateURL: function(url) {
                     return userRequest.send(
