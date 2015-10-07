@@ -46,6 +46,7 @@ function ($http, $q, Upload, $rootScope) {
         },
 
         sendFile: function(method, url, data) {
+            Upload.setDefaults({androidFixMinorVersion: 5});
             var config = new Config(method, url, data);
             return Upload.upload(config)
             .then(
