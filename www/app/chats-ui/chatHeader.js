@@ -19,32 +19,29 @@ function($rootScope, user) {
     function sessionReceived(chatSession) {
         self.session = chatSession;
         self.active = true;
-        chatSession.myScores.updateUI = updateUI.bind(null, self.me);
-        chatSession.partnerScores.updateUI = updateUI.bind(null, self.partner);
-        chatSession.partnerScores.ask();
+        chatSession.myScores.onUpdate(updateUI.bind(null, self.me));
+        chatSession.partnerScores.onUpdate(updateUI.bind(null, self.partner));
     }
 
     function updateUI(local, score, recentScore){
         local.score = score;
         local.recentScore = recentScore;
-        if (recentScore > 0)
-            local.recentScoreFormatted = "+" + recentScore;
-        else
-            local.recentScoreFormatted = recentScore;
 
-        local.recentOpacity = 1;
+        if (recentScore != 0) showRecentScore();
 
-        local.class = {
-            negative: recentScore < 0
-            //'animated-fast': local.recentOpacity == 1,
-            //'animated-slow': local.recentOpacity == 0
-        };
+        function showRecentScore() {
+            if (recentScore > 0)
+                local.recentScoreFormatted = "+" + recentScore;
+            else
+                local.recentScoreFormatted = recentScore;
 
-        setTimeout(function() {
-            $rootScope.$apply(function() {
-                local.recentOpacity = 0;
-            });
-        }, 2000);
+            local.recentOpacity = 1;
+            setTimeout(function() {
+                $rootScope.$apply(function() {
+                    local.recentOpacity = 0;
+                });
+            }, 2000);
+        }
 
     }
 
@@ -62,10 +59,9 @@ function($rootScope, user) {
 
     user.passivePromise.then(function(){
         if (user.myScores) {
-            self.me.ava_url = user.avatar.urlMini;
+            self.me.ava = user.avatar;
             self.me.hidden = false;
-            user.myScores.updateUI = updateUI.bind(null, self.me);
-            user.myScores.ask();
+            user.myScores.onUpdate(updateUI.bind(null, self.me));
         }
     });
 
@@ -74,11 +70,11 @@ function($rootScope, user) {
 
 angular.module('angControllers')
     .controller('chatHeaderController',
-    ['$scope', 'chatHeader',
-function($scope, chatHeader) {
+    ['$scope', 'chatHeader', 'router',
+function($scope, chatHeader, router) {
     $scope.s = chatHeader;
 
     $scope.myAvaClick = function() {
-        log($scope.s);
+        router.goto('loadAvatar');
     };
 }]);

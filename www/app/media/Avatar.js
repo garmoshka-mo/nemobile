@@ -5,11 +5,7 @@ angular.module("angServices")
     function(userRequest, $q, Upload, api, $rootScope) {
 
             function Avatar(dataFromServer, dataFromStorage) {
-                var parsed =  dataFromStorage ?
-                    dataFromStorage : 
-                    parseDataFromServer(dataFromServer);
-                this.url = parsed.url;
-                this.urlMini = parsed.urlMini;
+                this.update(dataFromServer, dataFromStorage);
             }
             
             function makeUrl(data) {
@@ -65,7 +61,6 @@ angular.module("angServices")
                 return new Avatar(null, data);
             };
 
-            Upload.setDefaults({androidFixMinorVersion: 5});
             Avatar.prototype = {
                 updateURL: function(url) {
                     return userRequest.send(
@@ -109,6 +104,13 @@ angular.module("angServices")
                     );
                    
                 },
+                update: function(dataFromServer, dataFromStorage) {
+                    var parsed =  dataFromStorage ?
+                        dataFromStorage :
+                        parseDataFromServer(dataFromServer);
+                    this.url = parsed.url;
+                    this.urlMini = parsed.urlMini;
+                }
             };
 
             return Avatar;

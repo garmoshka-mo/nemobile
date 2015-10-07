@@ -89,15 +89,11 @@ angular.module("angControllers").controller("chatController",
                 });
         }
 
-        if (!chat.isRead && chat.currentUser) {
-            chat.isRead = true;
-            chat.currentUser.saveChats();
-        }
-
         var lastSession;
         chat.ensureSession()
             .then(function (session) {
                 setChatHeader();
+                session.conversationBegan();
                 $scope.chatSession = lastSession = session;
                 $scope.isFirstMessage = lastSession.messages.length === 0;
                 initChatHistory();
@@ -106,6 +102,10 @@ angular.module("angControllers").controller("chatController",
         $scope.$watch("chatSession.messages.length", function() {
             view.scrollDownTopSection();
             chat.isRead = true;
+        });
+
+        $scope.$on("$destroy", function(){
+            user.myScores.sendScoresToUI();
         });
 
         $scope.stopPropagation = function(event) {

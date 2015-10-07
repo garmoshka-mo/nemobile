@@ -1,0 +1,21 @@
+div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
+    .width-92.block-center.top-margin
+        .row
+            label Загрузите из ваших файлов
+            .custom-file-input(ng-model='newImage.file', ngf-select='uploadPhoto()', name='data')
+                span(ng-show='deviceInfo.IS_MOBILE') Выбрать из моей галереи
+                span(ng-hide='deviceInfo.IS_MOBILE') Выбрать фото с компьютера
+        .grey-line.width-92
+        .row
+            form(name='newImageForm')
+                label Или укажите ссылку на картинку:
+                input(name='url', type='url', ng-model='newImage.url', placeholder='ссылка на изображение', required='')
+        .ta-center
+            button(ng-disabled='!newImage.url || newImageForm.$invalid', ng-click='updateAvatarUrl()')
+                span(ng-show='!isImageUploading') Загрузить
+                span(spinner='', spinner-color='white', ng-show='isImageUploading')
+        .h41
+            .ta-center(ng-show='isServerResponseShown', ng-bind='serverResponse')
+        .row.mb1rem
+            img(ngf-src='newImage.file', alt='new avatar')
+            img.add-image-preview(ng-show='newImage.url', ng-src='{{newImage.url}}')
