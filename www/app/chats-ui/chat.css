@@ -86,7 +86,7 @@
 }
 .chat-header .scores {
     line-height: 10px;
-    font-size: 14px;
+    font-size: 13px;
 }
 .chat-header .recent-score {
     font-size: 11px;
@@ -117,12 +117,12 @@
     transition: opacity .3s ease-in-out;
 }
 
-.chat-header .recent-score.negative {
+.chat-header .negative {
     color: #D84343;
 }
 
 .chat-header .name {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 18px;
 }
 .header-title {

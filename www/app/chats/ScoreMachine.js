@@ -6,6 +6,7 @@
 function($resource) {
     return function(alias, init_score) {
         var self = this,
+            updateCallback,
             lastAuthor, startTime,
             rows = 0, hisRows = 0, myRows = 0,
             hisLastMessage,
@@ -16,10 +17,10 @@ function($resource) {
         // External behavior events:
 
         this.myIncentive = function(text) {
+            rows++;
             myRows++;
             myIncentiveValue += getValueOfText(text);
             lastAuthor = 'me';
-            swap();
         };
 
         this.iTyping = function() {
@@ -27,6 +28,7 @@ function($resource) {
         };
 
         this.partnerReacted = function() {
+            rows++;
             hisRows++;
             hisLastMessage = Date.now();
             if (lastAuthor == 'me') {
@@ -34,20 +36,25 @@ function($resource) {
                 incrementMyScore();
             }
             lastAuthor = 'he';
-            swap();
         };
 
-        this.explicitlyAddScores = function(value) {
+        this.addSessionScore = function(value) {
+            if (value > 1 || value < 0)
             applyToScore(value);
+        };
+
+        this.began = function() {
+            startTime = Date.now();
         };
 
         this.finished = function(byPartner) {
             var duration = getDuration(startTime);
 
-            if (byPartner)
+            if (byPartner) {
                 if (myRows == 0) heGotBored();
-            else
+            } else {
                 if (hisRows == 0) iGotBored();
+            }
 
             function heGotBored() {
                 // Если он устал быстрее, чем за 10 секунд - это он дурак
@@ -97,14 +104,11 @@ function($resource) {
 
         function bestrafeMich(dieStrafe) {
             myIncentiveValue = 0;
+            if (score == 1) score = 0; // Сбрасываем подарочный очек
             applyToScore(-dieStrafe);
             updateUI();
         }
 
-        function swap() {
-            rows++;
-            if (!startTime) startTime = Date.now();
-        }
         function applyToScore(value) {
             score += value;
             recentScore += value;
@@ -112,8 +116,8 @@ function($resource) {
         }
 
         function updateUI() {
-            if (self.updateUI)
-                self.updateUI(Math.round(score), Math.round(recentScore));
+            if (updateCallback)
+                updateCallback(Math.round(score), Math.round(recentScore));
             recentScore = 0;
         }
 
@@ -140,7 +144,12 @@ function($resource) {
             return score;
         };
 
-        this.ask = function() {
+        this.onUpdate = function(callback) {
+            updateCallback = callback;
+            updateUI();
+        };
+
+        this.sendScoresToUI = function() {
             updateUI();
         };
 

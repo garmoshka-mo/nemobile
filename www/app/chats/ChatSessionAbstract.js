@@ -12,6 +12,7 @@
             this.partnerScores = partnerScores;
             this.uuid = generateUuid();
             this.filter = new SpamFilter(this);
+            this.isClosed = false;
 
             function generateUuid() {
                 var u = Date.now().toString().substr(7);
@@ -56,8 +57,18 @@
                 if (this.afterMyMessageSent) this.afterMyMessageSent();
             };
 
+            this.conversationBegan = function() {
+                myScores.began();
+                partnerScores.began();
+            };
+
             this.sessionFinished = function(byPartner) {
+                if (this.isClosed) return;
+                this.isClosed = true;
+
                 myScores.finished(byPartner);
+                user.myScores.addSessionScore(myScores.getScore());
+                user.save();
                 timer.stop();
             };
 

@@ -59,8 +59,8 @@ angular.module("angServices")
             };
 
             self.partnerTerminated = function() {
-                session.sessionFinished(true);
                 session.saveLog();
+                session.sessionFinished(true);
                 self.display_partners_message({type: 'chat_finished'});
             };
 
@@ -81,8 +81,8 @@ angular.module("angServices")
                 clearInterval(start_timer);
                 if (externalProvider) {
                     externalProvider.quit();
-                    session.sessionFinished(false);
                     session.saveLog();
+                    session.sessionFinished(false);
                 }
             };
 
