@@ -171,3 +171,13 @@ sex-select:focus {
 .search-status {
     padding: 18px 10px;
 }
+
+.mob-info {
+    padding: 6px 12px;
+    font-size: 12px;
+    background-color: #F8F9EE;
+}
+
+.mob-info a {
+    float: right;
+}

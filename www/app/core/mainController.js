@@ -10,6 +10,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $rootScope.isAppInBackground = false;
     $scope.RAN_AS_APP = RAN_AS_APP;
     $scope.IS_MOBILE = IS_MOBILE;
+    $scope.IS_ANDROID = IS_ANDROID;
     $scope.deviceInfo = deviceInfo;
     $scope.isUserScoreShown = true;
     $scope.version = version;

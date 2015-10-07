@@ -2,6 +2,9 @@ var version = 'dev', config;
 var RAN_AS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
 
+var ua = navigator.userAgent.toLowerCase();
+var IS_ANDROID = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+
 window.onload = function onLoad() {
     config = new Config(App.Settings);
     window.debugMode = config('debugMode');

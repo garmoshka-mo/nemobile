@@ -1,4 +1,10 @@
 .hide-x(ng-controller='randomController')
+    .row.mob-info(ng-show='!random.lookupInProgress && !RAN_AS_APP && IS_MOBILE && IS_ANDROID')
+        a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
+            img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
+        div
+            | Браузер мобильного поддерживает не все функции чата.
+            | Рекомендуем установить приложение
     .row.top-margin(ng-hide='random.lookupInProgress || updates.reloading || leaving')
         .columns.small-12.ta-center(ng-class="{'condensed-buttons': isRestart}")
             button(ng-hide='random.waitingServer', ng-click='lookForChat()')
@@ -153,15 +159,6 @@
         .row.top-margin.bottom-margin
             .small-12.ta-center
                 span.text-silver.pointer(ng-click='setDefaultFilterParams()') сбросить фильтр
-        .row(ng-show='true || !RAN_AS_APP && IS_MOBILE', style='padding: 19px 0 6px;')
-            .small-6.columns(style='text-align: right; padding-top: 4px;')
-                 <br/>
-                | Чтобы не пропустить диалог,
-                br
-                |  установите приложение:
-            .small-6.columns
-                a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
-                    img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
         br
     .center.top-margin(ng-show='leaving')
         div(spinner='', spinner-color='green')
