@@ -2,7 +2,7 @@
     <div class="width-92 block-center top-margin">
         <div class="row">
             <label>Загрузите из ваших файлов</label>
-            <div class="custom-file-input" ng-model="newImage.file" ngf-select="uploadPhoto()" name="data">
+            <div class="custom-file-input" ng-model="newImage.file" ngf-select="uploadPhoto($files, $file)" name="data">
                     <span ng-show="deviceInfo.IS_MOBILE">Выбрать из моей галереи</span>
                     <span ng-hide="deviceInfo.IS_MOBILE">Выбрать фото с компьютера</span>
             </div>
