@@ -61,7 +61,6 @@ html
               span
             span.customSmallIcon(ng-show='customSmallIconInner', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
           section.middle.tab-bar-section.p0
-            h1.title
               div(ng-show='routing.is_preload')
                 span(spinner='', spinner-color='white')
               div(ng-include="'app/chats-ui/chatHeader.html?'+version", ng-controller='chatHeaderController')

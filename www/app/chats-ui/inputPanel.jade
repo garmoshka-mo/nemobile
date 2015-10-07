@@ -2,7 +2,8 @@
     #footer
         .appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")
             img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')
-        #alert(ng-model='errorDescription', alert-box='')
+        .wrapper
+            #alert(ng-model='errorDescription', alert-box='')
         .background
             .wrapper
                 .chat-left-buttons(ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid || deviceInfo.isIos}")

@@ -27,7 +27,7 @@
 #alert {
     position: absolute;
     top: -59px;
-    left: 10px;
+    margin-left: 11px;
 }
 
 .share_it {
@@ -57,7 +57,7 @@
     background-color: #EAF0F1;
 }
 
-.input-panel .wrapper {
+.input-panel .background .wrapper {
     padding: 8px 0px 2px 0px;
     background-color: #253335;
 }
@@ -89,7 +89,7 @@
     font-size: 14px;
 }
 .chat-header .recent-score {
-    font-size: 10px;
+    font-size: 11px;
     color: chartreuse;
     margin: 2px;
     font-weight: bold;

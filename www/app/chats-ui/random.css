@@ -156,10 +156,12 @@ sex-select:focus {
 
 .disconnect-button {
     transition-duration: 0.3s;
-    position: absolute;
-    right: 18px;
     display: inline-block;
-    top: 54px;
+    float: right;
+}
+
+.disconnect-button button {
+    margin-bottom: 10px;
 }
 
 .disconnect-button.ng-hide-add {
