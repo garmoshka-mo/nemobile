@@ -922,8 +922,7 @@ input[type="radio"]:checked + .radioLabel {
   visibility: hidden;
   outline: none;
 }
-.custom-file-input::before {
-  content: 'Выбрать из моей галереи';
+.custom-file-input {
   display: inline-block;
   color: #FFF;
   font-family: "Open Sans Normal";

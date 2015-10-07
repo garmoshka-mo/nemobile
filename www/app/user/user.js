@@ -23,7 +23,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         // todo: заменить на новый score от апи, когда будет реализовано хранение на сервере
         self.myScores = new ScoreMachine('user scores', 1);
         self.phoneNumber = userInfo.phone_number;
-        self.avatar = new Avatar(userInfo);
+        self.avatar.update(userInfo);
 
         isLogged = true;
         stickersGallery.getCurrentUserCategories();

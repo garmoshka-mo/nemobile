@@ -22,7 +22,7 @@
                     ng-style='{opacity: s.me.recentOpacity}' ng-class='{ negative: s.me.recentScore < 0 }')
                 span(ng-bind='s.me.score' ng-class='{ negative: s.me.score < 0 }')
             .name(style='float: right;' ng-bind='s.me.title')
-        img.ava(style='float: right;' ng-show='s.me.ava_url', ng-src='{{s.me.ava_url}}' ng-click='myAvaClick()')
+        img.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 
     .middle(ng-show='s.active && !routing.is_preload')
         .time_zone

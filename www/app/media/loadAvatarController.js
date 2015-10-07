@@ -1,10 +1,11 @@
 angular.module("angControllers").controller("loadAvatarController",
-    ['$scope', '$stateParams', 'stickersGallery', 'user', '$timeout', 'separator', 'router',
-    function($scope, $stateParams, stickersGallery, user, $timeout, separator, router) {
+    ['$scope', '$stateParams', 'stickersGallery', 'user', '$timeout', 'separator', 'router', 'deviceInfo',
+    function($scope, $stateParams, stickersGallery, user, $timeout, separator, router, deviceInfo) {
         
         $scope.stickersGallery = stickersGallery;
         $scope.isImageUploading = false;
         $scope.isServerResponseShown = false;
+        $scope.deviceInfo = deviceInfo;
         separator.resize('hide');
 
         function handleSuccessUploading() {
