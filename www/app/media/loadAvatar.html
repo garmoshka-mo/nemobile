@@ -3,8 +3,8 @@
         <div class="row">
             <label>Загрузите из ваших файлов</label>
             <div class="custom-file-input" ng-model="newImage.file" ngf-select="uploadPhoto()" name="data">
-                <span ng-show="deviceInfo.IS_MOBILE">Выбрать из моей галереи</span>
-                <span ng-hide="deviceInfo.IS_MOBILE">Выбрать фото с компьютера</span>
+                    <span ng-show="deviceInfo.IS_MOBILE">Выбрать из моей галереи</span>
+                    <span ng-hide="deviceInfo.IS_MOBILE">Выбрать фото с компьютера</span>
             </div>
         </div>
         <div class="grey-line width-92"></div>
@@ -25,7 +25,7 @@
         </div>
         <div class="row mb1rem">
             <img ngf-src="newImage.file" alt="new avatar">
-            <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
+            <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}" ngf-no-object-url="true">
         </div>
     </div>
 </div>
