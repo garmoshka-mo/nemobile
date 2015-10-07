@@ -14,14 +14,15 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
 
     self.passivePromise = passiveDeferred.promise;
 
-    function handleSuccessSignIn(userInfo) {
+    function populateProfile(userInfo) {
         self.name = userInfo.name;
         self.channel = userInfo.channel_group_name;
         self.uuid = userInfo.uuid;
 
         self.score = userInfo.score;
         // todo: заменить на новый score от апи, когда будет реализовано хранение на сервере
-        self.myScores = new ScoreMachine('user scores', 1);
+        if (!self.myScores)
+            self.myScores = new ScoreMachine('user scores', 1);
         self.phoneNumber = userInfo.phone_number;
 
         if(self.avatar) {
@@ -68,7 +69,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
             function(res) {
                 // log('userInfo', userInfo);
                 self.isVirtual = isVirtual ? true : false;
-                handleSuccessSignIn(res.user);
+                populateProfile(res.user);
                 log("user is logged", self);
             },
             function(res) {

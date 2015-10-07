@@ -153,12 +153,12 @@
         .row.top-margin.bottom-margin
             .small-12.ta-center
                 span.text-silver.pointer(ng-click='setDefaultFilterParams()') сбросить фильтр
-        .row(ng-show='!RAN_AS_APP && IS_MOBILE', style='padding: 19px 0 6px;')
+        .row(ng-show='true || !RAN_AS_APP && IS_MOBILE', style='padding: 19px 0 6px;')
             .small-6.columns(style='text-align: right; padding-top: 4px;')
-                // Чтобы не пропустить диалог,<br/> установите приложение:
-                | Также доступно
+                 <br/>
+                | Чтобы не пропустить диалог,
                 br
-                |  на мобильном:
+                |  установите приложение:
             .small-6.columns
                 a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
                     img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')

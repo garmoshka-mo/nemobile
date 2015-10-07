@@ -3,7 +3,7 @@ module.exports = [
     '/random',
     '/chat',
     '/pub', '/activation',
-    '/updateProfile', '/about', '/about/:page',
+    '/updateProfile', '/loadAvatar', '/about', '/about/:page',
     '/publishPreview', '/publishSuccess/:id',
     '/homepage'
 ];
