@@ -915,7 +915,7 @@ input[type="radio"]:checked + .radioLabel {
 }
 
 .custom-file-input {
-  color: #F1F3F6;
+  /*color: #F1F3F6;
   outline: none;
   display: inline-block;
   color: #FFF;
@@ -930,7 +930,7 @@ input[type="radio"]:checked + .radioLabel {
   padding-top: 1rem;
   padding-right: 2rem;
   padding-bottom: 1rem;
-  padding-left: 2rem;  
+  padding-left: 2rem;  */
 }
 .custom-file-input:hover::before {
   border-color: black;
