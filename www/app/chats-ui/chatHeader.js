@@ -62,7 +62,7 @@ function($rootScope, user) {
 
     user.passivePromise.then(function(){
         if (user.myScores) {
-            self.me.ava_url = user.avatar.urlMini;
+            self.me.ava = user.avatar;
             self.me.hidden = false;
             user.myScores.updateUI = updateUI.bind(null, self.me);
             user.myScores.ask();
