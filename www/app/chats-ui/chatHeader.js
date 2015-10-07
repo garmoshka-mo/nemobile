@@ -74,11 +74,11 @@ function($rootScope, user) {
 
 angular.module('angControllers')
     .controller('chatHeaderController',
-    ['$scope', 'chatHeader',
-function($scope, chatHeader) {
+    ['$scope', 'chatHeader', 'router',
+function($scope, chatHeader, router) {
     $scope.s = chatHeader;
 
     $scope.myAvaClick = function() {
-        log($scope.s);
+        router.goto('loadAvatar');
     };
 }]);
