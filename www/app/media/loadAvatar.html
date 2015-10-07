@@ -2,14 +2,17 @@
     <div class="width-92 block-center top-margin">
         <div class="row">
             <label>Загрузите из ваших файлов</label>
-            <input type="file" class="custom-file-input" ngf-pattern="'image/*'"
+            <div class="custom-file-input" ngf-pattern="'image/*'"
                 accept="image/*" ng-model="newImage.file" ngf-select="uploadPhoto()" name="data">
+                    <span ng-show="deviceInfo.IS_MOBILE">Выбрать из моей галереи</span>
+                    <span ng-hide="deviceInfo.IS_MOBILE">Выбрать фото с компьютера</span>
+            </div>
         </div>
         <div class="grey-line width-92"></div>
         <div class="row">
             <form name="newImageForm">
                 <label>Или укажите ссылку на картинку:</label>
-                <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
+                <input name="url" type="url" ng-model="newImage.url" placeholder="ссылка на изображение" required>
             </form>
         </div>
         <div class="ta-center">

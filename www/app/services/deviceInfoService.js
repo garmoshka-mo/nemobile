@@ -10,7 +10,9 @@ angular.module("angServices")
         self.isAndroid = RAN_AS_APP ? false : null;
         self.isOldAndroid = RAN_AS_APP ? false : null;
         self.isTouch = isTouchDevice = 'ontouchstart' in document.documentElement;
-
+        self.IS_MOBILE = isMobile();
+        self.RAN_AS_APP = RAN_AS_APP;
+        
         function onDeviceReady() {
             document.addEventListener("online", onOnline, false);
             document.addEventListener("offline", onOffline, false);

@@ -24,9 +24,9 @@
             .name(style='float: right;' ng-bind='s.me.title')
         img.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 
-    div(ng-show='s.active && !routing.is_preload')
-        span.time_zone
+    .middle(ng-show='s.active && !routing.is_preload')
+        .time_zone
             i.fa.fa-clock-o
             span(ng-bind='notification.time')
-        a.icon_button(ng-click='publish()', title='Предварительный просмотр для публикации чата')
+        a(ng-click='publish()' style='color: white;' title='Предварительный просмотр для публикации чата')
             i.fa.fa-share-square-o

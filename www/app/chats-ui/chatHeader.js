@@ -74,8 +74,8 @@ function($rootScope, user) {
 
 angular.module('angControllers')
     .controller('chatHeaderController',
-    ['$scope', 'chatHeader', 'user',
-function($scope, chatHeader, user) {
+    ['$scope', 'chatHeader',
+function($scope, chatHeader) {
     $scope.s = chatHeader;
 
     $scope.myAvaClick = function() {
