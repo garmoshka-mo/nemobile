@@ -60,6 +60,7 @@ function ($q) {
     };
 
     self.resize = function(height) {
+        $dragger.show();
         switch (height) {
             case 'full':
                 height = fullHeight();
@@ -71,6 +72,7 @@ function ($q) {
                 height = SMALL_CHAT;
                 break;
             case 'hide':
+                $dragger.hide();
                 height = 0;
                 break;
         }
