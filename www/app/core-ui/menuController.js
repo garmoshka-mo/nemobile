@@ -1,47 +1,9 @@
 angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', 'router', '$timeout', '$http', 'sound',
     function($scope, $stateParams, router, $timeout, $http, sound) {
 
-        $scope.showChangeAvatarMenu = false;
-        $scope.isAvaLoading = false;
         $scope.isMenuOpened = false;
         $scope.fullMode = config('fullMode');
         $scope.debug = config('debugMode');
-
-        $scope.generateNewAvatar = function() {
-            var newGuid = Math.round(Math.random() * 10000);
-            user.avatar.urlMini = config('adorableUrl') + "/40/" + newGuid;
-            $scope.isChangeAvaMenuShown = true;
-            $scope.isAvaLoading = true;
-
-            $scope.applyCurrentAvatar = function() {
-                $scope.isChangeAvaMenuShown = false;
-                user.avatar.updateGuid(newGuid);
-                user.save();
-            };
-        };
-
-        $scope.showChangeAvatarMenu = function() {
-            $scope.initialAvatarUrl = user.avatar.urlMini;
-            $scope.isChangeAvaMenuShown = true;
-            $scope.generateNewAvatar();
-        };
-
-        $scope.restoreDefaultAvatar = function() {
-            user.avatar.urlMini = $scope.initialAvatarUrl;
-            $scope.isChangeAvaMenuShown = false;
-            $scope.isAvaLoading = true;
-        };
-
-        $scope.imageLoadedHandler = function() {
-            $scope.isAvaLoading = false;
-        };
-
-        $scope.goToLoadAvatar = function() {
-            $scope.toggleMenu();
-            $scope.isChangeAvaMenuShown = false;
-            router.goto('loadAvatar', null, {hide: true});
-            user.avatar.urlMini = $scope.initialAvatarUrl;
-        };
 
         $scope.countUnreadChats = function () {
             $scope.unreadChatsAmount = 0;

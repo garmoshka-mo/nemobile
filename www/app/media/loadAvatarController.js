@@ -69,5 +69,31 @@ angular.module("angControllers").controller("loadAvatarController",
         $scope.newImage = {
             url: $stateParams.imageURL == "null" ? null : $stateParams.imageURL,
         };
+
+        $scope.isAvaLoading = false;
+        $scope.generatedNewAvatar = false;
+
+        $scope.imageLoadedHandler = function() {
+            $scope.isAvaLoading = false;
+        };
+
+
+        $scope.generateNewAvatar = function() {
+            $scope.initialAvatarUrl = user.avatar.urlMini;
+            var newGuid = Math.round(Math.random() * 10000);
+            user.avatar.urlMini = config('adorableUrl') + "/40/" + newGuid;
+            $scope.isAvaLoading = true;
+            $scope.generatedNewAvatar = true;
+
+            $scope.applyCurrentAvatar = function() {
+                user.avatar.updateGuid(newGuid);
+                user.save();
+                $scope.generatedNewAvatar = false;
+            };
+            $scope.restoreDefaultAvatar = function() {
+                user.avatar.urlMini = $scope.initialAvatarUrl;
+                $scope.generatedNewAvatar = false;
+            };
+        };
 }]);
     
