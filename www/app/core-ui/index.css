@@ -629,11 +629,6 @@ input.category-name-change-input {
 .addButton:active {
   color: #27ae60;
 }
-.add-image-preview {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-}
 
 .appropriateStickers-container {
   height: 200px;

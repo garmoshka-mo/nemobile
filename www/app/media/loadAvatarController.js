@@ -71,29 +71,31 @@ angular.module("angControllers").controller("loadAvatarController",
         };
 
         $scope.isAvaLoading = false;
-        $scope.generatedNewAvatar = false;
 
         $scope.imageLoadedHandler = function() {
             $scope.isAvaLoading = false;
         };
 
-
         $scope.generateNewAvatar = function() {
-            $scope.initialAvatarUrl = user.avatar.urlMini;
             var newGuid = Math.round(Math.random() * 10000);
-            user.avatar.urlMini = config('adorableUrl') + "/40/" + newGuid;
+            $scope.previewAvatar = config('adorableUrl') + "/40/" + newGuid;
             $scope.isAvaLoading = true;
             $scope.generatedNewAvatar = true;
-
             $scope.applyCurrentAvatar = function() {
+                user.avatar.urlMini = $scope.previewAvatar;
                 user.avatar.updateGuid(newGuid);
                 user.save();
                 $scope.generatedNewAvatar = false;
             };
-            $scope.restoreDefaultAvatar = function() {
-                user.avatar.urlMini = $scope.initialAvatarUrl;
-                $scope.generatedNewAvatar = false;
-            };
         };
+
+        $scope.restoreDefaultAvatar = function() {
+            user.passivePromise.then(function() {
+                $scope.previewAvatar = user.avatar.urlMini;
+                $scope.generatedNewAvatar = false;
+            });
+        };
+
+        $scope.restoreDefaultAvatar();
 }]);
     
