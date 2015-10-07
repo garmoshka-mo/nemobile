@@ -7,9 +7,9 @@
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
         .title(style='text-align: left;')
             .scores
-                span(ng-bind='s.partner.score')
+                span(ng-bind='s.partner.score' ng-class='{ negative: s.partner.score < 0 }')
                 span.animated.recent-score(ng-bind='s.partner.recentScoreFormatted'
-                    ng-style='{opacity: s.partner.recentOpacity}' ng-class='s.partner.class')
+                    ng-style='{opacity: s.partner.recentOpacity}' ng-class='{ negative: s.partner.recentScore < 0 }')
             .name(style='float: left;')
                 | {{ s.partner.title }}
                 span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
@@ -19,8 +19,8 @@
         .title
             .scores
                 span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
-                    ng-style='{opacity: s.me.recentOpacity}' ng-class='s.me.class')
-                span(ng-bind='s.me.score')
+                    ng-style='{opacity: s.me.recentOpacity}' ng-class='{ negative: s.me.recentScore < 0 }')
+                span(ng-bind='s.me.score' ng-class='{ negative: s.me.score < 0 }')
             .name(style='float: right;' ng-bind='s.me.title')
         img.pointer.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 

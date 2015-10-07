@@ -9,8 +9,6 @@ function($q, ChatSessionAbstract, userRequest) {
 
         var self = this;
 
-        var isClosed;
-
         this.type = 'external';
         this.chat = chat;
         this.senderId = partner_id;
@@ -58,8 +56,7 @@ function($q, ChatSessionAbstract, userRequest) {
         };
 
         self.saveLog = function() {
-            if (isClosed) return;
-            isClosed = true;
+            if (this.isClosed) return;
 
             var log = self.myScores.getLog();
             if (log.duration > 10) {
