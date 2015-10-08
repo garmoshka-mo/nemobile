@@ -152,7 +152,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
 
 
     $chatInput.focus(function() {
-        if (RAN_AS_APP) {
+        if (IS_APP) {
             window.cordova.plugins.Keyboard.show();
         }
     });

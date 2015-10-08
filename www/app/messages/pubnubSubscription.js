@@ -166,7 +166,7 @@
                         
                     }
                     else {
-                        if (RAN_AS_APP) console.warn("device id is undefined");
+                        if (IS_APP) console.warn("device id is undefined");
                     }     
                 }
 

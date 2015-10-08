@@ -4,14 +4,14 @@ angular.module("angServices")
 
         var self = this;
 
-        self.isOnline = RAN_AS_APP ? false : true;
-        self.isInfoTaken = RAN_AS_APP ? false : true;
-        self.isIos = RAN_AS_APP ? false : null;
-        self.isAndroid = RAN_AS_APP ? false : null;
-        self.isOldAndroid = RAN_AS_APP ? false : null;
+        self.isOnline = IS_APP ? false : true;
+        self.isInfoTaken = IS_APP ? false : true;
+        self.isIos = IS_APP ? false : null;
+        self.isAndroid = IS_APP ? false : null;
+        self.isOldAndroid = IS_APP ? false : null;
         self.isTouch = isTouchDevice = 'ontouchstart' in document.documentElement;
         self.IS_MOBILE = isMobile();
-        self.RAN_AS_APP = RAN_AS_APP;
+        self.IS_APP = IS_APP;
         
         function onDeviceReady() {
             document.addEventListener("online", onOnline, false);

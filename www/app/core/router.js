@@ -12,7 +12,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
     self.top = {};
 
     self.openExternalURL = function(url) {
-        if (RAN_AS_APP) {
+        if (IS_APP) {
             navigator.app.loadUrl(url, {openExternal: true});
         }
         else {

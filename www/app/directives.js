@@ -42,7 +42,7 @@ angular.module("angApp")
 
             var stickersGalleryHeight = BODY_HEIGHT - TAB_BAR_HEIGHT - INPUT_FIELD_HEIGHT - KEYBOARD_PADDING; 
             
-            if (RAN_AS_APP) {
+            if (IS_APP) {
                 if (device.platform == "iOS") {
                     stickersGalleryHeight = stickersGalleryHeight - IPHONE_TOP_BAR_HEIGHT;
                 }
@@ -266,7 +266,7 @@ angular.module("angApp")
     return {
         restrict: 'A',
         link: function(scope, elem, attr) {
-            if (!RAN_AS_APP) {
+            if (!IS_APP) {
                 angular.element(elem).attr('data-snap-ignore', true);
             }
         }

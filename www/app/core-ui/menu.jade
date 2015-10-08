@@ -37,7 +37,7 @@
             a.menu-item(ng-click="goto('exit')")
                 i.fa.fa-power-off
                 | Выход
-        li
+        li(ng-hide='IS_APP')
             a.menu-item(ng-click="goto('mobileApp')")
                 i.fa.fa-mobile.mobile-icon
                 | Приложение

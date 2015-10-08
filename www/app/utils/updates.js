@@ -10,7 +10,7 @@ function Service($resource) {
     self.reloading = false;
 
     this.check = function() {
-        if (RAN_AS_APP) return;
+        if (IS_APP) return;
         // Automatic reload if server updated:
         var v = VersionResource.get(function() {
             if (v.version != version)  {
