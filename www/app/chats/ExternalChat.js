@@ -1,28 +1,12 @@
 (function(){
 angular.module("angServices")
-    .service('externalChat',
+    .factory('ExternalChat',
     ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification',
-    function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
+function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
 
-        var self = this;
+    return ExternalChat;
 
-        self.level = null;
-
-        self.start = function(preferences) {
-            self.current_instance = new ExternalChat(preferences, self.level);
-            self.current_instance.schedule_start();
-        };
-
-        self.disconnect = function() {
-            if (self.current_instance) self.current_instance.disconnect();
-        };
-
-        self.current_instance = new ExternalChat({}); // Empty chat for reloaded page
-        self.current_instance.createEmptySession();
-
-
-
-        function ExternalChat(preferences, level) {
+    function ExternalChat(preferences, level) {
             var self = this;
             self.chat = null;
             self.title = "кто-то";
@@ -103,6 +87,6 @@ angular.module("angServices")
                 return $q.when(session);
             };
         }
-    }]);
+}]);
 
 })();

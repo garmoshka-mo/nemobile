@@ -1,35 +1,35 @@
 angular.module("angServices")
-.service('random', ['user', '$q', 'externalChat', 'userRequest', '$rootScope', 'googleAnalytics',
-    function(user, $q, externalChat, userRequest, $rootScope, googleAnalytics) {
+.service('random', ['user', '$q', 'ExternalChat', 'userRequest', '$rootScope', 'googleAnalytics',
+    function(user, $q, ExternalChat, userRequest, $rootScope, googleAnalytics) {
 
         this.waitingServer = false;
         this.lookupInProgress = false;
-        var self = this,
-            lastInternalChannel;
 
-        function sendRequest(data) {
-            return userRequest.send(
-                'POST',
-                '/random',
-                data
-            ).then(function(data) {
-                    externalChat.level = data.score;
-                });
-        }
+        var self = this,
+            lastInternalChannel,
+            externalInstance;
+
+        this.getExternalInstance = function() {
+            if (externalInstance) return externalInstance;
+
+            var dummy = new ExternalChat({}); // Empty chat for reloaded page
+            dummy.createEmptySession();
+            return dummy;
+        };
 
         function onRandomChatOpen(type) {
-            log(type);
-            if (type == 'external') {
+            log('onRandomChatOpen', type);
+            if (type == 'external')
                 cancelInternalLookingFor();
-            }
-            else {
+            else
                 cancelExternalLookingFor();
-            }
+
             self.lookupInProgress = false;
         }
 
         function cancelExternalLookingFor() {
-            externalChat.disconnect();
+            if (externalInstance)
+                externalInstance.disconnect();
         }
 
         function cancelInternalLookingFor() {
@@ -69,8 +69,18 @@ angular.module("angServices")
                 });
             }
 
-            if (config('externalChat'))
-                externalChat.start(preferences);
+            function sendRequest(data) {
+                return userRequest.send(
+                    'POST',
+                    '/random',
+                    data
+                ).then(function(data) {
+                    if (self.lookupInProgress && config('externalChat')) {
+                        externalInstance = new ExternalChat(preferences, data.score);
+                        externalInstance.schedule_start();
+                    }
+                });
+            }
 
             log(self);
             return d.promise;
