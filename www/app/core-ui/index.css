@@ -988,7 +988,13 @@ input[type="radio"]:checked + .radioLabel {
 /* MENU */
 
 i.mobile-icon {
-  font-size: 29pt;
+  font-size: 22pt;
+  line-height: 10px;
+  left: 2px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  margin-right: 5px;
 }
 
 .time_zone {
