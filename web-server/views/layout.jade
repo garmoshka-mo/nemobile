@@ -46,12 +46,8 @@ html
 
   body(ng-controller='mainController')
     #dummy(style="display:none;")
-    .snap-drawers
-      .snap-drawer.snap-drawer-left
-        aside.left-off-canvas-menu
-          .iphone-hack.iphone-menu-margin
-          div(ng-include="'app/core-ui/menu.html?'+version", ng-controller='menuController')
-    .off-canvas-wrap.snap-content(slide-menu='', data-offcanvas='')
+    div.menu.menu-animated(menu)
+    div.menu-content
       .prevent-click
       .iphone-hack.iphone-status-bar-margin
       .inner-wrap
