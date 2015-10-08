@@ -25,7 +25,6 @@
                 function showMenuOpenedDiv() {
                     $menuOpenedDiv.addClass('show');
                     if ($menuOpenedDiv.css('opacity')) {
-                        console.log('opacity was')
                         $menuOpenedDiv.addClass('opened');
                     }
                     else {
@@ -96,6 +95,7 @@
                         return;
                     }
                     $menu.css('transform', 'translate3d(' + nextX + 'px, 0,0)');
+                    $menu.css('-webkit-transform', 'translate3d(' + nextX + 'px, 0,0)');
                     // console.log(event);
                 });
 
@@ -123,6 +123,7 @@
 
                 function removeTransform() {
                     $menu.css('transform', '');
+                    $menu.css('-webkit-transform', '');
                 }
 
                 function addAnimation() {
@@ -151,13 +152,6 @@
                 menu.setWidth(250);
                 $menuOpenedDiv.click(menu.close);
             }
-            // controller: ['$scope', '$timeout', 'deviceInfo', 'router', controller]
         };
     }]);
-
-
-
-   
-    
-
 })();

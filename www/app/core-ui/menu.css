@@ -1,6 +1,7 @@
 .menu {
     height: 100%;
     transform: translate3d(-250px, 0, 0);
+    -webkit-transform: translate3d(-250px, 0, 0);
     position: absolute;
     z-index: 999;
     left: 0;
