@@ -987,20 +987,9 @@ input[type="radio"]:checked + .radioLabel {
 
 /* MENU */
 
-.off-canvas-list .app-setup-item i {
-  position: absolute;
-  left: 28px;
-  top: 9px;
-  font-size: 44px;
+i.mobile-icon {
+  font-size: 29pt;
 }
-.off-canvas-list .app-setup-item a {
-  padding-bottom: 16px;
-}
-.off-canvas-list .app-setup-item {
-  text-align: center;
-   position: relative;
-   line-height: 20px;
- }
 
 .time_zone {
   font-size: 0.8rem;
@@ -1065,4 +1054,8 @@ md-menu-item > .md-button {
   margin: 2em auto;
   text-align: left;
   width: 80px;
+}
+
+.title-panel {
+  overflow: hidden;
 }

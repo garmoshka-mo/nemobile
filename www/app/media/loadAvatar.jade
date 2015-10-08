@@ -1,16 +1,19 @@
 div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
     .width-92.block-center.top-margin
         .row(ng-show='user.name' )
-            label Сгенерируйте случайную
-            img.rounded-ava(ng-src='{{previewAvatar}}', alt='ava', imageonload='imageLoadedHandler()')
-            .inline-block.change-ava-button(ng-click='generateNewAvatar()')
-                i.fa.fa-refresh
-            .inline-block(ng-show='generatedNewAvatar')
-                .change-ava-button(ng-click='restoreDefaultAvatar()')
-                    i.fa.fa-close
-                .change-ava-button(ng-click='applyCurrentAvatar()')
-                    i.fa.fa-check
-                .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
+            img.rounded-ava(ng-hide='newImage.url || newImage.file' ng-src='{{previewAvatar}}', alt='ava', imageonload='imageLoadedHandler()')
+            img.rounded-ava(ng-show='newImage.url && !newImage.file', ng-src='{{newImage.url}}')
+            img.rounded-ava(ngf-src='newImage.file', alt='ava')
+            .inline-block(ng-show='isServerResponseShown', ng-bind='serverResponse')
+            .inline-block(ng-hide='newImage.url')
+                .inline-block.change-ava-button(ng-click='generateNewAvatar()')
+                    i.fa.fa-refresh
+                .inline-block(ng-show='generatedNewAvatar')
+                    .change-ava-button(ng-click='restoreDefaultAvatar()')
+                        i.fa.fa-close
+                    .change-ava-button(ng-click='applyCurrentAvatar()')
+                        i.fa.fa-check
+                    .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
         .grey-line.width-92
         .row
             label Загрузите из ваших файлов
@@ -27,7 +30,3 @@ div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
                 span(ng-show='!isImageUploading') Загрузить
                 span(spinner='', spinner-color='white', ng-show='isImageUploading')
         .h41
-            .ta-center
-                img.rounded-ava(ngf-src='newImage.file', alt='ava')
-                img.rounded-ava(ng-show='newImage.url', ng-src='{{newImage.url}}')
-            .ta-center(ng-show='isServerResponseShown', ng-bind='serverResponse')

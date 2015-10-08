@@ -21,8 +21,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
     };
 
     self.openOnTop = function(stateName) {
-        chatHeader.clear();
-
         var state = null;
         $state.get().some(function(s) {
             if (s.name == stateName) return state = s;
@@ -30,9 +28,14 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         if (!state) return console.error('unknown state');
 
         self.top  = state;
+
+        if(!self.isChatActive()) {
+            chatHeader.clear();
+        }
         $rootScope.topSectionTemplate = state.views.content.templateUrl;
         $rootScope.topFooterTemplate = state.views.content.footerTemplateUrl;
         separator.updateView(self);
+        previousState.saveTop([stateName]);
     };
 
 
@@ -67,8 +70,38 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
             d.resolve();
         }
-
+        previousState.saveMain([state, params, top]);
         return d.promise;
+    };
+
+    var previousState = {
+        saveMain: function(params) {
+            if(this.currMain) {
+                this.prevMain = this.currMain;
+            }
+            this.currMain = params;
+        },
+        saveTop: function(params) {
+            if(this.currTop) {
+                this.prevTop = this.currTop;
+            }
+            this.currTop = params;
+        }
+    };
+
+    self.goBack = function() {
+        if($rootScope.hidingTopSection) {
+            $rootScope.hidingTopSection = false;
+            previousState.prevTop = previousState.currTop;
+        }
+        if(previousState.prevTop) {
+            self.openOnTop.apply(undefined, previousState.prevTop);
+        }
+        if(previousState.prevMain) {
+            self.goto.apply(undefined, previousState.prevMain);
+        } else {
+            self.goto('pubsList');
+        }
     };
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);

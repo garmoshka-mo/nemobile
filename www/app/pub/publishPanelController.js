@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller("PublishPanelController", [
-        '$scope', 'posts', 'router', '$stateParams', 'chats', 'externalChat', 'timer', 'separator',
-        function($scope, posts, router, $stateParams, chats, externalChat, timer, separator) {
+        '$scope', 'posts', 'router', '$stateParams', 'chats', 'timer', 'separator',
+        function($scope, posts, router, $stateParams, chats, timer, separator) {
 
             var chat_uuid;
 

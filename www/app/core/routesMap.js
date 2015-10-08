@@ -298,6 +298,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("loadAvatar", {
                 url: "/loadAvatar",
                 views: {
+                    "top" : {
+                        resize: 'hide'
+                    },
                     "title": {
                         template: "Загрузка аватарки"
                     },
@@ -452,6 +455,21 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     "content": {
                         controller: "afterPurchaseController",
                         templateUrl: "app/purchase/afterPurchase.html?"+version
+                    }
+                }
+            })
+            .state("mobileApp", {
+                url: "/mobileApp",
+                views: {
+                    "top" : {
+                        resize: 'hide'
+                    },
+                    "title": {
+                        template: "Приложение"
+                    },
+                    "content": {
+                        controller: "mobileAppController",
+                        templateUrl: "app/etc/mobileApp.html?"+version
                     }
                 }
             });
