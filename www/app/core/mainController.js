@@ -17,7 +17,9 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.debug = config('debugMode');
 
     var statesWhereShowBackArrow = [
-        'loadAvatar'
+        'loadAvatar',
+        'about',
+        'mobileApp'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',
