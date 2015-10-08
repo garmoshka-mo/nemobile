@@ -16,6 +16,9 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.version = version;
     $scope.debug = config('debugMode');
 
+    var statesWhereShowBackArrow = [
+        'loadAvatar'
+    ];
     var forbidToGoBackStates = [
         'addVirtualChat',
         'createFastChat',
@@ -94,6 +97,10 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }, 0);
     };
 
+    $scope.backArrowHandler = function() {
+        router.goBack();
+    };
+
     $scope.publish = function() {
         router.goto('publishPreview', $state.params);
     };
@@ -107,7 +114,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
             if (RAN_AS_APP)
                 router.is_preload = true;
             $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
-
+            $scope.isBackArrowShown = _.includes(statesWhereShowBackArrow, toState.name);
 
         }
     );

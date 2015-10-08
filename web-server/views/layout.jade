@@ -57,9 +57,11 @@ html
       .inner-wrap
         nav#top-bar.tab-bar.no-select
           section.left-small.pointer.ta-center
-            a.menu-icon(ng-hide='customSmallIconInner', ng-click='toggleMenu()')
+            a.menu-icon(ng-hide='customSmallIconInner || isBackArrowShown', ng-click='toggleMenu()')
               span
-            span.customSmallIcon(ng-show='customSmallIconInner', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
+            a.icon_button(ng-cloak='' ng-show='isBackArrowShown', ng-click='backArrowHandler()')
+              i.fa.fa-chevron-left.ml10
+            span.customSmallIcon(ng-show='customSmallIconInner && !isBackArrowShown', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
           section.middle.tab-bar-section.p0
               div(ng-show='routing.is_preload')
                 span(spinner='', spinner-color='white')
