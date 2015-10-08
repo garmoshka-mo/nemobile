@@ -1066,3 +1066,7 @@ md-menu-item > .md-button {
   text-align: left;
   width: 80px;
 }
+
+.title-panel {
+  overflow: hidden;
+}
