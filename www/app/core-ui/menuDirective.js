@@ -11,26 +11,47 @@
                 var allowOpenning = false;
                 var $menu = $(element);
                 var $menuContent = $('.menu-content'); 
-                var $whenMenuOpenDiv = $('<div class="when-menu-open"></div>');
-                $menuContent.append($whenMenuOpenDiv);
+                var $menuOpenedDiv = $('<div class="when-menu-open"></div>');
+                $menuContent.append($menuOpenedDiv);
 
                 function onOpenClose() {
                     addAnimation();
                     removeTransform();
                     menu.openning = false;
                     allowOpenning = false;
+                    $menuOpenedDiv.css('opacity', '');
+                }
+
+                function showMenuOpenedDiv() {
+                    $menuOpenedDiv.addClass('show');
+                    if ($menuOpenedDiv.css('opacity')) {
+                        console.log('opacity was')
+                        $menuOpenedDiv.addClass('opened');
+                    }
+                    else {
+                        setTimeout(function() {
+                            $menuOpenedDiv.addClass('opened');
+                        }, 100);
+                    }
+                }
+
+                function hideMenuOpenedDiv() {
+                    $menuOpenedDiv.removeClass('opened');
+                    setTimeout(function() {
+                        $menuOpenedDiv.removeClass('show');
+                    }, 300);
                 }
 
                 menu.open = function() {
-                    onOpenClose();
                     $menu.addClass('menu-open');
-                    $whenMenuOpenDiv.fadeIn('slow');
+                    showMenuOpenedDiv();
+                    onOpenClose();
                 };
 
                 menu.close = function() {
-                    onOpenClose();
                     $menu.removeClass('menu-open');
-                    $whenMenuOpenDiv.fadeOut('slow');
+                    hideMenuOpenedDiv();
+                    onOpenClose();
                 };
 
                 menu.toggle = function() {
@@ -66,8 +87,8 @@
                     if (!allowOpenning) {
                         return;
                     }
-                    console.log('pan');
                     var nextX = calculateNextX(event);
+                    $menuOpenedDiv.css('opacity', (menu.width + nextX) / menu.width);
                     menu.openning = true; 
                     // console.log(nextX);
                     if (nextX > 0) {
@@ -93,6 +114,7 @@
                     }
                     if (event.angle < 45 && event.angle > -45) {
                         allowOpenning = true;
+                        $menuOpenedDiv.addClass('show');
                     } 
                     else {
                         allowOpenning = false;
@@ -127,7 +149,7 @@
                 }
 
                 menu.setWidth(250);
-                $whenMenuOpenDiv.click(menu.close);
+                $menuOpenedDiv.click(menu.close);
             }
             // controller: ['$scope', '$timeout', 'deviceInfo', 'router', controller]
         };
