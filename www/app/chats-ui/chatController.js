@@ -1,9 +1,9 @@
 angular.module("angControllers").controller("chatController", 
 
-    ['user','$scope', '$stateParams', '$state', 'externalChat','api', 'timer',
+    ['user','$scope', '$stateParams', '$state','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
             'chats', 'googleAnalytics', 'router', 'view', 'chatHeader',
-    function(user, $scope, $stateParams, $state, externalChat, api, timer,
+    function(user, $scope, $stateParams, $state, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
                 chats, googleAnalytics, router, view, chatHeader) {
 

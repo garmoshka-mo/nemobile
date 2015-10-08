@@ -48,6 +48,8 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             timeout = 1; maxBaseTimeout = 15; timeoutAcceleration = 2;
         }
 
+        log('Initialized', level, timeout);
+
         function reconnect() {
             var randomizeTime = true,
                 t = timeout + (randomizeTime ? Math.random() * timeout : 0);

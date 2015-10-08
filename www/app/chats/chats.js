@@ -1,8 +1,8 @@
 angular.module("angServices")
 .service('chats', ['$rootScope', 'deviceInfo', 'Chat', 'socket',
-        'storage', 'router', '$stateParams', 'externalChat',
+        'storage', 'router', '$stateParams', 'random',
     function($rootScope, deviceInfo,  Chat, socket,
-             storage, router, $stateParams, externalChat) {
+             storage, router, $stateParams, random) {
         
         var self = this;
 
@@ -108,7 +108,7 @@ angular.module("angServices")
             if (current.type == 'internal')
                 return self.getChat(current.channel);
             else if (current.type == 'external')
-                return externalChat.current_instance;
+                return random.getExternalInstance();
         };
 
         self.ensureCurrentChat = function() {
