@@ -25,6 +25,16 @@ angular.module("angApp")
     $locationProvider.html5Mode(true);
 }])
 
+.config(['$translateProvider', function ($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'assets/locales/locale-',
+        suffix: '.json'
+    });
+    //In order to change language provider from anywhere use:
+    //$translate.use(langKey);
+    $translateProvider.preferredLanguage('ru');
+}])
+
 .run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', 'googleAnalytics', function() {
     //messages and pubnubsubscription are not used
     //but they have to be injected in order to be invoked
