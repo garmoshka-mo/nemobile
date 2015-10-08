@@ -5,11 +5,13 @@
     z-index: 999;
     left: 0;
     top: 0;
-    transition: 0.3s all ease;
     background: #363645;
 }
 .menu-content {
     position: relative;
+}
+.menu-animated {
+    transition: 0.3s all ease;
 }
 .when-menu-open {
     position: absolute;
