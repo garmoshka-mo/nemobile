@@ -13,6 +13,7 @@
 }
 .menu-animated {
     transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
 }
 .when-menu-open {
     position: absolute;
@@ -30,6 +31,7 @@
 }
 .when-menu-open.opened {
     transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
     opacity: 1;
 }
 
