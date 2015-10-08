@@ -7,7 +7,7 @@
         return {
             templateUrl: "app/core-ui/menu.html?"+version,
             link: function($scope, element) {
-                var ALLOWED_ANGLE = 45;
+                var ALLOWED_ANGLE = 30;
                 var allowOpenning = false;
                 var $menu = $(element);
                 var $menuContent = $('.menu-content'); 
@@ -79,15 +79,18 @@
                 });
 
                 menuHammer.on('panend', function() {
-                    previousPanX = 0;
-                    allowOpenning = false;
-                    console.log('touch end!');
                     if (menu.openning) {
+                        previousPanX = 0;
+                        allowOpenning = false;
                         finishAction();
                     }
                 });
 
                 menuHammer.on('panstart', function(event) {
+                    if (event.pointers[0].clientX > $menuContent.width() / 3) {
+                        allowOpenning = false;
+                        return;
+                    }
                     if (event.angle < 45 && event.angle > -45) {
                         allowOpenning = true;
                     } 
