@@ -139,7 +139,7 @@
         .row
             .small-12.column.language-tags-box
                 i.fa.fa-language 
-                &nbsp
+                | &nbsp
                 span {{ 'random.languages' | translate}}:
                 tags-input(ng-model="language.available" display-property="name")
         .row
@@ -148,13 +148,13 @@
                 .human-config
                     sex-select(ng-model='filter.iam.sex')
                     p.text-silver.ta-center(translate='random.age')
-                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
             .small-6.columns.ta-center
                 .text-bold(translate='random.another')
                 .human-config
                     sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
                     p.text-silver.ta-center(translate='random.age')
-                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
         .row.top-margin.bottom-margin
             .small-12.ta-center
                 span.text-silver.pointer(ng-click='setDefaultFilterParams()', translate='random.reset')

@@ -11,7 +11,7 @@
                 span.animated.recent-score(ng-bind='s.partner.recentScoreFormatted'
                     ng-style='{opacity: s.partner.recentOpacity}' ng-class='{ negative: s.partner.recentScore < 0 }')
             .name(style='float: left;')
-                | {{ s.partner.title }}
+                | {{ 'chat.header.partner' | translate }}
                 span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
@@ -21,12 +21,12 @@
                 span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
                     ng-style='{opacity: s.me.recentOpacity}' ng-class='{ negative: s.me.recentScore < 0 }')
                 span(ng-bind='s.me.score' ng-class='{ negative: s.me.score < 0 }')
-            .name(style='float: right;' ng-bind='s.me.title')
+            .name(style='float: right;' translate='chat.header.me')
         img.pointer.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 
     .middle(ng-show='s.active && !routing.is_preload')
         .time_zone
             i.fa.fa-clock-o
             span(ng-bind='notification.time')
-        a(ng-click='publish()' style='color: white;' title='Предварительный просмотр для публикации чата')
+        a(ng-click='publish()' style='color: white;' title="{{ 'chat.header.publish' | translate }}")
             i.fa.fa-share-square-o

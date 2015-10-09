@@ -53,17 +53,17 @@
         }
 
         var previewMessageMenu = [
-            {name: 'Редактировать', handler: editMessage},
-            {name: 'Скрыть текс/картинку', handler: hideMessage},
-            {name: 'Удалить сообщение', handler: removeCurrentMessage},
-            {name: 'Удалить сообщения <span class="text-bold">выше</span>',
+            {name: 'publish.message.edit', handler: editMessage},
+            {name: 'publish.message.hide', handler: hideMessage},
+            {name: 'publish.message.remove', handler: removeCurrentMessage},
+            {name: 'publish.message.removeAbove',
              handler: removeMessagesAbove},
-            {name: 'Удалить сообщения <span class="text-bold">ниже</span>', 
+            {name: 'publish.message.removeBelow',
             handler: removeMessagesBelow}
         ];
 
         var chatMessageMenu = [
-            {name: 'цитировать', handler: quoteIt},
+            {name: 'chat.message.quote', handler: quoteIt},
         ];
 
         if ($scope.chat === true) {

@@ -6,8 +6,8 @@ function($rootScope, user) {
     var self = this;
     this.active = false;
 
-    this.partner = { title: "кто-то"};
-    this.me = { title: "Я", hidden: true };
+    this.partner = { };
+    this.me = { hidden: true };
 
 
     this.setChatHeader = function(chat) {

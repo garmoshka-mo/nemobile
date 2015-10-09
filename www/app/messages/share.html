@@ -1,8 +1,7 @@
 <div class="share_block">
 
-    <div class="share_it" ng-style="{color: shareColor }">{{shareTitle}}
-        <i tooltips title="Эта надпись подразумевает, что можно
-поделиться с друзьями ссылкой на наш чат." class="fa fa-question-circle"></i>
+    <div class="share_it" ng-style="{ color: shareColor }">{{ shareTitle | translate }}
+        <i tooltips title="{{ 'share.description' | translate }}" class="fa fa-question-circle"></i>
     </div>
 
     <div id="vk_like"></div>
