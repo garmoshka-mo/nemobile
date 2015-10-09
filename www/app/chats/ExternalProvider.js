@@ -108,7 +108,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function initWithoutIntro() {
             function startChatWhenNoHisIntro() {
                 if (fellIntoPit)
-                    logTagAndBegin('🚨WELCOME TO HELL🚨');
+                    logTagAndBegin('🔥WELCOME TO HELL🔥');
                 if (emergencyThrowActivated)
                     logTagAndBegin('🚨Emergency throw🚨');
                 else

@@ -7,11 +7,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
 
     separator.setTopFooter($('#footer'));
 
-    var params = chats.ensureParams();
-    if (!params) return;
-
-    var type = params.type;
-    var chat = chats.ensureCurrentChat();
+    var chat = chats.current;
 
     var lastSession;
     chat.ensureSession()
@@ -94,7 +90,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
 
     $scope.input_keypress = function(event) {
         chat.iStartedInput = true;
-        if (type == 'internal') {
+        if (chat.type == 'internal') {
             detectUserTyping();
         }
         //if ctrl+enter or enter is pressed

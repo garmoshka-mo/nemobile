@@ -12,6 +12,7 @@ function ($q) {
         y = -TOP_BAR_HEIGHT,
         chatIsActive = false,
         animateResize = false,
+        resizedByUser = false,
         visible = true;
 
     var $header = $('#top-bar'),
@@ -58,6 +59,11 @@ function ($q) {
             self.resize(router.top.views.top.resize);
         } else
             moveElements();
+    };
+
+    self.unforcedResize = function(height) {
+        if (!resizedByUser)
+            self.resize(height);
     };
 
     self.isVisible = function() {

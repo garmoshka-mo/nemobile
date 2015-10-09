@@ -10,6 +10,10 @@ angular.module("angServices")
             externalInstance,
             silentStop;
 
+        this.isSearching = function() {
+            return this.lookupInProgress && !silentStop;
+        };
+
         this.getExternalInstance = function() {
             if (externalInstance) return externalInstance;
 
@@ -104,7 +108,7 @@ angular.module("angServices")
 
         window.addEventListener('storage', function (event) {
             if (event.key == 'randomSearchStarted') {
-                cancelExternalLookingFor();
+                if (self.lookupInProgress) cancelExternalLookingFor();
                 silentStop = true;
                 log('silent stop');
             }

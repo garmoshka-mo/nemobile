@@ -1,18 +1,24 @@
 angular.module("angServices")
 .service('chats', ['$rootScope', 'deviceInfo', 'Chat', 'socket',
-        'storage', 'router', '$stateParams', 'random',
+        'storage', 'router', 'random',
     function($rootScope, deviceInfo,  Chat, socket,
-             storage, router, $stateParams, random) {
+             storage, router, random) {
         
         var self = this;
 
         self.list = {};
-        var current = null;
+        self.current = null;
 
         log('chats', self);
 
-        $rootScope.$on('new random chat', function(event, args) {
-            current = args;
+        $rootScope.$on('new random chat', function(event, params) {
+            if (params.type == 'internal'){
+                self.current = self.getChat(params.channel);
+                if (!self.current)
+                    self.current = self.addChat({channel: params.channel});
+            } else if (params.type == 'external')
+                self.current = random.getExternalInstance();
+
             setTimeout(function() {
                 router.openOnTop('chat');
             },1);
@@ -20,19 +26,6 @@ angular.module("angServices")
             //if (config('debugMode'))
             //    $location.search({chat: args.type + ':' + args.channel});
         });
-
-        self.ensureParams = function() {
-            if ($stateParams.chat)
-                current = {
-                    type: $stateParams.chat.getChatType(),
-                    channel: $stateParams.chat.getChatChannel()
-                };
-            return current;
-        };
-
-        self.currentParams = function() {
-            return current;
-        };
 
         self.getChat = function(channel, senderId) {
             if (!_.isUndefined(channel) && self.list[channel]) {
@@ -104,25 +97,8 @@ angular.module("angServices")
 
         $rootScope.$on('chat was updated', self.save);
 
-        self.getCurrentChat = function() {
-            if (current.type == 'internal')
-                return self.getChat(current.channel);
-            else if (current.type == 'external')
-                return random.getExternalInstance();
-        };
-
-        self.ensureCurrentChat = function() {
-            var chat = self.getCurrentChat();
-
-            if (!chat && current.type == 'internal')
-                //getting chat object, if chat does not exist create new one
-                chat = self.addChat({channel: current.channel});
-
-            return chat;
-        };
-
         socket.on('typing', function(e) {
-            if (e.channel == current.channel)
+            if (e.channel == self.current.channel)
                 $rootScope.$apply(function() {
                     $rootScope.notification.typing = e.value;
                 });

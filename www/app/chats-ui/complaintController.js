@@ -25,7 +25,7 @@ angular.module('angControllers').controller('complaintController', ['$scope', 'S
         ];
 
         $scope.reportComplaint = function(complaintName) {
-            var chat = chats.getCurrentChat();
+            var chat = chats.current;
             var session = chat.getLastUnexpiredChatSession().then(function(){
                 $scope.isComplaining = true;
                 var filter = new SpamFilter(chat.lastUnexpiredChatSession);

@@ -146,6 +146,7 @@ angular.module("angServices")
                     ga('send', 'pageview', url);
             };
             this.boredToWait = function () {
+                if (lookupDuration > 200) return;
                 lookupInProgress = false;
                 self.setLookForChat(false);
                 setMetric(2, 0);
