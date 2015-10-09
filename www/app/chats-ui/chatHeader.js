@@ -75,6 +75,6 @@ function($scope, chatHeader, router) {
     $scope.s = chatHeader;
 
     $scope.myAvaClick = function() {
-        router.goto('loadAvatar', null, {hide: true});
+        router.goto('loadAvatar');
     };
 }]);

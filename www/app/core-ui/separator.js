@@ -12,7 +12,8 @@ function ($q) {
         y = -TOP_BAR_HEIGHT,
         chatIsActive = false,
         animateResize = false,
-        resizedByUser = false;
+        resizedByUser = false,
+        visible = true;
 
     var $header = $('#top-bar'),
         $dummy = $('#dummy'),
@@ -65,7 +66,12 @@ function ($q) {
             self.resize(height);
     };
 
+    self.isVisible = function() {
+        return visible;
+    };
+
     self.resize = function(height) {
+        visible = true;
         $dragger.show();
         switch (height) {
             case 'full':
@@ -80,6 +86,7 @@ function ($q) {
             case 'hide':
                 $dragger.hide();
                 height = 0;
+                visible = false;
                 break;
         }
 
