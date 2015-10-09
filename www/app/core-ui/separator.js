@@ -1,8 +1,8 @@
 (function(){
 angular.module("angServices")
     .service('separator',
-        ['$q',
-function ($q) {
+        ['googleAnalytics',
+function (googleAnalytics) {
 
     var TOP_BAR_HEIGHT = 65;
     var COMFORT_CHAT = 140;
@@ -47,6 +47,7 @@ function ($q) {
         edges.bottom = $window.height() - 17;
         if ($dragger.position().top > $window.height()) {
             y = fullHeight();
+            resizedByUser = false;
             moveElements();
         }
     };
@@ -54,16 +55,16 @@ function ($q) {
     self.updateView = function(router) {
         chatIsActive = router.isChatActive();
 
-        if (router.top.views.top && router.top.views.top.resize) {
-            if (router.top.views.top.animated) animateResize = true;
-            self.resize(router.top.views.top.resize);
+        var t = router.top.views.top;
+        if (t && t.resize && !(t.unforcedResize && resizedByUser)) {
+            if (t.animated) animateResize = true;
+            self.resize(t.resize);
         } else
             moveElements();
     };
 
     self.unforcedResize = function(height) {
-        if (!resizedByUser)
-            self.resize(height);
+        if (!resizedByUser) self.resize(height);
     };
 
     self.isVisible = function() {
@@ -71,6 +72,7 @@ function ($q) {
     };
 
     self.resize = function(height) {
+        resizedByUser = false;
         visible = true;
         $dragger.show();
         switch (height) {
@@ -180,7 +182,9 @@ function ($q) {
                 }
             })
             .on('dragmove', function (event) {
+                resizedByUser = true;
                 y += event.dy;
+                googleAnalytics.dragSeparator(y);
                 moveElements();
             });
     }
