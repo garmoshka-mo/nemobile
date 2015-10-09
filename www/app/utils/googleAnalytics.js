@@ -4,6 +4,10 @@ angular.module("angServices")
 
             var self = this;
 
+            var HIT_VALUE = 1,
+                DIALOG_DURATION = 2,
+                AWAIT_DURATION = 3;
+
             //properties
             var lookupInProgress = false,
                 chatInProgress = false,
@@ -74,8 +78,9 @@ angular.module("angServices")
             }
 
             function unsetMetrics() {
-                setMetric(2, '');
-                setMetric(3, '');
+                setMetric(HIT_VALUE, '');
+                setMetric(DIALOG_DURATION, '');
+                setMetric(AWAIT_DURATION, '');
             }
 
             function executeMobile(toExecute) {
@@ -181,6 +186,16 @@ angular.module("angServices")
                 return setInterval(function () {
                     self.event('chatting', '20 minutes of chatting');
                 }, 1200000);
+            };
+
+            var dragSeparatorSaveTimer;
+            this.dragSeparator = function (y) {
+                clearInterval(dragSeparatorSaveTimer);
+                dragSeparatorSaveTimer = setTimeout(function () {
+                    setMetric(HIT_VALUE, y);
+                    self.event('ui', 'drag separator');
+                    unsetMetrics();
+                }, 60 * 1000);
             };
 
             if (!IS_APP) {

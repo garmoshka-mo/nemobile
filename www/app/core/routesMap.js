@@ -97,7 +97,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 branded: true, hasControlPanel: true,
                 views: {
                     "top": {
-                        resize: 'comfortChat'
+                        resize: 'comfortChat',
+                        unforcedResize: true
                     },
                     "title": {
                         template: "Чат"
