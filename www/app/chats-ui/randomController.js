@@ -2,8 +2,10 @@ angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
         'membership', 'random', 'timer', 'router', 'googleAnalytics',
-    function(user, $scope, updates, $state, notification, separator,
-             membership, random, timer, router, googleAnalytics) {
+        'bubble',
+function(user, $scope, updates, $state, notification, separator,
+         membership, random, timer, router, googleAnalytics,
+        bubble) {
 
         $scope.updates = updates;
         updates.check();
@@ -51,7 +53,9 @@ angular.module("angControllers")
             router.openOnTop("randomFull");
         };
 
+    var test = 2;
         $scope.lookForChat = function() {
+            //return bubble.show(test++);
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
             separator.resize('comfortChat');
