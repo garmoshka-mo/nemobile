@@ -33,6 +33,8 @@ angular.module("angApp")
     //In order to change language provider from anywhere use:
     //$translate.use(langKey);
     $translateProvider.preferredLanguage('ru');
+    // remember language
+    $translateProvider.useLocalStorage();
 }])
 
 .run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', 'googleAnalytics', function() {

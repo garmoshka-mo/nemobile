@@ -25,10 +25,14 @@
             a.menu-item(ng-click="goto('settings')")
                 i.fa.fa-gear
                 | Настройки
-        li
+        li(ng-show="isRussianLang()")
             a.menu-item.pointer(ng-click="openExternalURL('https://vk.com/dub_ink')")
                 i.fa.fa-vk
                 | {{ 'menu.vk' | translate }}
+        li(ng-hide="isRussianLang()")
+            a.menu-item.pointer(ng-click="openExternalURL('https://www.facebook.com/groups/901153223303892')")
+                i.fa.fa-facebook
+                | {{ 'menu.facebook' | translate }}
         li
             a.menu-item(ng-click="goto('about')")
                 i.fa.fa-info-circle

@@ -1,9 +1,9 @@
 angular.module("angServices")
     .service('router', [
         'notification', '$state', '$rootScope', '$q', 'googleAnalytics',
-        '$location', 'separator', 'chatHeader', 'menu',
+        '$location', 'separator', 'chatHeader', 'menu', '$translate',
 function(notification, $state, $rootScope, $q, googleAnalytics,
-         $location, separator, chatHeader, menu) {
+         $location, separator, chatHeader, menu, $translate) {
 
     var self = this;
 
@@ -92,7 +92,9 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
         self.is_preload = false;
         logPageview(toState.url);
-
+        //$translate
+        //TODO: find a way to translate titles
+        //
         if (toState.views.top)
             if(toState.views.top.state) {
                 if (self.isChatActive())
