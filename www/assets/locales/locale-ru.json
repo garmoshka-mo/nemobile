@@ -31,5 +31,6 @@
   "random.iam": "Я:",
   "random.another": "Собеседник:",
   "random.age": "Возраст:",
-  "random.reset": "сбросить фильтр"
+  "random.reset": "сбросить фильтр",
+  "random.languages": "Языки"
 }

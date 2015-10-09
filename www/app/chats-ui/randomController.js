@@ -20,6 +20,13 @@ angular.module("angControllers")
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
         $scope.filter = {};
+
+        $scope.tags = [
+            { text: 'just' },
+            { text: 'some' },
+            { text: 'cool' },
+            { text: 'tags' }
+        ];
         
         function selectValue(value) {
             this.isOpened = false;

@@ -181,3 +181,10 @@ sex-select:focus {
 .mob-info a {
     float: right;
 }
+
+.language-tags-box {
+    text-align: center;
+}
+.language-tags-box i {
+    font-size: 20px; 
+}

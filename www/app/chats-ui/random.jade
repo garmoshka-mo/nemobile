@@ -137,6 +137,12 @@
             .small-12.columns
                 input(type='text', ng-model='filter.iam.location', placeholder='Местоположение (необязательно)')
         .row
+            .small-12.column.language-tags-box
+                i.fa.fa-language 
+                &nbsp
+                span {{ 'random.languages' | translate}}:
+                tags-input(ng-model="tags")
+        .row
             .small-6.columns
                 .text-bold.ta-center(translate='random.iam')
                 .human-config
