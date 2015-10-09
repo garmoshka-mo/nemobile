@@ -2,7 +2,7 @@ angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
         'membership', 'random', 'timer', 'router', 'googleAnalytics', 'language',
-        'bubble'
+        'bubble',
     function(user, $scope, updates, $state, notification, separator,
              membership, random, timer, router, googleAnalytics, language, bubble) {
 
