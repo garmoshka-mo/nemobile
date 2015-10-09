@@ -58,7 +58,7 @@ function(user, $scope, updates, $state, notification, separator,
             //return bubble.show(test++);
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
-            separator.resize('comfortChat');
+            separator.unforcedResize('comfortChat');
             notification.asked = 0;
 
             saveFilterState();

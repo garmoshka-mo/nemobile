@@ -9,6 +9,7 @@ function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notifica
     function ExternalChat(preferences, level) {
             var self = this;
             self.chat = null;
+            self.type = 'external';
             self.title = "кто-то";
             self.created_at = Date.now();
 

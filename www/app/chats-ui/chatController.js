@@ -14,15 +14,12 @@ angular.module("angControllers").controller("chatController",
         $scope.isRandom = true;
         $scope.deviceInfo = deviceInfo;
 
-        var params = chats.ensureParams();
-        if (!params) return router.goto('pubsList');
-        var type = params.type;
 
-        var chat = chats.ensureCurrentChat();
+        var chat = chats.current;
         $scope.chat = chat;
         log("chat", chat);
 
-        if (type == 'external')
+        if (chat.type == 'external')
             chat.reportStatusIfInactive();
 
         function initChatHistory() {

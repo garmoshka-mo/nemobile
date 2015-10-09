@@ -1,21 +1,22 @@
 (function() {
 angular.module("angServices")
 .service('messages',
-    ['$rootScope', 'deviceInfo', 'socket',
+    ['$rootScope', 'deviceInfo', 'socket',  'random',
         'user', 'chats', 'router', 'friendsList', 'notification',
-function($rootScope, deviceInfo, socket,
+function($rootScope, deviceInfo, socket, random,
          user, chats, router, friendsList, notification) {
 
     socket.on('chat_ready', function(envelope) {
-        $rootScope.$broadcast('new random chat',
-            {type: 'internal', channel: envelope.channel});
+        if (random.isSearching())
+            $rootScope.$broadcast('new random chat',
+                {type: 'internal', channel: envelope.channel});
     });
 
     socket.on('chat_empty', function(envelope) {
-        var chat = chats.getChat(envelope.channel);
-        if (chat) {
-            chat.disconnect(true);
-            handleChatSessionAsync(chat, {type: 'chat_finished'}, 0);
+        var current =  chats.current;
+        if (current.channel == envelope.channel) {
+            current.disconnect(true);
+            handleChatSessionAsync(current, {type: 'chat_finished'}, 0);
         }
     });
 
@@ -27,9 +28,11 @@ function($rootScope, deviceInfo, socket,
 
         //var messageTimestamp = parseInt((+envelope[1]/10000).toFixed(0));
 
-        if (senderUuid == user.uuid) {
-            return;
-        }
+        if (senderUuid == user.uuid) return;
+
+        // Пока что работаем только с текущим чатом.
+        // todo: при параллельных чатах - правильно организовать сохранение, см. гугл-док "Параллельные чаты"
+        if (channel != chats.current.channel) return;
 
         //getting the last unexpired chat session
         var lastSession;
@@ -99,7 +102,7 @@ function($rootScope, deviceInfo, socket,
         user.lastMessageTimestamp = new Date().getTime();
         user.saveLastMessageTimestamp();
 
-        if (!(chats.currentParams().channel == channel)) {
+        if (chats.current.channel != channel) {
             showNotification(user, messageText, channel, senderUuid);
             chat.isRead = false;
             chats.countUnreadChats();

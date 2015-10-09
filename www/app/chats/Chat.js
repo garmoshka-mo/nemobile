@@ -8,6 +8,7 @@ angular.module("angFactories").factory("Chat",
         var self = this;
 
         this.senderId = chatData.senderId;
+        this.type = 'internal';
         this.channel = chatData.channel ? chatData.channel : chatData.channelName;
         this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
         this.chatSessionsIndexes = chatData.chatSessionsIndexes ? chatData.chatSessionsIndexes : [];
