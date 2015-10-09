@@ -1,11 +1,12 @@
 angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
-        'membership', 'random', 'timer', 'router', 'googleAnalytics',
+        'membership', 'random', 'timer', 'router', 'googleAnalytics', 'language',
     function(user, $scope, updates, $state, notification, separator,
-             membership, random, timer, router, googleAnalytics) {
+             membership, random, timer, router, googleAnalytics, language) {
 
         $scope.updates = updates;
+        $scope.language = language;
         updates.check();
 
         timer.reset();
