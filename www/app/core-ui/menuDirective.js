@@ -62,7 +62,7 @@
                     $menu.width(width + 'px');
                 };
 
-                var menuHammer = new Hammer($menuContent.get(0), {
+                var menuContentHammer = new Hammer($menuContent.get(0), {
                     inputClass: Hammer.TouchMouseInput
                 });
 
@@ -82,7 +82,7 @@
                     return  previousX + distance;
                 }
                 
-                menuHammer.on('pan', function(event) {
+                menuContentHammer.on('pan', function(event) {
                     if (!allowOpenning) {
                         return;
                     }
@@ -99,7 +99,7 @@
                     // console.log(event);
                 });
 
-                menuHammer.on('panend', function() {
+                menuContentHammer.on('panend', function() {
                     if (menu.openning) {
                         previousPanX = 0;
                         allowOpenning = false;
@@ -107,7 +107,7 @@
                     }
                 });
 
-                menuHammer.on('panstart', function(event) {
+                menuContentHammer.on('panstart', function(event) {
                     if (event.pointers[0].clientX > $menuContent.width() / 3) {
                         allowOpenning = false;
                         return;
@@ -149,9 +149,21 @@
                     return +transformString.match(/matrix\(\d+, \d+, \d+, \d+, ([-]*\d+\.*\d*), \d\)/)[1];
                 }
 
+                var menuHammer = new Hammer($menu.get(0), {
+                    inputClass: Hammer.TouchMouseInput
+                });
+
+                menuHammer.on('panleft', function() {
+                    menu.close();
+                });
+
                 menu.setWidth(250);
-                $menuOpenedDiv.click(menu.close);
-            }
+                $menuOpenedDiv.click(function(event) {
+                    event.stopPropagation();
+                    menu.close();
+                });
+            },
+            controller: 'menuController'
         };
     }]);
 })();
