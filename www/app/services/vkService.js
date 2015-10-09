@@ -2,7 +2,7 @@ angular.module("angServices")
 .service('vk', ['api', '$rootScope', '$q', '$http', function(api, $rootScope, $q, $http) {
     var vkUserId = null;
     var vkToken = null;
-    var isWeb = !RAN_AS_APP;
+    var isWeb = !IS_APP;
 
     var url_parser={
         get_args: function (s) {

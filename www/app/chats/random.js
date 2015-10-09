@@ -7,7 +7,8 @@ angular.module("angServices")
 
         var self = this,
             lastInternalChannel,
-            externalInstance;
+            externalInstance,
+            silentStop;
 
         this.getExternalInstance = function() {
             if (externalInstance) return externalInstance;
@@ -56,6 +57,8 @@ angular.module("angServices")
             self.waitingServer = true;
             self.lookupInProgress = true;
 
+            silentStop = false;
+            localStorage.setItem('randomSearchStarted', Date.now());
 
             if (user.isLogged())
                 requestInternalRandomChat();
@@ -70,12 +73,13 @@ angular.module("angServices")
             }
 
             function sendRequest(data) {
+                if (silentStop) return $q.when(true);
                 return userRequest.send(
                     'POST',
                     '/random',
                     data
                 ).then(function(data) {
-                    if (self.lookupInProgress && config('externalChat')) {
+                    if (self.lookupInProgress && !silentStop && config('externalChat')) {
                         externalInstance = new ExternalChat(preferences, data.score);
                         externalInstance.schedule_start();
                     }
@@ -91,12 +95,20 @@ angular.module("angServices")
             self.waitingServer = true;
             cancelExternalLookingFor();
             return cancelInternalLookingFor()
-            .then(function() {
-                self.waitingServer = false;
-                self.lookupInProgress = false;
-            });
+                .then(function() {
+                    self.waitingServer = false;
+                    self.lookupInProgress = false;
+                });
             
         };
+
+        window.addEventListener('storage', function (event) {
+            if (event.key == 'randomSearchStarted') {
+                cancelExternalLookingFor();
+                silentStop = true;
+                log('silent stop');
+            }
+        }, false);
 
         $(window).bind('unload', function() {
             if (self.lookupInProgress)

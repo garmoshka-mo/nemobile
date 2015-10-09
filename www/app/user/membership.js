@@ -4,7 +4,7 @@
             function($q, userRequest, deviceInfo, user, router) {
 
                 function getPlatform() {
-                    if (RAN_AS_APP) {
+                    if (IS_APP) {
                         return deviceInfo.isIos ? 'ios' : 'android';
                     }
                     else {
@@ -59,7 +59,7 @@
                 this.order = function (offerId) {
                     return userRequest.send('POST', '/payment/orders', {offer_id: offerId}).then(function(data){
                         localStorage.setItem('orderCreated', true);
-                        if (RAN_AS_APP) {
+                        if (IS_APP) {
                             navigator.app.loadUrl(data.url, {openExternal: true});
                         }
                         else {

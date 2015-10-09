@@ -8,7 +8,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     log('main controller is invoked');
 
     $rootScope.isAppInBackground = false;
-    $scope.RAN_AS_APP = RAN_AS_APP;
+    $scope.IS_APP = IS_APP;
     $scope.IS_MOBILE = IS_MOBILE;
     $scope.IS_ANDROID = IS_ANDROID;
     $scope.deviceInfo = deviceInfo;
@@ -68,7 +68,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     });
 
     function hideSplashScreen() {
-        if (RAN_AS_APP) {
+        if (IS_APP) {
             setTimeout(function() {
                 navigator.splashscreen.hide();
             }, 300);
@@ -80,7 +80,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.toggleMenu = function() {
         //async call is necessary for correct work on android 4.1.1
         $timeout(function() {
-            if (RAN_AS_APP) {
+            if (IS_APP) {
                 if (window.device.platform === "iOS") {
                     cordova.plugins.Keyboard.close();
                 }
@@ -103,7 +103,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
 
     $scope.$on('$stateChangeStart',
         function(evt, toState, toParams, fromState, fromParams) {
-            if (RAN_AS_APP)
+            if (IS_APP)
                 router.is_preload = true;
             $scope.isUserScoreShown = !_.includes(statesNotShowScore, toState.name);
             $scope.isBackArrowShown = _.includes(statesWhereShowBackArrow, toState.name);

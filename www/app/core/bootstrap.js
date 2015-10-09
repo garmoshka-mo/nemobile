@@ -1,5 +1,5 @@
 var version = 'dev', config;
-var RAN_AS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
 
 var ua = navigator.userAgent.toLowerCase();
@@ -42,7 +42,7 @@ angular.module("angApp")
 
 
 function bootstrapAngularApp() {
-    if (RAN_AS_APP)
+    if (IS_APP)
         document.addEventListener('deviceready', function() {
             angular.bootstrap(document, ['angApp']);
         });

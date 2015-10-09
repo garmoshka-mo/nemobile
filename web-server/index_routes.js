@@ -5,5 +5,5 @@ module.exports = [
     '/pub', '/activation',
     '/updateProfile', '/loadAvatar', '/about', '/about/:page',
     '/publishPreview', '/publishSuccess/:id',
-    '/homepage'
+    '/homepage', '/mobileApp'
 ];

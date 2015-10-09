@@ -12,7 +12,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
     self.top = {};
 
     self.openExternalURL = function(url) {
-        if (RAN_AS_APP) {
+        if (IS_APP) {
             navigator.app.loadUrl(url, {openExternal: true});
         }
         else {
@@ -35,7 +35,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         $rootScope.topSectionTemplate = state.views.content.templateUrl;
         $rootScope.topFooterTemplate = state.views.content.footerTemplateUrl;
         separator.updateView(self);
-        previousState.saveTop([stateName]);
     };
 
 
@@ -43,13 +42,6 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         menu.close();
         var d = $q.defer();
         params = params || {};
-
-        $rootScope.hidingTopSection = false;
-        if (top) {
-            if (top.hide) {
-                $rootScope.hidingTopSection = true;
-            }
-        }
 
         if ($state.current.name == state) {
             d.resolve();
@@ -70,38 +62,30 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
             d.resolve();
         }
-        previousState.saveMain([state, params, top]);
+        previousState.saveMain([state, params]);
         return d.promise;
     };
 
     var previousState = {
-        saveMain: function(params) {
-            if(this.currMain) {
-                this.prevMain = this.currMain;
-            }
-            this.currMain = params;
+        saveTopHidden: function(hidden) {
+            this.prevTopHidden = this.currTopHidden;
+            this.currTopHidden = hidden;
         },
-        saveTop: function(params) {
-            if(this.currTop) {
-                this.prevTop = this.currTop;
-            }
-            this.currTop = params;
+        saveMain: function(params) {
+            this.prevMain = this.currMain;
+            this.currMain = params;
         }
     };
 
     self.goBack = function() {
-        if($rootScope.hidingTopSection) {
-            $rootScope.hidingTopSection = false;
-            previousState.prevTop = previousState.currTop;
-        }
-        if(previousState.prevTop) {
-            self.openOnTop.apply(undefined, previousState.prevTop);
-        }
-        if(previousState.prevMain) {
+        if(self.isChatActive() && !previousState.prevTopHidden)
+            self.openOnTop('chat');
+        if(previousState.prevMain)
             self.goto.apply(undefined, previousState.prevMain);
-        } else {
+        else
             self.goto('pubsList');
-        }
+        previousState.prevMain = ['pubsList'];
+        previousState.currTopHidden = null;
     };
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
@@ -111,10 +95,15 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
         if (toState.views.top)
             if(toState.views.top.state) {
-                if (!self.isChatActive())
+                if (self.isChatActive())
+                    self.openOnTop('chat');
+                else
                     self.openOnTop(toState.views.top.state);
-            } else if(typeof toState.views.top.resize != 'undefined')
+            } else if(typeof toState.views.top.resize != 'undefined') {
                 separator.resize(toState.views.top.resize);
+                previousState.saveTopHidden(!separator.isVisible());
+            }
+
     }
 
     function logPageview(url) {

@@ -18,7 +18,7 @@ angular.module("angServices")
 
             //private methods
             function init() {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         window.analytics.startTrackerWithId(config('gaTrackingCodeMobile'));
                     });
@@ -29,7 +29,7 @@ angular.module("angServices")
             }
 
             function setMetric(number, value) {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         //TODO: investigate a way to add metrics on mobile app
                         //window.analytics.addCustomMetric('Key', 'Value', success, error)
@@ -40,7 +40,7 @@ angular.module("angServices")
             }
 
             function setDimension(number, value) {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         //TODO: investigate a way to add dimenions on mobile app
                         //window.analytics.addCustomDimension('Key', 'Value', success, error)
@@ -52,7 +52,7 @@ angular.module("angServices")
             }
 
             function setDimensions() {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         //TODO: investigate a way to add dimenions on mobile app
                         //window.analytics.addCustomDimension('Key', 'Value', success, error)
@@ -91,7 +91,7 @@ angular.module("angServices")
 
             //public methods
             this.event = function (label, value) {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         window.analytics.trackEvent('send', 'event', label, value);
                     });
@@ -137,7 +137,7 @@ angular.module("angServices")
 
             //events
             this.pageview = function (url) {
-                if (RAN_AS_APP) {
+                if (IS_APP) {
                     executeMobile(function () {
                         window.analytics.trackView(url);
                     });
@@ -182,7 +182,7 @@ angular.module("angServices")
                 }, 1200000);
             };
 
-            if (!RAN_AS_APP) {
+            if (!IS_APP) {
                 (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
                     i[r] = i[r] || function () {

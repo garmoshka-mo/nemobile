@@ -35,9 +35,11 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
     $scope.sendMessage = function(text) {
         $scope.setFocusOnTextField();
 
-        var textToSend = text || $scope.newMessage.text;
+        var textToSend = text || $scope.newMessage.text,
+            ttl = $scope.newMessage.ttl;
         if (textToSend) {
 
+            $scope.newMessage.clearText();
             $scope.isMessageSending = true;
 
             if (!lastSession.isReplied) {
@@ -46,7 +48,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
                 }
             }
 
-            lastSession.sendMessage(textToSend, getAddress(), $scope.newMessage.ttl)
+            lastSession.sendMessage(textToSend, getAddress(), ttl)
                 .then(
                 function() {
                     $scope.handleSuccessSending();
@@ -55,17 +57,14 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
                     $scope.handleFailedSending(res);
                 }
             )
-                .then( //doubling function because .finally doesn't work on android 2.2
-                function() {
-                    $scope.newMessage.clearText();
-                    $scope.appropriateStickers = [];
-                    $scope.isMessageSending = false;
-                },
-                function() {
-                    $scope.newMessage.clearText();
-                    $scope.isMessageSending = false;
-                }
-            );
+                //doubling function because .finally doesn't work on android 2.2
+                .then(afterSent, afterSent);
+
+            function afterSent() {
+                $scope.appropriateStickers = [];
+                $scope.isMessageSending = false;
+            }
+
         }
     };
 
@@ -152,7 +151,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
 
 
     $chatInput.focus(function() {
-        if (RAN_AS_APP) {
+        if (IS_APP) {
             window.cordova.plugins.Keyboard.show();
         }
     });

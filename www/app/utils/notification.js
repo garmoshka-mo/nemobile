@@ -147,7 +147,7 @@
 
             setTemporaryPageTitle: function(text) {
 
-                if (suppressingNotifications || RAN_AS_APP || isTabVisible()) {
+                if (suppressingNotifications || IS_APP || isTabVisible()) {
                     return;
                 }
 

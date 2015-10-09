@@ -28,6 +28,9 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             }),
             slowpokesFriend = new SlowpokesFriend(provider, filter);
 
+        var allowEmergencyThrow = false, maxEmergencyThrows = 4, emergencyTimer, emergencyThrowActivated = false;
+        if (!user.emergencyThrowsCount) user.emergencyThrowsCount = 0;
+
         var intro,
             intro_timestamp,
             user_found = false,
@@ -45,10 +48,24 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             timeout = 3; maxBaseTimeout = 40; timeoutAcceleration = 4;
         } else {
             intro = defaultIntro.compose(preferences);
-            timeout = 1; maxBaseTimeout = 15; timeoutAcceleration = 2;
+            timeout = 1; maxBaseTimeout = 5; timeoutAcceleration = 2;
+            allowEmergencyThrow = user.emergencyThrowsCount < maxEmergencyThrows;
         }
 
         log('Initialized', level, timeout);
+
+        function startLookup() {
+            reconnect();
+            if (allowEmergencyThrow)
+                emergencyTimer = setTimeout(emergencyThrow, 30 * 1000);
+        }
+
+        function emergencyThrow() {
+            intro = '';
+            emergencyThrowActivated = true;
+            user.emergencyThrowsCount++;
+            log('emergencyThrowActivated');
+        }
 
         function reconnect() {
             var randomizeTime = true,
@@ -91,7 +108,9 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function initWithoutIntro() {
             function startChatWhenNoHisIntro() {
                 if (fellIntoPit)
-                    logTagAndBegin('🔥WELCOME TO HELL🔥');
+                    logTagAndBegin('🚨WELCOME TO HELL🚨');
+                if (emergencyThrowActivated)
+                    logTagAndBegin('🚨Emergency throw🚨');
                 else
                     logTagAndBegin('открылся чат, вступления нет');
             }
@@ -188,7 +207,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             }
 
             function filterPassed() {
-                log('Filter passed');
+                log('Filter passed. Do slowpoke');
 
                 if (preferences.look_for.gender != '-' && slowpokesFriend.isSlowpoke(message))
                     return;
@@ -204,6 +223,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         }
 
         function beginСhat() {
+            clearInterval(emergencyTimer);
             $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
         }
@@ -259,7 +279,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             if (talking) filter.log({text: '===кончина===', isOwn: true});
         };
 
-        reconnect();
+        startLookup();
     };
 
 }]);
