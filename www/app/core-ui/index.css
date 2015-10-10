@@ -1111,6 +1111,7 @@ md-menu-item > .md-button {
    margin-bottom: 8px;
  }
 
+
 .language-top-bar-box {
   margin-left: -15px;
 }
@@ -1123,3 +1124,6 @@ md-menu-item > .md-button {
   padding-right: 5px;
 }
 
+.md-open-menu-container {
+  z-index: 101;
+}
