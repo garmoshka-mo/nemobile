@@ -141,7 +141,7 @@
                 i.fa.fa-language 
                 | &nbsp
                 span {{ 'random.languages' | translate}}:
-                tags-input(ng-model="language.available" display-property="name")
+                tags-input(ng-model="filter.languages" display-property="name" available="filter.availableLanguages")
         .row
             .small-6.columns
                 .text-bold.ta-center(translate='random.iam')

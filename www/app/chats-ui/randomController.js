@@ -112,7 +112,14 @@ angular.module("angControllers")
                 isOpened: false,
                 value: 0
             };
+
+            $scope.filter.languages = [language.current];
         };
+
+        $scope.$watch('filter.languages.length', function() {
+            $scope.filter.availableLanguages = _.difference(language.available, $scope.filter.languages);    
+            console.log($scope.filter.availableLanguages);
+        });
 
         $scope.cancelLookingFor = function() {
             random.cancelLookingFor();
