@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu', 'language',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList, menu) {
+         router, deviceInfo, $state, $q, friendsList, menu, language) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -14,6 +14,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.deviceInfo = deviceInfo;
     $scope.isUserScoreShown = true;
     $scope.version = version;
+    $scope.language = language;
     $scope.debug = config('debugMode');
 
     var statesWhereShowBackArrow = [

@@ -1111,3 +1111,15 @@ md-menu-item > .md-button {
    margin-bottom: 8px;
  }
 
+.language-top-bar-box {
+  margin-left: -15px;
+}
+
+.language-top-bar-box i{
+  font-size: 25px;
+}
+
+.current-language {
+  padding-right: 5px;
+}
+

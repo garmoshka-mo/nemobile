@@ -1,0 +1,7 @@
+md-menu
+    md-button
+        span(class="current-language" ng-bind="language.current.name" ng-click="$mdOpenMenu($event)")
+        i.fa.fa-language
+    md-menu-content
+        md-menu-item(ng-repeat="item in language.available")
+            md-button(ng-bind="item.name" ng-click="language.change(item.key)")

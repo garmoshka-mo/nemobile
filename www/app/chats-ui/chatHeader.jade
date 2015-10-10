@@ -1,7 +1,7 @@
 .wrapper.chat-header
 
-    .header-title(ng-hide='s.active || routing.is_preload', ui-view='title')
-
+    .header-title(ng-hide='s.active || routing.is_preload' ui-view='title')
+    
     .pointer(style='float:left' ng-click='s.partnerTitleClickHandler()'
         ng-show='s.active && !routing.is_preload')
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
@@ -15,7 +15,7 @@
                 span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
-    div(style='float:right' ng-hide='s.me.hidden')
+    div(style='float:right' ng-hide='s.me.hidden')  
         .title
             .scores
                 span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
