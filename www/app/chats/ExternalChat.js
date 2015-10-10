@@ -63,7 +63,7 @@ function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notifica
 
             self.disconnect = function() {
                 log('chat.disconnect');
-                clearInterval(start_timer);
+                clearTimeout(start_timer);
                 if (externalProvider) {
                     externalProvider.quit();
                     session.saveLog();

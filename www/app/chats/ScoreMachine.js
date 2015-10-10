@@ -48,46 +48,6 @@ function($resource) {
         };
 
         this.finished = function(byPartner) {
-            var duration = getDuration(startTime);
-
-            if (byPartner) {
-                if (myRows == 0) heGotBored();
-            } else {
-                if (hisRows == 0) iGotBored();
-            }
-
-            function heGotBored() {
-                // Если он устал быстрее, чем за 10 секунд - это он дурак
-                // иначе:
-                if (duration > 10) {
-                    if (hisRows > 0) {
-                        var heAwaited = getDuration(hisLastMessage);
-                        // Он очень терпелив был - это очень некрасиво
-                        if (heAwaited > 50) bestrafeMich(7);
-                        // Какого хрена тормозишь?
-                        else if (heAwaited > 25) bestrafeMich(3);
-                        // Ты слишком медленный, будь по-шустрей
-                        else if (heAwaited > 10) bestrafeMich(1);
-                    } else {
-                        // Можно было и первому начать, брат
-                        if (duration > 50) bestrafeMich(3);
-                    }
-                }
-            }
-
-            function iGotBored() {
-                if (myRows == 0) {
-                    // Если мы отключились, даже ничего не написав - это лютый ахтунг
-                    if (duration < 10) bestrafeMich(10);
-                    // Ждешь у моря погоды. Провоцируй людей
-                    else if (duration < 50) bestrafeMich(6);
-                } else {
-                    // Слишком нетерпеливые
-                    if (duration < 10) bestrafeMich(5);
-                    // можно было и подождать минутку
-                    else if (duration < 50) bestrafeMich(1);
-                }
-            }
 
         };
 

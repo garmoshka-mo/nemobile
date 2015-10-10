@@ -40,9 +40,6 @@
                 };
                 if (message.type) msg.type = message.type;
                 this.addMessage(msg);
-
-                partnerScores.myIncentive(text);
-                myScores.partnerReacted();
             };
 
             this.myMessageSent = function(text) {

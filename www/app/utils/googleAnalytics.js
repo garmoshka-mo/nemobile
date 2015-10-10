@@ -190,7 +190,7 @@ angular.module("angServices")
 
             var dragSeparatorSaveTimer;
             this.dragSeparator = function (y) {
-                clearInterval(dragSeparatorSaveTimer);
+                clearTimeout(dragSeparatorSaveTimer);
                 dragSeparatorSaveTimer = setTimeout(function () {
                     setMetric(HIT_VALUE, y);
                     self.event('ui', 'drag separator');
