@@ -4,6 +4,14 @@ angular.module("angServices")
 ['$q', function ($q) {
 
     var levels = {
+        'iVegetable': {
+            title: 'Овощность',
+            text: 'Вы демонстрируете овощное поведение. Это не айс не айс и не бейби.',
+            videos: ['ShoddyDelectableBufeo', 'ComplexJampackedGalah', 'CavernousLargeBoar', 'UnlawfulGreedyHummingbird', 'MeaslyDiscreteElephant', 'FlamboyantMediumBoaconstrictor']},
+        'heVegetable': {
+            title: 'Овощность',
+            text: 'Собеседник демонстрирует овощное поведение. Так не надо делать.',
+            videos: ['ShoddyDelectableBufeo', 'ComplexJampackedGalah', 'CavernousLargeBoar', 'UnlawfulGreedyHummingbird', 'MeaslyDiscreteElephant', 'FlamboyantMediumBoaconstrictor']},
         2: {
             title: 'Неплохо для начала',
             text: 'Вы уже набрали более 10 очков. Посмотрим, что будет дальше.',

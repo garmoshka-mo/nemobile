@@ -170,10 +170,6 @@
                     }     
                 }
 
-                //$rootScope.$on('got new channel name', function(event, args) {
-                //    registerDeviceToChannel(args.channel);
-                //});
-
                 function removeDeviceFromChannel(channel) {
                     if (window.deviceId) {
                         // if channel is defined remove only from

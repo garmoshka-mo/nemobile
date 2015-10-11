@@ -1,17 +1,23 @@
 (function(){
 angular.module("angServices")
     .factory('ExternalChat',
-    ['Avatar', '$q', '$rootScope', 'ExternalChatSession', 'ExternalProvider', 'notification',
-function(Avatar, $q, $rootScope, ExternalChatSession, ExternalProvider, notification) {
+    ['Avatar', '$q', '$rootScope', 'ExternalChatSession',
+        'ExternalProvider', 'notification', 'ChatAbstract',
+function(Avatar, $q, $rootScope, ExternalChatSession,
+         ExternalProvider, notification, ChatAbstract) {
 
     return ExternalChat;
 
     function ExternalChat(preferences, level) {
+
+        new ChatAbstract().extend(this);
+
             var self = this;
             self.chat = null;
             self.type = 'external';
             self.title = "кто-то";
             self.created_at = Date.now();
+            self.myIdx = 'me';
 
             notification.asked = 0;
 

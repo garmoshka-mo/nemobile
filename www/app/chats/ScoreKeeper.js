@@ -4,46 +4,45 @@
     .factory('ScoreKeeper',
         ['$resource',
 function($resource) {
-    return function(alias) {
-        var self = this,
-            updateCallback,;
+    return function(alias, init_score) {
 
-        this.addSessionScore = function(value) {
-            if (value > 1 || value < 0)
-            applyToScore(value);
+        var score = init_score, recentScore = 0,
+            isActive = true, updateCallback;
+
+        this.turnOn = function() {
+            isActive = true;
+            updateUI();
         };
 
+        this.turnOff = function() {
+            isActive = false;
+        };
 
-        // PRIVATE:
+        this.update = function(scores) {
+            if (scores) {
+                score = scores.score;
+                if (scores.recentScore)
+                    recentScore += scores.recentScore;
+            }
+            updateUI();
+        };
 
         function updateUI() {
-            if (updateCallback)
-                updateCallback(Math.round(score), Math.round(recentScore));
+            if (!isActive) return;
+
+            if (updateCallback) {
+                var v = typeof score == 'undefined' ? '...' : Math.round(score);
+                updateCallback(v, Math.round(recentScore));
+            }
+
             recentScore = 0;
         }
-
-        // Utils:
-
-        this.getScore = function() {
-            return score;
-        };
 
         this.onUpdate = function(callback) {
             updateCallback = callback;
             updateUI();
         };
 
-        this.sendScoresToUI = function() {
-            updateUI();
-        };
-
-        this.getLog = function() {
-            return {
-                rows: rows,
-                incentives: myIncentives,
-                duration: getDuration(startTime)
-            };
-        };
     }
 
 }]);

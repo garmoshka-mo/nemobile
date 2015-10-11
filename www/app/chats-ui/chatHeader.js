@@ -19,6 +19,7 @@ function($rootScope, user) {
     function sessionReceived(chatSession) {
         self.session = chatSession;
         self.active = true;
+        user.honor.turnOff();
         chatSession.myScores.onUpdate(updateUI.bind(null, self.me));
         chatSession.partnerScores.onUpdate(updateUI.bind(null, self.partner));
     }
@@ -58,11 +59,9 @@ function($rootScope, user) {
     };
 
     user.passivePromise.then(function(){
-        if (user.myScores) {
-            self.me.ava = user.avatar;
-            self.me.hidden = false;
-            user.myScores.onUpdate(updateUI.bind(null, self.me));
-        }
+        self.me.ava = user.avatar;
+        self.me.hidden = false;
+        user.honor.onUpdate(updateUI.bind(null, self.me));
     });
 
 }]);

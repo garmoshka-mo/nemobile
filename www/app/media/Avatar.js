@@ -20,13 +20,14 @@ angular.module("angServices")
             function parseDataFromServer(dataFromServer) {
                 var output = {
                     fullSize: null,
-                    mini: null, 
+                    mini: null
                 };
 
                 if (dataFromServer) {
                     if (dataFromServer.avatar_url) {
                         output.url = dataFromServer.avatar_url;
-                        output.urlMini =  dataFromServer.avatar_url.replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80/$2' + '$3');
+                        output.urlMini =  dataFromServer.avatar_url
+                            .replace(/(upload\/)([a-z0-9]*)(\/)/, '$1' + 'w_80/$2' + '$3');
                     }
                     else if (dataFromServer.avatar_guid) {
                         output.url = makeUrl(dataFromServer.avatar_guid);

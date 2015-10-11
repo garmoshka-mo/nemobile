@@ -1,24 +1,37 @@
 (function(){
     angular.module("angFactories").factory('ChatSessionAbstract',
-        ['notification', 'SpamFilter', 'timer', 'ScoreMachine', 'user',
-    function(notification, SpamFilter, timer, ScoreMachine, user) {
+        ['notification', 'SpamFilter', 'timer', 'ScoreKeeper', 'user', 'socket',
+    function(notification, SpamFilter, timer, ScoreKeeper, user, socket) {
 
         return function AbstractSession() {
 
-            var myScores = new ScoreMachine('My scores'),
-                partnerScores = new ScoreMachine('Partner scores');
+            var self = this;
+            this.extend = function(child) {
+                angular.extend(child, this);
+                self = child;
+            };
 
-            this.myScores = myScores;
-            this.partnerScores = partnerScores;
             this.uuid = generateUuid();
             this.filter = new SpamFilter(this);
             this.isClosed = false;
+
+            this.myScores = new ScoreKeeper('My scores', 1);
+            this.partnerScores = new ScoreKeeper('Partner scores', 1);
 
             function generateUuid() {
                 var u = Date.now().toString().substr(7);
                 u += Math.round(Math.random()*100).toString();
                 return btoa(u);
             }
+
+            this.updateScores = function(scores) {
+                Object.keys(scores).map(function(idx){
+                    if (idx == self.chat.myIdx)
+                        self.myScores.update(scores[idx]);
+                    else
+                        self.partnerScores.update(scores[idx]);
+                });
+            };
 
             this.incomeMessage = function(message){
                 var text;
@@ -40,6 +53,10 @@
                 };
                 if (message.type) msg.type = message.type;
                 this.addMessage(msg);
+
+                logExternal({event: 'message',
+                    channel: this.uuid,
+                    payload: {sender_idx: 'he', text: text}});
             };
 
             this.myMessageSent = function(text) {
@@ -48,25 +65,27 @@
                     isOwn: true
                 });
 
-                myScores.myIncentive(text);
-                partnerScores.partnerReacted();
+                logExternal({event: 'message',
+                    channel: this.uuid,
+                    payload: {sender_idx: 'me', text: text}});
 
                 if (this.afterMyMessageSent) this.afterMyMessageSent();
             };
 
             this.conversationBegan = function() {
-                myScores.began();
-                partnerScores.began();
+                logExternal({event: 'chat_ready', channel: this.uuid});
             };
 
             this.sessionFinished = function(byPartner) {
                 if (this.isClosed) return;
                 this.isClosed = true;
 
-                myScores.finished(byPartner);
-                user.myScores.addSessionScore(myScores.getScore());
                 user.save();
                 timer.stop();
+
+                logExternal({event: 'chat_empty',
+                    channel: this.uuid,
+                    payload: {sender_idx: byPartner ? 'he' : 'me'}});
             };
 
             this.addMessage = function(msg) {
@@ -76,6 +95,12 @@
 
                 this.messages.push(msg);
             };
+
+            function logExternal(envelope) {
+                if (this.type=='external') {
+                    socket.emit('externalLog', envelope);
+                }
+            }
         }
 
     }]);
