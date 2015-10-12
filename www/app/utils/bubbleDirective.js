@@ -11,6 +11,7 @@ angular.module("angServices")
                 bubble.render = function(o, flags) {
                     $scope.title = o.title;
                     $scope.text = o.text;
+                    $scope.bubbleClass = o.partnerSide ? 'he' : 'me';
 
                     var v = o.videos,
                         gfy = v[Math.floor(Math.random()*v.length)];

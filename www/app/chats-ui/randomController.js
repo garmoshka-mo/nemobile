@@ -54,9 +54,9 @@ angular.module("angControllers")
             router.openOnTop("randomFull");
         };
 
-    var test = 2;
+        var test = 2;
         $scope.lookForChat = function() {
-            //return bubble.show(test++);
+            //return bubble.checkForStrafe({strafe: 'sd'}, 'he');
             var preferences = prepareDataForServer();
             googleAnalytics.event('random', 'start');
             separator.unforcedResize('comfortChat');

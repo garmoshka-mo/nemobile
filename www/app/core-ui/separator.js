@@ -164,7 +164,8 @@ function (googleAnalytics) {
         $mainSection.height(mainSectionHeight);
 
         showFooter($topFooter, showTopFooter, y + 46);
-        showFooter($mainFooter, showMainFooter, $window.height() - ($mainFooter.height() || 64));
+        var footerHeight = $mainFooter ? $mainFooter.height() : 64;
+        showFooter($mainFooter, showMainFooter, $window.height() - footerHeight );
     }
 
     self.updateRestrictions();

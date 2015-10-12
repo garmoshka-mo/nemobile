@@ -1081,54 +1081,7 @@ md-menu-item > .md-button {
 }
 
 .title-panel {
-  overflow: hidden;
 }
-
-.bubble {
-  position: absolute;
-  text-align: center;
-  background-color: #F1F3F6;
-  border: 6px solid #5BAB60;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  border-radius: 30px;
-  -webkit-box-shadow: 2px 2px 4px #888;
-  -moz-box-shadow: 2px 2px 4px #888;
-  box-shadow: 2px 2px 4px #888;
-  z-index: 200;
-  top: 48px;
-  right: 20px;
-  max-width: 330px;
-  padding: 5px 13px;
-  margin-left: 5px;
-}
-
- .bubble:before
- {
-   content: ' ';
-   position: absolute;
-   width: 0;
-   height: 0;
-   right: 22px;
-   top: -37px;
-   border: 16px solid;
-   border-color: transparent transparent #5BAB60 #5BAB60;
- }
-
- .bubble h1 {
-   font-size: 1rem;
-   margin: 0;
- }
-
- .bubble p {
-   font-size: .7rem;
-   margin-bottom: 8px;
-   text-align: left;
- }
- .bubble button {
-   margin-bottom: 8px;
- }
-
 
 .language-top-bar-box {
   margin-left: -20px;
@@ -1163,4 +1116,5 @@ md-menu-item > .md-button {
   vertical-align: middle;
   display: table-cell;
   width: 100%;
+  padding-left: 22px;
 }
