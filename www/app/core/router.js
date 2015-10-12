@@ -1,9 +1,9 @@
 angular.module("angServices")
     .service('router', [
         'notification', '$state', '$rootScope', '$q', 'googleAnalytics',
-        '$location', 'separator', 'chatHeader', 'menu', '$translate',
+        '$location', 'separator', 'chatHeader', 'menu',
 function(notification, $state, $rootScope, $q, googleAnalytics,
-         $location, separator, chatHeader, menu, $translate) {
+         $location, separator, chatHeader, menu) {
 
     var self = this;
 
@@ -90,6 +90,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
+        $rootScope.stateName = toState.name;
         self.is_preload = false;
         logPageview(toState.url);
         //$translate

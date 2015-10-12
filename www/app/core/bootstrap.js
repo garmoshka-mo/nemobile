@@ -14,38 +14,39 @@ window.onload = function onLoad() {
 
 angular.module("angApp")
 
-.config(['$animateProvider', '$compileProvider', function($animateProvider, $compileProvider) {
-    $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
-    //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
-    //  chrome-extension: will be added to the end of the expression
-    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
-}])
+    .config(['$animateProvider', '$compileProvider', function ($animateProvider, $compileProvider) {
+        $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
+        //  Default imgSrcSanitizationWhitelist: /^\s*(https?|ftp|file):|data:image\//
+        //  chrome-extension: will be added to the end of the expression
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content):|data:image\//);
+    }])
 
-.config(['$locationProvider', function($locationProvider) {
-    $locationProvider.html5Mode(true);
-}])
+    .config(['$locationProvider', function ($locationProvider) {
+        $locationProvider.html5Mode(true);
+    }])
 
-.config(['$translateProvider', function ($translateProvider) {
-    $translateProvider.useStaticFilesLoader({
-        prefix: 'assets/locales/locale-',
-        suffix: '.json'
-    });
-    //In order to change language provider from anywhere use:
-    //$translate.use(langKey);
-    $translateProvider.preferredLanguage('ru');
-    // remember language
-    $translateProvider.useLocalStorage();
-}])
+    .config(['$translateProvider', function ($translateProvider) {
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'assets/locales/locale-',
+            suffix: '.json'
+        });
+        //In order to change language provider from anywhere use:
+        //$translate.use(langKey);
+        $translateProvider.preferredLanguage('ru');
+        // remember language
+        $translateProvider.useLocalStorage();
+        $translateProvider.useSanitizeValueStrategy('escapeParameters');
+    }])
 
-.run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', 'googleAnalytics', function() {
-    //messages and pubnubsubscription are not used
-    //but they have to be injected in order to be invoked
-}]);
+    .run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', 'googleAnalytics', function () {
+        //messages and pubnubsubscription are not used
+        //but they have to be injected in order to be invoked
+    }]);
 
 
 function bootstrapAngularApp() {
     if (IS_APP)
-        document.addEventListener('deviceready', function() {
+        document.addEventListener('deviceready', function () {
             angular.bootstrap(document, ['angApp']);
         });
     else

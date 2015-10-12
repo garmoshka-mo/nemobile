@@ -140,7 +140,7 @@
             .small-12.column.language-tags-box
                 i.fa.fa-language 
                 | &nbsp
-                span {{ 'random.languages' | translate }}
+                span(translate='random.languages')
                 tags-input(ng-model="filter.languages" display-property="name" available="filter.availableLanguages")
         .row
             .small-6.columns
