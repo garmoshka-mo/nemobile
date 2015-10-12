@@ -34,37 +34,37 @@ function ($postpone) {
 
     var vegetability = {
         'me': {
-            title: 'Ваше Овощевание,',
-            text: 'Вы демонстрируете овощное поведение. Это не айс не айс и не бейби.',
+            title: 'bubble.vegetable.me.title',
+            text: 'bubble.vegetable.me.text',
             videos: ['ShoddyDelectableBufeo', 'ComplexJampackedGalah', 'CavernousLargeBoar',
                 'UnlawfulGreedyHummingbird', 'MeaslyDiscreteElephant', 'FlamboyantMediumBoaconstrictor']},
         'he': {
             partnerSide: true,
-            title: 'Овощность',
-            text: 'Собеседник демонстрирует овощное поведение. Так не надо делать.',
+            title: 'bubble.vegetable.partner.title',
+            text: 'bubble.vegetable.partner.text',
             videos: ['ShoddyDelectableBufeo', 'ComplexJampackedGalah', 'CavernousLargeBoar',
                 'UnlawfulGreedyHummingbird', 'MeaslyDiscreteElephant', 'FlamboyantMediumBoaconstrictor']}
     };
 
     var levels = {
         2: {
-            title: 'Неплохо для начала',
-            text: 'Вы уже набрали более 10 очков. Посмотрим, что будет дальше.',
+            title: 'bubble.level2.title',
+            text: 'bubble.level2.text',
             videos: ['SpectacularLinearGannet', 'OddSandyAllosaurus', 'ConcernedInformalCopepod',
                 'AggressiveHighHyena', 'GregariousHeartyCrownofthornsstarfish']},
         3: {
-            title: 'Вау, более 25 очков!',
-            text: 'Надо признать, неслабый напор',
+            title: 'bubble.level3.title',
+            text: 'bubble.level3.text',
             videos: ['QuarrelsomeConcreteCurlew','GreatJubilantBluetonguelizard','HardSecondIguana',
                 'PhysicalMistyBorzoi','ElementaryWeeGonolek'] },
         4: {
-            title: 'За сотэн',
-            text: 'Это движение к небесам - to the moon, определенно',
+            title: 'bubble.level4.title',
+            text: 'bubble.level4.text',
             videos:['WiltedSplendidBoutu','ForkedIcyDromaeosaur', 'GrandioseDetailedItaliangreyhound',
                 'NaughtyDelightfulIbex'] },
         5: {
-            title: 'За 250!',
-            text: 'Это адский успех!',
+            title: 'bubble.level5.title',
+            text: 'bubble.level5.text',
             videos: ['CooperativeMeagerBlesbok','GrayImmaculateDouglasfirbarkbeetle','DiligentGiftedCottontail',
                 'ZigzagResponsibleFirecrest'] }
     };
