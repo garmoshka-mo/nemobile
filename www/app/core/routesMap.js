@@ -298,7 +298,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/loadAvatar",
                 views: {
                     "top" : {
-                        resize: 'hide'
+                        resize: 'hide',
+                        disableAnimation: true
                     },
                     "title": {
                         template: "Загрузка аватарки"
@@ -349,7 +350,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/about/:page",
                 views: {
                     "top" : {
-                        resize: 'hide'
+                        resize: 'hide',
+                        disableAnimation: true
                     },
                     "title": {
                         template: "О проекте"
@@ -461,7 +463,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/mobileApp",
                 views: {
                     "top" : {
-                        resize: 'hide'
+                        resize: 'hide',
+                        disableAnimation: true
                     },
                     "title": {
                         template: "Приложение"
