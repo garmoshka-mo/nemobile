@@ -14,12 +14,14 @@ function($q, ChatSessionAbstract, userRequest) {
         this.senderId = partner_id;
         this.isExpired = false;
         this.isReplied = false;
-        this.channel = null;
         this.messages = [];
         this.timer = null;
         this.creatorId = null;
         this.currentChat = null;
         this.whenExipires = Infinity;
+
+        angular.extend(this, new ChatSessionAbstract());
+        this.channel = this.uuid;
 
         self.setReplied = function() {self.isReplied = true;};
 
@@ -56,16 +58,15 @@ function($q, ChatSessionAbstract, userRequest) {
         };
 
         self.saveLog = function() {
-            if (this.isClosed) return;
+            console.warn('saveLog - Not implemented');
+            return;
 
-            var log = self.myScores.getLog();
+            var log = getLog();
             if (log.duration > 10) {
                 log.uuid = self.uuid;
                 userRequest.send('POST', '/chats/log', log);
             }
         };
-
-        angular.extend(this, new ChatSessionAbstract());
     }
 }]);
 

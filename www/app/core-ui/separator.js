@@ -71,7 +71,7 @@ function (googleAnalytics) {
         return visible;
     };
 
-    self.resize = function(height) {
+    self.resize = function(height, disableAnimation) {
         resizedByUser = false;
         visible = true;
         $dragger.show();
@@ -90,6 +90,9 @@ function (googleAnalytics) {
                 height = 0;
                 visible = false;
                 break;
+        }
+        if (disableAnimation) {
+            animateResize = false;
         }
 
         if (animateResize)

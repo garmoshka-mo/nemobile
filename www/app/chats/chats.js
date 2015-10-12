@@ -1,8 +1,8 @@
 angular.module("angServices")
 .service('chats', ['$rootScope', 'deviceInfo', 'Chat', 'socket',
-        'storage', 'router', 'random',
+        'storage', 'router',
     function($rootScope, deviceInfo,  Chat, socket,
-             storage, router, random) {
+             storage, router) {
         
         var self = this;
 
@@ -11,21 +11,19 @@ angular.module("angServices")
 
         log('chats', self);
 
-        $rootScope.$on('new random chat', function(event, params) {
-            if (params.type == 'internal'){
-                self.current = self.getChat(params.channel);
-                if (!self.current)
-                    self.current = self.addChat({channel: params.channel});
-            } else if (params.type == 'external')
-                self.current = random.getExternalInstance();
+        self.newRandomExternal = function(c) {
+            self.current = c;
 
-            setTimeout(function() {
-                router.openOnTop('chat');
-            },1);
+            setTimeout(function() { router.openOnTop('chat'); },1);
+        };
 
-            //if (config('debugMode'))
-            //    $location.search({chat: args.type + ':' + args.channel});
-        });
+        self.newRandomInternal = function(channel, myIdx) {
+            self.current = self.getChat(channel);
+            if (!self.current)
+                self.current = self.addChat({channel: channel, myIdx: myIdx});
+
+            setTimeout(function() { router.openOnTop('chat'); },1);
+        };
 
         self.getChat = function(channel, senderId) {
             if (!_.isUndefined(channel) && self.list[channel]) {
@@ -40,22 +38,11 @@ angular.module("angServices")
         };
 
         self.addChat = function(chatData) {
-            if (chatData.channel) {
-                chatData.primaryKey = 'channel';
-                self.list[chatData.channel] = new Chat(chatData);
-                self.list[chatData.channel].updateInfo();
-                $rootScope.$broadcast('got new channel name', {channel: chatData.channel});
-                self.save();
-                return self.list[chatData.channel];
-            }
-
-            if (chatData.senderId) {
-                chatData.primaryKey = 'senderId';
-                self.list[chatData.senderId] = new Chat(chatData);
-                self.list[chatData.senderId].updateInfo();
-                self.save();
-                return self.list[chatData.senderId];
-            }
+            chatData.primaryKey = 'channel';
+            self.list[chatData.channel] = new Chat(chatData);
+            self.list[chatData.channel].updateInfo();
+            self.save();
+            return self.list[chatData.channel];
         };
 
         self.save = function() {

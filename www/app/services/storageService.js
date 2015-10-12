@@ -58,9 +58,8 @@ angular.module("angServices")
 
         //save methods
         saveUser: function(currentUser) {
-            var exclude = ['myScores', 'passivePromise'];
+            var exclude = ['honor', 'passivePromise'];
             var _user = filterObject(currentUser, exclude);
-            _user.user_score = currentUser.myScores.getScore();
             $localForage.setItem('user', _user);
             // .then(function(res){console.log(res)},function(res){console.log(res)})
         },

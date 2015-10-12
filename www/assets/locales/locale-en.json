@@ -7,6 +7,8 @@
    "menu.mobileApp": "Annex",
    "menu.sound": "Sound",
 
+   "notification.typing": "typing...",
+
    "random.mobinfo1": "The browser does not support all mobile chat function.",
    "random.mobinfo2": "We recommend to install the application",
    "random.lookForChat": "IM",
@@ -77,6 +79,8 @@
    "pubs.urlPlaceholder": "http: //site.com/link_to_interesting",
    "pubs.addUrl": "Add post",
    "pubs.expand": "View full",
+   "pubs.notice.emptyUrl": "First you need to insert a reference",
+   "pubs.notice.publish": "Link will soon appear in the list",
 
    "about.description": "Chat without registration, where you can just hang out and meet new people through quick dialogue",
 
@@ -130,5 +134,19 @@
   "createFastChat": "Creating a quick chat",
   "activation": "Activation",
   "afterPurchase": "Register",
-  "mobileApp": "App"
+  "mobileApp": "App",
+
+  "bubble.close": "Continue",
+  "bubble.vegetable.me.title": "You're a vegetable",
+  "bubble.vegetable.me.text": "You demonstrate vegetable behavior. It is neither ice nor baby",
+  "bubble.vegetable.partner.title": "Vagatability",
+  "bubble.vegetable.partner.text": "The chat mate demonstrates vegetable behavior. Don't ever do the same.",
+  "bubble.level2.title": "Not bad for a start",
+  "bubble.level2.text": "You have already scored more than 10 points. Let's see what will happen next.",
+  "bubble.level3.title": "Wow, more than 25 points!",
+  "bubble.level3.text": "I must admit, not weak head",
+  "bubble.level4.title": "Over a handreet",
+  "bubble.level4.text": " This movement to the heavens - to the Moon, definitely",
+  "bubble.level5.title": "Over 250!",
+  "bubble.level5.text": "It's a hell'a success!"
 }

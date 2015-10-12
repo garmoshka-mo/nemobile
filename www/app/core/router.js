@@ -102,8 +102,8 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
                     self.openOnTop('chat');
                 else
                     self.openOnTop(toState.views.top.state);
-            } else if(typeof toState.views.top.resize != 'undefined') {
-                separator.resize(toState.views.top.resize);
+            } else if (typeof toState.views.top.resize != 'undefined') {
+                separator.resize(toState.views.top.resize, toState.views.top.disableAnimation);
                 previousState.saveTopHidden(!separator.isVisible());
             }
 

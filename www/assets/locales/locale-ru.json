@@ -7,6 +7,8 @@
   "menu.mobileApp": "Приложение",
   "menu.sound": "Звук",
 
+  "notification.typing": "печатает...",
+
   "random.mobinfo1": "Браузер мобильного поддерживает не все функции чата.",
   "random.mobinfo2": "Рекомендуем установить приложение",
   "random.lookForChat": "Начать чат",
@@ -77,6 +79,8 @@
   "pubs.urlPlaceholder": "http://сайт.com/ссылка_на_интересное",
   "pubs.addUrl": "Добавить запись",
   "pubs.expand": "Показать полностью",
+  "pubs.notice.emptyUrl": "Сначала нужно вставить ссылку",
+  "pubs.notice.publish": "Ссылка скоро появится в списке",
 
   "about.description": "Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги",
 
@@ -130,5 +134,19 @@
   "createFastChat":"Создание быстрого чата",
   "activation":"Активация",
   "afterPurchase":"Регистрация",
-  "mobileApp":"Приложение"
+  "mobileApp":"Приложение",
+
+  "bubble.close": "Продолжить",
+  "bubble.vegetable.me.title": "Ваше Овощевание,",
+  "bubble.vegetable.me.text": "Вы демонстрируете овощное поведение. Это не айс не айс и не бейби.",
+  "bubble.vegetable.partner.title": "Овощность",
+  "bubble.vegetable.partner.text": "Собеседник демонстрирует овощное поведение. Так не надо делать.",
+  "bubble.level2.title": "Неплохо для начала",
+  "bubble.level2.text": "Вы уже набрали более 10 очков. Посмотрим, что будет дальше.",
+  "bubble.level3.title": "Вау, более 25 очков!",
+  "bubble.level3.text": "Надо признать, неслабый напор",
+  "bubble.level4.title": "За сотэн",
+  "bubble.level4.text": "Это движение к небесам - to the moon, определенно",
+  "bubble.level5.title": "За 250!",
+  "bubble.level5.text": "Это адский успех!"
 }

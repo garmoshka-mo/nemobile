@@ -13,7 +13,7 @@ function() {
         };
 
         this.calmDown = function() {
-            clearInterval(boredomTimer);
+            clearTimeout(boredomTimer);
         };
 
         function becomeBored() {

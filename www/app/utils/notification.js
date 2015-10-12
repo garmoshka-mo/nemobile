@@ -5,7 +5,6 @@
     function Service($rootScope, $timeout, sound, timer, $mdToast) {
         log("notification service is enabled");
         $rootScope.notification = {
-            typing_label: "печатает...",
             time: null
         };
 
@@ -80,7 +79,7 @@
 
             typingExternal: function() {
                 $rootScope.$apply(function() { $rootScope.notification.typing = true; });
-                clearInterval(typing_timeout);
+                clearTimeout(typing_timeout);
                 typing_timeout = setTimeout(function() {
                     $rootScope.$apply(function() { $rootScope.notification.typing = false; });
                 }, 2500);

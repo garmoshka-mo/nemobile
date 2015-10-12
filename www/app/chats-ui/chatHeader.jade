@@ -16,7 +16,7 @@
                     ng-style='{opacity: s.partner.recentOpacity}' ng-class='{ negative: s.partner.recentScore < 0 }')
             .name(style='float: left;')
                 | {{ 'chat.header.partner' | translate }}
-                span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
+                span.typing(ng-show='notification.typing', translate='notification.typing')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
     div(style='float:right' ng-hide='s.me.hidden')  

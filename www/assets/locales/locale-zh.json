@@ -7,6 +7,8 @@
   "menu.mobileApp":"附件",
   "menu.sound":"聲音",
 
+  "notification.typing": "打印...",
+
   "random.mobinfo1":"瀏覽器不支持所有的移動聊天功能。",
   "random.mobinfo2":"我們建議安裝應用程序",
   "random.lookForChat":"IM",
@@ -77,6 +79,8 @@
   "pubs.urlPlaceholder":"的http://site.com/link_to_interesting",
   "pubs.addUrl":"添加後",
   "pubs.expand":"查看完整",
+  "pubs.notice.emptyUrl": "首先，你需要插入一個參考",
+  "pubs.notice.publish": "鏈接將出現在列表中選擇",
 
   "about.description":"聊天未經登記,在那裡你可以掛出,並滿足快速通過對話新人",
 
@@ -130,5 +134,19 @@
   "createFastChat":"創建一個快捷聊天",
   "activation":"激活",
   "afterPurchase":"註冊",
-  "mobileApp":"附件"
+  "mobileApp":"附件",
+
+  "bubble.close":"繼續",
+  "bubble.vegetable.me.title":"你菜",
+  "bubble.vegetable.me.text":"你表現出蔬菜的行為我們不冰不冰，也沒有孩子。",
+  "bubble.vegetable.partner.title":"蔬菜",
+  "bubble.vegetable.partner.text":"受訪者演示了蔬菜的行為它沒有這樣做。",
+  "bubble.level2.title":"不壞的開始，",
+  "bubble.level2.text":"你已經得分超過10分，讓我們看看接下來會發生什麼。",
+  "bubble.level3.title":"哇，超過25分！",
+  "bubble.level3.text":"我必須承認，不弱頭",
+  "bubble.level4.title":"對於100",
+  "bubble.level4.text":"這個運動的天堂 - 月球，絕對",
+  "bubble.level5.title":"250！",
+  "bubble.level5.text":"這是一個成功的地獄！"
 }

@@ -150,7 +150,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             log('Собеседник:');
             log(message);
             activity.calmDown();
-            clearInterval(autoBeginTimer);
+            clearTimeout(autoBeginTimer);
 
             if (shadow) {
                 filter.log({text: message, isOwn: false});
@@ -223,7 +223,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         }
 
         function beginСhat() {
-            clearInterval(emergencyTimer);
+            clearTimeout(emergencyTimer);
             $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
         }
@@ -259,7 +259,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
         function cancelDelayedTask() {
             log('cancelDelayedTask');
-            clearInterval(delayTimer);
+            clearTimeout(delayTimer);
         }
 
         self.send = function(m) {
@@ -274,7 +274,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             shadow = true;
             cancelDelayedTask();
             activity.calmDown();
-            clearInterval(autoBeginTimer);
+            clearTimeout(autoBeginTimer);
             if (provider) provider.Disconnect();
             if (talking) filter.log({text: '===кончина===', isOwn: true});
         };

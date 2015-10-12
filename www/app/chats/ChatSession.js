@@ -4,6 +4,9 @@ angular.module("angFactories").factory('ChatSession',
     function($timeout, storage, api, $q, notification, ChatSessionAbstract, userRequest) {
     
     function ChatSession(creatorId, channel, senderId, id, currentChat) {
+
+        new ChatSessionAbstract().extend(this);
+
         this.isExpired = false;
         this.isReplied = false;
         this.id = id;
@@ -13,9 +16,8 @@ angular.module("angFactories").factory('ChatSession',
         this.timer = null;
         this.creatorId = creatorId;
         this.currentChat = currentChat;
+        this.chat = currentChat;
         this.whenExipires = Infinity;
-
-        angular.extend(this, new ChatSessionAbstract());
     }
 
     var deviceServerTimeDifference_msec;

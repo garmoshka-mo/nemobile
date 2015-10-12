@@ -1,13 +1,13 @@
 angular.module('angControllers')
     .service('chatHeader',
-    ['$rootScope', 'user',
-function($rootScope, user) {
+    ['$rootScope', 'user', '$postpone',
+function($rootScope, user, $postpone) {
 
     var self = this;
     this.active = false;
 
-    this.partner = { };
-    this.me = { hidden: true };
+    this.partner = { score: '...'};
+    this.me = { title: "ß", score: '...', hidden: true };
 
 
     this.setChatHeader = function(chat) {
@@ -19,15 +19,21 @@ function($rootScope, user) {
     function sessionReceived(chatSession) {
         self.session = chatSession;
         self.active = true;
+        user.honor.turnOff();
         chatSession.myScores.onUpdate(updateUI.bind(null, self.me));
         chatSession.partnerScores.onUpdate(updateUI.bind(null, self.partner));
     }
 
     function updateUI(local, score, recentScore){
-        local.score = score;
-        local.recentScore = recentScore;
 
-        if (recentScore != 0) showRecentScore();
+        clearTimeout(local.updateTimer);
+        local.updateTimer = $postpone(100, update);
+
+        function update() {
+            local.score = score;
+            local.recentScore = recentScore;
+            if (recentScore != 0) showRecentScore();
+        }
 
         function showRecentScore() {
             if (recentScore > 0)
@@ -36,13 +42,12 @@ function($rootScope, user) {
                 local.recentScoreFormatted = recentScore;
 
             local.recentOpacity = 1;
-            setTimeout(function() {
-                $rootScope.$apply(function() {
-                    local.recentOpacity = 0;
-                });
-            }, 2000);
-        }
 
+            clearTimeout(local.fadeOutTimer);
+            local.fadeOutTimer = $postpone(2000, function() {
+                local.recentOpacity = 0;
+            });
+        }
     }
 
     this.clear = function() {
@@ -58,11 +63,9 @@ function($rootScope, user) {
     };
 
     user.passivePromise.then(function(){
-        if (user.myScores) {
-            self.me.ava = user.avatar;
-            self.me.hidden = false;
-            user.myScores.onUpdate(updateUI.bind(null, self.me));
-        }
+        self.me.ava = user.avatar;
+        self.me.hidden = false;
+        user.honor.onUpdate(updateUI.bind(null, self.me));
     });
 
 }]);
