@@ -1,21 +1,27 @@
 (function(){
     angular.module("angServices")
         .service('language',
-        ['$rootScope', '$translate', language]);
+        ['$rootScope', '$translate', '$timeout', language]);
     
-    function language($rootScope, $translate) {
+    function language($rootScope, $translate, $timeout) {
 
-        this.available = [
+        var self = this; 
+
+        self.available = [
             {name: 'Русский', key: 'ru'},
             {name: 'English', key: 'en'},
-            {name: 'Spanish', key: 'es'},
-            {name: 'Chinese', key: 'zh'}
+            {name: 'Español', key: 'es'},
+            {name: '汉语', key: 'zh'}
         ];
 
-        this.current = this.available[0];
-
-        this.change = function(langKey) {
-            this.current = _.find(this.available, {key: langKey});
+        $timeout(
+            function(){
+                self.current = _.find(self.available, {key: $translate.use()});
+            },
+        0);
+        
+        self.change = function(langKey) {
+            self.current = _.find(self.available, {key: langKey});
             $translate.use(langKey);
         };          
 
