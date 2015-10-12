@@ -7,6 +7,8 @@
    "menu.mobileApp": "Annex",
    "menu.sound": "Sound",
 
+   "notification.typing": "typing...",
+
    "random.mobinfo1": "The browser does not support all mobile chat function.",
    "random.mobinfo2": "We recommend to install the application",
    "random.lookForChat": "IM",
@@ -77,6 +79,8 @@
    "pubs.urlPlaceholder": "http: //site.com/link_to_interesting",
    "pubs.addUrl": "Add post",
    "pubs.expand": "View full",
+   "pubs.notice.emptyUrl": "First you need to insert a reference",
+   "pubs.notice.publish": "Link will soon appear in the list",
 
    "about.description": "Chat without registration, where you can just hang out and meet new people through quick dialogue",
 

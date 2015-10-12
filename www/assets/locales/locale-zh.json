@@ -7,6 +7,8 @@
   "menu.mobileApp":"附件",
   "menu.sound":"聲音",
 
+  "notification.typing": "打印...",
+
   "random.mobinfo1":"瀏覽器不支持所有的移動聊天功能。",
   "random.mobinfo2":"我們建議安裝應用程序",
   "random.lookForChat":"IM",
@@ -77,6 +79,8 @@
   "pubs.urlPlaceholder":"的http://site.com/link_to_interesting",
   "pubs.addUrl":"添加後",
   "pubs.expand":"查看完整",
+  "pubs.notice.emptyUrl": "首先，你需要插入一個參考",
+  "pubs.notice.publish": "鏈接將出現在列表中選擇",
 
   "about.description":"聊天未經登記,在那裡你可以掛出,並滿足快速通過對話新人",
 

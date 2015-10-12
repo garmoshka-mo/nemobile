@@ -7,6 +7,8 @@
   "menu.mobileApp": "Anexo",
   "menu.sound": "Sonido",
 
+  "notification.typing": "impresiones...",
+
   "random.mobinfo1": "El navegador no admite todas las funciones de chat móvil.",
   "random.mobinfo2": "Recomendamos instalar la aplicación",
   "random.lookForChat": "IM",
@@ -77,6 +79,8 @@
   "pubs.urlPlaceholder": "http: //site.com/link_to_interesting",
   "pubs.addUrl": "Añadir puesto",
   "pubs.expand": "Ver completo",
+  "pubs.notice.emptyUrl": "En primer lugar usted necesita para insertar una referencia",
+  "pubs.notice.publish": "Enlace aparecerá en la lista de",
 
   "about.description": "Chat sin registro, donde se puede pasar el rato y conocer gente nueva a través del diálogo rápido",
 
