@@ -188,8 +188,6 @@ angular.module("angControllers")
             if (!filter.another || !(filter.another.age instanceof Array)) filter.another.age = [0];
             if (!filter.iam || !(filter.iam.age instanceof Array)) filter.iam.age = [0];
 
-            console.log(filter.languages);
-
             $scope.filter = filter;
             extendFilterObject();
             
