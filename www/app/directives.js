@@ -225,7 +225,7 @@ angular.module("angApp")
 
         template: "<ul class='age-select'><li ng-repeat='value in values' " +
             " ng-class='{\"text-bold\": ngModel.indexOf(value) != -1, \"text-silver\": ngModel.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
-            "<span>{{::titles[$index]}}</span></li></ul>"
+            "<span>{{titles[$index] | translate}}</span></li></ul>"
     };
 })
 

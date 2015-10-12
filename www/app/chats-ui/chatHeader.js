@@ -6,8 +6,8 @@ function($rootScope, user, $postpone) {
     var self = this;
     this.active = false;
 
-    this.partner = { title: "кто-то", score: '...'};
-    this.me = { title: "Я", score: '...', hidden: true };
+    this.partner = { score: '...'};
+    this.me = { title: "�", score: '...', hidden: true };
 
 
     this.setChatHeader = function(chat) {

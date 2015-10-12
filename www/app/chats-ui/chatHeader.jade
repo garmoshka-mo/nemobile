@@ -1,7 +1,11 @@
 .wrapper.chat-header
 
-    .header-title(ng-hide='s.active || routing.is_preload', ui-view='title')
-
+    .header-title(ng-hide='s.active || routing.is_preload' )
+        .fll
+            span {{ stateName | translate }}
+        .flr(ng-hide="user.name")
+            div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
+    
     .pointer(style='float:left' ng-click='s.partnerTitleClickHandler()'
         ng-show='s.active && !routing.is_preload')
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
@@ -11,22 +15,22 @@
                 span.animated.recent-score(ng-bind='s.partner.recentScoreFormatted'
                     ng-style='{opacity: s.partner.recentOpacity}' ng-class='{ negative: s.partner.recentScore < 0 }')
             .name(style='float: left;')
-                | {{ s.partner.title }}
-                span.typing(ng-show='notification.typing', ng-bind='notification.typing_label')
+                | {{ 'chat.header.partner' | translate }}
+                span.typing(ng-show='notification.typing', translate='notification.typing')
                 span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
 
-    div(style='float:right' ng-hide='s.me.hidden')
+    div(style='float:right' ng-hide='s.me.hidden')  
         .title
             .scores
                 span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
                     ng-style='{opacity: s.me.recentOpacity}' ng-class='{ negative: s.me.recentScore < 0 }')
                 span(ng-bind='s.me.score' ng-class='{ negative: s.me.score < 0 }')
-            .name(style='float: right;' ng-bind='s.me.title')
+            .name(style='float: right;' translate='chat.header.me')
         img.pointer.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 
     .middle(ng-show='s.active && !routing.is_preload')
         .time_zone
             i.fa.fa-clock-o
             span(ng-bind='notification.time')
-        a(ng-click='publish()' style='color: white;' title='Предварительный просмотр для публикации чата')
+        a(ng-click='publish()' style='color: white;' title="{{ 'chat.header.publish' | translate }}")
             i.fa.fa-share-square-o

@@ -90,9 +90,12 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
+        $rootScope.stateName = toState.name;
         self.is_preload = false;
         logPageview(toState.url);
-
+        //$translate
+        //TODO: find a way to translate titles
+        //
         if (toState.views.top)
             if(toState.views.top.state) {
                 if (self.isChatActive())

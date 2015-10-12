@@ -5,7 +5,6 @@
     function Service($rootScope, $timeout, sound, timer, $mdToast) {
         log("notification service is enabled");
         $rootScope.notification = {
-            typing_label: "печатает...",
             time: null
         };
 

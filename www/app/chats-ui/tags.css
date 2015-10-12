@@ -1,0 +1,14 @@
+.tag-item {
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.tag-item .remove-button { 
+    color: #68C168;
+}
+button.tags-add-button {
+    min-width: inherit;
+    min-height: inherit;
+    line-height: inherit;
+    margin: 0;
+}

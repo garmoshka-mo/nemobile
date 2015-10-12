@@ -10,7 +10,7 @@
                     .chat-image-button.pointer(ng-file-select='', ng-model='image.file', ng-file-change='uploadImage()', name='data')
                         i.fa.fa-image
                     .chat-input-container
-                        input.chat-input(placeholder='Введите сообщение здесь', type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keydown='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
+                        input.chat-input(placeholder="{{'chat.placeholder' | translate }}", type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keydown='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
                 button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!(deviceInfo.isOldAndroid || deviceInfo.isIos)')
                     i.fa.fa-paper-plane(ng-show='!isMessageSending')
                     span(ng-show='isMessageSending', spinner='', spinner-color='white')

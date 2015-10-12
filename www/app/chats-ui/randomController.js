@@ -1,13 +1,13 @@
 angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
-        'membership', 'random', 'timer', 'router', 'googleAnalytics',
-        'bubble',
-function(user, $scope, updates, $state, notification, separator,
-         membership, random, timer, router, googleAnalytics,
-        bubble) {
+        'membership', 'random', 'timer', 'router', 'googleAnalytics', 'language', 
+        'bubble', '$timeout',
+    function(user, $scope, updates, $state, notification, separator,
+             membership, random, timer, router, googleAnalytics, language, bubble, $timeout) {
 
         $scope.updates = updates;
+        $scope.language = language;
         updates.check();
 
         timer.reset();
@@ -22,7 +22,7 @@ function(user, $scope, updates, $state, notification, separator,
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 
         $scope.filter = {};
-        
+
         function selectValue(value) {
             this.isOpened = false;
             this.value = value;
@@ -38,6 +38,7 @@ function(user, $scope, updates, $state, notification, separator,
 
         function saveFilterState() {
             localStorage.randomFilter = JSON.stringify($scope.filter);
+            console.log(localStorage.randomFilter);
         }
 
         function prepareAgeRange(arrayOfIndexes) {
@@ -105,7 +106,29 @@ function(user, $scope, updates, $state, notification, separator,
                 isOpened: false,
                 value: 0
             };
+
+            setLanguagesFilter();
+            
         };
+
+        function setLanguagesFilter() {
+            $scope.filter.languages = language.current === language.available[0] ? 
+                [language.current] : [language.current, language.available[0]];
+        }
+
+        $scope.$watch('language.current', function(newValue, oldValue) {
+            //this if is necessary in order to this watcher
+            //will not rewrite data from storage 
+            //because this watcher is called after 
+            //filter data are taken from storage
+            if (newValue !== oldValue) {
+                setLanguagesFilter();
+            }
+        });
+
+        $scope.$watch('filter.languages.length', function() {
+            $scope.filter.availableLanguages = _.difference(language.available, $scope.filter.languages);    
+        });
 
         $scope.cancelLookingFor = function() {
             random.cancelLookingFor();
@@ -121,7 +144,7 @@ function(user, $scope, updates, $state, notification, separator,
             if (debugClickCounter == 0) {
                 setTimeout(function() {
                     debugClickCounter = 0;
-                }, 2500)
+                }, 2500);
             } else if (debugClickCounter == 10) {
                 $state.go('localForage');
             }

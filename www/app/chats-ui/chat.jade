@@ -14,7 +14,7 @@ div(ng-controller='chatController')
           </div>
         .disconnect-button(ng-hide="!isRandom || chat.iStartedInput")
             button.bg-red(ng-click='disconnectRandomChat()')
-                span отключиться&nbsp;
+                span {{ 'chat.disconnect' | translate }}&nbsp;
                 i.fa.fa-times
         //
             .ta-center.width-92.block-center.chat-notification(ng-show='chat.isVirtual ')

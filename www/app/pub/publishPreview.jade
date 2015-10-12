@@ -1,15 +1,15 @@
 .chat
     .personal-data-alert
         i.fa.fa-info
-        | Проверьте диалог перед публикацией.
+        | {{'publish.preview.info1' | translate }}
         br
-        | Скройте личные данные, если они встречаются в диалоге.
-        a(ng-click='showMoreInfo=true', ng-hide='showMoreInfo') &nbsp;подробнее
+        | {{'publish.preview.info2' | translate }}
+        a(ng-click='showMoreInfo=true', ng-hide='showMoreInfo') &nbsp;{{'publish.preview.more' | translate }}
         div(ng-show='showMoreInfo')
-            | К личным данным относятся: номер телефона, фамилия, фотографии, адрес профиля в соц-сети и так далее.
+            | {{'publish.preview.info3' | translate }}
             br
-            | Скрыть текст и изображения можно через меню, которое открывается при клике на сообщение.
+            | {{'publish.preview.info4' | translate }}
     .post-preview-title
-        input(type='text', ng-model='preview.title', placeholder='Заголовок (необязательно)', autocomplete='off', allow-text-select='')
+        input(type='text', ng-model='preview.title', placeholder="{{'publish.preview.title' | translate }}", autocomplete='off', allow-text-select='')
     messages(session='preview.session')
     .bottom-placeholder
