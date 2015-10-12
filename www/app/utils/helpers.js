@@ -70,3 +70,14 @@ Number.prototype.toDateTime = function () {
 
     return day + ' ' + monthNames[monthIndex] + ' ' + year + ' ' + time + minutes;
 };
+
+
+
+
+angular.module("angServices").service('$postpone',
+        ['$rootScope',
+function($rootScope) {
+    return function $postpone(timeout, callback) {
+        return setTimeout($rootScope.$apply.bind($rootScope, callback), timeout);
+    }
+}]);
