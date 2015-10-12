@@ -1,13 +1,15 @@
 angular.module("angFactories").factory("Chat",
     ['storage', 'Avatar', 'ChatSession', 'userRequest', '$q',
-        'notification', '$rootScope', 'friendsList', 'user',
+        'notification', '$rootScope', 'friendsList', 'user', 'ChatAbstract',
     function(storage, Avatar, ChatSession, userRequest, $q,
-             notification, $rootScope, friendsList, user) {
+             notification, $rootScope, friendsList, user, ChatAbstract) {
     
     function Chat(chatData) {
         var self = this;
+        new ChatAbstract().extend(this);
 
         this.senderId = chatData.senderId;
+        this.myIdx = chatData.myIdx;
         this.type = 'internal';
         this.channel = chatData.channel ? chatData.channel : chatData.channelName;
         this.chatSessions = chatData.chatSession ? chatData.chatSession : {};
@@ -31,8 +33,35 @@ angular.module("angFactories").factory("Chat",
             this.link = chatData.isVirtual ? chatData.link : null;
             this.friendIndex = chatData.friendIndex ? chatData.friendIndex : null;
         }
-        this.lastMessageTimestamp = chatData.lastMessageTimestamp ? chatData.lastMessageTimestamp : 
-            null;
+        this.lastMessageTimestamp = chatData.lastMessageTimestamp ? chatData.lastMessageTimestamp : null;
+
+        this.processIncomePayload = function(payload) {
+            var senderUuid = payload.sender_uuid;
+            if (senderUuid == user.uuid) return;
+
+            var messageText = payload.text.sanitize();
+
+            if (!self.senderId && senderUuid) {
+                self.senderId = senderUuid;
+                self.updateInfo(true);
+            }
+
+            self.lastMessageTimestamp = new Date().getTime();
+
+            //todo: check the correct work of self.lastMessageTimestamp
+            user.lastMessageTimestamp = new Date().getTime();
+            user.saveLastMessageTimestamp();
+
+            self.sendMessage(messageText);
+        };
+
+        this.sendMessage = function(messageText) {
+            this.ensureSession().then(function(session){
+                session.incomeMessage(messageText);
+                session.save();
+            });
+        };
+
     }
 
     Chat.loadFromStorage = function(dataFromStorage) {

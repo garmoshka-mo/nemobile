@@ -102,7 +102,7 @@ angular.module("angControllers").controller("chatController",
         });
 
         $scope.$on("$destroy", function(){
-            user.myScores.sendScoresToUI();
+            user.honor.turnOn();
         });
 
         $scope.stopPropagation = function(event) {

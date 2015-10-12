@@ -1,9 +1,9 @@
 angular.module("angServices")
 .service('user', [
     '$timeout', 'storage', 'notification', 'api','$q', '$rootScope', 'stickersGallery', 'tracker',
-        'friendsList', '$sce', '$state', 'Avatar', 'userRequest', 'guestRequest', 'ScoreMachine',
+        'friendsList', '$sce', '$state', 'Avatar', 'userRequest', 'guestRequest', 'ScoreKeeper',
 function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, tracker,
-         friendsList, $sce, $state, Avatar, userRequest, guestRequest, ScoreMachine) {
+         friendsList, $sce, $state, Avatar, userRequest, guestRequest, ScoreKeeper) {
 
 
     var self = this;
@@ -13,6 +13,12 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
     var passiveDeferred = $q.defer();
 
     self.passivePromise = passiveDeferred.promise;
+    self.user_score = null; // todo: remove after a while
+    self.honor = new ScoreKeeper('user scores');
+
+    this.refreshProfile = function(profile) {
+        self.honor.update({ score: profile.honor});
+    };
 
     function populateProfile(userInfo) {
         self.name = userInfo.name;
@@ -20,9 +26,6 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         self.uuid = userInfo.uuid;
 
         self.score = userInfo.score;
-        // todo: заменить на новый score от апи, когда будет реализовано хранение на сервере
-        if (!self.myScores)
-            self.myScores = new ScoreMachine('user scores', 1);
         self.phoneNumber = userInfo.phone_number;
 
         if(self.avatar) {
@@ -251,7 +254,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
                 self.avatar = Avatar.loadFromStorage(dataFromStorage.avatar);
                 self.isVirtual = dataFromStorage.isVirtual;
 
-                self.myScores = new ScoreMachine('user scores', dataFromStorage.user_score);
+                self.user_score = dataFromStorage.user_score;
 
                 setAccessToken(dataFromStorage.accessToken);
                 // registerDeviceToChannel();

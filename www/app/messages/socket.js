@@ -38,6 +38,8 @@ function($rootScope, user, auth) {
         if (envelope.success) {
             log('authenticated to socket', envelope);
             authType = envelope.type;
+            if (authType == 'user')
+                user.refreshProfile(envelope.profile);
             onReady();
         } else {
             console.error('socket auth failed', envelope);

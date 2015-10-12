@@ -1,8 +1,6 @@
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
-    function($stateProvider, $urlRouterProvider, $state) {
-        $urlRouterProvider.otherwise(function() {
-            $state.go('random');
-        });
+    function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
         $stateProvider
             .state("start", {
