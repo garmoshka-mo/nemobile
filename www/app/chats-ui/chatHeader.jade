@@ -2,7 +2,7 @@
 
     .header-title(ng-hide='s.active || routing.is_preload' )
         .fll
-            span(ui-view='title')
+            span {{ stateName | translate }}
         .flr(ng-hide="user.name")
             div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
     
