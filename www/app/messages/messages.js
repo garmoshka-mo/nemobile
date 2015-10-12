@@ -9,7 +9,7 @@ function($rootScope, socket, random, chats, user) {
             chats.newRandomInternal(envelope.channel, envelope.my_idx);
 
             $rootScope.$broadcast('new random chat',
-                {type: 'internal', channel: envelope.channel});
+                {type: 'internal', channel: envelope.channel, partner: getPartnerProfile(envelope)});
         }
     });
 
@@ -33,6 +33,14 @@ function($rootScope, socket, random, chats, user) {
     socket.on('honor', function(scores){
         user.honor.update(scores);
     });
+
+    function getPartnerProfile(envelope) {
+        for (var profileId in envelope.profiles) {
+            if (profileId !== envelope.my_idx) {
+                return envelope.profiles[profileId];
+            }
+        }
+    }
 
     function getChatAndDoScores(envelope, callback) {
         var channel = envelope.channel;
