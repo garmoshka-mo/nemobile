@@ -27,7 +27,7 @@
             "chinese": ['CN', 'SG']
         };
 
-        function detectLanguage() {
+        self.detectLanguage = function() {
             var d = $q.defer();
             var userLanguage = window.navigator.userLanguage || window.navigator.language;
             
@@ -61,12 +61,7 @@
                 d.resolve('en');
             }
             return d.promise;
-        }
-
-        detectLanguage()
-        .then(function(res) {
-            console.log(res);
-        });
+        };
 
     }
 })();
