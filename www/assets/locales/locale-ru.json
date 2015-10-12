@@ -33,7 +33,7 @@
   "random.another": "Собеседник:",
   "random.age": "Возраст:",
   "random.reset": "сбросить фильтр",
-  "random.languages": "Языки",
+  "random.languages": "Языки:",
 
   "random.age.noMatter": "не важно",
   "random.age.u17": "до 17",
@@ -89,5 +89,14 @@
   "share.title6": "Приколись, поделись:",
   "share.title7": "Делить-колотить:",
   "share.title8": "Понравился чат? Друзьям тоже понравится!",
-  "share.title9": "Нравится чат? Расскажи друзьям! ;)"
+  "share.title9": "Нравится чат? Расскажи друзьям! ;)",
+
+  "avatar.server.success": "аватарка успешно изменена",
+  "avatar.server.error": "произошла ошибка",
+  "avatar.upload.file": "Загрузите из ваших файлов",
+  "avatar.upload.gallery": "Выбрать из моей галереи",
+  "avatar.upload.computer": "Выбрать фото с компьютера",
+  "avatar.url": "Или укажите ссылку на картинку:",
+  "avatar.url.placeholder": "ссылка на изображение",
+  "avatar.upload": "Загрузить"
 }

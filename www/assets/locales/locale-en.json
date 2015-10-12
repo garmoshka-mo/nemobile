@@ -33,7 +33,7 @@
    "random.another": "Interlocutor:",
    "random.age": "Age",
    "random.reset": "Reset Filter",
-   "random.languages": "Languages",
+   "random.languages": "Languages:",
 
    "random.age.noMatter": "not important",
    "random.age.u17": "under 17",
@@ -89,5 +89,14 @@
    "share.title6": "Jokes, share",
    "share.title7": "Share-bashing",
    "share.title8": "Like the chat? Friends like it too!",
-   "share.title9": "I like a chat? Tell your friends!;)"
+   "share.title9": "I like a chat? Tell your friends!;)",
+
+   "avatar.server.success": "avatar successfully changed",
+   "avatar.server.error": "error",
+   "avatar.upload.file": "Upload a file",
+   "avatar.upload.gallery": "Choose from Gallery",
+   "avatar.upload.computer": "Choose from computer",
+   "avatar.url": "Image link:",
+   "avatar.url.placeholder": "image link",
+   "avatar.upload": "Upload"
 }
