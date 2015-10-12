@@ -10,7 +10,7 @@ angular.module("angControllers").controller("loadAvatarController",
 
         function handleSuccessUploading() {
             $scope.isImageUploading = false;
-            $scope.serverResponse = "аватарка успешно изменена";
+            $scope.serverResponse = "avatar.server.success";
             $scope.isServerResponseShown = true;
             $timeout(function() {
                 $scope.isServerResponseShown = false;
@@ -21,7 +21,7 @@ angular.module("angControllers").controller("loadAvatarController",
 
         function handleFailedUploading () {
             $scope.isImageUploading = false;
-            $scope.serverResponse = "произошла ошибка";
+            $scope.serverResponse = "avatar.server.error";
             $scope.isServerResponseShown = true;
         }
 

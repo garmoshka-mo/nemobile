@@ -4,7 +4,7 @@ div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
             img.rounded-ava(ng-hide='newImage.url || newImage.file' ng-src='{{previewAvatar}}', alt='ava', imageonload='imageLoadedHandler()')
             img.rounded-ava(ng-show='newImage.url && !newImage.file', ng-src='{{newImage.url}}')
             img.rounded-ava(ngf-src='newImage.file', alt='ava')
-            .inline-block(ng-show='isServerResponseShown', ng-bind='serverResponse')
+            .inline-block(ng-show='isServerResponseShown') {{ serverResponse | translate }}
             .inline-block(ng-hide='newImage.url')
                 .inline-block.change-ava-button(ng-click='generateNewAvatar()')
                     i.fa.fa-refresh
@@ -16,17 +16,17 @@ div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
                     .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
         .grey-line.width-92
         .row
-            label Загрузите из ваших файлов
+            label(translate="avatar.upload.file")
             .custom-file-input(ng-model='newImage.file', ngf-select='uploadPhoto()', name='data')
-                span(ng-show='deviceInfo.IS_MOBILE') Выбрать из моей галереи
-                span(ng-hide='deviceInfo.IS_MOBILE') Выбрать фото с компьютера
+                span(ng-show='deviceInfo.IS_MOBILE', translate="avatar.upload.gallery")
+                span(ng-hide='deviceInfo.IS_MOBILE', translate="avatar.upload.computer")
         .grey-line.width-92
         .row
             form(name='newImageForm')
-                label Или укажите ссылку на картинку:
-                input(name='url', type='url', ng-model='newImage.url', placeholder='ссылка на изображение', required='' allow-text-select)
+                label(translate="avatar.url")
+                input(name='url', type='url', ng-model='newImage.url', placeholder="{{ 'avatar.url.placeholder' | translate }}", required='' allow-text-select)
         .ta-center
             button(ng-disabled='!newImage.url || newImageForm.$invalid', ng-click='updateAvatarUrl()')
-                span(ng-show='!isImageUploading') Загрузить
+                span(ng-show='!isImageUploading', translate="avatar.upload")
                 span(spinner='', spinner-color='white', ng-show='isImageUploading')
         .h41
