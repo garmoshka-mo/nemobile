@@ -117,7 +117,7 @@ angular.module("angControllers")
         }
 
         $scope.$watch('language.current', function(newValue, oldValue) {
-            //this if is necessary in order to this watcher
+            //this 'if' is necessary in order to this watcher
             //will not rewrite data from storage 
             //because this watcher is called after 
             //filter data are taken from storage
@@ -188,8 +188,17 @@ angular.module("angControllers")
             if (!filter.another || !(filter.another.age instanceof Array)) filter.another.age = [0];
             if (!filter.iam || !(filter.iam.age instanceof Array)) filter.iam.age = [0];
 
+            console.log(filter.languages);
+
             $scope.filter = filter;
             extendFilterObject();
+            
+            if (filter.languages) {
+                filter.languages = filter.languages;
+            }
+            else {
+                setLanguagesFilter();
+            }
         }
         else {
             $scope.setDefaultFilterParams();
