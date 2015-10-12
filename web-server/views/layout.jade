@@ -63,8 +63,8 @@ html
               div(ng-show='routing.is_preload')
                 span(spinner='', spinner-color='white')
               div(ng-include="'app/chats-ui/chatHeader.html?'+version", ng-controller='chatHeaderController')
-          section.right-small(ng-cloak ng-hide="user.name")
-              div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
+          //- section.right-small(ng-cloak ng-hide="user.name")
+          //-     div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
           section.right-small.ta-center(ng-cloak='', ng-show='router.isRandomActive() && user.score && isUserScoreShown')
             i.fa.fa-star
             |&nbsp;

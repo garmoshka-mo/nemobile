@@ -43,7 +43,12 @@ button {
 input[type="password"] {
   height: 36px;
 }
-
+.flr {
+  float: right;
+}
+.fll {
+  float: left;
+}
 
 .no-select {
   -webkit-user-select: none;
