@@ -29,7 +29,7 @@
                 button.bg-red(ng-click='cancelLookingFor()')
                     span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
                     div(ng-show='random.waitingServer', spinner='', spinner-color='white')
-    #searchParameters(ng-hide='isRestart || leaving')
+    #searchParameters(ng-hide='isRestart || leaving || isLookingAgain')
         .row
             .columns.small-12
                 .row.fab-buttons-container
@@ -147,13 +147,13 @@
                 .text-bold.ta-center(translate='random.iam')
                 .human-config
                     sex-select(ng-model='filter.iam.sex')
-                    p.text-silver.ta-center(translate='random.age')
+                    p.age-title.ta-center(translate='random.age')
                     age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
             .small-6.columns.ta-center
                 .text-bold(translate='random.another')
                 .human-config
                     sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
-                    p.text-silver.ta-center(translate='random.age')
+                    p.age-title.ta-center(translate='random.age')
                     age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
         .row.top-margin.bottom-margin
             .small-12.ta-center

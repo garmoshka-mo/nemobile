@@ -9,6 +9,8 @@ angular.module("angServices")
                 $scope.hide = true;
 
                 bubble.render = function(o, flags) {
+                    if (!$scope.hide) return;
+
                     $scope.title = o.title;
                     $scope.text = o.text;
                     $scope.bubbleClass = o.partnerSide ? 'he' : 'me';

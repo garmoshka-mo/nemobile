@@ -13,9 +13,10 @@ function($rootScope, user) {
         };
 
         this.processScores = function(scores) {
-            this.ensureSession().then(function(session){
-                session.updateScores(scores);
-            });
+            if (self.isActive)
+                this.ensureSession().then(function(session){
+                    session.updateScores(scores);
+                });
         };
 
     }

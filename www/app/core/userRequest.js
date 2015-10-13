@@ -19,7 +19,7 @@ function ($http, $q, Upload, $rootScope) {
         if (res.data.success)
             return res.data;
         else {
-            if (res.data.error == 'invalid_token') user.logoutAndGoHome();
+            //if (res.data.error == 'invalid_token') user.logoutAndGoHome();
             return $q.reject(res.data.error);
         }
     }

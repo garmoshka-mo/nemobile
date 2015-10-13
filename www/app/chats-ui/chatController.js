@@ -68,11 +68,26 @@ angular.module("angControllers").controller("chatController",
             chatHeader.setChatHeader(chat);
         }
 
-        $scope.disconnectRandomChat = function(feedback) {
+
+        function disconnectRandomChat(feedback) {
             chat.disconnect(false, feedback);
             googleAnalytics.dialogComplete();
             timer.stop();
             notification.setSmallIcon(null);
+        }
+
+        $scope.closeAndLookAgain = function() {
+            disconnectRandomChat();
+            router.openOnTop('lookAgain');
+        };
+
+        $scope.closeAndChatSettings = function() {
+            disconnectRandomChat();
+            router.openOnTop('randomFull');
+        };
+
+        $scope.disconnectRandomChat = function(feedback) {
+            disconnectRandomChat(feedback);
             router.openOnTop('randomRestart');
         };
 
@@ -124,4 +139,8 @@ angular.module("angControllers").controller("chatController",
 
         view.scrollDownTopSection();
         chats.countUnreadChats();
+
+        setTimeout(function() {
+            notification.suppressOnFocus = false;
+        }, 1000);
 }]);

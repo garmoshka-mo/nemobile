@@ -1,13 +1,13 @@
 (function(){
     angular.module("angApp").directive('messages', function() {
         return {
-            scope: {session: '=', close: '&', chat: '='},
+            scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
+            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
         };
     });
 
-    function controller($scope, timer, $sce, $mdDialog, $timeout, $rootScope) {
+    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -96,6 +96,35 @@
                 return messageText;
             }
         }
+
+        $scope.complaint = chatHeader.partnerTitleClickHandler;
+
+        $scope.showAdditional = function(){
+            $scope.additional = true;
+        };
+
+        $scope.feedbacks = [
+            {
+                title: 'message.feedback.thanks',
+                key: 'thanks',
+                imgSrc: 'assets/img/thanks.png'
+            },
+            {
+                title: 'message.feedback.boring',
+                key: 'boring',
+                imgSrc: 'assets/img/boring.png'
+            },
+            {
+                title: 'message.feedback.disgusting',
+                key: 'disgusting',
+                imgSrc: 'assets/img/disgusting.png'
+            }
+        ];
+
+        $scope.leaveFeedback = function(key){
+            $scope.selectedKey = key;
+            //TODO: Implement socket feedback { channel: 'abc123', feedback: boring };
+        };
     }
 
 })();
