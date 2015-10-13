@@ -23,7 +23,7 @@
     div(ng-show='random.lookupInProgress && !leaving')
         .row.search-status
             .small-12.columns.ta-center(ng-hide='notification.asked > 0' translate='random.searchStatus1')
-            .small-12.columns.ta-center(ng-show='notification.asked > 0' translate='random.searchStatus2')
+            .small-12.columns.ta-center(ng-show='notification.asked > 0') {{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...
         .row
             .columns.small-12.ta-center
                 button.bg-red(ng-click='cancelLookingFor()')

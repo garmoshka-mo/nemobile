@@ -15,7 +15,7 @@
    "random.settings": "Settings",
    "random.reloading": "Please wait, updating ...",
    "random.searchStatus1": "We are looking for a suitable interlocutor ...",
-   "random.searchStatus2": "Interviewed {{notification.asked}} ...",
+   "random.searchStatus2": "Interviewed",
    "random.cancelLookingFor": "Cancel",
 
    "random.notSet": "not specified",
