@@ -160,8 +160,8 @@
   "message.complaint": "Complaint",
   "message.leaveFeedback": "Leave a feedback:",
   "message.feedback.thanks": "Thank you",
-  "message.feedback.bored": "Boring",
-  "message.feedback.unpleasant": "Unpleasant",
+  "message.feedback.boring": "Boring",
+  "message.feedback.disgusting": "Unpleasant",
 
   "complaints.complaint": "Report:",
   "complaints.spam": "Spam/advertising",

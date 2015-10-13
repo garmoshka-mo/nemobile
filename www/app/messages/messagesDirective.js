@@ -99,11 +99,31 @@
 
         $scope.complaint = chatHeader.partnerTitleClickHandler;
 
+        $scope.showAdditional = function(){
+            $scope.additional = true;
+        };
+
         $scope.feedbacks = [
-            { title: 'message.feedback.thanks' },
-            { title: 'message.feedback.bored' },
-            { title: 'message.feedback.unpleasant' }
-        ]
+            {
+                title: 'message.feedback.thanks',
+                key: 'thanks',
+                imgSrc: 'assets/img/thanks.png'
+            },
+            {
+                title: 'message.feedback.boring',
+                key: 'boring',
+                imgSrc: 'assets/img/boring.png'
+            },
+            {
+                title: 'message.feedback.disgusting',
+                key: 'disgusting',
+                imgSrc: 'assets/img/disgusting.png'
+            }
+        ];
+
+        $scope.leaveFeedback = function(key){
+            //TODO: Implement
+        };
     }
 
 })();

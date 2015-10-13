@@ -160,8 +160,8 @@
   "message.complaint": "Пожаловаться",
   "message.leaveFeedback": "Оставить отзыв:",
   "message.feedback.thanks": "Спасибо",
-  "message.feedback.bored": "Скучно",
-  "message.feedback.unpleasant": "Неприятно",
+  "message.feedback.boring": "Скучно",
+  "message.feedback.disgusting": "Неприятно",
 
   "complaints.complaint": "Пожаловаться:",
   "complaints.spam": "Спам/реклама",

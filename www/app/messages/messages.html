@@ -11,14 +11,17 @@
         <div class="system_message">
             {{ 'message.finished' | translate}}&nbsp; {{ 'message.finished.reason' | translate}}
             <div ng-show="chat">
-                <a ng-click="lookAgain()" translate="message.lookAgain"></a>&nbsp;|&nbsp;
-                <a ng-click="chatSettings()" translate="message.chatSettings"></a>
-                <div>
+                <div class="message-finish">
+                    <a ng-click="lookAgain()" translate="message.lookAgain"></a>&nbsp;|&nbsp;
+                    <a ng-click="chatSettings()" translate="message.chatSettings"></a>
+                </div>
+                <div class="circle pointer" ng-hide="additional" ng-click="showAdditional()"><i class="fa fa-ellipsis-v additional"></i></div>
+                <div ng-show="additional">
                     <div>
                         {{ 'message.leaveFeedback' | translate}}
                     </div>
                     <a ng-repeat='feedback in feedbacks' ng-click="leaveFeedback(feedback.key)">
-                        <img src="">{{ feedback.title | translate }}
+                        <img ng-src="{{ feedback.imgSrc }}">{{ feedback.title | translate }}
                     </a>
                     <div>
                         <a ng-click="complaint()" translate="message.complaint"></a>

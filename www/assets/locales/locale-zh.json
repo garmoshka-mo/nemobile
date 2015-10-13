@@ -160,8 +160,8 @@
   "message.complaint": "不恰當",
   "message.leaveFeedback": "發表評論:",
   "message.feedback.thanks": "謝謝你",
-  "message.feedback.bored": "無聊",
-  "message.feedback.unpleasant": "不快",
+  "message.feedback.boring": "無聊",
+  "message.feedback.disgusting": "不快",
 
   "complaints.complaint": "報告:",
   "complaints.spam": "垃圾郵件/廣告",
