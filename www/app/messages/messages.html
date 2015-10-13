@@ -3,20 +3,33 @@
      ng-switch="message.type">
     <div ng-switch-when="chat_empty">
         <div class="system_message">
-            Этот чат завершен
-            <a ng-click="close()">Начать новый диалог</a>
+            {{ 'message.finished.empty' | translate }}
+            <a ng-click="lookAgain()" translate="message.lookAgain"></a>
         </div>
     </div>
     <div ng-switch-when="chat_finished">
         <div class="system_message">
-            Собеседник покинул чат
-            <a ng-click="close()">Начать новый диалог</a>
+            {{ 'message.finished' | translate}}&nbsp; {{ 'message.finished.reason' | translate}}
+            <div ng-show="chat">
+                <a ng-click="lookAgain()" translate="message.lookAgain"></a>&nbsp;|&nbsp;
+                <a ng-click="chatSettings()" translate="message.chatSettings"></a>
+                <div>
+                    <div>
+                        {{ 'message.leaveFeedback' | translate}}
+                    </div>
+                    <a ng-repeat='feedback in feedbacks' ng-click="leaveFeedback(feedback.key)">
+                        <img src="">{{ feedback.title | translate }}
+                    </a>
+                    <div>
+                        <a ng-click="complaint()" translate="message.complaint"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div ng-switch-when="hidden">
         <div ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" 
-            class="message message-hidden">
-            Сообщение скрыто
+            class="message message-hidden" translate="message.hidden">
         </div>
     </div>
     <div ng-switch-default ng-switch="chat">

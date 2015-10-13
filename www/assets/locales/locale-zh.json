@@ -148,5 +148,23 @@
   "bubble.level4.title":"對於100",
   "bubble.level4.text":"這個運動的天堂 - 月球，絕對",
   "bubble.level5.title":"250！",
-  "bubble.level5.text":"這是一個成功的地獄！"
+  "bubble.level5.text":"這是一個成功的地獄！",
+
+  "message.menu.done": "完成",
+  "message.finished.empty": "此聊天結束",
+  "message.lookAgain": "開始一個新的對話",
+  "message.chatSettings": "首選項",
+  "message.finished": "受訪者留下的聊天。",
+  "message.finished.reason": "原因:",
+  "message.hidden": "悄悄話",
+  "message.complaint": "不恰當",
+  "message.leaveFeedback": "發表評論:",
+  "message.feedback.thanks": "謝謝你",
+  "message.feedback.bored": "無聊",
+  "message.feedback.unpleasant": "不快",
+
+  "complaints.complaint": "報告:",
+  "complaints.spam": "垃圾郵件/廣告",
+  "complaints.ignorance": "嚴重違反規定的標準談話",
+  "complaints.insult": "侮辱無故"
 }

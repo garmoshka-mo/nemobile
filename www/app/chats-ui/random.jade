@@ -29,7 +29,7 @@
                 button.bg-red(ng-click='cancelLookingFor()')
                     span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
                     div(ng-show='random.waitingServer', spinner='', spinner-color='white')
-    #searchParameters(ng-hide='isRestart || leaving')
+    #searchParameters(ng-hide='isRestart || leaving || isLookingAgain')
         .row
             .columns.small-12
                 .row.fab-buttons-container

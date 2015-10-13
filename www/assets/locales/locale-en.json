@@ -148,5 +148,23 @@
   "bubble.level4.title": "Over a 100",
   "bubble.level4.text": " This movement to the heavens - to the Moon, definitely",
   "bubble.level5.title": "Over 250!",
-  "bubble.level5.text": "It's a hell'a success!"
+  "bubble.level5.text": "It's a hell'a success!",
+
+  "message.menu.done": "Done",
+  "message.finished.empty": "This chat is finished",
+  "message.lookAgain": "Start a new dialogue",
+  "message.chatSettings": "Preferences",
+  "message.finished": "The interviewee left the chat.",
+  "message.finished.reason": "Reason:",
+  "message.hidden": "Private Message",
+  "message.complaint": "Complaint",
+  "message.leaveFeedback": "Leave a feedback:",
+  "message.feedback.thanks": "Thank you",
+  "message.feedback.bored": "Boring",
+  "message.feedback.unpleasant": "Unpleasant",
+
+  "complaints.complaint": "Report:",
+  "complaints.spam": "Spam/advertising",
+  "complaints.ignorance": "A gross violation of the specified conversation criteria",
+  "complaints.insult": "The insults for no reason"
 }

@@ -12,15 +12,15 @@ angular.module('angControllers').controller('complaintController', ['$scope', 'S
         $scope.complaints = [
             {
                 name: 'spam',
-                title: 'Спам/реклама'
+                title: 'complaints.spam'
             },
             {
                 name: 'ignorance',
-                title: 'Грубое нарушение заданных критериев беседы'
+                title: 'complaints.ignorance'
             },
             {
                 name: 'insult',
-                title: 'Оскорбления без причины'
+                title: 'complaints.insult'
             }
         ];
 

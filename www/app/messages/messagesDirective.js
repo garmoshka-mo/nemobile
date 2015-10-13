@@ -1,13 +1,13 @@
 (function(){
     angular.module("angApp").directive('messages', function() {
         return {
-            scope: {session: '=', close: '&', chat: '='},
+            scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
+            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
         };
     });
 
-    function controller($scope, timer, $sce, $mdDialog, $timeout, $rootScope) {
+    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -96,6 +96,14 @@
                 return messageText;
             }
         }
+
+        $scope.complaint = chatHeader.partnerTitleClickHandler;
+
+        $scope.feedbacks = [
+            { title: 'message.feedback.thanks' },
+            { title: 'message.feedback.bored' },
+            { title: 'message.feedback.unpleasant' }
+        ]
     }
 
 })();

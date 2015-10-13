@@ -148,5 +148,23 @@
   "bubble.level4.title": "Para 100",
   "bubble.level4.text": "Este movimiento hacia el cielo - a la luna, sin duda ",
   "bubble.level5.title": "250!",
-  "bubble.level5.text": "Es un infierno de un éxito!"
+  "bubble.level5.text": "Es un infierno de un éxito!",
+
+  "message.menu.done": "Hecho",
+  "message.finished.empty": "Esta charla ha terminado",
+  "message.lookAgain": "Iniciar un nuevo diálogo",
+  "message.chatSettings": "preferencias",
+  "message.finished": "El entrevistado dejó el chat.",
+  "message.finished.reason": "La razón:",
+  "message.hidden": "mensaje privado",
+  "message.complaint": "inapropiada",
+  "message.leaveFeedback": "Deja un comentario:",
+  "message.feedback.thanks": "Gracias",
+  "message.feedback.bored": "aburrido",
+  "message.feedback.unpleasant": "Desagradable",
+
+  "complaints.complaint": "Informe:",
+  "complaints.spam": "Spam/publicidad",
+  "complaints.ignorance": "Una violación grave de los criterios de la conversación especificado",
+  "complaints.insult": "Los insultos sin motivo"
 }
