@@ -68,6 +68,7 @@ gulp.task('copy_static', function(){
         source_www + 'partials/**/*.html', // todo: move all to app
         source_www + 'assets/fonts/*',
         source_www + 'assets/img/**/*',
+        source_www + 'assets/locales/*',
         source_www + 'assets/sounds/*'
     ];
     return gulp.src(filesToCopy, { base: source_www })
