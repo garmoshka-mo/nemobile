@@ -10,9 +10,10 @@ function ($postpone) {
     };
 
     this.checkForStrafe = function(scores, side) {
-        if (!scores['strafe']) return;
+        if (scores['strafe'] != 'vegetability') return;
 
         self.schedule(vegetability[side], side, scores['flags']);
+        return true;
     };
 
     this.schedule = function(bub, side, flags) {

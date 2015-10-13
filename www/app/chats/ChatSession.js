@@ -62,7 +62,6 @@ angular.module("angFactories").factory('ChatSession',
         } 
         else {
             chatSession.isExpired = false;
-            chatSession.setTimeout(ttl);
         }
 
         return chatSession;
@@ -80,60 +79,6 @@ angular.module("angFactories").factory('ChatSession',
                 this.currentChat.removeLastChatSession();
             }
             console.warn("chat session expired");
-        },
-
-        setTimeout: function(time) {
-            var self = this;
-            // log("timer for chatSession is set. Left(msec): " + time);
-            
-            // if time is more than 2147483647 (approximately 24 days) timer callback function is called instantly 
-            // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values/3468650#3468650
- 
-            if (time > 2147483647) {
-                this.extraTime = time - 2147483647;
-                time = 2147483647;
-                // log("extra time is added(msec): " + this.extraTime);
-            }
-
-            if (this.timer) {
-                $timeout.cancel(this.timer);
-            }
-
-            this.timer = $timeout(function() {
-                if (self.extraTime > 0) {
-                    return false;
-                }
-                self.close();
-            }, time);
-        },
-
-        setTimer: function(expires) {
-            var chatSession = this;
-            var ttl;
-            if (deviceServerTimeDifference_msec) {
-                ttl = calculateMessageTtl(expires);
-                chatSession.setTimeout(ttl);
-                chatSession.whenExipires = new Date().getTime() + ttl;                  
-            }
-            else {
-                userRequest.send(
-                    'GET',
-                    '/time'
-                )
-                .then(function(res) {
-                    var time = res.origin_time;
-                    var deviceServerTimeDifference_msec = time * 1000 - new Date().getTime();
-                    log("Difference with server time(msec): ", deviceServerTimeDifference_msec);
-                    return deviceServerTimeDifference_msec;
-                })
-                .then(function(timeDifference) {
-                    deviceServerTimeDifference_msec = timeDifference;
-                    ttl = calculateMessageTtl(expires);
-                    chatSession.setTimeout(ttl);
-                    chatSession.whenExipires = new Date().getTime() + ttl;
-                    chatSession.save();
-                });
-            }
         },
 
         setReplied: function() {

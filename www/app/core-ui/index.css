@@ -1118,3 +1118,9 @@ md-menu-item > .md-button {
   width: 100%;
   padding-left: 22px;
 }
+
+ md-menu-content .md-focused,
+ md-menu-content .md-button:hover {
+   color: black !important;
+ }
+

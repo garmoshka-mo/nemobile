@@ -11,6 +11,7 @@
         var initialText;
         var typing_timeout;
         var chatDisconnectHandler;
+        var isActive = true;
 
         var initialPageTitle = null;
         var initialPageFavicon = null;
@@ -23,23 +24,17 @@
 
 
         function isTabVisible() {
-            var textValue =  
+            var textValue =
             document.visibilityState ||
             document.webkitVisibilityState;
-            return textValue === "visible" ? true : false;
+            return textValue === "visible";
         }
-        window.onfocus = function() {
-            if (isTabVisible()) {
-                resetPageTitle();
-            }
-            // log('active');
-        };
 
         function setPageTitle(text) {
             document.title = text;
         }
 
-        
+
         function resetPageTitle() {
             if (pageTitleInterval !== null) {
                 setPageTitle(initialPageTitle);
@@ -51,16 +46,18 @@
         }
 
         function startPageTitleInterval(text) {
+            var switched = false;
+            clearInterval(pageTitleInterval);
             pageTitleInterval = setInterval(function() {
-                if (document.title === initialPageTitle) {
+                switched = !switched;
+                if (switched) {
                     document.title = text;
-                    favicon.badge(' ');
-                }
-                else {
-                    document.title = initialPageTitle;
+                    favicon.badge(1);
+                } else {
+                    document.title = '⚪️' + initialPageTitle;
                     favicon.reset();
                 }
-            }, 1000);
+            }, 600);
         }
 
         function suppressTitleChange() {
@@ -77,6 +74,9 @@
                 initialText = title;
             },
 
+            activateWindow: activateWindow,
+            suppressOnFocus: false,
+
             typingExternal: function() {
                 $rootScope.$apply(function() { $rootScope.notification.typing = true; });
                 clearTimeout(typing_timeout);
@@ -90,7 +90,7 @@
                     log('income message sound is played');
                     $rootScope.notification.typing = false;
                     sound.play('incomeMessage');
-                    this.setTemporaryPageTitle('Новое сообщение');
+                    this.setTemporaryPageTitle('🔵Новое сообщение');
                 }
             },
 
@@ -146,7 +146,7 @@
 
             setTemporaryPageTitle: function(text) {
 
-                if (suppressingNotifications || IS_APP || isTabVisible()) {
+                if (suppressingNotifications || IS_APP || isActive) {
                     return;
                 }
 
@@ -162,10 +162,23 @@
             }
         };
 
+
+        window.onfocus = activateWindow;
+
+        function activateWindow() {
+            if (notification.suppressOnFocus) return;
+            isActive = true;
+            resetPageTitle();
+        }
+
+        window.onblur = function () {
+            isActive = false;
+        };
+
         function onRandomChatBegin() {
             timer.start();
             sound.play('newConversation');
-            notification.setTemporaryPageTitle('Собеседник найден');
+            notification.setTemporaryPageTitle('🔴Собеседник найден');
             suppressTitleChange();
         }
 

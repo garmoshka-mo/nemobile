@@ -96,8 +96,8 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         //$translate
         //TODO: find a way to translate titles
         //
-        if (toState.views.top)
-            if(toState.views.top.state) {
+        if (toState.views.top) {
+            if (toState.views.top.state) {
                 if (self.isChatActive())
                     self.openOnTop('chat');
                 else
@@ -106,7 +106,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
                 separator.resize(toState.views.top.resize, toState.views.top.disableAnimation);
                 previousState.saveTopHidden(!separator.isVisible());
             }
-
+        }
     }
 
     function logPageview(url) {

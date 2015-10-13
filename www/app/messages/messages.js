@@ -41,14 +41,10 @@ function($rootScope, socket, random, chats, user) {
         // todo: при параллельных чатах - правильно организовать сохранение, см. гугл-док "Параллельные чаты"
         if (!chats.current || channel != chats.current.channel) return;
 
-        var chat = chats.getChat(channel);
-        if (!chat)
-            return console.warn('Received message to non-existing chat', channel, envelope);
-
         if (envelope.payload.scores)
-            chat.processScores(envelope.payload.scores);
+            chats.current.processScores(envelope.payload.scores);
 
-        if (callback) callback(chat);
+        if (callback) callback(chats.current);
     }
 
 }]);

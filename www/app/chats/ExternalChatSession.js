@@ -20,7 +20,7 @@ function($q, ChatSessionAbstract, userRequest) {
         this.currentChat = null;
         this.whenExipires = Infinity;
 
-        angular.extend(this, new ChatSessionAbstract());
+        new ChatSessionAbstract().extend(this);
         this.channel = this.uuid;
 
         self.setReplied = function() {self.isReplied = true;};
@@ -55,17 +55,6 @@ function($q, ChatSessionAbstract, userRequest) {
 
         self.afterMyMessageSent = function() {
             deferred_send.resolve();
-        };
-
-        self.saveLog = function() {
-            console.warn('saveLog - Not implemented');
-            return;
-
-            var log = getLog();
-            if (log.duration > 10) {
-                log.uuid = self.uuid;
-                userRequest.send('POST', '/chats/log', log);
-            }
         };
     }
 }]);
