@@ -30,6 +30,7 @@
         self.detectLanguage = function() {
             var d = $q.defer();
             var userLanguage = window.navigator.userLanguage || window.navigator.language;
+            userLanguage = parseUserLanguage(userLanguage);
             
             if (userLanguage == 'en') {
                 $http.get("http://ipinfo.io/json")
@@ -62,6 +63,28 @@
             }
             return d.promise;
         };
+
+        function parseUserLanguage(userLanguage) {
+            
+            if (userLanguage.match(/en/)) {
+                return 'en';
+            }
+
+            if (userLanguage.match(/es/)) {
+                return 'es';
+            }
+
+            if (userLanguage.match(/zh/)) {
+                return 'zh';
+            }
+
+            if (userLanguage.match(/ru/)) {
+                return 'ru';
+            }
+
+            return userLanguage;
+
+        }
 
     }
 })();
