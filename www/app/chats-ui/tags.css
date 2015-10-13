@@ -20,10 +20,10 @@ button.tags-add-button:not([disabled]):hover {
     color: white;
 }
 
-md-menu-content .md-focused,
+/*md-menu-content .md-focused,
 md-menu-content .md-button:hover {
     background-color: rgb(104, 193, 104) !important;
-}
+}*/
 
 
 .language-tags-box {

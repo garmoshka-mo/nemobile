@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader',
+            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu',
     function(user, $scope, $stateParams, $state, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, router, view, chatHeader) {
+                chats, googleAnalytics, router, view, chatHeader, circleMenu) {
 
         log("chat controller is invoked");
 
@@ -68,15 +68,17 @@ angular.module("angControllers").controller("chatController",
             chatHeader.setChatHeader(chat);
         }
 
-        $scope.disconnectRandomChat = function() {
-            chat.disconnect();
+        $scope.disconnectRandomChat = function(feedback) {
+            chat.disconnect(false, feedback);
             googleAnalytics.dialogComplete();
             timer.stop();
             notification.setSmallIcon(null);
             router.openOnTop('randomRestart');
         };
 
-        notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
+        var handler = chats.disconnectWithoutFeedback ? 
+            $scope.disconnectRandomChat : circleMenu.open;
+        notification.setSmallIcon('<i class="fa fa-close"></i>', handler);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {

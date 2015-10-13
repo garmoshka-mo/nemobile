@@ -126,8 +126,8 @@
                 chatDisconnectHandler = handler;
             },
 
-            chatDisconnect: function(){
-                chatDisconnectHandler();
+            chatDisconnect: function(feedback){
+                chatDisconnectHandler(feedback);
             },
 
             showToast: function(message, hideDelay) {

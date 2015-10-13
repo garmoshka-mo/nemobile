@@ -8,6 +8,7 @@ angular.module("angServices")
 
         self.list = {};
         self.current = null;
+        self.disconnectWithoutFeedback = false;
 
         log('chats', self);
 

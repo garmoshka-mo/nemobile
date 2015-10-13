@@ -1,0 +1,31 @@
+.circle-menu-container
+    .circle-menu-item-container
+        div.fll
+            div.circle-menu-chat-finish-button(ng-click="disconnect()")
+                i.fa.fa-close
+            div.circle-menu-dots
+                md-menu
+                    md-button.circle-menu-dots-button(ng-click="$mdOpenMenu($event)" aria-label="cicrle")
+                        i.fa.fa-ellipsis-v
+                    md-menu-content
+                        md-subheader
+                            span
+                            span 
+                             | Вы можете указать причину отключения, тем самым помочь собеседнику понять, что ему следует исправить в общении.
+                             br
+                             | Чтобы отключиться без указания причины - нажмите на крестик.
+                        md-menu-item
+                            .circle-menu-checkbox-container
+                                md-checkbox(ng-model="chats.disconnectWithoutFeedback")
+                                    | Не показывать это меню (всегда просто отключаться)
+        .circle-menu-item.first(ng-click="disconnect('thanks')")
+            img(src="../../../assets/img/circle-menu-thanks.png")
+            span Спасибо
+    .circle-menu-item-container
+        .circle-menu-item.second(ng-click="disconnect('boring')") 
+            img(src="../../../assets/img/circle-menu-boring.png")
+            span Скучно
+    .circle-menu-item-container
+        .circle-menu-item.third(ng-click="disconnect('disgusting')")
+            img(src="../../../assets/img/circle-menu-unpleasant.png")
+            span Неприятно    
