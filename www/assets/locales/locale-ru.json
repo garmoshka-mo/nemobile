@@ -15,7 +15,7 @@
   "random.settings": "Настройки",
   "random.reloading": "Подождите, идет обновление...",
   "random.searchStatus1": "Ищем подходящего собеседника...",
-  "random.searchStatus2": "Опрошено {{notification.asked}}...",
+  "random.searchStatus2": "Опрошено",
   "random.cancelLookingFor": "отмена",
 
   "random.notSet": "не указывать",
