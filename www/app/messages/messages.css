@@ -72,8 +72,13 @@
     padding-left: 15px;
     color: rgba(255,255,255,.7);
 }
-
 .message-finish {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.message-feedback {
+
+}
+.message-feedback.selected {
+    background: #5BAB60;
 }

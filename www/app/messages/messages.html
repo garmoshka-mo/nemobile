@@ -20,9 +20,9 @@
                     <div>
                         {{ 'message.leaveFeedback' | translate}}
                     </div>
-                    <a ng-repeat='feedback in feedbacks' ng-click="leaveFeedback(feedback.key)">
+                    <span class="pointer message-feedback" ng-class="{selected: feedback.key === selectedKey}" ng-repeat='feedback in feedbacks' ng-click="leaveFeedback(feedback.key)">
                         <img ng-src="{{ feedback.imgSrc }}">{{ feedback.title | translate }}
-                    </a>
+                    </span>
                     <div>
                         <a ng-click="complaint()" translate="message.complaint"></a>
                     </div>

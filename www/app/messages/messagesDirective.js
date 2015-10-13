@@ -122,7 +122,8 @@
         ];
 
         $scope.leaveFeedback = function(key){
-            //TODO: Implement
+            $scope.selectedKey = key;
+            //TODO: Implement socket feedback { channel: 'abc123', feedback: boring };
         };
     }
 
