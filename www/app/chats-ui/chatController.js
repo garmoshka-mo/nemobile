@@ -95,6 +95,12 @@ angular.module("angControllers").controller("chatController",
             $scope.disconnectRandomChat : circleMenu.open;
         notification.setSmallIcon('<i class="fa fa-close"></i>', handler);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
+
+        $scope.$watch('chat.isActive', function(newValue) {
+            if (!newValue) {
+                notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);   
+            }
+        });
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {
             chat.updateInfo()
