@@ -102,6 +102,11 @@ angular.module("angServices")
                         'POST',
                         '/avatar',
                         {avatar: {data: file}}
+                    )
+                    .then(
+                        function() {
+                            $rootScope.$broadcast('user avatar was updated');
+                        }
                     );
                    
                 },

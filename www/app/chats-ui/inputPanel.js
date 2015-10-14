@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'api', 'notification',
-function($scope, separator, view, chats, dictionary, $rootScope, api, notification) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification',
+function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification) {
 
     var $chatInput = $('.chat-input');
 
@@ -104,12 +104,19 @@ function($scope, separator, view, chats, dictionary, $rootScope, api, notificati
     };
 
     $scope.uploadImage = function() {
-        $scope.isMessageSending = true;
-        api.uploadImage($scope.image.file[0]).then(function(res){
-            $scope.sendMessage(res.url);
-        }).then(function(){
-            $scope.isMessageSending = false;
-        });
+        if ($scope.image.file) {
+            $scope.isMessageSending = true;
+            userRequest.sendFile(
+                'POST',
+                '/images/load_image',
+                {image: {image_data: $scope.image.file}}
+            )
+            .then(function(res){
+                $scope.sendMessage(res.url);
+            }).then(function(){
+                $scope.isMessageSending = false;
+            });
+        }
     };
 
 

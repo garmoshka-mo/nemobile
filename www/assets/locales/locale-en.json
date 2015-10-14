@@ -11,7 +11,7 @@
 
    "random.mobinfo1": "The browser does not support all mobile chat function.",
    "random.mobinfo2": "We recommend to install the application",
-   "random.lookForChat": "IM",
+   "random.lookForChat": "Start chat",
    "random.settings": "Settings",
    "random.reloading": "Please wait, updating...",
    "random.searchStatus1": "We are looking for a suitable interlocutor...",
@@ -25,7 +25,7 @@
 
    "random.theme": "Conversations",
    "random.geo": "Real",
-   "random.sex": "intimate.",
+   "random.sex": "Intimate",
    "random.video": "Camera",
    "random.help": "Help",
    "random.helpText1": "With the help of icons, you can indicate your preference on the subject of communication. \nIf you, for example, forbid 'camera', \nto you will not have to connect with those who are seeking to communicate with the camera.",
