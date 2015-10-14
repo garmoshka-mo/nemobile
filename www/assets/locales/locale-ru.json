@@ -154,8 +154,12 @@
   "message.finished.empty": "Этот чат завершен",
   "message.lookAgain": "Начать новый диалог",
   "message.chatSettings": "Настроить поиск",
+
   "message.finished": "Собеседник покинул чат.",
-  "message.finished.reason": "Причина:",
+  "message.finished.thanks": "Собеседник покинул чат, поблагодарив: Спасибо!",
+  "message.finished.boring": "Собеседник покинул чат. Причина: Скучал",
+  "message.finished.disgusting": "Собеседник покинул чат. Причина: Неприятно",
+
   "message.hidden": "Сообщение скрыто",
   "message.complaint": "Пожаловаться",
   "message.leaveFeedback": "Оставить отзыв:",

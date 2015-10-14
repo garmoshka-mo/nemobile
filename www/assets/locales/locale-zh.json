@@ -154,8 +154,12 @@
   "message.finished.empty": "此聊天結束",
   "message.lookAgain": "開始一個新的對話",
   "message.chatSettings": "首選項",
+
   "message.finished": "受訪者留下的聊天。",
-  "message.finished.reason": "原因:",
+  "message.finished.thanks": "受訪者離開了聊天室，感謝，謝謝！",
+  "message.finished.boring": "受訪者留下的聊天原因：缺少",
+  "message.finished.disgusting": "受訪者留下的聊天原因：令人不快",
+
   "message.hidden": "悄悄話",
   "message.complaint": "不恰當",
   "message.leaveFeedback": "發表評論:",

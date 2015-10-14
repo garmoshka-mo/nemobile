@@ -154,8 +154,12 @@
   "message.finished.empty": "This chat is finished",
   "message.lookAgain": "Start a new dialogue",
   "message.chatSettings": "Preferences",
-  "message.finished": "The interviewee left the chat.",
-  "message.finished.reason": "Reason:",
+
+  "message.finished": "The chat mate left the chat room.",
+  "message.finished.thanks": "The chat mate left the chat room, thanking. Thank you!:",
+  "message.finished.boring": "The chat mate left the chat. Reason: Boring",
+  "message.finished.disgusting": "The chat mate left the chat. Reason: Unpleasant conversation",
+
   "message.hidden": "Private Message",
   "message.complaint": "Complaint",
   "message.leaveFeedback": "Leave a feedback:",
