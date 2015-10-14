@@ -24,6 +24,7 @@ angular.module("angFactories").factory("Chat",
         this.title = chatData.title ? chatData.title : chatData.senderId;
         this.avatar = Avatar.fromId(chatData.channel);
         this.isExpired = !_.isUndefined(chatData.isExpired) ? chatData.isExpired : false;
+        this.partner = !_.isUndefined(chatData.partner) ? chatData.partner : null;
         this.isRead = !_.isUndefined(chatData.isRead) ? chatData.isRead : true;
         this.isReplied = !_.isUndefined(chatData.isReplied) ? chatData.isReplied : false;
         this.isVirtual = !_.isUndefined(chatData.isVirtual) ? chatData.isVirtual : false;

@@ -11,7 +11,7 @@ function($rootScope, user, $postpone) {
 
 
     this.setChatHeader = function(chat) {
-        self.partner.ava_url = chat.avatar.urlMini;
+        self.partner.ava_url = chat.partner.avatar.urlMini;
         chat.getLastUnexpiredChatSession()
             .then(sessionReceived);
     };
