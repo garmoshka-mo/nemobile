@@ -1,5 +1,5 @@
-.bubble(ng-hide='hide')
-    h1(ng-bind='title')
-    p(ng-bind='text')
+.bubble(ng-hide='hide' ng-class='bubbleClass')
+    .header {{ title | translate }}
+    p {{ text | translate }}
     #gfy-container
-    button(ng-click='close()') Продолжить
+    button(ng-click='close()' translate="bubble.close")

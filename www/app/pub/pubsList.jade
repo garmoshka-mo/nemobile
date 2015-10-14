@@ -2,15 +2,15 @@
     .ta-center.top-margin
         // button(ng-click="goto('random')") Перейти к чату
         .pubs-title(ng-show='posts.length > 0')
-            div Интересное:
-            div.small-description Ссылки на интересные темы, которые можно обсудить
+            div(translate='pubs.title')
+            div.small-description(translate='pubs.description')
             div
                 img(src='assets/img/page-break.png')
 
     div#add-link(ng-show='posts.length > 0')
-        input(type='text' ng-model='url' placeholder='http://сайт.com/ссылка_на_интересное')
-        span(ng-bind='postUrlNotice')
-        button(ng-click='postUrl()' ng-disabled='publishing') Добавить запись
+        input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
+        span {{ postUrlNotice | translate }}
+        button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
 
     ul.posts-list(infinite-scroll-disabled='disableAutoload',
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
@@ -26,6 +26,6 @@
                 div.torn
                 button(ng-click='post.cutImage = false')
                      i.fa.fa-angle-double-down
-                     |  &nbsp;Показать&nbsp;полностью
+                     |  {{ 'pubs.expand' | translate }}
             div.separator
     spinner.top-margin(ng-show='loading', spinner-color='green')

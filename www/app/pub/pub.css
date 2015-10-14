@@ -4,6 +4,7 @@
     padding: 0;
     height: 36px;
     border-radius: 5px;
+    margin-bottom: 0;
 }
 
 .small-description {
@@ -128,10 +129,14 @@
     left: 0;
     width: 100%;
     z-index: 1;
+    height: 56px;
 }
 .publish-back-button {
     width: 10%;
-    margin-bottom: 0;
+}
+.publish-button-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #add-link {

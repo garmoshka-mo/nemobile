@@ -1,11 +1,11 @@
 div(ng-controller='PublishPanelController')
     #main-footer.ta-center
         div(ng-model='errorDescription', alert-box='')
-        .chat-buttons-container
+        .publish-button-container
             button.publish-button.publish-back-button(ng-click='back()')
                 i.fa.fa-chevron-left
             button.publish-button.grey(ng-click='reset()')
-                | Сбросить
+                | {{'publish.preview.reset' | translate }}
             button.publish-button(ng-click='publishPost()')
-                span(ng-show='!isPublishing') Опубликовать
+                span(ng-show='!isPublishing' translate="publish.preview.publish")
                 span(ng-show='isPublishing', spinner='', spinner-color='white')

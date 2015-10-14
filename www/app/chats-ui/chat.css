@@ -126,7 +126,7 @@
     line-height: 18px;
 }
 .header-title {
-    float: left;
+    /*float: left;*/
 }
 a.options {
     color: white;

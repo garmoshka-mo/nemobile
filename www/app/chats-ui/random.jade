@@ -3,38 +3,38 @@
         a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
             img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
         div
-            | Браузер мобильного поддерживает не все функции чата.
-            | Рекомендуем установить приложение
+            | {{ 'random.mobinfo1' | translate }}
+            | {{ 'random.mobinfo2' | translate }}
     .row.top-margin(ng-hide='random.lookupInProgress || updates.reloading || leaving')
         .columns.small-12.ta-center(ng-class="{'condensed-buttons': isRestart}")
             button(ng-hide='random.waitingServer', ng-click='lookForChat()')
                 span
-                    | Начать чат&nbsp;
+                    | {{ 'random.lookForChat' | translate }}&nbsp;
                     i.fa.fa-weixin
             button(ng-show='isRestart', ng-click='filterSettings()')
                 span
-                    | Настройки&nbsp;
+                    | {{ 'random.settings' | translate }}&nbsp;
                     i.fa.fa-sliders
     .row(ng-show='updates.reloading')
         br
-        .small-12.columns.ta-center Подождите, идет обновление...
+        .small-12.columns.ta-center {{ 'random.reloading' | translate }}
         br
         br
     div(ng-show='random.lookupInProgress && !leaving')
         .row.search-status
-            .small-12.columns.ta-center(ng-hide='notification.asked > 0') Ищем подходящего собеседника...
-            .small-12.columns.ta-center(ng-show='notification.asked > 0') Опрошено {{notification.asked}}...
+            .small-12.columns.ta-center(ng-hide='notification.asked > 0' translate='random.searchStatus1')
+            .small-12.columns.ta-center(ng-show='notification.asked > 0') {{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...
         .row
             .columns.small-12.ta-center
                 button.bg-red(ng-click='cancelLookingFor()')
-                    span(ng-hide='random.waitingServer') отмена
+                    span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
                     div(ng-show='random.waitingServer', spinner='', spinner-color='white')
     #searchParameters(ng-hide='isRestart || leaving')
         .row
             .columns.small-12
                 .row.fab-buttons-container
                     .small-3.columns
-                        | Беседы
+                        | {{ 'random.theme' | translate }}
                         md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.theme.isOpened')
                             md-fab-trigger
                                 md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.theme.value === -1}")
@@ -45,18 +45,18 @@
                             md-fab-actions
                                 md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.theme.selectValue(0)')
                                     .fab-empty-div
-                                    .fab-title.fab-title-right не указывать
+                                    .fab-title.fab-title-right(translate='random.notSet')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                    .fab-title.fab-title-right желательно
+                                    .fab-title.fab-title-right(translate='random.prefer')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                    .fab-title.fab-title-right обязательно
+                                    .fab-title.fab-title-right(translate='random.require')
                                 md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.theme.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
-                                    .fab-title.fab-title-right запретить
+                                    .fab-title.fab-title-right(translate='random.forbid')
                     .small-3.columns
-                        | Реал
+                        | {{ 'random.geo' | translate }}
                         md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.geo.isOpened')
                             md-fab-trigger
                                 md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.geo.value === -1}")
@@ -67,18 +67,18 @@
                             md-fab-actions
                                 md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.geo.selectValue(0)')
                                     .fab-empty-div
-                                    .fab-title.fab-title-right не указывать
+                                    .fab-title.fab-title-right(translate='random.notSet')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                    .fab-title.fab-title-right желательно
+                                    .fab-title.fab-title-right(translate='random.prefer')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                    .fab-title.fab-title-right обязательно
+                                    .fab-title.fab-title-right(translate='random.require')
                                 md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.geo.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
-                                    .fab-title.fab-title-right запретить
+                                    .fab-title.fab-title-right(translate='random.forbid')
                     .small-3.columns
-                        | Интимн.
+                        | {{ 'random.sex' | translate }}
                         md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.sex.isOpened')
                             md-fab-trigger
                                 md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.sex.value === -1}")
@@ -88,19 +88,19 @@
                                     img(ng-show='filter.sex.value === 2', ng-src='assets/img/sex-require.png')
                             md-fab-actions
                                 md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.sex.selectValue(0)')
-                                    .fab-title.fab-title-left не указывать
+                                    .fab-title.fab-title-left(translate='random.notSet')
                                     .fab-empty-div
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(1)')
-                                    .fab-title.fab-title-left желательно
+                                    .fab-title.fab-title-left(translate='random.prefer')
                                     img(src='assets/img/prefer.png', alt='prefer')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(2)')
-                                    .fab-title.fab-title-left обязательно
+                                    .fab-title.fab-title-left(translate='random.require')
                                     img(src='assets/img/require.png', alt='require')
                                 md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.sex.selectValue(-1)')
-                                    .fab-title.fab-title-left запретить
+                                    .fab-title.fab-title-left(translate='random.forbid')
                                     img(src='assets/img/forbid.png', alt='forbid')
                     .small-3.columns
-                        | Камера
+                        | {{ 'random.video' | translate }}
                         md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.video.isOpened')
                             md-fab-trigger
                                 md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.video.value === -1}")
@@ -110,33 +110,26 @@
                                     img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
                             md-fab-actions
                                 md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.video.selectValue(0)')
-                                    .fab-title.fab-title-left не указывать
+                                    .fab-title.fab-title-left(translate='random.notSet')
                                     .fab-empty-div
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(1)')
-                                    .fab-title.fab-title-left желательно
+                                    .fab-title.fab-title-left(translate='random.prefer')
                                     img(src='assets/img/prefer.png', alt='prefer')
                                 md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(2)')
-                                    .fab-title.fab-title-left обязательно
+                                    .fab-title.fab-title-left(translate='random.require')
                                     img(src='assets/img/require.png', alt='require')
                                 md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.video.selectValue(-1)')
-                                    .fab-title.fab-title-left запретить
+                                    .fab-title.fab-title-left(translate='random.forbid')
                                     img(src='assets/img/forbid.png', alt='forbid')
         .placeholder_for_fab_buttons
         #random-help.row(style='margin-bottom: 9px;')
             .small-12.ta-center.columns
-                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') Помощь
+                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') {{ 'random.help' | translate }}
                 .help(ng-show='showHelpText', scroll-bottom='showHelpText')
                     // Вступление - это текст, который будет видеть вначале ваш собеседник. <br>
-                    p
-                        | С помощью иконок вы можете указать предпочтения по тематике общения.
-                        | Если вы, например, запрещаете "Камеру",
-                        | то вас не будет соединять с теми, кто ищет общения с камерой.
-                    p
-                        | Настройки поиска можно не задавать - тогда вам будет предложен случайный собеседник,
-                        | который так же не задавал конкретных критериев.
-                    p
-                        | Если вы хотите фильтровать по полу, то должен быть указан и ваш пол.
-                        | При выборе возраста собеседника - можно указать несколько групп.
+                    p(translate='random.helpText1')
+                    p(translate='random.helpText2')
+                    p(translate='random.helpText3')
         .row.top-margin(ng-show='false')
             .small-12.columns
                 input(type='text', ng-model='filter.iam.intro', placeholder='Вступление (необязательно)')
@@ -144,21 +137,27 @@
             .small-12.columns
                 input(type='text', ng-model='filter.iam.location', placeholder='Местоположение (необязательно)')
         .row
+            .small-12.column.language-tags-box
+                i.fa.fa-language 
+                | &nbsp
+                span(translate='random.languages')
+                tags-input(ng-model="filter.languages" display-property="name" min-tags="2" available="filter.availableLanguages")
+        .row
             .small-6.columns
-                .text-bold.ta-center Я:
+                .text-bold.ta-center(translate='random.iam')
                 .human-config
                     sex-select(ng-model='filter.iam.sex')
-                    p.text-silver.ta-center Возраст:
-                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['не скажу', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+                    p.age-title.ta-center(translate='random.age')
+                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
             .small-6.columns.ta-center
-                .text-bold Собеседник:
+                .text-bold(translate='random.another')
                 .human-config
                     sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
-                    p.text-silver.ta-center Возраст:
-                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['не важно', 'до 17', 'от 18 до 21', 'от 22 до 25', 'от 26 до 35', 'старше 35']")
+                    p.age-title.ta-center(translate='random.age')
+                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
         .row.top-margin.bottom-margin
             .small-12.ta-center
-                span.text-silver.pointer(ng-click='setDefaultFilterParams()') сбросить фильтр
+                span.text-silver.pointer(ng-click='setDefaultFilterParams()', translate='random.reset')
         br
     .center.top-margin(ng-show='leaving')
         div(spinner='', spinner-color='green')

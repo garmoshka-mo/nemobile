@@ -74,7 +74,7 @@ function($scope, posts, router, $anchorScroll, $location,
 
     $scope.postUrl = function() {
         if (!$scope.url || $scope.url.length < 10) {
-            $scope.postUrlNotice = 'Сначала нужно вставить ссылку';
+            $scope.postUrlNotice = 'pubs.notice.emptyUrl';
             return;
         }
 
@@ -88,7 +88,7 @@ function($scope, posts, router, $anchorScroll, $location,
         posts.publishPost(data).then(function (data) {
             $scope.publishing = false;
             $scope.url = '';
-            $scope.postUrlNotice = 'Ссылка скоро появится в списке';
+            $scope.postUrlNotice = 'pubs.notice.publish';
         });
     };
 

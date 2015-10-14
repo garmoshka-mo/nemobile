@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu', 'language',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList, menu) {
+         router, deviceInfo, $state, $q, friendsList, menu, language) {
     $scope.user = user;
 
     log('main controller is invoked');
@@ -14,6 +14,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.deviceInfo = deviceInfo;
     $scope.isUserScoreShown = true;
     $scope.version = version;
+    $scope.language = language;
     $scope.debug = config('debugMode');
 
     var statesWhereShowBackArrow = [
@@ -68,6 +69,9 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     });
 
     function hideSplashScreen() {
+        $timeout(function() {
+            $('.splash-screen').fadeOut();
+        }, 500);
         if (IS_APP) {
             setTimeout(function() {
                 navigator.splashscreen.hide();
@@ -111,13 +115,24 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         }
     );
 
-    $q.all([
+    var promises = [
         user.loadFromStorage(),
         chats.loadFromStorage(),
         friendsList.loadFromStorage()
-    ])
+    ];
+
+    if (!user.isLogged()) {
+        promises.push(language.detectLanguage());
+    }
+
+    $q.all(promises)
     .then(
-        function() {
+        function(res) {
+            //res[3] should contain
+            //detectLanguage result
+            if (res[3]) {
+                language.change(res[3]);
+            }
             log("all user info was parsed from storage");
         },
         function() {

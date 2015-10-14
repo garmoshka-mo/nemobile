@@ -18,6 +18,7 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
             self.title = "кто-то";
             self.created_at = Date.now();
             self.myIdx = 'me';
+            self.isActive = true;
 
             notification.asked = 0;
 
@@ -50,7 +51,6 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
             };
 
             self.partnerTerminated = function() {
-                session.saveLog();
                 session.sessionFinished(true);
                 self.display_partners_message({type: 'chat_finished'});
             };
@@ -68,11 +68,11 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
             };
 
             self.disconnect = function() {
+                self.isActive = false;
                 log('chat.disconnect');
                 clearTimeout(start_timer);
                 if (externalProvider) {
                     externalProvider.quit();
-                    session.saveLog();
                     session.sessionFinished(false);
                 }
             };

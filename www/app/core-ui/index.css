@@ -43,7 +43,12 @@ button {
 input[type="password"] {
   height: 36px;
 }
-
+.flr {
+  float: right;
+}
+.fll {
+  float: left;
+}
 
 .no-select {
   -webkit-user-select: none;
@@ -808,6 +813,19 @@ img.imageShow {
   animation-fill-mode: both;
 }
 
+ .spinner.small {
+  font-size: 7px;
+  height: 8px;
+  margin-top: 12px;
+  margin-right: 4px;
+}
+
+ .spinner.small div {
+   width: 6px;
+   height: 6px;
+   margin: 2px;
+ }
+
 .spinner .bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
@@ -1063,54 +1081,46 @@ md-menu-item > .md-button {
 }
 
 .title-panel {
-  overflow: hidden;
 }
 
-.bubble {
-  position: absolute;
-  text-align: center;
-  background-color: #F1F3F6;
-  border: 6px solid #5BAB60;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  border-radius: 30px;
-  -webkit-box-shadow: 2px 2px 4px #888;
-  -moz-box-shadow: 2px 2px 4px #888;
-  box-shadow: 2px 2px 4px #888;
-  z-index: 200;
-  top: 48px;
-  right: 20px;
-  max-width: 330px;
-  padding: 5px 13px;
-  margin-left: 5px;
+.language-top-bar-box {
+  margin-left: -20px;
 }
 
- .bubble:before
- {
-   content: ' ';
-   position: absolute;
-   width: 0;
-   height: 0;
-   right: 22px;
-   top: -37px;
-   border: 16px solid;
-   border-color: transparent transparent #5BAB60 #5BAB60;
- }
+.language-top-bar-box i{
+  font-size: 25px;
+}
 
- .bubble h1 {
-   font-size: 1rem;
-   margin: 0;
- }
-
- .bubble p {
-   font-size: .7rem;
-   margin-bottom: 8px;
-   text-align: left;
- }
- .bubble button {
-   margin-bottom: 8px;
- }
+.current-language {
+  padding-right: 5px;
+}
+.language-menu-button {
+  padding: 0;
+  margin: 0;
+}
 
 .md-open-menu-container {
   z-index: 101;
 }
+
+.splash-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #6C6B86;
+  z-index: 2000;
+  display: table;
+  text-align: center;
+}
+.splash-logo-container {
+  vertical-align: middle;
+  display: table-cell;
+  width: 100%;
+  padding-left: 22px;
+}
+
+ md-menu-content .md-focused,
+ md-menu-content .md-button:hover {
+   color: black !important;
+ }
+

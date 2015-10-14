@@ -103,6 +103,9 @@ md-fab-speed-dial md-fab-actions {
     -webkit-user-select: none;
     user-select: none;
 }
+.age-select li:first-child{
+    color: #bdc3c7
+}
 .age-select:hover {
     cursor: pointer;
 }
@@ -180,4 +183,8 @@ sex-select:focus {
 
 .mob-info a {
     float: right;
+}
+.age-title {
+    color: #000;
+    margin: 12px 0 2px;
 }

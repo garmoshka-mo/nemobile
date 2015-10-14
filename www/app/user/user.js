@@ -233,6 +233,19 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         );
     };
 
+    // todo: remove after a while - this is temporary - to save values from browser of users who collected
+    function saveHonor(honor) {
+        if (honor)
+            userRequest.send('PUT', '/profile/save_honor', {honor: honor})
+            .then(
+                function(res) {
+                    self.honor.update({ score: honor });
+                    self.user_score = null;
+                    self.save();
+                }
+            );
+    }
+
     var loadingFromStoragePromise = null;
     this.loadFromStorage = function() {
         if (loadingFromStoragePromise) return loadingFromStoragePromise;
@@ -244,6 +257,8 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         [
             storage.getUser()
             .then(function(dataFromStorage) {
+                setAccessToken(dataFromStorage.accessToken);
+
                 self.name = dataFromStorage.name;
                 self.uuid = dataFromStorage.uuid;
 
@@ -255,8 +270,8 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
                 self.isVirtual = dataFromStorage.isVirtual;
 
                 self.user_score = dataFromStorage.user_score;
+                saveHonor(self.user_score);
 
-                setAccessToken(dataFromStorage.accessToken);
                 // registerDeviceToChannel();
                 stickersGallery.getCurrentUserCategories();
                 log("user info is taken from storage", self);

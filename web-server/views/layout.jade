@@ -45,8 +45,15 @@ html
       script(type='text/javascript', src=prod_js_file, onerror="location.reload()")
 
   body(ng-controller='mainController')
+    .splash-screen
+      .splash-logo-container
+        img(style='width: 70px;' src="assets/img/web_splash_logo.jpg")
+        .spinner.small
+          .dot.bounce1.white
+          .dot.bounce2.white
+          .dot.bounce3.white
+      <div class="spinner"><div class="dot bounce1"></div><div class="dot bounce2"></div><div class="dot bounce3"></div></div>  
     #dummy(style="display:none;")
-    bubble
     .menu.menu-animated(menu)
     .menu-content
       .prevent-click
@@ -67,6 +74,7 @@ html
             i.fa.fa-star
             |&nbsp;
             span(ng-bind='user.score')
+           
         section#top-section(ng-class="{branded: router.top.branded }")
           .wrapper(ng-include='topSectionTemplate')
         div(ng-include='topFooterTemplate')

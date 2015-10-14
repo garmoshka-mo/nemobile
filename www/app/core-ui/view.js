@@ -18,7 +18,7 @@ function ($state, $rootScope, separator) {
             var $mainFooter = separator.getMainFooter();
             var mainSectionHeight = $window.height() - $dragger.position().top;
             if ($mainFooter) {
-                $mainFooter.css({top: $window.height() - 64});
+                $mainFooter.css({top: $window.height() - ($mainFooter.height() || 64)});
                 if (mainSectionHeight < 150) {
                     $mainFooter.hide();
                 } else {

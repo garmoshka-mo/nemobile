@@ -1,8 +1,8 @@
 angular.module("angServices")
 .service('chats', ['$rootScope', 'deviceInfo', 'Chat', 'socket',
-        'storage', 'router',
+        'storage', 'router', 'notification',
     function($rootScope, deviceInfo,  Chat, socket,
-             storage, router) {
+             storage, router, notification) {
         
         var self = this;
 
@@ -14,6 +14,7 @@ angular.module("angServices")
         self.newRandomExternal = function(c) {
             self.current = c;
 
+            notification.suppressOnFocus = true;
             setTimeout(function() { router.openOnTop('chat'); },1);
         };
 
@@ -22,6 +23,7 @@ angular.module("angServices")
             if (!self.current)
                 self.current = self.addChat({channel: channel, myIdx: myIdx});
 
+            notification.suppressOnFocus = true;
             setTimeout(function() { router.openOnTop('chat'); },1);
         };
 

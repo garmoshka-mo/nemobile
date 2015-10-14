@@ -1,5 +1,9 @@
-angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', 'router', '$timeout', '$http', 'sound',
-    function($scope, $stateParams, router, $timeout, $http, sound) {
+angular.module("angControllers").controller("menuController", ['$scope', '$stateParams', 'router', '$timeout', '$http', 'sound', '$translate',
+    function($scope, $stateParams, router, $timeout, $http, sound, $translate) {
+
+        $scope.isRussianLang = function(){
+            return $translate.use() === 'ru';
+        };
 
         $scope.isMenuOpened = false;
         $scope.fullMode = config('fullMode');
