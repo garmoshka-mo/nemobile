@@ -9,7 +9,20 @@
     </div>
     <div ng-switch-when="chat_finished">
         <div class="system_message">
-            {{ 'message.finished' | translate}}&nbsp; {{ 'message.finished.reason' | translate}}
+            <div ng-switch="message.feedback">
+                <div ng-switch-when="thanks">
+                    {{ 'message.finished.thanks' | translate}}
+                </div>
+                <div ng-switch-when="boring">
+                    {{ 'message.finished.boring' | translate}}
+                </div>
+                <div ng-switch-when="disgusting">
+                    {{ 'message.finished.disgusting' | translate}}
+                </div>
+                <div ng-switch-default>
+                    {{ 'message.finished' | translate}}
+                </div>
+            </div>
             <div ng-show="chat">
                 <div class="message-finish">
                     <a ng-click="lookAgain()" translate="message.lookAgain"></a>&nbsp;|&nbsp;

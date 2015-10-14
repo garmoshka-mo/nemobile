@@ -154,8 +154,12 @@
   "message.finished.empty": "Esta charla ha terminado",
   "message.lookAgain": "Iniciar un nuevo diálogo",
   "message.chatSettings": "preferencias",
+
   "message.finished": "El entrevistado dejó el chat.",
-  "message.finished.reason": "La razón:",
+  "message.finished.thanks": "El entrevistado abandonaron la sala de chat, agradeciendo ¡Gracias!:",
+  "message.finished.boring": "El entrevistado dejó el chat Motivo:. Missing",
+  "message.finished.disgusting": "El entrevistado dejó el chat Motivo:. Desagradable",
+
   "message.hidden": "mensaje privado",
   "message.complaint": "inapropiada",
   "message.leaveFeedback": "Deja un comentario:",

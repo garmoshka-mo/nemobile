@@ -16,7 +16,7 @@ function($rootScope, socket, random, chats, user) {
     socket.on('chat_empty', function(envelope) {
         getChatAndDoScores(envelope, function(chat) {
             chat.disconnect(true);
-            chat.sendMessage({type: 'chat_finished'});
+            chat.sendMessage({type: 'chat_finished', feedback: envelope.payload.feedback});
         });
     });
 
@@ -46,10 +46,6 @@ function($rootScope, socket, random, chats, user) {
 
         if (callback) callback(chats.current);
     }
-
-    socket.on('feedback', function(envelope){
-        $rootScope.partnersFeedback = envelope.payload.feedback;
-    });
 
 }]);
 })();
