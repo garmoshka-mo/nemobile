@@ -10,22 +10,21 @@
                     md-menu-content
                         md-subheader
                             span
-                            span 
-                             | Вы можете указать причину отключения, тем самым помочь собеседнику понять, что ему следует исправить в общении.
+                            span
+                             | {{ 'circle.menu.header1' | translate }}
                              br
-                             | Чтобы отключиться без указания причины - нажмите на крестик.
+                             | {{ 'circle.menu.header2' | translate }}
                         md-menu-item
                             .circle-menu-checkbox-container
-                                md-checkbox(ng-model="chats.disconnectWithoutFeedback")
-                                    | Не показывать это меню (всегда просто отключаться)
+                                md-checkbox(ng-model="chats.disconnectWithoutFeedback" translate="circle.menu.disable")
         .circle-menu-item.first(ng-click="disconnect('thanks')")
             img(src="assets/img/circle-menu-thanks.png")
-            span Спасибо!
+            span(translate="feedback.thanks")
     .circle-menu-item-container
         .circle-menu-item.second(ng-click="disconnect('boring')") 
             img(src="assets/img/circle-menu-boring.png")
-            span Скучно
+            span(translate="feedback.boring")
     .circle-menu-item-container
         .circle-menu-item.third(ng-click="disconnect('disgusting')")
             img(src="assets/img/circle-menu-unpleasant.png")
-            span Неприятно    
+            span(translate="feedback.disgusting")

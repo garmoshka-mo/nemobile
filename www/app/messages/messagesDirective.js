@@ -105,17 +105,17 @@
 
         $scope.feedbacks = [
             {
-                title: 'message.feedback.thanks',
+                title: 'feedback.thanks',
                 key: 'thanks',
                 imgSrc: 'assets/img/circle-menu-thanks.png'
             },
             {
-                title: 'message.feedback.boring',
+                title: 'feedback.boring',
                 key: 'boring',
                 imgSrc: 'assets/img/circle-menu-boring.png'
             },
             {
-                title: 'message.feedback.disgusting',
+                title: 'feedback.disgusting',
                 key: 'disgusting',
                 imgSrc: 'assets/img/circle-menu-unpleasant.png'
             }

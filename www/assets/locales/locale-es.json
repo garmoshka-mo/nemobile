@@ -156,19 +156,23 @@
   "message.chatSettings": "preferencias",
 
   "message.finished": "El entrevistado dejó el chat.",
-  "message.finished.thanks": "El entrevistado abandonaron la sala de chat, agradeciendo ¡Gracias!:",
-  "message.finished.boring": "El entrevistado dejó el chat Motivo:. Missing",
-  "message.finished.disgusting": "El entrevistado dejó el chat Motivo:. Desagradable",
+  "message.finished.thanks": "El entrevistado abandonaron la sala de chat, agradeciendo:",
+  "message.finished.boring": "El entrevistado dejó el chat Motivo:",
+  "message.finished.disgusting": "El entrevistado dejó el chat Motivo:",
 
   "message.hidden": "mensaje privado",
   "message.complaint": "inapropiada",
   "message.leaveFeedback": "Deja un comentario:",
-  "message.feedback.thanks": "Gracias",
-  "message.feedback.boring": "aburrido",
-  "message.feedback.disgusting": "Desagradable",
+  "feedback.thanks": "Gracias",
+  "feedback.boring": "aburrido",
+  "feedback.disgusting": "Desagradable",
 
   "complaints.complaint": "Informe:",
   "complaints.spam": "Spam/publicidad",
   "complaints.ignorance": "Una violación grave de los criterios de la conversación especificado",
-  "complaints.insult": "Los insultos sin motivo"
+  "complaints.insult": "Los insultos sin motivo",
+
+  "circle.menu.header1": "Puede especificar el motivo de disparo, por lo tanto ayudar a la otra parte entienda que debe corregirse en la comunicación.",
+  "circle.menu.header2": "Para desconectar sin causa - haga clic en la cruz.",
+  "circle.menu.disable": "No volver a mostrar este menú (siempre a apagar)"
 }

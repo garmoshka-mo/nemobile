@@ -156,19 +156,23 @@
   "message.chatSettings": "Настроить поиск",
 
   "message.finished": "Собеседник покинул чат.",
-  "message.finished.thanks": "Собеседник покинул чат, поблагодарив: Спасибо!",
-  "message.finished.boring": "Собеседник покинул чат. Причина: Скучал",
-  "message.finished.disgusting": "Собеседник покинул чат. Причина: Неприятно",
+  "message.finished.thanks": "Собеседник покинул чат, поблагодарив:",
+  "message.finished.boring": "Собеседник покинул чат. Причина:",
+  "message.finished.disgusting": "Собеседник покинул чат. Причина:",
 
   "message.hidden": "Сообщение скрыто",
   "message.complaint": "Пожаловаться",
   "message.leaveFeedback": "Оставить отзыв:",
-  "message.feedback.thanks": "Спасибо",
-  "message.feedback.boring": "Скучно",
-  "message.feedback.disgusting": "Неприятно",
+  "feedback.thanks": "Спасибо!",
+  "feedback.boring": "Скучно",
+  "feedback.disgusting": "Неприятно",
 
   "complaints.complaint": "Пожаловаться:",
   "complaints.spam": "Спам/реклама",
   "complaints.ignorance": "Грубое нарушение заданных критериев беседы",
-  "complaints.insult": "Оскорбления без причины"
+  "complaints.insult": "Оскорбления без причины",
+
+  "circle.menu.header1": "Вы можете указать причину отключения, тем самым помочь собеседнику понять, что ему следует исправить в общении.",
+  "circle.menu.header2": "Чтобы отключиться без указания причины - нажмите на крестик.",
+  "circle.menu.disable": "Не показывать это меню (всегда просто отключаться)"
 }

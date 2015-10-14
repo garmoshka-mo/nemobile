@@ -11,13 +11,19 @@
         <div class="system_message">
             <div ng-switch="message.feedback">
                 <div ng-switch-when="thanks">
-                    {{ 'message.finished.thanks' | translate}}
+                    {{ 'message.finished.thanks' | translate}}&nbsp;
+                    <img src="assets/img/circle-menu-thanks.png">
+                    {{ 'feedback.thanks' | translate}}
                 </div>
                 <div ng-switch-when="boring">
-                    {{ 'message.finished.boring' | translate}}
+                    {{ 'message.finished.boring' | translate}}&nbsp;
+                    <img src="assets/img/circle-menu-boring.png">
+                    {{ 'feedback.boring' | translate}}
                 </div>
                 <div ng-switch-when="disgusting">
-                    {{ 'message.finished.disgusting' | translate}}
+                    {{ 'message.finished.disgusting' | translate}}&nbsp;
+                    <img src="assets/img/circle-menu-unpleasant.png">
+                    {{ 'feedback.disgusting' | translate}}
                 </div>
                 <div ng-switch-default>
                     {{ 'message.finished' | translate}}
