@@ -173,9 +173,15 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("randomRestart", {
                 url: "/random",
                 views: {
-                    "title": {
-                        template: "Чат наугад - DUB.iNK"
-                    },
+                    "content": {
+                        controller: "randomController",
+                        templateUrl: "app/chats-ui/random.html?"+version
+                    }
+                }
+            })
+            .state("lookAgain", {
+                url: "/random",
+                views: {
                     "content": {
                         controller: "randomController",
                         templateUrl: "app/chats-ui/random.html?"+version

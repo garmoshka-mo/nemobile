@@ -49,6 +49,7 @@ function(notification, SpamFilter, timer, ScoreKeeper,
 
             if (message.type) {
                 msg.type = message.type;
+                msg.feedback = message.feedback;
                 // For debug:
                 if (message.type =='chat_finished') {
                     filter({

@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader',
+            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu',
     function(user, $scope, $stateParams, $state, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, router, view, chatHeader) {
+                chats, googleAnalytics, router, view, chatHeader, circleMenu) {
 
         log("chat controller is invoked");
 
@@ -68,16 +68,52 @@ angular.module("angControllers").controller("chatController",
             chatHeader.setChatHeader(chat);
         }
 
-        $scope.disconnectRandomChat = function() {
-            chat.disconnect();
+
+        function disconnectRandomChat(feedback) {
+            chat.disconnect(false, feedback);
             googleAnalytics.dialogComplete();
             timer.stop();
             notification.setSmallIcon(null);
-            router.openOnTop('randomRestart');
+        }
+
+        $scope.closeAndLookAgain = function() {
+            disconnectRandomChat();
+            router.openOnTop('lookAgain');
         };
 
-        notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);
+        $scope.closeAndChatSettings = function() {
+            disconnectRandomChat();
+            router.openOnTop('randomFull');
+        };
+
+        $scope.disconnectRandomChat = function(feedback) {
+            disconnectRandomChat(feedback);
+            router.openOnTop('randomRestart');
+        };
+        
+        notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button"></i>', exitButtonClickHandler);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
+
+        function exitButtonClickHandler() {
+            if (chat.isActive && !chats.disconnectWithoutFeedback) {
+                circleMenu.open();
+            }
+            else {
+                $scope.disconnectRandomChat();
+            }
+        }
+       
+        $timeout(function() {
+            var circleMenuOpenButton = new Hammer($(".circle-menu-open-button").get(0), {
+                inputClass: Hammer.TouchMouseInput
+            });
+
+            circleMenuOpenButton.on('press', function() {
+                circleMenu.open();
+            });
+        }, 0);
+        
+
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {
             chat.updateInfo()

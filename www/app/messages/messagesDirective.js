@@ -1,13 +1,13 @@
 (function(){
     angular.module("angApp").directive('messages', function() {
         return {
-            scope: {session: '=', close: '&', chat: '='},
+            scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'timer', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
+            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
         };
     });
 
-    function controller($scope, timer, $sce, $mdDialog, $timeout, $rootScope) {
+    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -96,6 +96,35 @@
                 return messageText;
             }
         }
+
+        $scope.complaint = chatHeader.partnerTitleClickHandler;
+
+        $scope.showAdditional = function(){
+            $scope.additional = true;
+        };
+
+        $scope.feedbacks = [
+            {
+                title: 'feedback.thanks',
+                key: 'thanks',
+                imgSrc: 'assets/img/circle-menu-thanks.png'
+            },
+            {
+                title: 'feedback.boring',
+                key: 'boring',
+                imgSrc: 'assets/img/circle-menu-boring.png'
+            },
+            {
+                title: 'feedback.disgusting',
+                key: 'disgusting',
+                imgSrc: 'assets/img/circle-menu-unpleasant.png'
+            }
+        ];
+
+        $scope.leaveFeedback = function(key){
+            $scope.selectedKey = key;
+            socket.emit('feedback', { channel: $scope.session.chat.channel, feedback: key });
+        };
     }
 
 })();

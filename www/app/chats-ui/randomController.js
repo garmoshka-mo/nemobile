@@ -135,6 +135,7 @@ angular.module("angControllers")
 
         $scope.cancelLookingFor = function() {
             random.cancelLookingFor();
+            $scope.isLookingAgain = false;
         };
 
         $scope.helpClick = function() {
@@ -216,5 +217,11 @@ angular.module("angControllers")
             $scope.setDefaultFilterParams();
             extendFilterObject();
         }
+
+        if(router.top.name == 'lookAgain') {
+            $scope.isLookingAgain = true;
+            $scope.lookForChat();
+        }
+
     }
 ]);
