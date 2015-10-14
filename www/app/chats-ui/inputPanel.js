@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'api',
-function($scope, separator, view, chats, dictionary, $rootScope, api) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'api', 'notification',
+function($scope, separator, view, chats, dictionary, $rootScope, api, notification) {
 
     var $chatInput = $('.chat-input');
 
@@ -89,6 +89,8 @@ function($scope, separator, view, chats, dictionary, $rootScope, api) {
     }
 
     $scope.input_keypress = function(event) {
+        notification.activateWindow();
+
         chat.iStartedInput = true;
         if (chat.type == 'internal') {
             detectUserTyping();

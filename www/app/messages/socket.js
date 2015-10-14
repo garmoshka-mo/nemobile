@@ -50,9 +50,9 @@ function($rootScope, user, auth) {
     function onReady() {
         log('Socket onReady', postponedTasks);
         ready = true;
-        postponedTasks.map(function(args){
-            socket.emit.apply(socket, args);
-        });
+
+        while (postponedTasks.length > 0)
+            socket.emit.apply(socket, postponedTasks.shift());
     }
 
     var postponedTasks = [];

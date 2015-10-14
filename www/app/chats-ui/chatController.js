@@ -122,4 +122,8 @@ angular.module("angControllers").controller("chatController",
 
         view.scrollDownTopSection();
         chats.countUnreadChats();
+
+        setTimeout(function() {
+            notification.suppressOnFocus = false;
+        }, 1000);
 }]);
