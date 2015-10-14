@@ -11,6 +11,7 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     $scope.IS_APP = IS_APP;
     $scope.IS_MOBILE = IS_MOBILE;
     $scope.IS_ANDROID = IS_ANDROID;
+    $scope.ALT_UI = ALT_UI;
     $scope.deviceInfo = deviceInfo;
     $scope.isUserScoreShown = true;
     $scope.version = version;

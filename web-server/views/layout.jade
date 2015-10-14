@@ -6,9 +6,9 @@ doctype html
   permission of DUB.INK
 html
   head
-    title Чат наугад - DUB.iNK
-    meta(name='description', content='Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий')
-    meta(property='og:image', content='http://dub.ink/assets/img/screen1.jpg')
+    title= title
+    meta(name='description', content=descr)
+    meta(property='og:image', content=og_image)
     meta(charset='utf-8')
     meta(name='format-detection', content='telephone=no')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
@@ -44,7 +44,7 @@ html
     if (prod_js_file)
       script(type='text/javascript', src=prod_js_file, onerror="location.reload()")
 
-  body(ng-controller='mainController')
+  body(ng-controller='mainController' data-alt=alt)
     .splash-screen
       .splash-logo-container
         img(style='width: 70px;' src="assets/img/web_splash_logo.jpg")

@@ -41,6 +41,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
         passiveDeferred.resolve();
 
         localStorage.setItem('isLogged', true);
+        if (ALT_UI) localStorage.setItem('altUI', true);
     }
 
     function setAccessToken(accessToken) {

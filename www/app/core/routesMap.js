@@ -2,6 +2,17 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
+
+        var randomUrl = "/",
+            pubListUrl = "/pub",
+            pubListTop = {state: 'randomLaunch'};
+
+        if (ALT_UI) {
+            randomUrl = "/random";
+            pubListUrl = "/";
+            pubListTop = {resize: 'hide', disableAnimation: true};
+        }
+
         $stateProvider
             .state("start", {
                 url: "/start",
@@ -132,7 +143,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("random", {
-                url: "/",
+                url: randomUrl,
                 views: {
                     "top": {state: 'randomFull'},
                     "title": {
@@ -146,9 +157,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("pubsList", {
-                url: "/pub",
+                url: pubListUrl,
                 views: {
-                    "top": {state: 'randomLaunch'},
+                    "top": pubListTop,
                     "title": {
                         template: "Паблик - DUB.iNK"
                     },
