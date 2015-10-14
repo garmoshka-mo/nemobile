@@ -107,17 +107,17 @@
             {
                 title: 'message.feedback.thanks',
                 key: 'thanks',
-                imgSrc: 'assets/img/thanks.png'
+                imgSrc: 'assets/img/circle-menu-thanks.png'
             },
             {
                 title: 'message.feedback.boring',
                 key: 'boring',
-                imgSrc: 'assets/img/boring.png'
+                imgSrc: 'assets/img/circle-menu-boring.png'
             },
             {
                 title: 'message.feedback.disgusting',
                 key: 'disgusting',
-                imgSrc: 'assets/img/disgusting.png'
+                imgSrc: 'assets/img/circle-menu-unpleasant.png'
             }
         ];
 

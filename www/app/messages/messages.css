@@ -77,8 +77,13 @@
     margin-bottom: 10px;
 }
 .message-feedback {
-
+    display: inline-block;
+    padding: 5px;
 }
 .message-feedback.selected {
     background: #5BAB60;
+}
+.message-feedback img {
+    width: 30px;
+    margin-right: 5px;
 }
