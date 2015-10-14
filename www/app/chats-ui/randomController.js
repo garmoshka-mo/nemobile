@@ -125,8 +125,12 @@ angular.module("angControllers")
             }
         });
 
+        function findAvailableLanguages() {
+            $scope.filter.availableLanguages = _.difference(language.available, $scope.filter.languages);
+        }
+        
         $scope.$watch('filter.languages.length', function() {
-            $scope.filter.availableLanguages = _.difference(language.available, $scope.filter.languages);    
+            findAvailableLanguages();        
         });
 
         $scope.cancelLookingFor = function() {
@@ -190,8 +194,19 @@ angular.module("angControllers")
             $scope.filter = filter;
             extendFilterObject();
             
+            $scope.filter.availableLanguages = language.available;
             if (filter.languages) {
-                filter.languages = filter.languages;
+                //it is necessary
+                //in order to language in filter.languages
+                //has to point to language from languages.available
+                //(have the same ref)
+                //for correct tags work  
+                var buffer = [];
+                filter.languages.forEach(function(lan) {
+                    buffer.push(_.find(language.available, {key: lan.key}));
+                });
+                $scope.filter.languages = buffer;
+                findAvailableLanguages();        
             }
             else {
                 setLanguagesFilter();
