@@ -5,7 +5,7 @@ angular.module("angFactories").factory('ExternalProvider',
 function(notification, SpamFilter, api, TeacherBot, ActivityBot,
          SlowpokesFriend, defaultIntro, altIntro, $rootScope, user) {
 
-    return function ExternalProvider(chat, session, preferences, level) {
+    return function ExternalProvider(chat, session, preferences, level, withEmergency) {
         var provider = new Chat({
             onBegin: userFound,
             onDisconnect: terminated,
@@ -28,7 +28,8 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             }),
             slowpokesFriend = new SlowpokesFriend(provider, filter);
 
-        var allowEmergencyThrow = false, maxEmergencyThrows = 4, emergencyTimer, emergencyThrowActivated = false;
+        var allowEmergencyThrow = false, maxEmergencyThrows = 4, emergencyTimer,
+            emergencyThrowActivated = withEmergency;
         if (!user.emergencyThrowsCount) user.emergencyThrowsCount = 0;
 
         var intro,
@@ -52,7 +53,9 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             allowEmergencyThrow = user.emergencyThrowsCount < maxEmergencyThrows;
         }
 
-        log('Initialized', level, timeout);
+        if (emergencyThrowActivated) intro = '';
+
+        log('Initialized', level, timeout, 'Emergency:', emergencyThrowActivated);
 
         function startLookup() {
             reconnect();
@@ -186,7 +189,8 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
         function shadowing() {
             log('Shadowing');
             shadow = true;
-            chat.startNewSession();
+            clearTimeout(emergencyTimer);
+            chat.startNewSession(emergencyThrowActivated);
         }
 
         function decide_to_chat(message) {
@@ -275,6 +279,7 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             cancelDelayedTask();
             activity.calmDown();
             clearTimeout(autoBeginTimer);
+            clearTimeout(emergencyTimer);
             if (provider) provider.Disconnect();
             if (talking) filter.log({text: '===кончина===', isOwn: true});
         };

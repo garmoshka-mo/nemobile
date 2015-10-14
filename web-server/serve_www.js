@@ -13,6 +13,7 @@ var assetsGraber =  require('./assetsGraber');
 //var bodyParser = require('body-parser');
 var compression = require('compression');
 var app = express();
+var assets, assetsAlt;
 
 var basicAuth = require('basic-auth-connect');
 if (process.env.HTTP_AUTH)
@@ -57,7 +58,11 @@ app.get('/exit', function (req, res) {
 });
 
 app.get('/version', function (req, res) {
-    res.send('{"version":"'+version.version+'"}');
+    res.send(version);
+});
+
+app.get(['/v', '/v:slug'], function (req, res) {
+    res.render('index', assetsAlt);
 });
 
 // catch 404 and forward to error handler
@@ -95,12 +100,24 @@ app.use(function(err, req, res, next) {
         }));
 });
 
-var assets;
-
 assetsGraber
 .then(function(result) {
     assets = result;
-    server = app.listen(process.env.PORT || 8080, function () {
+    assetsAlt = _.clone(assets);
+
+    assets.title = 'Чат наугад - DUB.iNK';
+    assets.descr = 'Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий';
+    assets.og_image = 'http://dub.ink/assets/img/screen1.jpg';
+    assetsAlt.alt=false;
+
+    assetsAlt.title = 'Это что-то новое - DUB.iNK';
+    assetsAlt.descr = 'Место где можно просто зависнуть и встретить интересных людей';
+    assetsAlt.og_image = 'http://dub.ink/assets/img/screen-alt.jpg';
+    assetsAlt.alt=true;
+
+    if (version.alt) assets = assetsAlt;
+
+    var server = app.listen(process.env.PORT || 8080, function () {
         var host = server.address().address;
         var port = server.address().port;
         console.log('listening at http://%s:%s', host, port);

@@ -1,1 +1,1 @@
-module.exports = { version: "dev" };
+module.exports = { version: "dev", alt: false };

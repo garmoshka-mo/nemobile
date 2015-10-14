@@ -38,7 +38,6 @@ angular.module("angControllers")
 
         function saveFilterState() {
             localStorage.randomFilter = JSON.stringify($scope.filter);
-            console.log(localStorage.randomFilter);
         }
 
         function prepareAgeRange(arrayOfIndexes) {

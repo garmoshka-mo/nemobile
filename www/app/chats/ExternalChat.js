@@ -29,9 +29,9 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
                 start_timer = setTimeout(self.startNewSession, 500);
             };
 
-            self.startNewSession = function() {
+            self.startNewSession = function(withEmergency) {
                 initSession();
-                externalProvider = new ExternalProvider(self, session, preferences, level);
+                externalProvider = new ExternalProvider(self, session, preferences, level, withEmergency);
             };
 
             function initSession() {
