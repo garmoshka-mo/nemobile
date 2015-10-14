@@ -1,16 +1,18 @@
 var version = 'dev', config;
 var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
+var ALT_UI;
 
 var ua = navigator.userAgent.toLowerCase();
 var IS_ANDROID = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
 
-window.onload = function onLoad() {
+$(function() {
+    setIsAlt();
     config = new Config(App.Settings);
     window.debugMode = config('debugMode');
     bootstrapAngularApp();
     VK.init({apiId: 5067621, onlyWidgets: true});
-};
+});
 
 angular.module("angApp")
 
@@ -42,6 +44,14 @@ angular.module("angApp")
         //messages and pubnubsubscription are not used
         //but they have to be injected in order to be invoked
     }]);
+
+function setIsAlt() {
+    ALT_UI = typeof $('body').attr('data-alt') != 'undefined';
+    if (ALT_UI) {
+       // if (localStorage.getItem('isLogged') && !localStorage.getItem('altUI'))
+       //     ALT_UI = false;
+    }
+}
 
 
 function bootstrapAngularApp() {

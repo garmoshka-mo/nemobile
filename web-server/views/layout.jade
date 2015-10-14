@@ -44,7 +44,7 @@ html
     if (prod_js_file)
       script(type='text/javascript', src=prod_js_file, onerror="location.reload()")
 
-  body(ng-controller='mainController')
+  body(ng-controller='mainController' data-alt=alt)
     .splash-screen
       .splash-logo-container
         img(style='width: 70px;' src="assets/img/web_splash_logo.jpg")

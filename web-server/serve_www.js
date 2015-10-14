@@ -13,7 +13,7 @@ var assetsGraber =  require('./assetsGraber');
 //var bodyParser = require('body-parser');
 var compression = require('compression');
 var app = express();
-var assets, assetsVK;
+var assets, assetsAlt;
 
 var basicAuth = require('basic-auth-connect');
 if (process.env.HTTP_AUTH)
@@ -58,11 +58,11 @@ app.get('/exit', function (req, res) {
 });
 
 app.get('/version', function (req, res) {
-    res.send('{"version":"'+version.version+'"}');
+    res.send(version);
 });
 
 app.get(['/v', '/v:slug'], function (req, res) {
-    res.render('index', assetsVK);
+    res.render('index', assetsAlt);
 });
 
 // catch 404 and forward to error handler
@@ -103,15 +103,19 @@ app.use(function(err, req, res, next) {
 assetsGraber
 .then(function(result) {
     assets = result;
-    assetsVK = _.clone(assets);
+    assetsAlt = _.clone(assets);
 
     assets.title = 'Чат наугад - DUB.iNK';
     assets.descr = 'Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий';
     assets.og_image = 'http://dub.ink/assets/img/screen1.jpg';
+    assetsAlt.alt=false;
 
-    assetsVK.title = 'Это что-то новое - DUB.iNK';
-    assetsVK.descr = 'Место где можно просто зависнуть и встретить интересных людей';
-    assetsVK.og_image = 'http://dub.ink/assets/img/screen-alt.jpg';
+    assetsAlt.title = 'Это что-то новое - DUB.iNK';
+    assetsAlt.descr = 'Место где можно просто зависнуть и встретить интересных людей';
+    assetsAlt.og_image = 'http://dub.ink/assets/img/screen-alt.jpg';
+    assetsAlt.alt=true;
+
+    if (version.alt) assets = assetsAlt;
 
     var server = app.listen(process.env.PORT || 8080, function () {
         var host = server.address().address;
