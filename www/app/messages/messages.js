@@ -37,7 +37,7 @@ function($rootScope, socket, random, chats, user, Avatar, Partner) {
     function makePartner(envelope) {
         var partnerProfile;
         for (var profileId in envelope.payload.profiles) {
-            if (profileId !== envelope.my_idx) {
+            if (profileId !== envelope.my_idx.toString()) {
                 partnerProfile = envelope.payload.profiles[profileId];
                 break;
             }
