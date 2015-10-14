@@ -90,17 +90,30 @@ angular.module("angControllers").controller("chatController",
             disconnectRandomChat(feedback);
             router.openOnTop('randomRestart');
         };
-
-        var handler = chats.disconnectWithoutFeedback ? 
-            $scope.disconnectRandomChat : circleMenu.open;
-        notification.setSmallIcon('<i class="fa fa-close"></i>', handler);
+        
+        notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button"></i>', exitButtonClickHandler);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
 
-        $scope.$watch('chat.isActive', function(newValue) {
-            if (!newValue) {
-                notification.setSmallIcon('<i class="fa fa-close"></i>', $scope.disconnectRandomChat);   
+        function exitButtonClickHandler() {
+            if (chat.isActive && !chats.disconnectWithoutFeedback) {
+                circleMenu.open();
             }
-        });
+            else {
+                $scope.disconnectRandomChat();
+            }
+        }
+       
+        $timeout(function() {
+            var circleMenuOpenButton = new Hammer($(".circle-menu-open-button").get(0), {
+                inputClass: Hammer.TouchMouseInput
+            });
+
+            circleMenuOpenButton.on('press', function() {
+                circleMenu.open();
+            });
+        }, 0);
+        
+
         
         if (chat.title === chat.senderId || !chat.photoUrlMini) {
             chat.updateInfo()

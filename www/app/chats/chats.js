@@ -10,6 +10,7 @@ angular.module("angServices")
         self.current = null;
         self.disconnectWithoutFeedback = false;
 
+
         log('chats', self);
 
         self.newRandomExternal = function(c) {
@@ -49,18 +50,14 @@ angular.module("angServices")
         };
 
         self.save = function() {
-            // storage.saveChats(self.list);
-            // log("user chats are saved");
+            storage.saveChats(self);
+            log("user chats are saved");
         };
+        $rootScope.$watch(function(){return self.disconnectWithoutFeedback;}, self.save);
 
         self.loadFromStorage = function() {
             return storage.getChats().then(function(dataFromStorage) {
-                var _chats = {};
-                for (var key in dataFromStorage) { 
-                    _chats[key] = Chat.loadFromStorage(dataFromStorage[key], self);
-                }
-                self.list = _chats;
-                
+                self.disconnectWithoutFeedback = dataFromStorage.disconnectWithoutFeedback;
                 log("user chats are taken from storage", self.list);
             });
         };
