@@ -49,10 +49,6 @@ app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
     });
 });
 
-app.get(['/v', '/v:slug'], function (req, res) {
-    res.render('index', assetsVK);
-});
-
 app.get(index_routes, function (req, res) {
     res.render('index', assets);
 });
@@ -63,6 +59,10 @@ app.get('/exit', function (req, res) {
 
 app.get('/version', function (req, res) {
     res.send('{"version":"'+version.version+'"}');
+});
+
+app.get(['/v', '/v:slug'], function (req, res) {
+    res.render('index', assetsVK);
 });
 
 // catch 404 and forward to error handler
