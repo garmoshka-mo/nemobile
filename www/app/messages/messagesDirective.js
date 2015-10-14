@@ -3,11 +3,11 @@
         return {
             scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', controller]
+            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
         };
     });
 
-    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope) {
+    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -123,7 +123,7 @@
 
         $scope.leaveFeedback = function(key){
             $scope.selectedKey = key;
-            //TODO: Implement socket feedback { channel: 'abc123', feedback: boring };
+            socket.emit('feedback', { channel: $scope.session.chat.channel, feedback: key });
         };
     }
 

@@ -47,5 +47,9 @@ function($rootScope, socket, random, chats, user) {
         if (callback) callback(chats.current);
     }
 
+    socket.on('feedback', function(envelope){
+        $rootScope.partnersFeedback = envelope.payload.feedback;
+    });
+
 }]);
 })();
