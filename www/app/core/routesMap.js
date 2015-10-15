@@ -491,6 +491,15 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                         templateUrl: "app/etc/mobileApp.html?"+version
                     }
                 }
+            })
+            .state("gallery", {
+                url: "/gallery",
+                views: {
+                    "content": {
+                        controller: "galleryController",
+                        templateUrl: "app/media/gallery/gallery.html?" + version
+                    }
+                }
             });
 
         // .state("updateProfile", {
