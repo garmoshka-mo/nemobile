@@ -42,7 +42,7 @@ function($rootScope, user, auth) {
                 user.refreshProfile(envelope.profile);
             onReady();
         } else {
-            console.error('socket auth failed', envelope);
+            error('socket auth failed', envelope);
             user.logoutAndGoHome();
         }
     });

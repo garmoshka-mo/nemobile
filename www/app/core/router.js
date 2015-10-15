@@ -25,7 +25,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         $state.get().some(function(s) {
             if (s.name == stateName) return state = s;
         });
-        if (!state) return console.error('unknown state');
+        if (!state) return error('unknown state', state);
 
         self.top  = state;
 

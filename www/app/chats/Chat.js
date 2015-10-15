@@ -229,7 +229,7 @@ angular.module("angFactories").factory("Chat",
                             }
                         },
                         function() {
-                            console.error("get chat title error");
+                            error("get chat title error");
                             d.reject();
                         }
                     )

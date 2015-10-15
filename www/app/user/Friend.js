@@ -103,7 +103,7 @@ angular.module("angFactories").factory("Friend", ['storage', '$q', function(stor
             }
         }
         else {
-            console.error("Friend constructor is called without necessary data");
+            error("Friend constructor is called without necessary data");
         }
     }
 

@@ -33,7 +33,7 @@ angular.module("angControllers").controller("homepageController", [
                 handleSearchResults(results);
             },
             function() {
-                console.error("friend search error");
+                error("friend search error");
             }
         )
         .then(

@@ -12,6 +12,7 @@ window.App.Settings = {
     appUrl: "http://dub.ink",
     gaTrackingCodeWeb: 'UA-50069297-8',
     gaTrackingCodeMobile: 'UA-50069297-9',
+    rollbarKey: 'a488699dda4b46dfb9a3b7da26c633e1',
     externalChat: true,
     fullMode: false
 };
