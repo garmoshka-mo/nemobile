@@ -1,4 +1,6 @@
 {
+  "Close": "Закрыть",
+
   "menu.random": "Чат наугад",
   "menu.pub": "Паблик",
   "menu.vk": "Группа ВК",
@@ -9,7 +11,7 @@
 
   "notification.typing": "печатает...",
 
-  "random.mobinfo1": "Браузер мобильного поддерживает не все функции чата.",
+  "random.mobinfo1": "Чтобы не пропустить сообщение, установите приложение",
   "random.mobinfo2": "Рекомендуем установить приложение",
   "random.lookForChat": "Начать чат",
   "random.settings": "Настройки",
@@ -155,7 +157,7 @@
   "message.lookAgain": "Начать новый диалог",
   "message.chatSettings": "Настроить поиск",
 
-  "message.finished": "Собеседник покинул чат.",
+  "message.finished": "Собеседник покинул чат",
   "message.finished.thanks": "Собеседник покинул чат, поблагодарив:",
   "message.finished.boring": "Собеседник покинул чат. Причина:",
   "message.finished.disgusting": "Собеседник покинул чат. Причина:",

@@ -276,7 +276,7 @@ angular.module("angFactories").factory("Chat",
         disconnect: function(byPartner, feedback) {
             // this.currentUser.removeDeviceFromChannel(this.channel);
             if (this.lastUnexpiredChatSession)
-                this.lastUnexpiredChatSession.sessionFinished(byPartner);
+                this.lastUnexpiredChatSession.sessionFinished(byPartner, feedback);
             this.isActive = false;
             var url = '/chats/' + this.channel;
             if (feedback) {

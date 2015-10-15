@@ -11,6 +11,10 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             randomUrl = "/random";
             pubListUrl = "/";
             pubListTop = {resize: 'hide', disableAnimation: true};
+        } else if (!watches.isWorkingTime) {
+            randomUrl = "/random";
+            pubListUrl = "/";
+            pubListTop = {state: 'chatClosed'}
         }
 
         $stateProvider
@@ -127,6 +131,17 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     "content": {
                         controller: "standardNavigationController",
                         templateUrl: "app/chats-ui/randomLaunch.html?"+version
+                    }
+                }
+            })
+            .state("chatClosed", {
+                views: {
+                    "top": {
+                        resize: 'smallChat'
+                    },
+                    "content": {
+                        controller: "closedController",
+                        templateUrl: "app/chats-ui/closed.html?"+version
                     }
                 }
             })

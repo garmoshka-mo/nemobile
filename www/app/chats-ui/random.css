@@ -172,7 +172,17 @@ sex-select:focus {
 }
 
 .search-status {
-    padding: 18px 10px;
+    color: #4C4C4C;
+    background: rgba(236, 236, 236, 0.79);
+    border-radius: 18px;
+    font-size: 14px;
+    width: 80%;
+    margin-top: 3px;
+    margin-bottom: 18px;
+}
+
+.random-header .bg-red {
+    background-color: rgba(224, 79, 63, 0.58);
 }
 
 .mob-info {
@@ -182,9 +192,30 @@ sex-select:focus {
 }
 
 .mob-info a {
-    float: right;
+    margin: 3px;
 }
 .age-title {
     color: #000;
     margin: 12px 0 2px;
+}
+
+
+.random-header {
+    padding-top: 1rem;
+}
+
+.random-header button {
+    background-color: rgba(91, 171, 96, 0.72);
+}
+
+.relaunch-buttons {
+    padding-bottom: 50px;
+}
+.relaunch-buttons button {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+#searchParameters {
+    margin-top: 10px;
 }
