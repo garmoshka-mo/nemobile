@@ -59,7 +59,8 @@ angular.module("angServices")
         self.loadFromStorage = function() {
             return storage.getChats().then(function(dataFromStorage) {
                 if (dataFromStorage) {
-                    self.disconnectWithoutFeedback = dataFromStorage.disconnectWithoutFeedback;
+                    self.disconnectWithoutFeedback = _.isUndefined(dataFromStorage.disconnectWithoutFeedback) ?
+                        false : dataFromStorage.disconnectWithoutFeedback;
                     log("user chats are taken from storage", self.list);
                 }
             });
