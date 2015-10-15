@@ -81,7 +81,8 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     margin-top: 6px;
 }
 .chat-header .scores {
@@ -97,23 +98,14 @@
 
 .animated-slow{
     -webkit-transition: opacity 3s ease-in-out;
-    -moz-transition: opacity 3s ease-in-out;
-    -ms-transition: opacity 3s ease-in-out;
-    -o-transition: opacity 3s ease-in-out;
     transition: opacity 3s ease-in-out;
 }
 .animated-fast{
     -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -ms-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 .animated{
     -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -ms-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 
