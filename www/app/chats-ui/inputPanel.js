@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification',
-function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery',
+function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery) {
 
     var $chatInput = $('.chat-input');
 
@@ -172,4 +172,12 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
 
     $scope.setFocusOnTextField();
 
+    $scope.toggleGalleryPanel = function() {
+        gallery.galleryPanelOpened = !gallery.galleryPanelOpened;
+        setTimeout(function() {
+            separator.updateElements();
+            separator.updateRestrictions();
+        }, 0);
+    };
+    gallery.setSendMessageHandler($scope.sendMessage);
 }]);

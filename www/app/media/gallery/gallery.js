@@ -2,7 +2,18 @@ angular.module('angServices').service('gallery', [
     '$rootScope',
     function($rootScope) {
         var self = this;
-        //self.send(
+        var sendMessageHandler = null;
+
+        self.galleryPanelOpened = false;
+
+        self.setSendMessageHandler = function(handler) {
+            sendMessageHandler = handler;
+        };
+        self.sendMessage = function(message) {
+            if (sendMessageHandler) {
+                sendMessageHandler(message);
+            }
+        };
     }]);
 
 angular.module("angControllers").controller("galleryPanelController", [

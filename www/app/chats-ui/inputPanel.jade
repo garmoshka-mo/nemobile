@@ -1,7 +1,7 @@
 .input-panel(ng-controller='inputPanelController')
     #footer
-        .appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")
-            img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')
+        //.appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")
+        //    img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')
         .wrapper
             #alert(ng-model='errorDescription', alert-box='')
         .background
@@ -11,6 +11,8 @@
                         i.fa.fa-image
                     .chat-input-container
                         input.chat-input(placeholder="{{'chat.placeholder' | translate }}", type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keydown='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
+                    .chat-gallery-button.pointer(ng-click='toggleGalleryPanel()')
+                        img(src="assets/img/gallery-smile.png")
                 button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!(deviceInfo.isOldAndroid || deviceInfo.isIos)')
                     i.fa.fa-paper-plane(ng-show='!isMessageSending')
                     span(ng-show='isMessageSending', spinner='', spinner-color='white')
