@@ -12,3 +12,7 @@
 .gallery-panel .circle {
     float: right;
 }
+.smileys span {
+    color: white;
+    cursor: pointer;
+}
