@@ -17,7 +17,6 @@ function($rootScope, user, $postpone, Avatar) {
         else {
             self.partner.ava_url = Avatar.fromId(Math.random()).urlMini;
         }
-        $rootScope.$apply();
         chat.getLastUnexpiredChatSession()
             .then(sessionReceived);
     };

@@ -37,6 +37,10 @@ angular.module("angServices")
                         output.url = makeUrl(dataFromServer.uuid);
                         output.urlMini = makeUrlMini(dataFromServer.uuid);
                     }
+                    else {
+                        output.url = makeUrl(Math.round(Math.random() * 1000));
+                        output.urlMini = makeUrlMini(Math.round(Math.random() * 1000));    
+                    }
                 }
                 else {
                     output.url = makeUrl(Math.round(Math.random() * 1000));
