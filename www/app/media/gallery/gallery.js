@@ -20,6 +20,8 @@ angular.module("angControllers").controller("galleryPanelController", [
     '$scope', 'gallery',
     function($scope, gallery){
         $scope.g = gallery;
+
+        $scope.smileys = ['?','?','?','?','☺','️'];
     }]);
 
 angular.module("angControllers").controller("galleryController", [
