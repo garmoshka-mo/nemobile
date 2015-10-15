@@ -20,10 +20,10 @@ angular.module("angServices")
             setTimeout(function() { router.openOnTop('chat'); },1);
         };
 
-        self.newRandomInternal = function(channel, myIdx) {
+        self.newRandomInternal = function(channel, myIdx, partner) {
             self.current = self.getChat(channel);
             if (!self.current)
-                self.current = self.addChat({channel: channel, myIdx: myIdx});
+                self.current = self.addChat({channel: channel, myIdx: myIdx, partner: partner});
 
             notification.suppressOnFocus = true;
             setTimeout(function() { router.openOnTop('chat'); },1);
@@ -46,6 +46,7 @@ angular.module("angServices")
             self.list[chatData.channel] = new Chat(chatData);
             self.list[chatData.channel].updateInfo();
             self.save();
+            console.log(self.list[chatData.channel]);
             return self.list[chatData.channel];
         };
 

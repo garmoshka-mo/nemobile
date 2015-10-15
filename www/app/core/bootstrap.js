@@ -3,14 +3,17 @@ var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('htt
 var IS_MOBILE = isMobile();
 var ALT_UI;
 
-var ua = navigator.userAgent.toLowerCase();
-var IS_ANDROID = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+var watches;
+var userAgent = navigator.userAgent.toLowerCase();
+var IS_ANDROID = userAgent.indexOf("android") > -1; //&& ua.indexOf("mobile");
 
 $(function() {
     setIsAlt();
     config = new Config(App.Settings);
     window.debugMode = config('debugMode');
-    bootstrapAngularApp();
+
+    watches = new Watches(bootstrapAngularApp);
+
     VK.init({apiId: 5067621, onlyWidgets: true});
 });
 
@@ -52,7 +55,6 @@ function setIsAlt() {
        //     ALT_UI = false;
     }
 }
-
 
 function bootstrapAngularApp() {
     if (IS_APP)

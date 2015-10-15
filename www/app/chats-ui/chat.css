@@ -81,7 +81,8 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     margin-top: 6px;
 }
 .chat-header .scores {
@@ -97,23 +98,14 @@
 
 .animated-slow{
     -webkit-transition: opacity 3s ease-in-out;
-    -moz-transition: opacity 3s ease-in-out;
-    -ms-transition: opacity 3s ease-in-out;
-    -o-transition: opacity 3s ease-in-out;
     transition: opacity 3s ease-in-out;
 }
 .animated-fast{
     -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -ms-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 .animated{
     -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -ms-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
 }
 
@@ -130,4 +122,38 @@
 }
 a.options {
     color: white;
+}
+
+.closed .closed-wrapper {
+    width: 352px;
+    margin: 0 auto;
+}
+
+.closed .banner {
+    height: 100px;
+    text-align: right;
+    font-size: 12px;
+    padding: 6px 10px;
+    color: #42403F;
+}
+
+.closed .info {
+    padding-top: 18px;
+    background-size: 352px;
+    color: #4C2025;
+}
+
+.closed p {
+    font-size: 14px;
+}
+
+.closed .music {
+    margin-bottom: 30px;
+}
+
+.closed .banner a {
+    display: block;
+    font-weight: bold;
+    color: #C18A8A;
+    padding-top: 4px;
 }

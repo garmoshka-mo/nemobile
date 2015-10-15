@@ -64,7 +64,7 @@ function(notification, SpamFilter, timer, ScoreKeeper,
 
                 logExternal({event: 'message',
                     channel: self.uuid,
-                    payload: {sender_idx: 'he', text: message}});
+                    payload: {sender_idx: 'he', sender_uuid: user.uuid, text: message}});
             }
 
             self.messages.push(msg);
@@ -81,16 +81,18 @@ function(notification, SpamFilter, timer, ScoreKeeper,
 
             logExternal({event: 'message',
                 channel: self.uuid,
-                payload: {sender_idx: 'me', text: text}});
+                payload: {sender_idx: 'me', sender_uuid: user.uuid, text: text}});
 
             if (self.afterMyMessageSent) self.afterMyMessageSent();
         };
 
         self.conversationBegan = function() {
-            logExternal({event: 'chat_ready', channel: self.uuid});
+            logExternal({event: 'chat_ready',
+                channel: self.uuid,
+                payload: {sender_uuid: user.uuid}});
         };
 
-        self.sessionFinished = function(byPartner) {
+        self.sessionFinished = function(byPartner, feedback) {
             if (self.isClosed) return;
             self.isClosed = true;
 
@@ -99,7 +101,10 @@ function(notification, SpamFilter, timer, ScoreKeeper,
 
             logExternal({event: 'chat_empty',
                 channel: self.uuid,
-                payload: {sender_idx: byPartner ? 'he' : 'me'}});
+                payload: {sender_idx: byPartner ? 'he' : 'me',
+                        sender_uuid: user.uuid, feedback: feedback
+                }
+            });
         };
 
         function filter(msg) {

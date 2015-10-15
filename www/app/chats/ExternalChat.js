@@ -67,13 +67,13 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
                 externalProvider.send(m);
             };
 
-            self.disconnect = function() {
+            self.disconnect = function(byPartner, feedback) {
                 self.isActive = false;
                 log('chat.disconnect');
                 clearTimeout(start_timer);
                 if (externalProvider) {
                     externalProvider.quit();
-                    session.sessionFinished(false);
+                    session.sessionFinished(false, feedback);
                 }
             };
 

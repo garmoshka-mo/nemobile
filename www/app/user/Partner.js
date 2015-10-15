@@ -3,8 +3,9 @@ angular.module("angServices")
     .factory('Partner',
     ['userRequest', function(userRequest) {
             
-            function Partner(url) {
-                this.uuid = url;
+            function Partner(partnerData) {
+                this.idx = partnerData.idx;
+                this.avatar = partnerData.avatar;
             }        
 
             Partner.prototype = {
@@ -19,6 +20,8 @@ angular.module("angServices")
                 }
             };
 
+            return Partner;
         }
+
     ]);
 })();

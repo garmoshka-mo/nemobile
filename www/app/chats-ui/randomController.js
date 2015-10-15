@@ -53,6 +53,12 @@ angular.module("angControllers")
             router.openOnTop("randomFull");
         };
 
+        $scope.hideMobileAD = localStorage.getItem('hideMobileAD');
+        $scope.closeMobileAd = function() {
+            localStorage.setItem('hideMobileAD', true);
+            $scope.hideMobileAD = true;
+        };
+
         var test = 2;
         $scope.lookForChat = function() {
             //return bubble.checkForStrafe({strafe: 'sd'}, 'he');

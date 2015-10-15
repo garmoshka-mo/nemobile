@@ -1,34 +1,35 @@
 .hide-x(ng-controller='randomController')
-    .row.mob-info(ng-show='!random.lookupInProgress && !IS_APP && IS_MOBILE && IS_ANDROID')
-        a(target='_blank', href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
+    .random-header
+        .row(ng-hide='random.lookupInProgress || updates.reloading || leaving')
+            .columns.small-12.ta-center(ng-class="{'relaunch-buttons': isRestart}")
+                button(ng-hide='random.waitingServer', ng-click='lookForChat()')
+                    span
+                        | {{ 'random.lookForChat' | translate }}&nbsp;
+                        i.fa.fa-weixin
+                button(ng-show='isRestart', ng-click='filterSettings()')
+                    span
+                        | {{ 'random.settings' | translate }}&nbsp;
+                        i.fa.fa-sliders
+        .row(ng-show='updates.reloading')
+            br
+            .small-12.columns.ta-center {{ 'random.reloading' | translate }}
+            br
+            br
+        div(ng-show='random.lookupInProgress && !leaving' style='padding-bottom: 10px;')
+            .row.search-status
+                .small-12.columns.ta-center(ng-hide='notification.asked > 0' translate='random.searchStatus1')
+                .small-12.columns.ta-center(ng-show='notification.asked > 0') {{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...
+            .row
+                .columns.small-12.ta-center
+                    button.bg-red(ng-click='cancelLookingFor()')
+                        span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
+                        div(ng-show='random.waitingServer', spinner='', spinner-color='white')
+    .row.mob-info(ng-show='!hideMobileAD && !random.lookupInProgress && !IS_APP && IS_MOBILE && IS_ANDROID')
+        a(target='_blank' style='float: right' href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
             img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
         div
             | {{ 'random.mobinfo1' | translate }}
-            | {{ 'random.mobinfo2' | translate }}
-    .row.top-margin(ng-hide='random.lookupInProgress || updates.reloading || leaving')
-        .columns.small-12.ta-center(ng-class="{'condensed-buttons': isRestart}")
-            button(ng-hide='random.waitingServer', ng-click='lookForChat()')
-                span
-                    | {{ 'random.lookForChat' | translate }}&nbsp;
-                    i.fa.fa-weixin
-            button(ng-show='isRestart', ng-click='filterSettings()')
-                span
-                    | {{ 'random.settings' | translate }}&nbsp;
-                    i.fa.fa-sliders
-    .row(ng-show='updates.reloading')
-        br
-        .small-12.columns.ta-center {{ 'random.reloading' | translate }}
-        br
-        br
-    div(ng-show='random.lookupInProgress && !leaving')
-        .row.search-status
-            .small-12.columns.ta-center(ng-hide='notification.asked > 0' translate='random.searchStatus1')
-            .small-12.columns.ta-center(ng-show='notification.asked > 0') {{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...
-        .row
-            .columns.small-12.ta-center
-                button.bg-red(ng-click='cancelLookingFor()')
-                    span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
-                    div(ng-show='random.waitingServer', spinner='', spinner-color='white')
+        a(ng-click='closeMobileAd()') {{ 'Close' | translate }}
     #searchParameters(ng-hide='isRestart || leaving || isLookingAgain')
         .row
             .columns.small-12

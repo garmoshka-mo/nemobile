@@ -10,3 +10,14 @@ due to absolute path problem in app on mobile devices*/
     -ms-user-select: none;
     user-select: none;
 }
+
+.closed-bg {
+    background: url("../img/closed-bg.png") no-repeat;
+    background-size: 352px 115px;
+}
+
+.random-header {
+    background: url("../img/back-cafe.jpg") no-repeat;
+    background-size: 560px;
+}
+

@@ -3,11 +3,11 @@
         return {
             scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
+            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
         };
     });
 
-    function controller($scope, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
+    function controller($scope, $postpone, view, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -99,7 +99,8 @@
 
         $scope.complaint = chatHeader.partnerTitleClickHandler;
 
-        $scope.showAdditional = function(){
+        $scope.showFeedbackOptions = function(){
+            view.scrollDownTopSection();
             $scope.additional = true;
         };
 
@@ -121,9 +122,13 @@
             }
         ];
 
-        $scope.leaveFeedback = function(key){
-            $scope.selectedKey = key;
-            socket.emit('feedback', { channel: $scope.session.chat.channel, feedback: key });
+        $scope.leaveFeedback = function(f){
+            $postpone(500, function() {
+                $scope.additional = false;
+                $scope.feedbackLeft = f.imgSrc;
+            });
+            $scope.selectedKey = f.key;
+            socket.emit('feedback', { channel: $scope.session.chat.channel, feedback: f.key });
         };
     }
 

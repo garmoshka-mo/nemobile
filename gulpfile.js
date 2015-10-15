@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     merge2 = require('merge2'),
     jade = require('gulp-jade'),
     q = require('q'),
+    autoprefixer = require('gulp-autoprefixer'),
     assetsGraber = require('./web-server/assetsGraber');
 
 var dateFormat = require('dateformat');
@@ -108,6 +109,12 @@ gulp.task('config.xml', function() {
         .pipe(replace('dubink-dev','dubink')) // package
         .pipe(replace('dub-dev', 'Dub.ink')) // App name
         .pipe(gulp.dest(output_www));
+});
+
+gulp.task('css_auto_prefix', function() {
+    gulp.src([source_www + 'app/**/*.css'])
+        .pipe(autoprefixer())
+        .pipe(gulp.dest(source_www + 'app/'));
 });
 
 //
