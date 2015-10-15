@@ -3,11 +3,11 @@
         <i class="fa fa-ellipsis-v"></i>
     </a>
     <md-menu-content width="4" >
-        <md-subheader>Пожаловаться:</md-subheader>
+        <md-subheader>{{ 'complaints.complaint' | translate }}</md-subheader>
         <md-menu-item ng-repeat="complaint in complaints">
             <md-button ng-click="reportComplaint(complaint.name)">
                 <div layout="row">
-                    <p flex>{{ complaint.title }}</p>
+                    <p flex>{{ complaint.title | translate }}</p>
                 </div>
             </md-button>
         </md-menu-item>

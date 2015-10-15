@@ -148,5 +148,31 @@
   "bubble.level4.title": "За сотэн",
   "bubble.level4.text": "Это движение к небесам - to the moon, определенно",
   "bubble.level5.title": "За 250!",
-  "bubble.level5.text": "Это адский успех!"
+  "bubble.level5.text": "Это адский успех!",
+
+  "message.menu.done": "Готово",
+  "message.finished.empty": "Этот чат завершен",
+  "message.lookAgain": "Начать новый диалог",
+  "message.chatSettings": "Настроить поиск",
+
+  "message.finished": "Собеседник покинул чат.",
+  "message.finished.thanks": "Собеседник покинул чат, поблагодарив:",
+  "message.finished.boring": "Собеседник покинул чат. Причина:",
+  "message.finished.disgusting": "Собеседник покинул чат. Причина:",
+
+  "message.hidden": "Сообщение скрыто",
+  "message.complaint": "Пожаловаться",
+  "message.leaveFeedback": "Оставить отзыв:",
+  "feedback.thanks": "Спасибо!",
+  "feedback.boring": "Скучно",
+  "feedback.disgusting": "Неприятно",
+
+  "complaints.complaint": "Пожаловаться:",
+  "complaints.spam": "Спам/реклама",
+  "complaints.ignorance": "Грубое нарушение заданных критериев беседы",
+  "complaints.insult": "Оскорбления без причины",
+
+  "circle.menu.header1": "Вы можете указать причину отключения, тем самым помочь собеседнику понять, что ему следует исправить в общении.",
+  "circle.menu.header2": "Чтобы отключиться без указания причины - нажмите на крестик.",
+  "circle.menu.disable": "Не показывать это меню (всегда просто отключаться)"
 }

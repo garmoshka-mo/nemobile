@@ -70,12 +70,8 @@ angular.module("angServices")
         },
         
         saveChats: function(userChats) {
-            var _chats = {};
-            var notToSave = ['chatSessions', 'lastUnexpiredChatSession', 'currentUser'];
-            for (var chatId in userChats) {
-                _chats[chatId] = filterObject(userChats[chatId], notToSave);
-            }
-            $localForage.setItem('chats', _chats);
+            var notToSave = ['current', 'list'];
+            $localForage.setItem('chats', filterObject(userChats, notToSave));
         },
 
         saveChatSession: function(chatSessionObj, primaryKeyValue) {

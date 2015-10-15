@@ -148,5 +148,31 @@
   "bubble.level4.title": "Para 100",
   "bubble.level4.text": "Este movimiento hacia el cielo - a la luna, sin duda ",
   "bubble.level5.title": "250!",
-  "bubble.level5.text": "Es un infierno de un éxito!"
+  "bubble.level5.text": "Es un infierno de un éxito!",
+
+  "message.menu.done": "Hecho",
+  "message.finished.empty": "Esta charla ha terminado",
+  "message.lookAgain": "Iniciar un nuevo diálogo",
+  "message.chatSettings": "preferencias",
+
+  "message.finished": "El entrevistado dejó el chat.",
+  "message.finished.thanks": "El entrevistado abandonaron la sala de chat, agradeciendo:",
+  "message.finished.boring": "El entrevistado dejó el chat Motivo:",
+  "message.finished.disgusting": "El entrevistado dejó el chat Motivo:",
+
+  "message.hidden": "mensaje privado",
+  "message.complaint": "inapropiada",
+  "message.leaveFeedback": "Deja un comentario:",
+  "feedback.thanks": "Gracias",
+  "feedback.boring": "aburrido",
+  "feedback.disgusting": "Desagradable",
+
+  "complaints.complaint": "Informe:",
+  "complaints.spam": "Spam/publicidad",
+  "complaints.ignorance": "Una violación grave de los criterios de la conversación especificado",
+  "complaints.insult": "Los insultos sin motivo",
+
+  "circle.menu.header1": "Puede especificar el motivo de disparo, por lo tanto ayudar a la otra parte entienda que debe corregirse en la comunicación.",
+  "circle.menu.header2": "Para desconectar sin causa - haga clic en la cruz.",
+  "circle.menu.disable": "No volver a mostrar este menú (siempre a apagar)"
 }

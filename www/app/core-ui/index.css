@@ -205,7 +205,7 @@ h1.title {
 #top-bar {
   background-color: #68C168;
   border-bottom: 2px solid #3F853F;
-  z-index: 101;
+  z-index: 1000;
 }
 .left-off-canvas-menu {
   background-color: #363645;
@@ -235,7 +235,7 @@ ul.off-canvas-list li a {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 999;
   display: none;
 }
 
@@ -1118,6 +1118,11 @@ md-menu-item > .md-button {
   width: 100%;
   padding-left: 22px;
 }
+
+.md-open-menu-container {
+  z-index: 1001
+}
+
 
  md-menu-content .md-focused,
  md-menu-content .md-button:hover {

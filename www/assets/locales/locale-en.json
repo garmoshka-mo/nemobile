@@ -148,5 +148,31 @@
   "bubble.level4.title": "Over a 100",
   "bubble.level4.text": " This movement to the heavens - to the Moon, definitely",
   "bubble.level5.title": "Over 250!",
-  "bubble.level5.text": "It's a hell'a success!"
+  "bubble.level5.text": "It's a hell'a success!",
+
+  "message.menu.done": "Done",
+  "message.finished.empty": "This chat is finished",
+  "message.lookAgain": "Start a new dialogue",
+  "message.chatSettings": "Preferences",
+
+  "message.finished": "The chat mate left the chat room.",
+  "message.finished.thanks": "The chat mate left the chat room, thanking. Thank you!:",
+  "message.finished.boring": "The chat mate left the chat. Reason: Boring",
+  "message.finished.disgusting": "The chat mate left the chat. Reason: Unpleasant conversation",
+
+  "message.hidden": "Private Message",
+  "message.complaint": "Complaint",
+  "message.leaveFeedback": "Leave a feedback:",
+  "feedback.thanks": "Thank you",
+  "feedback.boring": "Boring",
+  "feedback.disgusting": "Unpleasant",
+
+  "complaints.complaint": "Report:",
+  "complaints.spam": "Spam/advertising",
+  "complaints.ignorance": "A gross violation of the specified conversation criteria",
+  "complaints.insult": "The insults for no reason",
+
+  "circle.menu.header1": "You can specify the reason for tripping, thus help the other party understand that it should be corrected in the communication.",
+  "circle.menu.header2": "To disconnect without cause - click on the cross.",
+  "circle.menu.disable": "Do not show this menu (always just disconnect)"
 }

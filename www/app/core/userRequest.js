@@ -50,11 +50,10 @@
                 //example: {avatar: {data: file}}
                 //will be sent as avatar[data]
                 //it also can contain another information
-                //example: {avatar: {data: file}, username: 'David'} 
+                //example: {avatar: {data: file}, title: 'some_title'} 
                 var config = new Config(method, url, data);
                 return Upload.upload(config)
                 .then(handle200Response, handleFailure);
-                   
             }
         };
         
