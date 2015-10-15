@@ -89,7 +89,7 @@ angular.module("angServices")
         $rootScope.$on('chat was updated', self.save);
 
         socket.on('typing', function(e) {
-            if (e.channel == self.current.channel)
+            if (self.current && self.current.channel == e.channel)
                 $rootScope.$apply(function() {
                     $rootScope.notification.typing = e.value;
                 });
