@@ -46,7 +46,7 @@ function (googleAnalytics) {
     self.updateRestrictions = function() {
         edges.bottom = $window.height() - 17;
         if ($dragger.position().top > $window.height()) {
-            y = fullHeight();
+            y = fullHeight() - 65;
             resizedByUser = false;
             moveElements();
         }
@@ -164,8 +164,10 @@ function (googleAnalytics) {
         $mainSection.height(mainSectionHeight);
 
         showFooter($topFooter, showTopFooter, y + 46);
-        var footerHeight = $mainFooter ? $mainFooter.height() : 64;
-        showFooter($mainFooter, showMainFooter, $window.height() - footerHeight );
+        if($mainFooter) {
+            var footerHeight =  $mainFooter.height() || 64;
+            showFooter($mainFooter, showMainFooter, $window.height() - footerHeight );
+        }
     }
 
     self.updateRestrictions();

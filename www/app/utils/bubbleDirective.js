@@ -6,9 +6,11 @@ angular.module("angServices")
         controller: ['$scope', 'bubble',
             function($scope, bubble) {
                 var $container = $('#gfy-container');
+                var $preventClick = $('.prevent-click');
                 $scope.hide = true;
 
                 bubble.render = function(o, flags) {
+                    $preventClick.show();
                     if (!$scope.hide) return;
 
                     $scope.title = o.title;
@@ -26,8 +28,15 @@ angular.module("angServices")
 
                 $scope.close = function() {
                     $container.empty();
+                    $preventClick.hide();
                     $scope.hide = true;
                 }
+
+                $preventClick.click(function() {
+                    if(!$scope.hide) {
+                        $scope.close();
+                    }
+                });
 
             }],
 

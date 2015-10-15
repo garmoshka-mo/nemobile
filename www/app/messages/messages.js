@@ -1,12 +1,12 @@
 (function() {
 angular.module("angServices")
 .service('messages',
-    ['$rootScope', 'socket',  'random', 'chats', 'user',
-function($rootScope, socket, random, chats, user) {
+    ['$rootScope', 'socket',  'random', 'chats', 'user', 'Avatar', 'Partner',
+function($rootScope, socket, random, chats, user, Avatar, Partner) {
 
     socket.on('chat_ready', function(envelope) {
         if (random.isSearching()) {
-            chats.newRandomInternal(envelope.channel, envelope.my_idx);
+            chats.newRandomInternal(envelope.channel, envelope.my_idx, makePartner(envelope));
 
             $rootScope.$broadcast('new random chat',
                 {type: 'internal', channel: envelope.channel});
@@ -33,6 +33,21 @@ function($rootScope, socket, random, chats, user) {
     socket.on('honor', function(scores){
         user.honor.update(scores);
     });
+
+    function makePartner(envelope) {
+        var partnerProfile;
+        for (var profileId in envelope.payload.profiles) {
+            if (profileId !== envelope.my_idx.toString()) {
+                partnerProfile = envelope.payload.profiles[profileId];
+                break;
+            }
+        }
+        var avatar = new Avatar(partnerProfile);
+        var partnerData = {
+            avatar: avatar
+        };
+        return new Partner(partnerData);
+    }
 
     function getChatAndDoScores(envelope, callback) {
         var channel = envelope.channel;
