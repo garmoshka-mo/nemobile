@@ -29,7 +29,7 @@ function ($postpone) {
     };
 
     this.render = function(){
-        console.error('Bubble Directive is not attached');
+        error('Bubble Directive is not attached');
     };
 
 

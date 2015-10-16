@@ -1,6 +1,6 @@
 angular.module('angControllers').controller('closedController',
-    ['$scope', 'separator', 'guestRequest',
-function($scope, separator, guestRequest) {
+    ['$scope', 'separator', 'guestRequest', 'sound',
+function($scope, separator, guestRequest, sound) {
 
     $scope.expand = function() {
         separator.resize('full');
@@ -21,11 +21,18 @@ function($scope, separator, guestRequest) {
 
     $scope.openAt = watches.openAt;
 
-    var dots = true;
-    setInterval(function() {
+    var dots = true, timer;
+    timer = setInterval(function() {
         $scope.$apply(function() {
             dots = !dots;
             $scope.left = watches.left(dots);
+            if ($scope.left == '0:00:00') {
+                clearInterval(timer);
+                sound.play('newConversation');
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            }
         });
     }, 1000);
 

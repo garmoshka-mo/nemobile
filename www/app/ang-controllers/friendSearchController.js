@@ -48,7 +48,7 @@ angular.module("angControllers").controller("friendSearchController", [
                 handleSearchResults(results);
             },
             function() {
-                console.error("friend search error");
+                error("friend search error");
             }
         )
         .then(

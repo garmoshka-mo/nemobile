@@ -12,6 +12,7 @@ window.App.Settings = {
     appUrl: "http://nemobile.herokuapp.com",
     gaTrackingCodeWeb: false,
     gaTrackingCodeMobile: false,
+    rollbarKey: false,
     externalChat: false,
     fullMode: false
 };

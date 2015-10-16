@@ -130,7 +130,7 @@ angular.module("angFactories").factory('ChatSession',
                 data.recipient_uuid = address.uuid;
             }
             else {
-                console.error("there's no recipient address");
+                error("there's no recipient address");
                 return;
             }
             

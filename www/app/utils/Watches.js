@@ -11,24 +11,36 @@ function Watches(done) {
         var h = new Date(time).getHours();
         self.openAt = data['open_at'];
         self.closeAt = data['close_at'];
-        self.isWorkingTime = isWokringTime(h);
+        self.isWorkingTime = isWorkingTime(h);
         done();
     });
+
+    function isWorkingTime(h){
+        return h >= self.openAt &&  h < self.closeAt;
+    }
 
     self.left = function(dots) {
         var serverTime = new Date(Date.now() - timeDifferenceWithServer),
             h = self.openAt - serverTime.getHours() - 1,
-            m = 60 - serverTime.getMinutes();
+            m = 59 - serverTime.getMinutes();
 
-        if (isWokringTime(h)) {
-            location.reload();
+        if (h < 0) {
+            return '0:00:00';
         }
 
-        return h + (dots ? ":" : " ") + m;
-    }
+        if (m < 10) m = '0'+m;
 
-    function isWokringTime(h){
-        return h > self.openAt &&  h < self.closeAt;
-    }
+        var time = h + (dots ? ":" : " ") + m;
+
+        if (h + m == 0) {
+            var s = 59 - serverTime.getSeconds();
+            if (s < 10) s = '0'+s;
+            time += (dots ? ":" : " ") + s;
+        }
+
+        return time;
+    };
+
+
 
 }

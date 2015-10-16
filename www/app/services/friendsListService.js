@@ -86,7 +86,7 @@ angular.module("angServices")
         }
 
         function onError(err) {
-            log(err);
+            error(err);
         }
         
         function saveFriendsOnServer(friendsObj) {

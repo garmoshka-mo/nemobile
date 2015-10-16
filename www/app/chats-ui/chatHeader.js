@@ -1,7 +1,7 @@
 angular.module('angControllers')
     .service('chatHeader',
-    ['$rootScope', 'user', '$postpone',
-function($rootScope, user, $postpone) {
+    ['$rootScope', 'user', '$postpone', 'Avatar',
+function($rootScope, user, $postpone, Avatar) {
 
     var self = this;
     this.active = false;
@@ -11,7 +11,12 @@ function($rootScope, user, $postpone) {
 
 
     this.setChatHeader = function(chat) {
-        self.partner.ava_url = chat.partner.avatar.urlMini;
+        if (chat.partner) {
+            self.partner.ava_url = chat.partner.avatar.urlMini;
+        }
+        else {
+            self.partner.ava_url = Avatar.fromId(Math.random()).urlMini;
+        }
         chat.getLastUnexpiredChatSession()
             .then(sessionReceived);
     };

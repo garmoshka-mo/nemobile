@@ -9,14 +9,14 @@
                         i.fa.fa-ellipsis-v
                     md-menu-content
                         md-subheader
-                            span
-                            span
+                            p(style='margin: 0; max-width: 500px; font-size: 14px;')
                              | {{ 'circle.menu.header1' | translate }}
                              br
                              | {{ 'circle.menu.header2' | translate }}
                         md-menu-item
                             .circle-menu-checkbox-container
-                                md-checkbox(ng-model="chats.disconnectWithoutFeedback" translate="circle.menu.disable")
+                                md-checkbox(ng-model="chats.disconnectWithoutFeedback")
+                                    | {{ 'circle.menu.disable' | translate }}
         .circle-menu-item.first(ng-click="disconnect('thanks')")
             img(src="assets/img/circle-menu-thanks.png")
             span(translate="feedback.thanks")

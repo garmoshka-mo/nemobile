@@ -77,7 +77,7 @@ function($timeout, storage, notification, api, $q, $rootScope, stickersGallery, 
                 log("user is logged", self);
             },
             function(res) {
-                console.error("sign in fail");
+                error("sign in fail", res);
                 return $q.reject(res);
             }
         );

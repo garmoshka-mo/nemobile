@@ -89,7 +89,7 @@ angular.module("angServices")
                         d.resolve(result);
                     }
                     else {
-                        console.error('vk auth failed');
+                        error('vk auth failed', event);
                         d.reject();
                     }
                 }

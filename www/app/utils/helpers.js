@@ -2,6 +2,10 @@ function log() {
     if (window.debugMode)
         console.log.apply(console, arguments);
 }
+function error(str, obj) {
+    if (Rollbar) Rollbar.error(str, obj);
+    console.error(str, obj);
+}
 
 // String helpers:
 String.prototype.startsWith = function (str){

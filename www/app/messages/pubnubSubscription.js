@@ -160,7 +160,7 @@
                                 log("device was registered channel", res);
                             },
                             error: function(res) {
-                                log("register device error", res);
+                                error("register device error", res);
                             }
                         });
                         
@@ -184,7 +184,7 @@
                                     log("device was unregistered from", res);
                                 },
                                 error: function(res) {
-                                    log("unregister device error", res);
+                                    error("unregister device error", res);
                                 }
                             });
                         }

@@ -59,7 +59,8 @@ angular.module("angServices")
         self.loadFromStorage = function() {
             return storage.getChats().then(function(dataFromStorage) {
                 if (dataFromStorage) {
-                    self.disconnectWithoutFeedback = dataFromStorage.disconnectWithoutFeedback;
+                    self.disconnectWithoutFeedback = _.isUndefined(dataFromStorage.disconnectWithoutFeedback) ?
+                        false : dataFromStorage.disconnectWithoutFeedback;
                     log("user chats are taken from storage", self.list);
                 }
             });
@@ -88,7 +89,7 @@ angular.module("angServices")
         $rootScope.$on('chat was updated', self.save);
 
         socket.on('typing', function(e) {
-            if (e.channel == self.current.channel)
+            if (self.current && self.current.channel == e.channel)
                 $rootScope.$apply(function() {
                     $rootScope.notification.typing = e.value;
                 });

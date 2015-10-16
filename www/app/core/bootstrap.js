@@ -11,6 +11,7 @@ $(function() {
     setIsAlt();
     config = new Config(App.Settings);
     window.debugMode = config('debugMode');
+    if (config('rollbarKey')) initRollbar(config('rollbarKey'));
 
     watches = new Watches(bootstrapAngularApp);
 
@@ -41,6 +42,36 @@ angular.module("angApp")
         // remember language
         $translateProvider.useLocalStorage();
         $translateProvider.useSanitizeValueStrategy('escapeParameters');
+    }])
+
+    .config(['$provide', function ($provide) {
+        $provide.decorator("$exceptionHandler", ['$delegate', function ($delegate) {
+
+            // http://blog.gospodarets.com/track_javascript_angularjs_and_jquery_errors_with_google_analytics/
+
+            $(document).ajaxError(function (event, request, settings) {
+                var err = {
+                    result: event.result,
+                    status: request.status,
+                    statusText: request.statusText,
+                    crossDomain: settings.crossDomain,
+                    dataType: settings.dataType
+                };
+
+                if (request.status != 401)
+                    error('AJAX error', err);
+            });
+
+            // Pure JavaScript errors handler
+            window.addEventListener('error', function (err) {
+                Rollbar.error(err);
+            });
+
+            return function (exception, cause) {
+                $delegate(exception, cause);
+                Rollbar.error(exception);
+            };
+        }]);
     }])
 
     .run(['messages', 'pubnubSubscription', 'separator', 'view', 'tracker', 'googleAnalytics', function () {
