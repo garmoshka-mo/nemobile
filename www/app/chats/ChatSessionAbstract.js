@@ -50,17 +50,9 @@ function(notification, SpamFilter, timer, ScoreKeeper,
             if (message.type) {
                 msg.type = message.type;
                 msg.feedback = message.feedback;
-                // For debug:
-                if (message.type =='chat_finished') {
-                    filter({
-                        text: '=== Собеседник покинул чат ===',
-                        isOwn: false
-                    });
-                }
             } else {
                 msg.text = message;
                 notification.incomeMessage();
-                filter(msg);
 
                 logExternal({event: 'message',
                     channel: self.uuid,
@@ -76,7 +68,6 @@ function(notification, SpamFilter, timer, ScoreKeeper,
                 isOwn: true
             };
 
-            filter(msg);
             self.messages.push(msg);
 
             logExternal({event: 'message',
@@ -106,11 +97,6 @@ function(notification, SpamFilter, timer, ScoreKeeper,
                 }
             });
         };
-
-        function filter(msg) {
-            if (self.type == 'external')
-                self.filter.log(msg);
-        }
 
         function logExternal(envelope) {
             if (self.type=='external') {
