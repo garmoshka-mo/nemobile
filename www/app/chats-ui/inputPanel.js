@@ -180,4 +180,5 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         }, 0);
     };
     gallery.setSendMessageHandler($scope.sendMessage);
+    gallery.setInput($chatInput);
 }]);

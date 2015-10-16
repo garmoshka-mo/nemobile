@@ -1,6 +1,16 @@
 .gallery {
 
 }
+.gallery-category {
+    overflow-x: hidden;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+.gallery-category a {
+    padding: 2px;
+    color: #000;
+    font-size: larger;
+}
 .gallery-panel {
     padding: 8px;
     background-color: #253335;
@@ -12,7 +22,14 @@
 .gallery-panel .circle {
     float: right;
 }
-.smileys span {
+.recent-emojis span {
     color: white;
     cursor: pointer;
+}
+.recent-emojis {
+    color: white;
+    width: auto;
+    overflow: hidden;
+    float: none;
+    font-size: larger;
 }

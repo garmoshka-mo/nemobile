@@ -137,7 +137,7 @@ function (googleAnalytics) {
     }
 
     function moveElements() {
-        var showTopFooter = y > 50 && chatIsActive,
+        var showTopFooter = y > 40 && chatIsActive,
             showMainFooter = true,
             h = y;
 

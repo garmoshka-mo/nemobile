@@ -1,6 +1,7 @@
 .wrapper.gallery-panel(ng-show="g.galleryPanelOpened")
     .inner
-        .smileys
-            span(ng-repeat="smiley in smileys") {{ smiley }}
         .circle.pointer(ng-click="goto('gallery')")
             i.fa.fa-ellipsis-v.additional
+        .recent-emojis
+            span(ng-repeat="emoji in recentEmojis") {{ emoji }}
+

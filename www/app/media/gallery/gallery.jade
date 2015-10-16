@@ -1,4 +1,11 @@
 .row.top-margin
     .ta-center
         .gallery
-            | gallery
+        ul.posts-list
+            li
+                //post(model='sentImages')
+                post(model='emoji')
+                    .gallery-category(ng-repeat="category in g.emojiCategories")
+                        a(ng-repeat="emojiCode in category" ng-click=("typeEmoji(emojiCode)"))
+                            | {{ ::g.emoji[emojiCode][0] }}
+                //post(model='videos')

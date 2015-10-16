@@ -8,7 +8,7 @@
             .wrapper
                 .chat-left-buttons(ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid || deviceInfo.isIos}")
                     .chat-image-button.pointer(ngf-select='uploadImage()', ng-model='image.file', name='data')
-                        i.fa.fa-image
+                        i.fa.fa-camera
                     .chat-input-container
                         input.chat-input(placeholder="{{'chat.placeholder' | translate }}", type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keydown='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true')
                     .chat-gallery-button.pointer(ng-click='toggleGalleryPanel()')
