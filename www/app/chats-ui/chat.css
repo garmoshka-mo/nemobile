@@ -145,6 +145,7 @@ a.options {
 
 .closed p {
     font-size: 14px;
+    margin-bottom: 14px;
 }
 
 .closed .music {
@@ -154,6 +155,5 @@ a.options {
 .closed .banner a {
     display: block;
     font-weight: bold;
-    color: #C18A8A;
     padding-top: 4px;
 }

@@ -46,7 +46,6 @@ angular.module("angServices")
             self.list[chatData.channel] = new Chat(chatData);
             self.list[chatData.channel].updateInfo();
             self.save();
-            console.log(self.list[chatData.channel]);
             return self.list[chatData.channel];
         };
 
