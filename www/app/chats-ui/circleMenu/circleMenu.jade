@@ -14,9 +14,9 @@
                              br
                              | {{ 'circle.menu.header2' | translate }}
                         md-menu-item
-                            .circle-menu-checkbox-container
-                                md-checkbox(ng-model="chats.disconnectWithoutFeedback")
-                                    | {{ 'circle.menu.disable' | translate }}
+                            div
+                                input(type="checkbox" ng-model="chats.disconnectWithoutFeedback" style="margin: 15px")
+                                | {{ 'circle.menu.disable' | translate }}
         .circle-menu-item.first(ng-click="disconnect('thanks')")
             img(src="assets/img/circle-menu-thanks.png")
             span(translate="feedback.thanks")

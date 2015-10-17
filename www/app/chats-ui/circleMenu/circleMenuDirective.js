@@ -46,7 +46,7 @@
                         circleMenu.close();
                     };
 
-                    $menuOpenedDiv.click(function(event) {
+                    function onOpenDivClick(event) {
                         event.stopPropagation();
                         if (isMaterialMenuClosed()) {
                             closeMaterialMenu();
@@ -54,7 +54,10 @@
                         else {
                             circleMenu.close();
                         }
-                    });
+                    }
+
+                    $menuOpenedDiv.on('click', onOpenDivClick);
+                    $menuOpenedDiv.on('touchstart', onOpenDivClick);
                 }]
         };
     }]);
