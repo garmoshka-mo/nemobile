@@ -146,6 +146,11 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
                 }
             };
 
+            session.logExternal({event: 'chat_ready',
+                channel: session.uuid,
+                talk_params: talk_params,
+                payload: {sender_uuid: user.uuid}});
+
             return filter.log(payload, talk_params);
         }
 

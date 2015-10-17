@@ -50,19 +50,11 @@ function(notification, SpamFilter, timer, ScoreKeeper,
             if (message.type) {
                 msg.type = message.type;
                 msg.feedback = message.feedback;
-                // For debug:
-                if (message.type =='chat_finished') {
-                    filter({
-                        text: '=== Собеседник покинул чат ===',
-                        isOwn: false
-                    });
-                }
             } else {
                 msg.text = message;
                 notification.incomeMessage();
-                filter(msg);
 
-                logExternal({event: 'message',
+                self.logExternal({event: 'message',
                     channel: self.uuid,
                     payload: {sender_idx: 'he', sender_uuid: user.uuid, text: message}});
             }
@@ -76,10 +68,9 @@ function(notification, SpamFilter, timer, ScoreKeeper,
                 isOwn: true
             };
 
-            filter(msg);
             self.messages.push(msg);
 
-            logExternal({event: 'message',
+            self.logExternal({event: 'message',
                 channel: self.uuid,
                 payload: {sender_idx: 'me', sender_uuid: user.uuid, text: text}});
 
@@ -87,9 +78,6 @@ function(notification, SpamFilter, timer, ScoreKeeper,
         };
 
         self.conversationBegan = function() {
-            logExternal({event: 'chat_ready',
-                channel: self.uuid,
-                payload: {sender_uuid: user.uuid}});
         };
 
         self.sessionFinished = function(byPartner, feedback) {
@@ -99,7 +87,7 @@ function(notification, SpamFilter, timer, ScoreKeeper,
             user.save();
             timer.stop();
 
-            logExternal({event: 'chat_empty',
+            self.logExternal({event: 'chat_empty',
                 channel: self.uuid,
                 payload: {sender_idx: byPartner ? 'he' : 'me',
                         sender_uuid: user.uuid, feedback: feedback
@@ -107,12 +95,7 @@ function(notification, SpamFilter, timer, ScoreKeeper,
             });
         };
 
-        function filter(msg) {
-            if (self.type == 'external')
-                self.filter.log(msg);
-        }
-
-        function logExternal(envelope) {
+        self.logExternal = function(envelope) {
             if (self.type=='external') {
                 socket.emit('externalLog', envelope);
             }

@@ -48,7 +48,7 @@
                         else {
                             d.resolve('en');
                         }
-                        console.log(response.data.city, response.data.country, response.data);
+                        log(response.data.city, response.data.country, response.data);
                     }
                 );
                 return d.promise;

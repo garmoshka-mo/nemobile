@@ -20,6 +20,7 @@ function($scope, separator, guestRequest, sound) {
     };
 
     $scope.openAt = watches.openAt;
+    $scope.eventFile = config('msgServer') + '/event.vcs';
 
     var dots = true, timer;
     timer = setInterval(function() {
