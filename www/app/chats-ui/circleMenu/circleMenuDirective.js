@@ -46,7 +46,8 @@
                         circleMenu.close();
                     };
 
-                    $menuOpenedDiv.click(function() {
+                    $menuOpenedDiv.click(function(event) {
+                        event.stopPropagation();
                         if (isMaterialMenuClosed()) {
                             closeMaterialMenu();
                         }
