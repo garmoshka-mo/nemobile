@@ -3,20 +3,8 @@
         div.fll
             div.circle-menu-chat-finish-button(ng-click="disconnect()")
                 i.fa.fa-close
-            div.circle-menu-dots
-                md-menu
-                    md-button.circle-menu-dots-button(ng-click="$mdOpenMenu($event)" aria-label="cicrle")
-                        i.fa.fa-ellipsis-v
-                    md-menu-content
-                        md-subheader
-                            p(style='margin: 0; max-width: 500px; font-size: 14px;')
-                             | {{ 'circle.menu.header1' | translate }}
-                             br
-                             | {{ 'circle.menu.header2' | translate }}
-                        md-menu-item
-                            div
-                                input(type="checkbox" ng-model="chats.disconnectWithoutFeedback" style="margin: 15px")
-                                | {{ 'circle.menu.disable' | translate }}
+            div.circle-menu-dots(ng-click="contextMenu.open($event)")
+                i.fa.fa-ellipsis-v
         .circle-menu-item.first(ng-click="disconnect('thanks')")
             img(src="assets/img/circle-menu-thanks.png")
             span(translate="feedback.thanks")

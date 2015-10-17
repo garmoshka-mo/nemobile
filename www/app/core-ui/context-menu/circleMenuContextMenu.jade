@@ -1,0 +1,9 @@
+span.text-silver
+    | Вы можете указать причину отключения, тем самым помочь собеседнику понять, что ему следует исправить в общении.
+    | Чтобы отключиться без указания причины - нажмите на крестик.
+br
+br
+| &nbsp
+input(type="checkbox" id="disconnectWithoutFeedback" ng-model="chats.disconnectWithoutFeedback")
+label(class="disconnect-checkbox-label" for="disconnectWithoutFeedback") 
+    {{ 'circle.menu.disable' | translate }}

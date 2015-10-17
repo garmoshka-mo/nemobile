@@ -91,7 +91,7 @@ angular.module("angControllers").controller("chatController",
             router.openOnTop('randomRestart');
         };
         
-        notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button"></i>', exitButtonClickHandler);
+        notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button no-menu-drag"></i>', exitButtonClickHandler);
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
 
         function exitButtonClickHandler() {

@@ -45,6 +45,9 @@ html
       script(type='text/javascript', src=prod_js_file, onerror="location.reload()")
 
   body(ng-controller='mainController' data-alt=alt)
+    .context-menu-container(context-menu)
+      .context-menu
+        div(ng-include src="templateUrl")
     .splash-screen
       .splash-logo-container
         img(style='width: 70px;' src="assets/img/web_splash_logo.jpg")
@@ -66,7 +69,7 @@ html
               span
             a.icon_button(ng-cloak='' ng-show='isBackArrowShown', ng-click='backArrowHandler()')
               i.fa.fa-chevron-left.ml10
-            span.customSmallIcon(ng-show='customSmallIconInner && !isBackArrowShown', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner')
+            span.customSmallIcon(ng-show='customSmallIconInner && !isBackArrowShown', ng-click='customSmallIconHandler()', ng-bind-html='customSmallIconInner' class="no-menu-drag")
           section.middle.tab-bar-section.p0.title-panel
               div(ng-show='routing.is_preload')
                 span(spinner='', spinner-color='white')
