@@ -1,7 +1,7 @@
 div(ng-controller='chatController')
     .chat.top-margin
         // temporary hid temp message feature
-        .firstMessage.ta-center.chat-notification.width-92.block-center(ng-show='isFirstMessage && !isRandom && false')
+        .firstMessage.ta-center.chat-notification.width-92.block-center(ng-show='isFirstMessage && false')
             div ваше первое сообщение
             radio-buttons(values='[10, 600, 3600]', titles="['10 сек', '10 мин', '1 час']", ng-model='newMessage.ttl')
         //
@@ -12,7 +12,7 @@ div(ng-controller='chatController')
           <a href="#/updateProfile"><button>зарегистрироваться</button></a>
           </div>
           </div>
-        .disconnect-button(ng-hide="!isRandom || chat.iStartedInput")
+        .disconnect-button(ng-hide="!chat.isActive || chat.iStartedInput")
             button.bg-red(ng-click='disconnectRandomChat()')
                 span {{ 'chat.disconnect' | translate }}&nbsp;
                 i.fa.fa-times

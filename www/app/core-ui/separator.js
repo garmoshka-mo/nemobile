@@ -132,7 +132,6 @@ function (googleAnalytics) {
                 footer.css({top: positionTop});
             } else {
                 footer.hide();
-                $('.disconnect-button').hide();
             }
         }
     }

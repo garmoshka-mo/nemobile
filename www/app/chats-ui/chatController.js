@@ -11,7 +11,6 @@ angular.module("angControllers").controller("chatController",
 
         $scope.user = user;
         $scope.isMessageSending = false;
-        $scope.isRandom = true;
         $scope.deviceInfo = deviceInfo;
 
 
@@ -28,7 +27,7 @@ angular.module("angControllers").controller("chatController",
                 isUpdating: false,
                 lastVisibleChatSessionId: lastSession.id,
                 isAllChatSessionsVisbile: chat.chatSessionsIndexes.length == 1,
-                
+
                 getOneMoreChatSession: function() {
                     var self = this;
                     self.isUpdating = true;
