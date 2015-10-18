@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu',
+            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu', '$translate',
     function(user, $scope, $stateParams, $state, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, router, view, chatHeader, circleMenu) {
+                chats, googleAnalytics, router, view, chatHeader, circleMenu, $translate) {
 
         log("chat controller is invoked");
 
@@ -150,11 +150,13 @@ angular.module("angControllers").controller("chatController",
             $scope.sendMessage();
         }
 
-        window.onbeforeunload = function() {
-            return chat.isActive ?
-                'При уходе со страницы чат будет завершен. Покинуть страницу?' : 
-                null;
-        };
+        $translate('alert.chat.closeActive').then(function(msg) {
+            window.onbeforeunload = function() {
+                return chat.isActive ?
+                    msg :
+                    null;
+            };
+        });
 
         view.scrollDownTopSection();
         chats.countUnreadChats();

@@ -174,5 +174,7 @@
 
   "circle.menu.header1": "Puede especificar el motivo de disparo, por lo tanto ayudar a la otra parte entienda que debe corregirse en la comunicación.",
   "circle.menu.header2": "Para desconectar sin causa - haga clic en la cruz.",
-  "circle.menu.disable": "No volver a mostrar este menú (siempre a apagar)"
+  "circle.menu.disable": "No volver a mostrar este menú (siempre a apagar)",
+
+  "alert.chat.closeActive": "Si dejas esta página el chat se cerrará. Deja la página?"
 }

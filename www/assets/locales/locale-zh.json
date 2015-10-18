@@ -174,5 +174,7 @@
 
   "circle.menu.header1": "您可以指定跳閘的原因，從而幫助對方理解，它應該在溝通予以糾正",
   "circle.menu.header2": "至斷開無的放矢 - 點擊在十字架上。",
-  "circle.menu.disable": "不要顯示此菜單（永遠只是關閉）"
+  "circle.menu.disable": "不要顯示此菜單（永遠只是關閉）",
+
+  "alert.chat.closeActive": "如果你離開這個頁面聊天將被關閉。離開頁面？"
 }
