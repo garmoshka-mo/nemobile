@@ -108,6 +108,10 @@
                 });
 
                 menuContentHammer.on('panstart', function(event) {
+                    if ($(event.target).hasClass('no-menu-drag')) {
+                        return;
+                    }
+                    
                     if (event.pointers[0].clientX > $menuContent.width() / 3) {
                         allowOpenning = false;
                         return;

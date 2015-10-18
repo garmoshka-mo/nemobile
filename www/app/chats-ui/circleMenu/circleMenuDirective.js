@@ -5,7 +5,7 @@
     angular.module("angApp").service('circleMenu', function() {      
     });
 
-    angular.module("angApp").directive('circleMenu', ['circleMenu',  function(circleMenu) {
+    angular.module("angApp").directive('circleMenu', ['circleMenu', 'contextMenu',  function(circleMenu, contextMenu) {
         return {
             templateUrl: "app/chats-ui/circleMenu/circleMenu.html?"+version,
             link: function($scope, element) {
@@ -22,38 +22,40 @@
                     $menuOpenedDiv.hide();
                 };
 
+                circleMenu.isOpened = function (argument) {
+                    return $menu.hasClass('circle-menu-open');
+                };
+
                 circleMenu.element = element;
 
-                
+
             },
-            controller: ['circleMenu', '$scope', 'notification', 'chats', 
-                function(circleMenu, $scope, notification, chats) {
+            controller: ['circleMenu', '$scope', 'notification', 'chats', 'contextMenu', 
+                function(circleMenu, $scope, notification, chats, contextMenu) {
                     $scope.circleMenu = circleMenu;
                     $scope.chats = chats;
-
-                    function closeMaterialMenu() {
-                       $('.md-menu-backdrop').trigger('click');
-                    }
-
-                    function isMaterialMenuClosed() {
-                        return angular.element($(circleMenu.element).find('md-menu'))
-                            .scope()
-                            .$mdMenuIsOpen;
-                    }
+                    $scope.contextMenu = contextMenu;
 
                     $scope.disconnect = function(feedback) {
                         notification.chatDisconnect(feedback);
                         circleMenu.close();
                     };
 
-                    $menuOpenedDiv.click(function() {
-                        if (isMaterialMenuClosed()) {
-                            closeMaterialMenu();
-                        }
-                        else {
-                            circleMenu.close();
+                    function onOpenDivClick(event) {
+                        event.stopPropagation();
+                        circleMenu.close();
+                       
+                    }
+
+                    $scope.$watch('chats.disconnectWithoutFeedback', function(newValue, oldValue) {
+                        if (circleMenu.isOpened() && newValue) {
+                            contextMenu.close();
+                            $scope.disconnect();
                         }
                     });
+
+                    $menuOpenedDiv.on('click', onOpenDivClick);
+                    $menuOpenedDiv.on('touchstart', onOpenDivClick);
                 }]
         };
     }]);
