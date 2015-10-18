@@ -50,6 +50,11 @@ app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
 });
 
 app.get(index_routes, function (req, res) {
+
+    console.log('req.ip', req.ip);
+    console.log(req.connection.remoteAddress);
+    //process.env.HTTP_AUTH
+
     res.render('index', assets);
 });
 
