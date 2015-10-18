@@ -21,12 +21,16 @@ function Watches(done) {
 
     self.left = function(dots) {
         var serverTime = new Date(Date.now() - timeDifferenceWithServer),
-            h = self.openAt - serverTime.getHours() - 1,
+            h = serverTime.getHours(),
             m = 59 - serverTime.getMinutes();
 
-        if (h < 0) {
+        if (isWorkingTime(h))
             return '0:00:00';
-        }
+
+        if (h > self.openAt)
+            h -= 23;
+        
+        h = self.openAt - h -1;
 
         if (m < 10) m = '0'+m;
 
