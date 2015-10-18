@@ -3,10 +3,14 @@ function Watches(done) {
     var self = this,
         timeDifferenceWithServer;
 
+    var DEBUG_OFFSET = 0 ;
+    //var DEBUG_OFFSET = - (1 * 60 * 60 * 1000  + 42 * 60 * 1000);
+
     self.isWorkingTime = true;
 
     $.get(config('apiUrl') + "/working_time", function( data ) {
-        var time = data['current_time'] * 1000;
+        var time = data['current_time'] * 1000 - DEBUG_OFFSET;
+        console.log(new Date(time).toISOString());
         timeDifferenceWithServer = Date.now() - time;
         var h = new Date(time).getHours();
         self.openAt = data['open_at'];
@@ -28,8 +32,8 @@ function Watches(done) {
             return '0:00:00';
 
         if (h > self.openAt)
-            h -= 23;
-        
+            h -= 24;
+
         h = self.openAt - h -1;
 
         if (m < 10) m = '0'+m;
