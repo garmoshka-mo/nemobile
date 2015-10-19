@@ -1,9 +1,42 @@
 angular.module('angServices').service('gallery', [
     '$rootScope',
     function($rootScope) {
-        var self = this;
-        var sendMessageHandler = null;
 
+        var self = this;
+
+        self.recentPicPost = {title: 'Recent', cutImage: false, category:'link', data: { link: {} }};
+        self.emojiPost = {title: 'Emoji', cutImage: true};
+        self.items = [];
+
+        self.gfys = [
+            'TotalNiftyDiplodocus',
+            'EsteemedUniqueIndianglassfish',
+            'ExcitableAcrobaticCrane',
+            'ElasticRadiantAmericanindianhorse',
+            'SilverVillainousHare',
+            'GracefulGenerousBear',
+            'AdventurousNimbleGermanspitz',
+            'VainYoungBantamrooster',
+            'AlertUnpleasantButterfly',
+            'BackColossalIndianrhinoceros',
+            'WebbedMintyIndigobunting',
+            'IndolentBrilliantHusky',
+            'GargantuanNeighboringAmericantoad',
+            'DefiantScalyBaldeagle',
+            'SameGloomyFrillneckedlizard',
+            'TintedBetterHedgehog',
+            'ExemplaryIndolentInchworm',
+            'ClutteredPassionateAmericanindianhorse',
+            'FrighteningAdvancedDodo'
+        ];
+
+        self.init = function() {
+            self.recentPicPost.data.link.image_url = localStorage['recentlySentPic'];
+            self.currentPage = 1;
+            self.disableAutoload = true;
+        };
+
+        var sendMessageHandler = null;
         self.galleryPanelOpened = false;
 
         self.setSendMessageHandler = function(handler) {
@@ -16,14 +49,53 @@ angular.module('angServices').service('gallery', [
         };
 
         var $input;
+        var model;
 
-        self.setInput = function(input) {
+        self.setInput = function(input, inputModel) {
             $input = input;
+            model = inputModel;
         };
 
-        self.typeEmoji = function(emojiCode) {
+        //TODO: Does not work as needed
+        function insertAtCaret(element, text) {
+            if (document.selection) {
+                element.focus();
+                var sel = document.selection.createRange();
+                sel.text = text;
+                element.focus();
+            } else if (element.selectionStart || element.selectionStart === 0) {
+                var startPos = element.selectionStart;
+                var endPos = element.selectionEnd;
+                var scrollTop = element.scrollTop;
+                element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
+                element.focus();
+                element.selectionStart = startPos + text.length;
+                element.selectionEnd = startPos + text.length;
+                element.scrollTop = scrollTop;
+            } else {
+                model.text += text;
+                element.value += text;
+                element.focus();
+            }
+        }
+
+        self.typeEmoji = function($event, emojiCode) {
             //TODO:
+            if($input) {
+                insertAtCaret($input, self.emoji[emojiCode][0]);
+                //$event.stopPropagation()
+                //$event.preventDefault()
+                //$input.focus()
+                //return setTimeout('', 300);
+            }
+
             var a = 0;
+        };
+
+        self.setFocusOnTextField = function() {
+            setTimeout(function() {
+                $input.focus();
+            }, 0);
         };
 
         self.emoji = {
@@ -892,15 +964,50 @@ angular.module("angControllers").controller("galleryPanelController", [
     }]);
 
 angular.module("angControllers").controller("galleryController", [
-    '$scope', 'gallery', 'router',
-    function($scope, gallery, router){
-        //if(!router.isChatActive()) {
-        //    //redirect on page reload
-        //    router.goto('pubsList');
-        //}
+    '$scope', 'gallery', 'router', 'socket',
+    function($scope, gallery, router, socket){
+        if(!router.isChatActive()) {
+            //redirect on page reload
+            router.goto('pubsList');
+        }
         $scope.g = gallery;
-        //posts.currentPage = 1;
-        //$scope.posts = posts.items;
-        $scope.emoji = {title: 'Emoji', cutImage: true}
+        gallery.init();
+        $scope.posts = gallery.items;
+        $scope.goto = router.goto;
 
+        $scope.loadMore = function() {
+            if ($scope.loading) return;
+            gallery.disableAutoload = true;
+            $scope.loading = true;
+            log('page of infinite scroll:', gallery.currentPage++);
+            load();
+        };
+
+        //TODO: replace with random gifs
+        function load() {
+            socket.emit('posts', {get: 'random items'});
+        }
+
+        //TODO: replace with random gifs and uploaded photos
+        socket.on('posts', function(envelope) {
+            log('received posts:', envelope.posts);
+            transform(envelope.posts);
+
+            $scope.$apply(function() {
+                Array.prototype.push.apply(gallery.items, envelope.posts);
+                gallery.disableAutoload = envelope.posts.length == 0;
+                $scope.loading = false;
+                gfyCollection.init();
+            });
+        });
+
+        function transform(arr) {
+            arr.map(function(p) {
+                if (!p.title) p.title = '';
+                p.slug = encodeURIComponent(
+                    p.title.replace(/ /g, '-')
+                        .replace(/[\.\/]/g, '')
+                );
+            });
+        }
     }]);

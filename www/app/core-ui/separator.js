@@ -133,12 +133,13 @@ function (googleAnalytics) {
         } else {
             footer.hide();
             $('.disconnect-button').hide();
-        if (footer) {
-            if (showWhen) {
-                footer.show();
-                footer.css({top: positionTop});
-            } else {
-                footer.hide();
+            if (footer) {
+                if (showWhen) {
+                    footer.show();
+                    footer.css({top: positionTop});
+                } else {
+                    footer.hide();
+                }
             }
         }
     }
@@ -206,6 +207,5 @@ function (googleAnalytics) {
                 moveElements();
             });
     }
-
 }])
 })();

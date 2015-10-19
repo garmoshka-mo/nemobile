@@ -529,6 +529,14 @@ button.chat-send {
    width: 24px;
    height: 24px;
  }
+ .gallery-open-button {
+   width: 25px;
+   height: 25px;
+   display: inline-block;
+   text-align: center;
+   margin-left: 11px;
+   color: #CEE6D0;
+ }
 .stickersGallery {
   padding: 10px;
 }

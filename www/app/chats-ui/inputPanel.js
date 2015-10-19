@@ -112,6 +112,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
                 {image: {image_data: $scope.image.file}}
             )
             .then(function(res){
+                localStorage.setItem('recentlySentPic', res.url);
                 $scope.sendMessage(res.url);
             }).then(function(){
                 $scope.isMessageSending = false;
@@ -180,5 +181,5 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         }, 0);
     };
     gallery.setSendMessageHandler($scope.sendMessage);
-    gallery.setInput($chatInput);
+    gallery.setInput($chatInput, $scope.newMessage);
 }]);
