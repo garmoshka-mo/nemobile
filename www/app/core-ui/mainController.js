@@ -1,8 +1,8 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
-    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu', 'language', 'contextMenu',
+    'router','deviceInfo', '$state', '$q', 'friendsList', 'menu', 'language', 'contextMenu', 'pushNotification',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList, menu, language, contextMenu) {
+         router, deviceInfo, $state, $q, friendsList, menu, language, contextMenu, pushNotification) {
     $scope.user = user;
 
     log('main controller is invoked');
