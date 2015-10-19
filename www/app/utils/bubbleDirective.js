@@ -21,7 +21,8 @@ angular.module("angServices")
                         gfy = v[Math.floor(Math.random()*v.length)];
                     gfyCollection.get().length = 0;
                     $container.empty();
-                    $container.append("<img class='gfyitem' data-id='"+gfy+"'/>");
+                    var autoplay = IS_MOBILE ? "data-autoplay='false'" : "";
+                    $container.append("<img class='gfyitem' " + autoplay + " data-id='"+ gfy +"'/>");
                     gfyCollection.init();
                     $scope.hide = false;
                 };
@@ -30,7 +31,7 @@ angular.module("angServices")
                     $container.empty();
                     $preventClick.hide();
                     $scope.hide = true;
-                }
+                };
 
                 $preventClick.click(function() {
                     if(!$scope.hide) {

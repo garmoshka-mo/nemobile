@@ -109,6 +109,12 @@ function (googleAnalytics) {
 
     function resizeQuickly(height) {
         y = height - TOP_BAR_HEIGHT;
+        if (height) {
+            $topSection.show();
+        }
+        else {
+            $topSection.hide();
+        }
         moveElements();
     }
 
@@ -120,6 +126,14 @@ function (googleAnalytics) {
                 progress: function () {
                     y = $dummy.height() - TOP_BAR_HEIGHT;
                     moveElements();
+                },
+                complete: function() {
+                    if (height) {
+                        $topSection.show();
+                    }
+                    else {
+                        $topSection.hide();
+                    }
                 }
             });
         }, 500);
