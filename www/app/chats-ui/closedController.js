@@ -1,6 +1,6 @@
 angular.module('angControllers').controller('closedController',
-    ['$scope', 'separator', 'guestRequest', 'sound',
-function($scope, separator, guestRequest, sound) {
+    ['$scope', 'separator', 'guestRequest', 'sound', 'router',
+function($scope, separator, guestRequest, sound, router) {
 
     $scope.expand = function() {
         separator.resize('full');
@@ -17,6 +17,10 @@ function($scope, separator, guestRequest, sound) {
                 $scope.contact = '';
                 alert('Готово! Мы отправим уведомление в 18:00');
             });
+    };
+
+    $scope.calEvent = function () {
+        router.openExternalURL(config('msgServer') + '/event.vcs');
     };
 
     $scope.openAt = watches.openAt;

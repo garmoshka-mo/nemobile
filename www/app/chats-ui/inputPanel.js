@@ -18,7 +18,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.newMessage = {
         text: '',
         // ttl: 2592000,//30 days
-        ttl: $scope.isRandom ? 0 : 3600,
+        ttl: 3600,
         clearText: function() {
             this.text = '';
         }

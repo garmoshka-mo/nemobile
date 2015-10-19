@@ -49,8 +49,15 @@ app.get(['/pub/:id/:slug', '/pub/:id'], function (req, res) {
     });
 });
 
+var black = process.env.BLACK;
+if (black) black = black.split(',');
+else black = [];
+
 app.get(index_routes, function (req, res) {
-    res.render('index', assets);
+    if (black.indexOf(req.ip) >= 0)
+        res.redirect('https://chatvdvoem.ru/');
+    else
+        res.render('index', assets);
 });
 
 app.get('/exit', function (req, res) {

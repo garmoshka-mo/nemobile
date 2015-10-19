@@ -122,11 +122,21 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
 
         function logTagAndBegin(tag) {
             firstMessageToFilter('==='+tag+'===', true, false);
-            beginСhat();
+            beginChat();
         }
 
+        var talk_params = {
+            a: {
+                client_id: user.uuid,
+                level: level,
+                request_created_ms: chat.created_at,
+                userAgent: navigator.userAgent,
+                preferences: preferences
+            }
+        };
+
         function firstMessageToFilter(message, isOwn, skip_log) {
-            var payload, talk_params;
+            var payload;
 
             payload = {
                 text: message,
@@ -136,15 +146,6 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             };
 
             if (intro) payload.intro = { text: intro, timestamp_ms: intro_timestamp };
-
-            talk_params = {
-                a: {
-                    client_id: user.uuid,
-                    level: level,
-                    request_created_ms: chat.created_at,
-                    preferences: preferences
-                }
-            };
 
             return filter.log(payload, talk_params);
         }
@@ -220,16 +221,21 @@ function(notification, SpamFilter, api, TeacherBot, ActivityBot,
             }
 
             function allowConversation() {
-                beginСhat();
+                beginChat();
                 chat.display_partners_message(message.sanitize());
                 teacher.listen(message);
             }
         }
 
-        function beginСhat() {
+        function beginChat() {
             clearTimeout(emergencyTimer);
             $rootScope.$broadcast('new random chat', {type: 'external'});
             talking = true;
+
+            session.logExternal({event: 'chat_ready',
+                channel: session.uuid,
+                talk_params: talk_params,
+                payload: {sender_uuid: user.uuid}});
         }
 
         function terminated() {

@@ -100,3 +100,6 @@ button.circle-menu-dots-button:hover {
     z-index: 999;
     display: none;
 }
+.disconnect-checkbox-label {
+    display: inline;
+}

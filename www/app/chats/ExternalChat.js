@@ -52,6 +52,7 @@ function(Avatar, $q, $rootScope, ExternalChatSession,
 
             self.partnerTerminated = function() {
                 session.sessionFinished(true);
+                self.isActive = false;
                 self.display_partners_message({type: 'chat_finished'});
             };
 

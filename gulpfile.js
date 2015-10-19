@@ -110,10 +110,6 @@ gulp.task('config.xml', function() {
         .pipe(gulp.dest(output_www));
 });
 
-gulp.task('css_auto_prefix', function() {
-    gulp.src([source_www + 'app/**/*.css'])
-        .pipe(gulp.dest(source_www + 'app/'));
-});
 
 //
 // tasks for making production mobile app

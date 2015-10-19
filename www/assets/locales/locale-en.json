@@ -174,5 +174,7 @@
 
   "circle.menu.header1": "You can specify the reason for tripping, thus help the other party understand that it should be corrected in the communication.",
   "circle.menu.header2": "To disconnect without cause - click on the cross.",
-  "circle.menu.disable": "Do not show this menu (always just disconnect)"
+  "circle.menu.disable": "Do not show this menu (always just disconnect)",
+
+  "alert.chat.closeActive": "If you leave this page the chat will be closed. Leave the page?"
 }
