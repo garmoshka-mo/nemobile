@@ -1,11 +1,32 @@
 angular.module("angServices").service('pushNotification',
-        [
-function () {
+        ['deviceInfo', 'userRequest',
+function (deviceInfo, userRequest) {
     if (IS_APP) {
-        var push = PushNotification.init({ "android": {"senderID": "12345679"},
+        var push = PushNotification.init({ "android": {"senderID": "1176989379"},
          "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
         
         push.on('registration', function(data) {
+            var requestData = {};
+        
+            requestData.key = data.registrationId;
+        
+            if (deviceInfo.isAndroid) {
+                requestData.kind = 'gcm';
+            }
+
+            if (deviceInfo.isIos) {
+                requestData.kind = 'apn';
+            }
+
+            userRequest.send('POST', '/device', requestData)
+            .then(
+                function(res) {
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );
             console.log(data);
         });
 
