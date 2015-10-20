@@ -10,7 +10,7 @@
             li
                 post(model='g.emojiPost')
                     .gallery-category(ng-repeat="category in g.emojiCategories")
-                        a(ng-repeat="emojiCode in category" ng-focus="g.setFocusOnTextField()" ng-click="g.typeEmoji($event, emojiCode)")
+                        a(ng-repeat="emojiCode in category" ng-click="g.typeEmoji($event, emojiCode)")
                             | {{ ::g.emoji[emojiCode][0] }}
             //Mock!
             li(ng-repeat='gfy in g.gfys')

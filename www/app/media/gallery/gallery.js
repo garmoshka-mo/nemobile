@@ -48,31 +48,30 @@ angular.module('angServices').service('gallery', [
             }
         };
 
-        var $input;
+        var input;
         var model;
 
-        self.setInput = function(input, inputModel) {
-            $input = input;
+        self.setInput = function($input, inputModel) {
+            input = $input[0];
             model = inputModel;
         };
 
-        //TODO: Does not work as needed
         function insertAtCaret(element, text) {
-            var caretPosStart = element[0].selectionStart || 0;
-            var caretPosEnd = element[0].selectionEnd || 0;
+            var caretPosStart = element.selectionStart || 0;
+            var caretPosEnd = element.selectionEnd || 0;
             var textAreaTxt = model.text;
             model.text = textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart);
     }
 
         self.typeEmoji = function($event, emojiCode) {
-            if($input) {
-                insertAtCaret($input, self.emoji[emojiCode][0]);
+            if(input) {
+                insertAtCaret(input, self.emoji[emojiCode][0]);
             }
         };
 
         self.setFocusOnTextField = function() {
             setTimeout(function() {
-                $input.focus();
+                input.focus();
             }, 0);
         };
 
