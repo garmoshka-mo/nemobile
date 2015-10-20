@@ -109,7 +109,13 @@ function (googleAnalytics) {
     }
 
     function resizeQuickly(height) {
-        y = height - topBarHeight;
+        y = height - TOP_BAR_HEIGHT;
+        if (height) {
+            $topSection.show();
+        }
+        else {
+            $topSection.hide();
+        }
         moveElements();
     }
 
@@ -121,6 +127,14 @@ function (googleAnalytics) {
                 progress: function () {
                     y = $dummy.height() - topBarHeight;
                     moveElements();
+                },
+                complete: function() {
+                    if (height) {
+                        $topSection.show();
+                    }
+                    else {
+                        $topSection.hide();
+                    }
                 }
             });
         }, 500);
@@ -207,5 +221,6 @@ function (googleAnalytics) {
                 moveElements();
             });
     }
+
 }])
 })();
