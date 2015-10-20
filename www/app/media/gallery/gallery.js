@@ -58,38 +58,16 @@ angular.module('angServices').service('gallery', [
 
         //TODO: Does not work as needed
         function insertAtCaret(element, text) {
-            if (document.selection) {
-                element.focus();
-                var sel = document.selection.createRange();
-                sel.text = text;
-                element.focus();
-            } else if (element.selectionStart || element.selectionStart === 0) {
-                var startPos = element.selectionStart;
-                var endPos = element.selectionEnd;
-                var scrollTop = element.scrollTop;
-                element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
-                element.focus();
-                element.selectionStart = startPos + text.length;
-                element.selectionEnd = startPos + text.length;
-                element.scrollTop = scrollTop;
-            } else {
-                model.text += text;
-                element.value += text;
-                element.focus();
-            }
-        }
+            var caretPosStart = element[0].selectionStart || 0;
+            var caretPosEnd = element[0].selectionEnd || 0;
+            var textAreaTxt = model.text;
+            model.text = textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart);
+    }
 
         self.typeEmoji = function($event, emojiCode) {
-            //TODO:
             if($input) {
                 insertAtCaret($input, self.emoji[emojiCode][0]);
-                //$event.stopPropagation()
-                //$event.preventDefault()
-                //$input.focus()
-                //return setTimeout('', 300);
             }
-
-            var a = 0;
         };
 
         self.setFocusOnTextField = function() {
@@ -960,7 +938,7 @@ angular.module("angControllers").controller("galleryPanelController", [
     function($scope, gallery){
         $scope.g = gallery;
 
-        $scope.recentEmojis = ['😀'];
+        $scope.recentEmojis = ["1f604", "1f603", "1f600", "1f60a", "263a", "1f609", "1f60d", "1f618", "1f61a", "1f617", "1f619", "1f61c", "1f61d", "1f61b", "1f633", "1f601", "1f614", "1f60c", "1f612", "1f61e", "1f623", "1f622", "1f602", "1f62d", "1f62a", "1f625", "1f630", "1f605", "1f613", "1f629", "1f62b"];
     }]);
 
 angular.module("angControllers").controller("galleryController", [
