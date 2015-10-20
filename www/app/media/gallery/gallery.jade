@@ -15,7 +15,7 @@
             //Mock!
             li(ng-repeat='gfy in g.gfys')
                 post(model="{}")
-                    img.gfyitem(data-id="{{ ::gfy }}")
+                    img.gfyitem(data-id="{{ ::gfy }}" data-autoplay='false')
             //Gfy's and stuff should go from here
             li(ng-repeat='post in posts')
                 post(model="post")

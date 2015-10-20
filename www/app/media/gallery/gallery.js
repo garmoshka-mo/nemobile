@@ -964,8 +964,11 @@ angular.module("angControllers").controller("galleryPanelController", [
     }]);
 
 angular.module("angControllers").controller("galleryController", [
-    '$scope', 'gallery', 'router', 'socket',
-    function($scope, gallery, router, socket){
+    '$rootScope', '$scope', 'gallery', 'router', 'socket',
+    function($rootScope, $scope, gallery, router, socket){
+
+        $rootScope.mainFooterTemplate = 'app/media/gallery/galleryControl.html?'+version;
+
         if(!router.isChatActive()) {
             //redirect on page reload
             router.goto('pubsList');

@@ -512,7 +512,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 views: {
                     "content": {
                         controller: "galleryController",
-                        templateUrl: "app/media/gallery/gallery.html?" + version
+                        templateUrl: "app/media/gallery/gallery.html?" + version,
+                        footerTemplateUrl: "app/media/gallery/galleryControl.html?"+version
                     }
                 }
             });

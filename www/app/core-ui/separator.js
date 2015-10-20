@@ -109,7 +109,7 @@ function (googleAnalytics) {
     }
 
     function resizeQuickly(height) {
-        y = height - TOP_BAR_HEIGHT;
+        y = height - topBarHeight;
         if (height) {
             $topSection.show();
         }
