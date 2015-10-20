@@ -18,27 +18,28 @@ function (deviceInfo, userRequest) {
                 requestData.kind = 'apn';
             }
 
-            userRequest.send('POST', '/device', requestData)
-            .then(
-                function(res) {
-                    console.log(res);
-                },
-                function(res) {
-                    console.log(res);
-                }
-            );
+            user.passivePromise
+            .then(function() {
+                userRequest.send('POST', '/device', requestData)
+                .then(
+                    function(res) {
+                        console.log(res);
+                    },
+                    function(res) {
+                        console.log(res);
+                    }
+                );
+            });
+            
             console.log(data);
         });
 
         push.on('notification', function(data) {
             console.log(data);
-            // data.message, 
-            // data.title, 
-            // data.count, 
-            // data.sound, 
-            // data.image, 
-            // data.additionalData 
+        
         });
+
+       
     }
     
 }]);
