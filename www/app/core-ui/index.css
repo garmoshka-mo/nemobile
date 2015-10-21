@@ -1086,6 +1086,12 @@ md-menu-item > .md-button {
   margin-left: -20px;
 }
 
+@media only screen and (max-width: 580px){
+  .language-top-bar-box {
+    margin-right: -30px;
+  }
+}
+
 .language-top-bar-box i{
   font-size: 25px;
 }
