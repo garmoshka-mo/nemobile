@@ -937,7 +937,31 @@ angular.module("angControllers").controller("galleryPanelController", [
     function($scope, gallery){
         $scope.g = gallery;
 
-        $scope.recentEmojis = ["1f604", "1f603", "1f600", "1f60a", "263a", "1f609", "1f60d", "1f618", "1f61a", "1f617", "1f619", "1f61c", "1f61d", "1f61b", "1f633", "1f601", "1f614", "1f60c", "1f612", "1f61e", "1f623", "1f622", "1f602", "1f62d", "1f62a", "1f625", "1f630", "1f605", "1f613", "1f629", "1f62b"];
+        //$scope.recentEmojis =
+        $scope.recentEmojis = [
+            { code: "1f602", clicks: 0 },
+            { code: "2665", clicks: 0 },
+            { code: "2764", clicks: 0 },
+            { code: "1f60d", clicks: 0 },
+            { code: "1f60a", clicks: 0 },
+            { code: "1f62d", clicks: 0 },
+            { code: "1f618", clicks: 0 },
+            { code: "263a", clicks: 0 },
+            { code: "1f495", clicks: 0 },
+            { code: "1f44c", clicks: 0 },
+            { code: "1f629", clicks: 0 },
+            { code: "1f614", clicks: 0 },
+            { code: "1f60f", clicks: 0 },
+            { code: "1f601", clicks: 0 },
+            { code: "1f64f", clicks: 0 },
+            { code: "1f44d", clicks: 0 },
+            { code: "1f609", clicks: 0 },
+            { code: "1f64c", clicks: 0 },
+            { code: "1f633", clicks: 0 },
+            { code: "1f60c", clicks: 0 },
+            { code: "270c", clicks: 0 },
+            { code: "1f648", clicks: 0 },
+            { code: "1f3b6", clicks: 0 }];
     }]);
 
 angular.module("angControllers").controller("galleryController", [
