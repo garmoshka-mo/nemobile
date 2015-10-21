@@ -17,7 +17,7 @@ div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
         .grey-line.width-92
         .row
             form(name="fileSelect")
-                div(ngf-select='uploadPhoto()' name="hi" ng-model='newImage.file')
+                div(ngf-select='uploadPhoto()' name="hi" ng-model='imageToUpload')
                     | asdf
                 label(translate="avatar.upload.file")
                 .custom-file-input(ng-model='newImage.file', ngf-select='uploadPhoto()', name='data')
