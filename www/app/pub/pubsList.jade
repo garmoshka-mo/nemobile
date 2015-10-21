@@ -28,4 +28,9 @@
                      i.fa.fa-angle-double-down
                      |  {{ 'pubs.expand' | translate }}
             div.separator
+    div(ng-hide='skipSignIn || vkSignedIn')
+        | Для непрерывной ленты нужно&nbsp;
+        a(ng-click="signinVk()") авторизоваться.
+        button(ng-click='skip()')
+            | Пропустить (подгрузить еще 3 поста)
     spinner.top-margin(ng-show='loading', spinner-color='green')
