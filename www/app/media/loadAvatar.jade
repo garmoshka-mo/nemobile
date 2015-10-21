@@ -16,7 +16,6 @@ div(ng-swipe-right='openMenu()', ng-swipe-left='closeMenu()')
                     .inline-block(ng-show='isAvaLoading', spinner='', spinner-color='white')
         .grey-line.width-92
         .row
-            input(type="file" ngf-select="uploadPhoto()" ng-model="newImage.file")
             label(translate="avatar.upload.file")
             .custom-file-input(ng-model='newImage.file', ngf-select='uploadPhoto()', name='data')
                 span(ng-show='deviceInfo.IS_MOBILE', translate="avatar.upload.gallery")
