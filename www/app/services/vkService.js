@@ -98,6 +98,16 @@ angular.module("angServices")
         
         return d.promise;
     };
+    this.isAuthorised = function() {
+        var d = $q.defer();
+
+        function authInfo(response) {
+            d.resolve(!!response.session);
+        }
+        VK.Auth.getLoginStatus(authInfo);
+
+        return d.promise;
+    };
 
     this.getUser = function() {
         var fields = "photo_100, photo_max_orig";
