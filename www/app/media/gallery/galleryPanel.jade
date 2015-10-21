@@ -1,0 +1,7 @@
+.wrapper.gallery-panel(ng-show="g.galleryPanelOpened")
+    .inner
+        .circle.pointer.gallery-open-button(ng-click="goto('gallery')")
+            i.fa.fa-ellipsis-v.additional
+        .recent-emojis
+            span(ng-repeat="emojiCode in recentEmojis" ng-focus="g.setFocusOnTextField()" ng-click='g.typeEmoji($event, emojiCode)') {{ ::g.emoji[emojiCode][0] }}
+

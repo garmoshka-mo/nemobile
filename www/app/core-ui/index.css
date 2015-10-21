@@ -285,9 +285,6 @@ ul.off-canvas-list li a {
  #top-section {
    overflow: auto;
  }
- #top-section.with-footer {
-   margin-bottom: 65px;
- }
 
  .wrapper{
    width: 100%;
@@ -301,6 +298,9 @@ ul.off-canvas-list li a {
   width: 100%;
   z-index: 100;
 }
+ #footer .background {
+   height: 63px;
+ }
 
 .off-canvas-wrap, .inner-wrap, #friends, #friendsList, #friendsList ul{
   height: 100%;
@@ -494,6 +494,7 @@ color: rgba(91, 171, 96, 1) !important;
 }
 input.chat-input {
   padding-left: 35px;
+  padding-right: 30px;
   width: 100%;
   display: block;
   vertical-align: top;
@@ -518,6 +519,27 @@ button.chat-send {
   color: #000;
   width: 37px;
 }
+ .chat-gallery-button {
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding-top: 4px;
+   text-align: center;
+   display: inline-block;
+   width: 37px;
+ }
+ .chat-gallery-button img {
+   width: 24px;
+   height: 24px;
+ }
+ .gallery-open-button {
+   width: 25px;
+   height: 25px;
+   display: inline-block;
+   text-align: center;
+   margin-left: 6px;
+   color: #CEE6D0;
+ }
 .stickersGallery {
   padding: 10px;
 }
