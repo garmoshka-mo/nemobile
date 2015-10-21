@@ -1,8 +1,8 @@
 (function(){
     angular.module("angServices")
         .service('notification',
-        ['$rootScope', '$timeout', 'sound', 'timer', '$mdToast', Service]);
-    function Service($rootScope, $timeout, sound, timer, $mdToast) {
+        ['$rootScope', '$timeout', 'sound', 'timer', Service]);
+    function Service($rootScope, $timeout, sound, timer) {
         log("notification service is enabled");
         $rootScope.notification = {
             time: null
