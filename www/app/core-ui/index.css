@@ -967,9 +967,7 @@ input[type="radio"]:checked + .radioLabel {
   padding-bottom: 1rem;
   padding-left: 2rem;          
 }
-.custom-file-input:hover::before {
-  border-color: black;
-}
+
 /*custome checkbox*/
 .squaredFour {
   position: relative;
