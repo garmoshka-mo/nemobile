@@ -9,8 +9,15 @@ function($timeout) {
         if (!guestToken) {
             guestToken = config('guestToken');
             if (!guestToken)
-                localStorage['guestToken'] = guestToken =
-                    'guest-'+randomString(32);
+                try {
+                    localStorage['guestToken'] = guestToken =
+                        'guest-'+randomString(32);
+                }
+                catch(e) {
+                    if (e.toString().match(/QuotaExceededError/)) {
+                        alert('Приватный режим просмотра в сафари блокирует возможность сохранения информации в local storage, который необходим для корректной работы чата. Чтобы воспользоваться чатом, нужно войти в стандартном режиме.');
+                    }
+                }    
         }
         return guestToken;
     };
