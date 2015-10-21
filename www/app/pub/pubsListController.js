@@ -1,9 +1,9 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', 'socket', '$rootScope',
+        '$timeout', 'socket', '$rootScope', 'vk',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, socket, $rootScope) {
+         $timeout, socket, $rootScope, vk) {
 
     posts.currentPage = 1;
     $scope.posts = posts.items;
@@ -12,11 +12,16 @@ function($scope, posts, router, $anchorScroll, $location,
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
     $scope.loadMore = function() {
-        if ($scope.loading) return;
-        posts.disableAutoload = true;
-        $scope.loading = true;
-        log('page of infinite scroll:', posts.currentPage++);
-        load();
+        if($scope.skipSignIn || $scope.vkSignedIn) {
+            if ($scope.loading) return;
+            posts.disableAutoload = true;
+            $scope.loading = true;
+            log('page of infinite scroll:', posts.currentPage++);
+            load();
+            $scope.skipSignIn = false;
+        } else {
+            posts.disableAutoload = true;
+        }
     };
 
     function load() {
@@ -83,8 +88,26 @@ function($scope, posts, router, $anchorScroll, $location,
 
     $scope.cutImage = function(post) {
         post.cutImage = true;
-    }
+    };
 
+    $scope.skipSignIn = true;
+    vk.isAuthorised().then(function(isAuthorised) { $scope.vkSignedIn = isAuthorised; });
+
+    $scope.signinVk = function() {
+        vk.auth()
+            .then(function(res) {
+                user.socialSignin("vkontakte", res.vkUserId, res.vkAccessToken)
+                    .then(
+                    function() {
+                        $scope.vkSignedIn = true;
+                    }
+                );
+            });
+    };
+
+    $scope.skip = function () {
+        $scope.skipSignIn = true;
+    }
 }
 ]);
 
