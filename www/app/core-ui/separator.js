@@ -4,12 +4,13 @@ angular.module("angServices")
         ['googleAnalytics',
 function (googleAnalytics) {
 
-    var TOP_BAR_HEIGHT = 65;
     var COMFORT_CHAT = 140;
     var SMALL_CHAT = 100;
 
+    var topBarHeight = 65;
+
     var self = this,
-        y = -TOP_BAR_HEIGHT,
+        y = -topBarHeight,
         chatIsActive = false,
         animateResize = false,
         resizedByUser = false,
@@ -46,7 +47,7 @@ function (googleAnalytics) {
     self.updateRestrictions = function() {
         edges.bottom = $window.height() - 17;
         if ($dragger.position().top > $window.height()) {
-            y = fullHeight() - 65;
+            y = fullHeight() - topBarHeight;
             resizedByUser = false;
             moveElements();
         }
@@ -104,11 +105,11 @@ function (googleAnalytics) {
     };
 
     function fullHeight() {
-        return y - ($dragger.position().top - $window.height()) + TOP_BAR_HEIGHT - 1;
+        return y - ($dragger.position().top - $window.height()) + topBarHeight - 1;
     }
 
     function resizeQuickly(height) {
-        y = height - TOP_BAR_HEIGHT;
+        y = height - topBarHeight;
         if (height) {
             $topSection.show();
         }
@@ -119,12 +120,12 @@ function (googleAnalytics) {
     }
 
     function resizeAnimated(height) {
-        $dummy.height(y + TOP_BAR_HEIGHT);
+        $dummy.height(y + topBarHeight);
         setTimeout(function () {
             $dummy.animate({height: height}, {
                 duration: 500,
                 progress: function () {
-                    y = $dummy.height() - TOP_BAR_HEIGHT;
+                    y = $dummy.height() - topBarHeight;
                     moveElements();
                 },
                 complete: function() {
@@ -140,26 +141,37 @@ function (googleAnalytics) {
     }
 
     function showFooter(footer, showWhen, positionTop) {
-        if (footer) {
-            if (showWhen) {
-                footer.show();
-                footer.css({top: positionTop});
-            } else {
-                footer.hide();
+        if (showWhen) {
+            footer.show();
+            footer.css({top: positionTop});
+        } else {
+            footer.hide();
+            $('.disconnect-button').hide();
+            if (footer) {
+                if (showWhen) {
+                    footer.show();
+                    footer.css({top: positionTop});
+                } else {
+                    footer.hide();
+                }
             }
         }
     }
 
     function moveElements() {
-        var showTopFooter = y > 50 && chatIsActive,
+        var showTopFooter = y > 40 && chatIsActive,
             showMainFooter = true,
             h = y;
 
         if (showTopFooter) {
-            $topSection.addClass('with-footer');
-        } else {
-            $topSection.removeClass('with-footer');
-            h = y + TOP_BAR_HEIGHT;
+            if ($topFooter) {
+                topBarHeight = $topFooter.height();
+            }
+            $topSection.css({ marginBottom: topBarHeight });
+        }
+        else {
+            $topSection.css({ marginBottom: 0 });
+            h = y + topBarHeight;
         }
 
         if (h < 0) h = 0;
@@ -169,20 +181,22 @@ function (googleAnalytics) {
             $topSection.scrollTop($topSection[0].scrollHeight);
 
         var mainSectionHeight = $window.height() - $dragger.position().top;
-        if($mainFooter && mainSectionHeight >= 150) {
+        if ($mainFooter && mainSectionHeight >= 150) {
             mainSectionHeight -= $mainFooter.height();
         } else {
             showMainFooter = false;
         }
         $mainSection.height(mainSectionHeight);
 
-        showFooter($topFooter, showTopFooter, y + 46);
-        if($mainFooter) {
+        if ($topFooter) {
+            showFooter($topFooter, showTopFooter, y + 46);
+        }
+        if ($mainFooter) {
             var footerHeight =  $mainFooter.height() || 64;
             showFooter($mainFooter, showMainFooter, $window.height() - footerHeight );
         }
     }
-
+    self.updateElements = moveElements;
     self.updateRestrictions();
 
     new Dragger($dragger, edges);

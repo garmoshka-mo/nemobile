@@ -24,17 +24,6 @@ function($scope, posts, router, $anchorScroll, $location,
         }
     };
 
-    var activePost;
-    $scope.postVisibility = function(inview, post) {
-        if (!inview && activePost == post)
-            post = null;
-
-        if (activePost != post) {
-            activePost = post;
-            posts.activePost = post;
-        }
-    };
-
     function load() {
         socket.emit('posts', {get: 'random items'});
     }
@@ -139,3 +128,40 @@ app.directive('cutImage', function() {
         }
     };
 });
+
+app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
+    var $window  = $(window);
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {
+            model: "="
+        },
+        link: function(scope, elem, attr) {
+            $rootScope.activePost = null;
+            scope.postVisibility = function(inview, post) {
+                if (!inview && $rootScope.activePost == post)
+                    post = null;
+
+                if ($rootScope.activePost != post) {
+                    $rootScope.activePost = post;
+                    posts.activePost = post;
+                }
+            };
+            scope.cutImage = function(post) {
+                post.cutImage = true;
+            };
+        },
+        template: "<div ng-switch='model.category' in-view='postVisibility($inview, model)' in-view-options='{ offsetTop: 300, offsetBottom: -250 }'>" +
+        "<div class='header'><div class='title'>{{ ::model.title }}</div></div>" +
+        "<div ng-switch-when='link' class='image-container' ng-class='{\"cut-image\": model.cutImage}'>" +
+        "<img ng-src='{{model.data.link.image_url}}' cut-image='cutImage(model)'>" +
+        "</div>" +
+        "<div ng-switch-default ng-transclude ng-class='{\"cut-image\": model.cutImage}' cut-image='cutImage(model)'></div>" +
+        "<div class='cut' ng-show='model.cutImage'><div class='torn'><button ng-click='model.cutImage = false'>" +
+        "<i class='fa fa-angle-double-down'></i> {{ 'pubs.expand' | translate }}" +
+        "</button></div></div>" +
+        "<div class='separator'></div>" +
+        "</div>"
+    };
+}]);

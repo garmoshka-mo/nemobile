@@ -1,8 +1,12 @@
-angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
-    function($stateProvider, $urlRouterProvider) {
+angular.module("angApp").config(["$stateProvider", "$urlRouterProvider", "$ariaProvider",
+    function($stateProvider, $urlRouterProvider, $ariaProvider) {
         $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
-
+$ariaProvider.config({
+     bindRoleForClick: false,
+     tabindex: false,
+     ariaInvalid: false
+   });
         var randomUrl = "/",
             pubListUrl = "/pub",
             pubListTop = {state: 'randomLaunch'};
@@ -504,6 +508,16 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     "content": {
                         controller: "mobileAppController",
                         templateUrl: "app/etc/mobileApp.html?"+version
+                    }
+                }
+            })
+            .state("gallery", {
+                url: "/gallery",
+                views: {
+                    "content": {
+                        controller: "galleryController",
+                        templateUrl: "app/media/gallery/gallery.html?" + version,
+                        footerTemplateUrl: "app/media/gallery/galleryControl.html?"+version
                     }
                 }
             });
