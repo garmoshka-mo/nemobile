@@ -1,12 +1,8 @@
-angular.module("angApp").config(["$stateProvider", "$urlRouterProvider", "$ariaProvider",
-    function($stateProvider, $urlRouterProvider, $ariaProvider) {
+angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
+    function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
-$ariaProvider.config({
-     bindRoleForClick: false,
-     tabindex: false,
-     ariaInvalid: false
-   });
+
         var randomUrl = "/",
             pubListUrl = "/pub",
             pubListTop = {state: 'randomLaunch'};

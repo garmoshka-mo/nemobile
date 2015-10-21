@@ -2,7 +2,7 @@ angular.module("angApp", ["ui.router", "angControllers", "angServices", "angFact
     "LocalForageModule", "ngTouch", "ngSanitize", "ngFileUpload", /*"ngAnimate",*/
     "internationalPhoneNumber", "infinite-scroll", "ngSocial", "ngMaterial", 'ngResource',
     '720kb.tooltips', 'angular-inview', 'hmTouchEvents', 'ngCookies', 'pascalprecht.translate',
-    'ngTagsInput', 'ngAria']);
+    'ngTagsInput']);
 angular.module("angControllers", []);
 angular.module("angServices", []);
 angular.module("angFactories", []);
