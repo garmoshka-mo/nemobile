@@ -1021,7 +1021,6 @@ angular.module("angControllers").controller("galleryController", [
             load();
         };
 
-        //TODO: replace with random gifs
         var gfyPage = 0;
         function load() {
             function gfyToPost(gfy) {
@@ -1029,12 +1028,16 @@ angular.module("angControllers").controller("galleryController", [
             }
             var items = [];
             for (var i = 0; i < 3; i++) {
-                items.push(gfyToPost(gallery.gfys[gfyPage + i % gallery.gfys.length]));
+                if(gfyPage + i < gallery.gfys.length) {
+                    items.push(gfyToPost(gallery.gfys[gfyPage + i]));
+                } else {
+                    gallery.disableAutoload = true;
+                }
             }
-            gfyPage = (gfyPage + 3) % gallery.gfys.length;
+            gfyPage = (gfyPage + i);
 
             Array.prototype.push.apply($scope.gfys, items);
-            gallery.disableAutoload = $scope.gfys.length == 0;
+            gallery.disableAutoload = gfyPage >= gallery.gfys.length
             $scope.loading = false;
             gfyCollection.init();
         }
