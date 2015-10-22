@@ -6,7 +6,6 @@ angular.module('angServices').service('gallery', [
 
         self.recentPicPost = {title: 'Recent', cutImage: false, category:'link', data: { link: {} }};
         self.emojiPost = {title: 'Emoji', cutImage: true};
-        self.items = [];
 
         self.gfys = [
             'TotalNiftyDiplodocus',
@@ -960,33 +959,33 @@ angular.module('angServices').service('gallery', [
 
         self.saveToRecent = function(emojiCode) {
             var found = false;
-            for(var i = 0; i < self.recentEmojis.length; i++) {
-                if (self.recentEmojis[i].code == emojiCode) {
-                    found = true;
-                    self.recentEmojis[i].clicks++;
-                    break;
+                for(var i = 0; i < self.recentEmojis.length; i++) {
+                    if (self.recentEmojis[i].code == emojiCode) {
+                        found = true;
+                        self.recentEmojis[i].clicks++;
+                        break;
+                    }
                 }
-            }
-            if(!found) {
-                //if emoji is new to recent list
-                var newEmoji = {code: emojiCode, clicks: 0};
+                if(!found) {
+                    //if emoji is new to recent list
+                    var newEmoji = {code: emojiCode, clicks: 0};
 
-                var oldRecent = self.recentEmojis;
-                self.recentEmojis = [];
-                //collect zero clicks emojis
-                for (var i = 0; i < oldRecent.length; i++) {
-                    if (oldRecent[i].clicks == 0) {
-                        self.recentEmojis.push(oldRecent[i]);
+                    var oldRecent = self.recentEmojis;
+                    self.recentEmojis = [];
+                    //collect zero clicks emojis
+                    for (var i = 0; i < oldRecent.length; i++) {
+                        if (oldRecent[i].clicks == 0) {
+                            self.recentEmojis.push(oldRecent[i]);
+                        }
                     }
-                }
-                //add our new emoji
-                self.recentEmojis.unshift(newEmoji);
-                //place emojis with clicks > 0 to their places
-                for (var i = 0; i < oldRecent.length; i++) {
-                    if (oldRecent[i].clicks > 0) {
-                        self.recentEmojis.splice(i, 0, oldRecent[i]);
+                    //add our new emoji
+                    self.recentEmojis.unshift(newEmoji);
+                    //place emojis with clicks > 0 to their places
+                    for (var i = 0; i < oldRecent.length; i++) {
+                        if (oldRecent[i].clicks > 0) {
+                            self.recentEmojis.splice(i, 0, oldRecent[i]);
+                        }
                     }
-                }
             }
             //finally store emoji list
             storage.save('recentEmojis',self.recentEmojis);
@@ -1011,7 +1010,7 @@ angular.module("angControllers").controller("galleryController", [
         }
         $scope.g = gallery;
         gallery.init();
-        $scope.gfys = gallery.items;
+        $scope.gfys = [];
         $scope.goto = router.goto;
 
         $scope.loadMore = function() {
@@ -1028,20 +1027,14 @@ angular.module("angControllers").controller("galleryController", [
             function gfyToPost(gfy) {
                 return {title: gfy, category: 'gfy', gfy: gfy};
             }
+            var items = [];
+            for (var i = 0; i < 3; i++) {
+                items.push(gfyToPost(gallery.gfys[gfyPage + i % gallery.gfys.length]));
+            }
+            gfyPage = (gfyPage + 3) % gallery.gfys.length;
 
-            //var items;
-            //for (var i = 0; i < 3; i++) {
-            //    items = [
-            //        gfyToPost(gallery.gfys[gfyPage % gallery.gfys.length]),
-            //        gfyToPost(gallery.gfys[(gfyPage + 1) % gallery.gfys.length]),
-            //        gfyToPost(gallery.gfys[(gfyPage + 2) % gallery.gfys.length])]
-            //    gfyPage = (gfyPage + 3) % gallery.gfys.length;
-            //}
-            var gfy = gallery.gfys[gfyPage % gallery.gfys.length];
-            gfyPage++;
-            //Array.prototype.push.apply(gallery.items, items);
-            gallery.items.push({title: gfy, category: 'gfy', gfy: gfy})
-            gallery.disableAutoload = gallery.items.length == 0;
+            Array.prototype.push.apply($scope.gfys, items);
+            gallery.disableAutoload = $scope.gfys.length == 0;
             $scope.loading = false;
             gfyCollection.init();
         }

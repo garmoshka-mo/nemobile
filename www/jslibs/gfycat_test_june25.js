@@ -273,6 +273,9 @@ var gfyObject = function (gfyElem) {
     function init() {
         isMobile = mobilecheck();
         gfyId = gfyRootElem.getAttribute('data-id');
+        if(!gfyId) {
+            return
+        }
         console.log(gfyId);
         if (gfyRootElem.getAttribute('data-title') == "true")
             optTitle = true;
