@@ -1,6 +1,6 @@
 angular.module('angServices').service('gallery', [
-    '$rootScope',
-    function($rootScope) {
+    '$rootScope', 'storage',
+    function($rootScope, storage) {
 
         var self = this;
 
@@ -930,38 +930,73 @@ angular.module('angServices').service('gallery', [
             ["1f3e0", "1f3e1", "1f3eb", "1f3e2", "1f3e3", "1f3e5", "1f3e6", "1f3ea", "1f3e9", "1f3e8", "1f492", "26ea", "1f3ec", "1f3e4", "1f307", "1f306", "1f3ef", "1f3f0", "26fa", "1f3ed", "1f5fc", "1f5fe", "1f5fb", "1f304", "1f305", "1f303", "1f5fd", "1f309", "1f3a0", "1f3a1", "26f2", "1f3a2", "1f6a2", "26f5", "1f6a4", "1f6a3", "2693", "1f680", "2708", "1f4ba", "1f681", "1f682", "1f68a", "1f689", "1f69e", "1f686", "1f684", "1f685", "1f688", "1f687", "1f69d", "1f683", "1f68b", "1f68e", "1f68c", "1f68d", "1f699", "1f698", "1f697", "1f695", "1f696", "1f69b", "1f69a", "1f6a8", "1f693", "1f694", "1f692", "1f691", "1f690", "1f6b2", "1f6a1", "1f69f", "1f6a0", "1f69c", "1f488", "1f68f", "1f3ab", "1f6a6", "1f6a5", "26a0", "1f6a7", "1f530", "26fd", "1f3ee", "1f3b0", "2668", "1f5ff", "1f3aa", "1f3ad", "1f4cd", "1f6a9", "1f1ef-1f1f5", "1f1f0-1f1f7", "1f1e9-1f1ea", "1f1e8-1f1f3", "1f1fa-1f1f8", "1f1eb-1f1f7", "1f1ea-1f1f8", "1f1ee-1f1f9", "1f1f7-1f1fa", "1f1ec-1f1e7"],
             ["0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038", "0039", "0030", "1f51f", "1f522", "0023", "1f523", "2b06", "2b07", "2b05", "27a1", "1f520", "1f521", "1f524", "2197", "2196", "2198", "2199", "2194", "2195", "1f504", "25c0", "25b6", "1f53c", "1f53d", "21a9", "21aa", "2139", "23ea", "23e9", "23eb", "23ec", "2935", "2934", "1f197", "1f500", "1f501", "1f502", "1f195", "1f199", "1f192", "1f193", "1f196", "1f4f6", "1f3a6", "1f201", "1f22f", "1f233", "1f235", "1f234", "1f232", "1f250", "1f239", "1f23a", "1f236", "1f21a", "1f6bb", "1f6b9", "1f6ba", "1f6bc", "1f6be", "1f6b0", "1f6ae", "1f17f", "267f", "1f6ad", "1f237", "1f238", "1f202", "24c2", "1f6c2", "1f6c4", "1f6c5", "1f6c3", "1f251", "3299", "3297", "1f191", "1f198", "1f194", "1f6ab", "1f51e", "1f4f5", "1f6af", "1f6b1", "1f6b3", "1f6b7", "1f6b8", "26d4", "2733", "2747", "274e", "2705", "2734", "1f49f", "1f19a", "1f4f3", "1f4f4", "1f170", "1f171", "1f18e", "1f17e", "1f4a0", "27bf", "267b", "2648", "2649", "264a", "264b", "264c", "264d", "264e", "264f", "2650", "2651", "2652", "2653", "26ce", "1f52f", "1f3e7", "1f4b9", "1f4b2", "1f4b1", "00a9", "00ae", "2122", "274c", "203c", "2049", "2757", "2753", "2755", "2754", "2b55", "1f51d", "1f51a", "1f519", "1f51b", "1f51c", "1f503", "1f55b", "1f567", "1f550", "1f55c", "1f551", "1f55d", "1f552", "1f55e", "1f553", "1f55f", "1f554", "1f560", "1f555", "1f556", "1f557", "1f558", "1f559", "1f55a", "1f561", "1f562", "1f563", "1f564", "1f565", "1f566", "2716", "2795", "2796", "2797", "2660", "2665", "2663", "2666", "1f4ae", "1f4af", "2714", "2611", "1f518", "1f517", "27b0", "3030", "303d", "1f531", "25fc", "25fb", "25fe", "25fd", "25aa", "25ab", "1f53a", "1f532", "1f533", "26ab", "26aa", "1f534", "1f535", "1f53b", "2b1c", "2b1b", "1f536", "1f537", "1f538", "1f539"]
         ];
+
+        storage.get('recentEmojis').then(function(storedRecentEmojis) {
+            self.recentEmojis = storedRecentEmojis || [
+                    { code: "1f602", clicks: 0 },
+                    { code: "2665", clicks: 0 },
+                    { code: "2764", clicks: 0 },
+                    { code: "1f60d", clicks: 0 },
+                    { code: "1f60a", clicks: 0 },
+                    { code: "1f62d", clicks: 0 },
+                    { code: "1f618", clicks: 0 },
+                    { code: "263a", clicks: 0 },
+                    { code: "1f495", clicks: 0 },
+                    { code: "1f44c", clicks: 0 },
+                    { code: "1f629", clicks: 0 },
+                    { code: "1f614", clicks: 0 },
+                    { code: "1f60f", clicks: 0 },
+                    { code: "1f601", clicks: 0 },
+                    { code: "1f64f", clicks: 0 },
+                    { code: "1f44d", clicks: 0 },
+                    { code: "1f609", clicks: 0 },
+                    { code: "1f64c", clicks: 0 },
+                    { code: "1f633", clicks: 0 },
+                    { code: "1f60c", clicks: 0 },
+                    { code: "270c", clicks: 0 },
+                    { code: "1f648", clicks: 0 },
+                    { code: "1f3b6", clicks: 0 }];
+        });
+
+        self.saveToRecent = function(emojiCode) {
+            var found = false;
+            for(var i = 0; i < self.recentEmojis.length; i++) {
+                if (self.recentEmojis[i].code == emojiCode) {
+                    found = true;
+                    self.recentEmojis[i].clicks++;
+                    break;
+                }
+            }
+            if(!found) {
+                //if emoji is new to recent list
+                var newEmoji = {code: emojiCode, clicks: 0};
+
+                var oldRecent = self.recentEmojis;
+                self.recentEmojis = [];
+                //collect zero clicks emojis
+                for (var i = 0; i < oldRecent.length; i++) {
+                    if (oldRecent[i].clicks == 0) {
+                        self.recentEmojis.push(oldRecent[i]);
+                    }
+                }
+                //add our new emoji
+                self.recentEmojis.unshift(newEmoji);
+                //place emojis with clicks > 0 to their places
+                for (var i = 0; i < oldRecent.length; i++) {
+                    if (oldRecent[i].clicks > 0) {
+                        self.recentEmojis.splice(i, 0, oldRecent[i]);
+                    }
+                }
+            }
+            //finally store emoji list
+            storage.save('recentEmojis',self.recentEmojis);
+        };
     }]);
 
 angular.module("angControllers").controller("galleryPanelController", [
     '$scope', 'gallery',
     function($scope, gallery){
         $scope.g = gallery;
-
-        //$scope.recentEmojis =
-        $scope.recentEmojis = [
-            { code: "1f602", clicks: 0 },
-            { code: "2665", clicks: 0 },
-            { code: "2764", clicks: 0 },
-            { code: "1f60d", clicks: 0 },
-            { code: "1f60a", clicks: 0 },
-            { code: "1f62d", clicks: 0 },
-            { code: "1f618", clicks: 0 },
-            { code: "263a", clicks: 0 },
-            { code: "1f495", clicks: 0 },
-            { code: "1f44c", clicks: 0 },
-            { code: "1f629", clicks: 0 },
-            { code: "1f614", clicks: 0 },
-            { code: "1f60f", clicks: 0 },
-            { code: "1f601", clicks: 0 },
-            { code: "1f64f", clicks: 0 },
-            { code: "1f44d", clicks: 0 },
-            { code: "1f609", clicks: 0 },
-            { code: "1f64c", clicks: 0 },
-            { code: "1f633", clicks: 0 },
-            { code: "1f60c", clicks: 0 },
-            { code: "270c", clicks: 0 },
-            { code: "1f648", clicks: 0 },
-            { code: "1f3b6", clicks: 0 }];
     }]);
 
 angular.module("angControllers").controller("galleryController", [
