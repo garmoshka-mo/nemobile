@@ -54,12 +54,13 @@ function($rootScope, socket, random, chats, user, Avatar, Partner) {
 
         // Пока что работаем только с текущим чатом.
         // todo: при параллельных чатах - правильно организовать сохранение, см. гугл-док "Параллельные чаты"
-        if (!chats.current || channel != chats.current.channel) return;
+        var current = chats.getCurrent();
+        if (!current || channel != current.channel) return;
 
         if (envelope.payload.scores)
-            chats.current.processScores(envelope.payload.scores);
+            current.processScores(envelope.payload.scores);
 
-        if (callback) callback(chats.current);
+        if (callback) callback(current);
     }
 
 }]);

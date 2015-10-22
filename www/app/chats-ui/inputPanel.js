@@ -7,7 +7,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
 
     separator.setTopFooter($('#footer'));
 
-    var chat = chats.current;
+    var chat = chats.getCurrent();
 
     var lastSession;
     chat.ensureSession()

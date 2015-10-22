@@ -4,29 +4,41 @@ angular.module("angServices")
     function($rootScope, deviceInfo,  Chat, socket,
              storage, router, notification) {
         
-        var self = this;
+        var self = this,
+            current = null; // Keep current chat in private var. Sensitive logic of setting
 
         self.list = {};
-        self.current = null;
         self.disconnectWithoutFeedback = false;
 
 
         log('chats', self);
 
         self.newRandomExternal = function(c) {
-            self.current = c;
-
-            notification.suppressOnFocus = true;
-            setTimeout(function() { router.openOnTop('chat'); },1);
+            setCurrentChat(c);
         };
 
         self.newRandomInternal = function(channel, myIdx, partner) {
-            self.current = self.getChat(channel);
-            if (!self.current)
-                self.current = self.addChat({channel: channel, myIdx: myIdx, partner: partner});
+            var chat = self.getChat(channel);
+            if (!chat)
+                chat = self.addChat({channel: channel, myIdx: myIdx, partner: partner});
+            setCurrentChat(chat);
+        };
 
+        function setCurrentChat(chat) {
+            if (current)
+                return console.error('Attempt to overwrite current chat', current, chat);
+
+            current = chat;
             notification.suppressOnFocus = true;
             setTimeout(function() { router.openOnTop('chat'); },1);
+        }
+
+        self.getCurrent = function() {
+            return current;
+        };
+
+        self.unsetCurrent = function() {
+            current = null;
         };
 
         self.getChat = function(channel, senderId) {
@@ -88,7 +100,7 @@ angular.module("angServices")
         $rootScope.$on('chat was updated', self.save);
 
         socket.on('typing', function(e) {
-            if (self.current && self.current.channel == e.channel)
+            if (current && current.channel == e.channel)
                 $rootScope.$apply(function() {
                     $rootScope.notification.typing = e.value;
                 });

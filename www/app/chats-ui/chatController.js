@@ -14,7 +14,7 @@ angular.module("angControllers").controller("chatController",
         $scope.deviceInfo = deviceInfo;
 
 
-        var chat = chats.current;
+        var chat = chats.getCurrent();
         $scope.chat = chat;
         log("chat", chat);
 
@@ -69,6 +69,7 @@ angular.module("angControllers").controller("chatController",
 
 
         function disconnectRandomChat(feedback) {
+            chats.unsetCurrent();
             chat.disconnect(false, feedback);
             googleAnalytics.dialogComplete();
             timer.stop();
