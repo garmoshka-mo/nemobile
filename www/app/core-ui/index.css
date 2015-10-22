@@ -1059,13 +1059,22 @@ i.mobile-icon {
   margin-top: 14px;
 }
 .about .descr {
-  margin-top: 10px;
-  margin-bottom: 34px;
+  margin: 10px 16px 34px;
 }
 .about .version {
   font-size: 0.8em;
 }
+.about h1 {
+ font-size: 1.3rem;
+}
 
+img.in-text {
+ height: 22px;
+}
+
+.tabs .tab-panel {
+  margin-top: 22px;
+}
 
 .notification .options {
   color: white;

@@ -390,7 +390,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         controller: "aboutController",
-                        templateUrl: "partials/about/content.html?"+version
+                        templateUrl: "app/etc/about.html?"+version
                     }
                 }
             })
