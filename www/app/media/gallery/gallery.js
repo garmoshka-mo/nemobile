@@ -55,11 +55,34 @@ angular.module('angServices').service('gallery', [
             model = inputModel;
         };
 
+        function setCaretPosition(caretPos) {
+
+            if(input != null) {
+                if(input.createTextRange) {
+                    var range = input.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
+                }
+                else {
+                    if(input.selectionStart) {
+                        input.focus();
+                        input.setSelectionRange(caretPos, caretPos);
+                    }
+                    else
+                        input.focus();
+                }
+            }
+        }
+        var caret = 0;
         function insertAtCaret(element, text) {
             var caretPosStart = element.selectionStart || 0;
             var caretPosEnd = element.selectionEnd || 0;
             var textAreaTxt = model.text;
             model.text = textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart);
+            caret = caretPosStart + text.length;
+            setTimeout(function(){
+                setCaretPosition(caret);
+            }, 100);
     }
 
         self.typeEmoji = function($event, emojiCode) {
@@ -70,7 +93,7 @@ angular.module('angServices').service('gallery', [
 
         self.setFocusOnTextField = function() {
             setTimeout(function() {
-                input.focus();
+                setCaretPosition(caret);
             }, 0);
         };
 
