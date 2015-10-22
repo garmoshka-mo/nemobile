@@ -107,7 +107,19 @@ function($scope, posts, router, $anchorScroll, $location,
 
     $scope.skip = function () {
         $scope.skipSignIn = true;
-    }
+    };
+
+
+    // Заготовка для "многоканальной" ленты
+    var $mainSection = $('#main-section');
+    $mainSection.scroll(function () {
+        //console.log();
+        //$mainSection.scrollTop();
+        // Следить за появляющимися внизу айтемами,
+        // и разделять его на два цвета
+        //$(window).height() - $('#ee').position().top
+    });
+
 }
 ]);
 
@@ -130,7 +142,6 @@ app.directive('cutImage', function() {
 });
 
 app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
-    var $window  = $(window);
     return {
         restrict: 'E',
         transclude: true,
