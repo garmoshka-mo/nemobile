@@ -1,6 +1,32 @@
-.row
+.row.pub
+    .categories
+        .intro
+            | Привет, как себя чувствуешь? Хочется:
+        .tiles
+            .tile.c1 Приколы
+                .small (посмеяться)
+            .tile.c2 Красивое
+                .small (любоваться)
+            .tile.c3 Интересное
+                .small (поразмышлять)
+            .tile.c4 Душевное
+                .small (чувствовать)
+        .tile.more(ng-click='showMore=true' ng-hide='showMore') Еще...
+        #more.tiles(ng-show='showMore')
+             .tile.c1 Музыка
+                .small (слушать)
+             .tile.c2 Кино
+                .small (смотреть)
+             label#hardcore-label
+                input(type='checkbox' for='hardcore-label' ng-model='showHardcore')
+                | &nbsp;Во все тяжкие (NSFW)
+        #hardcore.tiles(ng-show='showHardcore')
+            .tile.c1 О сексе
+                .small (повникать)
+            .tile.c2 Пошлые
+                .small (почувствовать)
+
     .ta-center.top-margin
-        // button(ng-click="goto('random')") Перейти к чату
         .pubs-title(ng-show='posts.length > 0')
             div(translate='pubs.title')
             div.small-description(translate='pubs.description')
