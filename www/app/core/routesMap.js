@@ -203,6 +203,15 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("complaintSuccess", {
+                url: "/random",
+                views: {
+                    "content": {
+                        controller: "randomController",
+                        templateUrl: "app/chats-ui/random.html?"+version
+                    }
+                }
+            })
             .state("exit", {
                 url: "/exit",
                 views: {

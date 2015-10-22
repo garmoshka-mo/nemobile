@@ -2,6 +2,9 @@
     .random-header
         .row(ng-hide='random.lookupInProgress || updates.reloading || leaving')
             .columns.small-12.ta-center(ng-class="{'relaunch-buttons': isRestart}")
+                .row.search-status.complaint-message(ng-show='showComplaintSuccess')
+                    .small-12.columns.ta-center
+                        | Модератор проверит чат и проучит негодяев, спасибо за уведомление!
                 button(ng-hide='random.waitingServer', ng-click='lookForChat()')
                     span
                         | {{ 'random.lookForChat' | translate }}&nbsp;

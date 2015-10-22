@@ -18,6 +18,13 @@ angular.module("angControllers")
         $scope.random = random;
         $scope.notification = notification;
         $scope.isRestart = router.top.name == 'randomRestart';
+        $scope.showComplaintSuccess = router.top.name == 'complaintSuccess';
+
+        if($scope.showComplaintSuccess) {
+            $timeout(function() {
+                $scope.showComplaintSuccess = false;
+            }, 3000)
+        }
 
         var ageRanges = [[0, 100], [0, 17], [18, 21], [22, 25], [26, 35], [35, 100]];
 

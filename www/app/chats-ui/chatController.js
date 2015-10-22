@@ -86,9 +86,9 @@ angular.module("angControllers").controller("chatController",
             router.openOnTop('randomFull');
         };
 
-        $scope.disconnectRandomChat = function(feedback) {
+        $scope.disconnectRandomChat = function(feedback, route) {
             disconnectRandomChat(feedback);
-            router.openOnTop('randomRestart');
+            router.openOnTop(route || 'randomRestart');
         };
         
         notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button no-menu-drag"></i>', exitButtonClickHandler);
