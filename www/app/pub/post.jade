@@ -1,0 +1,12 @@
+div(ng-switch='model.category', in-view='postVisibility($inview, model)', in-view-options='{ offsetTop: 300, offsetBottom: -250 }')
+    .header
+        .title {{ ::model.title }}
+    .image-container(ng-switch-when='link', ng-class="{'cut-image': model.cutImage}")
+        img(ng-src='{{model.data.link.image_url}}', cut-image='cutImage(model)')
+    div(ng-switch-default='', ng-transclude='', ng-class="{'cut-image': model.cutImage}", cut-image='cutImage(model)')
+    .cut(ng-show='model.cutImage')
+        .torn
+            button(ng-click='model.cutImage = false')
+                i.fa.fa-angle-double-down
+                |  {{ 'pubs.expand' | translate }}
+    .separator
