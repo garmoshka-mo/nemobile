@@ -1011,7 +1011,7 @@ angular.module("angControllers").controller("galleryController", [
         }
         $scope.g = gallery;
         gallery.init();
-        $scope.posts = gallery.items;
+        $scope.gfys = gallery.items;
         $scope.goto = router.goto;
 
         $scope.loadMore = function() {
@@ -1023,30 +1023,26 @@ angular.module("angControllers").controller("galleryController", [
         };
 
         //TODO: replace with random gifs
+        var gfyPage = 0;
         function load() {
-            socket.emit('posts', {get: 'random items'});
-        }
+            function gfyToPost(gfy) {
+                return {title: gfy, category: 'gfy', gfy: gfy};
+            }
 
-        //TODO: replace with random gifs and uploaded photos
-        socket.on('posts', function(envelope) {
-            log('received posts:', envelope.posts);
-            transform(envelope.posts);
-
-            $scope.$apply(function() {
-                Array.prototype.push.apply(gallery.items, envelope.posts);
-                gallery.disableAutoload = envelope.posts.length == 0;
-                $scope.loading = false;
-                gfyCollection.init();
-            });
-        });
-
-        function transform(arr) {
-            arr.map(function(p) {
-                if (!p.title) p.title = '';
-                p.slug = encodeURIComponent(
-                    p.title.replace(/ /g, '-')
-                        .replace(/[\.\/]/g, '')
-                );
-            });
+            //var items;
+            //for (var i = 0; i < 3; i++) {
+            //    items = [
+            //        gfyToPost(gallery.gfys[gfyPage % gallery.gfys.length]),
+            //        gfyToPost(gallery.gfys[(gfyPage + 1) % gallery.gfys.length]),
+            //        gfyToPost(gallery.gfys[(gfyPage + 2) % gallery.gfys.length])]
+            //    gfyPage = (gfyPage + 3) % gallery.gfys.length;
+            //}
+            var gfy = gallery.gfys[gfyPage % gallery.gfys.length];
+            gfyPage++;
+            //Array.prototype.push.apply(gallery.items, items);
+            gallery.items.push({title: gfy, category: 'gfy', gfy: gfy})
+            gallery.disableAutoload = gallery.items.length == 0;
+            $scope.loading = false;
+            gfyCollection.init();
         }
     }]);

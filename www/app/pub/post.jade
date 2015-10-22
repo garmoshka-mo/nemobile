@@ -3,6 +3,8 @@ div(ng-switch='model.category', in-view='postVisibility($inview, model)', in-vie
         .title {{ ::model.title }}
     .image-container(ng-switch-when='link', ng-class="{'cut-image': model.cutImage}")
         img(ng-src='{{model.data.link.image_url}}', cut-image='cutImage(model)')
+    div(ng-switch-when='gfy')
+        img.gfyitem(data-id="{{ ::model.gfy }}" data-autoplay='false')
     div(ng-switch-default='', ng-transclude='', ng-class="{'cut-image': model.cutImage}", cut-image='cutImage(model)')
     .cut(ng-show='model.cutImage')
         .torn
