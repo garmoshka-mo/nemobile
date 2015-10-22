@@ -1,3 +1,5 @@
 div#posts-control(ng-controller='galleryControl')
-    md-button.md-fab(aria-label="Back" ng-click='backArrowHandler()')
+    md-button.md-fab.tiny(aria-label="Back" ng-click='backArrowHandler()')
         i.fa.fa-chevron-left
+    md-button.md-fab(aria-label="Send" ng-click='sendGfy(r.activePost)' ng-disabled="!r.activePost || r.activePost.category !== 'gfy'")
+        i.fa.fa-envelope-o

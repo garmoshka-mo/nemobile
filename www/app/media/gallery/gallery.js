@@ -990,6 +990,10 @@ angular.module('angServices').service('gallery', [
             //finally store emoji list
             storage.save('recentEmojis',self.recentEmojis);
         };
+
+        self.sendGfy = function(gfy) {
+            log('send gfy: ' + gfy);
+        }
     }]);
 
 angular.module("angControllers").controller("galleryPanelController", [

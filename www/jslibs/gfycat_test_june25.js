@@ -31,15 +31,22 @@ var gfyCollection = function () {
     }
 
     function init() {
+        scan();
+    }
+
+    function scan() {
+        // this can be run multiple times, so we'll add to any existing gfycats
+        var last = collection.length;
         // find each gfycat on page and run its init
         elem_coll = byClass("gfyitem", document);
         for (var i = 0; i < elem_coll.length; i++) {
+            // don't need to worry about finding existing gfyitems - they are
+            // replaced by gfyObject
             var gfyObj = new gfyObject(elem_coll[i]);
-            console.log(i); 
             collection.push(gfyObj);
         }
         // run init _after_ all are collected, because the init function deletes and recreates
-        for(var i = 0; i < collection.length; i++) {
+        for (var i = last; i < collection.length; i++) {
             collection[i].init();
         }
     }
@@ -49,9 +56,27 @@ var gfyCollection = function () {
         return collection;
     }
 
+    //patched
+    function pauseAll() {
+        for (var i = 0; i < collection.length; i++) {
+            collection[i].pause();
+        }
+        return collection;
+    }
+    function play(gfy) {
+        for (var i = 0; i < collection.length; i++) {
+            if(collection[i].getId() == gfy) {
+                collection[i].play();
+                return;
+            }
+        }
+    }
+
     return {
         init: init,
-        get: get
+        get: get,
+        pauseAll: pauseAll,
+        play: play
     }
 
 }();
@@ -581,7 +606,22 @@ var gfyObject = function (gfyElem) {
 
     return {
         init: init,
-        refresh: refresh
+        refresh: refresh,
+        pause: function() {
+            if (vid && !vid.paused) {
+                vid.pause();
+                setCtrlsPaused();
+            }
+        },
+        play: function() {
+            if (vid && vid.paused) {
+                vid.play();
+                setCtrlsPlaying();
+            }
+        },
+        getId: function() {
+            return gfyId;
+        }
     }
 }
 

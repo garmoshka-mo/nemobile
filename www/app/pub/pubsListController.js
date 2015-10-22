@@ -5,6 +5,8 @@ angular.module("angControllers")
 function($scope, posts, router, $anchorScroll, $location,
          $timeout, socket, $rootScope, vk) {
 
+    gfyCollection.get().length = 0;
+
     posts.currentPage = 1;
     $scope.posts = posts.items;
     $scope.goto = router.goto;
@@ -146,6 +148,11 @@ app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
                 if ($rootScope.activePost != post) {
                     $rootScope.activePost = post;
                     posts.activePost = post;
+
+                    if(post && post.category == 'gfy') {
+                        gfyCollection.pauseAll();
+                        gfyCollection.play(post.gfy);
+                    }
                 }
             };
             scope.cutImage = function(post) {
