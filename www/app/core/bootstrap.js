@@ -15,8 +15,7 @@ $(function() {
 
     watches = new Watches(bootstrapAngularApp);
 
-    //VK.init({apiId: 5067621, onlyWidgets: true});
-    VK.init({apiId: 4889771, onlyWidgets: true});
+    VK.init({apiId: 5067621, onlyWidgets: true});
 });
 
 angular.module("angApp")

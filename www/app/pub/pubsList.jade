@@ -17,9 +17,12 @@
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts')
             post(model="post")
-    div(ng-hide='skipSignIn || vkSignedIn')
-        | Для непрерывной ленты нужно&nbsp;
-        a(ng-click="signinVk()") авторизоваться.
+    .vk-auth-form(ng-hide='skipSignIn || vkSignedIn')
+        p Для непрерывного просмотра ленты нужно войти &nbsp;
+        button(ng-click="signinVk()" style='background: #6383a8;')
+            | Войти через ВКонтакте
+        br
         button(ng-click='skip()')
-            | Пропустить (подгрузить еще 3 поста)
+            | Пропустить
+            .small (подгрузить еще 3 поста)
     spinner.top-margin(ng-show='loading', spinner-color='green')

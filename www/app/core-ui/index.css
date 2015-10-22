@@ -967,9 +967,7 @@ input[type="radio"]:checked + .radioLabel {
   padding-bottom: 1rem;
   padding-left: 2rem;          
 }
-.custom-file-input:hover::before {
-  border-color: black;
-}
+
 /*custome checkbox*/
 .squaredFour {
   position: relative;
@@ -1106,6 +1104,12 @@ md-menu-item > .md-button {
 
 .language-top-bar-box {
   margin-left: -20px;
+}
+
+@media only screen and (max-width: 580px){
+  .language-top-bar-box {
+    margin-right: -30px;
+  }
 }
 
 .language-top-bar-box i{

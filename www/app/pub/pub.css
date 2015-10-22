@@ -218,3 +218,12 @@
 a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled]).md-focused {
     background-color: white !important;
 }
+
+.vk-auth-form {
+    margin-bottom: 67px;
+    text-align: center;
+}
+
+.vk-auth-form .small {
+    font-size: 12px;
+}
