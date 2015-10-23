@@ -1,5 +1,5 @@
 .row.pub
-    .categories
+    // .categories
         .intro
             | Привет, как себя чувствуешь? Хочется:
         .tiles
@@ -33,8 +33,11 @@
             // span.score(ng-class='{negative: post.score < 0}') {{ post.score }}
             div.header
                 div.title {{ post.title }}
-            div.image-container(ng-class='{"cut-image": post.cutImage}')
-                img(ng-switch-when='link' ng-src='{{post.data.link.image_url}}' cut-image='cutImage(post)')
+            .image-container(ng-class='{"cut-image": post.cutImage}' ng-hide='post.showVideo')
+                img(ng-switch-when='link' ng-src='{{post.data.link.image_url}}'
+                    ng-click='activatePost(post)' cut-image='cutImage(post)')
+            .video-container(ng-show='post.showVideo')
+                iframe(ng-src="{{post.videoUrl}}" width="560" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
             div.cut(ng-show='post.cutImage')
                 div.torn
                 button(ng-click='post.cutImage = false')

@@ -1,9 +1,9 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', 'socket', '$rootScope', 'vk',
+        '$timeout', 'socket', '$rootScope', 'vk', '$sce',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, socket, $rootScope, vk) {
+         $timeout, socket, $rootScope, vk, $sce) {
 
     posts.currentPage = 1;
     $scope.posts = posts.items;
@@ -90,6 +90,23 @@ function($scope, posts, router, $anchorScroll, $location,
         post.cutImage = true;
     };
 
+    // todo: remove after fix of post directive:
+    $scope.postVisibility = function(inview, post) {
+        if (!inview && $rootScope.activePost == post)
+            post = null;
+
+        if ($rootScope.activePost != post) {
+            $rootScope.activePost = post;
+            posts.activePost = post;
+        }
+    };
+    $scope.activatePost = function(post) {
+        console.log(post);
+        post.videoUrl =
+            $sce.trustAsResourceUrl(post.data.link.embed_url);
+        post.showVideo = true;
+    };
+
     $scope.skipSignIn = true;
     vk.isAuthorised().then(function(isAuthorised) { $scope.vkSignedIn = isAuthorised; });
 
@@ -151,6 +168,7 @@ app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
         link: function(scope, elem, attr) {
             $rootScope.activePost = null;
             scope.postVisibility = function(inview, post) {
+                console.log('visi', post);
                 if (!inview && $rootScope.activePost == post)
                     post = null;
 
