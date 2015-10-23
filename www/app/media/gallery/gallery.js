@@ -1005,10 +1005,23 @@ angular.module('angServices').service('gallery', [
             sendMessageHandler('gfy:' + gfy);
         }
 
-        self.parseHtml = function(html) {
+        function getUtfEmoji(name) {
+            for (var emoji in self.emoji) {
+                if (self.emoji[emoji][1][0] == name) {
+                    return self.emoji[emoji][0];
+                }
+            }
+            return name;
+        }
+
+        self.parseHtml = function(html, parseToUtf) {
             var emojiContainerRegex = /<img class="emoji emoji_\w+" title=":(\w+):">/g;
             return html.replace(emojiContainerRegex, function (match, text) {
-                return ":" + text + ":";
+                if(parseToUtf) {
+                    return getUtfEmoji(text);
+                } else {
+                    return ":" + text + ":";
+                }
             });
         }
     }]);

@@ -36,7 +36,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
             ttl = $scope.newMessage.ttl;
         if (textToSend) {
 
-            textToSend = gallery.parseHtml(textToSend);
+            textToSend = gallery.parseHtml(textToSend, lastSession.type == 'external');
 
             $scope.newMessage.clearText();
             $scope.isMessageSending = true;
@@ -166,8 +166,8 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
 
     function quoteMessage(message) {
-        $scope.newMessage.text = $scope.newMessage.text +
-            ' > ' + message.text + ' < = ';
+        $chatInput.html($chatInput.html() +
+            ' > ' + message.text + ' < = ');
     }
 
     $rootScope.$on('quote message', function(event, args) {
