@@ -1,6 +1,6 @@
 angular.module('angServices').service('gallery', [
-    '$rootScope', 'storage',
-    function($rootScope, storage) {
+    '$rootScope', 'storage', 'emoji',
+    function($rootScope, storage, emoji) {
 
         var self = this;
 
@@ -47,16 +47,14 @@ angular.module('angServices').service('gallery', [
             }
         };
 
-        var input;
-        var model;
+        var $input;
 
-        self.setInput = function($input, inputModel) {
-            input = $input[0];
-            model = inputModel;
+        self.setInput = function(input) {
+            $input = input;
         };
 
         function setCaretPosition(caretPos) {
-
+            var input = $input[0];
             if(input != null) {
                 if(input.createTextRange) {
                     var range = input.createTextRange();
@@ -77,8 +75,8 @@ angular.module('angServices').service('gallery', [
         function insertAtCaret(element, text) {
             var caretPosStart = element.selectionStart || 0;
             var caretPosEnd = element.selectionEnd || 0;
-            var textAreaTxt = model.text;
-            model.text = textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart);
+            var textAreaTxt = $input.text();
+            $input.text(textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart));
             caret = caretPosStart + text.length;
             setTimeout(function(){
                 setCaretPosition(caret);
@@ -86,8 +84,8 @@ angular.module('angServices').service('gallery', [
     }
 
         self.typeEmoji = function($event, emojiCode) {
-            if(input) {
-                insertAtCaret(input, self.getEmoji(emojiCode));
+            if($input) {
+                insertAtCaret($input[0], emoji.parse(self.getEmoji(emojiCode)));
             }
         };
 

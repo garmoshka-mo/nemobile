@@ -11,10 +11,9 @@
                         i.fa.fa-camera
                     .chat-input-container
                         div.chat-input.single-line(contenteditable="true",
-                        ng-focus='onInputFieldFocus()', ng-model='newMessage.text',
+                        ng-focus='onInputFieldFocus()',
                         ng-keydown='input_keypress($event)',
                         data-snap-ignore='true', tabindex="0")
-                        //input.chat-input(ng-show='' placeholder="{{'chat.placeholder' | translate }}", type='text', ng-focus='onInputFieldFocus()', ng-model='newMessage.text', ng-keydown='input_keypress($event)', ng-change='findAppropriateStiker()', data-snap-ignore='true' contenteditable="true")
                     .chat-gallery-button.pointer(ng-click='toggleGalleryPanel()' ng-focus="setFocusOnTextField()")
                         img(src="assets/img/gallery-smile.png")
                 button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!(deviceInfo.isOldAndroid || deviceInfo.isIos)')
