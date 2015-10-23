@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("postsControl", [
-    '$scope', 'posts', '$stateParams', 'user', 'router', 'separator',
-function($scope, posts, $stateParams, user, router, separator) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'separator', 'userRequest',
+function($scope, posts, $stateParams, user, router, separator, userRequest) {
 
     $scope.posts = posts;
 
@@ -37,6 +37,11 @@ function($scope, posts, $stateParams, user, router, separator) {
         if (!posts.activePost) return;
 
         posts.deletePost(posts.activePost.id)
-    }
+    };
+
+    $scope.saveTag = function() {
+        var url = '/posts/' + posts.activePost.id + '/reset_tag/' + posts.activePost.tag;
+        userRequest.sendForSure('PATCH', url);
+    };
 }
 ]);
