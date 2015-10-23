@@ -3,11 +3,11 @@
         return {
             scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
+            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', 'emoji', controller]
         };
     });
 
-    function controller($scope, $postpone, view, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
+    function controller($scope, $postpone, view, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket, emoji) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -81,6 +81,7 @@
         };
 
         function parseUrls(messageText) {
+            messageText = emoji.parse(messageText);
             if (messageText.match(/(http|https):/)) {
 
                 messageText = messageText.replace(/(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png))/g, '<div><img class="message-image" src="$&"></div>');
@@ -92,7 +93,15 @@
                     messageText = messageText.replace(/https?:\/\/(?![^" ]*(?:jpg|png|gif))[^" ]+/g, "<a class='message-link' target='_blank' href='$&'>$&</a>");
                 }
                 return $sce.trustAsHtml(messageText);
-            }  else {
+            } else if (messageText.match(/gfy:(\w+)/g)) {
+                var gfyRegexp = /gfy:(\w+)/g;
+                var match = gfyRegexp.exec(messageText);
+                log(match[1]);
+                var autoplay = IS_MOBILE ? "data-autoplay='false'" : "";
+                messageText = messageText.replace(gfyRegexp,"<img class='gfyitem' " + autoplay + " data-id='"+ match[1] +"'/>");
+                setTimeout(function() { gfyCollection.init(); } , 200);
+                return $sce.trustAsHtml(messageText);
+            } else {
                 return messageText;
             }
         }

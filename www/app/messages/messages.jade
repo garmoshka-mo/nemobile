@@ -38,6 +38,6 @@
         .message.message-hidden(ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", translate='message.hidden')
     div(ng-switch-default='', ng-switch='chat')
         .message.pointer(ng-switch-when='true', ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='::formatMessage(message)', ng-click='::showMenu($event, message, $index)')
-        .message.pointer(ng-switch-default='', ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='formatMessage(message)', ng-click='showMenu($event, message, $index)')
+        .message.pointer(ng-switch-default='', ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='::formatMessage(message)', ng-click='showMenu($event, message, $index)')
 message-menu(style='display: none', api='messageMenuApi', items='messageMenuItems')
                    
