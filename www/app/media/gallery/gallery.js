@@ -87,7 +87,7 @@ angular.module('angServices').service('gallery', [
 
         self.typeEmoji = function($event, emojiCode) {
             if(input) {
-                insertAtCaret(input, self.emoji[emojiCode][0]);
+                insertAtCaret(input, self.getEmoji(emojiCode));
             }
         };
 

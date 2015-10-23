@@ -503,6 +503,8 @@ input.chat-input {
 div.chat-input {
   padding-left: 35px;
   padding-right: 30px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   width: 100%;
   display: block;
   vertical-align: top;
@@ -530,6 +532,8 @@ div.chat-input {
   text-shadow: none;
   text-align: start;
   -webkit-writing-mode: horizontal-tb;
+  -webkit-user-select: text;
+  user-select: text;
 }
 button.chat-send {
   vertical-align: top;
