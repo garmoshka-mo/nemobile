@@ -37,19 +37,11 @@
                 img(ng-switch-when='link' ng-src='{{post.data.link.image_url}}'
                     ng-click='activatePost(post)' cut-image='cutImage(post)')
             .video-container(ng-show='post.showVideo')
-                iframe(ng-src="{{post.videoUrl}}" width="560" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
+                iframe(ng-src="{{post.videoUrl}}" width="100%" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
             div.cut(ng-show='post.cutImage')
                 div.torn
                 button(ng-click='post.cutImage = false')
                      i.fa.fa-angle-double-down
                      |  {{ 'pubs.expand' | translate }}
             div.separator
-    .vk-auth-form(ng-hide='skipSignIn || vkSignedIn')
-        p Для непрерывного просмотра ленты нужно войти &nbsp;
-        button(ng-click="signinVk()" style='background: #6383a8;')
-            | Войти через ВКонтакте
-        br
-        button(ng-click='skip()')
-            | Пропустить
-            .small (подгрузить еще 3 поста)
     spinner.top-margin(ng-show='loading', spinner-color='green')

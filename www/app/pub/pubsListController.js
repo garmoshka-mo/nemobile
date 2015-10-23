@@ -12,16 +12,11 @@ function($scope, posts, router, $anchorScroll, $location,
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
     $scope.loadMore = function() {
-        if($scope.skipSignIn || $scope.vkSignedIn) {
-            if ($scope.loading) return;
-            posts.disableAutoload = true;
-            $scope.loading = true;
-            log('page of infinite scroll:', posts.currentPage++);
-            load();
-            $scope.skipSignIn = false;
-        } else {
-            posts.disableAutoload = true;
-        }
+        if ($scope.loading) return;
+        posts.disableAutoload = true;
+        $scope.loading = true;
+        log('page of infinite scroll:', posts.currentPage++);
+        load();
     };
 
     function load() {
@@ -106,26 +101,6 @@ function($scope, posts, router, $anchorScroll, $location,
             $sce.trustAsResourceUrl(post.data.link.embed_url);
         post.showVideo = true;
     };
-
-    $scope.skipSignIn = true;
-    vk.isAuthorised().then(function(isAuthorised) { $scope.vkSignedIn = isAuthorised; });
-
-    $scope.signinVk = function() {
-        vk.auth()
-            .then(function(res) {
-                user.socialSignin("vkontakte", res.vkUserId, res.vkAccessToken)
-                    .then(
-                    function() {
-                        $scope.vkSignedIn = true;
-                    }
-                );
-            });
-    };
-
-    $scope.skip = function () {
-        $scope.skipSignIn = true;
-    };
-
 
     // Заготовка для "многоканальной" ленты
     var $mainSection = $('#main-section');
