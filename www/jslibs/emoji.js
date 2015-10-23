@@ -169,7 +169,7 @@
 
     function parse(input) {
         return input.replace(rEmojis, function (match, text) {
-            return "<i class='emoji emoji_" + text + "' title=':" + text + ":'>" + text + "</i>";
+            return "<img class='emoji emoji_" + text + "' title=':" + text + ":'>";
         });
     }
 

@@ -75,8 +75,8 @@ angular.module('angServices').service('gallery', [
         function insertAtCaret(element, text) {
             var caretPosStart = element.selectionStart || 0;
             var caretPosEnd = element.selectionEnd || 0;
-            var textAreaTxt = $input.text();
-            $input.text(textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart));
+            var textAreaTxt = $input.html();
+            $input.html(textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart));
             caret = caretPosStart + text.length;
             setTimeout(function(){
                 setCaretPosition(caret);
@@ -1003,6 +1003,13 @@ angular.module('angServices').service('gallery', [
         self.sendGfy = function(gfy) {
             log('send gfy: ' + gfy);
             sendMessageHandler('gfy:' + gfy);
+        }
+
+        self.parseHtml = function(html) {
+            var emojiContainerRegex = /<img class="emoji emoji_\w+" title=":(\w+):">/g;
+            return html.replace(emojiContainerRegex, function (match, text) {
+                return ":" + text + ":";
+            });
         }
     }]);
 

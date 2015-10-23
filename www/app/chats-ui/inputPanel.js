@@ -32,9 +32,11 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.sendMessage = function(text) {
         $scope.setFocusOnTextField();
 
-        var textToSend = text || $scope.newMessage.text || $chatInput.text(),
+        var textToSend = text || $scope.newMessage.text || $chatInput.html(),
             ttl = $scope.newMessage.ttl;
         if (textToSend) {
+
+            textToSend = gallery.parseHtml(textToSend);
 
             $scope.newMessage.clearText();
             $scope.isMessageSending = true;
