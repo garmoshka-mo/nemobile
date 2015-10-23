@@ -3,5 +3,5 @@
         .circle.pointer.gallery-open-button(ng-click="goto('gallery')")
             i.fa.fa-ellipsis-v.additional
         .recent-emojis
-            span(ng-repeat="emoji in g.recentEmojis" ng-focus="g.setFocusOnTextField()" ng-click='g.typeEmoji($event, emoji.code); g.saveToRecent(emoji.code)') {{ ::g.emoji[emoji.code][0] }}
+            span(ng-repeat="emoji in g.recentEmojis" ng-focus="g.setFocusOnTextField()" ng-click='g.typeEmoji($event, emoji.code); g.saveToRecent(emoji.code)' ng-bind-html="::g.getEmoji(emoji.code) | emoji")
 

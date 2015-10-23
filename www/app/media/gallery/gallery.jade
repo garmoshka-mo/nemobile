@@ -11,7 +11,7 @@
                 post(model='g.emojiPost')
                     .gallery-category(ng-repeat="category in g.emojiCategories")
                         a(ng-repeat="emojiCode in category" ng-click="g.typeEmoji($event, emojiCode); g.saveToRecent(emojiCode);")
-                            | {{ ::g.emoji[emojiCode][0] }}
+                            span(ng-bind-html="::g.getEmoji(emojiCode) | emoji")
             li(ng-repeat='gfy in gfys')
                 post(model="gfy")
         spinner.top-margin(ng-show='loading', spinner-color='green')
