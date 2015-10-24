@@ -60,7 +60,10 @@
     padding-top: 10px;
     padding-bottom: 11px;
     font-size: 1.2em;
+    margin-bottom: 13px;
+    border-bottom: 2px solid white;
 }
+
 .pubs-title img {
     width: 183px;
     margin-top: 5px;

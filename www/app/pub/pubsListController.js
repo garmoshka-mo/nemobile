@@ -6,6 +6,7 @@ function($scope, posts, router, $anchorScroll, $location,
          $timeout, socket, $rootScope, vk, $sce) {
 
     posts.currentPage = 1;
+    posts.closeVideos();
     $scope.posts = posts.items;
     $scope.goto = router.goto;
 
@@ -96,7 +97,8 @@ function($scope, posts, router, $anchorScroll, $location,
         }
     };
     $scope.activatePost = function(post) {
-        console.log(post);
+        if (!post.data.link.embed_url) return;
+
         post.videoUrl =
             $sce.trustAsResourceUrl(post.data.link.embed_url);
         post.showVideo = true;

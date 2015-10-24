@@ -16,11 +16,11 @@
     .ta-center.top-margin
         .pubs-title(ng-show='posts.length > 0')
             div(translate='pubs.title')
-            div.small-description(translate='pubs.description')
-            div
+            //div.small-description(translate='pubs.description')
+            //div
                 img(src='assets/img/page-break.png')
 
-    div#add-link(ng-show='posts.length > 0')
+    div#add-link(ng-show='debug && posts.length > 0')
         input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
         span {{ postUrlNotice | translate }}
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')

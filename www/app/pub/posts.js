@@ -42,6 +42,13 @@ function(userRequest) {
         return ratePost(postId, -1);
     };
 
+    this.closeVideos = function() {
+        self.items.map(function (i) {
+            i.showVideo = false;
+            i.videoUrl = null;
+        });
+    };
+
     function deletePostFromArray(id) {
         self.items.map(function(p, i) {
             if (p.id == id) self.items.splice(i, 1);
