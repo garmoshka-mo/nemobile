@@ -236,5 +236,7 @@ angular.module("angControllers")
             $scope.lookForChat();
         }
 
+        $(document).foundation('dropdown', 'reflow');
+
     }
 ]);
