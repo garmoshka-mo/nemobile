@@ -33,106 +33,106 @@
         div
             | {{ 'random.mobinfo1' | translate }}
         a(ng-click='closeMobileAd()') {{ 'Close' | translate }}
-
-
-
-    // Temporary for test:
-    a(data-dropdown='drop1', aria-controls='drop1', aria-expanded='false') Has Dropdown
-    a(data-dropdown='drop2', aria-controls='drop2', aria-expanded='false') Has Content Dropdown
-
-
     #searchParameters(ng-hide='isRestart || leaving || isLookingAgain')
         .row
             .columns.small-12
                 .row.fab-buttons-container
                     .small-3.columns
                         | {{ 'random.theme' | translate }}
-                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.theme.isOpened')
-                            md-fab-trigger
-                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.theme.value === -1}")
-                                    img(ng-show='filter.theme.value === -1', ng-src='assets/img/theme-forbid.png')
-                                    img(ng-show='filter.theme.value === 0', ng-src='assets/img/theme-unselected.png')
-                                    img(ng-show='filter.theme.value === 1', ng-src='assets/img/theme-prefer.png')
-                                    img(ng-show='filter.theme.value === 2', ng-src='assets/img/theme-require.png')
-                            md-fab-actions
-                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.theme.selectValue(0)')
-                                    .fab-empty-div
-                                    .fab-title.fab-title-right(translate='random.notSet')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(1)')
+                        button.param-selector(data-dropdown="theme", aria-controls="theme", aria-expanded="false", ng-class="{'forbid-fab': filter.theme.value === -1}")
+                            img(ng-show='filter.theme.value === -1', ng-src='assets/img/theme-forbid.png')
+                            img(ng-show='filter.theme.value === 0', ng-src='assets/img/theme-unselected.png')
+                            img(ng-show='filter.theme.value === 1', ng-src='assets/img/theme-prefer.png')
+                            img(ng-show='filter.theme.value === 2', ng-src='assets/img/theme-require.png')
+                        ul#theme.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.theme.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.theme.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                    .fab-title.fab-title-right(translate='random.prefer')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.theme.selectValue(2)')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.theme.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                    .fab-title.fab-title-right(translate='random.require')
-                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.theme.selectValue(-1)')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.theme.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
-                                    .fab-title.fab-title-right(translate='random.forbid')
+                                    .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.geo' | translate }}
-                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.geo.isOpened')
-                            md-fab-trigger
-                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.geo.value === -1}")
-                                    img(ng-show='filter.geo.value === 0', ng-src='assets/img/geo-unselected.png')
-                                    img(ng-show='filter.geo.value === -1', ng-src='assets/img/geo-forbid.png')
-                                    img(ng-show='filter.geo.value === 1', ng-src='assets/img/geo-prefer.png')
-                                    img(ng-show='filter.geo.value === 2', ng-src='assets/img/geo-require.png')
-                            md-fab-actions
-                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.geo.selectValue(0)')
-                                    .fab-empty-div
-                                    .fab-title.fab-title-right(translate='random.notSet')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(1)')
+                        button.param-selector(data-dropdown="geo", aria-controls="geo", aria-expanded="false", ng-class="{'forbid-fab': filter.geo.value === -1}")
+                            img(ng-show='filter.geo.value === 0', ng-src='assets/img/geo-unselected.png')
+                            img(ng-show='filter.geo.value === -1', ng-src='assets/img/geo-forbid.png')
+                            img(ng-show='filter.geo.value === 1', ng-src='assets/img/geo-prefer.png')
+                            img(ng-show='filter.geo.value === 2', ng-src='assets/img/geo-require.png')
+                        ul#geo.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.geo.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.geo.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                    .fab-title.fab-title-right(translate='random.prefer')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.geo.selectValue(2)')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.geo.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                    .fab-title.fab-title-right(translate='random.require')
-                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.geo.selectValue(-1)')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.geo.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
-                                    .fab-title.fab-title-right(translate='random.forbid')
+                                    .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.sex' | translate }}
-                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.sex.isOpened')
-                            md-fab-trigger
-                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.sex.value === -1}")
-                                    img(ng-show='filter.sex.value === 0', ng-src='assets/img/sex-unselected.png')
-                                    img(ng-show='filter.sex.value === -1', ng-src='assets/img/sex-forbid.png')
-                                    img(ng-show='filter.sex.value === 1', ng-src='assets/img/sex-prefer.png')
-                                    img(ng-show='filter.sex.value === 2', ng-src='assets/img/sex-require.png')
-                            md-fab-actions
-                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.sex.selectValue(0)')
-                                    .fab-title.fab-title-left(translate='random.notSet')
-                                    .fab-empty-div
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(1)')
-                                    .fab-title.fab-title-left(translate='random.prefer')
+                        button.param-selector(data-dropdown="sex", aria-controls="sex", aria-expanded="false", ng-class="{'forbid-fab': filter.sex.value === -1}")
+                            img(ng-show='filter.sex.value === 0', ng-src='assets/img/sex-unselected.png')
+                            img(ng-show='filter.sex.value === -1', ng-src='assets/img/sex-forbid.png')
+                            img(ng-show='filter.sex.value === 1', ng-src='assets/img/sex-prefer.png')
+                            img(ng-show='filter.sex.value === 2', ng-src='assets/img/sex-require.png')
+                        ul#sex.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.sex.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.sex.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.sex.selectValue(2)')
-                                    .fab-title.fab-title-left(translate='random.require')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.sex.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.sex.selectValue(-1)')
-                                    .fab-title.fab-title-left(translate='random.forbid')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.sex.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.video' | translate }}
-                        md-fab-speed-dial.md-fling(md-direction='down', md-open='filter.video.isOpened')
-                            md-fab-trigger
-                                md-button.md-fab(aria-label='menu', ng-class="{'forbid-fab': filter.video.value === -1}")
-                                    img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')
-                                    img(ng-show='filter.video.value === -1', ng-src='assets/img/video-forbid.png')
-                                    img(ng-show='filter.video.value === 1', ng-src='assets/img/video-prefer.png')
-                                    img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
-                            md-fab-actions
-                                md-button.md-fab.md-raised.md-mini(aria-label='twitter', ng-click='filter.video.selectValue(0)')
-                                    .fab-title.fab-title-left(translate='random.notSet')
-                                    .fab-empty-div
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(1)')
-                                    .fab-title.fab-title-left(translate='random.prefer')
+                        button.param-selector(data-dropdown="video", aria-controls="video", aria-expanded="false", ng-class="{'forbid-fab': filter.video.value === -1}")
+                            img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')
+                            img(ng-show='filter.video.value === -1', ng-src='assets/img/video-forbid.png')
+                            img(ng-show='filter.video.value === 1', ng-src='assets/img/video-prefer.png')
+                            img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
+                        ul#video.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.video.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.video.selectValue(1)')
                                     img(src='assets/img/prefer.png', alt='prefer')
-                                md-button.md-fab.md-raised.md-mini(aria-label='Google hangout', ng-click='filter.video.selectValue(2)')
-                                    .fab-title.fab-title-left(translate='random.require')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.video.selectValue(2)')
                                     img(src='assets/img/require.png', alt='require')
-                                md-button.md-fab.md-raised.md-mini(aria-label='facebook', ng-click='filter.video.selectValue(-1)')
-                                    .fab-title.fab-title-left(translate='random.forbid')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.video.selectValue(-1)')
                                     img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
         .placeholder_for_fab_buttons
         #random-help.row(style='margin-bottom: 9px;')
             .small-12.ta-center.columns
@@ -173,14 +173,3 @@
         br
     .center.top-margin(ng-show='leaving')
         div(spinner='', spinner-color='green')
-
-ul#drop1.f-dropdown(data-dropdown-content='', aria-hidden='true', tabindex='-1')
-    li
-        a(href='#') This is a link
-    li
-        a(href='#') This is another
-    li
-        a(href='#') Yet another
-#drop2.f-dropdown.content(data-dropdown-content='', aria-hidden='true', tabindex='-1')
-    p
-        | Some text that people will think is awesome! Some text that people will think is awesome! Some text that people will think is awesome!
