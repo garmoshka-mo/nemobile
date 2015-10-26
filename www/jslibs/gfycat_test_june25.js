@@ -515,7 +515,7 @@ var gfyObject = function (gfyElem) {
     }
 
     function pauseClick(event) {
-        if(event) {
+        if (event) {
             event.stopPropagation();
         }
         if (vid.paused) {
