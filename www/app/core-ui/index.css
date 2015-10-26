@@ -509,7 +509,7 @@ div.chat-input {
   display: block;
   vertical-align: top;
   border-radius: 5px;
-  height: auto;
+  height: 37px;
   -webkit-appearance: none;
   -webkit-border-radius: 5px;
   background-color: white;

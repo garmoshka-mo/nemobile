@@ -514,7 +514,10 @@ var gfyObject = function (gfyElem) {
         ctrlSlower.onclick = slower;
     }
 
-    function pauseClick() {
+    function pauseClick(event) {
+        if(event) {
+            event.stopPropagation();
+        }
         if (vid.paused) {
             vid.play();
             setCtrlsPlaying();

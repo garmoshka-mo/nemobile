@@ -1015,7 +1015,7 @@ angular.module('angServices').service('gallery', [
         }
 
         self.parseHtml = function(html, parseToUtf) {
-            var emojiContainerRegex = /<img class="emoji emoji_\w+" title=":(\w+):">/g;
+            var emojiContainerRegex = /<img class="emoji emoji_\S+" title=":(\S+):">/g;
             return html.replace(emojiContainerRegex, function (match, text) {
                 if(parseToUtf) {
                     return getUtfEmoji(text);
@@ -1075,4 +1075,7 @@ angular.module("angControllers").controller("galleryController", [
             $scope.loading = false;
             gfyCollection.init();
         }
+        $scope.$on("$destroy", function handler() {
+            gallery.galleryOpened = false;
+        });
     }]);
