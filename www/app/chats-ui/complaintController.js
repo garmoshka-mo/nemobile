@@ -1,13 +1,5 @@
-angular.module('angControllers').controller('complaintController', ['$scope', 'SpamFilter', 'notification', 'chats', 'chatHeader',
-    function($scope, SpamFilter, notification, chats, chatHeader) {
-
-        $scope.passOpenMenuHandler = function(openMenuHandler) {
-            chatHeader.setPartnerTitleClickHandler(function() {
-                if (!$scope.isComplaining) {
-                    openMenuHandler();
-                }
-            });
-        };
+angular.module('angControllers').controller('complaintController', ['$scope', 'SpamFilter', 'notification', 'chats',
+    function($scope, SpamFilter, notification, chats) {
 
         $scope.complaints = [
             {
@@ -35,5 +27,7 @@ angular.module('angControllers').controller('complaintController', ['$scope', 'S
                 });
             })
         };
+
+        $(document).foundation('dropdown', 'reflow');
 
     }]);

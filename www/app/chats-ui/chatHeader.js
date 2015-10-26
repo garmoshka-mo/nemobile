@@ -59,14 +59,6 @@ function($rootScope, user, $postpone, Avatar) {
         self.active = false;
     };
 
-    this.partnerTitleClickHandler = null;
-
-    this.setPartnerTitleClickHandler = function(handler) {
-        self.partnerTitleClickHandler = function() {
-            if (handler) handler();
-        };
-    };
-
     user.passivePromise.then(function(){
         self.me.ava = user.avatar;
         self.me.hidden = false;

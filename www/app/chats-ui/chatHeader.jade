@@ -6,7 +6,7 @@
         .flr(ng-hide="user.name")
             div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
     
-    .pointer(style='float:left' ng-click='s.partnerTitleClickHandler()'
+    .pointer(style='float:left' data-dropdown="complaint", aria-controls="complaint", aria-expanded="false"
         ng-show='s.active && !routing.is_preload')
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
         .title(style='text-align: left;')
@@ -17,7 +17,7 @@
             .name(style='float: left;')
                 | {{ 'chat.header.partner' | translate }}
                 span.typing(ng-show='notification.typing', translate='notification.typing')
-                span(ng-include="'app/utils/complaintMenu.html?'+version", ng-controller='complaintController')
+                span(ng-include="'app/chats-ui/complaintMenu.html?'+version", ng-controller='complaintController')
 
     div(style='float:right' ng-hide='s.me.hidden')  
         .title
