@@ -1,49 +1,20 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', 'socket', '$rootScope', 'vk', '$sce',
+        '$timeout', '$rootScope', 'vk', '$sce',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, socket, $rootScope, vk, $sce) {
+         $timeout, $rootScope, vk, $sce) {
+
+    gfyCollection.get().length = 0;
 
     posts.currentPage = 1;
     posts.closeVideos();
-    $scope.posts = posts.items;
+    $scope.posts = posts;
     $scope.goto = router.goto;
 
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
-    $scope.loadMore = function() {
-        if ($scope.loading) return;
-        posts.disableAutoload = true;
-        $scope.loading = true;
-        log('page of infinite scroll:', posts.currentPage++);
-        load();
-    };
-
-    function load() {
-        socket.emit('posts', {get: 'random items'});
-    }
-
-    socket.on('posts', function(envelope) {
-        log('received posts:', envelope.posts);
-        transform(envelope.posts);
-
-        $scope.$apply(function() {
-            Array.prototype.push.apply(posts.items, envelope.posts);
-            posts.disableAutoload = envelope.posts.length == 0;
-            $scope.loading = false;
-        });
-    });
-
-    function transform(arr) {
-        arr.map(function(p) {
-            if (!p.title) p.title = '';
-            p.slug = encodeURIComponent(
-                p.title.replace(/ /g, '-')
-                    .replace(/[\.\/]/g, '')
-            );
-        });
-    }
+    $scope.loadMore = posts.loadMore;
 
     $scope.loadSaved = function(){
         if(posts.lastVisitedPost) {
