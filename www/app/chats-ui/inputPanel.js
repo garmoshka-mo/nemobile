@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery',
-function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery', 'router',
+function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery, router) {
 
     var $chatInput = $('.chat-input');
 
@@ -182,6 +182,15 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
             separator.updateElements();
             separator.updateRestrictions();
         }, 0);
+    };
+    $scope.toggleGallery = function() {
+        if(gallery.galleryOpened) {
+            router.goBack();
+        }
+        else {
+            router.goto('gallery');
+        }
+        gallery.galleryOpened = !gallery.galleryOpened;
     };
     gallery.setSendMessageHandler($scope.sendMessage);
     gallery.setInput($chatInput, $scope.newMessage);
