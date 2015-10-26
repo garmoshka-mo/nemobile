@@ -98,13 +98,7 @@ function($scope, posts, router, $anchorScroll, $location,
             posts.activePost = post;
         }
     };
-    $scope.activatePost = function(post) {
-        if (!post.data.link.embed_url) return;
 
-        post.videoUrl =
-            $sce.trustAsResourceUrl(post.data.link.embed_url);
-        post.showVideo = true;
-    };
 
     // Заготовка для "многоканальной" ленты
     var $mainSection = $('#main-section');
@@ -137,7 +131,7 @@ app.directive('cutImage', function() {
     };
 });
 
-app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
+app.directive('post', ['$rootScope', 'posts', '$sce', 'router', function($rootScope, posts, $sce, router) {
     return {
         restrict: 'E',
         transclude: true,
@@ -160,6 +154,15 @@ app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
                         gfyCollection.play(post.gfy);
                     }
                 }
+            };
+            scope.activatePost = function(post) {
+                if (post.data.link.embed_url) {
+                    post.videoUrl = $sce.trustAsResourceUrl(post.data.link.embed_url);
+                    post.showVideo = true;
+                }
+                else {
+                    router.openExternalURL(post.data.link.url)
+            }
             };
             scope.cutImage = function(post) {
                 post.cutImage = true;

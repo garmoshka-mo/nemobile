@@ -181,6 +181,7 @@
 
 .image-container {
     margin: 0 3rem;
+    position: relative;
 }
 
 #posts-control {
@@ -285,4 +286,25 @@ a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled])
     color: white;
     font-weight: bold;
     margin: 1px;
+}
+.video-play {
+    background-image: url('/assets/img/video_play.png');
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    background-color: rgba(0, 0, 0, 0.45);
+    padding: 12px 15px;
+    background-repeat: no-repeat;
+    background-position: 14px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    -o-transition: opacity 60ms linear;
+    -ms-transition: opacity 60ms linear;
+    -moz-transition: opacity 60ms linear;
+    -webkit-transition: opacity 60ms linear;
+    transition: opacity 60ms linear;
 }

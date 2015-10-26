@@ -1,12 +1,13 @@
 div(ng-switch='model.category', in-view='postVisibility($inview, model)', in-view-options='{ offsetTop: 300, offsetBottom: -250 }')
     // span.score(ng-class='{negative: post.score < 0}') {{ post.score }}.header
     div.header
-        div.title {{ post.title }}
-    .image-container(ng-switch-when='link', ng-class="{'cut-image': model.cutImage}")
+        div.title {{ model.title }}
+    .image-container(ng-switch-when='link', ng-class="{'cut-image': model.cutImage}" ng-hide='model.showVideo')
         img(ng-src='{{model.data.link.image_url}}', cut-image='cutImage(model)'
-        ng-click='activatePost(post)')
-    .video-container(ng-show='post.showVideo')
-        iframe(ng-src="{{post.videoUrl}}" width="560" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
+        ng-click='activatePost(model)')
+        .video-play(ng-show="model.data.link.type == 'video'" ng-click='activatePost(model)')
+    .video-container(ng-show='model.showVideo')
+        iframe(ng-src="{{model.videoUrl}}" width="560" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
     div(ng-switch-when='gfy')
         img.gfyitem(data-id="{{ ::model.gfy }}" data-autoplay='false')
     div(ng-switch-default='', ng-transclude='', ng-class="{'cut-image': model.cutImage}", cut-image='cutImage(model)')
