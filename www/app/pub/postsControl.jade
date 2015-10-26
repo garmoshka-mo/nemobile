@@ -10,7 +10,8 @@ div#posts-control(ng-controller='postsControl')
         i.fa.fa-external-link
     //md-button.md-fab.tiny(aria-label="More" ng-disabled='!posts.activePost' )
         i.fa.fa-ellipsis-v
-
+    input(ng-show='debug' style='width: 40px;' ng-model='posts.activePost.tag')
+    a(ng-show='debug' ng-click='saveTag()') save
 
 
 

@@ -1,29 +1,25 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', 'socket', '$rootScope', 'vk',
+        '$timeout', 'socket', '$rootScope', 'vk', '$sce',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, socket, $rootScope, vk) {
+         $timeout, socket, $rootScope, vk, $sce) {
 
     gfyCollection.get().length = 0;
 
     posts.currentPage = 1;
+    posts.closeVideos();
     $scope.posts = posts.items;
     $scope.goto = router.goto;
 
     $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
     $scope.loadMore = function() {
-        if($scope.skipSignIn || $scope.vkSignedIn) {
-            if ($scope.loading) return;
-            posts.disableAutoload = true;
-            $scope.loading = true;
-            log('page of infinite scroll:', posts.currentPage++);
-            load();
-            $scope.skipSignIn = false;
-        } else {
-            posts.disableAutoload = true;
-        }
+        if ($scope.loading) return;
+        posts.disableAutoload = true;
+        $scope.loading = true;
+        log('page of infinite scroll:', posts.currentPage++);
+        load();
     };
 
     function load() {
@@ -92,24 +88,34 @@ function($scope, posts, router, $anchorScroll, $location,
         post.cutImage = true;
     };
 
-    $scope.skipSignIn = true;
-    vk.isAuthorised().then(function(isAuthorised) { $scope.vkSignedIn = isAuthorised; });
+    // todo: remove after fix of post directive:
+    $scope.postVisibility = function(inview, post) {
+        if (!inview && $rootScope.activePost == post)
+            post = null;
 
-    $scope.signinVk = function() {
-        vk.auth()
-            .then(function(res) {
-                user.socialSignin("vkontakte", res.vkUserId, res.vkAccessToken)
-                    .then(
-                    function() {
-                        $scope.vkSignedIn = true;
-                    }
-                );
-            });
+        if ($rootScope.activePost != post) {
+            $rootScope.activePost = post;
+            posts.activePost = post;
+        }
+    };
+    $scope.activatePost = function(post) {
+        if (!post.data.link.embed_url) return;
+
+        post.videoUrl =
+            $sce.trustAsResourceUrl(post.data.link.embed_url);
+        post.showVideo = true;
     };
 
-    $scope.skip = function () {
-        $scope.skipSignIn = true;
-    }
+    // Заготовка для "многоканальной" ленты
+    var $mainSection = $('#main-section');
+    $mainSection.scroll(function () {
+        //console.log();
+        //$mainSection.scrollTop();
+        // Следить за появляющимися внизу айтемами,
+        // и разделять его на два цвета
+        //$(window).height() - $('#ee').position().top
+    });
+
 }
 ]);
 
@@ -132,7 +138,6 @@ app.directive('cutImage', function() {
 });
 
 app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
-    var $window  = $(window);
     return {
         restrict: 'E',
         transclude: true,
@@ -142,6 +147,7 @@ app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
         link: function(scope, elem, attr) {
             $rootScope.activePost = null;
             scope.postVisibility = function(inview, post) {
+                console.log('visi', post);
                 if (!inview && $rootScope.activePost == post)
                     post = null;
 

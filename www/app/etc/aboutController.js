@@ -1,13 +1,6 @@
 angular.module("angControllers").controller("aboutController",
-    ['$scope', '$state','user', '$stateParams', '$translate',
-    function($scope, $state, user, $stateParams, $translate) {
-
-        if (ALT_UI)
-            $scope.descr = $('meta[name="description"]').attr('content');
-        else
-            $translate('about.description').then(function (descr) {
-                $scope.descr = descr;
-            });
+    ['$scope', '$state','user', '$stateParams',
+    function($scope, $state, user, $stateParams) {
 
         function getTabNum(tabName) {
             var output = 1;

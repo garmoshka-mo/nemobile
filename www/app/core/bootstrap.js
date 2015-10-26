@@ -2,6 +2,7 @@ var version = 'dev', config;
 var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
 var ALT_UI;
+var Rollbar;
 
 var watches;
 var userAgent = navigator.userAgent.toLowerCase();
@@ -64,12 +65,12 @@ angular.module("angApp")
 
             // Pure JavaScript errors handler
             window.addEventListener('error', function (err) {
-                Rollbar.error(err);
+                if (Rollbar) Rollbar.error(err);
             });
 
             return function (exception, cause) {
                 $delegate(exception, cause);
-                Rollbar.error(exception);
+                if (Rollbar) Rollbar.error(exception);
             };
         }]);
     }])

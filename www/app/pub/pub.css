@@ -60,7 +60,10 @@
     padding-top: 10px;
     padding-bottom: 11px;
     font-size: 1.2em;
+    margin-bottom: 13px;
+    border-bottom: 2px solid white;
 }
+
 .pubs-title img {
     width: 183px;
     margin-top: 5px;
@@ -226,4 +229,60 @@ a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled])
 
 .vk-auth-form .small {
     font-size: 12px;
+}
+
+.categories {
+    margin-top: 26px;
+}
+
+.categories .intro {
+    margin-bottom: 13px;
+    margin-left: 10px;
+}
+
+.tiles {
+    font-size: 0;
+}
+.tile{
+    cursor: pointer;
+}
+.tiles .tile {
+    color: #FFFFFF;
+    font-size: 1rem;
+    width: 50%;
+    display: inline-block;
+    height: 66px;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 11px;
+    border: solid 1px #F1F3F6;
+}
+.tile .small {
+    font-weight: normal;
+    font-size: 0.8rem;
+}
+.tile.c1 {
+    background: #96C6EF;
+}
+.tile.c2 {
+    background: #8CD8A0;
+}
+.tile.c3 {
+    background: #9691D0;
+}
+.tile.c4 {
+    background: #ECB094;
+}
+#hardcore-label {
+    margin: 12px 12px 0 12px;
+}
+
+.tile.more {
+    background: #96C6EF;
+    text-align: center;
+    padding: 5px;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: bold;
+    margin: 1px;
 }

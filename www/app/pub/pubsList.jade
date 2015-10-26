@@ -1,13 +1,26 @@
-.row
+.row.pub
+    // .categories
+        .intro
+            | Привет, как себя чувствуешь? Хочется:
+        .tiles
+            .tile.c1 Приколы
+                .small (посмеяться)
+            .tile.c2 Красивое
+                .small (любоваться)
+            .tile.c3 Интересное
+                .small (поразмышлять)
+            .tile.c4 Душевное
+                .small (чувствовать)
+        //.tile.more(ng-click='showMore=true' ng-hide='showMore') Еще...
+
     .ta-center.top-margin
-        // button(ng-click="goto('random')") Перейти к чату
         .pubs-title(ng-show='posts.length > 0')
             div(translate='pubs.title')
-            div.small-description(translate='pubs.description')
-            div
+            //div.small-description(translate='pubs.description')
+            //div
                 img(src='assets/img/page-break.png')
 
-    div#add-link(ng-show='posts.length > 0')
+    div#add-link(ng-show='debug && posts.length > 0')
         input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
         span {{ postUrlNotice | translate }}
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
@@ -17,12 +30,4 @@
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts')
             post(model="post")
-    .vk-auth-form(ng-hide='skipSignIn || vkSignedIn')
-        p Для непрерывного просмотра ленты нужно войти &nbsp;
-        button(ng-click="signinVk()" style='background: #6383a8;')
-            | Войти через ВКонтакте
-        br
-        button(ng-click='skip()')
-            | Пропустить
-            .small (подгрузить еще 3 поста)
     spinner.top-margin(ng-show='loading', spinner-color='green')

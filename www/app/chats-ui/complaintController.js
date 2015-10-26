@@ -25,13 +25,12 @@ angular.module('angControllers').controller('complaintController', ['$scope', 'S
         ];
 
         $scope.reportComplaint = function(complaintName) {
-            var chat = chats.current;
+            var chat = chats.getCurrent();
             var session = chat.getLastUnexpiredChatSession().then(function(){
                 $scope.isComplaining = true;
                 var filter = new SpamFilter(chat.lastUnexpiredChatSession);
                 filter.complain(complaintName, function() {
-                    notification.chatDisconnect();
-                    notification.showToast('Модератор проверит чат и проучит негодяев, спасибо за уведомление!');
+                    notification.chatDisconnect(null, 'complaintSuccess');
                     $scope.isComplaining = false;
                 });
             })

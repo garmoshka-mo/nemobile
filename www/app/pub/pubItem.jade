@@ -2,10 +2,10 @@
     .post-header
         .vote-control
             .vote-button(ng-click='like()', ng-class='{liked: liked}')
-                i.fa.fa-arrow-up
-            .score {{ post.score + liked - disliked}}
+                i.fa.fa-chevron-up
+            .score {{ post.score + liked - disliked }}
             .vote-button(ng-click='dislike()', ng-class='{disliked: disliked}')
-                i.fa.fa-arrow-down
+                i.fa.fa-chevron-down
         .post-title
             h5 {{ post.title }}
         .post-duration(ng-show="post.duration")
@@ -17,7 +17,7 @@
         button(ng-click="router.goto('pubsList')")
             i.fa.fa-th-list
             |  Смотреть другие публикации
-        button(ng-click="router.openOnTop('random')")
+        button(ng-click="router.goto('random')")
             i.fa.fa-refresh
             |  Чат наугад
     .pub-bottom-break

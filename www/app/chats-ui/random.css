@@ -190,6 +190,13 @@ sex-select:focus {
 .search-status>div {
     padding: 3px 0 6px;
 }
+.row.complaint-message {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: 62.5rem;
+    margin-bottom: 1rem;
+}
 
 .random-header .bg-red {
     background-color: rgba(224, 79, 63, 0.58);

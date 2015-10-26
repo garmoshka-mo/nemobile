@@ -14,7 +14,7 @@ angular.module("angControllers").controller("chatController",
         $scope.deviceInfo = deviceInfo;
 
 
-        var chat = chats.current;
+        var chat = chats.getCurrent();
         $scope.chat = chat;
         log("chat", chat);
 
@@ -69,6 +69,7 @@ angular.module("angControllers").controller("chatController",
 
 
         function disconnectRandomChat(feedback) {
+            chats.unsetCurrent();
             chat.disconnect(false, feedback);
             googleAnalytics.dialogComplete();
             timer.stop();
@@ -85,9 +86,9 @@ angular.module("angControllers").controller("chatController",
             router.openOnTop('randomFull');
         };
 
-        $scope.disconnectRandomChat = function(feedback) {
+        $scope.disconnectRandomChat = function(feedback, route) {
             disconnectRandomChat(feedback);
-            router.openOnTop('randomRestart');
+            router.openOnTop(route || 'randomRestart');
         };
         
         notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button no-menu-drag"></i>', exitButtonClickHandler);

@@ -13,7 +13,7 @@ angular.module("angControllers")
             initChat();
 
             function initChat() {
-                var chat = chats.current;
+                var chat = chats.getCurrent();
                 if (chat) init(chat);
                 else router.goto('pubsList');
 
