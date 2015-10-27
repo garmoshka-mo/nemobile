@@ -1,10 +1,10 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus',
-function($scope, posts, $stateParams, user, router, disqus) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus', 'separator',
+function($scope, posts, $stateParams, user, router, disqus, separator) {
 
     separator.resize('hide');
-    
+
     var id = $stateParams.postId;
     $scope.router = router;
 
