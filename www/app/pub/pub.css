@@ -341,3 +341,7 @@ a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled])
     font-weight: bold;
     margin: 1px;
 }
+
+.f-dropdown li:hover.dropdown-title, .f-dropdown li:focus.dropdown-title {
+    background: #fff;
+}
