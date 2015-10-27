@@ -24,6 +24,11 @@ function($scope, posts, $stateParams, user, router, disqus, separator) {
             //        $scope.post.chat.duration_s.toHHMMSS() : 0;
 
             disqus.load(id, data.post.title);
+        }, function(err) {
+            //if post not found
+            //redirect
+            log(err);
+            router.goto('pubsList');
         });
     }
 
