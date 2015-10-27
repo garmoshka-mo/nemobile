@@ -62,8 +62,10 @@
             //$mdOpenMenu is injected from md-menu scope
             //in message menu template
             $timeout(function() {
-                $scope.$mdOpenMenu(event);
+                //TODO: open foundation context menu
+                //$scope.$mdOpenMenu(event);
             }, 0);
         }
+        $(document).foundation('dropdown', 'reflow');
     }
 })();

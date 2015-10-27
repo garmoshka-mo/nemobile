@@ -3,11 +3,11 @@
         return {
             scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$mdDialog', '$timeout', '$rootScope', 'socket', controller]
+            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$timeout', '$rootScope', 'socket', controller]
         };
     });
 
-    function controller($scope, $postpone, view, chatHeader, $sce, $mdDialog, $timeout, $rootScope, socket) {
+    function controller($scope, $postpone, view, chatHeader, $sce, $timeout, $rootScope, socket) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
@@ -35,20 +35,20 @@
 
         function editMessage(message) {
             var parentEl = angular.element(document.body);
-            $mdDialog.show({
-                parent: parentEl,
-                templateUrl: 'app/messages/editMessageDialog.html?'+version,
-                locals: {
-                   message: message
-                 },
-                controller: DialogController 
-            });
+            //~dialog.show({
+            //    parent: parentEl,
+            //    templateUrl: 'app/messages/editMessageDialog.html?'+version,
+            //    locals: {
+            //       message: message
+            //     },
+            //    controller: DialogController
+            //});
         }
 
-        function DialogController($scope, $mdDialog, message) {
+        function DialogController($scope, message) {
             $scope.message = message;
             $scope.closeDialog = function() {
-              $mdDialog.hide();
+
             };
         }
 
