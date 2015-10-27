@@ -45,6 +45,11 @@ function($scope, posts, $stateParams, user, router, disqus) {
                 }, 500);
             });
         }
-    }
+    };
+
+    $scope.externalURL = function() {
+        router.openExternalURL($scope.post.data.link.url)
+    };
+
 }
 ]);

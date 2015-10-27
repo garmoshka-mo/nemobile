@@ -3,6 +3,8 @@ angular.module("angControllers")
     '$scope', 'posts', '$stateParams', 'user', 'router', 'separator', 'userRequest',
 function($scope, posts, $stateParams, user, router, separator, userRequest) {
 
+    separator.resize('hide');
+
     $scope.posts = posts;
 
     separator.setMainFooter($('#posts-control'));
@@ -10,7 +12,7 @@ function($scope, posts, $stateParams, user, router, separator, userRequest) {
     $scope.externalURL = function() {
         if (!posts.activePost) return;
 
-        router.openExternalURL(posts.activePost.data.link.url)
+        router.openExternalURL('/pub/' + posts.activePost.id + '/view')
     };
 
     $scope.like = function() {
