@@ -3,8 +3,6 @@ angular.module("angControllers")
     '$scope', 'posts', '$stateParams', 'user', 'router', 'separator', 'userRequest',
 function($scope, posts, $stateParams, user, router, separator, userRequest) {
 
-    separator.resize('hide');
-
     $scope.posts = posts;
 
     separator.setMainFooter($('#posts-control'));
