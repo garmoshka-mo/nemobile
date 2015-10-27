@@ -1,9 +1,5 @@
-//TODO: convert to foundation
-//md-menu.psedo-menu(md-offset='{{$parent.menuX}} {{$parent.menuY}}')
 div.inline-block
-    //md-button.md-icon-button(aria-label='Open demo menu', ng-click='$parent.$mdOpenMenu = $mdOpenMenu')
-    //    span {{$parent.$parent.$mdOpenMenu = $mdOpenMenu}}
-    ul#message-menu.f-dropdown.small(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+    ul.message-menu.f-dropdown.small(data-dropdown-content='', aria-hidden='true', tabindex='-1')
         li(ng-repeat='item in items')
             a(ng-click='onMenuItemClick(item)', aria-label='::{{item.name}}')
                 span(ng-bind-html='item.name | translate')
