@@ -13,3 +13,6 @@
         input(type='text', ng-model='preview.title', placeholder="{{'publish.preview.title' | translate }}", autocomplete='off', allow-text-select='')
     messages(session='preview.session')
     .bottom-placeholder
+.context-menu-container(context-menu)
+    .context-menu
+        div(ng-include="'app/messages/editMessageDialog.html?'+version")
