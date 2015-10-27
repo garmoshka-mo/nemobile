@@ -14,18 +14,18 @@
         //.tile.more(ng-click='showMore=true' ng-hide='showMore') Еще...
 
     .ta-center.top-margin
-        .pubs-title(ng-show='posts.length > 0')
+        .pubs-title(ng-show='posts.items.length > 0')
             div(translate='pubs.title')
             //div.small-description(translate='pubs.description')
             //div
                 img(src='assets/img/page-break.png')
 
-    div#add-link(ng-show='debug && posts.length > 0')
+    div#add-link(ng-show='debug && posts.items.length > 0')
         input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
         span {{ postUrlNotice | translate }}
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
 
-    ul.posts-list(infinite-scroll-disabled='disableAutoload',
+    ul.posts-list(infinite-scroll-disabled='posts.disableAutoload',
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts')

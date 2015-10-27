@@ -49,15 +49,44 @@ a.md-button.md-fab:not([disabled]):hover,
   height: 0 !important;
 }
 */
-
-.md-fab.md-raised.md-mini {
-    overflow: auto;
+/*
+    TODO: md-* classes will be removed/renamed soon
+*/
+.param-selector {
+    background: #FFF;
+    box-shadow: none;
+    border: 1px solid #EAEAEA;
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: 0.2s linear;
+    transition-property: background-color, box-shadow;
+    padding: 0 6px;
+    margin: 6px 8px;
 }
-.md-fab.md-raised.md-mini img {
-    top: -1px;
+.param-selector img {
+    top: -2px;
     position: relative;
 }
-.fab-title {
+.search-param {
+    text-align: left;
+    min-width: 180px;
+}
+.search-param img {
+    width: 20px;
+    height: 20px;
+}
+.search-param .no-image {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.param-title {
     margin-left: -5px;
     display: inline-block;
     position: relative;
@@ -68,19 +97,16 @@ a.md-button.md-fab:not([disabled]):hover,
     border-radius: 15px;
     font-size: 0.9rem;
     text-transform: none;
-    border: 1px solid #EAEAEA;;
-}
-.fab-title-right {
+    border: 1px solid #EAEAEA;
     left: 10px;
 }
-.fab-title-left {
-    right: 36px;
-    float: right;
-}
 
-.fab-empty-div {
-    display: inline-block;
-    width: 100%;
+.md-fab.md-raised.md-mini {
+    overflow: auto;
+}
+.md-fab.md-raised.md-mini img {
+    top: -1px;
+    position: relative;
 }
 
 md-fab-speed-dial md-fab-actions {

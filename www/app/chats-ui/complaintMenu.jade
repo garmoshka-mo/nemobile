@@ -1,0 +1,9 @@
+div.inline-block
+    a.options(data-dropdown="complaint", aria-controls="complaint", aria-expanded="false")
+        i.fa.fa-ellipsis-v
+    ul#complaint.f-dropdown.small(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+        li.dropdown-title
+            a(style="cursor: default;")
+                | {{ 'complaints.complaint' | translate }}
+        li(ng-repeat='complaint in complaints')
+            a(ng-click='reportComplaint(complaint.name)') {{ complaint.title | translate }}

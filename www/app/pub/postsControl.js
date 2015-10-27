@@ -10,7 +10,7 @@ function($scope, posts, $stateParams, user, router, separator, userRequest) {
     $scope.externalURL = function() {
         if (!posts.activePost) return;
 
-        // router.openExternalURL(posts.activePost.data.link.url)
+        router.openExternalURL('/pub/' + posts.activePost.id + '/view')
     };
 
     $scope.like = function() {

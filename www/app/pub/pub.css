@@ -193,6 +193,61 @@
     overflow: visible;
 }
 
+button.md-fab {
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 50%;
+    background-clip: padding-box;
+    overflow: hidden;
+    transition: 0.2s linear;
+    transition-property: background-color, box-shadow;
+
+    color: rgb(255, 255, 255);
+    display: inline-table;
+
+}
+
+.md-button {
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: currentColor;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    outline: none;
+    border: 0;
+    display: inline-block;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 6px;
+    margin: 6px 8px;
+    line-height: 36px;
+    min-height: 36px;
+    background: transparent;
+    white-space: nowrap;
+    min-width: 88px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    letter-spacing: 0.01em;
+}
 #posts-control button.md-fab {
     opacity: 0.92;
     margin: 0px 18px;
@@ -307,4 +362,8 @@ a.md-button.md-fab:not([disabled]).md-focused, .md-button.md-fab:not([disabled])
     -moz-transition: opacity 60ms linear;
     -webkit-transition: opacity 60ms linear;
     transition: opacity 60ms linear;
+}
+
+.f-dropdown li:hover.dropdown-title, .f-dropdown li:focus.dropdown-title {
+    background: #fff;
 }

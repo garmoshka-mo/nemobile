@@ -1,7 +1,9 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus',
-function($scope, posts, $stateParams, user, router, disqus) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus', 'separator',
+function($scope, posts, $stateParams, user, router, disqus, separator) {
+
+    separator.resize('hide');
 
     var id = $stateParams.postId;
     $scope.router = router;
@@ -18,10 +20,15 @@ function($scope, posts, $stateParams, user, router, disqus) {
             $scope.liked = data.my_rate ===  1;
             $scope.disliked = data.my_rate === -1;
 
-            $scope.post.duration = $scope.post.chat.duration_s ?
-                    $scope.post.chat.duration_s.toHHMMSS() : 0;
+            //$scope.post.duration = $scope.post.chat.duration_s ?
+            //        $scope.post.chat.duration_s.toHHMMSS() : 0;
 
             disqus.load(id, data.post.title);
+        }, function(err) {
+            //if post not found
+            //redirect
+            log(err);
+            router.goto('pubsList');
         });
     }
 
@@ -45,6 +52,11 @@ function($scope, posts, $stateParams, user, router, disqus) {
                 }, 500);
             });
         }
-    }
+    };
+
+    $scope.externalURL = function() {
+        router.openExternalURL($scope.post.data.link.url)
+    };
+
 }
 ]);

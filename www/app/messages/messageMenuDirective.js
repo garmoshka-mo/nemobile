@@ -59,11 +59,13 @@
                 message: message,
                 messageIndex: messageIndex
             };
-            //$mdOpenMenu is injected from md-menu scope
-            //in message menu template
-            $timeout(function() {
-                $scope.$mdOpenMenu(event);
-            }, 0);
         }
+
+        if($('#message-menu').length) {
+            $($('.message-menu')[1]).attr('id','message-menu-edit')
+        } else {
+            $($('.message-menu')[0]).attr('id','message-menu')
+        }
+        $(document).foundation('dropdown', 'reflow');
     }
 })();
