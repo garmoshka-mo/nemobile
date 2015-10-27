@@ -77,4 +77,6 @@ function($scope, chatHeader, router) {
     $scope.myAvaClick = function() {
         router.goto('loadAvatar');
     };
+
+    $(document).foundation('dropdown', 'reflow');
 }]);

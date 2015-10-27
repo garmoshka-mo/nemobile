@@ -1,7 +1,8 @@
-md-menu
-    md-button(ng-click="$mdOpenMenu($event)" class="language-menu-button" aria-label="languageMenu")
-        span(class="current-language" ng-bind="language.current.name" )
+div.inline-block
+    button(data-dropdown="top-bar-language-menu", aria-controls="top-bar-language-menu", aria-expanded="false"
+    class="language-menu-button" aria-label="languageMenu")
+        span(class="current-language" ng-bind="language.current.name")
         i.fa.fa-language
-    md-menu-content
-        md-menu-item(ng-repeat="item in language.available")
-            md-button(ng-bind="item.name" aria-label="::item.name" ng-click="language.change(item.key)")
+    ul#top-bar-language-menu.f-dropdown.small(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+        li(ng-repeat='item in language.available')
+            a(ng-bind="item.name" aria-label="::item.name" ng-click="language.change(item.key)")

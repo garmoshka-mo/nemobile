@@ -1,9 +1,0 @@
-<md-menu class="psedo-menu" md-offset="{{$parent.menuX}} {{$parent.menuY}}">
-  <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$parent.$mdOpenMenu = $mdOpenMenu"><span>{{$parent.$parent.$mdOpenMenu = $mdOpenMenu}}</span>
-  </md-button>
-  <md-menu-content width="4">
-    <md-menu-item ng-repeat="item in items">
-      <md-button ng-click="onMenuItemClick(item)" aria-label="::{{item.name}}"><span ng-bind-html="item.name | translate"></span> </md-button>
-    </md-menu-item>
-  </md-menu-content>
-</md-menu>

@@ -1132,7 +1132,7 @@ tagsInput.factory('tiUtil', ["$timeout", function($timeout) {
 /* HTML templates */
 tagsInput.run(["$templateCache", function($templateCache) {
     $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"host\" tabindex=\"-1\" ng-click=\"eventHandlers.host.click()\" ti-transclude-append><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"{ selected: tag == tagList.selected }\" ng-click=\"eventHandlers.tag.click(tag)\"><ti-tag-item data=\"::tag\"></ti-tag-item></li> <md-menu ng-show='available.length != 0'><md-button class='tags-add-button' ng-click='$mdOpenMenu($event)'>+</md-button><md-menu-content><md-item ng-repeat='item in available'><md-button ng-click='tags.push(item)'>{{item.name}}</md-button></md-item></md-menu-content></md-menu></ul>"
+    "<div class=\"host\" tabindex=\"-1\" ng-click=\"eventHandlers.host.click()\" ti-transclude-append><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"{ selected: tag == tagList.selected }\" ng-click=\"eventHandlers.tag.click(tag)\"><ti-tag-item data=\"::tag\"></ti-tag-item></li><button ng-show='available.length != 0' class='tags-add-button' data-dropdown='add-tag-menu', aria-controls='add-tag-menu'>+</button><ul id='add-tag-menu' data-dropdown-content='' aria-hidden='true' tabindex='-1' class='f-dropdown small'><li ng-repeat='item in available'><a ng-click='tags.push(item)'>{{item.name}}</a></li></ul></ul>"
   );
 
   $templateCache.put('ngTagsInput/tag-item.html',
