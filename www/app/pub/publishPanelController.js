@@ -27,6 +27,9 @@ angular.module("angControllers")
                             angular.copy(chatSession, $scope.preview.session);
                         }
                     );
+                    setTimeout(function() {
+                        $(document).foundation('dropdown', 'reflow');
+                    }, 200);
                 }
             }
 

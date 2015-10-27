@@ -11,6 +11,8 @@ angular.module("angControllers")
                     $scope.preview.title = oldVal;
                 }
             });
-            $(document).foundation('dropdown', 'reflow');
+            setTimeout(function() {
+                $(document).foundation('dropdown', 'reflow');
+            }, 200);
         }
     ]);

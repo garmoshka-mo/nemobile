@@ -108,3 +108,6 @@
     width: 23px;
     margin-right: 5px;
 }
+.message-menu-container ul.message-menu {
+    z-index: 1000;
+}
