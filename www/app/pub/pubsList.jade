@@ -28,6 +28,6 @@
     ul.posts-list(infinite-scroll-disabled='posts.disableAutoload',
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
         infinite-scroll-container='".main-section"')
-        li(ng-repeat='post in posts')
+        li(ng-repeat='post in posts.items')
             post(model="post")
     spinner.top-margin(ng-show='loading', spinner-color='green')

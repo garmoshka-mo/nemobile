@@ -7,8 +7,6 @@ function($scope, posts, router, $anchorScroll, $location,
 
     gfyCollection.get().length = 0;
 
-    gfyCollection.get().length = 0;
-
     posts.currentPage = 1;
     posts.closeVideos();
     $scope.posts = posts;
@@ -132,7 +130,7 @@ app.directive('post', ['$rootScope', 'posts', '$sce', 'router', function($rootSc
                     post.showVideo = true;
                 }
                 else {
-                    router.openExternalURL(post.data.link.url)
+                    router.openExternalURL('/pub/' + post.id + '/view')
             }
             };
             scope.cutImage = function(post) {
