@@ -16,11 +16,9 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
 
     $scope.newMessage = {
-        text: '',
         // ttl: 2592000,//30 days
         ttl: 3600,
         clearText: function() {
-            this.text = '';
             $chatInput.text('');
         }
     };
@@ -32,13 +30,15 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.sendMessage = function(text) {
         $scope.setFocusOnTextField();
 
-        var textToSend = text || $scope.newMessage.text || $chatInput.html(),
+        var textToSend = text || $chatInput.html(),
             ttl = $scope.newMessage.ttl;
         if (textToSend) {
 
             textToSend = gallery.parseHtml(textToSend, lastSession.type == 'external');
+            if(!text) {
+                $scope.newMessage.clearText();
+            }
 
-            $scope.newMessage.clearText();
             $scope.isMessageSending = true;
 
             if (!lastSession.isReplied) {
