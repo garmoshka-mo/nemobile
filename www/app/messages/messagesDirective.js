@@ -34,17 +34,8 @@
         }
 
         function editMessage(message) {
-            //TODO: open dialog app/messages/editMessageDialog.html
-            contextMenu.open();
-            var parentEl = angular.element(document.body);
+            $('#edit-message-trigger').click();
             $rootScope.message = message;
-        }
-
-        function DialogController($scope, message) {
-            $scope.message = message;
-            $scope.closeDialog = function() {
-
-            };
         }
 
         var previewMessageMenu = [
