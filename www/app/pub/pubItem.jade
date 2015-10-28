@@ -13,6 +13,12 @@
                 i.fa.fa-clock-o
                 |  {{ post.duration }}
     messages(session='post.chat', preview='true')
+    div(ng-show='post.link')
+        .image-container(ng-hide='post.showVideo')
+            img(ng-src='{{post.link.image_url}}'
+            ng-click='activatePost(post)')
+        .video-container(ng-show='post.showVideo')
+            iframe(ng-src="{{post.videoUrl}}" width="100%" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
     .center(style='padding-top: 27px')
         button(ng-click="router.goto('pubsList')")
             i.fa.fa-th-list
@@ -20,7 +26,7 @@
         button(ng-click="router.goto('random')")
             i.fa.fa-refresh
             |  Чат наугад
-        button(ng-show=('post.data') ng-click="externalURL()")
+        button(ng-show=('post.link') ng-click="externalURL()")
             i.fa.fa-refresh
             |  Источник
     .pub-bottom-break

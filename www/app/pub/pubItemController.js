@@ -1,7 +1,7 @@
 angular.module("angControllers")
 .controller("pubController", [
-    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus', 'separator',
-function($scope, posts, $stateParams, user, router, disqus, separator) {
+    '$scope', 'posts', '$stateParams', 'user', 'router', 'disqus', 'separator', '$sce',
+function($scope, posts, $stateParams, user, router, disqus, separator, $sce) {
 
     separator.resize('hide');
 
@@ -22,6 +22,7 @@ function($scope, posts, $stateParams, user, router, disqus, separator) {
 
             //$scope.post.duration = $scope.post.chat.duration_s ?
             //        $scope.post.chat.duration_s.toHHMMSS() : 0;
+            $scope.post.showVideo = false;
 
             disqus.load(id, data.post.title);
         }, function(err) {
@@ -55,8 +56,15 @@ function($scope, posts, $stateParams, user, router, disqus, separator) {
     };
 
     $scope.externalURL = function() {
-        router.openExternalURL($scope.post.data.link.url)
+        router.openExternalURL($scope.post.link.url)
     };
 
+    $scope.activatePost = function(post) {
+        if (!post.link.embed_url) return;
+
+        post.videoUrl =
+            $sce.trustAsResourceUrl(post.link.embed_url);
+        post.showVideo = true;
+    };
 }
 ]);
