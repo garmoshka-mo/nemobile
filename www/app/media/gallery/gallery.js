@@ -1,12 +1,11 @@
 angular.module('angServices').service('gallery', [
-    '$rootScope',
-    function($rootScope) {
+    '$rootScope', 'storage', 'emoji',
+    function($rootScope, storage, emoji) {
 
         var self = this;
 
         self.recentPicPost = {title: 'Recent', cutImage: false, category:'link', data: { link: {} }};
         self.emojiPost = {title: 'Emoji', cutImage: true};
-        self.items = [];
 
         self.gfys = [
             'TotalNiftyDiplodocus',
@@ -48,30 +47,51 @@ angular.module('angServices').service('gallery', [
             }
         };
 
-        var input;
-        var model;
+        var $input;
 
-        self.setInput = function($input, inputModel) {
-            input = $input[0];
-            model = inputModel;
+        self.setInput = function(input) {
+            $input = input;
         };
 
+        function setCaretPosition(caretPos) {
+            var input = $input[0];
+            if(input != null) {
+                if(input.createTextRange) {
+                    var range = input.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
+                }
+                else {
+                    if(input.selectionStart) {
+                        input.focus();
+                        input.setSelectionRange(caretPos, caretPos);
+                    }
+                    else
+                        input.focus();
+                }
+            }
+        }
+        var caret = 0;
         function insertAtCaret(element, text) {
             var caretPosStart = element.selectionStart || 0;
             var caretPosEnd = element.selectionEnd || 0;
-            var textAreaTxt = model.text;
-            model.text = textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart);
+            var textAreaTxt = $input.html();
+            $input.html(textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart));
+            caret = caretPosStart + text.length;
+            setTimeout(function(){
+                setCaretPosition(caret);
+            }, 100);
     }
 
         self.typeEmoji = function($event, emojiCode) {
-            if(input) {
-                insertAtCaret(input, self.emoji[emojiCode][0]);
+            if($input) {
+                insertAtCaret($input[0], emoji.parse(self.getEmoji(emojiCode)));
             }
         };
 
         self.setFocusOnTextField = function() {
             setTimeout(function() {
-                input.focus();
+                setCaretPosition(caret);
             }, 0);
         };
 
@@ -99,14 +119,8 @@ angular.module('angServices').service('gallery', [
             "23f0": ["\u23F0", ["alarm_clock"]],
             "23f3": ["\u23F3", ["hourglass_flowing_sand"]],
             "24c2": ["\u24C2", ["m"]],
-            "25aa": ["\u25AA", ["black_small_square"]],
-            "25ab": ["\u25AB", ["white_small_square"]],
             "25b6": ["\u25B6", ["arrow_forward"]],
             "25c0": ["\u25C0", ["arrow_backward"]],
-            "25fb": ["\u25FB", ["white_medium_square"]],
-            "25fc": ["\u25FC", ["black_medium_square"]],
-            "25fd": ["\u25FD", ["white_medium_small_square"]],
-            "25fe": ["\u25FE", ["black_medium_small_square"]],
             "2600": ["\u2600", ["sunny"]],
             "2601": ["\u2601", ["cloud"]],
             "260e": ["\u260E", ["phone", "telephone"]],
@@ -166,7 +180,6 @@ angular.module('angServices').service('gallery', [
             "2733": ["\u2733", ["eight_spoked_asterisk"]],
             "2734": ["\u2734", ["eight_pointed_black_star"]],
             "2744": ["\u2744", ["snowflake"]],
-            "2747": ["\u2747", ["sparkle"]],
             "274c": ["\u274C", ["x"]],
             "274e": ["\u274E", ["negative_squared_cross_mark"]],
             "2753": ["\u2753", ["question"]],
@@ -185,8 +198,6 @@ angular.module('angServices').service('gallery', [
             "2b05": ["\u2B05", ["arrow_left"]],
             "2b06": ["\u2B06", ["arrow_up"]],
             "2b07": ["\u2B07", ["arrow_down"]],
-            "2b1b": ["\u2B1B", ["black_large_square"]],
-            "2b1c": ["\u2B1C", ["white_large_square"]],
             "2b50": ["\u2B50", ["star"]],
             "2b55": ["\u2B55", ["o"]],
             "3030": ["\u3030", ["wavy_dash"]],
@@ -228,7 +239,6 @@ angular.module('angServices').service('gallery', [
             "1f300": ["\uD83C\uDF00", ["cyclone"]],
             "1f301": ["\uD83C\uDF01", ["foggy"]],
             "1f302": ["\uD83C\uDF02", ["closed_umbrella"]],
-            "1f303": ["\uD83C\uDF03", ["night_with_stars"]],
             "1f304": ["\uD83C\uDF04", ["sunrise_over_mountains"]],
             "1f305": ["\uD83C\uDF05", ["sunrise"]],
             "1f306": ["\uD83C\uDF06", ["city_sunset"]],
@@ -250,7 +260,6 @@ angular.module('angServices').service('gallery', [
             "1f316": ["\uD83C\uDF16", ["waning_gibbous_moon"]],
             "1f317": ["\uD83C\uDF17", ["last_quarter_moon"]],
             "1f318": ["\uD83C\uDF18", ["waning_crescent_moon"]],
-            "1f319": ["\uD83C\uDF19", ["crescent_moon"]],
             "1f320": ["\uD83C\uDF20", ["stars"]],
             "1f31a": ["\uD83C\uDF1A", ["new_moon_with_face"]],
             "1f31b": ["\uD83C\uDF1B", ["first_quarter_moon_with_face"]],
@@ -442,7 +451,6 @@ angular.module('angServices').service('gallery', [
             "1f41a": ["\uD83D\uDC1A", ["shell"]],
             "1f41b": ["\uD83D\uDC1B", ["bug"]],
             "1f41c": ["\uD83D\uDC1C", ["ant"]],
-            "1f41d": ["\uD83D\uDC1D", ["bee", "honeybee"]],
             "1f41e": ["\uD83D\uDC1E", ["beetle"]],
             "1f41f": ["\uD83D\uDC1F", ["fish"]],
             "1f420": ["\uD83D\uDC20", ["tropical_fish"]],
@@ -506,11 +514,9 @@ angular.module('angServices').service('gallery', [
             "1f45c": ["\uD83D\uDC5C", ["handbag"]],
             "1f45d": ["\uD83D\uDC5D", ["pouch"]],
             "1f45e": ["\uD83D\uDC5E", ["mans_shoe", "shoe"]],
-            "1f45f": ["\uD83D\uDC5F", ["athletic_shoe"]],
             "1f460": ["\uD83D\uDC60", ["high_heel"]],
             "1f461": ["\uD83D\uDC61", ["sandal"]],
             "1f462": ["\uD83D\uDC62", ["boot"]],
-            "1f463": ["\uD83D\uDC63", ["footprints"]],
             "1f464": ["\uD83D\uDC64", ["bust_in_silhouette"]],
             "1f465": ["\uD83D\uDC65", ["busts_in_silhouette"]],
             "1f466": ["\uD83D\uDC66", ["boy"]],
@@ -641,10 +647,8 @@ angular.module('angServices').service('gallery', [
             "1f4e3": ["\uD83D\uDCE3", ["mega"]],
             "1f4e4": ["\uD83D\uDCE4", ["outbox_tray"]],
             "1f4e5": ["\uD83D\uDCE5", ["inbox_tray"]],
-            "1f4e6": ["\uD83D\uDCE6", ["package"]],
             "1f4e7": ["\uD83D\uDCE7", ["e-mail"]],
             "1f4e8": ["\uD83D\uDCE8", ["incoming_envelope"]],
-            "1f4e9": ["\uD83D\uDCE9", ["envelope_with_arrow"]],
             "1f4ea": ["\uD83D\uDCEA", ["mailbox_closed"]],
             "1f4eb": ["\uD83D\uDCEB", ["mailbox"]],
             "1f4ec": ["\uD83D\uDCEC", ["mailbox_with_mail"]],
@@ -673,7 +677,6 @@ angular.module('angServices').service('gallery', [
             "1f507": ["\uD83D\uDD07", ["mute"]],
             "1f508": ["\uD83D\uDD09", ["speaker"]],
             "1f509": ["\uD83D\uDD09", ["sound"]],
-            "1f50a": ["\uD83D\uDD0A", ["loud_sound"]],
             "1f50b": ["\uD83D\uDD0B", ["battery"]],
             "1f50c": ["\uD83D\uDD0C", ["electric_plug"]],
             "1f50d": ["\uD83D\uDD0D", ["mag"]],
@@ -688,7 +691,6 @@ angular.module('angServices').service('gallery', [
             "1f516": ["\uD83D\uDD16", ["bookmark"]],
             "1f517": ["\uD83D\uDD17", ["link"]],
             "1f518": ["\uD83D\uDD18", ["radio_button"]],
-            "1f519": ["\uD83D\uDD19", ["back"]],
             "1f51a": ["\uD83D\uDD1A", ["end"]],
             "1f51b": ["\uD83D\uDD1B", ["on"]],
             "1f51c": ["\uD83D\uDD1C", ["soon"]],
@@ -923,45 +925,111 @@ angular.module('angServices').service('gallery', [
             "1f1fa-1f1f8": ["\uD83C\uDDFA\uD83C\uDDF8", ["us"]]
         };
 
+        self.getEmoji = function(code) {
+            if(self.emoji[code]){
+                return ':' + self.emoji[code][1][0] + ':';
+            }
+            return ":zero:"
+        }
         self.emojiCategories = [
-            ["1f604", "1f603", "1f600", "1f60a", "263a", "1f609", "1f60d", "1f618", "1f61a", "1f617", "1f619", "1f61c", "1f61d", "1f61b", "1f633", "1f601", "1f614", "1f60c", "1f612", "1f61e", "1f623", "1f622", "1f602", "1f62d", "1f62a", "1f625", "1f630", "1f605", "1f613", "1f629", "1f62b", "1f628", "1f631", "1f620", "1f621", "1f624", "1f616", "1f606", "1f60b", "1f637", "1f60e", "1f634", "1f635", "1f632", "1f61f", "1f626", "1f627", "1f608", "1f47f", "1f62e", "1f62c", "1f610", "1f615", "1f62f", "1f636", "1f607", "1f60f", "1f611", "1f472", "1f473", "1f46e", "1f477", "1f482", "1f476", "1f466", "1f467", "1f468", "1f469", "1f474", "1f475", "1f471", "1f47c", "1f478", "1f63a", "1f638", "1f63b", "1f63d", "1f63c", "1f640", "1f63f", "1f639", "1f63e", "1f479", "1f47a", "1f648", "1f649", "1f64a", "1f480", "1f47d", "1f4a9", "1f525", "2728", "1f31f", "1f4ab", "1f4a5", "1f4a2", "1f4a6", "1f4a7", "1f4a4", "1f4a8", "1f442", "1f440", "1f443", "1f445", "1f444", "1f44d", "1f44e", "1f44c", "1f44a", "270a", "270c", "1f44b", "270b", "1f450", "1f446", "1f447", "1f449", "1f448", "1f64c", "1f64f", "261d", "1f44f", "1f4aa", "1f6b6", "1f3c3", "1f483", "1f46b", "1f46a", "1f46c", "1f46d", "1f48f", "1f491", "1f46f", "1f646", "1f645", "1f481", "1f64b", "1f486", "1f487", "1f485", "1f470", "1f64e", "1f64d", "1f647", "1f3a9", "1f451", "1f452", "1f45f", "1f45e", "1f461", "1f460", "1f462", "1f455", "1f454", "1f45a", "1f457", "1f3bd", "1f456", "1f458", "1f459", "1f4bc", "1f45c", "1f45d", "1f45b", "1f453", "1f380", "1f302", "1f484", "1f49b", "1f499", "1f49c", "1f49a", "2764", "1f494", "1f497", "1f493", "1f495", "1f496", "1f49e", "1f498", "1f48c", "1f48b", "1f48d", "1f48e", "1f464", "1f465", "1f4ac", "1f463", "1f4ad"],
-            ["1f436", "1f43a", "1f431", "1f42d", "1f439", "1f430", "1f438", "1f42f", "1f428", "1f43b", "1f437", "1f43d", "1f42e", "1f417", "1f435", "1f412", "1f434", "1f411", "1f418", "1f43c", "1f427", "1f426", "1f424", "1f425", "1f423", "1f414", "1f40d", "1f422", "1f41b", "1f41d", "1f41c", "1f41e", "1f40c", "1f419", "1f41a", "1f420", "1f41f", "1f42c", "1f433", "1f40b", "1f404", "1f40f", "1f400", "1f403", "1f405", "1f407", "1f409", "1f40e", "1f410", "1f413", "1f415", "1f416", "1f401", "1f402", "1f432", "1f421", "1f40a", "1f42b", "1f42a", "1f406", "1f408", "1f429", "1f43e", "1f490", "1f338", "1f337", "1f340", "1f339", "1f33b", "1f33a", "1f341", "1f343", "1f342", "1f33f", "1f33e", "1f344", "1f335", "1f334", "1f332", "1f333", "1f330", "1f331", "1f33c", "1f310", "1f31e", "1f31d", "1f31a", "1f311", "1f312", "1f313", "1f314", "1f315", "1f316", "1f317", "1f318", "1f31c", "1f31b", "1f319", "1f30d", "1f30e", "1f30f", "1f30b", "1f30c", "1f320", "2b50", "2600", "26c5", "2601", "26a1", "2614", "2744", "26c4", "1f300", "1f301", "1f308", "1f30a"],
-            ["1f38d", "1f49d", "1f38e", "1f392", "1f393", "1f38f", "1f386", "1f387", "1f390", "1f391", "1f383", "1f47b", "1f385", "1f384", "1f381", "1f38b", "1f389", "1f38a", "1f388", "1f38c", "1f52e", "1f3a5", "1f4f7", "1f4f9", "1f4fc", "1f4bf", "1f4c0", "1f4bd", "1f4be", "1f4bb", "1f4f1", "260e", "1f4de", "1f4df", "1f4e0", "1f4e1", "1f4fa", "1f4fb", "1f50a", "1f509", "1f508", "1f507", "1f514", "1f515", "1f4e3", "1f4e2", "23f3", "231b", "23f0", "231a", "1f513", "1f512", "1f50f", "1f510", "1f511", "1f50e", "1f4a1", "1f526", "1f506", "1f505", "1f50c", "1f50b", "1f50d", "1f6c0", "1f6c1", "1f6bf", "1f6bd", "1f527", "1f529", "1f528", "1f6aa", "1f6ac", "1f4a3", "1f52b", "1f52a", "1f48a", "1f489", "1f4b0", "1f4b4", "1f4b5", "1f4b7", "1f4b6", "1f4b3", "1f4b8", "1f4f2", "1f4e7", "1f4e5", "1f4e4", "2709", "1f4e9", "1f4e8", "1f4ef", "1f4eb", "1f4ea", "1f4ec", "1f4ed", "1f4ee", "1f4e6", "1f4dd", "1f4c4", "1f4c3", "1f4d1", "1f4ca", "1f4c8", "1f4c9", "1f4dc", "1f4cb", "1f4c5", "1f4c6", "1f4c7", "1f4c1", "1f4c2", "2702", "1f4cc", "1f4ce", "2712", "270f", "1f4cf", "1f4d0", "1f4d5", "1f4d7", "1f4d8", "1f4d9", "1f4d3", "1f4d4", "1f4d2", "1f4da", "1f4d6", "1f516", "1f4db", "1f52c", "1f52d", "1f4f0", "1f3a8", "1f3ac", "1f3a4", "1f3a7", "1f3bc", "1f3b5", "1f3b6", "1f3b9", "1f3bb", "1f3ba", "1f3b7", "1f3b8", "1f47e", "1f3ae", "1f0cf", "1f3b4", "1f004", "1f3b2", "1f3af", "1f3c8", "1f3c0", "26bd", "26be", "1f3be", "1f3b1", "1f3c9", "1f3b3", "26f3", "1f6b5", "1f6b4", "1f3c1", "1f3c7", "1f3c6", "1f3bf", "1f3c2", "1f3ca", "1f3c4", "1f3a3", "2615", "1f375", "1f376", "1f37c", "1f37a", "1f37b", "1f378", "1f379", "1f377", "1f374", "1f355", "1f354", "1f35f", "1f357", "1f356", "1f35d", "1f35b", "1f364", "1f371", "1f363", "1f365", "1f359", "1f358", "1f35a", "1f35c", "1f372", "1f362", "1f361", "1f373", "1f35e", "1f369", "1f36e", "1f366", "1f368", "1f367", "1f382", "1f370", "1f36a", "1f36b", "1f36c", "1f36d", "1f36f", "1f34e", "1f34f", "1f34a", "1f34b", "1f352", "1f347", "1f349", "1f353", "1f351", "1f348", "1f34c", "1f350", "1f34d", "1f360", "1f346", "1f345", "1f33d"],
-            ["1f3e0", "1f3e1", "1f3eb", "1f3e2", "1f3e3", "1f3e5", "1f3e6", "1f3ea", "1f3e9", "1f3e8", "1f492", "26ea", "1f3ec", "1f3e4", "1f307", "1f306", "1f3ef", "1f3f0", "26fa", "1f3ed", "1f5fc", "1f5fe", "1f5fb", "1f304", "1f305", "1f303", "1f5fd", "1f309", "1f3a0", "1f3a1", "26f2", "1f3a2", "1f6a2", "26f5", "1f6a4", "1f6a3", "2693", "1f680", "2708", "1f4ba", "1f681", "1f682", "1f68a", "1f689", "1f69e", "1f686", "1f684", "1f685", "1f688", "1f687", "1f69d", "1f683", "1f68b", "1f68e", "1f68c", "1f68d", "1f699", "1f698", "1f697", "1f695", "1f696", "1f69b", "1f69a", "1f6a8", "1f693", "1f694", "1f692", "1f691", "1f690", "1f6b2", "1f6a1", "1f69f", "1f6a0", "1f69c", "1f488", "1f68f", "1f3ab", "1f6a6", "1f6a5", "26a0", "1f6a7", "1f530", "26fd", "1f3ee", "1f3b0", "2668", "1f5ff", "1f3aa", "1f3ad", "1f4cd", "1f6a9", "1f1ef-1f1f5", "1f1f0-1f1f7", "1f1e9-1f1ea", "1f1e8-1f1f3", "1f1fa-1f1f8", "1f1eb-1f1f7", "1f1ea-1f1f8", "1f1ee-1f1f9", "1f1f7-1f1fa", "1f1ec-1f1e7"],
-            ["0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038", "0039", "0030", "1f51f", "1f522", "0023", "1f523", "2b06", "2b07", "2b05", "27a1", "1f520", "1f521", "1f524", "2197", "2196", "2198", "2199", "2194", "2195", "1f504", "25c0", "25b6", "1f53c", "1f53d", "21a9", "21aa", "2139", "23ea", "23e9", "23eb", "23ec", "2935", "2934", "1f197", "1f500", "1f501", "1f502", "1f195", "1f199", "1f192", "1f193", "1f196", "1f4f6", "1f3a6", "1f201", "1f22f", "1f233", "1f235", "1f234", "1f232", "1f250", "1f239", "1f23a", "1f236", "1f21a", "1f6bb", "1f6b9", "1f6ba", "1f6bc", "1f6be", "1f6b0", "1f6ae", "1f17f", "267f", "1f6ad", "1f237", "1f238", "1f202", "24c2", "1f6c2", "1f6c4", "1f6c5", "1f6c3", "1f251", "3299", "3297", "1f191", "1f198", "1f194", "1f6ab", "1f51e", "1f4f5", "1f6af", "1f6b1", "1f6b3", "1f6b7", "1f6b8", "26d4", "2733", "2747", "274e", "2705", "2734", "1f49f", "1f19a", "1f4f3", "1f4f4", "1f170", "1f171", "1f18e", "1f17e", "1f4a0", "27bf", "267b", "2648", "2649", "264a", "264b", "264c", "264d", "264e", "264f", "2650", "2651", "2652", "2653", "26ce", "1f52f", "1f3e7", "1f4b9", "1f4b2", "1f4b1", "00a9", "00ae", "2122", "274c", "203c", "2049", "2757", "2753", "2755", "2754", "2b55", "1f51d", "1f51a", "1f519", "1f51b", "1f51c", "1f503", "1f55b", "1f567", "1f550", "1f55c", "1f551", "1f55d", "1f552", "1f55e", "1f553", "1f55f", "1f554", "1f560", "1f555", "1f556", "1f557", "1f558", "1f559", "1f55a", "1f561", "1f562", "1f563", "1f564", "1f565", "1f566", "2716", "2795", "2796", "2797", "2660", "2665", "2663", "2666", "1f4ae", "1f4af", "2714", "2611", "1f518", "1f517", "27b0", "3030", "303d", "1f531", "25fc", "25fb", "25fe", "25fd", "25aa", "25ab", "1f53a", "1f532", "1f533", "26ab", "26aa", "1f534", "1f535", "1f53b", "2b1c", "2b1b", "1f536", "1f537", "1f538", "1f539"]
+            ["1f604", "1f603", "1f600", "1f60a", "263a", "1f609", "1f60d", "1f618", "1f61a", "1f617", "1f619", "1f61c", "1f61d", "1f61b", "1f633", "1f601", "1f614", "1f60c", "1f612", "1f61e", "1f623", "1f622", "1f602", "1f62d", "1f62a", "1f625", "1f630", "1f605", "1f613", "1f629", "1f62b", "1f628", "1f631", "1f620", "1f621", "1f624", "1f616", "1f606", "1f60b", "1f637", "1f60e", "1f634", "1f635", "1f632", "1f61f", "1f626", "1f627", "1f608", "1f47f", "1f62e", "1f62c", "1f610", "1f615", "1f62f", "1f636", "1f607", "1f60f", "1f611", "1f472", "1f473", "1f46e", "1f477", "1f482", "1f476", "1f466", "1f467", "1f468", "1f469", "1f474", "1f475", "1f471", "1f47c", "1f478", "1f63a", "1f638", "1f63b", "1f63d", "1f63c", "1f640", "1f63f", "1f639", "1f63e", "1f479", "1f47a", "1f648", "1f649", "1f64a", "1f480", "1f47d", "1f4a9", "1f525", "2728", "1f31f", "1f4ab", "1f4a5", "1f4a2", "1f4a6", "1f4a7", "1f4a4", "1f4a8", "1f442", "1f440", "1f443", "1f445", "1f444", "1f44d", "1f44e", "1f44c", "1f44a", "270a", "270c", "1f44b", "270b", "1f450", "1f446", "1f447", "1f449", "1f448", "1f64c", "1f64f", "261d", "1f44f", "1f4aa", "1f6b6", "1f3c3", "1f483", "1f46b", "1f46a", "1f46c", "1f46d", "1f48f", "1f491", "1f46f", "1f646", "1f645", "1f481", "1f64b", "1f486", "1f487", "1f485", "1f470", "1f64e", "1f64d", "1f647", "1f3a9", "1f451", "1f452", "1f45e", "1f461", "1f460", "1f462", "1f455", "1f454", "1f45a", "1f457", "1f3bd", "1f456", "1f458", "1f459", "1f4bc", "1f45c", "1f45d", "1f45b", "1f453", "1f380", "1f302", "1f484", "1f49b", "1f499", "1f49c", "1f49a", "2764", "1f494", "1f497", "1f493", "1f495", "1f496", "1f49e", "1f498", "1f48c", "1f48b", "1f48d", "1f48e", "1f464", "1f465", "1f4ac", "1f4ad"],
+            ["1f436", "1f43a", "1f431", "1f42d", "1f439", "1f430", "1f438", "1f42f", "1f428", "1f43b", "1f437", "1f43d", "1f42e", "1f417", "1f435", "1f412", "1f434", "1f411", "1f418", "1f43c", "1f427", "1f426", "1f424", "1f425", "1f423", "1f414", "1f40d", "1f422", "1f41b", "1f41c", "1f41e", "1f40c", "1f419", "1f41a", "1f420", "1f41f", "1f42c", "1f433", "1f40b", "1f404", "1f40f", "1f400", "1f403", "1f405", "1f407", "1f409", "1f40e", "1f410", "1f413", "1f415", "1f416", "1f401", "1f402", "1f432", "1f421", "1f40a", "1f42b", "1f42a", "1f406", "1f408", "1f429", "1f43e", "1f490", "1f338", "1f337", "1f340", "1f339", "1f33b", "1f33a", "1f341", "1f343", "1f342", "1f33f", "1f33e", "1f344", "1f335", "1f334", "1f332", "1f333", "1f330", "1f331", "1f33c", "1f310", "1f31e", "1f31d", "1f31a", "1f311", "1f312", "1f313", "1f314", "1f315", "1f316", "1f317", "1f318", "1f31c", "1f31b", "1f30d", "1f30e", "1f30f", "1f30b", "1f30c", "1f320", "2b50", "2600", "26c5", "2601", "26a1", "2614", "2744", "26c4", "1f300", "1f301", "1f308", "1f30a"],
+            ["1f38d", "1f49d", "1f38e", "1f392", "1f393", "1f38f", "1f386", "1f387", "1f390", "1f391", "1f383", "1f47b", "1f385", "1f384", "1f381", "1f38b", "1f389", "1f38a", "1f388", "1f38c", "1f52e", "1f3a5", "1f4f7", "1f4f9", "1f4fc", "1f4bf", "1f4c0", "1f4bd", "1f4be", "1f4bb", "1f4f1", "260e", "1f4de", "1f4df", "1f4e0", "1f4e1", "1f4fa", "1f4fb", "1f509", "1f508", "1f507", "1f514", "1f515", "1f4e3", "1f4e2", "23f3", "231b", "23f0", "231a", "1f513", "1f512", "1f50f", "1f510", "1f511", "1f50e", "1f4a1", "1f526", "1f506", "1f505", "1f50c", "1f50b", "1f50d", "1f6c0", "1f6c1", "1f6bf", "1f6bd", "1f527", "1f529", "1f528", "1f6aa", "1f6ac", "1f4a3", "1f52b", "1f52a", "1f48a", "1f489", "1f4b0", "1f4b4", "1f4b5", "1f4b7", "1f4b6", "1f4b3", "1f4b8", "1f4f2", "1f4e7", "1f4e5", "1f4e4", "2709", "1f4e8", "1f4ef", "1f4eb", "1f4ea", "1f4ec", "1f4ed", "1f4ee", "1f4dd", "1f4c4", "1f4c3", "1f4d1", "1f4ca", "1f4c8", "1f4c9", "1f4dc", "1f4cb", "1f4c5", "1f4c6", "1f4c7", "1f4c1", "1f4c2", "2702", "1f4cc", "1f4ce", "2712", "270f", "1f4cf", "1f4d0", "1f4d5", "1f4d7", "1f4d8", "1f4d9", "1f4d3", "1f4d4", "1f4d2", "1f4da", "1f4d6", "1f516", "1f4db", "1f52c", "1f52d", "1f4f0", "1f3a8", "1f3ac", "1f3a4", "1f3a7", "1f3bc", "1f3b5", "1f3b6", "1f3b9", "1f3bb", "1f3ba", "1f3b7", "1f3b8", "1f47e", "1f3ae", "1f0cf", "1f3b4", "1f004", "1f3b2", "1f3af", "1f3c8", "1f3c0", "26bd", "26be", "1f3be", "1f3b1", "1f3c9", "1f3b3", "26f3", "1f6b5", "1f6b4", "1f3c1", "1f3c7", "1f3c6", "1f3bf", "1f3c2", "1f3ca", "1f3c4", "1f3a3", "2615", "1f375", "1f376", "1f37c", "1f37a", "1f37b", "1f378", "1f379", "1f377", "1f374", "1f355", "1f354", "1f35f", "1f357", "1f356", "1f35d", "1f35b", "1f364", "1f371", "1f363", "1f365", "1f359", "1f358", "1f35a", "1f35c", "1f372", "1f362", "1f361", "1f373", "1f35e", "1f369", "1f36e", "1f366", "1f368", "1f367", "1f382", "1f370", "1f36a", "1f36b", "1f36c", "1f36d", "1f36f", "1f34e", "1f34f", "1f34a", "1f34b", "1f352", "1f347", "1f349", "1f353", "1f351", "1f348", "1f34c", "1f350", "1f34d", "1f360", "1f346", "1f345", "1f33d"],
+            ["1f3e0", "1f3e1", "1f3eb", "1f3e2", "1f3e3", "1f3e5", "1f3e6", "1f3ea", "1f3e9", "1f3e8", "1f492", "26ea", "1f3ec", "1f3e4", "1f307", "1f306", "1f3ef", "1f3f0", "26fa", "1f3ed", "1f5fc", "1f5fe", "1f5fb", "1f304", "1f305", "1f5fd", "1f309", "1f3a0", "1f3a1", "26f2", "1f3a2", "1f6a2", "26f5", "1f6a4", "1f6a3", "2693", "1f680", "2708", "1f4ba", "1f681", "1f682", "1f68a", "1f689", "1f69e", "1f686", "1f684", "1f685", "1f688", "1f687", "1f69d", "1f683", "1f68b", "1f68e", "1f68c", "1f68d", "1f699", "1f698", "1f697", "1f695", "1f696", "1f69b", "1f69a", "1f6a8", "1f693", "1f694", "1f692", "1f691", "1f690", "1f6b2", "1f6a1", "1f69f", "1f6a0", "1f69c", "1f488", "1f68f", "1f3ab", "1f6a6", "1f6a5", "26a0", "1f6a7", "1f530", "26fd", "1f3ee", "1f3b0", "2668", "1f5ff", "1f3aa", "1f3ad", "1f4cd", "1f6a9", "1f1ef-1f1f5", "1f1f0-1f1f7", "1f1e9-1f1ea", "1f1e8-1f1f3", "1f1fa-1f1f8", "1f1eb-1f1f7", "1f1ea-1f1f8", "1f1ee-1f1f9", "1f1f7-1f1fa", "1f1ec-1f1e7"],
+            ["0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038", "0039", "0030", "1f51f", "1f522", "0023", "1f523", "2b06", "2b07", "2b05", "27a1", "1f520", "1f521", "1f524", "2197", "2196", "2198", "2199", "2194", "2195", "1f504", "25c0", "25b6", "1f53c", "1f53d", "21a9", "21aa", "2139", "23ea", "23e9", "23eb", "23ec", "2935", "2934", "1f197", "1f500", "1f501", "1f502", "1f195", "1f199", "1f192", "1f193", "1f196", "1f4f6", "1f3a6", "1f201", "1f22f", "1f233", "1f235", "1f234", "1f232", "1f250", "1f239", "1f23a", "1f236", "1f21a", "1f6bb", "1f6b9", "1f6ba", "1f6bc", "1f6be", "1f6b0", "1f6ae", "1f17f", "267f", "1f6ad", "1f237", "1f238", "1f202", "24c2", "1f6c2", "1f6c4", "1f6c5", "1f6c3", "1f251", "3299", "3297", "1f191", "1f198", "1f194", "1f6ab", "1f51e", "1f4f5", "1f6af", "1f6b1", "1f6b3", "1f6b7", "1f6b8", "26d4", "2733", "274e", "2705", "2734", "1f49f", "1f19a", "1f4f3", "1f4f4", "1f170", "1f171", "1f18e", "1f17e", "1f4a0", "27bf", "267b", "2648", "2649", "264a", "264b", "264c", "264d", "264e", "264f", "2650", "2651", "2652", "2653", "26ce", "1f52f", "1f3e7", "1f4b9", "1f4b2", "1f4b1", "00a9", "00ae", "2122", "274c", "203c", "2049", "2757", "2753", "2755", "2754", "2b55", "1f51d", "1f51a", "1f51b", "1f51c", "1f503", "1f55b", "1f567", "1f550", "1f55c", "1f551", "1f55d", "1f552", "1f55e", "1f553", "1f55f", "1f554", "1f560", "1f555", "1f556", "1f557", "1f558", "1f559", "1f55a", "1f561", "1f562", "1f563", "1f564", "1f565", "1f566", "2716", "2795", "2796", "2797", "2660", "2665", "2663", "2666", "1f4ae", "1f4af", "2714", "2611", "1f518", "1f517", "27b0", "3030", "303d", "1f531", "1f53a", "1f532", "1f533", "26ab", "26aa", "1f534", "1f535", "1f53b", "1f536", "1f537", "1f538", "1f539"]
         ];
+
+        storage.get('recentEmojis').then(function(storedRecentEmojis) {
+            self.recentEmojis = storedRecentEmojis || [
+                    { code: "1f602", clicks: 0 },
+                    { code: "2665", clicks: 0 },
+                    { code: "2764", clicks: 0 },
+                    { code: "1f60d", clicks: 0 },
+                    { code: "1f60a", clicks: 0 },
+                    { code: "1f62d", clicks: 0 },
+                    { code: "1f618", clicks: 0 },
+                    { code: "263a", clicks: 0 },
+                    { code: "1f495", clicks: 0 },
+                    { code: "1f44c", clicks: 0 },
+                    { code: "1f629", clicks: 0 },
+                    { code: "1f614", clicks: 0 },
+                    { code: "1f60f", clicks: 0 },
+                    { code: "1f601", clicks: 0 },
+                    { code: "1f64f", clicks: 0 },
+                    { code: "1f44d", clicks: 0 },
+                    { code: "1f609", clicks: 0 },
+                    { code: "1f64c", clicks: 0 },
+                    { code: "1f633", clicks: 0 },
+                    { code: "1f60c", clicks: 0 },
+                    { code: "270c", clicks: 0 },
+                    { code: "1f648", clicks: 0 },
+                    { code: "1f3b6", clicks: 0 }];
+        });
+
+        self.saveToRecent = function(emojiCode) {
+            var found = false;
+                for(var i = 0; i < self.recentEmojis.length; i++) {
+                    if (self.recentEmojis[i].code == emojiCode) {
+                        found = true;
+                        self.recentEmojis[i].clicks++;
+                        break;
+                    }
+                }
+                if(!found) {
+                    //if emoji is new to recent list
+                    var newEmoji = {code: emojiCode, clicks: 0};
+
+                    var oldRecent = self.recentEmojis;
+                    self.recentEmojis = [];
+                    //collect zero clicks emojis
+                    for (var i = 0; i < oldRecent.length; i++) {
+                        if (oldRecent[i].clicks == 0) {
+                            self.recentEmojis.push(oldRecent[i]);
+                        }
+                    }
+                    //add our new emoji
+                    self.recentEmojis.unshift(newEmoji);
+                    //place emojis with clicks > 0 to their places
+                    for (var i = 0; i < oldRecent.length; i++) {
+                        if (oldRecent[i].clicks > 0) {
+                            self.recentEmojis.splice(i, 0, oldRecent[i]);
+                        }
+                    }
+            }
+            //finally store emoji list
+            storage.save('recentEmojis',self.recentEmojis);
+        };
+
+        self.sendGfy = function(gfy) {
+            log('send gfy: ' + gfy);
+            sendMessageHandler('gfy:' + gfy);
+        };
+
+        function getUtfEmoji(name) {
+            for (var emoji in self.emoji) {
+                if (self.emoji[emoji][1][0] == name) {
+                    return self.emoji[emoji][0];
+                }
+            }
+            return name;
+        }
+
+        self.parseHtml = function(html, parseToUtf) {
+            var emojiContainerRegex = /<img class="emoji emoji_\S+" title=":(\S+):">/g;
+            return html.replace(emojiContainerRegex, function (match, text) {
+                if(parseToUtf) {
+                    return getUtfEmoji(text);
+                } else {
+                    return ":" + text + ":";
+                }
+            });
+        }
     }]);
 
 angular.module("angControllers").controller("galleryPanelController", [
     '$scope', 'gallery',
     function($scope, gallery){
         $scope.g = gallery;
-
-        //$scope.recentEmojis =
-        $scope.recentEmojis = [
-            { code: "1f602", clicks: 0 },
-            { code: "2665", clicks: 0 },
-            { code: "2764", clicks: 0 },
-            { code: "1f60d", clicks: 0 },
-            { code: "1f60a", clicks: 0 },
-            { code: "1f62d", clicks: 0 },
-            { code: "1f618", clicks: 0 },
-            { code: "263a", clicks: 0 },
-            { code: "1f495", clicks: 0 },
-            { code: "1f44c", clicks: 0 },
-            { code: "1f629", clicks: 0 },
-            { code: "1f614", clicks: 0 },
-            { code: "1f60f", clicks: 0 },
-            { code: "1f601", clicks: 0 },
-            { code: "1f64f", clicks: 0 },
-            { code: "1f44d", clicks: 0 },
-            { code: "1f609", clicks: 0 },
-            { code: "1f64c", clicks: 0 },
-            { code: "1f633", clicks: 0 },
-            { code: "1f60c", clicks: 0 },
-            { code: "270c", clicks: 0 },
-            { code: "1f648", clicks: 0 },
-            { code: "1f3b6", clicks: 0 }];
     }]);
 
 angular.module("angControllers").controller("galleryController", [
@@ -976,7 +1044,7 @@ angular.module("angControllers").controller("galleryController", [
         }
         $scope.g = gallery;
         gallery.init();
-        $scope.posts = gallery.items;
+        $scope.gfys = [];
         $scope.goto = router.goto;
 
         $scope.loadMore = function() {
@@ -987,31 +1055,27 @@ angular.module("angControllers").controller("galleryController", [
             load();
         };
 
-        //TODO: replace with random gifs
+        var gfyPage = 0;
         function load() {
-            socket.emit('posts', {get: 'random items'});
+            function gfyToPost(gfy) {
+                return {title: gfy, category: 'gfy', gfy: gfy};
+            }
+            var items = [];
+            for (var i = 0; i < 3; i++) {
+                if(gfyPage + i < gallery.gfys.length) {
+                    items.push(gfyToPost(gallery.gfys[gfyPage + i]));
+                } else {
+                    gallery.disableAutoload = true;
+                }
+            }
+            gfyPage = (gfyPage + i);
+
+            Array.prototype.push.apply($scope.gfys, items);
+            gallery.disableAutoload = gfyPage >= gallery.gfys.length
+            $scope.loading = false;
+            gfyCollection.init();
         }
-
-        //TODO: replace with random gifs and uploaded photos
-        socket.on('posts', function(envelope) {
-            log('received posts:', envelope.posts);
-            transform(envelope.posts);
-
-            $scope.$apply(function() {
-                Array.prototype.push.apply(gallery.items, envelope.posts);
-                gallery.disableAutoload = envelope.posts.length == 0;
-                $scope.loading = false;
-                gfyCollection.init();
-            });
+        $scope.$on("$destroy", function handler() {
+            gallery.galleryOpened = false;
         });
-
-        function transform(arr) {
-            arr.map(function(p) {
-                if (!p.title) p.title = '';
-                p.slug = encodeURIComponent(
-                    p.title.replace(/ /g, '-')
-                        .replace(/[\.\/]/g, '')
-                );
-            });
-        }
     }]);

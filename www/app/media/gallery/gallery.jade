@@ -4,19 +4,14 @@
         ul.posts-list(infinite-scroll-disabled='disableAutoload',
             infinite-scroll='loadMore()', infinite-scroll-distance='1',
             infinite-scroll-container='".main-section"')
-            li(ng-show='g.recentPicPost.data.link.image_url')
-                .pointer(ng-focus="g.setFocusOnTextField()" ng-click="g.sendMessage(g.recentPicPost.data.link.image_url)")
-                    post(model='g.recentPicPost')
+            //li(ng-show='g.recentPicPost.data.link.image_url')
+            //    .pointer(ng-focus="g.setFocusOnTextField()" ng-click="g.sendMessage(g.recentPicPost.data.link.image_url)")
+            //        post(model='g.recentPicPost')
             li
                 post(model='g.emojiPost')
                     .gallery-category(ng-repeat="category in g.emojiCategories")
-                        a(ng-repeat="emojiCode in category" ng-click="g.typeEmoji($event, emojiCode)")
-                            | {{ ::g.emoji[emojiCode][0] }}
-            //Mock!
-            li(ng-repeat='gfy in g.gfys')
-                post(model="{}")
-                    img.gfyitem(data-id="{{ ::gfy }}" data-autoplay='false')
-            //Gfy's and stuff should go from here
-            li(ng-repeat='post in posts')
-                post(model="post")
+                        a(ng-repeat="emojiCode in category" ng-click="g.typeEmoji($event, emojiCode); g.saveToRecent(emojiCode);")
+                            span(ng-bind-html="::g.getEmoji(emojiCode) | emoji")
+            li(ng-repeat='gfy in gfys')
+                post(model="gfy")
         spinner.top-margin(ng-show='loading', spinner-color='green')

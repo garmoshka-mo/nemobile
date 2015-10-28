@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery',
-function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery', 'router',
+function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery, router) {
 
     var $chatInput = $('.chat-input');
 
@@ -21,6 +21,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         ttl: 3600,
         clearText: function() {
             this.text = '';
+            $chatInput.text('');
         }
     };
 
@@ -31,9 +32,11 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.sendMessage = function(text) {
         $scope.setFocusOnTextField();
 
-        var textToSend = text || $scope.newMessage.text,
+        var textToSend = text || $scope.newMessage.text || $chatInput.html(),
             ttl = $scope.newMessage.ttl;
         if (textToSend) {
+
+            textToSend = gallery.parseHtml(textToSend, lastSession.type == 'external');
 
             $scope.newMessage.clearText();
             $scope.isMessageSending = true;
@@ -163,8 +166,8 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
 
     function quoteMessage(message) {
-        $scope.newMessage.text = $scope.newMessage.text +
-            ' > ' + message.text + ' < = ';
+        $chatInput.html($chatInput.html() +
+            ' > ' + message.text + ' < = ');
     }
 
     $rootScope.$on('quote message', function(event, args) {
@@ -179,6 +182,15 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
             separator.updateElements();
             separator.updateRestrictions();
         }, 0);
+    };
+    $scope.toggleGallery = function() {
+        if(gallery.galleryOpened) {
+            router.goBack();
+        }
+        else {
+            router.goto('gallery');
+        }
+        gallery.galleryOpened = !gallery.galleryOpened;
     };
     gallery.setSendMessageHandler($scope.sendMessage);
     gallery.setInput($chatInput, $scope.newMessage);
