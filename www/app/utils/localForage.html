@@ -1,13 +1,23 @@
-
+<br/>
+<div contenteditable="true">
+    Username: {{ user.name || '< no username >' }}
+</div>
+<br/>
 <input placeholder="API URL" type="text" ng-model="apiUrl" name="host">
-<br/>
-<input type="checkbox" ng-model="externalChat"> external Chats
-<br/>
-<input type="checkbox" ng-model="debug"> debug
-<br/>
+<div>
+    <input type="checkbox" id="externalChat" ng-model="externalChat"/>
+    <label for="externalChat" class="disconnect-checkbox-label">
+        External chats
+    </label>
+</div>
+<div>
+    <input type="checkbox" id="debug" ng-model="debug"/>
+    <label for="debug" class="disconnect-checkbox-label">
+        Debug mode
+    </label>
+</div>
 
-<button onclick="window.plugins.socialsharing.shareViaSMS('My cool message', '+79182941997', function(msg) {log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})">share via SMS</button>
+<button onclick="window.plugins.socialsharing.shareViaSMS('My cool message', '+79182941997', function(msg) {log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})">Share via SMS</button>
 
 <textarea rows="4" cols="50" ng-model="config"></textarea>
-<button ng-click="save_config();">apply</button>
-w
+<button ng-click="save_config();">Apply</button>
