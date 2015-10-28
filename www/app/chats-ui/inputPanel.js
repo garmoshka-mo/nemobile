@@ -35,7 +35,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         if (textToSend) {
 
             textToSend = gallery.parseHtml(textToSend, lastSession.type == 'external');
-            if(!text) {
+            if (!text) {
                 $scope.newMessage.clearText();
             }
 
@@ -192,6 +192,10 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         }
         gallery.galleryOpened = !gallery.galleryOpened;
     };
-    gallery.setSendMessageHandler($scope.sendMessage);
+
+    $scope.$on("$destroy", function() {
+        gallery.galleryPanelOpened = false;
+    });
+    gallery.setSendMessageHandler($scope.sendMessage, chat);
     gallery.setInput($chatInput, $scope.newMessage);
 }]);

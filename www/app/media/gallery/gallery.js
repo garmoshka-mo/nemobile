@@ -30,7 +30,7 @@ angular.module('angServices').service('gallery', [
         ];
 
         self.init = function() {
-            self.recentPicPost.data.link.image_url = localStorage['recentlySentPic'];
+            //self.recentPicPost.data.link.image_url = localStorage['recentlySentPic'];
             self.currentPage = 1;
             self.disableAutoload = true;
         };
@@ -38,8 +38,9 @@ angular.module('angServices').service('gallery', [
         var sendMessageHandler = null;
         self.galleryPanelOpened = false;
 
-        self.setSendMessageHandler = function(handler) {
+        self.setSendMessageHandler = function(handler, chat) {
             sendMessageHandler = handler;
+            self.chat = chat;
         };
         self.sendMessage = function(message) {
             if (sendMessageHandler) {
@@ -85,6 +86,7 @@ angular.module('angServices').service('gallery', [
 
         self.typeEmoji = function($event, emojiCode) {
             if($input) {
+                self.chat.iStartedInput = true;
                 insertAtCaret($input[0], emoji.parse(self.getEmoji(emojiCode)));
             }
         };
@@ -1033,8 +1035,8 @@ angular.module("angControllers").controller("galleryPanelController", [
     }]);
 
 angular.module("angControllers").controller("galleryController", [
-    '$rootScope', '$scope', 'gallery', 'router', 'socket',
-    function($rootScope, $scope, gallery, router, socket){
+    '$rootScope', '$scope', 'gallery', 'router',
+    function($rootScope, $scope, gallery, router){
 
         $rootScope.mainFooterTemplate = 'app/media/gallery/galleryControl.html?'+version;
 
@@ -1055,10 +1057,15 @@ angular.module("angControllers").controller("galleryController", [
             load();
         };
 
+        $scope.typeEmoji = function($event, emojiCode) {
+            gallery.typeEmoji($event, emojiCode);
+            gallery.saveToRecent(emojiCode);
+        };
+
         var gfyPage = 0;
         function load() {
             function gfyToPost(gfy) {
-                return {title: gfy, category: 'gfy', gfy: gfy};
+                return {category: 'gfy', gfy: gfy};
             }
             var items = [];
             for (var i = 0; i < 3; i++) {
@@ -1075,7 +1082,7 @@ angular.module("angControllers").controller("galleryController", [
             $scope.loading = false;
             gfyCollection.init();
         }
-        $scope.$on("$destroy", function handler() {
+        $scope.$on("$destroy", function() {
             gallery.galleryOpened = false;
         });
     }]);
