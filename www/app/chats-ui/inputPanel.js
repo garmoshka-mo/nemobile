@@ -198,4 +198,12 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
     gallery.setSendMessageHandler($scope.sendMessage, chat);
     gallery.setInput($chatInput, $scope.newMessage);
+
+    //check timer issue
+    setTimeout(function() {
+        if(!$rootScope.notification.time) {
+            error('Timer did not start!')
+        }
+    }, 3000)
+
 }]);
