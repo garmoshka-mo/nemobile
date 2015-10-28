@@ -1003,7 +1003,7 @@ angular.module('angServices').service('gallery', [
         self.sendGfy = function(gfy) {
             log('send gfy: ' + gfy);
             sendMessageHandler('gfy:' + gfy);
-        }
+        };
 
         function getUtfEmoji(name) {
             for (var emoji in self.emoji) {

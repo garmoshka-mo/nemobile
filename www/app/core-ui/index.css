@@ -587,6 +587,11 @@ button.chat-send {
    margin-left: 6px;
    color: #CEE6D0;
  }
+ .gallery-open-button i {
+   left: 1px;
+   position: relative;
+ }
+ 
 .stickersGallery {
   padding: 10px;
 }
