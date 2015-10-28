@@ -3,11 +3,11 @@
         return {
             scope: {session: '=', lookAgain: '&', chatSettings: '&', chat: '='},
             templateUrl: "app/messages/messages.html?"+version,
-            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$timeout', '$rootScope', 'socket', 'contextMenu', 'emoji', controller]
+            controller: ['$scope', '$postpone', 'view', 'chatHeader', '$sce', '$timeout', '$rootScope', 'socket', 'emoji', controller]
         };
     });
 
-    function controller($scope, $postpone, view, chatHeader, $sce, $timeout, $rootScope, socket, contextMenu, emoji) {
+    function controller($scope, $postpone, view, chatHeader, $sce, $timeout, $rootScope, socket, emoji) {
         $scope.formatMessage = function(message) {
             return parseUrls(message.text);
         };
