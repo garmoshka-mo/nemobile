@@ -67,13 +67,7 @@ function($scope, posts, router, $anchorScroll, $location,
             posts.activePost = post;
         }
     };
-    $scope.activatePost = function(post) {
-        if (!post.data.link.embed_url) return;
 
-        post.videoUrl =
-            $sce.trustAsResourceUrl(post.data.link.embed_url);
-        post.showVideo = true;
-    };
 
     // Заготовка для "многоканальной" ленты
     var $mainSection = $('#main-section');
@@ -106,7 +100,7 @@ app.directive('cutImage', function() {
     };
 });
 
-app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
+app.directive('post', ['$rootScope', 'posts', '$sce', 'router','$location', function($rootScope, posts, $sce, router, $location) {
     return {
         restrict: 'E',
         transclude: true,
@@ -123,22 +117,29 @@ app.directive('post', ['$rootScope', 'posts', function($rootScope, posts) {
                 if ($rootScope.activePost != post) {
                     $rootScope.activePost = post;
                     posts.activePost = post;
+
+                    if(post)
+                        if (post.category == 'gfy') {
+                            gfyCollection.pauseAll();
+                            gfyCollection.play(post.gfy);
+                        } else {
+                            $location.update_path('/pub/' + post.id, false)
+                        }
                 }
+            };
+            scope.activatePost = function(post) {
+                if (post.data.link.embed_url) {
+                    post.videoUrl = $sce.trustAsResourceUrl(post.data.link.embed_url);
+                    post.showVideo = true;
+                }
+                else {
+                    router.openExternalURL('/pub/' + post.id + '/view')
+            }
             };
             scope.cutImage = function(post) {
                 post.cutImage = true;
             };
         },
-        template: "<div ng-switch='model.category' in-view='postVisibility($inview, model)' in-view-options='{ offsetTop: 300, offsetBottom: -250 }'>" +
-        "<div class='header'><div class='title'>{{ ::model.title }}</div></div>" +
-        "<div ng-switch-when='link' class='image-container' ng-class='{\"cut-image\": model.cutImage}'>" +
-        "<img ng-src='{{model.data.link.image_url}}' cut-image='cutImage(model)'>" +
-        "</div>" +
-        "<div ng-switch-default ng-transclude ng-class='{\"cut-image\": model.cutImage}' cut-image='cutImage(model)'></div>" +
-        "<div class='cut' ng-show='model.cutImage'><div class='torn'><button ng-click='model.cutImage = false'>" +
-        "<i class='fa fa-angle-double-down'></i> {{ 'pubs.expand' | translate }}" +
-        "</button></div></div>" +
-        "<div class='separator'></div>" +
-        "</div>"
+        templateUrl: "app/pub/post.html?"+version
     };
 }]);

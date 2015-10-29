@@ -19,7 +19,7 @@ angular.module("angServices")
 
                     var v = o.videos,
                         gfy = v[Math.floor(Math.random()*v.length)];
-                    gfyCollection.get().length = 0;
+                    //gfyCollection.get().length = 0;
                     $container.empty();
                     var autoplay = IS_MOBILE ? "data-autoplay='false'" : "";
                     $container.append("<img class='gfyitem' " + autoplay + " data-id='"+ gfy +"'/>");

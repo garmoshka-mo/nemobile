@@ -14,13 +14,17 @@ block content
       messages
         div
           div
-            each message in post.chat.messages
-              if message.isOwn
-                .message-container.ta-right
-                  .message.pointer.message-own= message.text
-              else
-                .message-container
-                  .message.pointer.message-not-own= message.text
+            if post.chat
+              each message in post.chat.messages
+                if message.isOwn
+                  .message-container.ta-right
+                    .message.pointer.message-own= message.text
+                else
+                  .message-container
+                    .message.pointer.message-not-own= message.text
+            if post.link
+              .image-container
+                img(src='' + post.link.image_url)
       .pub-bottom-break
         img(src='assets/img/page-break.png')
       .bottom-placeholder

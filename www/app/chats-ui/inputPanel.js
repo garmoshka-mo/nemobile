@@ -1,7 +1,7 @@
 angular.module("angControllers")
     .controller('inputPanelController',
-    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery',
-function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery) {
+    ['$scope', 'separator', 'view', 'chats', 'dictionary', '$rootScope', 'userRequest', 'notification', 'gallery', 'router',
+function($scope, separator, view, chats, dictionary, $rootScope, userRequest, notification, gallery, router) {
 
     var $chatInput = $('.chat-input');
 
@@ -16,11 +16,10 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
 
     $scope.newMessage = {
-        text: '',
         // ttl: 2592000,//30 days
         ttl: 3600,
         clearText: function() {
-            this.text = '';
+            $chatInput.text('');
         }
     };
 
@@ -31,11 +30,15 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.sendMessage = function(text) {
         $scope.setFocusOnTextField();
 
-        var textToSend = text || $scope.newMessage.text,
+        var textToSend = text || $chatInput.html(),
             ttl = $scope.newMessage.ttl;
         if (textToSend) {
 
-            $scope.newMessage.clearText();
+            textToSend = gallery.parseHtml(textToSend, lastSession.type == 'external');
+            if (!text) {
+                $scope.newMessage.clearText();
+            }
+
             $scope.isMessageSending = true;
 
             if (!lastSession.isReplied) {
@@ -163,8 +166,8 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     });
 
     function quoteMessage(message) {
-        $scope.newMessage.text = $scope.newMessage.text +
-            ' > ' + message.text + ' < = ';
+        $chatInput.html($chatInput.html() +
+            ' > ' + message.text + ' < = ');
     }
 
     $rootScope.$on('quote message', function(event, args) {
@@ -180,6 +183,27 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
             separator.updateRestrictions();
         }, 0);
     };
-    gallery.setSendMessageHandler($scope.sendMessage);
+    $scope.toggleGallery = function() {
+        if(gallery.galleryOpened) {
+            router.goBack();
+        }
+        else {
+            router.goto('gallery');
+        }
+        gallery.galleryOpened = !gallery.galleryOpened;
+    };
+
+    $scope.$on("$destroy", function() {
+        gallery.galleryPanelOpened = false;
+    });
+    gallery.setSendMessageHandler($scope.sendMessage, chat);
     gallery.setInput($chatInput, $scope.newMessage);
+
+    //check timer issue
+    setTimeout(function() {
+        if(!$rootScope.notification.time) {
+            error('Timer did not start!')
+        }
+    }, 3000)
+
 }]);

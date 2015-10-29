@@ -13,6 +13,10 @@
         input(type='text', ng-model='preview.title', placeholder="{{'publish.preview.title' | translate }}", autocomplete='off', allow-text-select='')
     messages(session='preview.session')
     .bottom-placeholder
-.context-menu-container(context-menu)
-    .context-menu
-        div(ng-include="'app/messages/editMessageDialog.html?'+version")
+a#edit-message-trigger(href='#', data-reveal-id='edit-message' style='display:none;')
+#edit-message.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')
+    div
+        input(type='text', ng-model='message.text')
+    div
+        button(ng-click='closeEditMessageModal()', translate='message.menu.done')
+    a.close-reveal-modal#edit-message-close(aria-label='Close') &#215;

@@ -17,7 +17,7 @@
     height: 30px;
 }
 .gallery-panel .inner {
-    margin-top: -20px;
+    margin-top: -22px;
 }
 .gallery-panel .circle {
     float: right;
@@ -32,6 +32,5 @@
     width: auto;
     overflow: hidden;
     float: none;
-    font-size: larger;
     height: 25px;
 }

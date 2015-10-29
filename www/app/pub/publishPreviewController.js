@@ -11,8 +11,13 @@ angular.module("angControllers")
                     $scope.preview.title = oldVal;
                 }
             });
+
+            $scope.closeEditMessageModal = function() {
+                $('#edit-message-close').click();
+            };
             setTimeout(function() {
                 $(document).foundation('dropdown', 'reflow');
+                $(document).foundation('reveal', 'reflow');
             }, 200);
         }
     ]);
