@@ -53,48 +53,42 @@ angular.module('angServices').service('gallery', [
         self.setInput = function(input) {
             $input = input;
         };
+        
 
-        function setCaretPosition(caretPos) {
-            var input = $input[0];
-            if(input != null) {
-                if(input.createTextRange) {
-                    var range = input.createTextRange();
-                    range.move('character', caretPos);
-                    range.select();
-                }
-                else {
-                    if(input.selectionStart) {
-                        input.focus();
-                        input.setSelectionRange(caretPos, caretPos);
-                    }
-                    else
-                        input.focus();
-                }
+        function insertHtmlAtCursor(html) {
+            if (!window.getSelection) 
+                return error('window.getSelection unsupported');
+            
+            var sel, range;
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.collapse(false);
+                
+                var markerId = "marker_" + ("" + Math.random()).slice(2);
+                html += '<span id="' + markerId + '"></span>';
+                
+                var newNode = range.createContextualFragment(html);
+                range.insertNode(newNode);
+
+                var markerSpan = document.getElementById(markerId);
+                
+                range = range.cloneRange();
+                range.selectNodeContents(markerSpan);
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                
+                markerSpan.parentNode.removeChild(markerSpan);
             }
         }
-        var caret = 0;
-        function insertAtCaret(element, text) {
-            var caretPosStart = element.selectionStart || 0;
-            var caretPosEnd = element.selectionEnd || 0;
-            var textAreaTxt = $input.html();
-            $input.html(textAreaTxt.substring(0, caretPosStart) + text + textAreaTxt.substring(caretPosEnd || caretPosStart));
-            caret = caretPosStart + text.length;
-            setTimeout(function(){
-                setCaretPosition(caret);
-            }, 100);
-    }
 
         self.typeEmoji = function($event, emojiCode) {
             if($input) {
                 self.chat.iStartedInput = true;
-                insertAtCaret($input[0], emoji.parse(self.getEmoji(emojiCode)));
+                insertHtmlAtCursor(emoji.parse(self.getEmoji(emojiCode)));
             }
-        };
-
-        self.setFocusOnTextField = function() {
-            setTimeout(function() {
-                setCaretPosition(caret);
-            }, 0);
         };
 
         self.emoji = emoji.list;
