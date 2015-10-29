@@ -9,6 +9,17 @@
 html{
   height: 100%;
 }
+
+html, body {
+ -webkit-tap-highlight-color: transparent;
+ -webkit-touch-callout: none;
+ min-height: 100%;
+ -webkit-text-size-adjust: 100%;
+ -ms-text-size-adjust: 100%;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale; 
+}
+ 
 body{
   background-color: #F1F3F6;
   height: 100%;
