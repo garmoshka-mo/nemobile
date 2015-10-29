@@ -29,6 +29,13 @@
 
         self.detectLanguage = function() {
             var d = $q.defer();
+
+            //If there is a hard setting for language
+            if (document.documentElement.lang) {
+                d.resolve(document.documentElement.lang);
+                return d.promise;
+            }
+
             var userLanguage = window.navigator.userLanguage || window.navigator.language;
             userLanguage = parseUserLanguage(userLanguage);
             

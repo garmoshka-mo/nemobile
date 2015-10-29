@@ -53,11 +53,38 @@ var black = process.env.BLACK;
 if (black) black = black.split(',');
 else black = [];
 
+var localizations = {
+    'en': {
+        title: 'Chat by guess - DUB.iNK',
+        descr: 'Chat without registration, where you can just hang out and meet new people through quick conversations without waiting'
+    },
+    'ru': {
+        title: 'Чат наугад - DUB.iNK',
+        descr: 'Чат без регистрации, где можно просто пообщаться или завести новые знакомства через быстрые диалоги без ожиданий'
+    },
+    'es': {
+        title: 'Chatear al azar - DUB.iNK',
+        descr: 'Chatear al azar para pasar el rato y conocer gente nueva por medio de conversaciones rápidas y continuas'
+    },
+    'zh': {
+        title: '通过猜测聊天 - DUB.iNK',
+        descr: '聊天无需注册，在那里你可以挂出，并满足快速通过对话新人们无需等待'
+    }
+};
+
 app.get(index_routes, function (req, res) {
     if (black.indexOf(req.ip) >= 0)
         res.redirect('https://chatvdvoem.ru/');
-    else
-        res.render('index', assets);
+    else {
+        var indexAssets = _.clone(assets);
+        var lang = req.query.lang;
+        if(lang) {
+            indexAssets.title = localizations[lang].title;
+            indexAssets.descr = localizations[lang].descr;
+            indexAssets.lang = lang;
+        }
+        res.render('index', indexAssets);
+    }
 });
 
 app.get('/exit', function (req, res) {
@@ -70,6 +97,20 @@ app.get('/version', function (req, res) {
 
 app.get(['/v', '/v:slug'], function (req, res) {
     res.render('index', assetsAlt);
+});
+
+//Hard localized pages
+app.get(['/en'], function (req, res) {
+    res.redirect('/?lang=en');
+});
+app.get(['/ru'], function (req, res) {
+    res.redirect('/?lang=ru');
+});
+app.get(['/es'], function (req, res) {
+    res.redirect('/?lang=es');
+});
+app.get(['/zh'], function (req, res) {
+    res.redirect('/?lang=zh');
 });
 
 // catch 404 and forward to error handler
