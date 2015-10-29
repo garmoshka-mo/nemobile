@@ -1009,8 +1009,8 @@
         return input.replace(rEmojis, function (match, text) {
             //getUtfEmoji(text) takes too much time. Especially when gallery loads.
             // Might work faster if we change the emoji list structure to {"low_brightness": "\uD83D\uDD05"}
-            return "<img class='emoji emoji_" + text + "' alt='" + getUtfEmoji(text) + "'>";
-            //return "<img class='emoji emoji_" + text + "' alt='\uD83D\uDE04'>";
+            //return "<img class='emoji emoji_" + text + "' alt='" + getUtfEmoji(text) + "'>";
+            return "<img class='emoji emoji_" + text + "' title=':" + text + ":'>";
         });
     }
 
