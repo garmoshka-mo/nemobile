@@ -1,7 +1,6 @@
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
     function($stateProvider, $urlRouterProvider) {
-        //Commented out in order to let ngLocationUpdate
-        //$urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
 
         var randomUrl = "/",

@@ -123,7 +123,7 @@ app.directive('post', ['$rootScope', 'posts', '$sce', 'router','$location', func
                             gfyCollection.pauseAll();
                             gfyCollection.play(post.gfy);
                         } else {
-                            $location.update_path('/pub/' + post.id, false)
+                            //$location.update_path('/pub/' + post.id, false)
                         }
                 }
             };
