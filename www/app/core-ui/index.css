@@ -1236,8 +1236,9 @@ md-menu-item > .md-button {
  }
 
 
-.text-dropdown li {
- padding: 0px 17px;
+.text-dropdown li a {
+ padding-right: 25px;
+ padding-left: 25px;
 }
 .text-dropdown {
  width: initial;

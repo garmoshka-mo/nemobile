@@ -193,7 +193,8 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
         replace: false,
         transclude: true,
         templateUrl: 'app/utils/tagsInput.html',
-        controller: ["$scope", "$attrs", "$element", function($scope, $attrs, $element) {
+        controller: ["$scope", '$postpone', "$attrs", "$element",
+        function($scope, $postpone, $attrs, $element) {
             $scope.events = tiUtil.simplePubSub();
 
             tagsInputConfig.load('tagsInput', $scope, $attrs, {
@@ -226,6 +227,12 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
                 tiUtil.handleUndefinedResult($scope.onTagAdding, true),
                 tiUtil.handleUndefinedResult($scope.onTagRemoving, true));
 
+            $scope.add = function (item) {
+                $postpone(1, function () {
+                    $scope.tags.push(item);
+                });
+            };
+            
             this.registerAutocomplete = function() {
                 var input = $element.find('input');
 
