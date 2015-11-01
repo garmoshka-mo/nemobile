@@ -26,9 +26,9 @@
         button(ng-click="router.goto('random')")
             i.fa.fa-refresh
             |  Чат наугад
-        button(ng-show=('post.link') ng-click="externalURL()")
-            i.fa.fa-refresh
-            |  Источник
+    a(ng-show=('post.link') ng-click="externalURL()")
+        i.fa.fa-external-link
+        |  Источник
     .pub-bottom-break
         img(src='assets/img/page-break.png')
     #disqus_thread

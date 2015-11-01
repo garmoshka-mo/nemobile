@@ -37,7 +37,12 @@
     div(ng-switch-when='hidden')
         .message.message-hidden(ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", translate='message.hidden')
     div(ng-switch-default='', ng-switch='chat')
-        .message.pointer(ng-switch-when='true', ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='::formatMessage(message)', ng-click='::showMenu($event, message, $index)', data-dropdown="message-menu", aria-controls="message-menu", aria-expanded="false")
-        .message.pointer(ng-switch-default='', ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='formatMessage(message)', ng-click='showMenu($event, message, $index)', data-options="align:top", data-dropdown="message-menu-edit", aria-controls="message-menu-edit", aria-expanded="false")
+        .message.pointer(ng-switch-when='true' ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+            ng-bind-html='::formatMessage(message)', ng-click='::showMenu($event, message, $index)'
+            data-dropdown="message-menu" data-options='align:top' 
+            aria-controls="message-menu", aria-expanded="false")
+        .message.pointer(ng-switch-default='', ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", ng-bind-html='formatMessage(message)', ng-click='showMenu($event, message, $index)'
+            data-options="align:top", data-dropdown="message-menu-edit", 
+            aria-controls="message-menu-edit" aria-expanded="false")
 message-menu( api='messageMenuApi', items='messageMenuItems')
                    

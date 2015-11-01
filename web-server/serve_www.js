@@ -87,7 +87,7 @@ app.get(index_routes, function (req, res) {
     }
 });
 
-app.get('/exit', function (req, res) {
+app.get(['/exit', '/publishPreview'], function (req, res) {
     res.redirect('/');
 });
 

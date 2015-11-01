@@ -8,6 +8,7 @@
  }
 html{
   height: 100%;
+  overflow: hidden;
 }
 
 html, body {
@@ -64,6 +65,14 @@ input[type="password"] {
 }
 .fll {
   float: left;
+}
+
+.reveal-modal .close-reveal-modal, 
+dialog .close-reveal-modal {
+ font-size: 1.5rem;
+}
+.reveal-modal h1 {
+  font-size: 13px;
 }
 
 .no-select {
