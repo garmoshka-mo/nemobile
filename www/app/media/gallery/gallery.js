@@ -174,7 +174,7 @@ angular.module('angServices').service('gallery', [
         };
 
         self.parseHtml = function(html, parseToUtf) {
-            var emojiContainerRegex = /<img class="emoji emoji_(\S+)" title="\S+">/g;
+            var emojiContainerRegex = /<img class="emoji emoji_(\S+)" alt="\S+">/g;
             return html.replace(emojiContainerRegex, function (match, text) {
                 if(parseToUtf) {
                     return emoji.getUtfEmoji(text);

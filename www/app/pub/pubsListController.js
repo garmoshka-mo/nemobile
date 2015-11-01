@@ -100,7 +100,7 @@ app.directive('cutImage', function() {
     };
 });
 
-app.directive('post', ['$rootScope', 'posts', '$sce', 'router','$location', function($rootScope, posts, $sce, router, $location) {
+app.directive('post', ['$rootScope', 'posts', '$sce', 'router','$location', function($rootScope, posts, $sce, router) {
     return {
         restrict: 'E',
         transclude: true,
@@ -118,13 +118,10 @@ app.directive('post', ['$rootScope', 'posts', '$sce', 'router','$location', func
                     $rootScope.activePost = post;
                     posts.activePost = post;
 
-                    if(post)
-                        if (post.category == 'gfy') {
-                            gfyCollection.pauseAll();
-                            gfyCollection.play(post.gfy);
-                        } else {
-                            $location.update_path('/pub/' + post.id, false)
-                        }
+                    if (post && post.category == 'gfy') {
+                        gfyCollection.pauseAll();
+                        gfyCollection.play(post.gfy);
+                    }
                 }
             };
             scope.activatePost = function(post) {
