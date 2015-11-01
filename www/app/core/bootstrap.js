@@ -35,7 +35,7 @@ angular.module("angApp")
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.useStaticFilesLoader({
             prefix: 'assets/locales/locale-',
-            suffix: '.json'
+            suffix: '.json?' + version
         });
         //In order to change language provider from anywhere use:
         //$translate.use(langKey);

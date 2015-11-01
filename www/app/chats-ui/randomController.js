@@ -60,6 +60,7 @@ angular.module("angControllers")
             router.openOnTop("randomFull");
         };
 
+
         $scope.hideMobileAD = localStorage.getItem('hideMobileAD');
         $scope.closeMobileAd = function() {
             localStorage.setItem('hideMobileAD', true);

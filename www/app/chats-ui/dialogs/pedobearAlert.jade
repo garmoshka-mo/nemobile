@@ -1,0 +1,14 @@
+#pedobear-alert.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')
+  h1
+    i.fa.fa-exclamation-triangle
+    |    {{'Restrictions on intimate topics' | translate}}
+  div(ng-show='ageAlertTo=="pedobear"'
+  translate='Intimate topics with minors aint recommended because may violate laws about:')
+  div(ng-show='ageAlertTo=="lolicon"'
+  translate='Intimate topics with adults aint recommended because may violate laws about:')
+  ul.blank
+    li(translate='a) information not intended to children')
+    li(translate='b) age of consent')
+  div
+    button(ng-click='close()' translate='Cancel selection')
+    button.secondary(ng-click='resume()' translate='I understand my responsibility and want to continue')
