@@ -1235,3 +1235,10 @@ md-menu-item > .md-button {
    color: black !important;
  }
 
+
+.text-dropdown li {
+ padding: 0px 17px;
+}
+.text-dropdown {
+ width: initial;
+}

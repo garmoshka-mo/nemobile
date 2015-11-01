@@ -208,41 +208,11 @@
     },
 
     css : function (dropdown, target) {
-      var left_offset = Math.max((target.width() - dropdown.width()) / 2, 8),
-          settings = target.data(this.attr_name(true) + '-init') || this.settings,
-          parentOverflow = dropdown.parent().css('overflow-y') || dropdown.parent().css('overflow');
+      var settings = target.data(this.attr_name(true) + '-init') || this.settings;
 
       this.clear_idx();
-
-
-
-      if (this.small()) {
-        var p = this.dirs.bottom.call(dropdown, target, settings);
-
-        dropdown.attr('style', '').removeClass('drop-left drop-right drop-top').css({
-          position : 'absolute',
-          width : '95%',
-          'max-width' : 'none',
-          top : p.top
-        });
-
-        dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
-      }
-      // detect if dropdown is in an overflow container
-      else if (parentOverflow !== 'visible') {
-        var offset = target[0].offsetTop + target[0].offsetHeight;
-
-        dropdown.attr('style', '').css({
-          position : 'absolute',
-          top : offset
-        });
-
-        dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
-      }
-      else {
-
-        this.style(dropdown, target, settings);
-      }
+      
+      this.style(dropdown, target, settings);
 
       return dropdown;
     },
