@@ -127,14 +127,14 @@ gulp.task('build_js_mobile', function () {
             .pipe(concat(output_js_file))
             .pipe(uglify())
             .pipe(insert.append('version="'+version+'";'))
+            .pipe(insert.append('html5Mode=false;'))
             .pipe(addsrc.prepend(source_www + 'license.js'))
     )
         .pipe(concat(output_js_file))
-        .pipe(replace('html5Mode(!0)', 'html5Mode(0)')) 
         .pipe(gulp.dest(output_www));
 });
 
-gulp.task('build_index', function() {
+gulp.task('build_index_for_mobile', function() {
     return gulp.src(webserver + 'views/index.jade')
         .pipe(jade(
             {locals: {
@@ -155,7 +155,7 @@ gulp.task('copy_res_folder_production', function() {
 gulp.task('make_production_mobile_build', function() {
     return runSequence('cleanBuildFolder', 'build_css','build_js_mobile',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade', 
-            'build_index', 'copy_res_folder_production');
+            'build_index_for_mobile', 'copy_res_folder_production');
 });
 
 //
@@ -164,17 +164,15 @@ gulp.task('make_production_mobile_build', function() {
 
 gulp.task('disable_html5_test_mobile', function() {
     return gulp.src(test_mobile_dir + 'app/core/bootstrap.js')
-        .pipe(replace('html5Mode(true)', 'html5Mode(false)')) 
+        .pipe(insert.append('html5Mode=false;'))
         .pipe(gulp.dest(test_mobile_dir + 'app/core'));
 });
 
 gulp.task('make_phonegap_html', function() {
     var d = q.defer();
-    var assets;
     assetsGraber
     .then(
-        function(res) {
-            assets = res;
+        function(assets) {
             gulp.src(webserver + 'views/index.jade')
                 .pipe(jade({
                    locals: {
@@ -185,6 +183,7 @@ gulp.task('make_phonegap_html', function() {
                    pretty: true
                 })) // package
                 // .pipe(rename('phonegap.html'))
+                .pipe(replace('<base href="/">', ''))
                 .pipe(gulp.dest(test_mobile_dir))
                 .on('end', function() {
                     d.resolve();
@@ -200,10 +199,8 @@ gulp.task('make_phonegap_html', function() {
     return d.promise;
 });
 
-gulp.task('remove_base_tag', function() {
-    return gulp.src(test_mobile_dir + 'index.html')
-         // package
-        .pipe(replace('<base href="/">', '')) // package
+gulp.task('copy_www_folder', function() {
+    return gulp.src('www/**/*')
         .pipe(gulp.dest(test_mobile_dir));
 });
 
@@ -212,8 +209,15 @@ gulp.task('copy_res_folder', function() {
         .pipe(gulp.dest(test_mobile_dir + '/res'));
 });
 
+gulp.task('cleanTestMobileBuild', function() {
+    return gulp.src(test_mobile_dir)
+        .pipe(clean());
+});
+
 gulp.task('make_mobile_test_build', function() {
-    return runSequence('make_phonegap_html', 'remove_base_tag', 'disable_html5_test_mobile', 'copy_res_folder');
+    return runSequence('cleanTestMobileBuild', 'copy_www_folder', 
+        'make_phonegap_html',
+        'copy_res_folder', 'disable_html5_test_mobile');
 });
 
 

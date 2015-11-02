@@ -1,5 +1,5 @@
 ```
-npm install
+npm i
 npm start
 ````
 Goto http://localhost:8080/

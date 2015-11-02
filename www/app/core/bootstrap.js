@@ -1,4 +1,5 @@
 var version = 'dev', config;
+var html5Mode = true;
 var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
 var ALT_UI;
@@ -29,7 +30,7 @@ angular.module("angApp")
     }])
 
     .config(['$locationProvider', function ($locationProvider) {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(html5Mode);
     }])
 
     .config(['$translateProvider', function ($translateProvider) {

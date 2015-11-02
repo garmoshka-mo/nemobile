@@ -4,17 +4,18 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
         //$urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
 
-        var randomUrl = "/",
+        var indexURL = html5Mode ? "/" : "",
+            randomUrl = indexURL,
             pubListUrl = "/pub",
             pubListTop = {state: 'randomLaunch'};
 
         if (ALT_UI) {
             randomUrl = "/random";
-            pubListUrl = "/";
+            pubListUrl = indexURL;
             pubListTop = {resize: 'hide', disableAnimation: true};
         } else if (!watches.isWorkingTime) {
             randomUrl = "/random";
-            pubListUrl = "/";
+            pubListUrl = indexURL;
             pubListTop = {state: 'chatClosed'}
         }
 

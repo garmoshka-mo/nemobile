@@ -8,6 +8,6 @@ build/
 test_mobile_build/
 .vagrant/
 cookbooks/
-Cheffile.lock
+scripts/Cheffile.lock
 tmp/
 _local.txt

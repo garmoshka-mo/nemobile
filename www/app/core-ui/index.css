@@ -1247,3 +1247,7 @@ md-menu-item > .md-button {
 .text-dropdown {
  width: initial !important;
 }
+
+ message-menu{
+   height: 0;
+ }
