@@ -30,4 +30,47 @@
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts.items')
             post(model="post")
+                .tweet.original-tweet.has-cards
+                    .context
+                    .content
+                        .stream-item-header
+                            a.account-group
+                                img.avatar(ng-src='{{ ::post.user.profile_image_url }}', alt='')
+                                strong.fullname {{::post.user.name}}
+                                span ‏
+                                span.username
+                                    s @
+                                    b {{::post.user.screen_name}}
+                            small.time
+                                a.tweet-timestamp
+                                    span._timestamp(ng-bind='post.created_at')
+                        //TODO: emoji in tweets are in utf ...
+                        //p(ng-bind-html='::post.text | emoji')
+                        p(ng-bind-html='::post.text')
+                        .stream-item-footer
+                            .ProfileTweet-actionList(role='group')
+                                .ProfileTweet-action.ProfileTweet-action--reply
+                                    button.ProfileTweet-actionButton.u-textUserColorHover.js-actionButton.js-actionReply(data-modal='ProfileTweet-reply', type='button')
+                                        .IconContainer(data-original-title='Reply')
+                                            i.fa.fa-mail-reply
+                                            span.u-hiddenVisually Reply
+                                .ProfileTweet-action.ProfileTweet-action--retweet.js-toggleState.js-toggleRt
+                                    button.ProfileTweet-actionButtonUndo.js-actionButton.js-actionRetweet(data-modal='ProfileTweet-retweet', type='button')
+                                        .IconContainer
+                                            i.fa.fa-retweet
+                                            span.u-hiddenVisually Retweeted
+                                        .IconTextContainer
+                                            span.ProfileTweet-actionCount
+                                                span.ProfileTweet-actionCountForPresentation
+
+                                                    | {{::post.retweet_count}}
+                                .ProfileTweet-action.ProfileTweet-action--favorite.js-toggleState
+                                    button.ProfileTweet-actionButtonUndo.u-linkClean.js-actionButton.js-actionFavorite(type='button')
+                                        .IconContainer
+                                            i.fa.fa-star
+                                            span.u-hiddenVisually Favorited
+                                        .IconTextContainer
+                                            span.ProfileTweet-actionCount.ProfileTweet-actionCount--isZero
+                                                span.ProfileTweet-actionCountForPresentation
+                                                    | {{::post.favorite_count}}
     spinner.top-margin(ng-show='loading', spinner-color='green')

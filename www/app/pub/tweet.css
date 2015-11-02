@@ -1,0 +1,138 @@
+.tweet {
+    border-bottom: 1px solid #e1e8ed;
+    cursor: pointer
+}
+
+.tweet p {
+    word-wrap: break-word
+}
+
+.tweet .details {
+    display: inline-block;
+    margin-right: 2px
+}
+
+.tweet .context a {
+    color: #8899a6
+}
+
+.tweet .context.right {
+    text-align: right
+}
+
+.tweet a .invisible, .dm-message a .invisible, .dm-notification a .invisible, .bio a .invisible {
+    font-size: 0;
+    line-height: 0
+}
+
+.tweet .stream-item-footer {
+    font-size: 12px;
+    padding-top: 1px
+}
+
+.tweet .with-icn .Icon {
+    background: transparent;
+    font-size: 16px;
+    position: relative;
+    top: 2px
+}
+
+.tweet .with-icn .Icon--lightning {
+    width: 14px
+}
+
+.tweet > .context {
+    margin-left: 58px
+}
+
+.tweet > .context .with-icn {
+    margin-left: -24px
+}
+
+.tweet > .context .with-icn .Icon, .account > .activity-user-profile-content .context .with-icn .Icon {
+    font-size: 14px;
+    margin: 0 6px 0 0;
+    position: relative;
+    top: 2px
+}
+
+.tweet .stream-item-footer .metadata .Icon {
+    font-size: 14px;
+    margin-right: 2px;
+    position: relative;
+    top: 2px
+}
+
+.tweet .stream-item-footer .context .metadata a {
+    color: #8899a6;
+    font-size: 12px
+}
+
+.tweet .QuoteTweet {
+    margin-top: 12px
+}
+
+.stream-item-header .avatar, .permalink-header .avatar {
+    float: left;
+    margin-top: 3px;
+    margin-left: -58px;
+}
+
+.tweet .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 5px;
+    -moz-force-broken-image-icon: 1;
+}
+
+.Icon {
+    background: transparent;
+    display: inline-block;
+    font-style: normal;
+    vertical-align: baseline;
+    position: relative;
+}
+
+.ProfileTweet-actionButton, .ProfileTweet-actionButtonUndo {
+    color: #ccd6dd;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0 2px;
+    position: relative;
+}
+
+.ProfileTweet-actionList {
+    font-size: 0;
+    line-height: 1;
+    margin-bottom: 2px;
+    margin-top: 10px;
+}
+
+.stream-item .bottom-tweet-actions, .stream .stream-item-footer {
+    display: table;
+    width: 100%;
+}
+
+.ProfileTweet-action {
+    display: inline-block;
+    width: 80px;
+}
+.stream-item-header .account-group {
+    color: #8899a6;
+}
+.username, .time, .time a, .metadata, .metadata button.btn-link, .metadata a {
+    font-size: 13px;
+    color: #8899a6;
+}
+.fullname {
+    font-weight: bold;
+    color: #292f33;
+}
+.username s, .account-group-inner s {
+    color: #b1bbc3;
+}
+.username {
+    direction: ltr;
+    unicode-bidi: embed;
+}
