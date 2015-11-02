@@ -112,7 +112,7 @@
                                     .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.video' | translate }}
-                        button.param-selector(data-dropdown="video" data-options="align:left"
+                        button.param-selector(data-dropdown="video" 
                                 aria-controls="video", aria-expanded="false" 
                                 ng-class="{'forbid-fab': filter.video.value === -1}")
                             img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')

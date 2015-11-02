@@ -33,10 +33,20 @@ body{
 div, li, button, a, span, img, i {
   outline: none;
 }
-.tab-bar-section.middle {
-  left: 2.7125rem;
-  right: 2.7125rem;
+
+@media only screen {
+ .tab-bar-section.middle {
+   left: 2.7125rem;
+   right: 1rem;
+ }
 }
+@media only screen and (min-width: 30em) {
+  .tab-bar-section.middle {
+    left: 2.7125rem;
+    right: 2.7125rem !important;
+  }
+}
+ 
 .typing {
  font-size: 0.7em;
   margin-left: 5px;
@@ -1230,16 +1240,10 @@ md-menu-item > .md-button {
 }
 
 
- md-menu-content .md-focused,
- md-menu-content .md-button:hover {
-   color: black !important;
- }
-
-
 .text-dropdown li a {
  padding-right: 25px;
  padding-left: 25px;
 }
 .text-dropdown {
- width: initial;
+ width: initial !important;
 }

@@ -108,6 +108,6 @@
     width: 23px;
     margin-right: 5px;
 }
-.message-menu-container ul.message-menu {
+ul#context-menu {
     z-index: 1000;
 }

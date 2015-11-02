@@ -24,6 +24,20 @@
       this.bindings(method, options);
     },
 
+    openMenu: function(options) {
+      var e = options.event, target = options.target;
+      var self = this,
+          S = self.S;
+      var settings = S(target).data(self.attr_name(true) + '-init') || self.settings;
+      if (!settings.is_hover || Modernizr.touch) {
+        e.preventDefault();
+        if (S(target).parent('[data-reveal-id]').length) {
+          e.stopPropagation();
+        }
+        self.toggle($(target), options.menu);
+      }
+    },
+    
     events : function (scope) {
       var self = this,
           S = self.S;
@@ -31,14 +45,7 @@
       S(this.scope)
         .off('.dropdown')
         .on('click.fndtn.dropdown', '[' + this.attr_name() + ']', function (e) {
-          var settings = S(this).data(self.attr_name(true) + '-init') || self.settings;
-          if (!settings.is_hover || Modernizr.touch) {
-            e.preventDefault();
-            if (S(this).parent('[data-reveal-id]').length) {
-              e.stopPropagation();
-            }
-            self.toggle($(this));
-          }
+            self.openMenu({event: e, target: this});
         })
         .on('mouseenter.fndtn.dropdown', '[' + this.attr_name() + '], [' + this.attr_name() + '-content]', function (e) {
           var $this = S(this),
@@ -104,6 +111,10 @@
             return;
           }
 
+            if (S(e.target).attr('data-dynamic-menu')) {
+              return;
+            }
+
           if (!(S(e.target).data('revealId')) &&
             (parent.length > 0 && (S(e.target).is('[' + self.attr_name() + '-content]') ||
               $.contains(parent.first()[0], e.target)))) {
@@ -161,10 +172,10 @@
         .css(dropdown
         .addClass(this.settings.active_class), target);
       dropdown.prev('[' + this.attr_name() + ']').addClass(this.settings.active_class);
+      dropdown.prev('[data-dynamic-menu]').addClass(this.settings.active_class);
       dropdown.data('target', target.get(0)).trigger('opened.fndtn.dropdown', [dropdown, target]);
       dropdown.attr('aria-hidden', 'false');
       target.attr('aria-expanded', 'true');
-      dropdown.focus();
       dropdown.addClass('f-open-' + this.attr_name(true));
     },
 
@@ -176,11 +187,14 @@
       return this.name;
     },
 
-    toggle : function (target) {
+    toggle : function (target, dropdown) {
       if (target.hasClass(this.settings.disabled_class)) {
         return;
       }
-      var dropdown = this.S('#' + target.data(this.data_attr()));
+      
+      if (!dropdown) dropdown = '#' + target.data(this.data_attr());
+      dropdown = this.S(dropdown);
+      
       if (dropdown.length === 0) {
         // No dropdown found, not continuing
         return;
@@ -209,7 +223,7 @@
 
     css : function (dropdown, target) {
       var settings = target.data(this.attr_name(true) + '-init') || this.settings;
-
+      
       this.clear_idx();
       
       this.style(dropdown, target, settings);
@@ -221,6 +235,12 @@
       var css = $.extend({position : 'absolute'},
         this.dirs[settings.align].call(dropdown, target, settings));
 
+      var diff = $(window).width() - (css.left + dropdown.outerWidth());
+      if (diff < 0) css.left += diff - 20;
+
+      diff = $(window).height() - (css.top + dropdown.outerHeight());
+      if (diff < 0) css.top += diff - 20;
+      
       dropdown.attr('style', '').css(css);
     },
 
@@ -325,7 +345,7 @@
         if (self.rtl) {
           return {left : p.left - this.outerWidth() + t.outerWidth(), top : p.top + t.outerHeight()};
         }
-
+        
         return {left : p.left, top : p.top + t.outerHeight()};
       },
 
@@ -387,17 +407,17 @@
 
       if (position.missRight == true) {
         pip_offset_base = dropdown.outerWidth() - 23;
-        sel_before = '.f-dropdown.open:before',
-        sel_after  = '.f-dropdown.open:after',
-        css_before = 'left: ' + pip_offset_base + 'px;',
+        sel_before = '.f-dropdown.open:before';
+        sel_after  = '.f-dropdown.open:after';
+        css_before = 'left: ' + pip_offset_base + 'px;';
         css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
       }
 
       //just a case where right is fired, but its not missing right
       if (position.triggeredRight == true) {
-        sel_before = '.f-dropdown.open:before',
-        sel_after  = '.f-dropdown.open:after',
-        css_before = 'left:-12px;',
+        sel_before = '.f-dropdown.open:before';
+        sel_after  = '.f-dropdown.open:after';
+        css_before = 'left:-12px;';
         css_after  = 'left:-14px;';
       }
 

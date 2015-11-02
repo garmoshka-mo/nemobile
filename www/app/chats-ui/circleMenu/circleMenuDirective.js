@@ -5,7 +5,8 @@
     angular.module("angApp").service('circleMenu', function() {      
     });
 
-    angular.module("angApp").directive('circleMenu', ['circleMenu', 'contextMenu',  function(circleMenu, contextMenu) {
+    angular.module("angApp").directive('circleMenu', ['circleMenu',  
+function(circleMenu) {
         return {
             templateUrl: "app/chats-ui/circleMenu/circleMenu.html?"+version,
             link: function($scope, element) {
@@ -30,11 +31,11 @@
 
 
             },
-            controller: ['circleMenu', '$scope', 'notification', 'chats', 'contextMenu', 
-                function(circleMenu, $scope, notification, chats, contextMenu) {
+            controller: ['circleMenu', '$scope', 'notification', 'chats', 'circleContextMenu', 
+                function(circleMenu, $scope, notification, chats, circleContextMenu) {
                     $scope.circleMenu = circleMenu;
                     $scope.chats = chats;
-                    $scope.contextMenu = contextMenu;
+                    $scope.contextMenu = circleContextMenu;
 
                     $scope.disconnect = function(feedback) {
                         notification.chatDisconnect(feedback);
@@ -49,7 +50,7 @@
 
                     $scope.$watch('chats.disconnectWithoutFeedback', function(newValue, oldValue) {
                         if (circleMenu.isOpened() && newValue) {
-                            contextMenu.close();
+                            circleContextMenu.close();
                             $scope.disconnect();
                         }
                     });

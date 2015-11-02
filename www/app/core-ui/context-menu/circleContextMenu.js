@@ -1,22 +1,24 @@
 (function() {
 
-    angular.module("angApp").service('contextMenu', function() {      
+    angular.module("angApp").service('circleContextMenu', function() {      
     });
 
-    angular.module("angApp").directive('contextMenu', ['contextMenu',  function(contextMenu) {
+    angular.module("angApp").directive('circleContextMenu', 
+    ['circleContextMenu',  
+function(circleContextMenu) {
         return {
             link: function($scope, element) {
-                contextMenu.element = element;
+                circleContextMenu.element = element;
                 var $contextMenuContainer = $(element);
-                var $contextMenu = $(element).find('.context-menu');
+                var $contextMenu = $(element).find('.circle-context-menu');
 
-                contextMenu.open = function(event) {
+                circleContextMenu.open = function(event) {
                     setMenuCoords(event);
-                    $contextMenuContainer.addClass('context-menu-container-opened');
+                    $contextMenuContainer.addClass('circle-context-menu-container-opened');
                 };
 
-                contextMenu.close = function() {
-                    $contextMenuContainer.removeClass('context-menu-container-opened');
+                circleContextMenu.close = function() {
+                    $contextMenuContainer.removeClass('circle-context-menu-container-opened');
                 };
 
                 $contextMenu.click(function(event) {
@@ -24,7 +26,7 @@
                 });
 
                 $contextMenuContainer.click(function() {
-                    contextMenu.close();
+                    circleContextMenu.close();
                 });
 
                 
@@ -51,7 +53,7 @@
             controller: ['contextMenu', '$scope',
                 function(contextMenu, $scope) {
                     $scope.text = 'jhi';
-                    $scope.templateUrl = 'app/core-ui/context-menu/circleMenuContextMenu.html';   
+                    $scope.templateUrl = 'app/core-ui/context-menu/circleContextMenu.html';   
                 }]
         };
     }]);

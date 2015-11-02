@@ -1,4 +1,4 @@
-.context-menu-container {
+.circle-context-menu-container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -14,13 +14,13 @@
             transform-origin: top left;
     overflow-y: scroll;
 }
-.context-menu-container-opened {
+.circle-context-menu-container-opened {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1);
     opacity: 1;
 }
-.context-menu {
+.circle-context-menu {
     position: absolute;
     top: 5px;
     left: 5px;
