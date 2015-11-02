@@ -44,7 +44,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("publishPreview", {
-                url: "/publishPreview/:type/:channel",
+                url: "/publishPreview",
                 branded: true, hasControlPanel: true,
                 views: {
                     "title": {

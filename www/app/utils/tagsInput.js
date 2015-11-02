@@ -192,8 +192,9 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
         },
         replace: false,
         transclude: true,
-        templateUrl: 'ngTagsInput/tags-input.html',
-        controller: ["$scope", "$attrs", "$element", function($scope, $attrs, $element) {
+        templateUrl: 'app/utils/tagsInput.html',
+        controller: ["$scope", '$postpone', "$attrs", "$element",
+        function($scope, $postpone, $attrs, $element) {
             $scope.events = tiUtil.simplePubSub();
 
             tagsInputConfig.load('tagsInput', $scope, $attrs, {
@@ -226,6 +227,12 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
                 tiUtil.handleUndefinedResult($scope.onTagAdding, true),
                 tiUtil.handleUndefinedResult($scope.onTagRemoving, true));
 
+            $scope.add = function (item) {
+                $postpone(1, function () {
+                    $scope.tags.push(item);
+                });
+            };
+            
             this.registerAutocomplete = function() {
                 var input = $element.find('input');
 
@@ -1131,9 +1138,6 @@ tagsInput.factory('tiUtil', ["$timeout", function($timeout) {
 
 /* HTML templates */
 tagsInput.run(["$templateCache", function($templateCache) {
-    $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"host\" tabindex=\"-1\" ng-click=\"eventHandlers.host.click()\" ti-transclude-append><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"{ selected: tag == tagList.selected }\" ng-click=\"eventHandlers.tag.click(tag)\"><ti-tag-item data=\"::tag\"></ti-tag-item></li><button ng-show='available.length != 0' class='tags-add-button md-button' data-dropdown='add-tag-menu' aria-controls='add-tag-menu'>+</button><ul id='add-tag-menu' data-dropdown-content='' aria-hidden='true' tabindex='-1' class='f-dropdown small'><li ng-repeat='item in available'><a ng-click='tags.push(item)'>{{item.name}}</a></li></ul></ul>"
-  );
 
   $templateCache.put('ngTagsInput/tag-item.html',
     "<span ng-bind=\"$getDisplayText()\"></span> <a ng-show=\"$parent.$parent.$parent.tagList.items.length >= $parent.$parent.$parent.options.minTags\" class=\"remove-button\" ng-click=\"$removeTag()\" ng-bind=\"::$$removeTagSymbol\"></a>"

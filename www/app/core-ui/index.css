@@ -8,6 +8,7 @@
  }
 html{
   height: 100%;
+  overflow: hidden;
 }
 
 html, body {
@@ -64,6 +65,14 @@ input[type="password"] {
 }
 .fll {
   float: left;
+}
+
+.reveal-modal .close-reveal-modal, 
+dialog .close-reveal-modal {
+ font-size: 1.5rem;
+}
+.reveal-modal h1 {
+  font-size: 13px;
 }
 
 .no-select {
@@ -1226,3 +1235,11 @@ md-menu-item > .md-button {
    color: black !important;
  }
 
+
+.text-dropdown li a {
+ padding-right: 25px;
+ padding-left: 25px;
+}
+.text-dropdown {
+ width: initial;
+}

@@ -87,7 +87,8 @@
                                     .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.sex' | translate }}
-                        button.param-selector(data-dropdown="sex", aria-controls="sex", aria-expanded="false", ng-class="{'forbid-fab': filter.sex.value === -1}")
+                        button.param-selector(data-dropdown="sex"
+                                aria-controls="sex", aria-expanded="false", ng-class="{'forbid-fab': filter.sex.value === -1}")
                             img(ng-show='filter.sex.value === 0', ng-src='assets/img/sex-unselected.png')
                             img(ng-show='filter.sex.value === -1', ng-src='assets/img/sex-forbid.png')
                             img(ng-show='filter.sex.value === 1', ng-src='assets/img/sex-prefer.png')
@@ -111,12 +112,15 @@
                                     .param-title(translate='random.forbid')
                     .small-3.columns
                         | {{ 'random.video' | translate }}
-                        button.param-selector(data-dropdown="video", aria-controls="video", aria-expanded="false", ng-class="{'forbid-fab': filter.video.value === -1}")
+                        button.param-selector(data-dropdown="video" data-options="align:left"
+                                aria-controls="video", aria-expanded="false" 
+                                ng-class="{'forbid-fab': filter.video.value === -1}")
                             img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')
                             img(ng-show='filter.video.value === -1', ng-src='assets/img/video-forbid.png')
                             img(ng-show='filter.video.value === 1', ng-src='assets/img/video-prefer.png')
                             img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
-                        ul#video.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                        ul#video.f-dropdown.small.search-param(data-dropdown-content=''
+                            aria-hidden='true', tabindex='-1')
                             li
                                 a(ng-click='filter.video.selectValue(0)')
                                     .no-image
@@ -173,3 +177,5 @@
         br
     .center.top-margin(ng-show='leaving')
         div(spinner='', spinner-color='green')
+
+    pedobear-alert(filter='filter')

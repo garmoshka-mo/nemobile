@@ -49,7 +49,7 @@
         ];
 
         var chatMessageMenu = [
-            {name: 'chat.message.quote', handler: quoteIt},
+            {name: 'chat.message.quote', handler: quoteIt}
         ];
 
         if ($scope.chat === true) {

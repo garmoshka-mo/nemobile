@@ -79,7 +79,9 @@ a.md-button.md-fab:not([disabled]):hover,
 }
 .search-param img {
     width: 20px;
-    height: 20px;
+}
+.search-param li {
+    padding: 5px;
 }
 .search-param .no-image {
     width: 20px;
@@ -87,18 +89,10 @@ a.md-button.md-fab:not([disabled]):hover,
     display: inline-block;
 }
 .param-title {
-    margin-left: -5px;
     display: inline-block;
-    position: relative;
     color: #A5A0A0;
-    text-align: left;
-    background: #FFFFFF;
     padding: 0 10px;
-    border-radius: 15px;
     font-size: 0.9rem;
-    text-transform: none;
-    border: 1px solid #EAEAEA;
-    left: 10px;
 }
 
 .md-fab.md-raised.md-mini {

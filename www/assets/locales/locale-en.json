@@ -44,6 +44,16 @@
    "random.age.f26t35": "26 to 35",
    "random.age.o35": "over 35",
 
+  "Restrictions on intimate topics": "Restrictions on intimate topics",
+  "Intimate topics with minors aint recommended because may violate laws about:":
+      "Talks on intimate topics with minors are not recommended because this may result in a violation of laws related to:",
+  "Intimate topics with adults aint recommended because may violate laws about:":
+      "Talks on intimate topics with adults are not recommended because this could provoke violation of laws related to:",
+  "a) information not intended to children":
+      "a) information that is <a external-url='https://en.wikipedia.org/wiki/Motion_picture_rating_system'>not intended for children</a>", 
+  "b) age of consent":
+      "b) inducement of individuals, <a external-url='https://en.wikipedia.org/wiki/Age_of_consent'>who have not attained the appropriate age in their country</a>, to perform sexual actions",
+  
    "chat.disconnect": "disconnect",
    "chat.placeholder": "Enter your message here",
 
