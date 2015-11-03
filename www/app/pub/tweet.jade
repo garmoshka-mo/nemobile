@@ -1,0 +1,31 @@
+.tweet.original-tweet.has-cards
+    .context
+    .content
+        .stream-item-header
+            a.account-group
+                img.avatar(ng-src='{{ ::tweet.user.profile_image_url }}', alt='')
+                strong.fullname {{::tweet.user.name}} &nbsp;
+                span.username
+                    span(ng-click='tweet.user.show_screen_name=!tweet.user.show_screen_name') @
+                    span(ng-show='tweet.user.show_screen_name') {{::tweet.user.screen_name}}
+        //TODO: emoji in tweets are in utf ...
+        //p.text(ng-bind-html='::tweet.text | emoji')
+        p.text(ng-bind-html='::tweet.text')
+        .media(ng-show='tweet.extended_entities')
+            div(ng-hide='tweet.uncutImage')
+                .div(ng-show="media.type = 'photo'")
+                    img(ng-src='{{tweet.extended_entities.media[0].media_url}}',
+                    ng-class="media.original ? 'original': 'mini'" ng-click="media.original = !media.original")
+            div(ng-show='tweet.uncutImage' ng-repeat='media in ::tweet.extended_entities.media')
+                div(ng-show="media.type = 'photo'")
+                    img(ng-src='{{tweet.extended_entities.media[0].media_url}}',
+                    ng-class="media.original ? 'original': 'mini'" ng-click="media.original = !media.original")
+            div(ng-show='!tweet.uncutImage && tweet.extended_entities.media.length > 1')
+                a(ng-click='tweet.uncutImage = true')
+                    i.fa.fa-angle-double-down
+                    | {{ 'pubs.expand' | translate }}
+        .controls
+            a(href='#')
+                i.fa.fa-mail-reply &nbsp;
+                span.u-hiddenVisually Ответить
+        .separator

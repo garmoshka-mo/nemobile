@@ -1,9 +1,9 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', '$rootScope', 'vk', '$sce',
+        '$timeout', '$rootScope',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, $rootScope, vk, $sce) {
+         $timeout, $rootScope) {
 
     gfyCollection.get().length = 0;
 
@@ -12,7 +12,8 @@ function($scope, posts, router, $anchorScroll, $location,
     $scope.posts = posts;
     $scope.goto = router.goto;
 
-    $rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
+    //disable control
+    //$rootScope.mainFooterTemplate = 'app/pub/postsControl.html?'+version;
 
     $scope.loadMore = posts.loadMore;
 

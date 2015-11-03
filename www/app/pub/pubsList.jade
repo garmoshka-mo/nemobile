@@ -1,26 +1,13 @@
 .row.pub
-    // .categories
-        .intro
-            | Привет, как себя чувствуешь? Хочется:
-        .tiles
-            .tile.c1 Приколы
-                .small (посмеяться)
-            .tile.c2 Красивое
-                .small (любоваться)
-            .tile.c3 Интересное
-                .small (поразмышлять)
-            .tile.c4 Душевное
-                .small (чувствовать)
-        //.tile.more(ng-click='showMore=true' ng-hide='showMore') Еще...
-
     .ta-center.top-margin
         .pubs-title(ng-show='posts.items.length > 0')
             div(translate='pubs.title')
             //div.small-description(translate='pubs.description')
             //div
                 img(src='assets/img/page-break.png')
-
-    div#add-link(ng-show='debug')
+    .separator
+        
+    // div#add-link(ng-show='debug')
         input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
         span {{ postUrlNotice | translate }}
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
@@ -29,5 +16,5 @@
         infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts.items')
-            post(model="post")
+            tweet(tweet="post")
     spinner.top-margin(ng-show='loading', spinner-color='green')

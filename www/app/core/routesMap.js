@@ -1,7 +1,6 @@
 angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
     function($stateProvider, $urlRouterProvider) {
-        //Commented out in order to let ngLocationUpdate
-        //$urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/');
         // $animate.enabled(false);
 
         var indexURL = html5Mode ? "/" : "",
@@ -182,8 +181,8 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     },
                     "content": {
                         templateUrl: "app/pub/pubsList.html?" + version,
-                        controller: "pubsListController",
-                        footerTemplateUrl: "app/pub/postsControl.html?"+version
+                        controller: "pubsListController"
+                        //footerTemplateUrl: "app/pub/postsControl.html?"+version
                     }
                 }
             })

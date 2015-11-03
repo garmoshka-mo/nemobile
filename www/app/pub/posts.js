@@ -22,7 +22,7 @@ function(userRequest, socket, $rootScope, language) {
         self.disableAutoload = true;
         self.loading = true;
         log('page of infinite scroll:', self.currentPage++);
-        load();
+        loadTweets();
     };
 
     function load() {
@@ -88,5 +88,18 @@ function(userRequest, socket, $rootScope, language) {
         });
     }
 
+    function loadTweets() {
+        socket.emit('tweets', {get: 'random items', channel: language.current.key});
+    }
+
+    socket.on('tweets', function(envelope) {
+        log('received tweets:', envelope.tweets);
+
+        $rootScope.$apply(function() {
+            Array.prototype.push.apply(self.items, envelope.tweets);
+            self.disableAutoload = envelope.tweets.length == 0;
+            self.loading = false;
+        });
+    });
 }]);
 })();

@@ -10,7 +10,6 @@ angular.module('angServices').service('gallery', [
         self.gfys = [
             'TotalNiftyDiplodocus',
             'EsteemedUniqueIndianglassfish',
-            'ExcitableAcrobaticCrane',
             'ElasticRadiantAmericanindianhorse',
             'SilverVillainousHare',
             'GracefulGenerousBear',
