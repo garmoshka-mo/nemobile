@@ -174,61 +174,6 @@ angular.module("angApp")
     };
 })
 
-.directive('ageSelect', function() {
-    return {
-        restrict: 'AE',
-        scope: {
-            ngModel: '=',
-            values: '=',
-            titles: '='
-        },
-
-        link: function(scope, elem, attr) {
-            var valuesAsString = scope.values.map(function(el) {return el.toString();});
-
-            var allowMultiple = attr.multiple === "true" ? true : false;
-
-            scope.handleItemClick = function(value) {
-                if (allowMultiple) {
-                    var indexOfValue = scope.ngModel.indexOf(value);
-                    if (indexOfValue == -1) {
-                        scope.ngModel.push(value);
-                    }
-                    else {
-                        scope.ngModel = scope.ngModel.slice(0, indexOfValue);
-                    }
-
-                    //'не важно' can not be ngModel with other values
-                    //code below makes it possible
-                    if (value != 0) {
-                        _.remove(scope.ngModel, function(e) {return e == 0;});
-                    }
-                    else {
-                        scope.ngModel = [0];
-                    }
-                    
-                    var min = _.min(scope.ngModel);
-                    var max = _.max(scope.ngModel);
-                    scope.ngModel = _.filter(scope.values, function(e) {
-                        return e >= min && e <= max;
-                    });
-
-                    if (_.isEmpty(scope.ngModel)) {
-                        scope.ngModel = [0];
-                    }
-                }
-                else {
-                    scope.ngModel = [value];
-                }
-            };
-        },
-
-        template: "<ul class='age-select'><li ng-repeat='value in values' " +
-            " ng-class='{\"text-bold\": ngModel.indexOf(value) != -1, \"text-silver\": ngModel.indexOf(value) == -1}' ng-click='::handleItemClick(value)'>" + 
-            "<span>{{titles[$index] | translate}}</span></li></ul>"
-    };
-})
-
 .directive('sexSelect', function() {
     return {
         restrict: 'AE',

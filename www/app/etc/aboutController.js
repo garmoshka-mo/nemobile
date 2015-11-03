@@ -1,6 +1,6 @@
 angular.module("angControllers").controller("aboutController",
-    ['$scope', '$state','user', '$stateParams',
-    function($scope, $state, user, $stateParams) {
+    ['$scope', '$state','user', '$stateParams', 'deviceInfo',
+    function($scope, $state, user, $stateParams, deviceInfo) {
 
         function getTabNum(tabName) {
             var output = 1;
@@ -206,6 +206,7 @@ angular.module("angControllers").controller("aboutController",
                               React.createElement("br", null), "                This Privacy Policy may be revised periodically and this will be reflected by the \"effective date\" below. Please revisit this page to stay aware of any changes. Your continued use of the dub.ink Site and dub.ink Service constitutes your agreement to this Privacy Policy and any amendments."
                     )),
                     React.createElement(Tabs.Panel, {title: "support"},
+                        deviceInfo.isIos ? false :
                         React.createElement("div", {className: "block-center ta-center top-margin"},
                             React.createElement("a",
                                 {className: "text-underline", target: "_blank", href: "https://vk.com/dub_ink"}, "Группа ВКонтакте")
