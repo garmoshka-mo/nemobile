@@ -18,6 +18,9 @@
     margin: 0 10px 0 70px;
     clear: both;
 }
+.gallery .posts-list {
+    margin: 0;
+}
 .posts-list li .header {
     margin: 0 0.5rem 0.5rem 0.5rem;
 }
@@ -37,7 +40,7 @@
 .posts-list .title {
     max-width: 100%;
 }
-.pub .separator {
+.separator {
     border-bottom: 2px dotted #E0E0E0;
     margin-top: 0.7rem;
     margin-bottom: 1rem;
@@ -155,6 +158,7 @@
 }
 
 .cut {
+    height: 53px;
     position: relative;
     text-align: center;
 }
@@ -167,7 +171,7 @@
     top: -25px;
 }
 .cut button {
-    margin-top: 19px;
+    margin-top: 44px;
     margin-bottom: 0;
     padding: 3px 60px;
     white-space: nowrap;

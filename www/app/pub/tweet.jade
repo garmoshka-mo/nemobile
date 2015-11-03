@@ -11,7 +11,7 @@
         //TODO: emoji in tweets are in utf ...
         //p.text(ng-bind-html='::tweet.text | emoji')
         p.text(ng-bind-html='::tweet.text')
-        .OldMedia(ng-show='tweet.extended_entities' ng-class="{'cut-image': tweet.cutImage}", cut-image='cutImage(tweet)')
+        .media(ng-show='tweet.extended_entities' ng-class="{'cut-image': tweet.cutImage}", cut-image='cutImage(tweet)')
             .OldMedia-container
                 .OldMedia-quadPhoto
                     .OldMedia-quarterPhoto(ng-repeat='media in ::tweet.extended_entities.media')

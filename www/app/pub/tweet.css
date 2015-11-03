@@ -1,4 +1,5 @@
-.tweet {
+.tweet .media {
+    margin-bottom: 11px;
 }
 
 .tweet p.text {
