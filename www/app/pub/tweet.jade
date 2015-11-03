@@ -1,0 +1,52 @@
+.tweet.original-tweet.has-cards
+    .context
+    .content
+        .stream-item-header
+            a.account-group
+                img.avatar(ng-src='{{ ::tweet.user.profile_image_url }}', alt='')
+                strong.fullname {{::tweet.user.name}} &nbsp;
+                span.username
+                    span(ng-click='tweet.user.show_screen_name=!tweet.user.show_screen_name') @
+                    span(ng-show='tweet.user.show_screen_name') {{::tweet.user.screen_name}}
+        //TODO: emoji in tweets are in utf ...
+        //p.text(ng-bind-html='::tweet.text | emoji')
+        p.text(ng-bind-html='::tweet.text')
+        .OldMedia(ng-show='tweet.extended_entities' ng-class="{'cut-image': tweet.cutImage}", cut-image='cutImage(tweet)')
+            .OldMedia-container
+                .OldMedia-quadPhoto
+                    .OldMedia-quarterPhoto(ng-repeat='media in ::tweet.extended_entities.media')
+                        .OldMedia-photoContainer(ng-show="media.type = 'photo'")
+                            img(ng-src='{{media.media_url}}', style='width: 100%;')
+        .cut(ng-show='tweet.cutImage')
+            .torn
+                button(ng-click='tweet.cutImage = false')
+                    i.fa.fa-angle-double-down
+                    |  {{ 'pubs.expand' | translate }}
+        //.stream-item-footer
+        //    .ProfileTweet-actionList
+        //        .ProfileTweet-action.ProfileTweet-action--reply
+        //            button.ProfileTweet-actionButton.u-textUserColorHover
+        //                .IconContainer
+        //                    i.fa.fa-mail-reply
+        //                    span Reply
+        //        .ProfileTweet-action.ProfileTweet-action--retweet.js-toggleState.js-toggleRt
+        //            button.ProfileTweet-actionButtonUndo
+        //                .IconContainer
+        //                    i.fa.fa-retweet
+        //                .IconTextContainer
+        //                    span.ProfileTweet-actionCount
+        //                        span.ProfileTweet-actionCountForPresentation
+        //                            | {{::tweet.retweet_count}}
+        //        .ProfileTweet-action.ProfileTweet-action--favorite.js-toggleState
+        //            button.ProfileTweet-actionButtonUndo.u-linkClean.js-actionButton.js-actionFavorite(type='button')
+        //                .IconContainer
+        //                    i.fa.fa-star
+        //                .IconTextContainer
+        //                    span.ProfileTweet-actionCount.ProfileTweet-actionCount--isZero
+        //                        span.ProfileTweet-actionCountForPresentation
+        //                            | {{::tweet.favorite_count}}
+        .controls
+            a(href='#')
+                i.fa.fa-mail-reply &nbsp;
+                span.u-hiddenVisually Ответить
+        .separator
