@@ -8,7 +8,6 @@
                 span.username
                     span(ng-click='tweet.user.show_screen_name=!tweet.user.show_screen_name') @
                     span(ng-show='tweet.user.show_screen_name') {{::tweet.user.screen_name}}
-        //TODO: emoji in tweets are in utf ...
         p.text(ng-bind-html='::tweet.text | codeToSmiley')
         .media(ng-show='tweet.extended_entities')
             div(ng-hide='tweet.uncutImage')

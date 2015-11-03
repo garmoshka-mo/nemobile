@@ -92,10 +92,15 @@ function(userRequest, socket, $rootScope, language) {
         socket.emit('tweets', {get: 'random items', channel: language.current.key});
     }
 
+    var rTweetUrl = /(http:\/\/t.co\/\S+)/g;
     socket.on('tweets', function(envelope) {
         log('received tweets:', envelope.tweets);
 
         $rootScope.$apply(function() {
+            //remove urls from tweet text
+            envelope.tweets.map(function(tweet) {
+                tweet.text = tweet.text.replace(rTweetUrl, "");
+            });
             Array.prototype.push.apply(self.items, envelope.tweets);
             self.disableAutoload = envelope.tweets.length == 0;
             self.loading = false;
