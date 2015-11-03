@@ -1,6 +1,12 @@
 .tweet {
-    border-bottom: 1px solid #e1e8ed;
-    cursor: pointer
+}
+
+.tweet p.text {
+    margin-bottom: 7px;
+}
+
+.tweet .controls {
+    font-size: 0.8rem;
 }
 
 .tweet p {

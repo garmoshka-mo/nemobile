@@ -15,7 +15,7 @@
 .posts-list {
     list-style-type: none;
     font-size: 1rem;
-    margin: 0;
+    margin: 0 10px 0 70px;
     clear: both;
 }
 .posts-list li .header {
@@ -37,10 +37,10 @@
 .posts-list .title {
     max-width: 100%;
 }
-.posts-list .separator {
+.pub .separator {
     border-bottom: 2px dotted #E0E0E0;
-    margin-top: 2.5rem;
-    margin-bottom: 2rem;
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
 }
 .visited {
     color: #6B00BA;
@@ -61,7 +61,6 @@
     padding-bottom: 11px;
     font-size: 1.2em;
     margin-bottom: 13px;
-    border-bottom: 2px solid white;
 }
 
 .pubs-title img {

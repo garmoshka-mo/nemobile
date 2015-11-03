@@ -1,26 +1,13 @@
 .row.pub
-    // .categories
-        .intro
-            | Привет, как себя чувствуешь? Хочется:
-        .tiles
-            .tile.c1 Приколы
-                .small (посмеяться)
-            .tile.c2 Красивое
-                .small (любоваться)
-            .tile.c3 Интересное
-                .small (поразмышлять)
-            .tile.c4 Душевное
-                .small (чувствовать)
-        //.tile.more(ng-click='showMore=true' ng-hide='showMore') Еще...
-
     .ta-center.top-margin
         .pubs-title(ng-show='posts.items.length > 0')
             div(translate='pubs.title')
             //div.small-description(translate='pubs.description')
             //div
                 img(src='assets/img/page-break.png')
-
-    div#add-link(ng-show='debug')
+    .separator
+        
+    // div#add-link(ng-show='debug')
         input(type='text' ng-model='url', placeholder="{{ 'pubs.urlPlaceholder' | translate }}")
         span {{ postUrlNotice | translate }}
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
@@ -36,41 +23,15 @@
                         .stream-item-header
                             a.account-group
                                 img.avatar(ng-src='{{ ::post.user.profile_image_url }}', alt='')
-                                strong.fullname {{::post.user.name}}
-                                span ‏
+                                strong.fullname {{::post.user.name}} &nbsp;
                                 span.username
-                                    s @
-                                    b {{::post.user.screen_name}}
-                            small.time
-                                a.tweet-timestamp
-                                    span._timestamp(ng-bind='post.created_at')
+                                    span(ng-click='post.user.show_screen_name=!post.user.show_screen_name') @
+                                    span(ng-show='post.user.show_screen_name') {{::post.user.screen_name}}
                         //TODO: emoji in tweets are in utf ...
                         //p(ng-bind-html='::post.text | emoji')
-                        p(ng-bind-html='::post.text')
-                        .stream-item-footer
-                            .ProfileTweet-actionList(role='group')
-                                .ProfileTweet-action.ProfileTweet-action--reply
-                                    button.ProfileTweet-actionButton.u-textUserColorHover.js-actionButton.js-actionReply(data-modal='ProfileTweet-reply', type='button')
-                                        .IconContainer(data-original-title='Reply')
-                                            i.fa.fa-mail-reply
-                                            span.u-hiddenVisually Reply
-                                .ProfileTweet-action.ProfileTweet-action--retweet.js-toggleState.js-toggleRt
-                                    button.ProfileTweet-actionButtonUndo.js-actionButton.js-actionRetweet(data-modal='ProfileTweet-retweet', type='button')
-                                        .IconContainer
-                                            i.fa.fa-retweet
-                                            span.u-hiddenVisually Retweeted
-                                        .IconTextContainer
-                                            span.ProfileTweet-actionCount
-                                                span.ProfileTweet-actionCountForPresentation
-
-                                                    | {{::post.retweet_count}}
-                                .ProfileTweet-action.ProfileTweet-action--favorite.js-toggleState
-                                    button.ProfileTweet-actionButtonUndo.u-linkClean.js-actionButton.js-actionFavorite(type='button')
-                                        .IconContainer
-                                            i.fa.fa-star
-                                            span.u-hiddenVisually Favorited
-                                        .IconTextContainer
-                                            span.ProfileTweet-actionCount.ProfileTweet-actionCount--isZero
-                                                span.ProfileTweet-actionCountForPresentation
-                                                    | {{::post.favorite_count}}
+                        p.text(ng-bind-html='::post.text')
+                        .controls
+                            a(href='#')
+                                i.fa.fa-mail-reply &nbsp;
+                                span.u-hiddenVisually Ответить
     spinner.top-margin(ng-show='loading', spinner-color='green')
