@@ -143,3 +143,11 @@
     direction: ltr;
     unicode-bidi: embed;
 }
+
+.tweet img.mini {
+    width: 200px;
+}
+
+.tweet img.original {
+    width: 100%;
+}
