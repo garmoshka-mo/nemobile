@@ -17,4 +17,4 @@
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts.items')
             tweet(tweet="post")
-    spinner.top-margin(ng-show='loading', spinner-color='green')
+    spinner.top-margin(ng-show='posts.loading', spinner-color='green')
