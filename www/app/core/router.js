@@ -13,7 +13,8 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     self.openExternalURL = function(url) {
         if (IS_APP) {
-            navigator.app.loadUrl(url, {openExternal: true});
+            // navigator.app.loadUrl(url, {openExternal: true});
+            window.open(url, "_system");
         }
         else {
             window.open(url, '_blank');
