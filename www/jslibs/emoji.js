@@ -1020,7 +1020,7 @@
         };
     }).service('emoji',function(){
         var self = this;
-
+        self.getUtfEmoji = getUtfEmoji;
         self.parse = parse;
         self.list = list;
     })
