@@ -8,17 +8,30 @@ function Watches(done) {
 
     self.isWorkingTime = true;
 
-    $.get(config('apiUrl') + "/working_time", function( data ) {
-        var time = data['current_time'] * 1000 - DEBUG_OFFSET;
-        console.log(new Date(time).toISOString());
-        timeDifferenceWithServer = Date.now() - time;
-        var h = new Date(time).getHours();
-        self.openAt = data['open_at'];
-        self.closeAt = data['close_at'];
-        self.isWorkingTime = isWorkingTime(h);
-        done();
-    });
+    connect();
+    
+    function connect() {
+        $.get(config('apiUrl') + "/working_time", function( data ) {
+            var time = data['current_time'] * 1000 - DEBUG_OFFSET;
+            console.log(new Date(time).toISOString());
+            timeDifferenceWithServer = Date.now() - time;
+            var h = new Date(time).getHours();
+            self.openAt = data['open_at'];
+            self.closeAt = data['close_at'];
+            self.isWorkingTime = isWorkingTime(h);
+            done();
+        }).fail(function () {
+            $("#connecting").hide();
+            $("#cant-connect").show();
+        });
+    }
 
+    $("#retry").click(function () {
+        $("#connecting").show();
+        $("#cant-connect").hide();
+        connect();
+    });
+    
     function isWorkingTime(h){
         return h >= self.openAt &&  h < self.closeAt;
     }

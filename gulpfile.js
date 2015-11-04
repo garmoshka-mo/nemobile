@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     cssmin = require('gulp-cssmin'),
     insert = require('gulp-insert'),
     concat = require('gulp-concat'),
-    inject = require('gulp-inject'),
     clean = require('gulp-clean'),
     runSequence = require('run-sequence'),
     replace = require('gulp-replace'),
@@ -18,15 +17,13 @@ var gulp = require('gulp'),
 var dateFormat = require('dateformat');
 var now = new Date();
 var version = dateFormat(now, "mm-dd_h-MM-ss");
-    webserver = 'web-server/',
-    test_mobile_dir = 'test_mobile_build/',
-    source_www = "www/",
-    output_root = "build/",
-    output_www = output_root+"www/",
-    output_js_file = version + '.js',
-    output_js = output_www + output_js_file,
-    output_css_file = 'assets/css/' + version + '.css',
-    output_css = output_www + output_css_file;
+var    webserver = 'web-server/';
+var    test_mobile_dir = 'test_mobile_build/www/';
+var    source_www = "www/";
+var    output_root = "build/";
+var    output_www = output_root+"www/";
+var    output_js_file = version + '.js';
+var    output_css_file = 'assets/css/' + version + '.css';
 
 gulp.task('default', function() {
     return runSequence('cleanBuildFolder', 'build_css','build_js',
@@ -104,9 +101,10 @@ gulp.task('cleanBuildFolder', function() {
 });
 
 gulp.task('config.xml', function() {
-    return gulp.src(source_www + 'config.xml')
+    return gulp.src(source_www + 'cordova-config.xml')
         .pipe(replace('dubink-dev','dubink')) // package
         .pipe(replace('dub-dev', 'Dub.ink')) // App name
+        .pipe(rename('config.xml'))
         .pipe(gulp.dest(output_www));
 });
 
@@ -201,6 +199,10 @@ gulp.task('make_phonegap_html', function() {
 
 gulp.task('copy_www_folder', function() {
     return gulp.src('www/**/*')
+        .pipe(rename(function (path) {
+            if (path.basename == 'cordova-config')
+                path.basename = 'config';
+        }))
         .pipe(gulp.dest(test_mobile_dir));
 });
 

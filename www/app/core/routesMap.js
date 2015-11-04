@@ -441,18 +441,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
-            .state("preloader", {
-                url: "/preloader/:stateToGo",
-                views: {
-                    "title": {
-                        template: ""
-                    },
-                    "content": {
-                        controller: "preloaderController",
-                        templateUrl: "partials/preloader/content.html?"+version
-                    }
-                }
-            })
             .state("homepage", {
                 url: "/homepage",
                 views: {
