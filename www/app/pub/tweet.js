@@ -1,14 +1,27 @@
 app.directive('tweet', ['$rootScope', '$sce', 'router','$location', function($rootScope, $sce, router) {
-    return {
-        restrict: 'E',
-        scope: {
-            tweet: "="
-        },
-        link: function(scope, elem, attr) {
-            scope.cutImage = function(tweet) {
-                tweet.cutImage = true;
-            };
-        },
-        templateUrl: "app/pub/tweet.html?"+version
+    
+var ctrl = ['$scope', 'googleAnalytics',
+function ($scope, googleAnalytics) {
+    $scope.cutImage = function(tweet) {
+        tweet.cutImage = true;
     };
+    $scope.reply = function () {
+        googleAnalytics.event('public', 'reply');
+        fewScoresAlert();
+    };
+
+    function fewScoresAlert() {
+        $('#few-scores-alert').foundation('reveal', 'open');
+    }
+}];
+    
+return {
+    restrict: 'E',
+    scope: {
+        tweet: "="
+    },
+    controller: ctrl, 
+    templateUrl: "app/pub/tweet.html?"+version
+};
+    
 }]);

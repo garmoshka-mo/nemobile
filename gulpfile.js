@@ -20,12 +20,14 @@ var version = dateFormat(now, "mm-dd_h-MM-ss");
 var    webserver = 'web-server/';
 var    test_mobile_dir = 'test_mobile_build/www/';
 var    source_www = "www/";
-var    output_root = "build/";
-var    output_www = output_root+"www/";
-var    output_js_file = version + '.js';
-var    output_css_file = 'assets/css/' + version + '.css';
+var output_root, output_www,
+    output_js_file, output_css_file;
 
 gulp.task('default', function() {
+    output_root = "build/";
+    output_www = output_root+"www/";
+    output_js_file = version + '.js';
+    output_css_file = 'assets/css/' + version + '.css';
     return runSequence('cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
 });

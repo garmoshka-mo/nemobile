@@ -1,9 +1,9 @@
 angular.module("angControllers")
 .controller("pubsListController", [
     '$scope', 'posts', 'router', '$anchorScroll', '$location',
-        '$timeout', '$rootScope',
+        '$timeout', '$rootScope', 'googleAnalytics',
 function($scope, posts, router, $anchorScroll, $location,
-         $timeout, $rootScope) {
+         $timeout, $rootScope, googleAnalytics) {
 
     gfyCollection.get().length = 0;
 
@@ -69,6 +69,14 @@ function($scope, posts, router, $anchorScroll, $location,
         }
     };
 
+
+    $scope.closeScoresAlert = function () {
+        $('#few-scores-alert').foundation('reveal', 'close');
+    };    
+    $scope.addPost = function () {
+        googleAnalytics.event('public', 'addPost');
+        $('#few-scores-alert').foundation('reveal', 'open');
+    };
 
     // Заготовка для "многоканальной" ленты
     var $mainSection = $('#main-section');
