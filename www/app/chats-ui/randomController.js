@@ -2,9 +2,10 @@ angular.module("angControllers")
 .controller("randomController", [
          'user', '$scope', 'updates', '$state', 'notification', 'separator',
         'membership', 'random', 'timer', 'router', 'googleAnalytics', 'language', 
-        'bubble', '$timeout',
+        'bubble', '$timeout', 'deviceInfo',
     function(user, $scope, updates, $state, notification, separator,
-             membership, random, timer, router, googleAnalytics, language, bubble, $timeout) {
+             membership, random, timer, router, googleAnalytics, language, 
+             bubble, $timeout, deviceInfo) {
 
         $scope.updates = updates;
         $scope.language = language;
@@ -20,6 +21,14 @@ angular.module("angControllers")
         $scope.isRestart = router.top.name == 'randomRestart';
         $scope.showComplaintSuccess = router.top.name == 'complaintSuccess';
 
+        $scope.ageValues = [0, 1, 2, 3, 4, 5];
+        $scope.ageTitles = ['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35'];
+        if (deviceInfo.isIos) {
+            $scope.ageValues.splice(1,1);
+            $scope.ageTitles.splice(1,1);
+        }
+        
+        
         if($scope.showComplaintSuccess) {
             $timeout(function() {
                 $scope.showComplaintSuccess = false;

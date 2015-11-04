@@ -1,8 +1,8 @@
 angular.module("angControllers")
     .controller("localForageController",
-    ['$scope', '$timeout',
-function($scope, $timeout){
-
+    ['$scope', 'deviceInfo',
+function($scope, deviceInfo){
+    
     $scope.config =  localStorage['config'];
     $scope.apiUrl = config('apiUrl');
     $scope.debug = config('debugMode');
@@ -39,5 +39,7 @@ function($scope, $timeout){
             }
         }
     }
+
+    $scope.deviceInfo =  deviceInfo;
 
 }]);

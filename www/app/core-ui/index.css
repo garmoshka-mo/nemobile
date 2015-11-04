@@ -1235,6 +1235,18 @@ md-menu-item > .md-button {
   padding-left: 22px;
 }
 
+#cant-connect {
+  color: white;
+}
+.no-internet {
+  font-size: 0.8rem;
+  margin-top: 14px;
+  margin-bottom: 7px;
+}
+a#retry{
+ font-size: 1.4rem;
+ color: white;
+}
 .md-open-menu-container {
   z-index: 1001
 }

@@ -12,19 +12,19 @@
         'share.title9'
     ];
 
-    angular.module("angApp").directive('share', function() {
+    angular.module("angApp").directive('share', ['deviceInfo',function(deviceInfo) {
         return {
             link: function(scope, elem, attr) {
-                VK.Widgets.Like("vk_like", {type: "full"});
 
                 var i = Math.round(Math.random() * (shareTitles.length - 1));
                 scope.shareTitle = shareTitles[i];
                 scope.shareColor = randomColor({luminosity: 'dark', hue: 'green'});
                 scope.track = 'sh'+i;
+                scope.deviceInfo =  deviceInfo;
                 //scope.track = 'test'+i;
             },
             templateUrl: "app/messages/share.html?"+version
         };
-    });
+    }]);
 
 })();
