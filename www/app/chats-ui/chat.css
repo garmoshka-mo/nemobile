@@ -87,9 +87,15 @@
 }
 .chat-header .scores {
     line-height: 10px;
+}
+.chat-header .total-score {
+    display: inline-block;
+    line-height: 10px;
     font-size: 13px;
 }
 .chat-header .recent-score {
+    display: inline-block;
+    line-height: 10px;
     font-size: 10px;
     color: chartreuse;
     margin: 2px;

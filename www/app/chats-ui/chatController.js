@@ -78,17 +78,17 @@ angular.module("angControllers").controller("chatController",
 
         $scope.closeAndLookAgain = function() {
             disconnectRandomChat();
-            router.openOnTop('lookAgain');
+            router.changeChatState('lookAgain');
         };
 
         $scope.closeAndChatSettings = function() {
             disconnectRandomChat();
-            router.openOnTop('randomFull');
+            router.changeChatState('randomFull');
         };
 
         $scope.disconnectRandomChat = function(feedback, route) {
             disconnectRandomChat(feedback);
-            router.openOnTop(route || 'randomRestart');
+            router.changeChatState(route || 'randomRestart');
         };
         
         notification.setSmallIcon('<i class="fa fa-close circle-menu-open-button no-menu-drag"></i>', exitButtonClickHandler);

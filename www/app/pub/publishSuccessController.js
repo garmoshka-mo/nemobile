@@ -14,7 +14,7 @@ function($scope, router, posts, $stateParams, separator, notification) {
     };
 
     if(!router.isTopSectionActive()) {
-        router.openOnTop('randomLaunch');
+        router.changeChatState('randomLaunch');
     }
 }
 ]);

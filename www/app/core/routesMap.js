@@ -8,10 +8,11 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             pubListUrl = "/pub",
             pubListTop = {state: 'randomLaunch'};
 
+        //if (expVariation)
         if (ALT_UI) {
             randomUrl = "/random";
             pubListUrl = indexURL;
-            pubListTop = {resize: 'hide', disableAnimation: true};
+            pubListTop = null;
         } else if (!watches.isWorkingTime) {
             randomUrl = "/random";
             pubListUrl = indexURL;
@@ -48,6 +49,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/publishPreview",
                 branded: true, hasControlPanel: true,
                 views: {
+                    "top": {
+                        resize: 'comfortChat!'
+                    },
                     "title": {
                         template: "Публикация - DUB.iNK"
                     },
@@ -216,9 +220,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("exit", {
                 url: "/exit",
                 views: {
-                    "top" : {
-                        resize: 'hide'
-                    },
                     "title": {
                         template: "Выход"
                     },
@@ -339,10 +340,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("loadAvatar", {
                 url: "/loadAvatar",
                 views: {
-                    "top" : {
-                        resize: 'hide',
-                        disableAnimation: true
-                    },
                     "title": {
                         template: "Загрузка аватарки"
                     },
@@ -391,10 +388,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("about", {
                 url: "/about/:page",
                 views: {
-                    "top" : {
-                        resize: 'hide',
-                        disableAnimation: true
-                    },
                     "title": {
                         template: "О проекте"
                     },
@@ -492,10 +485,6 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("mobileApp", {
                 url: "/mobileApp",
                 views: {
-                    "top" : {
-                        resize: 'hide',
-                        disableAnimation: true
-                    },
                     "title": {
                         template: "Приложение"
                     },
@@ -508,6 +497,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             .state("gallery", {
                 url: "/gallery",
                 views: {
+                    "top": {
+                        resize: 'comfortChat!'
+                    },
                     "content": {
                         controller: "galleryController",
                         templateUrl: "app/media/gallery/gallery.html?" + version,

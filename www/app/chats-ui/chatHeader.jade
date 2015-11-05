@@ -6,25 +6,27 @@
         .flr(ng-hide="user.name")
             div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
     
-    .pointer(style='float:left' data-dropdown="complaint", aria-controls="complaint", aria-expanded="false"
+    #partners-head.pointer(style='float:left' data-dropdown="complaint", aria-controls="complaint", aria-expanded="false"
         ng-show='s.active && !routing.is_preload')
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
         .title(style='text-align: left;')
             .scores
-                span(ng-bind='s.partner.score' ng-class='{ negative: s.partner.score < 0 }')
+                span.total-score(ng-bind='s.partner.score' ng-class='{ negative: s.partner.score < 0 }')
                 span.animated.recent-score(ng-bind='s.partner.recentScoreFormatted'
-                    ng-style='{opacity: s.partner.recentOpacity}' ng-class='{ negative: s.partner.recentScore < 0 }')
+                    ng-style="s.partner.recentOpacity"
+                    ng-class='{ negative: s.partner.recentScore < 0 }')
             .name(style='float: left;')
                 | {{ 'chat.header.partner' | translate }}
                 span.typing(ng-show='notification.typing', translate='notification.typing')
                 span(ng-include="'app/chats-ui/complaintMenu.html?'+version", ng-controller='complaintController')
 
-    div(style='float:right' ng-hide='s.me.hidden')  
+    #my-head(style='float:right' ng-hide='s.me.hidden')  
         .title
             .scores
-                span.animated.recent-score(ng-bind='s.me.recentScoreFormatted'
-                    ng-style='{opacity: s.me.recentOpacity}' ng-class='{ negative: s.me.recentScore < 0 }')
-                span(ng-bind='s.me.score' ng-class='{ negative: s.me.score < 0 }')
+                .recent-score.animated(ng-bind='s.me.recentScoreFormatted'
+                    ng-style="s.me.recentOpacity"
+                    ng-class='{ negative: s.me.recentScore < 0 }')
+                .total-score(ng-bind='s.me.score' style='opacity: 1;' ng-class='{ negative: s.me.score < 0 }')
             .name(style='float: right;' translate='chat.header.me')
         img.pointer.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 

@@ -66,7 +66,7 @@ angular.module("angControllers")
 
         $scope.filterSettings = function() {
             $scope.isRestart = false;
-            router.openOnTop("randomFull");
+            router.changeChatState("randomFull");
         };
 
 
