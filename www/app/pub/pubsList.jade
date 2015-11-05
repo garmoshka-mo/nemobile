@@ -17,11 +17,11 @@
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
 
     ul.posts-list(infinite-scroll-disabled='posts.disableAutoload',
-        infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
+        infinite-scroll='loadSaved() || loadMore()',
         infinite-scroll-container='".main-section"')
         li(ng-repeat='post in posts.items')
             tweet(tweet="post")
-    spinner.top-margin(ng-show='loading', spinner-color='green')
+    spinner.top-margin(ng-show='posts.loading', spinner-color='green')
     
 #few-scores-alert.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')
     h1 Недостаточно очков, чтобы делать публичные посты
