@@ -23,11 +23,16 @@ var    source_www = "www/";
 var output_root, output_www,
     output_js_file, output_css_file;
 
-gulp.task('default', function() {
-    output_root = "build/";
+function configPaths(root) {
+    output_root = root;
     output_www = output_root+"www/";
     output_js_file = version + '.js';
     output_css_file = 'assets/css/' + version + '.css';
+
+}
+
+gulp.task('default', function() {
+    configPaths("build/");
     return runSequence('cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
 });
@@ -152,7 +157,8 @@ gulp.task('copy_res_folder_production', function() {
 });
 
 
-gulp.task('make_production_mobile_build', function() {
+gulp.task('mobile_prod', function() {
+    configPaths("prod_mobile_build/");
     return runSequence('cleanBuildFolder', 'build_css','build_js_mobile',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade', 
             'build_index_for_mobile', 'copy_res_folder_production');
@@ -218,7 +224,7 @@ gulp.task('cleanTestMobileBuild', function() {
         .pipe(clean());
 });
 
-gulp.task('make_mobile_test_build', function() {
+gulp.task('mobile_test', function() {
     return runSequence('cleanTestMobileBuild', 'copy_www_folder', 
         'make_phonegap_html',
         'copy_res_folder', 'disable_html5_test_mobile');
