@@ -206,4 +206,25 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
         }
     }, 3000)
 
+    $chatInput.on("paste", function(e) {
+        try {
+            // get text representation of clipboard
+            var text = e.originalEvent.clipboardData.getData("text/plain");
+            // insert text manually
+            document.execCommand("insertHTML", false, text);
+            // cancel paste
+            e.preventDefault();
+        } catch(e) {
+            error(e);
+        }
+    });
+    $chatInput.on("drop", function(e) {
+        try {
+            var text = e.originalEvent.dataTransfer.getData("text/plain");
+            document.execCommand("insertHTML", false, text);
+            e.preventDefault();
+        } catch (e) {
+            error(e);
+        }
+    });
 }]);
