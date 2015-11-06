@@ -21,8 +21,10 @@ function ($scope, googleAnalytics, posts) {
 
         $scope.replying = true;
         posts.reply(tweet.id, text).then(function (data) {
-            //TODO: instantly show reply in replies section
-            //tweet.replies.unshift(...)
+            //shows reply immediately to give user a feeling that it was sent.
+            tweet.replies.push({
+                data: {tweet: {text: text}}
+            });
             $scope.replying = false;
             $scope.replyText = '';
             $scope.replyNotice = 'Успешно';

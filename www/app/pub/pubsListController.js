@@ -54,6 +54,7 @@ function($scope, posts, router, $anchorScroll, $location,
         });
     };
 
+    $scope.myPosts = [];
     $scope.post = function() {
         if (!posts.text) {
             $scope.postNotice = 'Нельзя отправить пустую запись';
@@ -67,6 +68,15 @@ function($scope, posts, router, $anchorScroll, $location,
         $scope.publishing = true;
         posts.post(posts.text).then(function (data) {
             $scope.publishing = false;
+            //shows post immediately to give user a feeling that it was sent.
+            $scope.myPosts.unshift({
+                id: data.id,
+                text: posts.text,
+                user: {
+                    name: 'Я',
+                    profile_image_url: user.avatar.urlMini
+                }
+            });
             posts.text = '';
             $scope.postNotice = 'Успешно';
         });
@@ -75,18 +85,6 @@ function($scope, posts, router, $anchorScroll, $location,
     $scope.cutImage = function(post) {
         post.cutImage = true;
     };
-
-    // todo: remove after fix of post directive:
-    $scope.postVisibility = function(inview, post) {
-        if (!inview && $rootScope.activePost == post)
-            post = null;
-
-        if ($rootScope.activePost != post) {
-            $rootScope.activePost = post;
-            posts.activePost = post;
-        }
-    };
-
 
     $scope.closeScoresAlert = function () {
         $('#few-scores-alert').foundation('reveal', 'close');
