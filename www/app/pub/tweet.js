@@ -26,8 +26,8 @@ function ($scope, googleAnalytics, posts) {
                 data: {tweet: {text: text}}
             });
             $scope.replying = false;
+            $scope.replyFormShown = false;
             $scope.replyText = '';
-            $scope.replyNotice = 'Успешно';
         });
         //fewScoresAlert();
     };

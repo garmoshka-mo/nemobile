@@ -6,12 +6,12 @@
             //div
                 img(src='assets/img/page-break.png')
     
-    a(ng-click='addPost()' ng-hide='canAddPost')
+    a(ng-click='addPost()' ng-hide='showPostForm')
         span Добавить запись
 
     .separator
 
-    div(ng-show='canAddPost')
+    div(ng-show='showPostForm')
         input(type='text' ng-model='posts.text', placeholder="Введите запись сюда")
         span {{ postNotice | translate }}
         button(ng-click='post()' ng-disabled='publishing') Добавить

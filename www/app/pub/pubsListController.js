@@ -78,7 +78,7 @@ function($scope, posts, router, $anchorScroll, $location,
                 }
             });
             posts.text = '';
-            $scope.postNotice = 'Успешно';
+            $scope.showPostForm = false;
         });
     };
 
@@ -92,7 +92,7 @@ function($scope, posts, router, $anchorScroll, $location,
     $scope.addPost = function () {
         googleAnalytics.event('public', 'addPost');
         //$('#few-scores-alert').foundation('reveal', 'open');
-        $scope.canAddPost = true;
+        $scope.showPostForm = true;
     };
 
     // Заготовка для "многоканальной" ленты
