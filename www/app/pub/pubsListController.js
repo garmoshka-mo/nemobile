@@ -54,6 +54,24 @@ function($scope, posts, router, $anchorScroll, $location,
         });
     };
 
+    $scope.post = function() {
+        if (!posts.text) {
+            $scope.postNotice = 'Нельзя отправить пустую запись';
+            return;
+        }
+        if (posts.text.length > 140) {
+            $scope.postNotice = 'Лимит записи - 140 символов';
+            return;
+        }
+
+        $scope.publishing = true;
+        posts.post(posts.text).then(function (data) {
+            $scope.publishing = false;
+            posts.text = '';
+            $scope.postNotice = 'Успешно';
+        });
+    };
+
     $scope.cutImage = function(post) {
         post.cutImage = true;
     };
@@ -75,7 +93,8 @@ function($scope, posts, router, $anchorScroll, $location,
     };    
     $scope.addPost = function () {
         googleAnalytics.event('public', 'addPost');
-        $('#few-scores-alert').foundation('reveal', 'open');
+        //$('#few-scores-alert').foundation('reveal', 'open');
+        $scope.canAddPost = true;
     };
 
     // Заготовка для "многоканальной" ленты

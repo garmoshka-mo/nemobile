@@ -23,7 +23,14 @@
                     i.fa.fa-angle-double-down
                     | {{ 'pubs.expand' | translate }}
         .controls
-            a(ng-click='reply()')
+            a(ng-click='showReplyForm()')
                 i.fa.fa-mail-reply &nbsp;
                 span.u-hiddenVisually Ответить
+        div(ng-show='replyFormShown')
+            input(type='text' ng-model='replyText', placeholder="Введите запись сюда")
+            span {{ replyNotice | translate }}
+            button(ng-click='reply(tweet, replyText)' ng-disabled='replying') Ответить
+        .replies(ng-show='::tweet.replies')
+            .reply(ng-repeat='reply in tweet.replies')
+                | {{ reply.data.tweet.text }}
         .separator

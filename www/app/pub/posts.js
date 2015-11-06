@@ -106,5 +106,28 @@ function(userRequest, socket, $rootScope, language) {
             self.loading = false;
         });
     });
+
+    this.reply = function(tweet_id, text) {
+        var data = {
+            format: 'json',
+            access_token: user.accessToken,
+            tweet: {
+                text: text
+            },
+            reply_to_id: tweet_id
+        };
+        return userRequest.sendForSure('POST', '/posts', data);
+    };
+
+    this.post = function(text) {
+        var data = {
+            format: 'json',
+            access_token: user.accessToken,
+            tweet: {
+                text: text
+            }
+        };
+        return userRequest.sendForSure('POST', '/posts', data);
+    };
 }]);
 })();
