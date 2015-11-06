@@ -13,13 +13,21 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     self.openExternalURL = function(url) {
         if (IS_APP) {
-            navigator.app.loadUrl(url, {openExternal: true});
+            // navigator.app.loadUrl(url, {openExternal: true});
+            window.open(url, "_system");
         }
         else {
             window.open(url, '_blank');
         }
     };
 
+    self.changeChatState = function (stateName) {
+        //if (separator.isVisible())
+            self.openOnTop(stateName);
+        //else
+        //    self.goto(stateName);
+    };
+    
     self.openOnTop = function(stateName) {
         var state = null;
         $state.get().some(function(s) {
@@ -79,7 +87,7 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     self.goBack = function() {
         if(self.isChatActive() && !previousState.prevTopHidden)
-            self.openOnTop('chat');
+            self.changeChatState('chat');
         if(previousState.prevMain)
             self.goto.apply(undefined, previousState.prevMain);
         else
@@ -99,13 +107,16 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
         if (toState.views.top) {
             if (toState.views.top.state) {
                 if (self.isChatActive())
-                    self.openOnTop('chat');
+                    self.changeChatState('chat');
                 else
                     self.openOnTop(toState.views.top.state);
             } else if (typeof toState.views.top.resize != 'undefined') {
                 separator.resize(toState.views.top.resize, toState.views.top.disableAnimation);
                 previousState.saveTopHidden(!separator.isVisible());
             }
+        } else {
+            separator.resize('hide', true);
+            previousState.saveTopHidden(true);
         }
     }
 

@@ -30,7 +30,7 @@ angular.module("angServices")
 
             current = chat;
             notification.suppressOnFocus = true;
-            setTimeout(function() { router.openOnTop('chat'); },1);
+            setTimeout(function() { router.changeChatState('chat'); },1);
         }
 
         self.getCurrent = function() {

@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     cssmin = require('gulp-cssmin'),
     insert = require('gulp-insert'),
     concat = require('gulp-concat'),
-    inject = require('gulp-inject'),
     clean = require('gulp-clean'),
     runSequence = require('run-sequence'),
     replace = require('gulp-replace'),
@@ -18,17 +17,22 @@ var gulp = require('gulp'),
 var dateFormat = require('dateformat');
 var now = new Date();
 var version = dateFormat(now, "mm-dd_h-MM-ss");
-    webserver = 'web-server/',
-    test_mobile_dir = 'test_mobile_build/',
-    source_www = "www/",
-    output_root = "build/",
-    output_www = output_root+"www/",
-    output_js_file = version + '.js',
-    output_js = output_www + output_js_file,
-    output_css_file = 'assets/css/' + version + '.css',
-    output_css = output_www + output_css_file;
+var    webserver = 'web-server/';
+var    test_mobile_dir = 'test_mobile_build/www/';
+var    source_www = "www/";
+var output_root, output_www,
+    output_js_file, output_css_file;
+
+function configPaths(root) {
+    output_root = root;
+    output_www = output_root+"www/";
+    output_js_file = version + '.js';
+    output_css_file = 'assets/css/' + version + '.css';
+
+}
 
 gulp.task('default', function() {
+    configPaths("build/");
     return runSequence('cleanBuildFolder', 'build_css','build_js',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade');
 });
@@ -104,9 +108,10 @@ gulp.task('cleanBuildFolder', function() {
 });
 
 gulp.task('config.xml', function() {
-    return gulp.src(source_www + 'config.xml')
+    return gulp.src(source_www + 'cordova-config.xml')
         .pipe(replace('dubink-dev','dubink')) // package
         .pipe(replace('dub-dev', 'Dub.ink')) // App name
+        .pipe(rename('config.xml'))
         .pipe(gulp.dest(output_www));
 });
 
@@ -152,7 +157,8 @@ gulp.task('copy_res_folder_production', function() {
 });
 
 
-gulp.task('make_production_mobile_build', function() {
+gulp.task('mobile_prod', function() {
+    configPaths("prod_mobile_build/");
     return runSequence('cleanBuildFolder', 'build_css','build_js_mobile',
         'copy_static', 'config.xml', 'copy_root', 'copy_web_server', 'convert_jade', 
             'build_index_for_mobile', 'copy_res_folder_production');
@@ -201,6 +207,10 @@ gulp.task('make_phonegap_html', function() {
 
 gulp.task('copy_www_folder', function() {
     return gulp.src('www/**/*')
+        .pipe(rename(function (path) {
+            if (path.basename == 'cordova-config')
+                path.basename = 'config';
+        }))
         .pipe(gulp.dest(test_mobile_dir));
 });
 
@@ -214,7 +224,7 @@ gulp.task('cleanTestMobileBuild', function() {
         .pipe(clean());
 });
 
-gulp.task('make_mobile_test_build', function() {
+gulp.task('mobile_test', function() {
     return runSequence('cleanTestMobileBuild', 'copy_www_folder', 
         'make_phonegap_html',
         'copy_res_folder', 'disable_html5_test_mobile');

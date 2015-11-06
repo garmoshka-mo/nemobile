@@ -76,11 +76,17 @@ function (googleAnalytics) {
         resizedByUser = false;
         visible = true;
         $dragger.show();
+
+        if (height == 'comfortChat' && expVariation == 1) {
+            height = 'full';
+        }
+        
         switch (height) {
             case 'full':
                 height = fullHeight();
                 break;
             case 'comfortChat':
+            case 'comfortChat!':
                 height = COMFORT_CHAT;
                 break;
             case 'smallChat':

@@ -164,13 +164,13 @@
                 .human-config
                     sex-select(ng-model='filter.iam.sex')
                     p.age-title.ta-center(translate='random.age')
-                    age-select(multiple='false', ng-model='filter.iam.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
+                    age-select(multiple='false', ng-model='filter.iam.age', values='ageValues', titles="ageTitles")
             .small-6.columns.ta-center
                 .text-bold(translate='random.another')
                 .human-config
                     sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
                     p.age-title.ta-center(translate='random.age')
-                    age-select(multiple='true', ng-model='filter.another.age', values='[0, 1, 2, 3, 4, 5]', titles="['random.age.noMatter', 'random.age.u17', 'random.age.f18t21', 'random.age.f22t25', 'random.age.f26t35', 'random.age.o35']")
+                    age-select(multiple='true', ng-model='filter.another.age', values='ageValues', titles="ageTitles")
         .row.top-margin.bottom-margin
             .small-12.ta-center
                 span.text-silver.pointer(ng-click='setDefaultFilterParams()', translate='random.reset')

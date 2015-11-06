@@ -7,7 +7,7 @@ function($rootScope, user, $postpone, Avatar) {
     this.active = false;
 
     this.partner = { score: '...'};
-    this.me = { title: "ß", score: '...', hidden: true };
+    this.me = { title: "ï¿½", score: '...', hidden: true };
 
 
     this.setChatHeader = function(chat) {
@@ -46,11 +46,11 @@ function($rootScope, user, $postpone, Avatar) {
             else
                 local.recentScoreFormatted = recentScore;
 
-            local.recentOpacity = 1;
+            local.recentOpacity = {opacity: 1};
 
             clearTimeout(local.fadeOutTimer);
             local.fadeOutTimer = $postpone(2000, function() {
-                local.recentOpacity = 0;
+                local.recentOpacity = {opacity: 0};
             });
         }
     }

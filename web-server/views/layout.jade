@@ -36,6 +36,7 @@ html(lang=lang)
     meta(name='msapplication-TileImage', content='img/favicons/ms-icon-144x144.png')
     meta(name='theme-color', content='#ffffff')
     script(type='text/javascript', src='cordova.js')
+    script(type='text/javascript', src='//www.google-analytics.com/cx/api.js?experiment=QUOXSPAVRFi6eJAMDgedqQ')
 
     if (js_files)
       each file in js_files
@@ -51,11 +52,21 @@ html(lang=lang)
     .splash-screen
       .splash-logo-container
         img(style='width: 70px;' src="assets/img/web_splash_logo.jpg")
-        .spinner.small
+        #connecting.spinner.small
           .dot.bounce1.white
           .dot.bounce2.white
           .dot.bounce3.white
-      <div class="spinner"><div class="dot bounce1"></div><div class="dot bounce2"></div><div class="dot bounce3"></div></div>  
+        #cant-connect(style='display: none;')
+          .no-internet
+            i.fa.fa-globe
+            | &nbsp;
+            i.fa.fa-chain-broken
+            | &nbsp;no internet&nbsp;
+            i.fa.fa-hand-scissors-o
+            | &nbsp;
+            i.fa.fa-frown-o
+          a#retry 
+            i.fa.fa-refresh
     #dummy(style="display:none;")
     .menu.menu-animated(menu)
     .menu-content

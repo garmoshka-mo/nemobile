@@ -5,6 +5,10 @@
             //div.small-description(translate='pubs.description')
             //div
                 img(src='assets/img/page-break.png')
+    
+    a(ng-click='addPost()')
+        span Добавить запись
+    
     .separator
         
     // div#add-link(ng-show='debug')
@@ -13,8 +17,17 @@
         button(ng-click='postUrl()' ng-disabled='publishing' translate='pubs.addUrl')
 
     ul.posts-list(infinite-scroll-disabled='posts.disableAutoload',
-        infinite-scroll='loadSaved() || loadMore()', infinite-scroll-distance='1',
-        infinite-scroll-container='".main-section"')
+        infinite-scroll='loadSaved() || loadMore()',
+        infinite-scroll-container='".main-section"',
+        infinite-scroll-distance='1')
         li(ng-repeat='post in posts.items')
             tweet(tweet="post")
     spinner.top-margin(ng-show='posts.loading', spinner-color='green')
+    
+#few-scores-alert.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')
+    h1 Недостаточно очков, чтобы делать публичные посты
+    
+    p Очки набираются во время чата (Отображаются справа вверху, рядом с аватаркой)
+    
+    div
+        button(ng-click='closeScoresAlert()') Продолжить

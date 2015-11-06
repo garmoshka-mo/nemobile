@@ -3,6 +3,7 @@ var html5Mode = true;
 var IS_APP = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 var IS_MOBILE = isMobile();
 var ALT_UI;
+var expVariation = 0;
 var Rollbar;
 
 var watches;
@@ -17,6 +18,11 @@ $(function() {
 
     watches = new Watches(bootstrapAngularApp);
 
+    if (cxApi) {
+        expVariation = cxApi.chooseVariation();
+        log('Experiment:', expVariation);
+    }
+    
     VK.init({apiId: 5067621, onlyWidgets: true});
 });
 

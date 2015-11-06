@@ -1,4 +1,4 @@
-cd build/www
+cd prod_mobile_build/www
 git init
 git remote add origin git@github.com:garmoshka-mo/nemobile.git
 git add .
