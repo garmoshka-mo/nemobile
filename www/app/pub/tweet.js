@@ -22,6 +22,7 @@ function ($scope, googleAnalytics, posts) {
         $scope.replying = true;
         posts.reply(tweet.id, text).then(function (data) {
             //shows reply immediately to give user a feeling that it was sent.
+            tweet.replies = tweet.replies || [];
             tweet.replies.push({
                 data: {tweet: {text: text}}
             });
