@@ -32,6 +32,16 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("longMessages", {
+                url: "/longMessages",
+                branded: true,
+                views: {
+                    "content": {
+                        templateUrl: "app/etc/longMessages.html?" + version,
+                        controller: "longMessagesController"
+                    }
+                }
+            })
             .state("pubItem", {
                 url: "/pub/:postId/:slug?chat",
                 branded: true,

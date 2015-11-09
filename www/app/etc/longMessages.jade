@@ -1,0 +1,10 @@
+.row.top-margin
+    .ta-center
+        .descr
+            h1(translate='longMessages.title')
+            div(translate='longMessages.description')
+        div
+            span {{ sendNotice | translate }}
+            input(type='text' ng-model='text', placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
+            input(type='text' ng-model='account', placeholder="{{ 'longMessages.accountPlaceholder' | translate }}")
+            button(ng-click='send()' ng-disabled='sending') Отправить

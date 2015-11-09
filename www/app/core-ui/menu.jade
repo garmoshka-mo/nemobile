@@ -37,6 +37,10 @@
             a.menu-item(ng-click="goto('about')")
                 i.fa.fa-info-circle
                 | {{ 'menu.about' | translate }}
+        li
+            a.menu-item(ng-click="goto('longMessages')")
+                i.fa.fa-thumbs-o-up
+                | {{ 'menu.longMessages' | translate }}
         li(ng-show='fullMode || debug')
             a.menu-item(ng-click="goto('exit')")
                 i.fa.fa-power-off

@@ -8,6 +8,7 @@
   "menu.about": "О проекте",
   "menu.mobileApp": "Приложение",
   "menu.sound": "Звук",
+  "menu.longMessages": "Длинные сообщения",
 
   "notification.typing": "печатает...",
 
@@ -150,6 +151,7 @@
   "activation":"Активация",
   "afterPurchase":"Регистрация",
   "mobileApp":"Приложение",
+  "longMessages":"Длинные сообщения",
 
   "bubble.close": "Продолжить",
   "bubble.vegetable.me.title": "Будь живее в общении",
@@ -191,5 +193,10 @@
   "circle.menu.header2": "Чтобы отключиться без указания причины - нажмите на крестик.",
   "circle.menu.disable": "Не показывать это меню (всегда просто отключаться)",
 
-  "alert.chat.closeActive": "При уходе со страницы чат будет завершен. Покинуть страницу?"
+  "alert.chat.closeActive": "При уходе со страницы чат будет завершен. Покинуть страницу?",
+
+  "longMessages.title": "Приватные длинные сообщения",
+  "longMessages.description": "<Описание сервиса>",
+  "longMessages.textPlaceholder": "Введите сообщение сюда",
+  "longMessages.accountPlaceholder": "Введите имя акаунта получателя сюда"
 }
