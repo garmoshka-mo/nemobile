@@ -5,6 +5,13 @@
             div(translate='longMessages.description')
         div
             span {{ sendNotice | translate }}
-            input(type='text' ng-model='text', placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
             input(type='text' ng-model='account', placeholder="{{ 'longMessages.accountPlaceholder' | translate }}")
-            button(ng-click='send()' ng-disabled='sending') Отправить
+            textarea(ng-model='text', allow-text-select, placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
+            //input(type='text' ng-model='text', placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
+            //button(ng-click='send()' ng-disabled='sending') Отправить
+            button(ng-click="send('twitter')", ng-disabled='sending')
+                i.fa.fa-twitter
+                | &nbsp; Twitter
+            button(ng-click="send('instagram')", ng-disabled='sending')
+                i.fa.fa-instagram
+                | &nbsp; Instagram
