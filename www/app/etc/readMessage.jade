@@ -1,0 +1,14 @@
+.row.top-margin
+   .ta-center
+      .descr
+         h5 Подтвердите аккаунт чтобы прочитать сообщение
+         div Сообщение может прочитать лишь владелец аккаунта {{ account }}
+      div(ng-switch='network')
+         button(ng-switch-when="twitter" ng-click="")
+            i.fa.fa-twitter
+            | &nbsp; Подтвердить Twitter
+         button(ng-switch-when="instagram", ng-click="")
+            i.fa.fa-instagram
+            | &nbsp; Подтвердить Instagram
+         div(ng-switch-default)
+            | Не удалось распознать тип аккаунта для входа. Возможно неверная ссылка

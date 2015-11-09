@@ -4,7 +4,6 @@
             h1(translate='longMessages.title')
             div(translate='longMessages.description')
         div
-            span {{ sendNotice | translate }}
             input(type='text' ng-model='account', placeholder="{{ 'longMessages.accountPlaceholder' | translate }}")
             textarea(ng-model='text', allow-text-select, placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
             //input(type='text' ng-model='text', placeholder="{{ 'longMessages.textPlaceholder' | translate }}")
@@ -15,3 +14,6 @@
             button(ng-click="send('instagram')", ng-disabled='sending')
                 i.fa.fa-instagram
                 | &nbsp; Instagram
+            div
+                span {{ sendNotice | translate }}
+                input(ng-show='link' type='text' ng-model='link')

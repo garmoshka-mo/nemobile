@@ -34,11 +34,19 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
             })
             .state("longMessages", {
                 url: "/longMessages",
-                branded: true,
                 views: {
                     "content": {
                         templateUrl: "app/etc/longMessages.html?" + version,
                         controller: "longMessagesController"
+                    }
+                }
+            })
+            .state("readMessage", {
+                url: "/m/:message",
+                views: {
+                    "content": {
+                        templateUrl: "app/etc/readMessage.html?" + version,
+                        controller: "readMessageController"
                     }
                 }
             })

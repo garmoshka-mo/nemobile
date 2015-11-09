@@ -22,7 +22,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
         'loadAvatar',
         'about',
         'mobileApp',
-        'longMessages'
+        'longMessages',
+        'readMessage'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',
