@@ -13,7 +13,7 @@ function($rootScope, user) {
         };
 
         this.processScores = function(scores) {
-            if (self.isActive)
+            if (self.isActive && !self.isVirtual)
                 this.ensureSession().then(function(session){
                     session.updateScores(scores);
                 });

@@ -1,6 +1,6 @@
 angular.module('angServices').service('longMessages', [
-    '$rootScope', '$q', 'userRequest',
-    function($rootScope, $q, userRequest) {
+    '$rootScope', '$q', 'userRequest', 'socket', 'chats',
+    function($rootScope, $q, userRequest, socket, chats) {
         this.addUser = function(account, network) {
             var data = {
                 access_token: user.accessToken,
@@ -8,12 +8,32 @@ angular.module('angServices').service('longMessages', [
                 network: network
             };
             return userRequest.sendForSure('POST', '/add_virtual_user', data);
-        }
+        };
+
+        var virtualChatInitHandler = function() {};
+
+        this.setVirtualChatInitHandler = function(handler) {
+            virtualChatInitHandler = function () {
+                if (handler) handler();
+            };
+        };
+
+        socket.on('message', function(envelope) {
+            var chat = chats.getCurrent();
+            if (chat.isVirtual && !chat.channel) {
+                //get channel from message
+                chat.channel = envelope.channel;
+                virtualChatInitHandler();
+            }
+        });
     }]);
 
 angular.module("angControllers").controller("longMessagesController",
-    ['$scope','longMessages', 'chats', 'gallery',
-        function ($scope, longMessages, chats, gallery) {
+    ['$scope','longMessages', 'chats', 'gallery','$timeout',
+        function ($scope, longMessages, chats, gallery, $timeout) {
+
+            var chat = null;
+
             $scope.send = function(network) {
                 if (!$scope.text || !$scope.account) {
                     $scope.sendNotice = 'Оба поля обязательны для заполнения';
@@ -23,23 +43,24 @@ angular.module("angControllers").controller("longMessagesController",
                 $scope.sending = true;
                 longMessages.addUser($scope.account, network).then(function (data) {
                     chats.newRandomInternal(null, user.uuid, null, data.uuid, true);
-                    chats.getCurrent().ensureSession().then(function (session) {
-                        setTimeout(function(){
+                    chat = chats.getCurrent();
+                    chat.ensureSession().then(function (session) {
+                        $timeout(function(){
                             //todo: make other service responsible for sending messages
                             gallery.sendMessage($scope.text);
-
-                            $scope.sending = false;
-                            $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
-                            //todo: show real link
-                            $scope.link = 'http://dub.ink/m/foobar123';
-                            $scope.text = '';
+                            //called right after channel initialization
+                            longMessages.setVirtualChatInitHandler(afterSend);
                         }, 1000);
-                        //session.sendMessage($scope.text, {uuid: data.uuid}, 3600).then(function () {
-                        //    log('MESSAGE SENT');
-                        //    //chats.getCurrent().disconnect();
-                        //});
                     });
                 });
+            };
+
+            function afterSend(){
+                $scope.sending = false;
+                $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
+                $scope.link = config('appUrl') + '/m/' + chat.channel;
+                $scope.text = '';
+                $scope.$apply();
             }
         }
     ]);

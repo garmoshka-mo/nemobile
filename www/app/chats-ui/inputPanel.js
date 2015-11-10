@@ -60,7 +60,6 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
                 .then(afterSent, afterSent);
 
             function afterSent() {
-                $scope.appropriateStickers = [];
                 $scope.isMessageSending = false;
             }
 
