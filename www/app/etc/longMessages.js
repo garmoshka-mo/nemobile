@@ -12,8 +12,8 @@ angular.module('angServices').service('longMessages', [
     }]);
 
 angular.module("angControllers").controller("longMessagesController",
-    ['$scope','longMessages',
-        function ($scope, longMessages) {
+    ['$scope','longMessages', 'chats', 'gallery',
+        function ($scope, longMessages, chats, gallery) {
             $scope.send = function(network) {
                 if (!$scope.text || !$scope.account) {
                     $scope.sendNotice = 'Оба поля обязательны для заполнения';
@@ -22,15 +22,23 @@ angular.module("angControllers").controller("longMessagesController",
 
                 $scope.sending = true;
                 longMessages.addUser($scope.account, network).then(function (data) {
-                    log(data);
-                    //todo: open virtual chat
-                    //todo: send text to virtual chat
+                    chats.newRandomInternal(null, user.uuid, null, data.uuid, true);
+                    chats.getCurrent().ensureSession().then(function (session) {
+                        setTimeout(function(){
+                            //todo: make other service responsible for sending messages
+                            gallery.sendMessage($scope.text);
 
-                    $scope.sending = false;
-                    $scope.sendNotice = 'Успешно отослано. Вот ссылка';
-                    //todo: show link
-                    $scope.link = 'http://dub.ink/m/foobar123';
-                    $scope.text = '';
+                            $scope.sending = false;
+                            $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
+                            //todo: show real link
+                            $scope.link = 'http://dub.ink/m/foobar123';
+                            $scope.text = '';
+                        }, 1000);
+                        //session.sendMessage($scope.text, {uuid: data.uuid}, 3600).then(function () {
+                        //    log('MESSAGE SENT');
+                        //    //chats.getCurrent().disconnect();
+                        //});
+                    });
                 });
             }
         }

@@ -57,7 +57,7 @@ angular.module("angFactories").factory("Chat",
         };
 
         this.sendMessage = function(messageText) {
-            this.ensureSession().then(function(session){
+            return this.ensureSession().then(function(session){
                 session.incomeMessage(messageText);
                 session.save();
             });
@@ -279,11 +279,13 @@ angular.module("angFactories").factory("Chat",
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished(byPartner, feedback);
             this.isActive = false;
-            var url = '/chats/' + this.channel;
-            if (feedback) {
-                url = url + '/' + feedback; 
+            if(!this.isVirtual) {
+                var url = '/chats/' + this.channel;
+                if (feedback) {
+                    url = url + '/' + feedback;
+                }
+                return userRequest.send('DELETE', url);
             }
-            return userRequest.send('DELETE', url);
         }
     };
 
