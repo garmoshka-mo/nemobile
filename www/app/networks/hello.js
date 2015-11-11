@@ -10,10 +10,14 @@ angular.module("angServices")
         });
 
         hello.on('auth.login', function() {
-            log('SMTH');
+
         });
 
         this.login = function(network) {
             return hello(network).login();
+        };
+
+        this.me = function(network) {
+            return hello(network).api('/me');
         }
 }]);

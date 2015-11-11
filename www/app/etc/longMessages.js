@@ -78,8 +78,8 @@ angular.module("angControllers").controller("longMessagesController",
     ]);
 
 angular.module("angControllers").controller("readMessageController",
-    ['$scope','longMessages', '$stateParams', 'hello',
-        function ($scope, longMessages, $stateParams, hello) {
+    ['$scope','longMessages', '$stateParams', 'hello', '$q',
+        function ($scope, longMessages, $stateParams, hello, $q) {
             var accessToken = null;
             $scope.providers = [];
 
@@ -99,20 +99,38 @@ angular.module("angControllers").controller("readMessageController",
                 }
             });
 
+            function getUsername(data, provider) {
+                var d = $q.defer();
+                switch (provider) {
+                    case 'twitter':
+                        log(data.authResponse.screen_name);
+                        d.resolve(data.authResponse.screen_name);
+                        break;
+                    case 'instagram':
+                        hello.me(provider).then(function (res) {
+                            d.resolve(res.data.username);
+                        });
+                        break;
+                    default:
+                        d.reject();
+                }
+                return d.promise;
+            }
+
             $scope.confirm = function(provider) {
                 hello.login(provider.provider).then(function (data) {
                         log('LOGGED IN!');
-                        var screenName = data.authResponse.screen_name;
-                        //todo: insecure
-                        if (provider.account.toLowerCase() == screenName.toLowerCase()) {
-                            showMessage();
-                        } else {
-                            $scope.notice = 'Простите, но данное сообщение предназначалось не вам, ' + screenName + ', а ' + provider.account;
-                            $scope.$apply();
-                        }
+                        getUsername(data, provider.provider).then(function (username) {
+                            //todo: insecure
+                            if (provider.account.toLowerCase() == username.toLowerCase()) {
+                                showMessage();
+                            } else {
+                                $scope.notice = 'Простите, но данное сообщение предназначалось не вам, ' + username + ', а ' + provider.account;
+                            }
+                        });
                     },
                     function (e) {
-                        log('NOT LOGGED IN!')
+                        log('NOT LOGGED IN!');
                         log(e)
                     })
             }
