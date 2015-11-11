@@ -2,13 +2,14 @@
    .ta-center
       .descr
          h5 Подтвердите аккаунт чтобы прочитать сообщение
-         div Сообщение может прочитать лишь владелец аккаунта {{ account }}
-      div(ng-switch='network')
-         button(ng-switch-when="twitter" ng-click="")
-            i.fa.fa-twitter
-            | &nbsp; Подтвердить Twitter
-         button(ng-switch-when="instagram", ng-click="")
-            i.fa.fa-instagram
-            | &nbsp; Подтвердить Instagram
-         div(ng-switch-default)
-            | Не удалось распознать тип аккаунта для входа. Возможно неверная ссылка
+         div(ng-show='account')
+            | Сообщение может прочитать лишь владелец аккаунта:&nbsp
+            span(ng-repeat='provider in providers') {{ provider.account }}&nbsp
+      div(ng-hide='notice')
+         button(ng-repeat='provider in providers' ng-click="confirm(provider)")
+            i.fa(ng-class="'fa-' + provider.provider")
+            | &nbsp; Подтвердить {{ ::provider.provider }}
+      div(ng-hide='providers.length')
+         | Не удалось распознать тип аккаунта для входа. Возможно неверная ссылка
+      div(ng-show='notice')
+         | {{ notice }}

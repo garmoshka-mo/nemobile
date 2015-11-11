@@ -42,7 +42,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("readMessage", {
-                url: "/m/:message",
+                url: "/m/:channel",
                 views: {
                     "content": {
                         templateUrl: "app/etc/readMessage.html?" + version,

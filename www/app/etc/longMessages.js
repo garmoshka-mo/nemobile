@@ -1,13 +1,18 @@
 angular.module('angServices').service('longMessages', [
     '$rootScope', '$q', 'userRequest', 'socket', 'chats',
     function($rootScope, $q, userRequest, socket, chats) {
-        this.addUser = function(account, network) {
+        this.ensureRecipient = function(account, provider) {
             var data = {
-                access_token: user.accessToken,
-                account: account,
-                network: network
+                provider_account: {
+                    account: account,
+                    provider: provider
+                }
             };
-            return userRequest.sendForSure('POST', '/add_virtual_user', data);
+            return userRequest.sendForSure('POST', '/ensure_recipient', data);
+        };
+
+        this.getAddresseeDetails = function(channel) {
+            return userRequest.send('GET', '/chats/' + channel + '/addressee_details');
         };
 
         //Called right after virtual chat channel was successfully set
@@ -39,21 +44,23 @@ angular.module("angControllers").controller("longMessagesController",
 
             var chat = null;
 
-            $scope.send = function(network) {
+            $scope.send = function(provider) {
                 if (!$scope.text || !$scope.account) {
                     $scope.sendNotice = 'Оба поля обязательны для заполнения';
                     return;
                 }
 
                 $scope.sending = true;
-                longMessages.addUser($scope.account, network).then(function (data) {
-                    chats.newRandomInternal(null, user.uuid, null, data.uuid, true);
+                longMessages.ensureRecipient($scope.account, provider).then(function (data) {
+                    //TODO: remove hardcoded after API fix
+                    chats.newRandomInternal(null, user.uuid, null, 'c2c9a178-8880-11e5-ac67-86b5df6ad7ec', true);
+                    //chats.newRandomInternal(null, user.uuid, null, data.uuid, true);
                     chat = chats.getCurrent();
                     chat.ensureSession().then(function (session) {
                         $timeout(function(){
                             //todo: make other service responsible for sending messages
                             gallery.sendMessage($scope.text);
-                            //called right after channel initialization
+                            //called right after channel initializationF
                             longMessages.setVirtualChatInitHandler(afterSend);
                         }, 1000);
                     });
@@ -69,14 +76,45 @@ angular.module("angControllers").controller("longMessagesController",
             }
         }
     ]);
+
 angular.module("angControllers").controller("readMessageController",
-    ['$scope','longMessages', '$stateParams',
-        function ($scope, longMessages, $stateParams) {
-            //
-            $scope.messageId = $stateParams.message;
-            //todo: detect type of auth by message id
+    ['$scope','longMessages', '$stateParams', 'hello',
+        function ($scope, longMessages, $stateParams, hello) {
+            var accessToken = null;
+            $scope.providers = [];
+
+            $scope.account = 'username';
             $scope.network = 'twitter';
-            //todo: and account name
-            $scope.account = 'user_name';
+
+            function showMessage() {
+                alert('YOUR MESSAGE');
+                //todo: show message to recipient
+            }
+
+            longMessages.getAddresseeDetails($stateParams.channel).then(function(data) {
+                $scope.providers = data.providers;
+                //todo: insecure
+                if(user.accessToken && user.accessToken == accessToken) {
+                    showMessage()
+                }
+            });
+
+            $scope.confirm = function(provider) {
+                hello.login(provider.provider).then(function (data) {
+                        log('LOGGED IN!');
+                        var screenName = data.authResponse.screen_name;
+                        //todo: insecure
+                        if (provider.account.toLowerCase() == screenName.toLowerCase()) {
+                            showMessage();
+                        } else {
+                            $scope.notice = 'Простите, но данное сообщение предназначалось не вам, ' + screenName + ', а ' + provider.account;
+                            $scope.$apply();
+                        }
+                    },
+                    function (e) {
+                        log('NOT LOGGED IN!')
+                        log(e)
+                    })
+            }
         }
     ]);
