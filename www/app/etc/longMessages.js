@@ -10,6 +10,7 @@ angular.module('angServices').service('longMessages', [
             return userRequest.sendForSure('POST', '/add_virtual_user', data);
         };
 
+        //Called right after virtual chat channel was successfully set
         var virtualChatInitHandler = function() {};
 
         this.setVirtualChatInitHandler = function(handler) {
@@ -18,6 +19,10 @@ angular.module('angServices').service('longMessages', [
             };
         };
 
+        /**
+         * Once virtual chat was created, it won't have channel property
+         * channel property comes with each sent/received socket 'message'
+         */
         socket.on('message', function(envelope) {
             var chat = chats.getCurrent();
             if (chat.isVirtual && !chat.channel) {
