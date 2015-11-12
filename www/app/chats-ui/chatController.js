@@ -95,7 +95,7 @@ angular.module("angControllers").controller("chatController",
         notification.setChatDisconnectHandler($scope.disconnectRandomChat);
 
         function exitButtonClickHandler() {
-            if (chat.isActive && !chats.disconnectWithoutFeedback && !chat.isVirtual) {
+            if (chat.isActive && !chats.disconnectWithoutFeedback) {
                 circleMenu.open();
             }
             else {
@@ -152,7 +152,7 @@ angular.module("angControllers").controller("chatController",
 
         $translate('alert.chat.closeActive').then(function(msg) {
             window.onbeforeunload = function() {
-                return chat.isActive && !chat.isVirtual ?
+                return chat.isActive ?
                     msg :
                     null;
             };

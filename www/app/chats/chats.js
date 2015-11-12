@@ -17,16 +17,10 @@ angular.module("angServices")
             setCurrentChat(c);
         };
 
-        self.newRandomInternal = function(channel, myIdx, partner, senderId, isVirtual) {
+        self.newRandomInternal = function(channel, myIdx, partner) {
             var chat = self.getChat(channel);
             if (!chat)
-                chat = self.addChat({
-                    channel: channel,
-                    myIdx: myIdx,
-                    partner: partner,
-                    senderId: senderId,
-                    isVirtual: isVirtual
-                });
+                chat = self.addChat({channel: channel, myIdx: myIdx, partner: partner});
             setCurrentChat(chat);
         };
 

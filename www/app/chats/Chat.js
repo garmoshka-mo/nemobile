@@ -279,13 +279,11 @@ angular.module("angFactories").factory("Chat",
             if (this.lastUnexpiredChatSession)
                 this.lastUnexpiredChatSession.sessionFinished(byPartner, feedback);
             this.isActive = false;
-            if(!this.isVirtual) {
-                var url = '/chats/' + this.channel;
-                if (feedback) {
-                    url = url + '/' + feedback;
-                }
-                return userRequest.send('DELETE', url);
+            var url = '/chats/' + this.channel;
+            if (feedback) {
+                url = url + '/' + feedback;
             }
+            return userRequest.send('DELETE', url);
         }
     };
 
