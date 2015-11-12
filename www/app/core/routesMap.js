@@ -42,11 +42,13 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("readMessage", {
-                url: "/m/:channel",
+                url: "/m/:shortCode",
+                branded: true, hasControlPanel: true,
                 views: {
                     "content": {
                         templateUrl: "app/etc/readMessage.html?" + version,
-                        controller: "readMessageController"
+                        controller: "readMessageController",
+                        footerTemplateUrl: "app/etc/answerMessagePanel.html?"+version
                     }
                 }
             })

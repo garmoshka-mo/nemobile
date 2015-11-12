@@ -1,41 +1,33 @@
 angular.module('angServices').service('longMessages', [
     '$rootScope', '$q', 'userRequest', 'socket', 'chats',
     function($rootScope, $q, userRequest, socket, chats) {
-        this.ensureRecipient = function(account, provider) {
+        var self = this;
+
+        this.fakeSession = {
+            messages: [
+
+            ]
+        };
+
+        this.sendSecret = function(account, provider, text) {
             var data = {
                 provider_account: {
                     account: account,
                     provider: provider
-                }
+                },
+                messages: [{ text: text, isOwn: false }]
             };
-            return userRequest.sendForSure('POST', '/ensure_recipient', data);
+            return userRequest.sendForSure('POST', '/secret', data);
         };
 
-        this.getAddresseeDetails = function(channel) {
-            return userRequest.send('GET', '/chats/' + channel + '/addressee_details');
+        this.getSecret = function(shortCode) {
+            return userRequest.send('GET', '/secret/' + shortCode);
         };
 
-        //Called right after virtual chat channel was successfully set
-        var virtualChatInitHandler = function() {};
+        this.replyToSecret = function(shortCode) {
+            return userRequest.send('PATCH', '/secret/' + shortCode, {messages: self.fakeSession.messages});
+        }
 
-        this.setVirtualChatInitHandler = function(handler) {
-            virtualChatInitHandler = function () {
-                if (handler) handler();
-            };
-        };
-
-        /**
-         * Once virtual chat was created, it won't have channel property
-         * channel property comes with each sent/received socket 'message'
-         */
-        socket.on('message', function(envelope) {
-            var chat = chats.getCurrent();
-            if (chat.isVirtual && !chat.channel) {
-                //get channel from message
-                chat.channel = envelope.channel;
-                virtualChatInitHandler();
-            }
-        });
     }]);
 
 angular.module("angControllers").controller("longMessagesController",
@@ -51,52 +43,31 @@ angular.module("angControllers").controller("longMessagesController",
                 }
 
                 $scope.sending = true;
-                longMessages.ensureRecipient($scope.account, provider).then(function (data) {
-                    //TODO: remove hardcoded after API fix
-                    chats.newRandomInternal(null, user.uuid, null, 'c2c9a178-8880-11e5-ac67-86b5df6ad7ec', true);
-                    //chats.newRandomInternal(null, user.uuid, null, data.uuid, true);
-                    chat = chats.getCurrent();
-                    chat.ensureSession().then(function (session) {
-                        $timeout(function(){
-                            //todo: make other service responsible for sending messages
-                            gallery.sendMessage($scope.text);
-                            //called right after channel initializationF
-                            longMessages.setVirtualChatInitHandler(afterSend);
-                        }, 1000);
-                    });
+                longMessages.sendSecret($scope.account, provider, $scope.text).then(function (data) {
+                    $scope.sending = false;
+                    $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
+                    $scope.link = config('appUrl') + '/m/' + data.short_code;
+                    $scope.text = '';
                 });
             };
-
-            function afterSend(){
-                $scope.sending = false;
-                $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
-                $scope.link = config('appUrl') + '/m/' + chat.channel;
-                $scope.text = '';
-                $scope.$apply();
-            }
         }
     ]);
 
 angular.module("angControllers").controller("readMessageController",
     ['$scope','longMessages', '$stateParams', 'hello', '$q',
         function ($scope, longMessages, $stateParams, hello, $q) {
-            var accessToken = null;
-            $scope.providers = [];
+            $scope.provider = null;
 
-            $scope.account = 'username';
-            $scope.network = 'twitter';
-
+            $scope.l = longMessages;
             function showMessage() {
-                alert('YOUR MESSAGE');
-                //todo: show message to recipient
+
+                longMessages.validUser = true;
             }
 
-            longMessages.getAddresseeDetails($stateParams.channel).then(function(data) {
-                $scope.providers = data.providers;
-                //todo: insecure
-                if(user.accessToken && user.accessToken == accessToken) {
-                    showMessage()
-                }
+            longMessages.getSecret($stateParams.shortCode).then(function(data) {
+                $scope.provider = data.provider_account;
+                longMessages.shortCode = $stateParams.shortCode;
+                longMessages.fakeSession.messages = data.messages;
             });
 
             function getUsername(data, provider) {
@@ -134,5 +105,54 @@ angular.module("angControllers").controller("readMessageController",
                         log(e)
                     })
             }
+        }
+    ]);
+
+angular.module("angControllers").controller("answerMessagePanelController",
+    ['$scope','longMessages', 'separator', 'dictionary',
+        function ($scope, longMessages, separator, dictionary) {
+            var $chatInput = $('.chat-input');
+            separator.setMainFooter($('#footer'));
+            $scope.l = longMessages;
+
+            $scope.sendMessage = function() {
+
+                var textToSend = $chatInput.html();
+                if (textToSend) {
+                    $chatInput.text('');
+
+                    $scope.isMessageSending = true;
+
+                    longMessages.fakeSession.messages.push({ isOwn: true, text: textToSend });
+                    longMessages.replyToSecret(longMessages.shortCode)
+                        .then(
+                        function() {
+                            //done
+                        },
+                        function(res) {
+                            $scope.handleFailedSending(res);
+                        }
+                    )
+                        //doubling function because .finally doesn't work on android 2.2
+                        .then(afterSent, afterSent);
+
+                    function afterSent() {
+                        $scope.isMessageSending = false;
+                    }
+
+                }
+            };
+
+            $scope.input_keypress = function(event) {
+                //if ctrl+enter or enter is pressed
+                if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey || event.keyCode == 13) {
+                    event.preventDefault();
+                    $scope.sendMessage();
+                }
+            };
+
+            $scope.handleFailedSending = function(errorDescription) {
+                $scope.errorDescription = dictionary.get(errorDescription);
+            };
         }
     ]);

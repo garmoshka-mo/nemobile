@@ -1,15 +1,16 @@
-.row.top-margin
+.row.top-margin(ng-hide='l.validUser')
    .ta-center
-      .descr
+      .descr(ng-show='provider')
          h5 Подтвердите аккаунт чтобы прочитать сообщение
-         div(ng-show='account')
-            | Сообщение может прочитать лишь владелец аккаунта:&nbsp
-            span(ng-repeat='provider in providers') {{ provider.account }}&nbsp
-      div(ng-hide='notice')
-         button(ng-repeat='provider in providers' ng-click="confirm(provider)")
+         div
+            | Сообщение может прочитать лишь владелец аккаунта: {{ provider.account }}
+      div(ng-hide='notice || !provider')
+         button(ng-click="confirm(provider)")
             i.fa(ng-class="'fa-' + provider.provider")
             | &nbsp; Подтвердить {{ ::provider.provider }}
-      div(ng-hide='providers.length')
+      div(ng-hide='provider')
          | Не удалось распознать тип аккаунта для входа. Возможно неверная ссылка
       div(ng-show='notice')
          | {{ notice }}
+.chat.top-margin(ng-show='l.validUser')
+   messages(session='l.fakeSession' chat='true')
