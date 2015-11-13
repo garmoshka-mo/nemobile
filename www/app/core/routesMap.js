@@ -42,7 +42,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 }
             })
             .state("readSecret", {
-                url: "/m/:shortCode",
+                url: "/secret/:shortCode",
                 branded: true, hasControlPanel: true,
                 views: {
                     "content": {

@@ -25,7 +25,7 @@ angular.module('angServices').service('secret', [
         };
 
         this.replyToSecret = function(shortCode) {
-            return userRequest.send('PATCH', '/secret/' + shortCode, {messages: self.fakeSession.messages});
+            return userRequest.sendForSure('PATCH', '/secret/' + shortCode, {messages: self.fakeSession.messages});
         }
 
         this.formatAccount = function(account) {
@@ -57,7 +57,7 @@ angular.module("angControllers").controller("sendSecretController",
                 secret.sendSecret($scope.formattedAccount, $scope.provider, $scope.text).then(function (data) {
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
-                    $scope.link = config('appUrl') + '/m/' + data.short_code;
+                    $scope.link = config('appUrl') + '/secret/' + data.short_code;
                     $scope.tweetMsg = $scope.formattedAccount + ', тебе';
                     $scope.text = '';
                 });
