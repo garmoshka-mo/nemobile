@@ -38,7 +38,13 @@ angular.module("angControllers").controller("sendSecretController",
     ['$scope','secret',
         function ($scope, secret) {
 
-            $scope.send = function(provider) {
+            $scope.provider = 'twitter'
+
+            $scope.setProvider = function(provider) {
+                $scope.provider = provider;
+            };
+
+            $scope.send = function() {
                 if (!$scope.text || !$scope.account) {
                     $scope.sendNotice = 'Оба поля обязательны для заполнения';
                     return;
@@ -48,7 +54,7 @@ angular.module("angControllers").controller("sendSecretController",
 
                 var account = secret.formatAccount($scope.account);
 
-                secret.sendSecret(account, provider, $scope.text).then(function (data) {
+                secret.sendSecret(account, $scope.provider, $scope.text).then(function (data) {
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
                     $scope.link = config('appUrl') + '/m/' + data.short_code;
