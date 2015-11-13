@@ -58,7 +58,7 @@ angular.module("angControllers").controller("sendSecretController",
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
                     $scope.link = config('appUrl') + '/m/' + data.short_code;
-                    $scope.tweetMsg = $scope.formattedAccount + ', тебе ';
+                    $scope.tweetMsg = $scope.formattedAccount + ', тебе';
                     $scope.text = '';
                 });
             };
