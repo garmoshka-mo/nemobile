@@ -52,12 +52,13 @@ angular.module("angControllers").controller("sendSecretController",
 
                 $scope.sending = true;
 
-                var account = secret.formatAccount($scope.account);
+                $scope.formattedAccount = secret.formatAccount($scope.account);
 
-                secret.sendSecret(account, $scope.provider, $scope.text).then(function (data) {
+                secret.sendSecret($scope.formattedAccount, $scope.provider, $scope.text).then(function (data) {
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
                     $scope.link = config('appUrl') + '/m/' + data.short_code;
+                    $scope.tweetMsg = $scope.formattedAccount + ', тебе ';
                     $scope.text = '';
                 });
             };
