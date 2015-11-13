@@ -9,14 +9,16 @@ angular.module('angServices').service('secret', [
             ]
         };
 
-        this.sendSecret = function(account, provider, text) {
+        this.sendSecret = function(account, provider, text, expiresSec) {
             var data = {
                 provider_account: {
                     account: account,
                     provider: provider
                 },
-                messages: [{ text: text, isOwn: false }]
+                messages: [{ text: text, isOwn: false }],
+                expires_sec: expiresSec
             };
+
             return userRequest.sendForSure('POST', '/secret', data);
         };
 
@@ -26,7 +28,7 @@ angular.module('angServices').service('secret', [
 
         this.replyToSecret = function(shortCode) {
             return userRequest.sendForSure('PATCH', '/secret/' + shortCode, {messages: self.fakeSession.messages});
-        }
+        };
 
         this.formatAccount = function(account) {
             return (account.charAt(0) != '@'? '@'+ account: account).toLowerCase().trim();
@@ -39,9 +41,20 @@ angular.module("angControllers").controller("sendSecretController",
         function ($scope, secret) {
 
             $scope.provider = 'twitter'
-
             $scope.setProvider = function(provider) {
                 $scope.provider = provider;
+            };
+
+            $scope.durations = [
+                {name:'duration.5minutes', seconds: 300},
+                {name:'duration.1hour', seconds: 3600},
+                {name:'duration.1day', seconds: 86400},
+                {name:'duration.7days', seconds: 604800},
+                {name:'duration.10years', seconds: 315400000}
+            ];
+            $scope.expiresSec = 315400000;
+            $scope.setExpires = function(expiresSec) {
+                $scope.expiresSec = expiresSec;
             };
 
             $scope.send = function() {
@@ -54,7 +67,7 @@ angular.module("angControllers").controller("sendSecretController",
 
                 $scope.formattedAccount = secret.formatAccount($scope.account);
 
-                secret.sendSecret($scope.formattedAccount, $scope.provider, $scope.text).then(function (data) {
+                secret.sendSecret($scope.formattedAccount, $scope.provider, $scope.text, $scope.expiresSec).then(function (data) {
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
                     $scope.link = config('appUrl') + '/secret/' + data.short_code;
@@ -77,9 +90,16 @@ angular.module("angControllers").controller("readSecretController",
             }
 
             secret.getSecret($stateParams.shortCode).then(function(data) {
-                $scope.provider = data.provider_account;
-                secret.shortCode = $stateParams.shortCode;
-                secret.fakeSession.messages = data.messages;
+                if(data.is_expired) {
+                    $scope.notice = 'К сожалению, время сообщения истекло.'
+                } else {
+                    $scope.provider = data.provider_account;
+                    secret.shortCode = $stateParams.shortCode;
+                    secret.fakeSession.messages = data.messages;
+                }
+
+            },function(){
+                $scope.notice = 'Не удалось распознать тип аккаунта для входа. Возможно неверная ссылка';
             });
 
             function getUsername(data, provider) {
