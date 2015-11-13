@@ -1,4 +1,4 @@
-angular.module('angServices').service('longMessages', [
+angular.module('angServices').service('secret', [
     '$rootScope', '$q', 'userRequest', 'socket', 'chats',
     function($rootScope, $q, userRequest, socket, chats) {
         var self = this;
@@ -28,13 +28,15 @@ angular.module('angServices').service('longMessages', [
             return userRequest.send('PATCH', '/secret/' + shortCode, {messages: self.fakeSession.messages});
         }
 
+        this.formatAccount = function(account) {
+            return (account.charAt(0) != '@'? '@'+ account: account).toLowerCase().trim();
+        }
+
     }]);
 
-angular.module("angControllers").controller("longMessagesController",
-    ['$scope','longMessages', 'chats', 'gallery','$timeout',
-        function ($scope, longMessages, chats, gallery, $timeout) {
-
-            var chat = null;
+angular.module("angControllers").controller("sendSecretController",
+    ['$scope','secret',
+        function ($scope, secret) {
 
             $scope.send = function(provider) {
                 if (!$scope.text || !$scope.account) {
@@ -43,7 +45,10 @@ angular.module("angControllers").controller("longMessagesController",
                 }
 
                 $scope.sending = true;
-                longMessages.sendSecret($scope.account, provider, $scope.text).then(function (data) {
+
+                var account = secret.formatAccount($scope.account);
+
+                secret.sendSecret(account, provider, $scope.text).then(function (data) {
                     $scope.sending = false;
                     $scope.sendNotice = 'Вот ссылка. Теперь можете отправить её публично владельцу аккаунта. Перейдя по ссылке, только он сможет увидеть, что вы написали.';
                     $scope.link = config('appUrl') + '/m/' + data.short_code;
@@ -53,21 +58,21 @@ angular.module("angControllers").controller("longMessagesController",
         }
     ]);
 
-angular.module("angControllers").controller("readMessageController",
-    ['$scope','longMessages', '$stateParams', 'hello', '$q',
-        function ($scope, longMessages, $stateParams, hello, $q) {
+angular.module("angControllers").controller("readSecretController",
+    ['$scope','secret', '$stateParams', 'hello', '$q',
+        function ($scope, secret, $stateParams, hello, $q) {
             $scope.provider = null;
 
-            $scope.l = longMessages;
+            $scope.s = secret;
             function showMessage() {
 
-                longMessages.validUser = true;
+                secret.validUser = true;
             }
 
-            longMessages.getSecret($stateParams.shortCode).then(function(data) {
+            secret.getSecret($stateParams.shortCode).then(function(data) {
                 $scope.provider = data.provider_account;
-                longMessages.shortCode = $stateParams.shortCode;
-                longMessages.fakeSession.messages = data.messages;
+                secret.shortCode = $stateParams.shortCode;
+                secret.fakeSession.messages = data.messages;
             });
 
             function getUsername(data, provider) {
@@ -93,10 +98,11 @@ angular.module("angControllers").controller("readMessageController",
                         log('LOGGED IN!');
                         getUsername(data, provider.provider).then(function (username) {
                             //todo: insecure
-                            if (provider.account.toLowerCase() == username.toLowerCase()) {
+                            var formattedUsername = secret.formatAccount(username);
+                            if (provider.account == formattedUsername) {
                                 showMessage();
                             } else {
-                                $scope.notice = 'Простите, но данное сообщение предназначалось не вам, ' + username + ', а ' + provider.account;
+                                $scope.notice = 'Простите, но данное сообщение предназначалось не вам, ' + formattedUsername + ', а ' + provider.account;
                             }
                         });
                     },
@@ -108,12 +114,12 @@ angular.module("angControllers").controller("readMessageController",
         }
     ]);
 
-angular.module("angControllers").controller("answerMessagePanelController",
-    ['$scope','longMessages', 'separator', 'dictionary',
-        function ($scope, longMessages, separator, dictionary) {
+angular.module("angControllers").controller("answerSecretPanelController",
+    ['$scope','secret', 'separator', 'dictionary',
+        function ($scope, secret, separator, dictionary) {
             var $chatInput = $('.chat-input');
             separator.setMainFooter($('#footer'));
-            $scope.l = longMessages;
+            $scope.s = secret;
 
             $scope.sendMessage = function() {
 
@@ -123,8 +129,8 @@ angular.module("angControllers").controller("answerMessagePanelController",
 
                     $scope.isMessageSending = true;
 
-                    longMessages.fakeSession.messages.push({ isOwn: true, text: textToSend });
-                    longMessages.replyToSecret(longMessages.shortCode)
+                    secret.fakeSession.messages.push({ isOwn: true, text: textToSend });
+                    secret.replyToSecret(secret.shortCode)
                         .then(
                         function() {
                             //done

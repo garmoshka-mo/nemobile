@@ -21,9 +21,8 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
     var statesWhereShowBackArrow = [
         'loadAvatar',
         'about',
-        'mobileApp',
-        'longMessages',
-        'readMessage'
+        'mobileApp'
+        //'sendSecret'
     ];
     var forbidToGoBackStates = [
         'addVirtualChat',

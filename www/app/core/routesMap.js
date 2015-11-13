@@ -32,23 +32,23 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
-            .state("longMessages", {
-                url: "/longMessages",
+            .state("sendSecret", {
+                url: "/sendSecret",
                 views: {
                     "content": {
-                        templateUrl: "app/etc/longMessages.html?" + version,
-                        controller: "longMessagesController"
+                        templateUrl: "app/etc/sendSecret.html?" + version,
+                        controller: "sendSecretController"
                     }
                 }
             })
-            .state("readMessage", {
+            .state("readSecret", {
                 url: "/m/:shortCode",
                 branded: true, hasControlPanel: true,
                 views: {
                     "content": {
-                        templateUrl: "app/etc/readMessage.html?" + version,
-                        controller: "readMessageController",
-                        footerTemplateUrl: "app/etc/answerMessagePanel.html?"+version
+                        templateUrl: "app/etc/readSecret.html?" + version,
+                        controller: "readSecretController",
+                        footerTemplateUrl: "app/etc/answerSecretPanel.html?"+version
                     }
                 }
             })
