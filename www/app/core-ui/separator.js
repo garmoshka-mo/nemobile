@@ -77,7 +77,7 @@ function (googleAnalytics) {
         visible = true;
         $dragger.show();
 
-        if (height == 'comfortChat' && expVariation == 1) {
+        if (height == 'comfortChat') { //  && expVariation == 1
             height = 'full';
         }
         

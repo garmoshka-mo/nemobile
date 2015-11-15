@@ -40,10 +40,8 @@ angular.module("angControllers").controller("sendSecretController",
     ['$scope','secret',
         function ($scope, secret) {
 
-            $scope.provider = 'twitter'
-            $scope.setProvider = function(provider) {
-                $scope.provider = provider;
-            };
+            $scope.provider = 'twitter';
+            $scope.showForWhat = true;
 
             $scope.durations = [
                 {name:'duration.5minutes', seconds: 300},

@@ -46,6 +46,10 @@ div, li, button, a, span, img, i {
     right: 2.7125rem !important;
   }
 }
+
+ button.secondary, .button.secondary {
+   background-color: #C3C3C3;
+ }
  
 .typing {
  font-size: 0.7em;
@@ -149,6 +153,12 @@ dialog .close-reveal-modal {
 }
 .pointer:hover {
   cursor: pointer;
+}
+
+p {
+  text-align: left;
+  text-indent: 18px;
+  font-size: 0.9rem;
 }
 
 .h41 {
@@ -1150,6 +1160,13 @@ i.mobile-icon {
  font-size: 1.3rem;
 }
 
+.padded_section {
+ margin: 10px 16px 50px;
+}
+.title {
+  padding-bottom: 10px;
+}
+  
 img.in-text {
  height: 22px;
 }
