@@ -2,10 +2,10 @@ angular.module("angControllers").controller("chatController",
 
     ['user','$scope', '$stateParams', '$state','api', 'timer',
         'notification', '$timeout', 'storage', 'stickersGallery', '$sce', 'dictionary', 'deviceInfo',
-            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu', '$translate',
+            'chats', 'googleAnalytics', 'router', 'view', 'chatHeader', 'circleMenu', '$translate', 'posts',
     function(user, $scope, $stateParams, $state, api, timer,
              notification, $timeout, storage, stickersGallery, $sce, dictionary, deviceInfo,
-                chats, googleAnalytics, router, view, chatHeader, circleMenu, $translate) {
+                chats, googleAnalytics, router, view, chatHeader, circleMenu, $translate, posts) {
 
         log("chat controller is invoked");
 
@@ -74,6 +74,33 @@ angular.module("angControllers").controller("chatController",
             googleAnalytics.dialogComplete();
             timer.stop();
             notification.setSmallIcon(null);
+            //todo: also check if there's enough messages for publish/broadcast
+            //if (1) {
+            if (expVariation == 1) {
+                publishChat(chat.channel, $scope.chatSession);
+            }
+        }
+
+        function publishChat(channel, session) {
+            var messages = [];
+            angular.copy(session.messages, messages);
+            for (var i = 0; i < messages.length; i++) {
+                if (messages[i].type == 'secret') {
+                    messages[i].text = '';
+                    messages[i].type = 'hidden'
+                }
+            }
+            var data = {
+                chat_uuid: channel,
+                title: Date.now().toDateTime(),
+                chat: {
+                    duration_s: Math.round(timer.lastDuration),
+                    messages: messages
+                }
+            };
+            posts.publishPost(data).then(function (data) {
+                log(data);
+            });
         }
 
         $scope.closeAndLookAgain = function() {

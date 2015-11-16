@@ -25,6 +25,14 @@ angular.module("angControllers")
                             //angular.copy is necessary in order not to change
                             //messages in chat session
                             angular.copy(chatSession, $scope.preview.session);
+                            var messages = $scope.preview.session.messages;
+                            //turn secret to hidden when publishing
+                            for (var i = 0; i < messages.length; i++) {
+                                if (messages[i].type == "secret") {
+                                    messages[i].text = '';
+                                    messages[i].type = "hidden"
+                                }
+                            }
                         }
                     );
                     setTimeout(function() {

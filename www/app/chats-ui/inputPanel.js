@@ -47,6 +47,13 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
                 }
             }
 
+            //If we're going to send sensitive/secret message, mark it so.
+            //Only applicable for internal chats
+            if($scope.isSecretMode && lastSession.type != 'external') {
+                //todo: find a place to introduce '/secret' as a constant
+                textToSend = '/secret ' + textToSend;
+            }
+
             lastSession.sendMessage(textToSend, getAddress(), ttl)
                 .then(
                 function() {
@@ -62,6 +69,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
             function afterSent() {
                 $scope.appropriateStickers = [];
                 $scope.isMessageSending = false;
+                $scope.isSecretMode = false;
             }
 
         }
@@ -199,12 +207,16 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     gallery.setSendMessageHandler($scope.sendMessage, chat);
     gallery.setInput($chatInput, $scope.newMessage);
 
+    $scope.toggleSecretMode = function() {
+        $scope.isSecretMode = !$scope.isSecretMode;
+    };
+
     //check timer issue
     setTimeout(function() {
         if(!$rootScope.notification.time) {
             error('Timer did not start!')
         }
-    }, 3000)
+    }, 3000);
 
     $chatInput.on("paste", function(e) {
         try {

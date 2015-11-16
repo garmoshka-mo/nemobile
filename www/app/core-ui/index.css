@@ -596,6 +596,19 @@ button.chat-send {
   color: #000;
   width: 37px;
 }
+ .chat-secret-button {
+   position: absolute;
+   top: 0;
+   right: 35px;
+   padding-top: 7px;
+   text-align: center;
+   display: inline-block;
+   color: #7f7f7f;
+   width: 25px;
+ }
+ .chat-secret-button.active {
+   color: #000;
+ }
  .chat-gallery-button {
    position: absolute;
    top: 0;

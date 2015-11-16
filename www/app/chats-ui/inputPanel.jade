@@ -14,6 +14,8 @@
                         ng-focus='onInputFieldFocus()',
                         ng-keydown='input_keypress($event)',
                         data-snap-ignore='true', tabindex="0")
+                    .chat-secret-button.pointer(ng-class="{active: isSecretMode}", ng-click='toggleSecretMode()')
+                        i.fa.fa-user-secret
                     .chat-gallery-button.pointer(ng-click='toggleGalleryPanel()' ng-focus="setFocusOnTextField()")
                         img(src="assets/img/gallery-smile.png")
                 button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!(deviceInfo.isOldAndroid || deviceInfo.isIos)')

@@ -34,6 +34,9 @@
                         | {{ feedback.title | translate }}
                     div
                         a(ng-click='complaint()', translate='message.complaint')
+    div(ng-switch-when='secret')
+        .message.message-hidden(ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }",
+        ng-bind-html='::formatMessage(message)')
     div(ng-switch-when='hidden')
         .message.message-hidden(ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", translate='message.hidden')
     div(ng-switch-default='', ng-switch='chat')
