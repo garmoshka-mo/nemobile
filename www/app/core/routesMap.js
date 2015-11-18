@@ -36,7 +36,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 url: "/sendSecret",
                 views: {
                     "content": {
-                        templateUrl: "app/etc/sendSecret.html?" + version,
+                        templateUrl: "app/secret/sendSecret.html?" + version,
                         controller: "sendSecretController"
                     }
                 }
@@ -46,9 +46,9 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                 branded: true, hasControlPanel: true,
                 views: {
                     "content": {
-                        templateUrl: "app/etc/readSecret.html?" + version,
+                        templateUrl: "app/secret/readSecret.html?" + version,
                         controller: "readSecretController",
-                        footerTemplateUrl: "app/etc/answerSecretPanel.html?"+version
+                        footerTemplateUrl: "app/secret/answerSecretPanel.html?"+version
                     }
                 }
             })

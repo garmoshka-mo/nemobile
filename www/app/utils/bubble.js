@@ -17,8 +17,12 @@ function ($postpone) {
     };
 
     this.schedule = function(bub, side, flags) {
+        // не показываем про него вообще
+        if (side == 'he') return;
+        
+        
         // Уведомление о нас имеет приоритет
-        if (side == 'he' && queuedBubbleSide == 'me') return;
+        //if (side == 'he' && queuedBubbleSide == 'me') return;
 
         queuedBubbleSide = side;
         clearTimeout(bubbleTimeout);

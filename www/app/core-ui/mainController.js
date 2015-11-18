@@ -1,12 +1,24 @@
 angular.module("angControllers").controller("mainController", [
     '$rootScope', '$scope', 'notification', 'storage', 'user', 'chats','$timeout',
     'router','deviceInfo', '$state', '$q', 'friendsList', 'menu', 'language',
+    'socket',
 function($rootScope, $scope, notification,  storage, user, chats, $timeout,
-         router, deviceInfo, $state, $q, friendsList, menu, language) {
+         router, deviceInfo, $state, $q, friendsList, menu, language,
+         socket) {
     $scope.user = user;
 
     log('main controller is invoked');
 
+    
+    function hideAddressBar(){
+        if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio)
+            document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
+        setTimeout(window.scrollTo(1,1),0);
+    }
+    window.addEventListener("orientationchange",function(){hideAddressBar();});
+    setTimeout(hideAddressBar,1000);
+    setTimeout(socket.connect, (!IS_APP && IS_ANDROID) ? 5000 : 0);
+    
     $rootScope.isAppInBackground = false;
     $scope.IS_APP = IS_APP;
     $scope.IS_MOBILE = IS_MOBILE;
@@ -69,16 +81,13 @@ function($rootScope, $scope, notification,  storage, user, chats, $timeout,
           $(".iphone-hack").show();
         }
     });
-
+    
     function hideSplashScreen() {
-        $timeout(function() {
-            $('.splash-screen').fadeOut();
-        }, 500);
-        if (IS_APP) {
-            setTimeout(function() {
+        setTimeout(function() {
+            $('.splash-screen').hide();
+            if (IS_APP) 
                 navigator.splashscreen.hide();
-            }, 300);
-        }
+        }, 500);
     }
 
     $scope.openExternalURL = router.openExternalURL;
