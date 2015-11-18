@@ -3,21 +3,42 @@ angular.module("angApp")
 .service('socket',
         ['$rootScope', 'user', 'auth',
 function($rootScope, user, auth) {
-
-    var socket = io(config('msgServer')),
+    
+    var socket,
         accessToken, connected,
         authType, ready = false;
 
-    socket.on('connect', function(){
-        connected = true;
-        tryToStart();
-    });
+    function connect() {
+        socket = io(config('msgServer'));
+        
+        socket.on('connect', function(){
+            connected = true;
+            tryToStart();
+        });
 
-    socket.on('disconnect', function(){
-        authType = null;
-        connected = false;
-        ready = false;
-    });
+        socket.on('disconnect', function(){
+            authType = null;
+            connected = false;
+            ready = false;
+        });
+
+        socket.on('auth', function(envelope) {
+            if (envelope.success) {
+                log('authenticated to socket', envelope);
+                authType = envelope.type;
+                if (authType == 'user')
+                    user.refreshProfile(envelope.profile);
+                onReady();
+            } else {
+                error('socket auth failed', envelope);
+                user.logoutAndGoHome();
+            }
+        });
+
+        while (postponedListeners.length > 0)
+            socket.on.apply(socket, postponedListeners.shift());
+    }
+    
 
     $rootScope.$on('user data loaded', takeAccessToken);
     $rootScope.$on('user logged in', takeAccessToken);
@@ -34,19 +55,6 @@ function($rootScope, user, auth) {
             socket.emit('auth', { guest_token: auth.getGuestToken() });
     }
 
-    socket.on('auth', function(envelope) {
-        if (envelope.success) {
-            log('authenticated to socket', envelope);
-            authType = envelope.type;
-            if (authType == 'user')
-                user.refreshProfile(envelope.profile);
-            onReady();
-        } else {
-            error('socket auth failed', envelope);
-            user.logoutAndGoHome();
-        }
-    });
-
     function onReady() {
         log('Socket onReady', postponedTasks);
         ready = true;
@@ -55,12 +63,15 @@ function($rootScope, user, auth) {
             socket.emit.apply(socket, postponedTasks.shift());
     }
 
-    var postponedTasks = [];
-
+    var postponedTasks = [], postponedListeners = [];
+    
     return {
 
         on: function on() {
-            socket.on.apply(socket, arguments);
+            if (socket)
+                socket.on.apply(socket, arguments);
+            else
+                postponedListeners.push(arguments);
         },
 
         emit: function emit() {
@@ -68,7 +79,9 @@ function($rootScope, user, auth) {
                 socket.emit.apply(socket, arguments);
             else
                 postponedTasks.push(arguments);
-        }
+        },
+
+        connect: connect
 
     };
 }]);
