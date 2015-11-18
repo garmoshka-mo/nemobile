@@ -19,4 +19,4 @@
                 button.chat-send.ng-animate-disabled(ng-focus='setFocusOnTextField()', ng-click='sendMessage()', ng-show='!(deviceInfo.isOldAndroid || deviceInfo.isIos)')
                     i.fa.fa-paper-plane(ng-show='!isMessageSending')
                     span(ng-show='isMessageSending', spinner='', spinner-color='white')
-        div(ng-include="'app/media/gallery/galleryPanel.html?'+version", ng-controller='galleryPanelController')
+                div(ng-include="'app/media/gallery/galleryPanel.html?'+version", ng-controller='galleryPanelController')

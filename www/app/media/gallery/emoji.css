@@ -11,13 +11,6 @@
     }
 }
 
-@media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3/2), all and (min-device-pixel-ratio: 1.5), all and (min-resolution: 144dpi) {
-    .emoji {
-        background: transparent url(../../../assets/img/emojis@2x.png) 0 0 no-repeat;
-        background-size: 27776px 22px;
-    }
-}
-
 @-moz-document url-prefix() {
     .emoji {
         background: transparent url(emojis.png) 0 0 no-repeat;

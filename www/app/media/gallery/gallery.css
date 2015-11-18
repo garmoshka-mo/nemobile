@@ -17,10 +17,11 @@
     height: 30px;
 }
 .gallery-panel .inner {
-    margin-top: -22px;
+    margin-top: -18px;
 }
 .gallery-panel .circle {
     float: right;
+    margin-right: 10px;
 }
 .recent-emojis span {
     color: white;

@@ -338,9 +338,6 @@ ul.off-canvas-list li a {
   width: 100%;
   z-index: 100;
 }
- #footer .background {
-   height: 63px;
- }
 
 .off-canvas-wrap, .inner-wrap, #friends, #friendsList, #friendsList ul{
   height: 100%;
@@ -626,10 +623,6 @@ button.chat-send {
    text-align: center;
    margin-left: 6px;
    color: #CEE6D0;
- }
- .gallery-open-button i {
-   left: 1px;
-   position: relative;
  }
  
 .stickersGallery {
