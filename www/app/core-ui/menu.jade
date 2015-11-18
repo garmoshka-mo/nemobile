@@ -5,6 +5,10 @@
                 i.fa.fa-refresh
                 | {{ 'menu.random' | translate }}
         li
+            a.menu-item(ng-click="goto('sendSecret')")
+                i.fa.fa-lock
+                | {{ 'menu.secret' | translate }}
+        li
             a.menu-item(ng-click="goto('pubsList')")
                 i.fa.fa-thumbs-o-up
                 | {{ 'menu.pub' | translate }}
@@ -37,10 +41,6 @@
             a.menu-item(ng-click="goto('about')")
                 i.fa.fa-info-circle
                 | {{ 'menu.about' | translate }}
-        li
-            a.menu-item(ng-click="goto('sendSecret')")
-                i.fa.fa-lock
-                | {{ 'menu.secret' | translate }}
         li(ng-show='fullMode || debug')
             a.menu-item(ng-click="goto('exit')")
                 i.fa.fa-power-off

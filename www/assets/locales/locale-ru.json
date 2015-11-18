@@ -151,8 +151,8 @@
   "activation":"Активация",
   "afterPurchase":"Регистрация",
   "mobileApp":"Приложение",
-  "sendSecret":"Отправить сообщение",
-  "readSecret":"Прочитать сообщение",
+  "sendSecret":"/secret",
+  "readSecret":"/secret",
 
   "bubble.close": "Продолжить",
   "bubble.vegetable.me.title": "Будь живее в общении",
@@ -204,7 +204,8 @@
   "secret.textPlaceholder": "Введите сообщение сюда",
   "secret.accountPlaceholder": "@имя_пользователя_в_",
   "secret.sendMessage": "Отправить сообщение",
-  "secret.linkInstructions": "Теперь опубликуйте эту ссылку с упоминанием пользователя",
+  "secret.linkInstructions": "Опубликуйте ссылку:",
+  "secret.linkInstructionsInstagram": "Cкопируйте этот текст и отправьте в instagram",
 
   "secret.secretLifetime": "Время жизни сообщения:",
 
