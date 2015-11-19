@@ -8,6 +8,7 @@
   "menu.about": "О проекте",
   "menu.mobileApp": "Приложение",
   "menu.sound": "Звук",
+  "menu.secret": "/secret",
 
   "notification.typing": "печатает...",
 
@@ -150,6 +151,8 @@
   "activation":"Активация",
   "afterPurchase":"Регистрация",
   "mobileApp":"Приложение",
+  "sendSecret":"/secret",
+  "readSecret":"/secret",
 
   "bubble.close": "Продолжить",
   "bubble.vegetable.me.title": "Будь живее в общении",
@@ -191,5 +194,25 @@
   "circle.menu.header2": "Чтобы отключиться без указания причины - нажмите на крестик.",
   "circle.menu.disable": "Не показывать это меню (всегда просто отключаться)",
 
-  "alert.chat.closeActive": "При уходе со страницы чат будет завершен. Покинуть страницу?"
+  "alert.chat.closeActive": "При уходе со страницы чат будет завершен. Покинуть страницу?",
+
+
+  "secret.for_what": "Зачем это?",
+  "secret.for_what_explain": "Если нужно отправить кому-то личное сообщение через публичные комментарии или истекающий по времени секрет.",
+  "secret.how_to": "Как это работает?",
+  "secret.how_to_explain": "Вы указываете имя пользователя и пишите для него сообщение. Потом получаете ссылку, которую можете, например, твитнуть или оставить в комментариях в инстаграме. Если указать получателя, то прочитать сообщение сможет только тот, кому оно адресовано (ему нужно будет подтвердить себя с помощью твитера или инстаграма). Если указать время жизни сообщения, то после истечения прочитать не сможет даже адресат.",
+  "secret.textPlaceholder": "Введите сообщение сюда",
+  "secret.accountPlaceholder": "@имя_получателя_в_",
+  "secret.sendMessage": "Запечатать секрет",
+  "secret.linkInstructionsNoTarget": "Отправьте ссылку на секрет тому, кому надо:",
+  "secret.linkInstructionsTwitter": "Опубликуйте ссылку в twitter:",
+  "secret.linkInstructionsInstagram": "Cкопируйте этот текст и отправьте в комментариях к фотографии в instagram",
+
+  "secret.secretLifetime": "Время жизни секрета:",
+
+  "duration.5minutes" : "5мин",
+  "duration.1hour" : "1час",
+  "duration.1day" : "1день",
+  "duration.7days" : "7дней",
+  "duration.10years" : "∞"
 }

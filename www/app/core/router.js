@@ -98,6 +98,9 @@ function(notification, $state, $rootScope, $q, googleAnalytics,
 
     $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
     function stateChangeSuccess (evt, toState, toParams, fromState, fromParams) {
+        if(!toState.views.top) {
+            $rootScope.mainFooterTemplate = toState.views.content.footerTemplateUrl;
+        }
         $rootScope.stateName = toState.name;
         self.is_preload = false;
         logPageview(toState.url);

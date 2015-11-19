@@ -6,6 +6,7 @@
    "menu.about": "About",
    "menu.mobileApp": "Mobile App",
    "menu.sound": "Sound",
+   "menu.secret": "/secret",
 
    "notification.typing": "typing...",
 
@@ -23,7 +24,7 @@
    "random.require": "necessarily",
    "random.forbid": "forbid",
 
-   "random.theme": "Conversations",
+   "random.theme": "Blab",
    "random.geo": "Real",
    "random.sex": "Intimate",
    "random.video": "Camera",

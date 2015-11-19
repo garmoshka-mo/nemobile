@@ -67,7 +67,6 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
                 .then(afterSent, afterSent);
 
             function afterSent() {
-                $scope.appropriateStickers = [];
                 $scope.isMessageSending = false;
                 $scope.isSecretMode = false;
             }
@@ -141,6 +140,9 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     var typingTimeout;
     var userTyping = false;
     function detectUserTyping() {
+        if(chat.isVirtual) {
+            return;
+        }
         if (userTyping) {
             prolongTyping();
         }
@@ -204,6 +206,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
     $scope.$on("$destroy", function() {
         gallery.galleryPanelOpened = false;
     });
+    $rootScope.sendMessageHandler = $scope.sendMessage;
     gallery.setSendMessageHandler($scope.sendMessage, chat);
     gallery.setInput($chatInput, $scope.newMessage);
 
@@ -213,7 +216,7 @@ function($scope, separator, view, chats, dictionary, $rootScope, userRequest, no
 
     //check timer issue
     setTimeout(function() {
-        if(!$rootScope.notification.time) {
+        if(!$rootScope.notification.time && !chat.isVirtual) {
             error('Timer did not start!')
         }
     }, 3000);

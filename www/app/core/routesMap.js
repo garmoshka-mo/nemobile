@@ -32,6 +32,26 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("sendSecret", {
+                url: "/sendSecret",
+                views: {
+                    "content": {
+                        templateUrl: "app/secret/sendSecret.html?" + version,
+                        controller: "sendSecretController"
+                    }
+                }
+            })
+            .state("readSecret", {
+                url: "/secret/:shortCode",
+                branded: true, hasControlPanel: true,
+                views: {
+                    "content": {
+                        templateUrl: "app/secret/readSecret.html?" + version,
+                        controller: "readSecretController",
+                        footerTemplateUrl: "app/secret/answerSecretPanel.html?"+version
+                    }
+                }
+            })
             .state("pubItem", {
                 url: "/pub/:postId/:slug?chat",
                 branded: true,

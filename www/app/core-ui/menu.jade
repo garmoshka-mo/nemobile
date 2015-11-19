@@ -5,6 +5,10 @@
                 i.fa.fa-refresh
                 | {{ 'menu.random' | translate }}
         li
+            a.menu-item(ng-click="goto('sendSecret')")
+                i.fa.fa-lock
+                | {{ 'menu.secret' | translate }}
+        li
             a.menu-item(ng-click="goto('pubsList')")
                 i.fa.fa-thumbs-o-up
                 | {{ 'menu.pub' | translate }}

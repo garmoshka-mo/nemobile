@@ -10,7 +10,7 @@
     <allow-navigation href="*" />
     <access origin="*" />
     <preference name="permissions" value="none" />
-    <preference name="phonegap-version" value="cli-5.1.1" />
+    <preference name="phonegap-version" value="cli-5.2.0" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="webviewbounce" value="true" />
