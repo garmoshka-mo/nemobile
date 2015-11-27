@@ -76,7 +76,7 @@ angular.module("angControllers").controller("chatController",
             notification.setSmallIcon(null);
             //todo: also check if there's enough messages for publish/broadcast
             //if (1) {
-            if (expVariation == 1) {
+            if (expVariation == 0) {
                 publishChat(chat.channel, $scope.chatSession);
             }
         }

@@ -22,7 +22,12 @@ function(userRequest, socket, $rootScope, language) {
         self.disableAutoload = true;
         self.loading = true;
         log('page of infinite scroll:', self.currentPage++);
-        loadTweets();
+        if (expVariation == 1) {
+            loadTweets();
+        } else {
+            load();
+        }
+
     };
 
     function load() {

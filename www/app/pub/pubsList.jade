@@ -23,11 +23,14 @@
         li(ng-repeat='post in myPosts')
             tweet(tweet="post")
     ul.posts-list(infinite-scroll-disabled='posts.disableAutoload',
-        infinite-scroll='loadSaved() || loadMore()',
+        infinite-scroll='loadMore()',
         infinite-scroll-container='".main-section"',
         infinite-scroll-distance='1')
         li(ng-repeat='post in posts.items')
-            tweet(tweet="post")
+            div(ng-show='post.category')
+                post(model="post")
+            div(ng-hide='post.category')
+                tweet(tweet="post")
     spinner.top-margin(ng-show='posts.loading', spinner-color='green')
     
 #few-scores-alert.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')

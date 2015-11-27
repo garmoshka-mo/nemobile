@@ -1024,6 +1024,7 @@
     }).filter('codeToSmiley', ['$sce', function($sce) {
 
         return function(input) {
+            if(!input) return;
             var output = input.replace(rUtfEmojis, function(m)
             {
                 for (var emoji in list) {

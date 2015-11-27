@@ -10,6 +10,8 @@ div(ng-switch='model.category', in-view='postVisibility($inview, model)', in-vie
         iframe(ng-src="{{model.videoUrl}}" width="560" height="315" src="" frameborder="0" allowfullscreen scrolling=no)
     div(ng-switch-when='gfy')
         img.gfyitem(data-id="{{ ::model.gfy }}" data-autoplay='false')
+    div(ng-switch-when='chat')
+        messages(session='model.data.chat')
     div(ng-switch-default='', ng-transclude='', ng-class="{'cut-image': model.cutImage}", cut-image='cutImage(model)')
     .cut(ng-show='model.cutImage')
         .torn
