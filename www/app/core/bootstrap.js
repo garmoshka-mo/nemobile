@@ -18,11 +18,6 @@ $(function() {
 
     watches = new Watches(bootstrapAngularApp);
 
-    if (cxApi) {
-        expVariation = cxApi.chooseVariation();
-        log('Experiment:', expVariation);
-    }
-    
     VK.init({apiId: 5067621, onlyWidgets: true});
 });
 

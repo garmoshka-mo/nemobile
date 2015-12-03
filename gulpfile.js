@@ -67,6 +67,7 @@ gulp.task('build_js', function () {
 
 gulp.task('copy_static', function(){
     var filesToCopy = [
+        source_www + 'launcher.html',
         source_www + 'app/**/*.html',
         source_www + 'cordova.js',
         source_www + 'partials/**/*.html', // todo: move all to app

@@ -32,6 +32,15 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     }
                 }
             })
+            .state("quest", {
+                url: "/quest",
+                views: {
+                    "content": {
+                        templateUrl: "app/quest/quest.html?" + version,
+                        controller: "questController"
+                    }
+                }
+            })
             .state("sendSecret", {
                 url: "/sendSecret",
                 views: {
@@ -192,7 +201,7 @@ angular.module("angApp").config(["$stateProvider", "$urlRouterProvider",
                     "content": {
                         templateUrl: "app/pub/pubsList.html?" + version,
                         controller: "pubsListController",
-                        footerTemplateUrl: "app/pub/postsControl.html?"+version
+                        //footerTemplateUrl: "app/pub/postsControl.html?"+version
                     }
                 }
             })
