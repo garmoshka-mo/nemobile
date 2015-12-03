@@ -1,0 +1,28 @@
+
+<div ng-repeat="message in session.messages track by $index" ng-class="{'ta-right': message.isOwn}" ng-switch="message.type" class="message-container">
+  <div ng-switch-when="chat_empty">
+    <div class="system_message">{{ 'message.finished.empty' | translate }}<a ng-click="lookAgain()" translate="message.lookAgain"></a></div>
+  </div>
+  <div ng-switch-when="chat_finished">
+    <div class="system_message">
+      <div ng-switch="message.feedback" class="partner-left"><span ng-switch-when="thanks"><img src="assets/img/circle-menu-thanks.png"/><span ng-hide="feedbackLeft">{{ 'feedback.thanks' | translate}}</span></span><span ng-switch-when="boring"><img src="assets/img/circle-menu-boring.png"/><span ng-hide="feedbackLeft">{{ 'feedback.boring' | translate}}</span></span><span ng-switch-when="disgusting"><img src="assets/img/circle-menu-unpleasant.png"/><span ng-hide="feedbackLeft">{{ 'feedback.disgusting' | translate}}</span></span><span ng-switch-default="" ng-hide="feedbackLeft">{{ 'message.finished' | translate}}</span><span ng-show="feedbackLeft"><img ng-src="{{ feedbackLeft }}"/></span>
+        <div ng-hide="additional" ng-click="showFeedbackOptions()" class="circle pointer feedback-button"><i class="fa fa-ellipsis-v"></i></div>
+      </div>
+      <div ng-show="chat">
+        <div class="message-finish"><a ng-click="lookAgain()" translate="message.lookAgain"></a>&nbsp;|&nbsp;<a ng-click="chatSettings()" translate="message.chatSettings"></a></div>
+        <div ng-show="additional" class="feedback-options">
+          <div>{{ 'message.leaveFeedback' | translate}}</div>
+          <div ng-class="{selected: feedback.key === selectedKey}" ng-repeat="feedback in feedbacks" ng-click="leaveFeedback(feedback)" class="pointer message-feedback"><img ng-src="{{ feedback.imgSrc }}"/>{{ feedback.title | translate }}</div>
+          <div><a ng-click="complaint()" translate="message.complaint"></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-switch-when="hidden">
+    <div ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" translate="message.hidden" class="message message-hidden"></div>
+  </div>
+  <div ng-switch-default="" ng-switch="chat">
+    <div ng-switch-when="true" ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" ng-bind-html="::formatMessage(message)" ng-click="::showMenu($event, $index)" data-dynamic-menu="data-dynamic-menu" class="message pointer"></div>
+    <div ng-switch-default="" ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }" ng-bind-html="formatMessage(message)" ng-click="showMenu($event, $index)" data-dynamic-menu="data-dynamic-menu" class="message pointer"></div>
+  </div>
+</div>

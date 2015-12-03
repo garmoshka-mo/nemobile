@@ -1,0 +1,32 @@
+
+<div ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+  <div class="width-92 block-center top-margin">
+    <div ng-show="user.name" class="row"><img ng-hide="newImage.url || newImage.file" ng-src="{{previewAvatar}}" alt="ava" imageonload="imageLoadedHandler()" class="rounded-ava"/><img ng-show="newImage.url &amp;&amp; !newImage.file" ng-src="{{newImage.url}}" class="rounded-ava"/><img ngf-src="newImage.file" alt="ava" class="rounded-ava"/>
+      <div ng-show="isServerResponseShown" class="inline-block">{{ serverResponse | translate }}</div>
+      <div ng-hide="newImage.url" class="inline-block">
+        <div ng-click="generateNewAvatar()" class="inline-block change-ava-button"><i class="fa fa-refresh"></i></div>
+        <div ng-show="generatedNewAvatar" class="inline-block">
+          <div ng-click="restoreDefaultAvatar()" class="change-ava-button"><i class="fa fa-close"></i></div>
+          <div ng-click="applyCurrentAvatar()" class="change-ava-button"><i class="fa fa-check"></i></div>
+          <div ng-show="isAvaLoading" spinner="" spinner-color="white" class="inline-block"></div>
+        </div>
+      </div>
+    </div>
+    <div class="grey-line width-92"></div>
+    <div class="row">
+      <label translate="avatar.upload.file"></label>
+      <div ng-model="newImage.file" ngf-select="uploadPhoto()" name="data" class="custom-file-input"><span ng-show="deviceInfo.IS_MOBILE" translate="avatar.upload.gallery"></span><span ng-hide="deviceInfo.IS_MOBILE" translate="avatar.upload.computer"></span></div>
+    </div>
+    <div class="grey-line width-92"></div>
+    <div class="row">
+      <form name="newImageForm">
+        <label translate="avatar.url"></label>
+        <input name="url" type="url" ng-model="newImage.url" placeholder="{{ 'avatar.url.placeholder' | translate }}" required="" allow-text-select="allow-text-select"/>
+      </form>
+    </div>
+    <div class="ta-center">
+      <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="updateAvatarUrl()"><span ng-show="!isImageUploading" translate="avatar.upload"></span><span spinner="" spinner-color="white" ng-show="isImageUploading"></span></button>
+    </div>
+    <div class="h41"></div>
+  </div>
+</div>

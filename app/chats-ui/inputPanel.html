@@ -1,0 +1,23 @@
+
+<div ng-controller="inputPanelController" class="input-panel">
+  <div id="footer">
+    <!--.appropriateStickers-container(ng-show='appropriateStickers.length', ng-class="{'animated fadeIn': appropriateStickers.length}")-->
+    <!--    img(ng-src='{{::image.url}}', ng-repeat='image in appropriateStickers track by $index', ng-click='::sendAppropriateSticker(image.url)')-->
+    <div class="wrapper">
+      <div id="alert" ng-model="errorDescription" alert-box=""></div>
+    </div>
+    <div class="background">
+      <div class="wrapper">
+        <div ng-class="{'chat-left-buttons-oldandroid': deviceInfo.isOldAndroid || deviceInfo.isIos}" class="chat-left-buttons">
+          <div ngf-select="uploadImage()" ng-model="image.file" name="data" class="chat-image-button pointer"><i class="fa fa-camera"></i></div>
+          <div class="chat-input-container">
+            <div contenteditable="true" ng-focus="onInputFieldFocus()" ng-keydown="input_keypress($event)" data-snap-ignore="true" tabindex="0" class="chat-input single-line"></div>
+          </div>
+          <div ng-click="toggleGalleryPanel()" ng-focus="setFocusOnTextField()" class="chat-gallery-button pointer"><img src="assets/img/gallery-smile.png"/></div>
+        </div>
+        <button ng-focus="setFocusOnTextField()" ng-click="sendMessage()" ng-show="!(deviceInfo.isOldAndroid || deviceInfo.isIos)" class="chat-send ng-animate-disabled"><i ng-show="!isMessageSending" class="fa fa-paper-plane"></i><span ng-show="isMessageSending" spinner="" spinner-color="white"></span></button>
+        <div ng-include="'app/media/gallery/galleryPanel.html?'+version" ng-controller="galleryPanelController"></div>
+      </div>
+    </div>
+  </div>
+</div>

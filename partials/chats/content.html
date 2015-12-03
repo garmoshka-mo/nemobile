@@ -1,0 +1,18 @@
+<div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+  <a ng-hide="chat.isExpired && !chat.isReplied" ng-repeat="chat in user.chats | orderObjectByTimestamp" ng-click="goto('chat', {channel: '{{::chat.channel}}', senderId: '{{::chat.senderId}}' })">
+    <div class="card" ng-class="{'unread': !chat.isRead}">
+      <div class="row">
+        <div class="small-3 column ava-container">
+          <img class="rounded-ava" ng-src="{{getChatPhoto(chat)}}" alt="photo"> 
+          <div class="new-message-ava" ng-hide="chat.isRead">
+              <i class="fa fa-envelope"></i>
+          </div>
+        </div>
+        <div class="small-6 column p0">
+            <span class="chat-title title" ng-bind="getChatTitle(chat)"></span>
+            <span class="small-gray-text chat-last-message-text" ng-bind="chat.lastUnexpiredChatSession.getLastMessage()"></span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,20 @@
+
+<div class="chat">
+  <div class="personal-data-alert"><i class="fa fa-info"></i>{{'publish.preview.info1' | translate }}<br/>{{'publish.preview.info2' | translate }}<a ng-click="showMoreInfo=true" ng-hide="showMoreInfo">&nbsp;{{'publish.preview.more' | translate }}</a>
+    <div ng-show="showMoreInfo">{{'publish.preview.info3' | translate }}<br/>{{'publish.preview.info4' | translate }}</div>
+  </div>
+  <div class="post-preview-title">
+    <input type="text" ng-model="preview.title" placeholder="{{'publish.preview.title' | translate }}" autocomplete="off" allow-text-select=""/>
+  </div>
+  <messages session="preview.session"></messages>
+  <div class="bottom-placeholder"></div>
+</div><a id="edit-message-trigger" href="#" data-reveal-id="edit-message" style="display:none;"></a>
+<div id="edit-message" data-reveal="" aria-hidden="true" role="dialog" class="reveal-modal">
+  <h1>{{'Editing of message' | translate }}:</h1>
+  <div>
+    <textarea ng-model="message.text"></textarea>
+  </div>
+  <div>
+    <button ng-click="closeEditMessageModal()" translate="message.menu.done"></button>
+  </div><a id="edit-message-close" aria-label="Close" class="close-reveal-modal">&#215;</a>
+</div>

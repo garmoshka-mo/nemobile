@@ -1,0 +1,50 @@
+<div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    <div class="width-92 block-center settings top-margin">
+        <div class="row">
+            <div class="medium-6 columns ">
+                <div class="w22 inline-block">
+                    <i class="fa fa-user"></i>
+                </div>
+                Ваш ник
+            </div>
+            <div class="medium-6 columns">
+                <span class="settings-property-value" ng-bind="user.name"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-6 columns">
+                <div class="w22 inline-block">
+                    <i class="fa fa-star"></i>
+                </div>
+                Ваш рейтинг
+            </div>
+            <div class="medium-6 columns">
+                <span class="settings-property-value" ng-bind="user.score"></span>
+            </div>
+        </div>
+        <div class="row" ng-show="user.phoneNumber">
+            <div class="medium-6 columns">
+                <div class="w22 inline-block">
+                    <i class="fa fa-phone"></i>
+                </div>
+                Ваш телефон
+            </div>
+            <div class="medium-6 columns">
+                <span class="settings-property-value" ng-bind="user.phoneNumber"></span>
+            </div>
+        </div>
+        <div class="ta-center top-margin">
+            <a href="#/updateProfile" class="text-silver">изменить пароль/ник</a>
+        </div>
+        <div ng-hide="isOnline" class="ta-center top-margin">
+            <span class="text-silver">соединение с интернетом отсутствует</span>
+        </div>
+        <div class="ta-center mt20" ng-hide="user.phoneNumber">
+            <div class="ta-center">
+                Привяжите свой телефонный номер,
+                чтобы друзья могли легко найти вас!
+            </div>
+            <a href="#/phoneRegistrationUser"><button>Привязать номер</button></a>
+        </div>
+    </div>
+</div>

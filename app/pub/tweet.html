@@ -1,0 +1,24 @@
+
+<div class="tweet original-tweet has-cards">
+  <div class="context"></div>
+  <div class="content">
+    <div class="stream-item-header"><a class="account-group"><img ng-src="{{ ::tweet.user.profile_image_url }}" alt="" class="avatar"/><strong class="fullname">{{::tweet.user.name}} &nbsp;</strong><span class="username"><span ng-click="tweet.user.show_screen_name=!tweet.user.show_screen_name">@</span><span ng-show="tweet.user.show_screen_name">{{::tweet.user.screen_name}}</span></span></a></div>
+    <p ng-bind-html="::tweet.text | codeToSmiley" class="text"></p>
+    <div ng-show="tweet.extended_entities" class="media">
+      <div ng-hide="tweet.uncutImage">
+        <div ng-show="media.type = 'photo'" class="div"><img ng-src="{{tweet.extended_entities.media[0].media_url}}" ng-class="media.original ? 'original': 'mini'" ng-click="media.original = !media.original"/></div>
+      </div>
+      <div ng-show="tweet.uncutImage" ng-repeat="media in ::tweet.extended_entities.media">
+        <div ng-show="media.type = 'photo'"><img ng-src="{{tweet.extended_entities.media[0].media_url}}" ng-class="media.original ? 'original': 'mini'" ng-click="media.original = !media.original"/></div>
+      </div>
+      <div ng-show="!tweet.uncutImage &amp;&amp; tweet.extended_entities.media.length &gt; 1"><a ng-click="tweet.uncutImage = true"><i class="fa fa-angle-double-down"></i>{{ 'pubs.expand' | translate }}</a></div>
+    </div>
+    <div class="controls"><a ng-click="showReplyForm()"><i class="fa fa-mail-reply">&nbsp;</i><span class="u-hiddenVisually">Ответить</span></a></div>
+    <div ng-repeat="reply in tweet.replies" class="reply">{{ reply.data.tweet.text }}</div>
+    <div ng-show="replyFormShown">
+      <input type="text" ng-model="replyText" placeholder="Введите запись сюда"/><span>{{ replyNotice | translate }}</span>
+      <button ng-click="reply(tweet, replyText)" ng-disabled="replying">Ответить</button>
+    </div>
+    <div class="separator"></div>
+  </div>
+</div>

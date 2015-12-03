@@ -1,0 +1,14 @@
+
+<div id="pedobear-alert" data-reveal="" aria-hidden="true" role="dialog" class="reveal-modal">
+  <h1><i class="fa fa-exclamation-triangle"></i>   {{'Restrictions on intimate topics' | translate}}</h1>
+  <div ng-show="ageAlertTo==&quot;pedobear&quot;" translate="Intimate topics with minors aint recommended because may violate laws about:"></div>
+  <div ng-show="ageAlertTo==&quot;lolicon&quot;" translate="Intimate topics with adults aint recommended because may violate laws about:"></div>
+  <ul class="blank">
+    <li translate="a) information not intended to children"></li>
+    <li translate="b) age of consent"></li>
+  </ul>
+  <div>
+    <button ng-click="close()" translate="Cancel selection"></button>
+    <button ng-click="resume()" translate="I understand my responsibility and want to continue" class="secondary"></button>
+  </div>
+</div>

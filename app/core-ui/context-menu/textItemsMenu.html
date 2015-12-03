@@ -1,0 +1,6 @@
+
+<div class="inline-block message-menu-container">
+  <ul id="context-menu" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown text-dropdown small">
+    <li ng-repeat="item in messageMenu.items"><a ng-click="onMenuItemClick(item)" aria-label="{{item.name}}"><span ng-bind-html="item.name | translate"></span></a></li>
+  </ul>
+</div>

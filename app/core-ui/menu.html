@@ -1,0 +1,26 @@
+
+<div class="no-select">
+  <ul class="off-canvas-list">
+    <li ng-hide="true"><a ng-click="goto('quest')" class="menu-item"><i class="fa fa-check-circle-o"></i>{{ 'menu.quest' | translate }} </a></li>
+    <li ng-hide="ALT_UI"><a ng-click="goto('random')" class="menu-item"><i class="fa fa-refresh"></i>{{ 'menu.random' | translate }}</a></li>
+    <li><a ng-click="goto('sendSecret')" class="menu-item"><i class="fa fa-lock"></i>{{ 'menu.secret' | translate }}</a></li>
+    <!--li
+    a.menu-item(ng-click="goto('pubsList')")
+        i.fa.fa-thumbs-o-up
+        | {{ 'menu.pub' | translate }}
+    -->
+    <li ng-show="fullMode"><a ng-click="goto('chats')" class="menu-item"><i class="fa fa-envelope"></i>Чаты<span ng-show="!!user.unreadChatsAmount" ng-bind="user.unreadChatsAmount" class="menu-new-messages-number"></span></a></li>
+    <li ng-show="fullMode"><a ng-click="goto('friends')" class="menu-item"><i class="fa fa-group"></i>Контакты</a></li>
+    <li ng-show="fullMode"><a ng-click="goto('friendSearch')" class="menu-item"><i class="fa fa-plus"></i>Добавить контакт</a></li>
+    <li ng-show="fullMode"><a ng-click="goto('settings')" class="menu-item"><i class="fa fa-gear"></i>Настройки</a></li>
+    <li ng-show="isRussianLang() &amp;&amp; !ALT_UI &amp;&amp; !deviceInfo.isIos"><a ng-click="openExternalURL('https://vk.com/dub_ink')" class="menu-item pointer"><i class="fa fa-vk"></i>{{ 'menu.vk' | translate }}</a></li>
+    <li ng-show="!ALT_UI &amp;&amp; (!isRussianLang() || deviceInfo.isIos)"><a ng-click="openExternalURL('https://www.facebook.com/groups/901153223303892')" class="menu-item pointer"><i class="fa fa-facebook"></i>{{ 'menu.facebook' | translate }}</a></li>
+    <li><a ng-click="goto('about')" class="menu-item"><i class="fa fa-info-circle"></i>{{ 'menu.about' | translate }}</a></li>
+    <li ng-show="fullMode || debug"><a ng-click="goto('exit')" class="menu-item"><i class="fa fa-power-off"></i>Выход</a></li>
+    <li ng-hide="IS_APP"><a ng-click="goto('mobileApp')" class="menu-item"><i class="fa fa-mobile mobile-icon"></i>{{ 'menu.mobileApp' | translate }}</a></li>
+    <li><a ng-click="sendDebugInfo()" ng-show="debug" class="menu-item"><i class="fa fa-life-ring"></i>отправить слепок</a>
+      <div spinner="" spinner-color="white" ng-show="showDebugPreloader"></div>
+    </li>
+    <li ng-hide="ALT_UI"><a ng-click="toggleSound()" class="menu-item delay-close-menu"><i ng-class="soundEnabled ? 'fa-volume-up' : 'fa-volume-off'" class="fa"></i>{{ 'menu.sound' | translate }}</a></li>
+  </ul>
+</div>

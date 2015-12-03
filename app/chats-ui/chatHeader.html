@@ -1,0 +1,28 @@
+
+<div class="wrapper chat-header">
+  <div ng-hide="s.active || routing.is_preload" class="header-title">
+    <div class="fll"><span>{{ stateName | translate }}</span></div>
+    <div ng-hide="user.name" class="flr">
+      <div ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box"></div>
+    </div>
+  </div>
+  <div id="partners-head" style="float:left" data-dropdown="complaint" aria-controls="complaint" aria-expanded="false" ng-show="s.active &amp;&amp; !routing.is_preload" class="pointer"><img style="float: left;" ng-show="s.partner.ava_url" ng-src="{{s.partner.ava_url}}" class="ava"/>
+    <div style="text-align: left;" class="title">
+      <div class="scores"><span ng-bind="s.partner.score" ng-class="{ negative: s.partner.score &lt; 0 }" class="total-score"></span><span ng-bind="s.partner.recentScoreFormatted" ng-style="s.partner.recentOpacity" ng-class="{ negative: s.partner.recentScore &lt; 0 }" class="animated recent-score"></span></div>
+      <div style="float: left;" class="name">{{ 'chat.header.partner' | translate }}<span ng-show="notification.typing" translate="notification.typing" class="typing"></span><span ng-include="'app/chats-ui/complaintMenu.html?'+version" ng-controller="complaintController"></span></div>
+    </div>
+  </div>
+  <div id="my-head" style="float:right" ng-hide="s.me.hidden"> 
+    <div class="title">
+      <div class="scores">
+        <div ng-bind="s.me.recentScoreFormatted" ng-style="s.me.recentOpacity" ng-class="{ negative: s.me.recentScore &lt; 0 }" class="recent-score animated"></div>
+        <div ng-bind="s.me.score" style="opacity: 1;" ng-class="{ negative: s.me.score &lt; 0 }" class="total-score"></div>
+      </div>
+      <div style="float: right;" translate="chat.header.me" class="name"></div>
+    </div><img style="float: right;" ng-show="s.me.ava" ng-src="{{s.me.ava.urlMini}}" ng-click="myAvaClick()" class="pointer ava"/>
+  </div>
+  <div ng-show="s.active &amp;&amp; !routing.is_preload" class="middle">
+    <div class="time_zone"><i class="fa fa-clock-o"></i><span ng-bind="notification.time"></span></div><a ng-click="publish()" style="color: white;" title="{{ 'chat.header.publish' | translate }}"><i class="fa fa-share-square-o"></i></a>
+  </div>
+  <bubble></bubble>
+</div>

@@ -1,0 +1,18 @@
+<div   ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+    <div class="top-margin width-92 block-center">
+        <form name="profileForm">
+            <input type="text" ng-model="profile.name" placeholder="введите новое имя" clear-all-button>
+            <input type="text" ng-model="profile.password" placeholder="введите новый пароль (необязательно)" clear-all-button>
+            <div class="ta-center">
+                <button ng-click="updateProfile()" ng-disabled="showSpinner">
+                    <div ng-hide="showSpinner">
+                        <span ng-show="user.isVirtual">Зарегистрировать</span>
+                        <span ng-hide="user.isVirtual">Изменить</span>
+                    </div>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </form>    
+    </div>
+    <div alert-box class="width-92 block-center" ng-model="serverResponse"></div>
+</div>

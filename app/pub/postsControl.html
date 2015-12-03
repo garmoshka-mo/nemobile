@@ -1,0 +1,11 @@
+
+<div id="posts-control" ng-controller="postsControl">
+  <button aria-label="Dislike" ng-disabled="!posts.activePost" ng-click="dislike()" class="md-button md-fab tiny"><i class="fa fa-trash-o"></i></button>
+  <!--md-button.md-fab.tiny(aria-label="Comments" ng-disabled='!posts.activePost' style='padding-left: 2px;')i.fa.fa-commenting-o
+  -->
+  <button aria-label="Like" ng-disabled="!posts.activePost" ng-click="like()" class="md-button md-fab"><i ng-class="{'fa-heart-o': !posts.activePost.my_score, 'fa-heart': posts.activePost.my_score}" class="fa"></i></button>
+  <button aria-label="External" ng-disabled="!posts.activePost" style="padding-left: 0px;" ng-click="externalURL()" class="md-button md-fab tiny"><i class="fa fa-external-link"></i></button>
+  <!--md-button.md-fab.tiny(aria-label="More" ng-disabled='!posts.activePost' )i.fa.fa-ellipsis-v
+  -->
+  <input ng-show="debug" style="width: 40px;" ng-model="posts.activePost.tag"/><a ng-show="debug" ng-click="saveTag()">save</a>
+</div>

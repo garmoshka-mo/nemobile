@@ -1,0 +1,19 @@
+
+<div class="row top-margin">
+  <div class="gallery ta-center">
+    <ul infinite-scroll-disabled="disableAutoload" infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-container="&quot;.main-section&quot;" class="posts-list">
+      <!--li(ng-show='g.recentPicPost.data.link.image_url')-->
+      <!--    .pointer(ng-focus="g.setFocusOnTextField()" ng-click="g.sendMessage(g.recentPicPost.data.link.image_url)")-->
+      <!--        post(model='g.recentPicPost')-->
+      <li>
+        <post model="g.emojiPost">
+          <div ng-repeat="category in g.emojiCategories" class="gallery-category"><a ng-repeat="emojiCode in category" ng-click="typeEmoji($event, emojiCode)"><span ng-bind-html="::g.getEmoji(emojiCode) | emoji"></span></a></div>
+        </post>
+      </li>
+      <li ng-repeat="gfy in gfys">
+        <post model="gfy"></post>
+      </li>
+    </ul>
+    <spinner ng-show="loading" spinner-color="green" class="top-margin"></spinner>
+  </div>
+</div>

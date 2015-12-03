@@ -1,0 +1,12 @@
+<div  ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()">
+    <div class="top-margin">
+        <div class="ta-center" ng-hide="showSpinner">
+            Вы действительно хотите выйти?
+        </div>
+        <div ng-hide="showSpinner" class="ta-center exitButtons">
+            <button class="btn" ng-click="exit()">Да</button>
+            <button ng-click="router.goto('pubsList')" class="btn">Нет</button>
+        </div>
+        <span ng-show="showSpinner" spinner></span>
+    </div>
+</div>

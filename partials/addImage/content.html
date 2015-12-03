@@ -1,0 +1,20 @@
+<div ng-swipe-right="openMenu()" ng-swipe-left="closeMenu()" >
+    <div class="width-92 block-center">
+        Выберете категорию:
+        <form name="newImageForm">
+            <div spinner ng-show="stickersGallery.isUpdating"></div>
+            <select ng-show="!stickersGallery.isUpdating" ng-options="category.name for category in stickersGallery.categories track by category.id" ng-model="selectedCategory"></select>
+            Вставьте ссылку на картинку
+            <input name="url" type="text" ng-model="newImage.url" placeholder="ссылка на изображение" required>
+        </form>
+        <input type="file" class="custom-file-input" ng-file-select ng-model="newImage.file" ng-file-change="addStickerFile()" name="image_data">
+        <img ng-show="newImage.url" class="add-image-preview" ng-src="{{newImage.url}}">
+        <br>
+        <div class="ta-center">
+            <button ng-disabled="!newImage.url || newImageForm.$invalid" ng-click="addStickerURL()">
+                <span ng-show="!isImageUploading">Загрузить</span>
+                <span spinner spinner-color="white" ng-show="isImageUploading"></span>
+            </button>
+        </div>
+    </div>
+</div>
