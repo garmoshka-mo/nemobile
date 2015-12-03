@@ -1,0 +1,148 @@
+
+<div ng-controller="randomController" class="hide-x">
+  <div class="random-header">
+    <div ng-hide="random.lookupInProgress || updates.reloading || leaving" class="row">
+      <div ng-class="{'relaunch-buttons': isRestart}" class="columns small-12 ta-center">
+        <div ng-show="showComplaintSuccess" class="row search-status complaint-message">
+          <div class="small-12 columns ta-center">Модератор проверит чат и проучит негодяев, спасибо за уведомление!</div>
+        </div>
+        <button ng-hide="random.waitingServer" ng-click="lookForChat()"><span>{{ 'random.lookForChat' | translate }}&nbsp;<i class="fa fa-weixin"></i></span></button>
+        <button ng-show="isRestart" ng-click="filterSettings()"><span>{{ 'random.settings' | translate }}&nbsp;<i class="fa fa-sliders"></i></span></button>
+      </div>
+    </div>
+    <div ng-show="updates.reloading" class="row"><br/>
+      <div class="small-12 columns ta-center">{{ 'random.reloading' | translate }}</div><br/><br/>
+    </div>
+    <div ng-show="random.lookupInProgress &amp;&amp; !leaving" style="padding-bottom: 10px;">
+      <div class="row search-status">
+        <div ng-hide="notification.asked &gt; 0" translate="random.searchStatus1" class="small-12 columns ta-center"></div>
+        <div ng-show="notification.asked &gt; 0" class="small-12 columns ta-center">{{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...</div>
+      </div>
+      <div class="row">
+        <div class="columns small-12 ta-center">
+          <button ng-click="cancelLookingFor()" class="bg-red"><span ng-hide="random.waitingServer" translate="random.cancelLookingFor"></span>
+            <div ng-show="random.waitingServer" spinner="" spinner-color="white"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="!hideMobileAD &amp;&amp; !random.lookupInProgress &amp;&amp; !IS_APP &amp;&amp; IS_MOBILE &amp;&amp; IS_ANDROID" class="row mob-info"><a target="_blank" style="float: right" href="https://play.google.com/store/apps/details?id=com.phonegap.dubink"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png"/></a>
+    <div>{{ 'random.mobinfo1' | translate }}</div><a ng-click="closeMobileAd()">{{ 'Close' | translate }}</a>
+  </div>
+  <div id="searchParameters" ng-hide="isRestart || leaving || isLookingAgain">
+    <div class="row">
+      <div class="columns small-12">
+        <div class="row fab-buttons-container">
+          <div class="small-3 columns">{{ 'random.theme' | translate }}
+            <button data-dropdown="theme" aria-controls="theme" aria-expanded="false" ng-class="{'forbid-fab': filter.theme.value === -1}" class="param-selector"><img ng-show="filter.theme.value === -1" ng-src="assets/img/theme-forbid.png"/><img ng-show="filter.theme.value === 0" ng-src="assets/img/theme-unselected.png"/><img ng-show="filter.theme.value === 1" ng-src="assets/img/theme-prefer.png"/><img ng-show="filter.theme.value === 2" ng-src="assets/img/theme-require.png"/></button>
+            <ul id="theme" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown small search-param">
+              <li><a ng-click="filter.theme.selectValue(0)">
+                  <div class="no-image"></div>
+                  <div translate="random.notSet" class="param-title"></div></a></li>
+              <li><a ng-click="filter.theme.selectValue(1)"><img src="assets/img/prefer.png" alt="prefer"/>
+                  <div translate="random.prefer" class="param-title"></div></a></li>
+              <li><a ng-click="filter.theme.selectValue(2)"><img src="assets/img/require.png" alt="require"/>
+                  <div translate="random.require" class="param-title"></div></a></li>
+              <li><a ng-click="filter.theme.selectValue(-1)"><img src="assets/img/forbid.png" alt="forbid"/>
+                  <div translate="random.forbid" class="param-title"></div></a></li>
+            </ul>
+          </div>
+          <div class="small-3 columns">{{ 'random.geo' | translate }}
+            <button data-dropdown="geo" aria-controls="geo" aria-expanded="false" ng-class="{'forbid-fab': filter.geo.value === -1}" class="param-selector"><img ng-show="filter.geo.value === 0" ng-src="assets/img/geo-unselected.png"/><img ng-show="filter.geo.value === -1" ng-src="assets/img/geo-forbid.png"/><img ng-show="filter.geo.value === 1" ng-src="assets/img/geo-prefer.png"/><img ng-show="filter.geo.value === 2" ng-src="assets/img/geo-require.png"/></button>
+            <ul id="geo" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown small search-param">
+              <li><a ng-click="filter.geo.selectValue(0)">
+                  <div class="no-image"></div>
+                  <div translate="random.notSet" class="param-title"></div></a></li>
+              <li><a ng-click="filter.geo.selectValue(1)"><img src="assets/img/prefer.png" alt="prefer"/>
+                  <div translate="random.prefer" class="param-title"></div></a></li>
+              <li><a ng-click="filter.geo.selectValue(2)"><img src="assets/img/require.png" alt="require"/>
+                  <div translate="random.require" class="param-title"></div></a></li>
+              <li><a ng-click="filter.geo.selectValue(-1)"><img src="assets/img/forbid.png" alt="forbid"/>
+                  <div translate="random.forbid" class="param-title"></div></a></li>
+            </ul>
+          </div>
+          <div class="small-3 columns">{{ 'random.sex' | translate }}
+            <button data-dropdown="sex" aria-controls="sex" aria-expanded="false" ng-class="{'forbid-fab': filter.sex.value === -1}" class="param-selector"><img ng-show="filter.sex.value === 0" ng-src="assets/img/sex-unselected.png"/><img ng-show="filter.sex.value === -1" ng-src="assets/img/sex-forbid.png"/><img ng-show="filter.sex.value === 1" ng-src="assets/img/sex-prefer.png"/><img ng-show="filter.sex.value === 2" ng-src="assets/img/sex-require.png"/></button>
+            <ul id="sex" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown small search-param">
+              <li><a ng-click="filter.sex.selectValue(0)">
+                  <div class="no-image"></div>
+                  <div translate="random.notSet" class="param-title"></div></a></li>
+              <li><a ng-click="filter.sex.selectValue(1)"><img src="assets/img/prefer.png" alt="prefer"/>
+                  <div translate="random.prefer" class="param-title"></div></a></li>
+              <li><a ng-click="filter.sex.selectValue(2)"><img src="assets/img/require.png" alt="require"/>
+                  <div translate="random.require" class="param-title"></div></a></li>
+              <li><a ng-click="filter.sex.selectValue(-1)"><img src="assets/img/forbid.png" alt="forbid"/>
+                  <div translate="random.forbid" class="param-title"></div></a></li>
+            </ul>
+          </div>
+          <div class="small-3 columns">{{ 'random.video' | translate }}
+            <button data-dropdown="video" aria-controls="video" aria-expanded="false" ng-class="{'forbid-fab': filter.video.value === -1}" class="param-selector"><img ng-show="filter.video.value === 0" ng-src="assets/img/video-unselected.png"/><img ng-show="filter.video.value === -1" ng-src="assets/img/video-forbid.png"/><img ng-show="filter.video.value === 1" ng-src="assets/img/video-prefer.png"/><img ng-show="filter.video.value === 2" ng-src="assets/img/video-require.png"/></button>
+            <ul id="video" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown small search-param">
+              <li><a ng-click="filter.video.selectValue(0)">
+                  <div class="no-image"></div>
+                  <div translate="random.notSet" class="param-title"></div></a></li>
+              <li><a ng-click="filter.video.selectValue(1)"><img src="assets/img/prefer.png" alt="prefer"/>
+                  <div translate="random.prefer" class="param-title"></div></a></li>
+              <li><a ng-click="filter.video.selectValue(2)"><img src="assets/img/require.png" alt="require"/>
+                  <div translate="random.require" class="param-title"></div></a></li>
+              <li><a ng-click="filter.video.selectValue(-1)"><img src="assets/img/forbid.png" alt="forbid"/>
+                  <div translate="random.forbid" class="param-title"></div></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="placeholder_for_fab_buttons"></div>
+    <div id="random-help" style="margin-bottom: 9px;" class="row">
+      <div class="small-12 ta-center columns"><span ng-click="helpClick()" class="dashed pointer text-silver no-select">{{ 'random.help' | translate }}</span>
+        <div ng-show="showHelpText" scroll-bottom="showHelpText" class="help">
+          <!-- Вступление - это текст, который будет видеть вначале ваш собеседник. <br>-->
+          <p translate="random.helpText1"></p>
+          <p translate="random.helpText2"></p>
+          <p translate="random.helpText3"></p>
+        </div>
+      </div>
+    </div>
+    <div ng-show="false" class="row top-margin">
+      <div class="small-12 columns">
+        <input type="text" ng-model="filter.iam.intro" placeholder="Вступление (необязательно)"/>
+      </div>
+    </div>
+    <div ng-show="false" class="row">
+      <div class="small-12 columns">
+        <input type="text" ng-model="filter.iam.location" placeholder="Местоположение (необязательно)"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 column language-tags-box"><i class="fa fa-language"> </i>&nbsp<span translate="random.languages"></span>
+        <tags-input ng-model="filter.languages" display-property="name" min-tags="2" available="filter.availableLanguages"></tags-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <div translate="random.iam" class="text-bold ta-center"></div>
+        <div class="human-config">
+          <sex-select ng-model="filter.iam.sex"></sex-select>
+          <p translate="random.age" class="age-title ta-center"></p>
+          <age-select multiple="false" ng-model="filter.iam.age" values="ageValues" titles="ageTitles"></age-select>
+        </div>
+      </div>
+      <div class="small-6 columns ta-center">
+        <div translate="random.another" class="text-bold"></div>
+        <div class="human-config">
+          <sex-select ng-model="filter.another.sex" multi-select="" ng-click="suggestUserGender()"></sex-select>
+          <p translate="random.age" class="age-title ta-center"></p>
+          <age-select multiple="true" ng-model="filter.another.age" values="ageValues" titles="ageTitles"></age-select>
+        </div>
+      </div>
+    </div>
+    <div class="row top-margin bottom-margin">
+      <div class="small-12 ta-center"><span ng-click="setDefaultFilterParams()" translate="random.reset" class="text-silver pointer"></span></div>
+    </div><br/>
+  </div>
+  <div ng-show="leaving" class="center top-margin">
+    <div spinner="" spinner-color="green"></div>
+  </div>
+  <pedobear-alert filter="filter"></pedobear-alert>
+</div>

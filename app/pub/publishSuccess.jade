@@ -1,0 +1,16 @@
+.row
+    .small-12.top-margin.ta-center
+        | {{ 'publish.success.link' | translate }}
+        div(allow-text-select='')
+            input(type='text', ng-model='postUrl', select-on-click='')
+        p.note(translate='publish.success.note')
+        button(ng-click='router.openExternalURL(postUrl)')
+            i.fa.fa-external-link
+            |   {{ 'publish.success.open' | translate }}
+        br
+        button(ng-click="separator.resize('comfortChat'); router.goto('pubsList');")
+            i.fa.fa-chevron-left
+            |   {{ 'publish.success.pub' | translate }}
+        button(ng-click='startNewChat()', ng-show='router.isChatActive()')
+            i.fa.fa-refresh
+            |   {{ 'publish.success.newChat' | translate }}

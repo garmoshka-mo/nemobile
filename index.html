@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2015 DUB.iNK - All Rights Reserved
+This file is part of dub.ink
+dub.ink can not be copied and/or distributed without the express
+permission of DUB.INK
+-->
+<html>
+  <head>
+    <title></title>
+    <meta name="description">
+    <meta property="og:image">
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-tooltips.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/flags.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/image-classes.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/intlTelInput.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/pluso.css">
+    <link rel="stylesheet" type="text/css" href="app/chats-ui/chat.css">
+    <link rel="stylesheet" type="text/css" href="app/chats-ui/circleMenu/circleMenu.css">
+    <link rel="stylesheet" type="text/css" href="app/chats-ui/random.css">
+    <link rel="stylesheet" type="text/css" href="app/chats-ui/tags.css">
+    <link rel="stylesheet" type="text/css" href="app/core-ui/bubble.css">
+    <link rel="stylesheet" type="text/css" href="app/core-ui/context-menu/context-menu.css">
+    <link rel="stylesheet" type="text/css" href="app/core-ui/index.css">
+    <link rel="stylesheet" type="text/css" href="app/core-ui/menu.css">
+    <link rel="stylesheet" type="text/css" href="app/media/gallery/emoji.css">
+    <link rel="stylesheet" type="text/css" href="app/media/gallery/gallery.css">
+    <link rel="stylesheet" type="text/css" href="app/messages/messages.css">
+    <link rel="stylesheet" type="text/css" href="app/pub/pub.css">
+    <link rel="stylesheet" type="text/css" href="app/pub/tweet.css">
+    <link rel="stylesheet" type="text/css" href="app/secret/secret.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="jslibs/1angular.min.js"></script>
+    <script type="text/javascript" src="jslibs/2jquery.js"></script>
+    <script type="text/javascript" src="jslibs/3promises.js"></script>
+    <script type="text/javascript" src="jslibs/4react.js"></script>
+    <script type="text/javascript" src="jslibs/5localforage.js"></script>
+    <script type="text/javascript" src="jslibs/6angular-translate.js"></script>
+    <script type="text/javascript" src="jslibs/6hammer.min.js"></script>
+    <script type="text/javascript" src="jslibs/7angular-translate-loader-static-files.js"></script>
+    <script type="text/javascript" src="jslibs/angular-animate.js"></script>
+    <script type="text/javascript" src="jslibs/angular-aria.min.js"></script>
+    <script type="text/javascript" src="jslibs/angular-cookies.js"></script>
+    <script type="text/javascript" src="jslibs/angular-inview.js"></script>
+    <script type="text/javascript" src="jslibs/angular-localForage.js"></script>
+    <script type="text/javascript" src="jslibs/angular-resource.min.js"></script>
+    <script type="text/javascript" src="jslibs/angular-sanitize.js"></script>
+    <script type="text/javascript" src="jslibs/angular-social.src.js"></script>
+    <script type="text/javascript" src="jslibs/angular-tooltips.min.js"></script>
+    <script type="text/javascript" src="jslibs/angular-touch.js"></script>
+    <script type="text/javascript" src="jslibs/angular-translate-storage-cookie.js"></script>
+    <script type="text/javascript" src="jslibs/angular-translate-storage-local.js"></script>
+    <script type="text/javascript" src="jslibs/angular-ui-router.js"></script>
+    <script type="text/javascript" src="jslibs/angular.hammer.js"></script>
+    <script type="text/javascript" src="jslibs/angular_license.js"></script>
+    <script type="text/javascript" src="jslibs/api_anchat.js"></script>
+    <script type="text/javascript" src="jslibs/emoji.js"></script>
+    <script type="text/javascript" src="jslibs/favico-0.3.9.min.js"></script>
+    <script type="text/javascript" src="jslibs/fileTypeDeterminer.js"></script>
+    <script type="text/javascript" src="jslibs/foundation.1.js"></script>
+    <script type="text/javascript" src="jslibs/foundation.dropdown.js"></script>
+    <script type="text/javascript" src="jslibs/foundation.reveal.js"></script>
+    <script type="text/javascript" src="jslibs/gfycat_test_june25.js"></script>
+    <script type="text/javascript" src="jslibs/hello.all.js"></script>
+    <script type="text/javascript" src="jslibs/interact-1.2.5.min.js"></script>
+    <script type="text/javascript" src="jslibs/international-phone-number.js"></script>
+    <script type="text/javascript" src="jslibs/intlTelInput.js"></script>
+    <script type="text/javascript" src="jslibs/is_mobile.js"></script>
+    <script type="text/javascript" src="jslibs/lodash.js"></script>
+    <script type="text/javascript" src="jslibs/mm-foundation-tpls-0.5.0.js"></script>
+    <script type="text/javascript" src="jslibs/modernizr.js"></script>
+    <script type="text/javascript" src="jslibs/ng-file-upload-all.js"></script>
+    <script type="text/javascript" src="jslibs/ng-infinite-scroll.js"></script>
+    <script type="text/javascript" src="jslibs/randomColor.js"></script>
+    <script type="text/javascript" src="jslibs/react-simpletabs.js"></script>
+    <script type="text/javascript" src="jslibs/rollbar.js"></script>
+    <script type="text/javascript" src="jslibs/socket.js"></script>
+    <script type="text/javascript" src="jslibs/utils.js"></script>
+    <script type="text/javascript" src="jslibs/vkopenapi.js"></script>
+    <script type="text/javascript" src="angular_init.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/addImageController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/addVirtualChatController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/chatInfoController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/createFastChatController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/exitController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/friendSearchController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/friendsController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/homepageController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/invitationController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/phoneRegistrationController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/phoneRegistrationUserController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/settingsController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/signinupController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/startController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/stickersGalleryController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/updateProfileController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/virtualChatController.js"></script>
+    <script type="text/javascript" src="app/ang-controllers/vkLoginController.js"></script>
+    <script type="text/javascript" src="app/bots/ActivityBot.js"></script>
+    <script type="text/javascript" src="app/bots/SlowpokesFriend.js"></script>
+    <script type="text/javascript" src="app/bots/TeacherBot.js"></script>
+    <script type="text/javascript" src="app/chats-ui/chatController.js"></script>
+    <script type="text/javascript" src="app/chats-ui/chatHeader.js"></script>
+    <script type="text/javascript" src="app/chats-ui/chatsController.js"></script>
+    <script type="text/javascript" src="app/chats-ui/circleMenu/circleMenuDirective.js"></script>
+    <script type="text/javascript" src="app/chats-ui/closedController.js"></script>
+    <script type="text/javascript" src="app/chats-ui/complaintController.js"></script>
+    <script type="text/javascript" src="app/chats-ui/controls/ageSelect.js"></script>
+    <script type="text/javascript" src="app/chats-ui/dialogs/pedobearAlert.js"></script>
+    <script type="text/javascript" src="app/chats-ui/inputPanel.js"></script>
+    <script type="text/javascript" src="app/chats-ui/randomController.js"></script>
+    <script type="text/javascript" src="app/chats/Chat.js"></script>
+    <script type="text/javascript" src="app/chats/ChatAbstract.js"></script>
+    <script type="text/javascript" src="app/chats/ChatSession.js"></script>
+    <script type="text/javascript" src="app/chats/ChatSessionAbstract.js"></script>
+    <script type="text/javascript" src="app/chats/ExternalChat.js"></script>
+    <script type="text/javascript" src="app/chats/ExternalChatSession.js"></script>
+    <script type="text/javascript" src="app/chats/ExternalProvider.js"></script>
+    <script type="text/javascript" src="app/chats/ScoreKeeper.js"></script>
+    <script type="text/javascript" src="app/chats/SpamFilter.js"></script>
+    <script type="text/javascript" src="app/chats/chats.js"></script>
+    <script type="text/javascript" src="app/chats/intro/alt.js"></script>
+    <script type="text/javascript" src="app/chats/intro/default.js"></script>
+    <script type="text/javascript" src="app/chats/random.js"></script>
+    <script type="text/javascript" src="app/core-ui/context-menu/circleContextMenu.js"></script>
+    <script type="text/javascript" src="app/core-ui/context-menu/contextMenu.js"></script>
+    <script type="text/javascript" src="app/core-ui/mainController.js"></script>
+    <script type="text/javascript" src="app/core-ui/menuController.js"></script>
+    <script type="text/javascript" src="app/core-ui/menuDirective.js"></script>
+    <script type="text/javascript" src="app/core-ui/separator.js"></script>
+    <script type="text/javascript" src="app/core-ui/view.js"></script>
+    <script type="text/javascript" src="app/core/bootstrap.js"></script>
+    <script type="text/javascript" src="app/core/config.js"></script>
+    <script type="text/javascript" src="app/core/guestRequest.js"></script>
+    <script type="text/javascript" src="app/core/router.js"></script>
+    <script type="text/javascript" src="app/core/routesMap.js"></script>
+    <script type="text/javascript" src="app/core/userRequest.js"></script>
+    <script type="text/javascript" src="app/directives.js"></script>
+    <script type="text/javascript" src="app/etc/aboutController.js"></script>
+    <script type="text/javascript" src="app/etc/mobileAppController.js"></script>
+    <script type="text/javascript" src="app/filters.js"></script>
+    <script type="text/javascript" src="app/media/Avatar.js"></script>
+    <script type="text/javascript" src="app/media/Photo.js"></script>
+    <script type="text/javascript" src="app/media/gallery/gallery.js"></script>
+    <script type="text/javascript" src="app/media/gallery/galleryControl.js"></script>
+    <script type="text/javascript" src="app/media/loadAvatarController.js"></script>
+    <script type="text/javascript" src="app/media/showImageController.js"></script>
+    <script type="text/javascript" src="app/messages/messages.js"></script>
+    <script type="text/javascript" src="app/messages/messagesDirective.js"></script>
+    <script type="text/javascript" src="app/messages/pubnubSubscription.js"></script>
+    <script type="text/javascript" src="app/messages/share.js"></script>
+    <script type="text/javascript" src="app/messages/socket.js"></script>
+    <script type="text/javascript" src="app/networks/hello.js"></script>
+    <script type="text/javascript" src="app/pub/posts.js"></script>
+    <script type="text/javascript" src="app/pub/postsControl.js"></script>
+    <script type="text/javascript" src="app/pub/pubItemController.js"></script>
+    <script type="text/javascript" src="app/pub/publishPanelController.js"></script>
+    <script type="text/javascript" src="app/pub/publishPreviewController.js"></script>
+    <script type="text/javascript" src="app/pub/publishSuccessController.js"></script>
+    <script type="text/javascript" src="app/pub/pubsListController.js"></script>
+    <script type="text/javascript" src="app/pub/tweet.js"></script>
+    <script type="text/javascript" src="app/purchase/activationController.js"></script>
+    <script type="text/javascript" src="app/purchase/afterPurchaseController.js"></script>
+    <script type="text/javascript" src="app/quest/quest.js"></script>
+    <script type="text/javascript" src="app/secret/answer.js"></script>
+    <script type="text/javascript" src="app/secret/read.js"></script>
+    <script type="text/javascript" src="app/secret/secret.js"></script>
+    <script type="text/javascript" src="app/secret/send.js"></script>
+    <script type="text/javascript" src="app/services/apiService.js"></script>
+    <script type="text/javascript" src="app/services/deviceInfoService.js"></script>
+    <script type="text/javascript" src="app/services/dictionaryService.js"></script>
+    <script type="text/javascript" src="app/services/friendsListService.js"></script>
+    <script type="text/javascript" src="app/services/stickersGalleryService.js"></script>
+    <script type="text/javascript" src="app/services/storageService.js"></script>
+    <script type="text/javascript" src="app/services/temporaryDataService.js"></script>
+    <script type="text/javascript" src="app/services/vkService.js"></script>
+    <script type="text/javascript" src="app/testDataset.js"></script>
+    <script type="text/javascript" src="app/user/Friend.js"></script>
+    <script type="text/javascript" src="app/user/Partner.js"></script>
+    <script type="text/javascript" src="app/user/auth.js"></script>
+    <script type="text/javascript" src="app/user/membership.js"></script>
+    <script type="text/javascript" src="app/user/user.js"></script>
+    <script type="text/javascript" src="app/utils/Watches.js"></script>
+    <script type="text/javascript" src="app/utils/bubble.js"></script>
+    <script type="text/javascript" src="app/utils/bubbleDirective.js"></script>
+    <script type="text/javascript" src="app/utils/disqus.js"></script>
+    <script type="text/javascript" src="app/utils/googleAnalytics.js"></script>
+    <script type="text/javascript" src="app/utils/helpers.js"></script>
+    <script type="text/javascript" src="app/utils/language.js"></script>
+    <script type="text/javascript" src="app/utils/localForageController.js"></script>
+    <script type="text/javascript" src="app/utils/notification.js"></script>
+    <script type="text/javascript" src="app/utils/pushNotification.js"></script>
+    <script type="text/javascript" src="app/utils/scrollBottomDirective.js"></script>
+    <script type="text/javascript" src="app/utils/sound.js"></script>
+    <script type="text/javascript" src="app/utils/standardNavigationController.js"></script>
+    <script type="text/javascript" src="app/utils/tagsInput.js"></script>
+    <script type="text/javascript" src="app/utils/timer.js"></script>
+    <script type="text/javascript" src="app/utils/tracker.js"></script>
+    <script type="text/javascript" src="app/utils/updates.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+  </head>
+  <body ng-controller="mainController">
+    <div context-menu class="context-menu-container">
+      <div class="context-menu">
+        <div ng-include src="templateUrl"></div>
+      </div>
+    </div>
+    <div class="splash-screen">
+      <div class="splash-logo-container"><img style="width: 70px;" src="assets/img/web_splash_logo.jpg">
+        <div id="connecting" class="spinner small">
+          <div class="dot bounce1 white"></div>
+          <div class="dot bounce2 white"></div>
+          <div class="dot bounce3 white"></div>
+        </div>
+        <div id="cant-connect" style="display: none;">
+          <div class="no-internet"><i class="fa fa-globe"></i>&nbsp;<i class="fa fa-chain-broken"></i>&nbsp;no internet&nbsp;<i class="fa fa-hand-scissors-o"></i>&nbsp;<i class="fa fa-frown-o"></i></div><a id="retry"> <i class="fa fa-refresh"></i></a>
+        </div>
+      </div>
+    </div>
+    <div id="dummy" style="display:none;"></div>
+    <div menu class="menu menu-animated"></div>
+    <div class="menu-content">
+      <div class="prevent-click"></div>
+      <div class="iphone-hack iphone-status-bar-margin"></div>
+      <div class="inner-wrap">
+        <nav id="top-bar" class="tab-bar no-select">
+          <section class="left-small pointer ta-center">
+            <circle-menu></circle-menu><a ng-hide="customSmallIconInner || isBackArrowShown" ng-click="toggleMenu()" class="menu-icon"><span></span></a><a ng-cloak="" ng-show="isBackArrowShown" ng-click="backArrowHandler()" class="icon_button"><i class="fa fa-chevron-left ml10"></i></a><span ng-show="customSmallIconInner &amp;&amp; !isBackArrowShown" ng-click="customSmallIconHandler()" ng-bind-html="customSmallIconInner" class="customSmallIcon no-menu-drag"></span>
+          </section>
+          <section class="middle tab-bar-section p0 title-panel">
+            <div ng-show="routing.is_preload"><span spinner="" spinner-color="white"></span></div>
+            <div ng-include="'app/chats-ui/chatHeader.html?'+version" ng-controller="chatHeaderController"></div>
+          </section>
+          <section ng-cloak="" ng-show="router.isRandomActive() &amp;&amp; user.score &amp;&amp; isUserScoreShown" class="right-small ta-center"><i class="fa fa-star"></i>&nbsp;<span ng-bind="user.score"></span></section>
+        </nav>
+        <section id="top-section" ng-class="{branded: router.top.branded }">
+          <div ng-include="topSectionTemplate" class="wrapper"></div>
+        </section>
+        <div ng-include="topFooterTemplate"></div>
+        <div id="drag-line">
+          <div id="drag-line-separator"></div>
+          <div id="drag-button" class="circle"><i class="fa fa-bars"></i></div>
+        </div>
+        <section id="main-section" ng-class="{branded: isMainBranded() }" in-view-container="" class="main-section">
+          <!-- content goes here-->
+          <!-- MAIN CONTENT-->
+          <div ng-hide="routing.is_preload" class="wrapper">
+            <div ui-view="content" class="content">
+            </div>
+          </div>
+        </section>
+        <div ng-include="mainFooterTemplate"></div><a class="exit-off-canvas"></a>
+      </div>
+    </div>
+    <message-menu></message-menu>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+.fab-buttons-container>div {
+    text-align: center;
+}
+
+
+.md-button.md-raised:not([disabled]), .md-button.md-fab {
+    box-shadow: none;
+    border: 1px solid #EAEAEA;
+}
+
+/*fab icons*/
+
+a.md-button.md-fab, .md-button.md-fab {
+    background: #FFF;
+}
+.md-button.md-fab img {
+    top: -2px;
+    position: relative;
+}
+
+a.md-button.md-fab:not([disabled]):hover,
+.md-button.md-fab:not([disabled]):hover {
+    background: #FFF;
+}
+
+.md-button.md-fab:not([disabled]):hover
+.not-hover {
+    display: none;
+}
+
+.placeholder_for_fab_buttons {
+    height: 94px;
+}
+
+.md-button.md-fab:not([disabled]):hover
+.img-hover {
+    display: inline;
+}
+
+.img-hover {
+    display: none;
+}
+
+.fab-buttons-container {
+    position: absolute;
+    width: 100% !important;
+}
+/*md-fab-actions {
+  height: 0 !important;
+}
+*/
+/*
+    TODO: md-* classes will be removed/renamed soon
+*/
+.param-selector {
+    background: #FFF;
+    box-shadow: none;
+    border: 1px solid #EAEAEA;
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: 0.2s linear;
+    transition-property: background-color, box-shadow;
+    padding: 0 6px;
+    margin: 6px 8px;
+}
+.param-selector img {
+    top: -2px;
+    position: relative;
+}
+.search-param {
+    text-align: left;
+    min-width: 180px;
+}
+.search-param img {
+    width: 20px;
+}
+.search-param li {
+    padding: 5px;
+}
+.search-param .no-image {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.param-title {
+    display: inline-block;
+    color: #A5A0A0;
+    padding: 0 10px;
+    font-size: 0.9rem;
+}
+
+.md-fab.md-raised.md-mini {
+    overflow: auto;
+}
+.md-fab.md-raised.md-mini img {
+    top: -1px;
+    position: relative;
+}
+
+md-fab-speed-dial md-fab-actions {
+    height: auto;
+}
+
+.forbid-fab {
+    background: #e59494 !important;
+}
+
+.md-button {
+    display: inline-table;
+}
+/*fab icons end*/
+
+.age-select {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+     -ms-user-select: none;
+         user-select: none;
+}
+.age-select li:first-child{
+    color: #bdc3c7
+}
+.age-select:hover {
+    cursor: pointer;
+}
+.age-select li {
+    -webkit-transition: color 0.2s ease;
+            transition: color 0.2s ease;
+}
+.human-config p, .human-config ul {
+    font-size: 1.2rem;
+}
+
+.sex-select {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+     -ms-user-select: none;
+         user-select: none;
+    outline: none;
+}
+.sex-select-li {
+    width: 29px;
+    height: 45px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    margin: 5px 5px;
+    -webkit-transition: background 0.2s ease;
+            transition: background 0.2s ease;
+}
+.sex-select-li:hover {
+    cursor: pointer;
+}
+.sex-select-li.man {
+    background-image: url('../../assets/img/man.png')
+}
+.sex-select-li.man.selected {
+    background-image: url('../../assets/img/man-selected.png')
+}
+.sex-select-li.woman {
+    background-image: url('../../assets/img/woman.png')
+}
+.sex-select-li.woman.selected {
+    background-image: url('../../assets/img/woman-selected.png')
+}
+sex-select:focus {
+    /* Angular directive brings back a blue outline on element focus */
+    outline: none;
+}
+
+.md-button.md-fab.md-mini {
+    line-height: 33px;
+}
+
+.disconnect-button {
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+    display: inline-block;
+    float: right;
+}
+
+.disconnect-button button {
+    margin-bottom: 10px;
+}
+
+.disconnect-button.ng-hide-add {
+    -webkit-animation: 0.5s fadeOut ease;
+            animation: 0.5s fadeOut ease;
+}
+
+.search-status {
+    color: #4C4C4C;
+    background: rgba(236, 236, 236, 0.79);
+    border-radius: 18px;
+    font-size: 14px;
+    width: 80%;
+    margin-bottom: 14px;
+}
+.search-status>div {
+    padding: 3px 0 6px;
+}
+.row.complaint-message {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: 62.5rem;
+    margin-bottom: 1rem;
+}
+
+.random-header .bg-red {
+    background-color: rgba(224, 79, 63, 0.58);
+}
+
+.mob-info {
+    padding: 6px 12px;
+    font-size: 12px;
+    background-color: #F8F9EE;
+}
+
+.mob-info a {
+    margin: 3px;
+}
+.age-title {
+    color: #000;
+    margin: 12px 0 2px;
+}
+
+
+.random-header {
+    padding-top: 1rem;
+}
+
+.random-header button {
+    background-color: rgba(91, 171, 96, 0.72);
+}
+
+.relaunch-buttons {
+    padding-bottom: 50px;
+}
+.relaunch-buttons button {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+#searchParameters {
+    margin-top: 10px;
+}

@@ -1,0 +1,105 @@
+.circle-menu-container {
+    width: 500px;
+    background: #f1f3f6;
+    height: 380px;
+    position: absolute;
+    border-radius: 50%;
+    left: -250px;
+    top: -190px;
+    padding-top: 200px;
+    padding-left: 250px;
+    z-index: 1000;
+    color: #606060;
+    border: 1px solid #606060;
+    box-shadow: 0 0 25px rgba(0,0,0, 0.4);
+    -webkit-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+    -webkit-transform: scale(0,0);
+        -ms-transform: scale(0,0);
+            transform: scale(0,0);
+}
+.circle-menu-open {
+    -webkit-transform: scale(1,1);
+        -ms-transform: scale(1,1);
+            transform: scale(1,1);
+}
+.circle-menu-item-container {
+    text-align: right;
+    padding-top: 5px;
+}
+.circle-menu-item {
+    float: right;
+    -webkit-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+}
+.circle-menu-item:hover {
+    -webkit-transform: perspective(1px)  scale(1.1);
+            transform: perspective(1px)  scale(1.1);
+    
+}
+.circle-menu-item.first {
+    top: -2px;
+    position: relative;
+    padding-right: 20px;
+}
+.circle-menu-item.second {
+    padding-right: 70px;
+}
+.circle-menu-item.third {
+    padding-right: 100px;
+}
+.circle-menu-item img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.circle-menu-chat-finish-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #68C168;
+    border-radius: 50%;
+    color: #FFF;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 5px;
+}
+.circle-menu-dots {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #dfdfe0;
+    border-radius: 50%;
+    text-align: center;
+    color: #FFF;
+    line-height: 30px;
+    margin-left: 17px;
+}
+.circle-menu-dots-button {
+    min-width: inherit;
+    min-height: inherit;
+    line-height: inherit;
+    margin: 0 3px;
+    font-weight: bold;
+    /* background-color: #C2C1C1; */
+    color: white;
+}
+button.circle-menu-dots-button:hover {
+    background-color: inherit !important;
+}
+.circle-menu-checkbox-container {
+    padding: 10px;
+}
+.circle-menu-checkbox-container .md-checked .md-icon {
+    background: #68C168;
+}
+.circle-menu-opened-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+}
+.disconnect-checkbox-label {
+    display: inline;
+}

@@ -1,0 +1,37 @@
+.gallery {
+
+}
+.gallery-category {
+    overflow-x: hidden;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+.gallery-category a {
+    padding: 2px;
+    color: #000;
+    font-size: larger;
+}
+.gallery-panel {
+    padding: 8px;
+    background-color: #253335;
+    height: 30px;
+}
+.gallery-panel .inner {
+    margin-top: -18px;
+}
+.gallery-panel .circle {
+    float: right;
+    margin-right: 10px;
+}
+.recent-emojis span {
+    color: white;
+    cursor: pointer;
+    padding: 2px;
+}
+.recent-emojis {
+    color: white;
+    width: auto;
+    overflow: hidden;
+    float: none;
+    height: 25px;
+}

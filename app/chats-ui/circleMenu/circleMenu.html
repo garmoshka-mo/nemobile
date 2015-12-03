@@ -1,0 +1,16 @@
+
+<div class="circle-menu-container">
+  <div class="circle-menu-item-container">
+    <div class="fll">
+      <div ng-click="disconnect()" class="circle-menu-chat-finish-button"><i class="fa fa-close"></i></div>
+      <div ng-click="contextMenu.open($event)" class="circle-menu-dots"><i class="fa fa-ellipsis-v"></i></div>
+    </div>
+    <div ng-click="disconnect('thanks')" class="circle-menu-item first"><img src="assets/img/circle-menu-thanks.png"/><span translate="feedback.thanks"></span></div>
+  </div>
+  <div class="circle-menu-item-container">
+    <div ng-click="disconnect('boring')" class="circle-menu-item second"> <img src="assets/img/circle-menu-boring.png"/><span translate="feedback.boring"></span></div>
+  </div>
+  <div class="circle-menu-item-container">
+    <div ng-click="disconnect('disgusting')" class="circle-menu-item third"><img src="assets/img/circle-menu-unpleasant.png"/><span translate="feedback.disgusting"></span></div>
+  </div>
+</div>

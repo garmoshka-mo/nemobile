@@ -1,0 +1,7 @@
+
+<div class="inline-block">
+  <button data-dropdown="top-bar-language-menu" aria-controls="top-bar-language-menu" aria-expanded="false" aria-label="languageMenu" class="md-button language-menu-button"><span ng-bind="language.current.name" class="current-language"></span><i class="fa fa-language"></i></button>
+  <ul id="top-bar-language-menu" data-dropdown-content="" aria-hidden="true" tabindex="-1" class="f-dropdown small">
+    <li ng-repeat="item in language.available"><a ng-bind="item.name" aria-label="::item.name" ng-click="language.change(item.key)"></a></li>
+  </ul>
+</div>

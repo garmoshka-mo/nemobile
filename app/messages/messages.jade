@@ -1,0 +1,46 @@
+.message-container(ng-repeat='message in session.messages track by $index', ng-class="{'ta-right': message.isOwn}", ng-switch='message.type')
+    div(ng-switch-when='chat_empty')
+        .system_message
+            | {{ 'message.finished.empty' | translate }}
+            a(ng-click='lookAgain()', translate='message.lookAgain')
+    div(ng-switch-when='chat_finished')
+        .system_message
+            .partner-left(ng-switch='message.feedback')
+                span(ng-switch-when='thanks')
+                    img(src='assets/img/circle-menu-thanks.png')
+                    span(ng-hide='feedbackLeft') {{ 'feedback.thanks' | translate}}
+                span(ng-switch-when='boring')
+                    img(src='assets/img/circle-menu-boring.png')
+                    span(ng-hide='feedbackLeft') {{ 'feedback.boring' | translate}}
+                span(ng-switch-when='disgusting')
+                    img(src='assets/img/circle-menu-unpleasant.png')
+                    span(ng-hide='feedbackLeft') {{ 'feedback.disgusting' | translate}}
+                span(ng-switch-default='' ng-hide='feedbackLeft')
+                    | {{ 'message.finished' | translate}}
+                span(ng-show='feedbackLeft')
+                    img(ng-src='{{ feedbackLeft }}')
+                .circle.pointer.feedback-button(ng-hide='additional', ng-click='showFeedbackOptions()')
+                    i.fa.fa-ellipsis-v
+            div(ng-show='chat')
+                .message-finish
+                    a(ng-click='lookAgain()', translate='message.lookAgain')
+                    | &nbsp;|&nbsp;
+                    a(ng-click='chatSettings()', translate='message.chatSettings')
+                .feedback-options(ng-show='additional')
+                    div
+                        | {{ 'message.leaveFeedback' | translate}}
+                    .pointer.message-feedback(ng-class='{selected: feedback.key === selectedKey}', ng-repeat='feedback in feedbacks', ng-click='leaveFeedback(feedback)')
+                        img(ng-src='{{ feedback.imgSrc }}')
+                        | {{ feedback.title | translate }}
+                    div
+                        a(ng-click='complaint()', translate='message.complaint')
+    div(ng-switch-when='hidden')
+        .message.message-hidden(ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", translate='message.hidden')
+    div(ng-switch-default='', ng-switch='chat')
+        .message.pointer(ng-switch-when='true' ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }"
+            ng-bind-html='::formatMessage(message)'  
+            ng-click='::showMenu($event, $index)' data-dynamic-menu)
+        .message.pointer(ng-switch-default='', ng-class="{'message-own': message.isOwn, 'message-not-own': !message.isOwn, }", 
+            ng-bind-html='formatMessage(message)' 
+            ng-click='showMenu($event, $index)' data-dynamic-menu)
+            

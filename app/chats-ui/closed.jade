@@ -1,0 +1,24 @@
+.closed(style='text-align: center' ng-controller='closedController')
+    .closed-wrapper
+      .banner.closed-bg
+            div Наш чат закрыт до {{openAt}}:00
+            div (осталось {{left}})
+            a(ng-click='expand()') почему закрыт?
+            a(ng-click='expand()') напомнить мне
+
+      .info
+          p Привет! Наш чат запустился недавно.
+            | Чтобы наши гости пересекались в одно время, мы пока собираемся только вечером с 6 до 11.
+
+          p Если хочешь не забыть прийти на встречу:
+          p
+                a(ng-click='calEvent()') скачай напомиание в календарь
+          p или мы можем напомнить тебе о начале:
+          p
+              input(ng-model='contact' placeholder='E-mail, телефон (для смс) или профиль вк' style="width: 328px; margin-bottom: 15px;")
+              br
+              button(ng-click='reminder()') Напомнить сегодня в 18:00
+
+          p(style='margin-bottom: 7px;') Приятная музыка :)
+          iframe.music(src="http://promodj.com/embed/5577148/big"
+                 width="352px" height="70" frameborder="0" allowfullscreen)

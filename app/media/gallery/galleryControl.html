@@ -1,0 +1,5 @@
+
+<div id="posts-control" ng-controller="galleryControl">
+  <button aria-label="Back" ng-click="backArrowHandler()" class="md-button md-fab tiny"><i class="fa fa-chevron-left"></i></button>
+  <button aria-label="Send" ng-click="sendGfy(r.activePost)" ng-disabled="!r.activePost || r.activePost.category !== 'gfy'" class="md-button md-fab"><i class="fa fa-envelope-o"></i></button>
+</div>

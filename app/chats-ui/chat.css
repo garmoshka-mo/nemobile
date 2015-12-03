@@ -1,0 +1,165 @@
+.chat h5 {
+    margin: 15px 20px;
+}
+
+.chat .bottom-placeholder {
+    height: 8px;
+}
+
+
+.chat-title {
+    height: 31px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.3rem;
+}
+
+.chat-right-tool {
+    width:auto;
+}
+.chat-right-tool>div {
+    float:left;
+}
+
+#alert {
+    position: absolute;
+    top: -59px;
+    margin-left: 11px;
+}
+
+.share_it {
+    padding-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+.share_it i {
+    margin-left: 13px;
+}
+
+.share_block {
+    text-align: left;
+    margin: 15px 35px 0;
+}
+#vk_like {
+    margin-bottom: 13px;
+}
+
+.help {
+    margin-top: 19px;
+    text-align: left;
+    text-indent: 30px;
+}
+
+.input-panel .background {
+    background-color: #EAF0F1;
+}
+
+.input-panel .background .wrapper {
+    padding: 8px 0px 2px 0px;
+    background-color: #253335;
+}
+
+.chat-left-buttons {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+}
+.chat-left-buttons-oldandroid {
+    width: 99%;
+}
+
+
+.chat-header .title {
+    display: inline-block;
+    float: left;
+    margin: 7px 5px;
+}
+.chat-header .ava {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    margin-top: 6px;
+}
+.chat-header .scores {
+    line-height: 10px;
+}
+.chat-header .total-score {
+    display: inline-block;
+    line-height: 10px;
+    font-size: 13px;
+}
+.chat-header .recent-score {
+    display: inline-block;
+    line-height: 10px;
+    font-size: 10px;
+    color: chartreuse;
+    margin: 2px;
+    font-weight: bold;
+}
+
+.animated-slow{
+    -webkit-transition: opacity 3s ease-in-out;
+    transition: opacity 3s ease-in-out;
+}
+.animated-fast{
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+}
+.animated{
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+}
+
+.chat-header .negative {
+    color: #D84343;
+}
+
+.chat-header .name {
+    font-size: 16px;
+    line-height: 18px;
+}
+.header-title {
+    /*float: left;*/
+}
+a.options {
+    color: white;
+}
+
+.closed .closed-wrapper {
+    width: 352px;
+    margin: 0 auto;
+}
+
+.closed .banner {
+    height: 100px;
+    text-align: right;
+    font-size: 12px;
+    padding: 6px 10px;
+    color: #42403F;
+}
+
+.closed .info {
+    padding-top: 18px;
+    background-size: 352px;
+    color: #4C2025;
+}
+
+.closed p {
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.closed .music {
+    margin-bottom: 30px;
+}
+
+.closed .banner a {
+    display: block;
+    font-weight: bold;
+    padding-top: 4px;
+}

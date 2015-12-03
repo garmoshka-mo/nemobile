@@ -1,0 +1,51 @@
+<div >
+    <div class="row">
+        <div class="columns small-12 inline-input-button-block top-margin">
+            <div class="ta-center">Найти пользователя в системе:</div>
+            <form name="friendSearch" class="relative">
+                <input type="text" ng-model="stringToSearch" placeholder="логин или номер телефона" clear-all-button-inline>
+                <button ng-click="findUser()" ng-disabled="showSpinner || !stringToSearch">
+                <i class="fa fa-search" ng-show="!showSpinner"></i>
+                <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </form>
+        </div>
+        <div ng-show="canBeAdded" class="columns small-12" ng-class="{'animated fadeIn': canBeAdded}">
+            <div class="card pointer no-border" ng-show="canBeAdded" ng-click="goto('createFastChat', {senderId: foundUuid})">
+                <div class="row" >
+                    <div class="small-3 column ava-container">
+                        <img class="rounded-ava" ng-src="{{avatarToAdd.mini}}" alt=""> 
+                    </div>
+                    <div class="small-9 column p0">
+                        <span class="chat-title title" ng-bind="nameToAdd"></span>
+                        <span class="text-silver">нажмите, чтобы начать общение</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ta-center row" ng-hide="canBeAdded">
+            <div class="columns small-12 h41">
+                <span ng-bind="serverResponse"></span><br>
+            </div>
+        </div>
+    </div>
+    <div class="row ta-center">
+        <div class="columns small-12">
+            <button ng-click="goto('createFastChat')">
+                <i class="fa fa-envelope"></i>
+                Написать временное сообщение
+            </button>
+        </div>
+        <div class="columns small-12">
+            <button ng-click="goto('signin', {inOrUp: 'in'})">
+                Войти
+            </button>
+            <button ng-click="goto('phoneRegistration')">
+                Зарегистрироваться 
+            </button>
+        </div>
+        <div class="columns small-12">
+            
+        </div>
+    </div>
+</div>

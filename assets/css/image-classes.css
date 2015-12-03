@@ -1,0 +1,23 @@
+/*here classes that must be in this directory
+due to absolute path problem in app on mobile devices*/
+.branded{
+    background: #EAF0F1 url("../img/bg.png");
+    background-size: 187px 150px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.closed-bg {
+    background: url("../img/closed-bg.png") no-repeat;
+    background-size: 352px 115px;
+}
+
+.random-header {
+    background: url("../img/back-cafe.jpg") no-repeat;
+    background-size: 560px;
+}
+

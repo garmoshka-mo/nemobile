@@ -1,0 +1,33 @@
+div(ng-controller='chatController')
+    .chat.top-margin
+        // temporary hid temp message feature
+        .firstMessage.ta-center.chat-notification.width-92.block-center(ng-show='isFirstMessage && false')
+            div ваше первое сообщение
+            radio-buttons(values='[10, 600, 3600]', titles="['10 сек', '10 мин', '1 час']", ng-model='newMessage.ttl')
+        //
+          <div class="ta-center chat-notification width-92 block-center" ng-show="user.isVirtual">
+          Чтобы разблокировать все функции приложения. Необходима регистрация.
+          <br>
+          <div class="top-margin">
+          <a href="#/updateProfile"><button>зарегистрироваться</button></a>
+          </div>
+          </div>
+        .disconnect-button(ng-hide="!chat.isActive || chat.iStartedInput")
+            button.bg-red(ng-click='disconnectRandomChat()')
+                span {{ 'chat.disconnect' | translate }}&nbsp;
+                i.fa.fa-times
+        //
+            .ta-center.width-92.block-center.chat-notification(ng-show='chat.isVirtual ')
+                | Это виртуальный чат. Пригласите друга, чтобы разблокировать все функции
+                .top-margin
+                    a(href='#/invitation?friendIndex={{chat.friendIndex}}&senderId={{chat.senderId}}')
+                        button Пригласить
+            .ta-center.chatHistoryButton.width-92.block-center(ng-show='!chatHistory.isAllChatSessionsVisbile')
+                button(ng-click='chatHistory.getOneMoreChatSession()') Показать предыдущие сообщения
+        .old-messages-background(ng-show='chatHistory.previousMessages.length', ng-repeat='message in chatHistory.previousMessages track by $index', ng-class="{'ta-right': message.isOwn}")
+            span.message(ng-class="::{'message-own': message.isOwn, 'message-not-own': !message.isOwn }", ng-bind-html='::formatMessage(message.text)', allow-text-select='')
+        messages(session='chatSession', look-again='closeAndLookAgain()', chat-settings='closeAndChatSettings()' chat='true')
+        .ta-right.message-container(ng-show='isMessageSending && (deviceInfo.isOldAndroid || deviceInfo.isIos)')
+            span.message.message-own(allow-text-select='')
+                span(spinner='', spinner-color='white')
+        .bottom-placeholder

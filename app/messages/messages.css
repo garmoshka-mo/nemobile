@@ -1,0 +1,113 @@
+
+.message-container {
+    margin-top: 2px;
+}
+.message {
+    text-align: left;
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+    max-width: 90%;
+    word-break: break-word;
+    padding: 5px 15px;
+}
+.message img{
+    max-height: 350px;
+}
+.message-link {
+    text-decoration: underline;
+}
+.message-link:hover {
+    cursor: pointer;
+}
+.message-own {
+    background-color: rgba(104, 194, 110, .3);
+    margin-right: 20px;
+}
+
+
+.message-own:after {
+    content: '';
+    top: 7px;
+    position: absolute;
+    right: -20px;
+    border: 10px solid transparent;
+    border-left: 10px solid rgba(104, 194, 110, .3)
+}
+
+.old-messages-background {
+    padding: 10px 0;
+    background: rgba(52, 152, 219, .1)
+}
+.message-not-own {
+    background-color: rgba(89, 131, 158, .3);
+    margin-left: 20px;
+}
+.message-not-own:after {
+    content: '';
+    top: 7px;
+    position: absolute;
+    left: -20px;
+    border: 10px solid transparent;
+    border: 10px solid transparent;
+    border-right: 10px solid rgba(89, 131, 158, .3);
+}
+.message-hidden {
+    background-color: rgba(149, 165, 166, 0.3);
+}
+.message-own.message-hidden:after {
+    border-left-color: rgba(149, 165, 166, 0.3);
+}
+.message-hidden.message-not-own:after {
+    border-right-color: rgba(149, 165, 166, 0.3);
+}
+
+.system_message {
+    padding: 10px 15px 3px;
+    color: gray;
+}
+
+.feedback-button {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 11px;
+}
+.feedback-button i {
+    color: rgba(255,255,255,.7);
+    position: relative;
+    top: 1px;
+}
+
+.feedback-options {
+    margin-top: 9px;
+}
+
+.message-finish {
+    margin-top: 7px;
+}
+.message-feedback {
+    display: inline-block;
+    padding: 5px;
+}
+.message-feedback.selected {
+    background: #5BAB60;
+    color: white;
+    border-radius: 7px;
+}
+.message-feedback img {
+    width: 25px;
+    margin-right: 5px;
+}
+
+
+.partner-left {
+}
+.partner-left img {
+    width: 23px;
+    margin-right: 5px;
+}
+ul#context-menu {
+    z-index: 1000;
+}

@@ -1,0 +1,7 @@
+div.inline-block.message-menu-container
+    ul#context-menu.f-dropdown.text-dropdown.small(
+            data-dropdown-content=''
+            aria-hidden='true' tabindex='-1')
+        li(ng-repeat='item in messageMenu.items')
+            a(ng-click='onMenuItemClick(item)', aria-label='{{item.name}}')
+                span(ng-bind-html='item.name | translate')

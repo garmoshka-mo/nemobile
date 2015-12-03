@@ -1,0 +1,18 @@
+.circle-menu-container
+    .circle-menu-item-container
+        div.fll
+            div.circle-menu-chat-finish-button(ng-click="disconnect()")
+                i.fa.fa-close
+            div.circle-menu-dots(ng-click="contextMenu.open($event)")
+                i.fa.fa-ellipsis-v
+        .circle-menu-item.first(ng-click="disconnect('thanks')")
+            img(src="assets/img/circle-menu-thanks.png")
+            span(translate="feedback.thanks")
+    .circle-menu-item-container
+        .circle-menu-item.second(ng-click="disconnect('boring')") 
+            img(src="assets/img/circle-menu-boring.png")
+            span(translate="feedback.boring")
+    .circle-menu-item-container
+        .circle-menu-item.third(ng-click="disconnect('disgusting')")
+            img(src="assets/img/circle-menu-unpleasant.png")
+            span(translate="feedback.disgusting")

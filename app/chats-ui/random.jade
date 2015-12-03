@@ -1,0 +1,181 @@
+.hide-x(ng-controller='randomController')
+    .random-header
+        .row(ng-hide='random.lookupInProgress || updates.reloading || leaving')
+            .columns.small-12.ta-center(ng-class="{'relaunch-buttons': isRestart}")
+                .row.search-status.complaint-message(ng-show='showComplaintSuccess')
+                    .small-12.columns.ta-center
+                        | Модератор проверит чат и проучит негодяев, спасибо за уведомление!
+                button(ng-hide='random.waitingServer', ng-click='lookForChat()')
+                    span
+                        | {{ 'random.lookForChat' | translate }}&nbsp;
+                        i.fa.fa-weixin
+                button(ng-show='isRestart', ng-click='filterSettings()')
+                    span
+                        | {{ 'random.settings' | translate }}&nbsp;
+                        i.fa.fa-sliders
+        .row(ng-show='updates.reloading')
+            br
+            .small-12.columns.ta-center {{ 'random.reloading' | translate }}
+            br
+            br
+        div(ng-show='random.lookupInProgress && !leaving' style='padding-bottom: 10px;')
+            .row.search-status
+                .small-12.columns.ta-center(ng-hide='notification.asked > 0' translate='random.searchStatus1')
+                .small-12.columns.ta-center(ng-show='notification.asked > 0') {{ 'random.searchStatus2' | translate }}&nbsp;{{notification.asked}}...
+            .row
+                .columns.small-12.ta-center
+                    button.bg-red(ng-click='cancelLookingFor()')
+                        span(ng-hide='random.waitingServer' translate='random.cancelLookingFor')
+                        div(ng-show='random.waitingServer', spinner='', spinner-color='white')
+    .row.mob-info(ng-show='!hideMobileAD && !random.lookupInProgress && !IS_APP && IS_MOBILE && IS_ANDROID')
+        a(target='_blank' style='float: right' href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
+            img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
+        div
+            | {{ 'random.mobinfo1' | translate }}
+        a(ng-click='closeMobileAd()') {{ 'Close' | translate }}
+    #searchParameters(ng-hide='isRestart || leaving || isLookingAgain')
+        .row
+            .columns.small-12
+                .row.fab-buttons-container
+                    .small-3.columns
+                        | {{ 'random.theme' | translate }}
+                        button.param-selector(data-dropdown="theme", aria-controls="theme", aria-expanded="false", ng-class="{'forbid-fab': filter.theme.value === -1}")
+                            img(ng-show='filter.theme.value === -1', ng-src='assets/img/theme-forbid.png')
+                            img(ng-show='filter.theme.value === 0', ng-src='assets/img/theme-unselected.png')
+                            img(ng-show='filter.theme.value === 1', ng-src='assets/img/theme-prefer.png')
+                            img(ng-show='filter.theme.value === 2', ng-src='assets/img/theme-require.png')
+                        ul#theme.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.theme.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.theme.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.theme.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.theme.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
+                    .small-3.columns
+                        | {{ 'random.geo' | translate }}
+                        button.param-selector(data-dropdown="geo", aria-controls="geo", aria-expanded="false", ng-class="{'forbid-fab': filter.geo.value === -1}")
+                            img(ng-show='filter.geo.value === 0', ng-src='assets/img/geo-unselected.png')
+                            img(ng-show='filter.geo.value === -1', ng-src='assets/img/geo-forbid.png')
+                            img(ng-show='filter.geo.value === 1', ng-src='assets/img/geo-prefer.png')
+                            img(ng-show='filter.geo.value === 2', ng-src='assets/img/geo-require.png')
+                        ul#geo.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.geo.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.geo.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.geo.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.geo.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
+                    .small-3.columns
+                        | {{ 'random.sex' | translate }}
+                        button.param-selector(data-dropdown="sex"
+                                aria-controls="sex", aria-expanded="false", ng-class="{'forbid-fab': filter.sex.value === -1}")
+                            img(ng-show='filter.sex.value === 0', ng-src='assets/img/sex-unselected.png')
+                            img(ng-show='filter.sex.value === -1', ng-src='assets/img/sex-forbid.png')
+                            img(ng-show='filter.sex.value === 1', ng-src='assets/img/sex-prefer.png')
+                            img(ng-show='filter.sex.value === 2', ng-src='assets/img/sex-require.png')
+                        ul#sex.f-dropdown.small.search-param(data-dropdown-content='', aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.sex.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.sex.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.sex.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.sex.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
+                    .small-3.columns
+                        | {{ 'random.video' | translate }}
+                        button.param-selector(data-dropdown="video" 
+                                aria-controls="video", aria-expanded="false" 
+                                ng-class="{'forbid-fab': filter.video.value === -1}")
+                            img(ng-show='filter.video.value === 0', ng-src='assets/img/video-unselected.png')
+                            img(ng-show='filter.video.value === -1', ng-src='assets/img/video-forbid.png')
+                            img(ng-show='filter.video.value === 1', ng-src='assets/img/video-prefer.png')
+                            img(ng-show='filter.video.value === 2', ng-src='assets/img/video-require.png')
+                        ul#video.f-dropdown.small.search-param(data-dropdown-content=''
+                            aria-hidden='true', tabindex='-1')
+                            li
+                                a(ng-click='filter.video.selectValue(0)')
+                                    .no-image
+                                    .param-title(translate='random.notSet')
+                            li
+                                a(ng-click='filter.video.selectValue(1)')
+                                    img(src='assets/img/prefer.png', alt='prefer')
+                                    .param-title(translate='random.prefer')
+                            li
+                                a(ng-click='filter.video.selectValue(2)')
+                                    img(src='assets/img/require.png', alt='require')
+                                    .param-title(translate='random.require')
+                            li
+                                a(ng-click='filter.video.selectValue(-1)')
+                                    img(src='assets/img/forbid.png', alt='forbid')
+                                    .param-title(translate='random.forbid')
+        .placeholder_for_fab_buttons
+        #random-help.row(style='margin-bottom: 9px;')
+            .small-12.ta-center.columns
+                span.dashed.pointer.text-silver.no-select(ng-click='helpClick()') {{ 'random.help' | translate }}
+                .help(ng-show='showHelpText', scroll-bottom='showHelpText')
+                    // Вступление - это текст, который будет видеть вначале ваш собеседник. <br>
+                    p(translate='random.helpText1')
+                    p(translate='random.helpText2')
+                    p(translate='random.helpText3')
+        .row.top-margin(ng-show='false')
+            .small-12.columns
+                input(type='text', ng-model='filter.iam.intro', placeholder='Вступление (необязательно)')
+        .row(ng-show='false')
+            .small-12.columns
+                input(type='text', ng-model='filter.iam.location', placeholder='Местоположение (необязательно)')
+        .row
+            .small-12.column.language-tags-box
+                i.fa.fa-language 
+                | &nbsp
+                span(translate='random.languages')
+                tags-input(ng-model="filter.languages" display-property="name" min-tags="2" available="filter.availableLanguages")
+        .row
+            .small-6.columns
+                .text-bold.ta-center(translate='random.iam')
+                .human-config
+                    sex-select(ng-model='filter.iam.sex')
+                    p.age-title.ta-center(translate='random.age')
+                    age-select(multiple='false', ng-model='filter.iam.age', values='ageValues', titles="ageTitles")
+            .small-6.columns.ta-center
+                .text-bold(translate='random.another')
+                .human-config
+                    sex-select(ng-model='filter.another.sex', multi-select='', ng-click='suggestUserGender()')
+                    p.age-title.ta-center(translate='random.age')
+                    age-select(multiple='true', ng-model='filter.another.age', values='ageValues', titles="ageTitles")
+        .row.top-margin.bottom-margin
+            .small-12.ta-center
+                span.text-silver.pointer(ng-click='setDefaultFilterParams()', translate='random.reset')
+        br
+    .center.top-margin(ng-show='leaving')
+        div(spinner='', spinner-color='green')
+
+    pedobear-alert(filter='filter')

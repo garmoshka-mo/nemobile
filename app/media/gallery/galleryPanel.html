@@ -1,0 +1,7 @@
+
+<div ng-show="g.galleryPanelOpened" class="wrapper gallery-panel">
+  <div class="inner">
+    <div ng-click="toggleGallery()" class="circle pointer gallery-open-button"><i ng-class="g.galleryOpened ? 'fa-angle-double-up' : 'fa-ellipsis-v'" class="fa"></i></div>
+    <div class="recent-emojis"><span ng-repeat="emoji in g.recentEmojis" ng-focus="g.setFocusOnTextField()" ng-click="g.typeEmoji($event, emoji.code); g.saveToRecent(emoji.code)" ng-bind-html="::g.getEmoji(emoji.code) | emoji"></span></div>
+  </div>
+</div>

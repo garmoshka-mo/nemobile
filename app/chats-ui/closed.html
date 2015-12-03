@@ -1,0 +1,24 @@
+
+<div style="text-align: center" ng-controller="closedController" class="closed">
+  <div class="closed-wrapper">
+    <div class="banner closed-bg">
+      <div>Наш чат закрыт до {{openAt}}:00</div>
+      <div>(осталось {{left}})</div><a ng-click="expand()">почему закрыт?</a><a ng-click="expand()">напомнить мне</a>
+    </div>
+    <div class="info">
+      <p>
+        Привет! Наш чат запустился недавно.
+        Чтобы наши гости пересекались в одно время, мы пока собираемся только вечером с 6 до 11.
+      </p>
+      <p>Если хочешь не забыть прийти на встречу:</p>
+      <p><a ng-click="calEvent()">скачай напомиание в календарь</a></p>
+      <p>или мы можем напомнить тебе о начале:</p>
+      <p>
+        <input ng-model="contact" placeholder="E-mail, телефон (для смс) или профиль вк" style="width: 328px; margin-bottom: 15px;"/><br/>
+        <button ng-click="reminder()">Напомнить сегодня в 18:00</button>
+      </p>
+      <p style="margin-bottom: 7px;">Приятная музыка :)</p>
+      <iframe src="http://promodj.com/embed/5577148/big" width="352px" height="70" frameborder="0" allowfullscreen="allowfullscreen" class="music"></iframe>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="small-12 top-margin">
+        <p class="ta-center">
+            Рекомендуем зарегистрировать логин и пароль для вашей учетной записи
+        </p>
+        <div>
+            <input type="text" ng-model="profile.name" placeholder="логин">
+            <input type="password" ng-model="profile.password" placeholder="пароль">
+            <div class="ta-center">
+                <button ng-click="updateProfile()" ng-disabled="showSpinner">
+                    <div ng-hide="showSpinner">
+                        <span>Зарегистрировать</span>
+                    </div>
+                    <span ng-show="showSpinner" spinner spinner-color="white"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="ta-center">
+            <div class="text-silver pointer" ng-click="skipRegistration()">
+                Пропустить
+            </div>
+        </div>
+        <p ng-show="isActiveMembership" class="top-margin ta-center text-red">
+            Сейчас учетная запись привязана к вашему устройству через кэш браузера и может быть утеряна в случае очистки кэша
+        </p>
+        <div ng-hide="isActiveMembership" ng-switch="membershipState">
+            <p ng-switch-when="cash_wait" class="top-margin ta-center text-red">
+                Платеж в обработке
+            </p>
+            <div ng-switch-when="failure">
+                <p class="top-margin ta-center text-red">
+                    Неуспешный платеж
+                </p>
+                <div class="ta-center">
+                    <button ng-click="tryAgain()">
+                        Попробовать снова
+                    </button>
+                </div>
+            </div>
+            <p ng-switch-default class="top-margin ta-center text-red">
+                Платеж в обработке
+            </p>
+        </div>
+        <div alert-box class="width-92 block-center" ng-model="serverResponse"></div>
+    </div>
+</div>

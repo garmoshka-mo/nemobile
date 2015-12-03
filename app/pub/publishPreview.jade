@@ -1,0 +1,23 @@
+.chat
+    .personal-data-alert
+        i.fa.fa-info
+        | {{'publish.preview.info1' | translate }}
+        br
+        | {{'publish.preview.info2' | translate }}
+        a(ng-click='showMoreInfo=true', ng-hide='showMoreInfo') &nbsp;{{'publish.preview.more' | translate }}
+        div(ng-show='showMoreInfo')
+            | {{'publish.preview.info3' | translate }}
+            br
+            | {{'publish.preview.info4' | translate }}
+    .post-preview-title
+        input(type='text', ng-model='preview.title', placeholder="{{'publish.preview.title' | translate }}", autocomplete='off', allow-text-select='')
+    messages(session='preview.session')
+    .bottom-placeholder
+a#edit-message-trigger(href='#', data-reveal-id='edit-message' style='display:none;')
+#edit-message.reveal-modal(data-reveal='', aria-hidden='true', role='dialog')
+    h1 {{'Editing of message' | translate }}:
+    div
+        textarea(ng-model='message.text')
+    div
+        button(ng-click='closeEditMessageModal()', translate='message.menu.done')
+    a.close-reveal-modal#edit-message-close(aria-label='Close') &#215;
