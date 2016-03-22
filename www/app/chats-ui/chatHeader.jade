@@ -1,13 +1,13 @@
 .wrapper.chat-header
 
-    .header-title(ng-hide='s.active || routing.is_preload' )
-        .fll
+    .header-title(ng-hide='s.chatOpened || routing.is_preload' )
+        div(style="float: left;")
             span {{ stateName | translate }}
-        .flr(ng-hide="user.name")
+        div(style="float: right;" ng-hide="user.name")
             div(ng-include="'app/utils/topBarLanguageMenu.html?'+version" class="language-top-bar-box")
     
     #partners-head.pointer(style='float:left' data-dropdown="complaint", aria-controls="complaint", aria-expanded="false"
-        ng-show='s.active && !routing.is_preload')
+        ng-show='s.chatOpened && !routing.is_preload')
         img.ava(style='float: left;' ng-show='s.partner.ava_url', ng-src='{{s.partner.ava_url}}')
         .title(style='text-align: left;')
             .scores
@@ -30,11 +30,16 @@
             .name(style='float: right;' translate='chat.header.me')
         img.pointer.ava(style='float: right;' ng-show='s.me.ava', ng-src='{{s.me.ava.urlMini}}' ng-click='myAvaClick()')
 
-    .middle(ng-show='s.active && !routing.is_preload')
+    .middle(ng-show='s.chatOpened && !routing.is_preload')
         .time_zone
             i.fa.fa-clock-o
             span(ng-bind='notification.time')
         a(ng-click='publish()' style='color: white;' title="{{ 'chat.header.publish' | translate }}")
             i.fa.fa-share-square-o
+    .middle(ng-hide='s.chatOpened')
+        .app-title
+            span.light {{ "app.title.light" | translate }}
+            | &nbsp;
+            span.dark {{ "app.title.dark" | translate }}
 
     bubble

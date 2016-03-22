@@ -4,10 +4,10 @@ angular.module('angControllers')
 function($rootScope, user, $postpone, Avatar) {
 
     var self = this;
-    this.active = false;
+    self.chatOpened = false;
 
-    this.partner = { score: '...'};
-    this.me = { title: "�", score: '...', hidden: true };
+    self.partner = { score: '...'};
+    self.me = { title: "�", score: '...', hidden: true };
 
 
     this.setChatHeader = function(chat) {
@@ -23,7 +23,7 @@ function($rootScope, user, $postpone, Avatar) {
 
     function sessionReceived(chatSession) {
         self.session = chatSession;
-        self.active = true;
+        self.chatOpened = true;
         user.honor.turnOff();
         chatSession.myScores.onUpdate(updateUI.bind(null, self.me));
         chatSession.partnerScores.onUpdate(updateUI.bind(null, self.partner));
@@ -56,7 +56,7 @@ function($rootScope, user, $postpone, Avatar) {
     }
 
     this.clear = function() {
-        self.active = false;
+        self.chatOpened = false;
     };
 
     user.passivePromise.then(function(){

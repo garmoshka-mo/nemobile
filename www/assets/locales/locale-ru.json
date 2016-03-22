@@ -1,4 +1,7 @@
 {
+  "app.title.light": "Чат",
+  "app.title.dark": "наугад",
+  
   "Close": "Закрыть",
 
   "menu.random": "Чат наугад",
@@ -127,9 +130,9 @@
   "publishSuccess":"Успешно опубликовано",
   "chats":"Чаты",
   "chat":"Чат",
-  "random":"Чат наугад - DUB.iNK",
+  "random":"DUB.iNK",
   "pubsList":"Паблик - DUB.iNK",
-  "randomRestart":"Чат наугад - DUB.iNK",
+  "randomRestart":"DUB.iNK",
   "exit":"Выход",
   "friendSearch":"Поиск контакта",
   "stickersGallery":"Галерея стикеров",

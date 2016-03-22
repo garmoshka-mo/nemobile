@@ -1,4 +1,7 @@
 {
+  "app.title.light": "Chat",
+  "app.title.dark": "al azar",
+  
   "menu.random": "Chat al azar",
   "menu.pub": "Público",
   "menu.vk": "Grupo BK",
@@ -111,9 +114,9 @@
   "publishSuccess": "Con éxito Publicar",
   "chats": "Chats",
   "chat": "Chat",
-  "random": "Chat azar - DUB.iNK",
+  "random": "DUB.iNK",
   "pubsList": "Público - DUB.iNK",
-  "randomRestart": "Chat azar - DUB.iNK",
+  "randomRestart": "DUB.iNK",
   "exit": "Salir",
   "friendSearch": "Buscar un contacto",
   "stickersGallery": "Pegatinas Galería",

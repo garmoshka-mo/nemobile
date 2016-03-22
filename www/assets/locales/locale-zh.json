@@ -1,4 +1,7 @@
 {
+  "app.title.light": "Chat",
+  "app.title.dark": "by guess",
+
   "menu.random":"聊天隨機",
   "menu.pub":"公共",
   "menu.vk":"BK集團",
@@ -111,9 +114,9 @@
   "publishSuccess":"成功發布",
   "chats":"聊天",
   "chat":"聊天",
-  "random":"聊天隨機 - DUB.iNK",
+  "random":"DUB.iNK",
   "pubsList":"公共 - DUB.iNK",
-  "randomRestart":"聊天隨機 - DUB.iNK",
+  "randomRestart":"DUB.iNK",
   "exit":"退出",
   "friendSearch":"查找聯繫人",
   "stickersGallery":"畫廊貼紙",

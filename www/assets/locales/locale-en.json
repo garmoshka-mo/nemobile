@@ -1,5 +1,8 @@
 {
-   "menu.random": "Chat random",
+  "app.title.light": "Chat",
+  "app.title.dark": "by guess",
+  
+   "menu.random": "Chat by guess",
    "menu.pub": "Public",
    "menu.vk": "BK Group",
    "menu.facebook": "Group FB",
@@ -124,9 +127,9 @@
   "publishSuccess": "Successfully Publish",
   "chats": "Chats",
   "chat": "Chat",
-  "random": "Chat random - DUB.iNK",
+  "random": "DUB.iNK",
   "pubsList": "Public - DUB.iNK",
-  "randomRestart": "Chat random - DUB.iNK",
+  "randomRestart": "DUB.iNK",
   "exit": "Exit",
   "friendSearch": "Search for a contact",
   "stickersGallery": "Gallery Stickers",

@@ -74,12 +74,6 @@ button {
 input[type="password"] {
   height: 36px;
 }
-.flr {
-  float: right;
-}
-.fll {
-  float: left;
-}
 
 .reveal-modal .close-reveal-modal, 
 dialog .close-reveal-modal {
@@ -1209,7 +1203,7 @@ md-menu-item > .md-button {
 
 @media only screen and (max-width: 580px){
   .language-top-bar-box {
-    margin-right: -30px;
+    margin-right: -16px;
   }
 }
 

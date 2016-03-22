@@ -29,7 +29,7 @@
                         div(ng-show='random.waitingServer', spinner='', spinner-color='white')
     .row.mob-info(ng-show='!hideMobileAD && !random.lookupInProgress && !IS_APP && IS_MOBILE && IS_ANDROID')
         a(target='_blank' style='float: right' href='https://play.google.com/store/apps/details?id=com.phonegap.dubink')
-            img(alt='Get it on Google Play', src='https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png')
+            img(alt='Get it on Google Play' style="width: 200px" src='assets/img/get-on-google-play.png')
         div
             | {{ 'random.mobinfo1' | translate }}
         a(ng-click='closeMobileAd()') {{ 'Close' | translate }}

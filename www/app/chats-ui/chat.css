@@ -6,6 +6,16 @@
     height: 8px;
 }
 
+.app-title {
+    display: inline;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13pt;
+    color: #E9FFE9;
+}
+.app-title .dark {
+    color: #0d770d;
+}
 
 .chat-title {
     height: 31px;
