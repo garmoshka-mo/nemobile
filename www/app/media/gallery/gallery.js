@@ -211,7 +211,7 @@ angular.module("angControllers").controller("galleryController", [
             gallery.disableAutoload = true;
             $scope.loading = true;
             log('page of infinite scroll:', gallery.currentPage++);
-            load();
+            //load();
         };
 
         $scope.typeEmoji = function($event, emojiCode) {
@@ -235,7 +235,7 @@ angular.module("angControllers").controller("galleryController", [
             gfyPage = (gfyPage + i);
 
             Array.prototype.push.apply($scope.gfys, items);
-            gallery.disableAutoload = gfyPage >= gallery.gfys.length
+            gallery.disableAutoload = gfyPage >= gallery.gfys.length;
             $scope.loading = false;
             gfyCollection.init();
         }
