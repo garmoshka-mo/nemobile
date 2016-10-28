@@ -1,6 +1,6 @@
 # Random chat
 
-
+<img src="screen.jpg" width="250">
 
 # Development
 
