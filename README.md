@@ -1,10 +1,16 @@
+# Random chat
+
+
+
+# Development
+
+## Run
+
 ```
 npm i
 npm start
 ````
 Goto http://localhost:8080/
-
-# Advanced
 
 ## Deploy isolated dev-environment with Vagrant
 
